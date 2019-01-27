@@ -1,7 +1,7 @@
 import { baseSegmentTreeNode, segmentTreeNodeFactory, segmentTreeNodeMerger, segmentTreeQueryMerger, segmentTreeLeafNodeUpdater } from "./interfaces";
 
 /**
- * as  uper tight c++ implementation: https://codeforces.com/blog/entry/18051
+ * as  upper tight c++ implementation: https://codeforces.com/blog/entry/18051
  * 
  * ITERATIVE VERSION: https://www.geeksforgeeks.org/iterative-segment-tree-range-minimum-query/
  * https://www.quora.com/What-are-the-advantage-of-binary-indexed-tree-BIT-or-fenwick-tree-over-segment-tree
@@ -109,9 +109,11 @@ export const iterativeQueryRange = <U extends baseSegmentTreeNode>
       res = queryMerger(segmentTree[--right], res);
     }
   }
-  res.left = l;
-  res.right = r;
-  return res;
+  let answer = JSON.parse(JSON.stringify(res));
+  answer.left = l;
+  answer.right = r;
+  /** reteurn a full copy of the result --> cannot risk to return a piece of the tree and get it modified elsewere */
+  return answer;
 };
 
 export const queryRange = <U extends baseSegmentTreeNode>
@@ -127,6 +129,7 @@ export const queryRange = <U extends baseSegmentTreeNode>
 
   let leftBranch = queryRange(segmentTree, 2 * nodeIndex, left, right, queryMerger);
   let rightBranch = queryRange(segmentTree, 2 * nodeIndex + 1, left, right, queryMerger);
+  /**@TODO reteurn a full copy of the result --> cannot risk to return a piece of the tree and get it modified elsewere */
   return queryMerger(leftBranch, rightBranch);
 };
 
@@ -161,10 +164,9 @@ export const updateLeafNode = <T, U extends baseSegmentTreeNode>
     aux = index;
     index >>= 1;
     r = aux & 1;
-    //console.log("aux index: ", aux, index, r, r ^ 1);
-    //console.log("to merge: ", segmentTree[index], segmentTree[aux - r], segmentTree[aux + (r ^ 1)]);
+
     segmentNodeMerger(segmentTree[index], segmentTree[aux - r], segmentTree[aux + (r ^ 1)]);
-    // console.log("after merge: ", segmentTree[index]);
+
   }
 };
 
@@ -184,10 +186,32 @@ export const updateLeafNodeIterative = <T, U extends baseSegmentTreeNode>
     aux = index;
     index >>= 1;
     r = aux & 1;
-    //console.log("to merge: ", segmentTree[index], segmentTree[aux - aux & 1], segmentTree[aux]);
+
     segmentNodeMerger(segmentTree[index], segmentTree[aux - r], segmentTree[aux + (r ^ 1)]);
-    //console.log("after merge: ", segmentTree[index]);
+
   }
 };
 //export const updateRange =<U extends baseSegmentTreeNode>()=>{};
 //@TODO https://codeforces.com/blog/entry/18051
+//updateRAnge and lazyPropagation
+
+export class SegmentTree<T, U extends baseSegmentTreeNode> {
+  private _SEG_TREE: Array<U>;
+  //protected segmentNodeMerger:segmentTreeNodeMerger<U>;
+  //protected segmentNodeFactory:segmentTreeNodeFactory<T,U>;
+  constructor(
+    sourceArray: Array<T>,
+    protected segmentNodeFactory: segmentTreeNodeFactory<T, U>,
+    protected segmentNodeMerger: segmentTreeNodeMerger<U>,
+    protected segmentNodeQuery: segmentTreeQueryMerger<U>,
+    protected segmentLeaftUpdater: segmentTreeLeafNodeUpdater<T, U>
+  ) {
+    this._SEG_TREE = buildSegTreeIterative(sourceArray, segmentNodeFactory, segmentNodeMerger);
+  }
+  query(left: number, right: number): U {
+    return iterativeQueryRange(this._SEG_TREE, left, right, this.segmentNodeQuery);
+  }
+  updateLeaf(value: T, position: number): void {
+    updateLeafNodeIterative(this._SEG_TREE, value, position, this.segmentLeaftUpdater, this.segmentNodeMerger);
+  }
+}
