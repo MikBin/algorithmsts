@@ -1,4 +1,4 @@
-import DummyClass from "../src/algorithmsts"
+
 
 /**
  * Dummy test
@@ -8,7 +8,4 @@ describe("Dummy test", () => {
     expect(true).toBeTruthy()
   })
 
-  it("DummyClass is instantiable", () => {
-    expect(new DummyClass()).toBeInstanceOf(DummyClass)
-  })
 })
