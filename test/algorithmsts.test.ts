@@ -1,11 +1,11 @@
-
+import algorithms from "../src/algorithmsts"
 
 /**
  * Dummy test
  */
-describe("Dummy test", () => {
-  it("works if true is truthy", () => {
-    expect(true).toBeTruthy()
+describe("retest for coverage report", () => {
+  it("calls binary search", () => {
+    console.log(algorithms);
   })
 
 })

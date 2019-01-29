@@ -36,11 +36,12 @@ export const binaryClosestSearch = <T>
   let left: number = 0;
   let right: number = l - 1;
   let mid: number = left + ((right - left) >> 1);
+
   while (right - left > 1) {
 
     let midCompareRes: number = comparisonFn(value, sourceArray[mid]);
-    if (midCompareRes > 0) left = mid + 1;
-    else if (midCompareRes < 0) right = mid - 1;
+    if (midCompareRes > 0) left = mid;
+    else if (midCompareRes < 0) right = mid;
     else return mid; //means strict equality
 
     mid = left + ((right - left) >> 1);
@@ -50,12 +51,12 @@ export const binaryClosestSearch = <T>
   let leftValueComparison = comparisonFn(value, sourceArray[left]);
   let rightValueComparison = comparisonFn(value, sourceArray[right]);
 
-  return Math.abs(leftValueComparison) < Math.abs(rightValueComparison) ? left : right;
+  let absLeftValueComparison = Math.abs(leftValueComparison);
+  let absRightValueComparison = Math.abs(rightValueComparison);
+  if (absLeftValueComparison == absRightValueComparison) {
+    return leftValueComparison < 0 ? left : right;
+  } else {
+    return absLeftValueComparison < absRightValueComparison ? left : right;
+  }
 
 }
-
-export const compareNumbers: binaryComparisonRoutine<number> = (a: number, b: number) => {
-  return a - b;
-}
-
-export const sortedArray = [1, 3, 4, 6, 7, 12, 23, 33, 34, 35, 36, 56, 55, 66, 67, 78, 88, 123, 222, 234];
