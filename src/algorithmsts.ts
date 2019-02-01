@@ -2,9 +2,11 @@
 // import "core-js/fn/array.find"
 // ...
 import *  as binSearches from "./binarySearch/binarySearch"
+import *  as segTree from "./segmentTree/segmentTree"
 /**@TODO use spread operator to flatten the following object */
 export default {
-  binarySearch: binSearches
+  binarySearch: binSearches,
+  segmentTree: segTree
 };
 
 //used on some strings remove spaces and special chars like ' " ? ...

@@ -98,21 +98,24 @@ export const iterativeQueryRange = <U extends baseSegmentTreeNode>
   let n = segmentTree.length / 2;
   let left = l;
   let right = r;
-  right++; //as this algorithm queries [left,right) so to be consistent with the above one right++ is needed
-  let res = <U>{ left: -1, right: -1 };
+  right++; //as this algorithm queries [left,right) so to be consistent with the above one right++ is needed (doing right-- instead --right would get same result?)
+
+  let resLeft = <U>{ left: -1, right: -1 };
+  let resRight = <U>{ left: -1, right: -1 };
 
   for (left += n, right += n; left < right; left >>= 1, right >>= 1) {
     if (left & 1) {
-      res = queryMerger(segmentTree[left++], res);
+      resLeft = queryMerger(resLeft, segmentTree[left++]);
     }
     if (right & 1) {
-      res = queryMerger(segmentTree[--right], res);
+      resRight = queryMerger(segmentTree[--right], resRight);
     }
   }
-  let answer = JSON.parse(JSON.stringify(res));
+
+  let answer = JSON.parse(JSON.stringify(queryMerger(resLeft, resRight)));
   answer.left = l;
   answer.right = r;
-  /** reteurn a full copy of the result --> cannot risk to return a piece of the tree and get it modified elsewere */
+
   return answer;
 };
 
@@ -194,7 +197,7 @@ export const updateLeafNodeIterative = <T, U extends baseSegmentTreeNode>
 //export const updateRange =<U extends baseSegmentTreeNode>()=>{};
 //@TODO https://codeforces.com/blog/entry/18051
 //updateRAnge and lazyPropagation
-
+//@TODO add outof bound query exception or just call within original array bounds
 export class SegmentTree<T, U extends baseSegmentTreeNode> {
   private _SEG_TREE: Array<U>;
   //protected segmentNodeMerger:segmentTreeNodeMerger<U>;
@@ -207,6 +210,7 @@ export class SegmentTree<T, U extends baseSegmentTreeNode> {
     protected segmentLeaftUpdater: segmentTreeLeafNodeUpdater<T, U>
   ) {
     this._SEG_TREE = buildSegTreeIterative(sourceArray, segmentNodeFactory, segmentNodeMerger);
+
   }
   query(left: number, right: number): U {
     return iterativeQueryRange(this._SEG_TREE, left, right, this.segmentNodeQuery);
@@ -214,4 +218,92 @@ export class SegmentTree<T, U extends baseSegmentTreeNode> {
   updateLeaf(value: T, position: number): void {
     updateLeafNodeIterative(this._SEG_TREE, value, position, this.segmentLeaftUpdater, this.segmentNodeMerger);
   }
+  getTree() {
+    return this._SEG_TREE;
+  }
 }
+
+export interface finSegmentNode extends baseSegmentTreeNode {
+  min: number;
+  max: number;
+  avg: number;
+  sigma: number;
+  minIdx: number;
+  maxIdx: number;
+};
+
+export const finNodeFactory = (val: (string | number)[], l: number, r: number): finSegmentNode => {
+  let node: finSegmentNode = {
+    left: l,
+    right: r,
+    min: Number.MAX_VALUE,
+    max: -Number.MAX_VALUE,
+    avg: 0,
+    sigma: 0,
+    minIdx: -1,
+    maxIdx: -1
+  };
+
+  if (r - l == 0) {
+    node.min = <number>val[3];
+    node.max = <number>val[2];
+    node.maxIdx = l;
+    node.minIdx = l;
+    node.avg = <number>val[4];
+  }
+
+  return node;
+};
+
+export const finNodeMerger = (parent: finSegmentNode, leftChild: finSegmentNode, rightChild: finSegmentNode): finSegmentNode => {
+  parent.max = Math.max(leftChild.max, rightChild.max);
+  parent.min = Math.min(leftChild.min, rightChild.min);
+  parent.max == leftChild.max ? parent.maxIdx = leftChild.maxIdx : parent.maxIdx = rightChild.maxIdx;
+  parent.min == leftChild.min ? parent.minIdx = leftChild.minIdx : parent.minIdx = rightChild.minIdx;
+  let nleft = leftChild.right - leftChild.left + 1;
+  let nright = rightChild.right - rightChild.left + 1;
+  let nm = nleft + nright;
+  let combAvg = parent.avg = nleft * leftChild.avg / nm + nright * rightChild.avg / nm;
+  let diffLeftSqaure = Math.pow(leftChild.avg - combAvg, 2);
+  let diffRightSqaure = Math.pow(rightChild.avg - combAvg, 2);
+  parent.sigma = nleft * (leftChild.sigma + diffLeftSqaure) / nm + nright * (rightChild.sigma + diffRightSqaure) / nm;
+  return parent;
+};
+
+export const finNodeLeafUpdater = (t: (string | number)[], leaf: finSegmentNode): void => {
+  leaf.max = <number>t[2];
+  leaf.min = <number>t[3];
+  leaf.avg = <number>t[4];
+}
+
+export const finNodeQuery = (leftChild: finSegmentNode, rightChild: finSegmentNode) => {
+  //console.log("finquery merger left: ", leftChild.left, leftChild.right, leftChild.avg, leftChild.sigma);
+  //console.log("finquery merger right: ", rightChild.left, rightChild.right, rightChild.avg, rightChild.sigma);
+  if (leftChild.left == -1) return rightChild;
+  if (rightChild.left == -1) return leftChild;
+  let mergedNode: finSegmentNode = {
+    left: leftChild.left,
+    right: rightChild.right,
+    min: Number.MAX_VALUE,
+    max: -Number.MAX_VALUE,
+    minIdx: -1,
+    sigma: 0,
+    avg: 0,
+    maxIdx: -1
+  };
+
+  [mergedNode.minIdx, mergedNode.min] = leftChild.min < rightChild.min ? [leftChild.minIdx, leftChild.min] : [rightChild.minIdx, rightChild.min];
+  [mergedNode.maxIdx, mergedNode.max] = leftChild.max > rightChild.max ? [leftChild.maxIdx, leftChild.max] : [rightChild.maxIdx, rightChild.max];
+
+  let nleft = leftChild.right - leftChild.left + 1;
+  let nright = rightChild.right - rightChild.left + 1;
+  let nm = nleft + nright;
+  let combAvg = mergedNode.avg = nleft * leftChild.avg / nm + nright * rightChild.avg / nm;
+  let diffLeftSqaure = Math.pow(leftChild.avg - combAvg, 2);
+  let diffRightSqaure = Math.pow(rightChild.avg - combAvg, 2);
+  mergedNode.sigma = nleft * (leftChild.sigma + diffLeftSqaure) / nm + nright * (rightChild.sigma + diffRightSqaure) / nm;
+
+  //console.log("querying fin: ", mergedNode.left, mergedNode.right, mergedNode.sigma, mergedNode.avg);
+  //console.log("-----------------------------------------------")
+  return mergedNode;
+};
