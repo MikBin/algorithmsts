@@ -223,6 +223,7 @@ export class SegmentTree<T, U extends baseSegmentTreeNode> {
   }
 }
 
+/**@TODO export in sample folder */
 export interface finSegmentNode extends baseSegmentTreeNode {
   min: number;
   max: number;

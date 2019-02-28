@@ -14,3 +14,6 @@ export interface StringBooleanMap extends StringTMap<boolean> { };
 export interface NumberBooleanMap extends NumberTMap<boolean> { };
 
 export interface StringNumberArrayMap extends StringTMap<Array<number>> { };
+
+/**return value is zero on strict equality, positive if valueSearched is bigger negative if smaller */
+export type binaryComparisonRoutine<T> = (valueSearched: T, valueToCompareTo: T) => number;
