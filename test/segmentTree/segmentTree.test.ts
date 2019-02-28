@@ -1034,6 +1034,7 @@ describe("testing segment tree class: ", () => {
     return m;
   }
 
+  /**@TODO make a generic function working on arr<T> */
   const walfordMeanVariance = (arr: (string | number)[][], l: number = 0, r: number = arr.length) => {
     let m = 0, i = 0, s = 0, k = 0;
     for (i = l; i < r; i++) {
