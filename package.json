@@ -1,18 +1,20 @@
 {
-  "name": "algorithmsts",
+  "name": "@mikbin80/algorithmsts",
   "version": "0.0.0",
   "description": "",
+  "private": false,
   "keywords": [],
   "main": "dist/algorithmsts.umd.js",
   "module": "dist/algorithmsts.es5.js",
   "typings": "dist/types/algorithmsts.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "author": "Michele Bini <mikbin80@gmail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/MikBin/algorithmsts"
   },
   "license": "MIT",
   "engines": {
