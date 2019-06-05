@@ -15,11 +15,21 @@ import {
   segmentTreeRangeNodePropagator
 } from '../../src/segmentTree/interfaces'
 import {
+  nodeFactoryFnL,
+  singleLazyNodeUpdate,
+  nodeMergerFnL,
+  nodeSegLazyRangeUpdater,
+  lazyValuePropagator,
+  nodeQueryMergerL,
+  segmentLazy
+} from '../../src/segmentTree/lazyMaxAndSumSegmentTree'
+
+import {
   finNodeFactory,
   finNodeLeafUpdater,
   finNodeMerger,
   finNodeQuery
-} from '../../src/segmentTree/segmentTree'
+} from '../../src/segmentTree/meanVarianceSegmentTree'
 
 interface segmentNode extends baseSegmentTreeNode {
   min: number
@@ -90,7 +100,6 @@ const nodeQueryMerger = (leftNode: segmentNode, rightNode: segmentNode) => {
     minIdx: -1,
     maxIdx: -1
   }
-
   ;[mergedNode.minIdx, mergedNode.min] =
     leftNode.min < rightNode.min
       ? [leftNode.minIdx, leftNode.min]
@@ -1139,117 +1148,12 @@ describe('testing segment tree class: ', () => {
 })
 
 describe('testing lazy update range', () => {
-  interface segmentNode extends baseSegmentTreeNode {
-    sum: number
-    max: number
-    rangeAddedValue: number
-  }
-
-  const nodeFactoryFnL = (val: number, l: number, r: number): segmentNode => {
-    let node: segmentNode = {
-      left: l,
-      right: r,
-      sum: 0,
-      max: 0,
-      rangeAddedValue: 0
-    }
-
-    if (r - l == 0) {
-      node.sum = val
-      node.max = val
-    }
-
-    return node
-  }
-
-  let singleLazyNodeUpdate = (Node: segmentNode): number => {
-    let t = Node.rangeAddedValue
-    if (t > 0) {
-      Node.max += t
-      Node.sum += t * (Node.right - Node.left + 1)
-      Node.rangeAddedValue = 0
-    }
-    return t
-  }
-  /**@TODO use a single node updater or improve propagator...call nodeSegLazyRangeUpdater  */
-  const nodeMergerFnL: segmentTreeNodeMerger<segmentNode> = (
-    parent: segmentNode,
-    leftNode: segmentNode,
-    rightNode: segmentNode
-  ): segmentNode => {
-    singleLazyNodeUpdate(leftNode)
-    singleLazyNodeUpdate(rightNode)
-
-    parent.max = Math.max(leftNode.max, rightNode.max)
-    parent.sum = leftNode.sum + rightNode.sum
-
-    return parent
-  }
-
-  /**have to lazily update childrens */
-  const nodeSegLazyRangeUpdater: segmentTreeRangeNodeUpdater<number, segmentNode> = (
-    t: number,
-    node: segmentNode,
-    leftChild?: segmentNode,
-    rightChild?: segmentNode
-  ): void => {
-    if (node.rangeAddedValue > 0) {
-      t += node.rangeAddedValue
-      node.rangeAddedValue = 0
-    }
-    node.max += t
-    node.sum += t * (node.right - node.left + 1)
-    if (leftChild && rightChild) {
-      leftChild.rangeAddedValue += t
-      rightChild.rangeAddedValue += t
-    }
-  }
-
-  const lazyValuePropagator: segmentTreeRangeNodePropagator<segmentNode> = (
-    node: segmentNode,
-    leftChild: segmentNode,
-    rightChild: segmentNode
-  ): void => {
-    if (node.rangeAddedValue > 0) {
-      let t = node.rangeAddedValue
-      node.max += t
-      node.sum += t * (node.right - node.left + 1)
-      leftChild.rangeAddedValue += t
-      rightChild.rangeAddedValue += t
-      node.rangeAddedValue = 0
-    }
-  }
-
-  const nodeQueryMergerL = (
-    leftNode: segmentNode,
-    rightNode: segmentNode,
-    segmentTree?: Array<segmentNode>
-  ): segmentNode => {
-    if (leftNode.left == -1) return rightNode
-    if (rightNode.left == -1) return leftNode
-
-    let mergedNode: segmentNode = {
-      left: leftNode.left,
-      right: rightNode.right,
-      sum: 0,
-      rangeAddedValue: 0,
-      max: 0
-    }
-    /**propagation/update */
-    singleLazyNodeUpdate(leftNode)
-    singleLazyNodeUpdate(rightNode)
-    mergedNode.sum = rightNode.sum + leftNode.sum
-    mergedNode.max = Math.max(leftNode.max, rightNode.max)
-
-    return mergedNode
-  }
-
   let queries = [[3, 7, 8], [7, 13, 12], [1, 5, 6]]
   let segBase = new Array(16).fill(0)
   let addRange = (l: number, r: number, v: number) => {
     for (let i = l; i <= r; i++) segBase[i] += v
   }
-  const SEG_LONG: segmentNode[] = buildSegTreeIterative(segBase, nodeFactoryFnL, nodeMergerFnL)
+  const SEG_LONG: segmentLazy[] = buildSegTreeIterative(segBase, nodeFactoryFnL, nodeMergerFnL)
   let l = queries.length
   for (let i = 0; i < l; i++) {
     updateRangeLazy(
