@@ -1,4 +1,6 @@
-import { binaryComparisonRoutine } from "../interfaces"
+/**@TODO add tests!!!!! */
+
+import { binaryComparisonRoutine } from '../interfaces'
 
 const flipCoin = (P: number = 0.5): boolean => Math.random() < P
 
@@ -11,13 +13,12 @@ const getLevel = (maxLevel: number): number => {
 }
 
 const defaultComparisonFn: binaryComparisonRoutine<any> = (x, y) => {
-  if (x > y) return 1;
-  else if (x < y) return -1;
-  return 0;
+  if (x > y) return 1
+  else if (x < y) return -1
+  return 0
 }
 
 class SkipNode<T> {
-
   private counter: number
   public pointers: SkipNode<T>[]
   public value: T
@@ -28,18 +29,20 @@ class SkipNode<T> {
   }
 
   increment(): void {
-    this.counter++;
+    this.counter++
   }
-
 }
 
 class SkipList<T> {
-
   private head: SkipNode<T>
   private updateNodes: SkipNode<T>[]
   private size: number
 
-  constructor(private level: number, dummyRootVal: T, private comparisonFn: binaryComparisonRoutine<T> = defaultComparisonFn) {
+  constructor(
+    private level: number,
+    dummyRootVal: T,
+    private comparisonFn: binaryComparisonRoutine<T> = defaultComparisonFn
+  ) {
     this.head = new SkipNode<T>(level, dummyRootVal, true)
     this.updateNodes = Array<SkipNode<T>>(level)
     this.level = level
@@ -56,7 +59,7 @@ class SkipList<T> {
         tempNode = tempNode.pointers[i]
       }
       // Update node will hold tempNode (this is the first bigger than val found) - used later for new value to insert
-      //updatyeNodes[i] contains the first bigger than val for level-i or undefined? 
+      //updatyeNodes[i] contains the first bigger than val for level-i or undefined?
       this.updateNodes[i] = tempNode
     }
 
@@ -65,8 +68,8 @@ class SkipList<T> {
 
     // If temp is last in list or the value != new value, add to list
     if (tempNode && this.comparisonFn(tempNode.value, val) == 0) {
-      tempNode.increment();
-    } else /*if (!tempNode || this.comparisonFn(tempNode.value, val) != 0)*/ {
+      tempNode.increment()
+    } /*if (!tempNode || this.comparisonFn(tempNode.value, val) != 0)*/ else {
       const newLevel = getLevel(this.level)
       tempNode = new SkipNode<T>(newLevel, val)
       for (let i = 1; i <= newLevel; i++) {
@@ -93,7 +96,7 @@ class SkipList<T> {
     // Get next element in list to compare with previous (updateNodes[i])
     tempNode = tempNode.pointers[1]
 
-    // If we found it in the list, 
+    // If we found it in the list,
     if (tempNode && this.comparisonFn(tempNode.value, val) == 0) {
       // Iterate through levels of list
       for (let i = 1; i <= this.level; i++) {
@@ -101,7 +104,7 @@ class SkipList<T> {
           this.updateNodes[i].pointers[i] = tempNode.pointers[i]
         }
       }
-      this.size--;
+      this.size--
     }
   }
 
@@ -127,25 +130,45 @@ class SkipList<T> {
   }
 
   toArray(start: number = 0, end: number = this.size): Array<T> {
+    end = end >= this.size ? this.size - 1 : end
+    start = start < 0 ? 0 : start
+    let output: Array<T> = new Array(end - start + 1)
 
-    end = end >= this.size ? this.size - 1 : end;
-    start = start < 0 ? 0 : start;
-    let output: Array<T> = new Array(end - start + 1);
-
-    let nextNode = this.head;
-    let i = 0;
+    let nextNode = this.head
+    let i = 0
     while (i < start && nextNode.pointers[1]) {
-      i++;
-      nextNode = nextNode.pointers[1];
+      i++
+      nextNode = nextNode.pointers[1]
     }
     while (i <= end && nextNode.pointers[1]) {
-      output.push(nextNode.value);
-      i++;
-      nextNode = nextNode.pointers[1];
+      output.push(nextNode.value)
+      i++
+      nextNode = nextNode.pointers[1]
     }
-    return output;
+    return output
   }
-
 }
 
 export default SkipList
+
+/*
+let skipListNum: SkipList<number>
+
+skipListNum = new SkipList<number>(10, 0)
+skipListNum.insert(8)
+skipListNum.insert(4)
+skipListNum.insert(6)
+skipListNum.insert(18)
+skipListNum.insert(3)
+skipListNum.insert(5)
+skipListNum.insert(28)
+skipListNum.insert(24)
+skipListNum.insert(16)
+skipListNum.insert(38)
+skipListNum.insert(44)
+skipListNum.insert(7)
+for (let i = 23; i < 340; i += 3) {
+  skipListNum.insert(i)
+}
+console.log(skipListNum)
+*/

@@ -82,7 +82,7 @@ export const buildSegmentTree = <T, U extends baseSegmentTreeNode>(
 
   while (SEG_TREE_ARRAY[j].left == -1 || SEG_TREE_ARRAY[j].right >= l) {
     j--
-    console.log(`reducing to ${j}`)
+    //console.log(`reducing to ${j}`)
   }
   j++
 
@@ -264,7 +264,7 @@ export const updateRangeLazy = <T, U extends baseSegmentTreeNode>(
     segmentNodeMerger,
     segmentNodePropagator
   )
-  console.log(`calling updaterange on ${Node.left}/${Node.right} updating range: ${left}-${right}`)
+  //console.log(`calling updaterange on ${Node.left}/${Node.right} updating range: ${left}-${right}`)
   segmentNodeMerger(Node, leftChild, rightChild)
 
   /*update this root Node given value to be updated in some of its descendants 
