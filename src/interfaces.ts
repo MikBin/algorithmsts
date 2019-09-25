@@ -21,8 +21,32 @@ export interface StringNumberArrayMap extends StringTMap<Array<number>> {}
 
 /**return value is zero on strict equality, positive if valueSearched is bigger negative if smaller */
 export type binaryComparisonRoutine<T> = (valueSearched: T, valueToCompareTo: T) => number
+//function interface: https://www.typescriptlang.org/docs/handbook/interfaces.html
+interface IteratorResult<T> {
+  done: boolean
+  value: T
+}
+interface Iterator<T> {
+  next(value?: any): IteratorResult<T>
+  return?(value?: any): IteratorResult<T>
+  throw?(e?: any): IteratorResult<T>
+}
+export interface Iterable<T> {
+  [Symbol.iterator](): Iterator<T>
+  /*Iterator<T> iterator();
+  forEach(function on T and index?)
+map
 
+  */
+}
+
+export interface Collection<T> extends Iterable<T> {}
 /**
- * @TODO
- * add iterators and global collections interfaces as is in java collections
+ *
+ *implement abstract classes too
+ https://www.tutorialsteacher.com/typescript/abstract-class
+ https://docs.oracle.com/javase/8/docs/api/?java/util/Collections.html
+ https://docs.oracle.com/javase/8/docs/api/java/util/AbstractMap.html
+ https://docs.oracle.com/javase/8/docs/api/javax/swing/AbstractListModel.html
+
  */

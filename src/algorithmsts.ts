@@ -4,12 +4,14 @@
 import * as binSearches from './binarySearch/binarySearch'
 import * as segTree from './segmentTree/segmentTree'
 import SkipList from './skipList/skipList'
+import { Trie } from './trie/trie'
 
 /**@TODO use spread operator to flatten the following object */
 export default {
   binarySearch: binSearches,
   segmentTree: segTree,
-  skipList: SkipList
+  skipList: SkipList,
+  trie: Trie
 }
 
 //used on some strings remove spaces and special chars like ' " ? ...
