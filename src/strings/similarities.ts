@@ -1,5 +1,7 @@
 import { StringNumberArrayMap } from "../interfaces";
 
+
+
 /* global exports, Map */
 /**
  * Calculate similarity between two strings
@@ -144,3 +146,12 @@ export const LevenshteinDistance = (A: string, B: string): number => {
   } return 1 - u[n] / Math.max(m, n);
 
 }
+
+//numeric regex
+//https://digitalfortress.tech/js/top-15-commonly-used-regex/
+//https://projects.lukehaas.me/regexhub/
+//https://www.hongkiat.com/blog/regex-web-developers/
+//https://levelup.gitconnected.com/extremely-useful-regular-expression-examples-for-real-world-applications-567e844a0822
+//look for regex for currencies and for dates
+//use string similarities for adpating to tables differences
+//add all these routines in algorithms ts or auxil...

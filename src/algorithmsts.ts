@@ -6,7 +6,7 @@ import * as segTree from './segmentTree/segmentTree'
 import SkipList from './skipList/skipList'
 import { Trie } from './trie/trie'
 
-/**@TODO use spread operator to flatten the following object */
+
 export default {
   binarySearch: binSearches,
   segmentTree: segTree,
