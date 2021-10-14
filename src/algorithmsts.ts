@@ -6,7 +6,6 @@ import * as segTree from './segmentTree/segmentTree'
 import SkipList from './skipList/skipList'
 import { Trie } from './trie/trie'
 
-
 export default {
   binarySearch: binSearches,
   segmentTree: segTree,
