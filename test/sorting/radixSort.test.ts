@@ -1,4 +1,3 @@
-import { iterativeQueryRange } from '../../src/segmentTree/segmentTree'
 import { radixSortNumbers } from '../../src/sorting/radixSort'
 
 describe('test radixSort', () => {
@@ -9,7 +8,7 @@ describe('test radixSort', () => {
     expect(res).toEqual(sorted)
   })
 
-  const longArrayLowSigma = new Array(1000000).fill(0).map(n => Math.round(Math.random() * 99))
+  const longArrayLowSigma = new Array(10000).fill(0).map(n => Math.round(Math.random() * 99))
   it('test performance differences: ', () => {
     console.time('radix')
     const res = radixSortNumbers(longArrayLowSigma)

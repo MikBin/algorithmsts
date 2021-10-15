@@ -10,6 +10,7 @@
       "es2019",
       "dom"
     ],
+    "downlevelIteration": true, 
     "strict": true,
     "sourceMap": true,
     "declaration": true,
