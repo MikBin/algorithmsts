@@ -51,18 +51,17 @@ export interface Collection<T> extends Iterable<T> {}
 
  */
 
+//  type digitsType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0
+// type oneToNine = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+// type DD = `${0}${oneToNine}` | `${1 | 2}${digitsType}` | `3${0 | 1}`
+// type YYYY = `19${digitsType}${digitsType}` | `20${digitsType}${digitsType}`
+// type MM = `0${oneToNine}` | `1${0 | 1 | 2}`
 
- type digitsType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0
-type oneToNine = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-type DD = `${0}${oneToNine}` | `${1 | 2}${digitsType}` | `3${0 | 1}`
-type YYYY = `19${digitsType}${digitsType}` | `20${digitsType}${digitsType}`
-type MM = `0${oneToNine}` | `1${0 | 1 | 2}`
+// export type DateYMStringDashed = `${YYYY}-${MM}`
+// export type DateYMDStringDashed = `${DateYMStringDashed}-${DD}`
 
-export type DateYMStringDashed = `${YYYY}-${MM}`
-export type DateYMDStringDashed = `${DateYMStringDashed}-${DD}`
+// export type DateYMStringSlashed = `${YYYY}/${MM}`
+// export type DateYMDStringSlashed = `${DateYMStringSlashed}/${DD}`
 
-export type DateYMStringSlashed = `${YYYY}/${MM}`
-export type DateYMDStringSlashed = `${DateYMStringSlashed}/${DD}`
-
-export type DateDMStringSlashed = `${DD}/${MM}`
-export type DateDMYStringSlashed = `${DateDMStringSlashed}/${YYYY}`
+// export type DateDMStringSlashed = `${DD}/${MM}`
+// export type DateDMYStringSlashed = `${DateDMStringSlashed}/${YYYY}`

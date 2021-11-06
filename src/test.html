@@ -1,0 +1,228 @@
+<html>
+    <head>
+
+    </head>
+    <body></body>
+    src="../dist/algorithmsts.umd.js"
+    <script>
+    
+      
+// This implementation is adapted from the one here the snippets provided here
+// http://www.allisons.org/ll/AlgDS/Tree/Suffix/
+//https://github.com/fabsrc/es6-ukkonen-suffix-tree/blob/master/SuffixTree.js
+//http://maclandrol.github.io/SuffixTreeJS/
+//https://coderedirect.com/questions/50474/ukkonens-suffix-tree-algorithm-in-plain-english
+//https://geek-tips.imtqy.com/articles/11349/index.html
+/*
+const sfx = new SuffixTree()
+sfx.addString('mississipi')
+*/
+
+'use strict';
+
+class Node {
+  constructor() {
+    this.transition = {};
+    this.suffixLink = null;
+  }
+
+  addTransition = (node, start, end, t)=> {
+    this.transition[t] = [node, start, end];
+}
+
+isLeaf = ()=> {
+  return Object.keys(this.transition).length === 0;
+}
+
+}
+
+
+class SuffixTree { 
+  constructor() { 
+    this.text = '';
+    this.str_list = [];
+    this.seps = []
+    this.root = new Node();
+    this.bottom = new Node();
+    this.root.suffixLink = this.bottom;
+    this.s = this.root;
+    this.k = 0;
+    this.i = -1;
+  }
+
+  addString = (str) =>{
+  
+    let temp = this.text.length;
+    this.text += str;
+    this.seps.push(str[str.length-1])
+    this.str_list.push(str);
+    let node, begin, end;
+    node = this.s;
+    begin = this.k;
+    end = this.i;
+  
+    for (let j = temp; j < this.text.length; j++) {
+      this.bottom.addTransition(this.root, j, j, this.text[j]);
+    }
+  
+    while(this.text[end+1]) {
+      end++;
+      const updated = this.update(node, begin, end);
+      [node,begin] = this.canonize(updated[0], updated[1], end);
+    }
+  
+    this.s = node;
+    this.k = begin;
+    this.i = end;
+
+    return this;
+  }
+
+  update = (node, begin, end) => {
+
+    let oldr = this.root;
+    let [endPoint,r] = this.testAndSplit(node, begin, end - 1, this.text[end]);
+
+    while(!endPoint) {
+      r.addTransition(new Node(), end, Infinity, this.text[end]);
+  
+      if(oldr != this.root) {
+        oldr.suffixLink = r;
+      }
+  
+      oldr = r;
+      [node,begin] = this.canonize(node.suffixLink, begin, end - 1);
+ 
+      [endPoint,r] = this.testAndSplit(node, begin, end - 1, this.text[end]);
+    }
+  
+    if(oldr != this.root) {
+      oldr.suffixLink = node;
+    }
+  
+    return [node, begin];
+  }
+
+
+  testAndSplit = (node, begin, end, t)=> {
+    if(begin <= end) {
+      let [nextNode,nextBegin,nextEnd] = node.transition[this.text[begin]];
+
+      if(t == this.text[nextBegin + end - begin + 1]) {
+        return [true, node];
+      } else {
+        let r = new Node();
+        node.addTransition(r, nextBegin, nextBegin + end - begin, this.text[nextBegin]);
+        r.addTransition(nextNode, nextBegin + end - begin + 1, nextEnd, this.text[nextBegin + end - begin + 1]);
+        return [false, r];
+      }
+    } else {
+      if(!node.transition[t])
+        return [false, node];
+      else
+        return [true, node];
+    }
+  }
+
+  canonize = (node, begin, end) => {
+    if(end < begin)
+      return [node, begin];
+    else {
+      let [nextNode,nextBegin,nextEnd] = node.transition[this.text[begin]];
+      
+      while(nextEnd - nextBegin <= end - begin) {
+        begin = begin + nextEnd - nextBegin + 1;
+        node = nextNode;
+  
+        if(begin <= end) {
+          [nextNode,nextBegin,nextEnd] = node.transition[this.text[begin]];
+        }
+      }
+  
+      return [node, begin];
+    }
+  }
+
+
+  convertToJson = () => {
+    // convert tree to json to use with d3js
+   
+    let text = this.text;
+    let ret = {
+        "name" : "",
+        "parent": "null",
+        "suffix" : "",
+        "children": []
+    }
+  
+    function traverse(node, seps, str_list, ret) {
+      for(let t in node.transition) {
+        let traNs = node.transition[t];
+        let s = traNs[0], a = traNs[1], b = traNs[2]; 
+        let name =  text.substring(a, b + 1);
+        let position = seps.length-1;
+        for(let pos=name.length -1; pos>-1; pos--){
+           let insep = seps.indexOf(name[pos]);
+           position = insep>-1 ?insep:position;
+        }
+  
+        let names = name.split(seps[position]);
+        if (names.length >1){
+            name = names[0] + seps[position];
+        }
+        let suffix =  ret["suffix"]+name;
+        let cchild = {
+          "name" : name,
+          "parent": ret['name'],
+          "suffix" : suffix,
+          "children": []
+        };
+        if (s.isLeaf()){
+          cchild['seq'] = position +1;
+          cchild['start'] = ""+(str_list[position].length - suffix.length);
+        }
+        cchild = traverse(s, seps, str_list, cchild);
+        ret["children"].push(cchild)
+      }
+  
+      return ret;
+  
+    }
+    console.log(this.seps);
+    return traverse(this.root, this.seps, this.str_list, ret);
+  
+  }
+
+
+  toString = () => {
+    let text = this.text;
+  
+    function traverse(node, offset, ret) {
+      offset = typeof offset !== 'undefined' ? offset : '';
+      ret = typeof ret !== 'undefined' ? ret : '';
+      for(let t in node.transition) {
+        let traNs = node.transition[t];
+        let s = traNs[0], a = traNs[1], b = traNs[2]; 
+        ret += offset + '["' + text.substring(a, b + 1) + '", ' + a + ', ' + b + ']' + '\r\n';
+        ret += traverse(s, offset+'\t');
+      }
+      return ret;
+    }
+    let res = traverse(this.root)
+    return res;
+  }
+
+
+  
+print = () => {
+  console.log(this.toString());
+}
+  
+}
+
+window.SuffixTree = SuffixTree;
+
+
+
+    </script>
+</html>
