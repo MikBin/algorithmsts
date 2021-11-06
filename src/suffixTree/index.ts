@@ -73,7 +73,6 @@ export class SuffixTree<T> {
       ;[node, begin] = this.canonize(node.suffixLink as SuffixTreeNode<T>, begin, end - 1)
 
       if (!node) return [node, begin]
-
       ;[endPoint, r] = this.testAndSplit(node, begin, end - 1, this.text[end])
     }
 
@@ -133,20 +132,74 @@ export class SuffixTree<T> {
     }
   }
 
-  // traverse = (node: SuffixTreeNode<T>, separators: string[], stringList: string[], ret: any) => {
-  //     for (let t in node.transitions) {
-  //         let [nextNode, begin, end] = node.transitions[t];
-  //         let name = this.text.substring(begin,end+1);
-  //         let position = separators.length;
-  //         const L = end-begin+1;
-  //         for(let pos = L-1;pos>=1;pos--){
-  //             let insep = separators.indexOf(name[pos]);
-  //         }
-  //     }
-  // }
+  convertToJson = () => {
+    // convert tree to json to use with d3js
 
-  /**
-   
-     * 
-     */
+    let text = this.text
+    let ret = {
+      name: '',
+      parent: 'null',
+      suffix: '',
+      children: []
+    }
+
+    function traverse(
+      node: SuffixTreeNode<T>,
+      separators: string[],
+      stringsList: String[],
+      ret: any
+    ) {
+      for (let t in node.transitions) {
+        let traNs = node.transitions[t]
+        let s = traNs[0],
+          a = traNs[1],
+          b = traNs[2]
+        let name = text.substring(a, b + 1)
+        let position = separators.length - 1
+        for (let pos = name.length - 1; pos > -1; pos--) {
+          let insep = separators.indexOf(name[pos])
+          position = insep > -1 ? insep : position
+        }
+
+        let names = name.split(separators[position])
+        if (names.length > 1) {
+          name = names[0] + separators[position]
+        }
+        let suffix = ret['suffix'] + name
+        let cchild = {
+          name: name,
+          parent: ret['name'],
+          suffix: suffix,
+          children: [],
+          seq: 0,
+          start: ''
+        }
+        if (s.isLeaf()) {
+          cchild['seq'] = position + 1
+          cchild['start'] = '' + (stringsList[position].length - suffix.length)
+        }
+        cchild = traverse(s, separators, stringsList, cchild)
+        ret['children'].push(cchild)
+      }
+
+      return ret
+    }
+    console.log(this.separators)
+    return traverse(this.root, this.separators, this.stringsList, ret)
+  }
+
+  toString() {
+    var text = this.text
+
+    function traverse(node: SuffixTreeNode<T>, offset = '', ret = '') {
+      for (var t in node.transitions) {
+        var [s, a, b] = node.transitions[t]
+        ret += offset + '["' + text.substring(a, b + 1) + '", ' + a + ', ' + b + ']' + '\r\n'
+        ret += traverse(s, offset + '\t')
+      }
+      return ret
+    }
+    var res = traverse(this.root)
+    return res
+  }
 }
