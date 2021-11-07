@@ -3,11 +3,12 @@
 //treaps https://github.com/brenden/node-treap/blob/master/lib/treap.js
 
 export class SuffixTreeNode<T> {
-  public transitions: Record<string, [SuffixTreeNode<T>, number, number]> = {}
+  public transition: Record<string, [SuffixTreeNode<T>, number, number]> = {}
   public suffixLink: SuffixTreeNode<T> | null = null
   public totalTransitions: number = 0
-  addTransition = (node: SuffixTreeNode<T>, begin: number, end: number, t: string): void => {
-    this.transitions[t] = [node, begin, end]
+
+  addTransition = (node: SuffixTreeNode<T>, [start, end]: [number, number], t: string): void => {
+    this.transition[t] = [node, start, end]
     this.totalTransitions++
   }
   isLeaf = (): boolean => Boolean(this.totalTransitions)
@@ -19,9 +20,9 @@ export class SuffixTree<T> {
   public separators: string[] = []
   private root: SuffixTreeNode<T> = new SuffixTreeNode()
   private bottom: SuffixTreeNode<T> = new SuffixTreeNode()
-  private activeNode: SuffixTreeNode<T> = this.root
-  private activeBegin: number = 0
-  private activeEnd: number = -1
+  private s = this.root
+  private k = 0
+  private i = -1
 
   constructor(wholeText: string) {
     /**@TODO build from whole text */
@@ -29,171 +30,170 @@ export class SuffixTree<T> {
     if (wholeText && wholeText.length) this.addString(wholeText)
   }
 
-  addString = (st: string): SuffixTree<T> => {
-    const tmpL = this.text.length
-    this.text += st
-    const L = this.text.length
-    const lastChar = st[st.length - 1]
-    this.separators.push(lastChar)
-    this.stringsList.push(st)
-    //activebegin is active edge
-    let { activeNode, activeBegin, activeEnd } = this
+  addString(str: string) {
+    var temp = this.text.length
+    this.text += temp ? '⚇' + str : str
 
-    for (let j = tmpL; j < L; j++) {
-      this.bottom.addTransition(this.root, j, j, this.text[j])
+    var [s, k, i] = [this.s, this.k, this.i]
+
+    for (var j = temp; j < this.text.length; j++) {
+      this.bottom.addTransition(this.root, [j, j], this.text[j])
     }
 
-    while (this.text[activeEnd + 1]) {
-      activeEnd++
-      ;[activeNode, activeBegin] = this.update(activeNode, activeBegin, activeEnd)
-      ;[activeNode, activeBegin] = this.canonize(activeNode, activeBegin, activeEnd)
+    while (this.text[i + 1]) {
+      i++
+      ;[s, k] = this.update(s, [k, i])
+      ;[s, k] = this.canonize(s, [k, i])
     }
 
-    this.activeNode = activeNode
-    this.activeBegin = activeBegin
-    this.activeEnd = activeEnd
-
+    ;[this.s, this.k, this.i] = [s, k, i]
     return this
   }
 
-  update = (_node: SuffixTreeNode<T>, begin: number, end: number): [SuffixTreeNode<T>, number] => {
-    let node = _node
-    if (!node) return [node, begin]
+  update(s: SuffixTreeNode<T> | null, [k, i]: [number, number]): [SuffixTreeNode<T>, number] {
+    if (!s) return [this.root, 0]
 
-    let root = this.root
-    let [endPoint, r] = this.testAndSplit(node, begin, end - 1, this.text[end])
+    var oldr = this.root
+    var [endPoint, r] = this.testAndSplit(s, [k, i - 1], this.text[i])
 
     while (!endPoint) {
-      r && r.addTransition(new SuffixTreeNode(), end, Infinity, this.text[end])
-      if (root != this.root) {
-        root.suffixLink = r
+      r.addTransition(new SuffixTreeNode<T>(), [i, Infinity], this.text[i])
+
+      if (oldr != this.root) {
+        oldr.suffixLink = r
       }
 
-      root = r
-      ;[node, begin] = this.canonize(node.suffixLink as SuffixTreeNode<T>, begin, end - 1)
-
-      if (!node) return [node, begin]
-      ;[endPoint, r] = this.testAndSplit(node, begin, end - 1, this.text[end])
+      oldr = r
+      ;[s, k] = this.canonize(s.suffixLink, [k, i - 1])
+      ;[endPoint, r] = this.testAndSplit(s, [k, i - 1], this.text[i])
     }
 
-    return [node, begin]
+    if (oldr != this.root) {
+      oldr.suffixLink = s
+    }
+
+    return [s, k]
   }
 
-  testAndSplit = (
-    _node: SuffixTreeNode<T>,
-    _begin: number,
-    _end: number,
+  testAndSplit(
+    s: SuffixTreeNode<T>,
+    [k, p]: [number, number],
     t: string
-  ): [boolean, SuffixTreeNode<T>] => {
-    let node = _node
-    let begin = _begin,
-      end = _end
+  ): [boolean, SuffixTreeNode<T>] {
+    if (k <= p) {
+      var [s2, k2, p2] = s.transition[this.text[k]]
 
-    if (begin <= end) {
-      let [nextNode, nextBegin, nextEnd] = node.transitions[this.text[begin]]
-      if (t === this.text[nextBegin + end - begin + 1]) {
-        return [true, node]
+      if (t == this.text[k2 + p - k + 1]) {
+        return [true, s]
       } else {
-        let r = new SuffixTreeNode<T>()
-        node.addTransition(r, nextBegin, nextBegin + end - begin, this.text[nextBegin])
-        r.addTransition(
-          nextNode,
-          nextBegin + end - begin + 1,
-          nextEnd,
-          this.text[nextBegin + end - begin + 1]
-        )
+        var r = new SuffixTreeNode<T>()
+        s.addTransition(r, [k2, k2 + p - k], this.text[k2])
+        r.addTransition(s2, [k2 + p - k + 1, p2], this.text[k2 + p - k + 1])
         return [false, r]
       }
     } else {
-      return [Boolean(node && node.transitions[t]), node]
+      if (!s.transition[t]) return [false, s]
+      else return [true, s]
     }
   }
 
-  canonize = (_node: SuffixTreeNode<T>, k: number, p: number): [SuffixTreeNode<T>, number] => {
-    let node = _node
-    let begin = k,
-      end = p
+  canonize(s: SuffixTreeNode<T> | null, [k, p]: [number, number]): [SuffixTreeNode<T>, number] {
+    if (!s) return [this.root, 0]
 
-    if (end < begin) {
-      return [node, begin]
-    } else {
-      let [nextNode, nextBegin, nextEnd] = node.transitions[this.text[begin]]
+    if (p < k) return [s, k]
+    else {
+      var [s2, k2, p2] = s.transition[this.text[k]]
 
-      while (nextEnd - nextBegin <= end - begin) {
-        begin = begin + nextEnd - nextBegin + 1
-        node = nextNode
+      while (p2 - k2 <= p - k) {
+        k = k + p2 - k2 + 1
+        s = s2
 
-        if (begin <= end) {
-          ;[nextNode, nextBegin, nextEnd] = node.transitions[this.text[begin]]
+        if (k <= p) {
+          ;[s2, k2, p2] = s.transition[this.text[k]]
         }
       }
 
-      return [node, begin]
+      return [s, k]
     }
   }
 
-  convertToJson = () => {
-    // convert tree to json to use with d3js
-
-    let text = this.text
-    let ret = {
-      name: '',
-      parent: 'null',
-      suffix: '',
-      children: []
+  findSubstring = (str: string, node = this.root, matchedSoFar = 0): number => {
+    const L = this.text.length
+    for (let t in node.transition) {
+      let [nextNode, a, b] = node.transition[t]
+      const sub = this.text.substring(a, b + 1)
+      b = b === Infinity ? L : b
+      const offset = b - a + 1
+      if (str.indexOf(sub) === 0) {
+        if (str.length === sub.length) return a - matchedSoFar
+        else return this.findSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
+      } else if (sub.indexOf(str) === 0) return a - matchedSoFar
     }
 
-    function traverse(
-      node: SuffixTreeNode<T>,
-      separators: string[],
-      stringsList: String[],
-      ret: any
-    ) {
-      for (let t in node.transitions) {
-        let traNs = node.transitions[t]
-        let s = traNs[0],
-          a = traNs[1],
-          b = traNs[2]
-        let name = text.substring(a, b + 1)
-        let position = separators.length - 1
-        for (let pos = name.length - 1; pos > -1; pos--) {
-          let insep = separators.indexOf(name[pos])
-          position = insep > -1 ? insep : position
-        }
+    return -1
+  }
 
-        let names = name.split(separators[position])
-        if (names.length > 1) {
-          name = names[0] + separators[position]
+  countLeaves(node: SuffixTreeNode<T>) {
+    let count = 0
+    for (let t in node.transition) {
+      let [nextNode, a, b] = node.transition[t]
+      if (nextNode.isLeaf()) count++
+      else count += this.countLeaves(nextNode)
+    }
+    return count
+  }
+
+  findAllSubstring = (
+    str: string,
+    node = this.root,
+    matchedSoFar = 0
+  ): [number, SuffixTreeNode<T>, number] => {
+    const L = this.text.length
+    for (let t in node.transition) {
+      let [nextNode, a, b] = node.transition[t]
+      const sub = this.text.substring(a, b + 1)
+      b = b === Infinity ? L : b
+      const offset = b - a + 1
+      if (str.indexOf(sub) === 0) {
+        if (str.length === sub.length)
+          return [a - matchedSoFar, nextNode, this.countLeaves(nextNode) || 1]
+        else return this.findAllSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
+      } else if (sub.indexOf(str) === 0)
+        return [a - matchedSoFar, nextNode, this.countLeaves(nextNode) || 1]
+    }
+
+    return [-1, this.root, 0]
+  }
+
+  findLongestRepeatedSubstrings(n = 3) {
+    var [text, root] = [this.text, this.root]
+    var longestSubstrings = []
+
+    ;(function traverse(node, curStr = '') {
+      if (node.isLeaf()) return
+
+      for (var t in node.transition) {
+        var [s, a, b] = node.transition[t]
+        if (!s.isLeaf()) {
+          var curCurStr = curStr
+          var curSubStr = text.substring(a, b + 1)
+          curCurStr = node === root ? curSubStr : curCurStr + curSubStr
+
+          longestSubstrings.push(curCurStr)
+          traverse(s, curCurStr)
         }
-        let suffix = ret['suffix'] + name
-        let cchild = {
-          name: name,
-          parent: ret['name'],
-          suffix: suffix,
-          children: [],
-          seq: 0,
-          start: ''
-        }
-        if (s.isLeaf()) {
-          cchild['seq'] = position + 1
-          cchild['start'] = '' + (stringsList[position].length - suffix.length)
-        }
-        cchild = traverse(s, separators, stringsList, cchild)
-        ret['children'].push(cchild)
       }
+    })(root)
 
-      return ret
-    }
-    console.log(this.separators)
-    return traverse(this.root, this.separators, this.stringsList, ret)
+    return longestSubstrings.sort((a, b) => b.length - a.length).slice(0, n)
   }
 
   toString() {
     var text = this.text
 
     function traverse(node: SuffixTreeNode<T>, offset = '', ret = '') {
-      for (var t in node.transitions) {
-        var [s, a, b] = node.transitions[t]
+      for (var t in node.transition) {
+        var [s, a, b] = node.transition[t]
         ret += offset + '["' + text.substring(a, b + 1) + '", ' + a + ', ' + b + ']' + '\r\n'
         ret += traverse(s, offset + '\t')
       }
@@ -201,5 +201,9 @@ export class SuffixTree<T> {
     }
     var res = traverse(this.root)
     return res
+  }
+
+  print() {
+    console.log(this.toString())
   }
 }

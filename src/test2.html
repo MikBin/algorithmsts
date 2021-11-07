@@ -13,14 +13,16 @@ class Node {
   constructor() {
     this.transition = {};
     this.suffixLink = null;
+    this.totalTransitions = 0;
   }
 
   addTransition(node, [start, end], t) {
     this.transition[t] = [node, start, end];
+    this.totalTransitions++;
   }
 
   isLeaf() {
-    return Object.keys(this.transition).length === 0;
+    return this.totalTransitions === 0;
   }
 }
 
@@ -131,9 +133,9 @@ class Node {
       b = b===Infinity?L:b;
       const offset = b-a+1;
       if(str.indexOf(sub)===0) {
-        if(str.length===sub.length) return [a-matchedSoFar,nextNode,this.countLeaves(nextNode)];
+        if(str.length===sub.length) return a-matchedSoFar;
         else return this.findSubstring(str.substring(offset),nextNode,matchedSoFar+offset);
-      } else if(sub.indexOf(str)===0) return [a-matchedSoFar,nextNode,this.countLeaves(nextNode)];
+      } else if(sub.indexOf(str)===0) return a-matchedSoFar;
     }
 
     return -1;
@@ -154,21 +156,20 @@ class Node {
 
 
 
-  findAllSubstring = (str,node=this.root,matchedSoFar=0,list=[]) => {
+  findAllSubstring = (str,node=this.root,matchedSoFar=0) => {
     const L = this.text.length;
-    
     for(let t in node.transition) {
       let [nextNode, a, b] = node.transition[t];
       const sub = this.text.substring(a,b+1);
       b = b===Infinity?L:b;
       const offset = b-a+1;
       if(str.indexOf(sub)===0) {
-        if(str.length===sub.length) list.push(a-matchedSoFar);
-        else this.findAllSubstring(str.substring(offset),nextNode,matchedSoFar+offset,list);
-      } else if(sub.indexOf(str)===0) list.push(a-matchedSoFar);
+        if(str.length===sub.length) return [a-matchedSoFar,nextNode,this.countLeaves(nextNode)||1];
+        else return this.findAllSubstring(str.substring(offset),nextNode,matchedSoFar+offset);
+      } else if(sub.indexOf(str)===0) return [a-matchedSoFar,nextNode,this.countLeaves(nextNode)||1];
     }
 
-    return list;
+    return -1;
   
   }
 
@@ -220,7 +221,7 @@ class Node {
 window.SuffixTree =SuffixTree;
 
 const sfx = new SuffixTree()
-sfx.addString('mississippi')
+sfx.addString('banana')
 
     </script>
 </html>
