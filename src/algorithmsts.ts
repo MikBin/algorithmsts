@@ -6,13 +6,15 @@ import * as segTree from './segmentTree/segmentTree'
 import SkipList from './skipList/skipList'
 import { Trie } from './trie/trie'
 import { SuffixTree } from './suffixTree/index'
+import { ngramSimilarity } from './strings/similarities'
 
 export default {
   binarySearch: binSearches,
   segmentTree: segTree,
   skipList: SkipList,
   trie: Trie,
-  SuffixTree
+  SuffixTree,
+  ngramSimilarity
 }
 
 //used on some strings remove spaces and special chars like ' " ? ...

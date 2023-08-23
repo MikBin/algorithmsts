@@ -6,6 +6,7 @@ export class SuffixTreeNode<T> {
   public transition: Record<string, [SuffixTreeNode<T>, number, number]> = {}
   public suffixLink: SuffixTreeNode<T> | null = null
   public totalTransitions: number = 0
+  public isTerminal: boolean = false
 
   addTransition = (node: SuffixTreeNode<T>, [start, end]: [number, number], t: string): void => {
     this.transition[t] = [node, start, end]
@@ -47,7 +48,19 @@ export class SuffixTree<T> {
     }
 
     ;[this.s, this.k, this.i] = [s, k, i]
+
+    this.addTerminations()
+
     return this
+  }
+
+  addTerminations(node = this.root) {
+    for (let t in node.transition) {
+      let [nextNode, a, b] = node.transition[t]
+      const sub = this.text.substring(a, b + 1)
+      nextNode.isTerminal = this.text.endsWith(sub)
+      this.addTerminations(nextNode)
+    }
   }
 
   update(s: SuffixTreeNode<T> | null, [k, i]: [number, number]): [SuffixTreeNode<T>, number] {
@@ -133,12 +146,13 @@ export class SuffixTree<T> {
     return -1
   }
 
-  countLeaves(node: SuffixTreeNode<T>) {
+  countLeaves(node: SuffixTreeNode<T>): number {
+    if (node.isLeaf()) return 1
     let count = 0
     for (let t in node.transition) {
       let [nextNode, a, b] = node.transition[t]
-      if (nextNode.isLeaf()) count++
-      else count += this.countLeaves(nextNode)
+      //if (nextNode.isLeaf()) count++
+      count += this.countLeaves(nextNode)
     }
     return count
   }
@@ -155,11 +169,22 @@ export class SuffixTree<T> {
       b = b === Infinity ? L : b
       const offset = b - a + 1
       if (str.indexOf(sub) === 0) {
-        if (str.length === sub.length)
-          return [a - matchedSoFar, nextNode, this.countLeaves(nextNode) || 1]
-        else return this.findAllSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
-      } else if (sub.indexOf(str) === 0)
-        return [a - matchedSoFar, nextNode, this.countLeaves(nextNode) || 1]
+        if (str.length === sub.length) {
+          console.log({ str, node, nextNode })
+          return [
+            a - matchedSoFar,
+            nextNode,
+            this.countLeaves(nextNode) + (nextNode.isTerminal ? 1 : 0)
+          ]
+        } else return this.findAllSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
+      } else if (sub.indexOf(str) === 0) {
+        console.log({ str, node, nextNode })
+        return [
+          a - matchedSoFar,
+          nextNode,
+          this.countLeaves(nextNode) + (nextNode.isTerminal ? 1 : 0)
+        ]
+      }
     }
 
     return [-1, this.root, 0]
@@ -168,7 +193,6 @@ export class SuffixTree<T> {
   findLongestRepeatedSubstrings(n = 3) {
     var [text, root] = [this.text, this.root]
     var longestSubstrings = []
-
     ;(function traverse(node, curStr = '') {
       if (node.isLeaf()) return
 
