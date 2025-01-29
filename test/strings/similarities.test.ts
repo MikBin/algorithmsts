@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from 'vitest';
 import { ngramSimilarity, splitByUpperCase, jaroDistance, LevenshteinDistance } from "../../src/strings/similarities";
 
 describe("testing string similiarites: ", () => {
@@ -26,7 +27,7 @@ describe("testing string similiarites: ", () => {
 
   console.log(jaroDistance("ciao bambino", "abcdabcdab"), jaroDistance("orsetto lavatore", "abcdabcdabcdabcd"), jaroDistance("ciao bambino", "orsetto lavatore"));
   /** the average distance from same string is the distance from the 2 strings
-   * NB the common string have to be of the same length of each of the 2. 
+   * NB the common string have to be of the same length of each of the 2.
    */
   console.log(jaroDistance("ciao bambino", "abcdabcdab"), jaroDistance("cioa bambano", "abcdabcdabcdabcd"), jaroDistance("ciao bambino", "cioa bambano"));
 

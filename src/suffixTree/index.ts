@@ -150,7 +150,7 @@ export class SuffixTree<T> {
     if (node.isLeaf()) return 1
     let count = 0
     for (let t in node.transition) {
-      let [nextNode, a, b] = node.transition[t]
+      let [nextNode, _a, _b] = node.transition[t]
       //if (nextNode.isLeaf()) count++
       count += this.countLeaves(nextNode)
     }

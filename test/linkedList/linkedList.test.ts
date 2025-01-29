@@ -1,4 +1,4 @@
-import { Node } from '../../src/linkedList/interfaces'
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { LinkedList } from '../../src/linkedList/linkedList'
 

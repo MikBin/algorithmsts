@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from 'vitest';
 import { binarySearch, binaryClosestSearch } from "../../src/binarySearch/binarySearch";
 import { binaryComparisonRoutine } from "../../src/binarySearch/interfaces";
 

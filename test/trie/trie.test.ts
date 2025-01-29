@@ -1,3 +1,4 @@
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Trie } from '../../src/trie/trie'
 
 describe('trie basics functionalities: ', () => {
