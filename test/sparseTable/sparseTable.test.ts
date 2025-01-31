@@ -3,7 +3,7 @@ import { SparseTable } from "../../src/SparseTable";
 
 describe.only("SparseTable", () => {
   describe.only("Sum queries", () => {
-    const sumOp = (a: number, b: number) => a + b;
+    const sumOp = (a: number | null, b: number | null) => (a || 0) + (b || 0);
     const arr = [1, 3, 4, 8, 6, 1, 4, 2];
     let sparseTable: SparseTable<number> = new SparseTable(arr, sumOp);
 
@@ -20,7 +20,7 @@ describe.only("SparseTable", () => {
   });
 
   describe("Range Max queries", () => {
-    const maxOp = (a: number, b: number) => Math.max(a, b);
+    const maxOp = (a: number | null, b: number | null) => Math.max(a || 0, b || 0);
     const arr = [1, 3, 4, 8, 6, 1, 4, 2];
     let sparseTable: SparseTable<number>;
 
@@ -42,13 +42,14 @@ describe.only("SparseTable", () => {
   });
 
   describe("Edge cases", () => {
+    const minOp = (a: number | null, b: number | null) => Math.min(a || 0, b || 0);
     it("should handle an empty array", () => {
-      const sparseTable = new SparseTable<number>([], Math.min);
+      const sparseTable = new SparseTable<number>([], minOp);
       expect(sparseTable.size).toBe(0);
     });
 
     it("should handle an array with one element", () => {
-      const sparseTable = new SparseTable([5], Math.min);
+      const sparseTable = new SparseTable([5], minOp);
       expect(sparseTable.size).toBe(1);
       expect(sparseTable.queryOF(0, 0)).toBe(5);
     });
