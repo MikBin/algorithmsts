@@ -1,4 +1,4 @@
-type Operation<T> = (a: T | null, b: T | null) => T;
+export type STOperation<T> = (a: T, b: T) => T;
 
 export class SparseTable<T> {
   private table: T[][] = [];
@@ -8,7 +8,7 @@ export class SparseTable<T> {
 
   constructor(
     private arr: T[],
-    private op: Operation<T>,
+    private op: STOperation<T>,
   ) {
     this.initializeTable();
   }
@@ -24,7 +24,6 @@ export class SparseTable<T> {
     for (let i = 0; i < maxLog + 1; i++) {
       this.table.push(new Array(n - (1 << i) + 1).fill(null));
     }
-
 
     this.buildTable();
   }
@@ -57,16 +56,16 @@ export class SparseTable<T> {
     return this.op(this.table[p][left], this.table[p][right - (1 << p) + 1]);
   }
 
-  query(left: number, right: number): T | null {
+  query(left: number, right: number): T {
     let partial: T | null = null;
     for (let p = this.log2[right - left + 1]; left <= right; p = this.log2[right - left + 1]) {
-      partial = this.op(partial, this.table[p][left]);
+      partial = partial !== null ? this.op(partial, this.table[p][left]) : this.table[p][left];
       left += 1 << p;
     }
-    return partial;
+    return partial as T;
   }
 
-  queryRec(left: number, right: number, partial: T | null = null): T | null {
+  queryRec(left: number, right: number, partial: T): T {
     if (right < left) return partial;
     const p = this.log2[right - left + 1];
     partial = this.op(partial, this.table[p][left]);
