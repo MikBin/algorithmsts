@@ -1,5 +1,12 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-import { ngramSimilarity, splitByUpperCase, jaroDistance, LevenshteinDistance } from "../../src/strings/similarities";
+import {
+  ngramSimilarity,
+  splitByUpperCase,
+  jaroDistance,
+  LevenshteinDistance,
+  sorensenDiceCoefficient,
+  trigramSimilarity,
+} from "../../src/strings/similarities";
 
 describe("testing string similiarites: ", () => {
   it("returns 1 for same exact string: ", () => {
@@ -23,6 +30,20 @@ describe("testing string similiarites: ", () => {
 
   it("LevenshteinDistance of completely different string", () => {
     expect(LevenshteinDistance("robotech", "saluti e baci")).toBeCloseTo(0.230);
+  });
+
+  it("calculates Sørensen-Dice coefficient correctly", () => {
+    expect(sorensenDiceCoefficient("hello", "helo")).toBeCloseTo(0.8571);
+    expect(sorensenDiceCoefficient("world", "word")).toBeCloseTo(0.5714);
+    expect(sorensenDiceCoefficient("test", "test")).toEqual(1);
+    expect(sorensenDiceCoefficient("apple", "orange")).toBeCloseTo(0);
+  });
+
+  it("calculates trigram similarity correctly", () => {
+    expect(trigramSimilarity("hello", "helo")).toBeCloseTo(0.4);
+    expect(trigramSimilarity("world", "word")).toBeCloseTo(0.4);
+    expect(trigramSimilarity("test", "test")).toEqual(1);
+    expect(trigramSimilarity("apple", "orange")).toBeCloseTo(0);
   });
 
   console.log(jaroDistance("ciao bambino", "abcdabcdab"), jaroDistance("orsetto lavatore", "abcdabcdabcdabcd"), jaroDistance("ciao bambino", "orsetto lavatore"));

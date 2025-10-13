@@ -43,6 +43,38 @@ export const ngramSimilarity = (
 }
 
 /**
+ * Calculates the Sørensen-Dice coefficient between two strings.
+ * This is a specific case of n-gram similarity with n=2.
+ * @param {string} str1 First string to match
+ * @param {string} str2 Second string to match
+ * @param {boolean} [caseSensitive=false] Optional. Whether you want to consider case in string matching. Default false;
+ * @returns Number between 0 and 1, with 0 being a low match score.
+ */
+export const sorensenDiceCoefficient = (
+  str1: string,
+  str2: string,
+  caseSensitive: boolean = false
+): number => {
+  return ngramSimilarity(str1, str2, 2, caseSensitive);
+};
+
+/**
+ * Calculates the Trigram similarity between two strings.
+ * This is a specific case of n-gram similarity with n=3.
+ * @param {string} str1 First string to match
+ * @param {string} str2 Second string to match
+ * @param {boolean} [caseSensitive=false] Optional. Whether you want to consider case in string matching. Default false;
+ * @returns Number between 0 and 1, with 0 being a low match score.
+ */
+export const trigramSimilarity = (
+  str1: string,
+  str2: string,
+  caseSensitive: boolean = false
+): number => {
+  return ngramSimilarity(str1, str2, 3, caseSensitive);
+};
+
+/**
  * from english dictionary split a phrase in know words by splitting spaces or by UPPERCASE
  * if some word is not found try to split by '  then look for very high similarity
  */
