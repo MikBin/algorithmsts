@@ -1,174 +1,213 @@
-/**@TODO add tests!!!!! */
+import { binaryComparisonRoutine } from '../interfaces';
 
-import { binaryComparisonRoutine } from '../interfaces'
+/**
+ * @internal
+ * Determines whether to advance to the next level in a skip list.
+ * @param P - The probability of returning true.
+ * @returns A boolean indicating whether to advance.
+ */
+const flipCoin = (P: number = 0.5): boolean => Math.random() < P;
 
-const flipCoin = (P: number = 0.5): boolean => Math.random() < P
-
+/**
+ * @internal
+ * Generates a random level for a new node in the skip list.
+ * @param maxLevel - The maximum level allowed in the skip list.
+ * @returns A random level for the new node.
+ */
 const getLevel = (maxLevel: number): number => {
-  let level: number = 1
+  let level: number = 1;
   while (flipCoin() && level < maxLevel) {
-    level++
+    level++;
   }
-  return level
-}
+  return level;
+};
 
+/**
+ * @internal
+ * The default comparison function for skip list values.
+ * @param x - The first value.
+ * @param y - The second value.
+ * @returns 1 if x > y, -1 if x < y, and 0 if x === y.
+ */
 const defaultComparisonFn: binaryComparisonRoutine<any> = (x, y) => {
-  if (x > y) return 1
-  else if (x < y) return -1
-  return 0
-}
+  if (x > y) return 1;
+  if (x < y) return -1;
+  return 0;
+};
 
+/**
+ * Represents a node in the skip list.
+ */
 class SkipNode<T> {
-  private counter: number
-  public pointers: SkipNode<T>[]
-  public value: T
+  /**
+   * An array of pointers to the next node at each level.
+   */
+  public pointers: (SkipNode<T> | undefined)[];
+  /**
+   * The value of the node.
+   */
+  public value: T;
+  /**
+   * A counter for the number of times this value has been inserted.
+   */
+  public count: number;
+
+  /**
+   * Creates a new SkipNode.
+   * @param level - The level of the node.
+   * @param val - The value of the node.
+   * @param isRoot - Whether the node is the root of the skip list.
+   */
   constructor(protected level: number, val: T, isRoot: boolean = false) {
-    this.value = val
-    this.counter = isRoot ? 0 : 1
-    this.pointers = Array<SkipNode<T>>(level + 1)
+    this.value = val;
+    this.count = isRoot ? 0 : 1;
+    this.pointers = Array<SkipNode<T>>(level + 1);
   }
 
+  /**
+   * Increments the count of the node.
+   */
   increment(): void {
-    this.counter++
+    this.count++;
   }
 }
 
+/**
+ * A skip list is a probabilistic data structure that allows for fast search, insertion, and deletion operations.
+ */
 class SkipList<T> {
-  private head: SkipNode<T>
-  private updateNodes: SkipNode<T>[]
-  private size: number
+  /**
+   * The head node of the skip list.
+   */
+  private head: SkipNode<T>;
+  /**
+   * An array of nodes to update during insertion and deletion.
+   */
+  private updateNodes: SkipNode<T>[];
+  /**
+   * The number of unique elements in the skip list.
+   */
+  public size: number;
+  /**
+   * The maximum level of the skip list.
+   */
+  private maxLevel: number;
 
+  /**
+   * Creates a new SkipList.
+   * @param maxLevel - The maximum level of the skip list.
+   * @param dummyRootVal - The value for the dummy root node.
+   * @param comparisonFn - The function to use to compare values.
+   */
   constructor(
-    private level: number,
+    maxLevel: number,
     dummyRootVal: T,
-    private comparisonFn: binaryComparisonRoutine<T> = defaultComparisonFn
+    private comparisonFn: binaryComparisonRoutine<T> = defaultComparisonFn,
   ) {
-    this.head = new SkipNode<T>(level, dummyRootVal, true)
-    this.updateNodes = Array<SkipNode<T>>(level)
-    this.level = level
-    this.size = 0
+    this.maxLevel = maxLevel;
+    this.head = new SkipNode<T>(this.maxLevel, dummyRootVal, true);
+    this.updateNodes = Array<SkipNode<T>>(this.maxLevel + 1);
+    this.size = 0;
   }
 
+  /**
+   * Inserts a value into the skip list.
+   * If the value already exists, its count is incremented.
+   * @param val - The value to insert.
+   */
   insert(val: T): void {
-    // Start at the head node
-    let tempNode = this.head
+    let currentNode = this.head;
 
-    // Iterate through levels of the list
-    for (let i = this.level; i > 0; i--) {
-      while (tempNode.pointers[i] && this.comparisonFn(tempNode.pointers[i].value, val) < 0) {
-        tempNode = tempNode.pointers[i]
+    // Find the position to insert the new node
+    for (let i = this.maxLevel; i >= 1; i--) {
+      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, val) < 0) {
+        currentNode = currentNode.pointers[i]!;
       }
-      // Update node will hold tempNode (this is the first bigger than val found) - used later for new value to insert
-      //updatyeNodes[i] contains the first bigger than val for level-i or undefined?
-      this.updateNodes[i] = tempNode
+      this.updateNodes[i] = currentNode;
     }
 
-    // Get next element in list to compare with previous (updateNodes[i])
-    tempNode = tempNode.pointers[1]
+    currentNode = currentNode.pointers[1]!;
 
-    // If temp is last in list or the value != new value, add to list
-    if (tempNode && this.comparisonFn(tempNode.value, val) == 0) {
-      tempNode.increment()
-    } /*if (!tempNode || this.comparisonFn(tempNode.value, val) != 0)*/ else {
-      const newLevel = getLevel(this.level)
-      tempNode = new SkipNode<T>(newLevel, val)
+    // If the node already exists, increment its counter
+    if (currentNode && this.comparisonFn(currentNode.value, val) === 0) {
+      currentNode.increment();
+    } else {
+      // Otherwise, create a new node and insert it
+      const newLevel = getLevel(this.maxLevel);
+      const newNode = new SkipNode<T>(newLevel, val);
       for (let i = 1; i <= newLevel; i++) {
-        tempNode.pointers[i] = this.updateNodes[i].pointers[i]
-        this.updateNodes[i].pointers[i] = tempNode
+        newNode.pointers[i] = this.updateNodes[i].pointers[i];
+        this.updateNodes[i].pointers[i] = newNode;
       }
-      this.size++
+      this.size++;
     }
   }
 
+  /**
+   * Removes a value from the skip list.
+   * @param val - The value to remove.
+   */
   remove(val: T): void {
-    // Start at the head node
-    let tempNode = this.head
+    let currentNode = this.head;
 
-    // Iterate through levels of the list
-    for (let i = this.level; i > 0; i--) {
-      while (tempNode.pointers[i] && this.comparisonFn(tempNode.pointers[i].value, val) < 0) {
-        tempNode = tempNode.pointers[i]
+    // Find the node to remove
+    for (let i = this.maxLevel; i >= 1; i--) {
+      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, val) < 0) {
+        currentNode = currentNode.pointers[i]!;
       }
-      // Update node will hold tempNode - used later for new value to remove
-      this.updateNodes[i] = tempNode
+      this.updateNodes[i] = currentNode;
     }
 
-    // Get next element in list to compare with previous (updateNodes[i])
-    tempNode = tempNode.pointers[1]
+    currentNode = currentNode.pointers[1]!;
 
-    // If we found it in the list,
-    if (tempNode && this.comparisonFn(tempNode.value, val) == 0) {
-      // Iterate through levels of list
-      for (let i = 1; i <= this.level; i++) {
-        if (this.updateNodes[i].pointers[i] == tempNode) {
-          this.updateNodes[i].pointers[i] = tempNode.pointers[i]
+    // If the node is found, remove it
+    if (currentNode && this.comparisonFn(currentNode.value, val) === 0) {
+      for (let i = 1; i <= this.maxLevel; i++) {
+        if (this.updateNodes[i].pointers[i] === currentNode) {
+          this.updateNodes[i].pointers[i] = currentNode.pointers[i];
         }
       }
-      this.size--
+      this.size--;
     }
   }
 
-  find(val: T): any | null {
-    // Start at the head node
-    let tempNode = this.head
+  /**
+   * Finds a value in the skip list.
+   * @param val - The value to find.
+   * @returns The node containing the value, or null if the value is not found.
+   */
+  find(val: T): SkipNode<T> | null {
+    let currentNode = this.head;
 
-    // Iterate through levels of the list
-    for (let i = this.level; i > 0; i--) {
-      while (tempNode.pointers[i] && this.comparisonFn(tempNode.pointers[i].value, val) < 0) {
-        tempNode = tempNode.pointers[i]
+    // Search for the node
+    for (let i = this.maxLevel; i >= 1; i--) {
+      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, val) < 0) {
+        currentNode = currentNode.pointers[i]!;
       }
     }
 
-    // Set tempNode to the next element in the list because the current value is
-    // less than whatever we are trying to find.  So the next element is either the
-    // value we are looking for, or it is not in the list
-    tempNode = tempNode.pointers[1]
+    currentNode = currentNode.pointers[1]!;
 
-    if (tempNode && this.comparisonFn(tempNode.value, val) == 0) {
-      return tempNode
+    if (currentNode && this.comparisonFn(currentNode.value, val) === 0) {
+      return currentNode;
     }
+
+    return null;
   }
 
-  toArray(start: number = 0, end: number = this.size): Array<T> {
-    end = end >= this.size ? this.size - 1 : end
-    start = start < 0 ? 0 : start
-    let output: Array<T> = new Array(end - start + 1)
-
-    let nextNode = this.head
-    let i = 0
-    while (i < start && nextNode.pointers[1]) {
-      i++
-      nextNode = nextNode.pointers[1]
+  /**
+   * Converts the skip list to an array.
+   * @returns An array of the values in the skip list.
+   */
+  toArray(): T[] {
+    const result: T[] = [];
+    let currentNode = this.head.pointers[1];
+    while (currentNode) {
+      result.push(currentNode.value);
+      currentNode = currentNode.pointers[1];
     }
-    while (i <= end && nextNode.pointers[1]) {
-      output.push(nextNode.value)
-      i++
-      nextNode = nextNode.pointers[1]
-    }
-    return output
+    return result;
   }
 }
 
-export default SkipList
-
-/*
-let skipListNum: SkipList<number>
-
-skipListNum = new SkipList<number>(10, 0)
-skipListNum.insert(8)
-skipListNum.insert(4)
-skipListNum.insert(6)
-skipListNum.insert(18)
-skipListNum.insert(3)
-skipListNum.insert(5)
-skipListNum.insert(28)
-skipListNum.insert(24)
-skipListNum.insert(16)
-skipListNum.insert(38)
-skipListNum.insert(44)
-skipListNum.insert(7)
-for (let i = 23; i < 340; i += 3) {
-  skipListNum.insert(i)
-}
-console.log(skipListNum)
-*/
+export default SkipList;
