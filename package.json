@@ -31,7 +31,7 @@
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
     "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production",
     "test": "vitest ",
-    "test:prod": "vitest run",
+    "test:prod": "vitest run --coverage",
     "prepare": "husky",
     "v-pub-tarball": "npm publish --dry-run",
     "release": "release-it",
@@ -62,6 +62,7 @@
     "rollup-plugin-delete": "^2.1.0",
     "semantic-release": "^24.2.0",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "@vitest/coverage-istanbul": "^2.1.8"
   }
 }
