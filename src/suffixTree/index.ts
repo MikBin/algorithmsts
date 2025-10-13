@@ -1,233 +1,207 @@
-/**build  compacated trie (suffixtree) using farach algorithm
- */
-//treaps https://github.com/brenden/node-treap/blob/master/lib/treap.js
+import { UkkonenAlgorithm } from './UkkonenAlgorithm'
 
+/**
+ * Represents a node in the Suffix Tree.
+ */
 export class SuffixTreeNode<T> {
-  public transition: Record<string, [SuffixTreeNode<T>, number, number]> = {}
+  // A map of transitions from this node, where the key is the first character of the edge label.
+  public transitions: Record<string, [SuffixTreeNode<T>, number, number]> = {}
+  // A link to another node in the tree, used in Ukkonen's algorithm.
   public suffixLink: SuffixTreeNode<T> | null = null
+  // The total number of transitions from this node.
   public totalTransitions: number = 0
+  // A flag indicating whether this node represents a terminal suffix.
   public isTerminal: boolean = false
 
-  addTransition = (node: SuffixTreeNode<T>, [start, end]: [number, number], t: string): void => {
-    this.transition[t] = [node, start, end]
+  /**
+   * Creates an instance of SuffixTreeNode.
+   */
+  constructor() {}
+
+  /**
+   * Adds a transition to this node.
+   * @param node The node to transition to.
+   * @param range The range of indices in the text that the edge label represents.
+   * @param t The first character of the edge label.
+   */
+  public addTransition(node: SuffixTreeNode<T>, [start, end]: [number, number], t: string): void {
+    this.transitions[t] = [node, start, end]
     this.totalTransitions++
   }
-  isLeaf = (): boolean => Boolean(this.totalTransitions)
+
+  /**
+   * Checks if this node is a leaf node (i.e., has no transitions).
+   * @returns True if this node is a leaf, false otherwise.
+   */
+  public isLeaf(): boolean {
+    return this.totalTransitions === 0
+  }
 }
 
+/**
+ * Represents a Suffix Tree, a data structure used for efficient string searching.
+ */
 export class SuffixTree<T> {
-  private text: string = ''
+  // The text for which the suffix tree is built.
+  public text: string = ''
+  // The root of the suffix tree.
+  public root: SuffixTreeNode<T> = new SuffixTreeNode()
+  // A list of strings that have been added to the tree.
   public stringsList: string[] = []
+  // A list of separators used to join strings.
   public separators: string[] = []
-  private root: SuffixTreeNode<T> = new SuffixTreeNode()
-  private bottom: SuffixTreeNode<T> = new SuffixTreeNode()
-  private s = this.root
-  private k = 0
-  private i = -1
 
+  private algorithm: UkkonenAlgorithm<T>
+
+  /**
+   * Creates an instance of SuffixTree.
+   * @param wholeText The initial text to build the suffix tree from.
+   */
   constructor(wholeText: string) {
-    /**@TODO build from whole text */
-    this.root.suffixLink = this.bottom
-    if (wholeText && wholeText.length) this.addString(wholeText)
+    this.algorithm = new UkkonenAlgorithm<T>(this)
+    if (wholeText && wholeText.length) {
+      this.addString(wholeText)
+    }
   }
 
-  addString(str: string) {
-    var temp = this.text.length
+  /**
+   * Adds a string to the suffix tree.
+   * @param str The string to add.
+   * @returns The SuffixTree instance.
+   */
+  public addString(str: string): SuffixTree<T> {
+    const temp = this.text.length
     this.text += temp ? '⚇' + str : str
-
-    var [s, k, i] = [this.s, this.k, this.i]
-
-    for (var j = temp; j < this.text.length; j++) {
-      this.bottom.addTransition(this.root, [j, j], this.text[j])
-    }
-
-    while (this.text[i + 1]) {
-      i++
-      ;[s, k] = this.update(s, [k, i])
-      ;[s, k] = this.canonize(s, [k, i])
-    }
-
-    ;[this.s, this.k, this.i] = [s, k, i]
-
-    this.addTerminations()
-
+    this.algorithm.addString(str, temp, this.text)
     return this
   }
 
-  addTerminations(node = this.root) {
-    for (let t in node.transition) {
-      let [nextNode, a, b] = node.transition[t]
-      const sub = this.text.substring(a, b + 1)
-      nextNode.isTerminal = this.text.endsWith(sub)
-      this.addTerminations(nextNode)
-    }
-  }
-
-  update(s: SuffixTreeNode<T> | null, [k, i]: [number, number]): [SuffixTreeNode<T>, number] {
-    if (!s) return [this.root, 0]
-
-    var oldr = this.root
-    var [endPoint, r] = this.testAndSplit(s, [k, i - 1], this.text[i])
-
-    while (!endPoint) {
-      r.addTransition(new SuffixTreeNode<T>(), [i, Infinity], this.text[i])
-
-      if (oldr != this.root) {
-        oldr.suffixLink = r
-      }
-
-      oldr = r
-      ;[s, k] = this.canonize(s.suffixLink, [k, i - 1])
-      ;[endPoint, r] = this.testAndSplit(s, [k, i - 1], this.text[i])
-    }
-
-    if (oldr != this.root) {
-      oldr.suffixLink = s
-    }
-
-    return [s, k]
-  }
-
-  testAndSplit(
-    s: SuffixTreeNode<T>,
-    [k, p]: [number, number],
-    t: string
-  ): [boolean, SuffixTreeNode<T>] {
-    if (k <= p) {
-      var [s2, k2, p2] = s.transition[this.text[k]]
-
-      if (t == this.text[k2 + p - k + 1]) {
-        return [true, s]
-      } else {
-        var r = new SuffixTreeNode<T>()
-        s.addTransition(r, [k2, k2 + p - k], this.text[k2])
-        r.addTransition(s2, [k2 + p - k + 1, p2], this.text[k2 + p - k + 1])
-        return [false, r]
-      }
-    } else {
-      if (!s.transition[t]) return [false, s]
-      else return [true, s]
-    }
-  }
-
-  canonize(s: SuffixTreeNode<T> | null, [k, p]: [number, number]): [SuffixTreeNode<T>, number] {
-    if (!s) return [this.root, 0]
-
-    if (p < k) return [s, k]
-    else {
-      var [s2, k2, p2] = s.transition[this.text[k]]
-
-      while (p2 - k2 <= p - k) {
-        k = k + p2 - k2 + 1
-        s = s2
-
-        if (k <= p) {
-          ;[s2, k2, p2] = s.transition[this.text[k]]
-        }
-      }
-
-      return [s, k]
-    }
-  }
-
-  findSubstring = (str: string, node = this.root, matchedSoFar = 0): number => {
+  /**
+   * Finds a substring in the suffix tree.
+   * @param str The substring to find.
+   * @param node The node to start the search from.
+   * @param matchedSoFar The number of characters matched so far.
+   * @returns The starting index of the substring in the text, or -1 if not found.
+   */
+  public findSubstring(str: string, node = this.root, matchedSoFar = 0): number {
     const L = this.text.length
-    for (let t in node.transition) {
-      let [nextNode, a, b] = node.transition[t]
-      const sub = this.text.substring(a, b + 1)
-      b = b === Infinity ? L : b
-      const offset = b - a + 1
-      if (str.indexOf(sub) === 0) {
-        if (str.length === sub.length) return a - matchedSoFar
-        else return this.findSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
-      } else if (sub.indexOf(str) === 0) return a - matchedSoFar
+    for (const t in node.transitions) {
+      let [nextNode, a, b] = node.transitions[t]
+      const effectiveB = b === Infinity ? L : b + 1
+      const sub = this.text.substring(a, effectiveB)
+      const offset = effectiveB - a
+      if (str.startsWith(sub)) {
+        if (str.length === sub.length) {
+          return a - matchedSoFar
+        } else {
+          return this.findSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
+        }
+      } else if (sub.startsWith(str)) {
+        return a - matchedSoFar
+      }
     }
-
     return -1
   }
 
-  countLeaves(node: SuffixTreeNode<T>): number {
-    if (node.isLeaf()) return 1
+  /**
+   * Counts the number of leaves in the subtree rooted at the given node.
+   * @param node The root of the subtree.
+   * @returns The number of leaves.
+   */
+  public countLeaves(node: SuffixTreeNode<T>): number {
+    if (node.isLeaf()) {
+      return 1
+    }
     let count = 0
-    for (let t in node.transition) {
-      let [nextNode, _a, _b] = node.transition[t]
-      //if (nextNode.isLeaf()) count++
+    for (const t in node.transitions) {
+      const [nextNode] = node.transitions[t]
       count += this.countLeaves(nextNode)
     }
     return count
   }
 
-  findAllSubstring = (
+  /**
+   * Finds all occurrences of a substring in the suffix tree.
+   * @param str The substring to find.
+   * @param node The node to start the search from.
+   * @param matchedSoFar The number of characters matched so far.
+   * @returns A tuple containing the starting index of the substring, the node where the search ended, and the number of occurrences.
+   */
+  public findAllSubstring(
     str: string,
     node = this.root,
     matchedSoFar = 0
-  ): [number, SuffixTreeNode<T>, number] => {
+  ): [number, SuffixTreeNode<T> | null, number] {
     const L = this.text.length
-    for (let t in node.transition) {
-      let [nextNode, a, b] = node.transition[t]
-      const sub = this.text.substring(a, b + 1)
-      b = b === Infinity ? L : b
-      const offset = b - a + 1
-      if (str.indexOf(sub) === 0) {
+    for (const t in node.transitions) {
+      let [nextNode, a, b] = node.transitions[t]
+      const effectiveB = b === Infinity ? L : b + 1
+      const sub = this.text.substring(a, effectiveB)
+      const offset = effectiveB - a
+      if (str.startsWith(sub)) {
         if (str.length === sub.length) {
-          console.log({ str, node, nextNode })
-          return [
-            a - matchedSoFar,
-            nextNode,
-            this.countLeaves(nextNode) + (nextNode.isTerminal ? 1 : 0)
-          ]
-        } else return this.findAllSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
-      } else if (sub.indexOf(str) === 0) {
-        console.log({ str, node, nextNode })
-        return [
-          a - matchedSoFar,
-          nextNode,
-          this.countLeaves(nextNode) + (nextNode.isTerminal ? 1 : 0)
-        ]
+          return [a - matchedSoFar, nextNode, this.countLeaves(nextNode)]
+        } else {
+          return this.findAllSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
+        }
+      } else if (sub.startsWith(str)) {
+        return [a - matchedSoFar, nextNode, this.countLeaves(nextNode)]
       }
     }
-
-    return [-1, this.root, 0]
+    return [-1, null, 0]
   }
 
-  findLongestRepeatedSubstrings(n = 3) {
-    var [text, root] = [this.text, this.root]
-    var longestSubstrings = []
+  /**
+   * Finds the longest repeated substrings in the text.
+   * @param n The number of longest repeated substrings to return.
+   * @returns An array of the longest repeated substrings.
+   */
+  public findLongestRepeatedSubstrings(n = 3): string[] {
+    const [text, root] = [this.text, this.root]
+    const L = text.length
+    const longestSubstrings: string[] = []
     ;(function traverse(node, curStr = '') {
-      if (node.isLeaf()) return
-
-      for (var t in node.transition) {
-        var [s, a, b] = node.transition[t]
+      if (node.isLeaf()) {
+        return
+      }
+      for (const t in node.transitions) {
+        const [s, a, b] = node.transitions[t]
         if (!s.isLeaf()) {
-          var curCurStr = curStr
-          var curSubStr = text.substring(a, b + 1)
-          curCurStr = node === root ? curSubStr : curCurStr + curSubStr
-
-          longestSubstrings.push(curCurStr)
-          traverse(s, curCurStr)
+          const edgeLabel = text.substring(a, b === Infinity ? L : b + 1)
+          const newStr = curStr + edgeLabel
+          longestSubstrings.push(newStr)
+          traverse(s, newStr)
         }
       }
     })(root)
-
     return longestSubstrings.sort((a, b) => b.length - a.length).slice(0, n)
   }
 
-  toString() {
-    var text = this.text
-
-    function traverse(node: SuffixTreeNode<T>, offset = '', ret = '') {
-      for (var t in node.transition) {
-        var [s, a, b] = node.transition[t]
-        ret += offset + '["' + text.substring(a, b + 1) + '", ' + a + ', ' + b + ']' + '\r\n'
-        ret += traverse(s, offset + '\t')
+  /**
+   * Returns a string representation of the suffix tree.
+   * @returns A string representation of the suffix tree.
+   */
+  public toString(): string {
+    const text = this.text
+    function traverse(node: SuffixTreeNode<T>, offset = '', ret = ''): string {
+      for (const t in node.transitions) {
+        const [s, a, b] = node.transitions[t]
+        ret += `${offset}["${text.substring(
+          a,
+          b === Infinity ? text.length : b + 1
+        )}", ${a}, ${b}]\r\n`
+        ret += traverse(s, `${offset}\t`)
       }
       return ret
     }
-    var res = traverse(this.root)
+    const res = traverse(this.root)
     return res
   }
 
-  print() {
+  /**
+   * Prints the suffix tree to the console.
+   */
+  public print(): void {
     console.log(this.toString())
   }
 }
