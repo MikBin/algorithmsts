@@ -1,3 +1,5 @@
+export * from './graphs/IGraph';
+
 export interface StringTMap<T> {
   [key: string]: T
 }
@@ -61,7 +63,7 @@ export interface Collection<T> extends Iterable<T> {}
 // export type DateYMDStringDashed = `${DateYMStringDashed}-${DD}`
 
 // export type DateYMStringSlashed = `${YYYY}/${MM}`
-// export type DateYMDStringSlashed = `${DateYMStringSlashed}/${DD}`
+// export type DateYMDStringSlashed = `${DateYMDStringSlashed}/${DD}`
 
 // export type DateDMStringSlashed = `${DD}/${MM}`
 // export type DateDMYStringSlashed = `${DateDMStringSlashed}/${YYYY}`
