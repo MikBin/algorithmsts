@@ -1,324 +1,271 @@
 import {
-  baseSegmentTreeNode,
-  segmentTreeRangeNodePropagator,
-  segmentTreeNodeFactory,
-  segmentTreeNodeMerger,
-  segmentTreeQueryMerger,
-  segmentTreeLeafNodeUpdater,
-  segmentTreeRangeNodeUpdater
-} from './interfaces'
+    baseSegmentTreeNode,
+    segmentTreeRangeNodePropagator,
+    segmentTreeNodeFactory,
+    segmentTreeNodeMerger,
+    segmentTreeQueryMerger,
+    segmentTreeLeafNodeUpdater,
+    segmentTreeRangeNodeUpdater
+  } from './interfaces'
 
-/**
- * as  upper tight c++ implementation: https://codeforces.com/blog/entry/18051
- *
- * ITERATIVE VERSION: https://www.geeksforgeeks.org/iterative-segment-tree-range-minimum-query/
- * https://www.quora.com/What-are-the-advantage-of-binary-indexed-tree-BIT-or-fenwick-tree-over-segment-tree
- * make it faster with the above link using non recoursive queries
- */
-
-export const insertNode = <T, U extends baseSegmentTreeNode>(
-  segTreeArray: Array<U>,
-  originArray: Array<T>,
-  i: number,
-  left: number,
-  right: number,
-  segmentNodeFactory: segmentTreeNodeFactory<T, U>
-): number => {
-  const LR_DIFF: number = right - left
-  segTreeArray[i] = segmentNodeFactory(originArray[left], left, right)
-  if (LR_DIFF === 0) return i
-
-  let leftIdx = 2 * i
-  let rightIdx = 2 * i + 1
-  let leftLeft = left
-  let leftRight = Math.floor(LR_DIFF / 2) + left
-  let rightLeft = leftRight + 1
-  let rightRight = right
-
-  insertNode(segTreeArray, originArray, leftIdx, leftLeft, leftRight, segmentNodeFactory)
-  insertNode(segTreeArray, originArray, rightIdx, rightLeft, rightRight, segmentNodeFactory)
-
-  return i
-}
-
-export const buildSegTreeIterative = <T, U extends baseSegmentTreeNode>(
-  sourceArray: Array<T>,
-  segmentNodeFactory: segmentTreeNodeFactory<T, U>,
-  segmentNodeMerger: segmentTreeNodeMerger<U>
-): Array<U> => {
-  let n: number = sourceArray.length
-
-  const SEG_TREE_ARRAY: Array<U> = new Array(2 * n)
-  for (let i = 0; i < n; i++) {
-    SEG_TREE_ARRAY[n + i] = segmentNodeFactory(sourceArray[i], i, i)
-  }
-  for (let i = n - 1; i > 0; i--) {
-    let l = i << 1
-    let r = (i << 1) | 1
-    let left = SEG_TREE_ARRAY[l].left
-    let right = SEG_TREE_ARRAY[r].right
-    SEG_TREE_ARRAY[i] = segmentNodeFactory(sourceArray[i], left, right)
-    //SEG_TREE_ARRAY[i].leftChild = SEG_TREE_ARRAY[l];
-    //SEG_TREE_ARRAY[i].rightChild = SEG_TREE_ARRAY[r];
-    segmentNodeMerger(SEG_TREE_ARRAY[i], SEG_TREE_ARRAY[l], SEG_TREE_ARRAY[r])
-  }
-  return SEG_TREE_ARRAY
-}
-
-export const buildSegmentTree = <T, U extends baseSegmentTreeNode>(
-  sourceArray: Array<T>,
-  segmentNodeFactory: segmentTreeNodeFactory<T, U>,
-  segmentNodeMerger: segmentTreeNodeMerger<U>
-): Array<U> => {
-  let l: number = sourceArray.length
-  let n: number = Math.ceil(Math.log2(l))
-  let L: number = Math.pow(2, n + 1)
-  const SEG_TREE_ARRAY: Array<U> = new Array(L)
-  /**fill with baseSegmentTreeEmptyNodes */
-  for (let i = 0; i < L; i++) SEG_TREE_ARRAY[i] = <U>{ left: -1, right: -1 }
-  insertNode(SEG_TREE_ARRAY, sourceArray, 1, 0, l - 1, segmentNodeFactory)
-
-  let j: number = L - 1
-
-  while (SEG_TREE_ARRAY[j].left == -1 || SEG_TREE_ARRAY[j].right >= l) {
-    j--
-    //console.log(`reducing to ${j}`)
-  }
-  j++
-
-  SEG_TREE_ARRAY.length = j
-  L = j
-
-  for (let i = L - 1; i > 0; i--) {
-    let node = SEG_TREE_ARRAY[i]
-    if (node.right - node.left !== 0) {
-      let leftChild: U = SEG_TREE_ARRAY[i * 2]
-      let rightChild: U = SEG_TREE_ARRAY[i * 2 + 1]
-      segmentNodeMerger(node, leftChild, rightChild)
-    }
-  }
-
-  return SEG_TREE_ARRAY
-}
-
-/** @TODO make an iterative query range that updates lazy values too???? */
-export const iterativeQueryRange = <U extends baseSegmentTreeNode>(
-  segmentTree: Array<U>,
-  l: number,
-  r: number,
-  queryMerger: segmentTreeQueryMerger<U>
-): U => {
-  let n = segmentTree.length / 2
-  let left = l
-  let right = r
-  right++ //as this algorithm queries [left,right) so to be consistent with the above one right++ is needed (doing right-- instead --right would get same result?)
-  //@TODO optimize for compilers
-  let resLeft = <U>{ left: -1, right: -1 }
-  let resRight = <U>{ left: -1, right: -1 }
-  //console.log("query merger iterative started", left, right);
-  for (left += n, right += n; left < right; left >>= 1, right >>= 1) {
-    // console.log(`query merger cycle: ${left} ${right}`);
-    if (left & 1) {
-      //console.log(`querymerger going to merge left:${left} ${resLeft.left} ${resLeft.right}  ${segmentTree[left].left} ${segmentTree[left].right}`);
-      resLeft = queryMerger(resLeft, segmentTree[left++])
-    }
-    if (right & 1) {
-      // console.log(`querymerger going to merge right:${right} ${resRight.left} ${resRight.right}  ${segmentTree[right - 1].left} ${segmentTree[right - 1].right}`);
-      resRight = queryMerger(segmentTree[--right], resRight)
-    }
-  }
-
-  let answer = JSON.parse(JSON.stringify(queryMerger(resLeft, resRight)))
-  answer.left = l
-  answer.right = r
-
-  return answer
-}
-
-export const queryRange = <U extends baseSegmentTreeNode>(
-  segmentTree: Array<U>,
-  nodeIndex: number,
-  left: number,
-  right: number,
-  queryMerger: segmentTreeQueryMerger<U>
-): U => {
-  let Node: U = segmentTree[nodeIndex]
-  if (!Node) return <U>{ left: -1, right: -1 }
-  if (Node.left > right || Node.right < left) return <U>{ left: -1, right: -1 }
-  if (Node.left >= left && Node.right <= right) return Node
-
-  let leftBranch = queryRange(segmentTree, 2 * nodeIndex, left, right, queryMerger)
-  let rightBranch = queryRange(segmentTree, 2 * nodeIndex + 1, left, right, queryMerger)
-  /**@TODO return a full copy of the result --> cannot risk to return a piece of the tree and get it modified elsewere */
-  return queryMerger(leftBranch, rightBranch)
-}
-
-export const updateLeafNode = <T, U extends baseSegmentTreeNode>(
-  segmentTree: Array<U>,
-  sourceVal: T,
-  updateIndex: number,
-  segmentNodeLeafUpdater: (t: T, leafNode: U) => void,
-  segmentNodeMerger: segmentTreeNodeMerger<U>
-): void => {
-  let index = 1
-  let Node = segmentTree[index]
-  let left = Node.left
-  let right = Node.right
-  let aux = 0
-  while (right - left !== 0) {
-    let mid: number = left + (right - left) / 2
-    if (updateIndex <= mid) {
-      index *= 2
-      Node = segmentTree[index]
-    } else {
-      index = index * 2 + 1
-      Node = segmentTree[index]
-    }
-    left = Node.left
-    right = Node.right
-  }
-
-  segmentNodeLeafUpdater(sourceVal, segmentTree[index])
-
-  let r = 0
-  while (index > 1) {
-    aux = index
-    index >>= 1
-    r = aux & 1
-
-    segmentNodeMerger(segmentTree[index], segmentTree[aux - r], segmentTree[aux + (r ^ 1)])
-  }
-}
-
-export const updateLeafNodeIterative = <T, U extends baseSegmentTreeNode>(
-  segmentTree: Array<U>,
-  sourceVal: T,
-  updateIndex: number,
-  segmentNodeLeafUpdater: segmentTreeLeafNodeUpdater<T, U>,
-  segmentNodeMerger: segmentTreeNodeMerger<U>
-): void => {
-  let index: number = segmentTree.length / 2 + updateIndex
-  let aux: number = 0
-
-  segmentNodeLeafUpdater(sourceVal, segmentTree[index])
-
-  let r: number = 0
-  while (index > 1) {
-    aux = index
-    index >>= 1
-    r = aux & 1
-
-    segmentNodeMerger(segmentTree[index], segmentTree[aux - r], segmentTree[aux + (r ^ 1)])
-  }
-}
-
-/**@TODO make interface for lazy node updater
- * must use recoursive queryRange from top to bottom to have lazyness work
- */
-export const updateRangeLazy = <T, U extends baseSegmentTreeNode>(
-  segmentTree: Array<U>,
-  sourceVal: T,
-  nodeIndex: number,
-  left: number,
-  right: number,
-  segmentNodeUpdater: segmentTreeRangeNodeUpdater<T, U>,
-  segmentNodeMerger: segmentTreeNodeMerger<U>,
-  segmentNodePropagator: segmentTreeRangeNodePropagator<U>
-): void => {
-  let Node: U = segmentTree[nodeIndex]
-  if (!Node) return
-  /**check for lazy value to be propagated even if node is out of range??? add a flag on segmentNode Interface???? call it _lazy:boolean
-   * if(Node._lazy) segmentNodeUpdater(???)
+  /**
+   * @title Segment Tree
+   * @notice A segment tree is a tree data structure that allows for efficient querying of range-based queries.
+   * @dev This implementation is a generic segment tree that can be extended to support various operations.
+   * @see https://codeforces.com/blog/entry/18051
+   * @see https://www.geeksforgeeks.org/iterative-segment-tree-range-minimum-query/
    */
-  let leftChild: U = segmentTree[2 * nodeIndex]
-  let rightChild: U = segmentTree[2 * nodeIndex + 1]
-  if (Node.left != Node.right) segmentNodePropagator(Node, leftChild, rightChild)
 
-  if (Node.left > right || Node.right < left) return //completely out of range
+  /**
+   * @notice Builds a segment tree from a source array in an iterative manner.
+   * @param sourceArray The source array to build the segment tree from.
+   * @param segmentNodeFactory A function that creates a new segment tree node.
+   * @param segmentNodeMerger A function that merges two segment tree nodes.
+   * @returns The segment tree array.
+   */
+  export const buildSegTreeIterative = <T, U extends baseSegmentTreeNode>(
+    sourceArray: Array<T>,
+    segmentNodeFactory: segmentTreeNodeFactory<T, U>,
+    segmentNodeMerger: segmentTreeNodeMerger<U>
+  ): Array<U> => {
+    const n: number = sourceArray.length
+    const segTreeArray: Array<U> = new Array(2 * n)
 
-  if (Node.left >= left && Node.right <= right) {
-    //fully inside range
-    /**chidlren are lazily updated inside segmentNodeUpdater */
-    if (Node.left == Node.right) return segmentNodeUpdater(sourceVal, Node)
-    return segmentNodeUpdater(sourceVal, Node, leftChild, rightChild)
+    // Initialize leaf nodes
+    for (let i = 0; i < n; i++) {
+      segTreeArray[n + i] = segmentNodeFactory(sourceArray[i], i, i)
+    }
+
+    // Build the tree by merging nodes from bottom to top
+    for (let i = n - 1; i > 0; i--) {
+      const leftChildIndex = i << 1
+      const rightChildIndex = (i << 1) | 1
+      const left = segTreeArray[leftChildIndex].left
+      const right = segTreeArray[rightChildIndex].right
+      segTreeArray[i] = segmentNodeFactory(sourceArray[i], left, right)
+      segmentNodeMerger(segTreeArray[i], segTreeArray[leftChildIndex], segTreeArray[rightChildIndex])
+    }
+
+    return segTreeArray
   }
 
-  //partial range overlap
-  updateRangeLazy(
-    segmentTree,
-    sourceVal,
-    2 * nodeIndex,
-    left,
-    right,
-    segmentNodeUpdater,
-    segmentNodeMerger,
-    segmentNodePropagator
-  )
-  updateRangeLazy(
-    segmentTree,
-    sourceVal,
-    2 * nodeIndex + 1,
-    left,
-    right,
-    segmentNodeUpdater,
-    segmentNodeMerger,
-    segmentNodePropagator
-  )
-  //console.log(`calling updaterange on ${Node.left}/${Node.right} updating range: ${left}-${right}`)
-  segmentNodeMerger(Node, leftChild, rightChild)
+  /**
+   * @notice Performs a range query on the segment tree in an iterative manner.
+   * @param segmentTree The segment tree to query.
+   * @param l The left boundary of the query range.
+   * @param r The right boundary of the query range.
+   * @param queryMerger A function that merges the results of the query.
+   * @returns The result of the query.
+   */
+  export const iterativeQueryRange = <U extends baseSegmentTreeNode>(
+    segmentTree: Array<U>,
+    l: number,
+    r: number,
+    queryMerger: segmentTreeQueryMerger<U>
+  ): U => {
+    const n = segmentTree.length / 2
+    let left = l
+    let right = r
+    right++ // query is [left, right), so increment right to be inclusive
 
-  /*update this root Node given value to be updated in some of its descendants 
-  http://se7so.blogspot.com/2012/12/segment-trees-and-lazy-propagation.html
-  a partialParentRangeUpdater is needed
-  */
-}
+    let resLeft = <U>{ left: -1, right: -1 }
+    let resRight = <U>{ left: -1, right: -1 }
 
-/**propagates down whatever change is done on each node starting from root, needs a function that takes a node and its two children and modifies them */
-export const propagateDown = <U extends baseSegmentTreeNode>(
-  segmentTree: Array<U>,
-  lazyNodesUpdater: segmentTreeNodeMerger<U>
-): void => {
-  for (let i = 0; i < segmentTree.length; i++) {
-    let node = segmentTree[i]
-    if (node && node.left < node.right) {
-      lazyNodesUpdater(node, segmentTree[i * 2], segmentTree[i * 2 + 1])
+    for (left += n, right += n; left < right; left >>= 1, right >>= 1) {
+      if (left & 1) {
+        resLeft = queryMerger(resLeft, segmentTree[left++])
+      }
+      if (right & 1) {
+        resRight = queryMerger(segmentTree[--right], resRight)
+      }
+    }
+
+    const answer = JSON.parse(JSON.stringify(queryMerger(resLeft, resRight)))
+    answer.left = l
+    answer.right = r
+
+    return answer
+  }
+
+  /**
+   * @notice Performs a range query on the segment tree in a recursive manner.
+   * @param segmentTree The segment tree to query.
+   * @param nodeIndex The index of the current node in the segment tree.
+   * @param left The left boundary of the query range.
+   * @param right The right boundary of the query range.
+   * @param queryMerger A function that merges the results of the query.
+   * @returns The result of the query.
+   */
+  export const queryRange = <U extends baseSegmentTreeNode>(
+    segmentTree: Array<U>,
+    nodeIndex: number,
+    left: number,
+    right: number,
+    queryMerger: segmentTreeQueryMerger<U>
+  ): U => {
+    const node: U = segmentTree[nodeIndex]
+    if (!node) return <U>{ left: -1, right: -1 }
+    if (node.left > right || node.right < left) return <U>{ left: -1, right: -1 } // Node is completely outside the query range
+    if (node.left >= left && node.right <= right) return node // Node is completely inside the query range
+
+    const leftBranch = queryRange(segmentTree, 2 * nodeIndex, left, right, queryMerger)
+    const rightBranch = queryRange(segmentTree, 2 * nodeIndex + 1, left, right, queryMerger)
+
+    return queryMerger(leftBranch, rightBranch)
+  }
+
+  /**
+   * @notice Updates a leaf node in the segment tree in an iterative manner.
+   * @param segmentTree The segment tree to update.
+   * @param sourceVal The new value for the leaf node.
+   * @param updateIndex The index of the leaf node to update.
+   * @param segmentNodeLeafUpdater A function that updates the leaf node.
+   * @param segmentNodeMerger A function that merges the updated nodes.
+   */
+  export const updateLeafNodeIterative = <T, U extends baseSegmentTreeNode>(
+    segmentTree: Array<U>,
+    sourceVal: T,
+    updateIndex: number,
+    segmentNodeLeafUpdater: segmentTreeLeafNodeUpdater<T, U>,
+    segmentNodeMerger: segmentTreeNodeMerger<U>
+  ): void => {
+    let index: number = segmentTree.length / 2 + updateIndex
+
+    segmentNodeLeafUpdater(sourceVal, segmentTree[index])
+
+    while (index > 1) {
+      const aux = index
+      index >>= 1
+      const r = aux & 1
+
+      segmentNodeMerger(segmentTree[index], segmentTree[aux - r], segmentTree[aux + (r ^ 1)])
     }
   }
-}
 
-export const updateBottomUm = <U extends baseSegmentTreeNode>(
-  segmentTree: Array<U>,
-  segmentNodeMerger: segmentTreeNodeMerger<U>
-): void => {}
-//@TODO https://codeforces.com/blog/entry/18051
-//updateRAnge and lazyPropagation
-//@TODO add outof bound query exception or just call within original array bounds
-export class SegmentTree<T, U extends baseSegmentTreeNode> {
-  private _SEG_TREE: Array<U>
-  //protected segmentNodeMerger:segmentTreeNodeMerger<U>;
-  //protected segmentNodeFactory:segmentTreeNodeFactory<T,U>;
-  constructor(
-    sourceArray: Array<T>,
-    protected segmentNodeFactory: segmentTreeNodeFactory<T, U>,
-    protected segmentNodeMerger: segmentTreeNodeMerger<U>,
-    protected segmentNodeQuery: segmentTreeQueryMerger<U>,
-    protected segmentLeaftUpdater: segmentTreeLeafNodeUpdater<T, U>
-  ) {
-    this._SEG_TREE = buildSegTreeIterative(sourceArray, segmentNodeFactory, segmentNodeMerger)
-  }
-  query(left: number, right: number): U {
-    return iterativeQueryRange(this._SEG_TREE, left, right, this.segmentNodeQuery)
-  }
-  updateLeaf(value: T, position: number): void {
-    updateLeafNodeIterative(
-      this._SEG_TREE,
-      value,
-      position,
-      this.segmentLeaftUpdater,
-      this.segmentNodeMerger
+  /**
+   * @notice Updates a range of nodes in the segment tree with lazy propagation.
+   * @param segmentTree The segment tree to update.
+   * @param sourceVal The new value for the range.
+   * @param nodeIndex The index of the current node.
+   * @param left The left boundary of the update range.
+   * @param right The right boundary of the update range.
+   * @param segmentNodeUpdater A function that updates the nodes in the range.
+   * @param segmentNodeMerger A function that merges the updated nodes.
+   * @param segmentNodePropagator A function that propagates the lazy values.
+   */
+  export const updateRangeLazy = <T, U extends baseSegmentTreeNode>(
+    segmentTree: Array<U>,
+    sourceVal: T,
+    nodeIndex: number,
+    left: number,
+    right: number,
+    segmentNodeUpdater: segmentTreeRangeNodeUpdater<T, U>,
+    segmentNodeMerger: segmentTreeNodeMerger<U>,
+    segmentNodePropagator: segmentTreeRangeNodePropagator<U>
+  ): void => {
+    const node: U = segmentTree[nodeIndex]
+    if (!node) return
+
+    const leftChild: U = segmentTree[2 * nodeIndex]
+    const rightChild: U = segmentTree[2 * nodeIndex + 1]
+    if (node.left !== node.right) segmentNodePropagator(node, leftChild, rightChild)
+
+    if (node.left > right || node.right < left) return // Completely out of range
+
+    if (node.left >= left && node.right <= right) { // Fully inside range
+      if (node.left === node.right) return segmentNodeUpdater(sourceVal, node)
+      return segmentNodeUpdater(sourceVal, node, leftChild, rightChild)
+    }
+
+    // Partial range overlap
+    updateRangeLazy(
+      segmentTree,
+      sourceVal,
+      2 * nodeIndex,
+      left,
+      right,
+      segmentNodeUpdater,
+      segmentNodeMerger,
+      segmentNodePropagator
     )
+    updateRangeLazy(
+      segmentTree,
+      sourceVal,
+      2 * nodeIndex + 1,
+      left,
+      right,
+      segmentNodeUpdater,
+      segmentNodeMerger,
+      segmentNodePropagator
+    )
+
+    segmentNodeMerger(node, leftChild, rightChild)
   }
-  getTree() {
-    return this._SEG_TREE
+
+  /**
+   * @notice Propagates lazy values down the segment tree.
+   * @param segmentTree The segment tree to propagate.
+   * @param lazyNodesUpdater A function that updates the nodes with lazy values.
+   */
+  export const propagateDown = <U extends baseSegmentTreeNode>(
+    segmentTree: Array<U>,
+    lazyNodesUpdater: segmentTreeNodeMerger<U>
+  ): void => {
+    for (let i = 0; i < segmentTree.length; i++) {
+      const node = segmentTree[i]
+      if (node && node.left < node.right) {
+        lazyNodesUpdater(node, segmentTree[i * 2], segmentTree[i * 2 + 1])
+      }
+    }
   }
-}
+
+  /**
+   * @title SegmentTree
+   * @notice A generic segment tree implementation.
+   */
+  export class SegmentTree<T, U extends baseSegmentTreeNode> {
+    private _SEG_TREE: Array<U>
+
+    constructor(
+      sourceArray: Array<T>,
+      protected segmentNodeFactory: segmentTreeNodeFactory<T, U>,
+      protected segmentNodeMerger: segmentTreeNodeMerger<U>,
+      protected segmentNodeQuery: segmentTreeQueryMerger<U>,
+      protected segmentLeaftUpdater: segmentTreeLeafNodeUpdater<T, U>
+    ) {
+      this._SEG_TREE = buildSegTreeIterative(sourceArray, segmentNodeFactory, segmentNodeMerger)
+    }
+
+    /**
+     * @notice Performs a range query on the segment tree.
+     * @param left The left boundary of the query range.
+     * @param right The right boundary of the query range.
+     * @returns The result of the query.
+     */
+    query(left: number, right: number): U {
+      return iterativeQueryRange(this._SEG_TREE, left, right, this.segmentNodeQuery)
+    }
+
+    /**
+     * @notice Updates a leaf node in the segment tree.
+     * @param value The new value for the leaf node.
+     * @param position The index of the leaf node to update.
+     */
+    updateLeaf(value: T, position: number): void {
+      updateLeafNodeIterative(
+        this._SEG_TREE,
+        value,
+        position,
+        this.segmentLeaftUpdater,
+        this.segmentNodeMerger
+      )
+    }
+
+    /**
+     * @notice Returns the segment tree array.
+     * @returns The segment tree array.
+     */
+    getTree() {
+      return this._SEG_TREE
+    }
+  }

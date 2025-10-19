@@ -1,11 +1,9 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 
 import {
-  buildSegmentTree,
   queryRange,
   buildSegTreeIterative,
   iterativeQueryRange,
-  updateLeafNode,
   updateLeafNodeIterative,
   SegmentTree,
   updateRangeLazy
@@ -117,7 +115,7 @@ const nodeQueryMerger = (leftNode: segmentNode, rightNode: segmentNode) => {
 describe('testing segmentTree setup query and update: ', () => {
   let testArr: Array<number> = [3, 45, 6, 7, 8, 23, 1, 2, 55, 6, 7, 85, 34, 6, 12, 66]
   /**@TODO test edge cases and different lengths */
-  const SEGMENT: segmentNode[] = buildSegmentTree(testArr, nodeFactoryFn, nodeMergerFn)
+  const SEGMENT: segmentNode[] = buildSegTreeIterative(testArr, nodeFactoryFn, nodeMergerFn)
   const SEG_ITER: segmentNode[] = buildSegTreeIterative(testArr, nodeFactoryFn, nodeMergerFn)
   it('builds a segmentTree from a small array:', () => {
     SEGMENT.forEach((node, idx) => {
@@ -210,7 +208,7 @@ describe('testing segmentTree setup query and update: ', () => {
   })
 
   it('updates a leaf in recoursive tree reducing the maximum in that interval', () => {
-    updateLeafNode(SEGMENT, 20, 5, nodeSegLeafUpdater, nodeMergerFn)
+    updateLeafNodeIterative(SEGMENT, 20, 5, nodeSegLeafUpdater, nodeMergerFn)
     let res = queryRange(SEGMENT, 1, 4, 7, nodeQueryMerger)
     expect(res.sum).toEqual(31)
     expect(res.max).toEqual(20)
