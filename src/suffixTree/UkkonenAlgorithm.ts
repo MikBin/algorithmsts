@@ -8,9 +8,11 @@ export class UkkonenAlgorithm<T> {
   private tree: SuffixTree<T>
   private root: SuffixTreeNode<T>
   private bottom: SuffixTreeNode<T>
-  private s: SuffixTreeNode<T>
-  private k: number = 0
-  private i: number = -1
+  private activeNode: SuffixTreeNode<T>
+  private activeEdge: number = 0
+  private activeLength: number = 0
+  private remaining: number = 0
+  private position: number = -1
 
   /**
    * Creates an instance of UkkonenAlgorithm.
@@ -21,141 +23,117 @@ export class UkkonenAlgorithm<T> {
     this.root = this.tree.root
     this.bottom = new SuffixTreeNode<T>()
     this.root.suffixLink = this.bottom
-    this.s = this.root
+    this.activeNode = this.root
   }
 
   /**
    * Adds a string to the suffix tree using Ukkonen's algorithm.
-   * @param str The string to add.
-   * @param temp The starting index of the new string in the text.
+   * @param _str The string to add (unused, kept for interface compatibility).
+   * @param startPos The starting index of the new string in the text.
    * @param newText The updated text.
    */
-  public addString(str: string, temp: number, newText: string): void {
+  public addString(_str: string, startPos: number, newText: string): void {
+    const oldLength = this.text.length
     this.text = newText
 
-    for (let j = temp; j < this.text.length; j++) {
-      this.bottom.addTransition(this.root, [j, j], this.text[j])
-    }
-
-    while (this.i < this.text.length - 1) {
-      this.i++
-      ;[this.s, this.k] = this.update(this.s, [this.k, this.i])
-      ;[this.s, this.k] = this.canonize(this.s, [this.k, this.i])
-    }
-
-    // this.addTerminations()
-  }
-
-  /**
-   * Marks the terminal nodes in the suffix tree.
-   * @param node The node to start from.
-   */
-  // private addTerminations(node: SuffixTreeNode<T> = this.root): void {
-  //   for (const t in node.transitions) {
-  //     const [nextNode, a, b] = node.transitions[t]
-  //     const sub = this.text.substring(a, b + 1)
-  //     nextNode.isTerminal = this.text.endsWith(sub)
-  //     this.addTerminations(nextNode)
-  //   }
-  // }
-
-  /**
-   * Performs the update step of Ukkonen's algorithm.
-   * @param s The current node.
-   * @param param1 The range of indices in the text.
-   * @returns A tuple containing the new node and the new index.
-   */
-  private update(
-    s: SuffixTreeNode<T> | null,
-    [k, i]: [number, number]
-  ): [SuffixTreeNode<T>, number] {
-    if (!s) {
-      return [this.root, 0]
-    }
-
-    let oldr = this.root
-    let [endPoint, r] = this.testAndSplit(s, [k, i - 1], this.text[i])
-
-    while (!endPoint) {
-      r.addTransition(new SuffixTreeNode<T>(), [i, Infinity], this.text[i])
-
-      if (oldr !== this.root) {
-        oldr.suffixLink = r
+    // Set up bottom node transitions for new characters
+    for (let j = oldLength; j < this.text.length; j++) {
+      if (!this.bottom.transitions[this.text[j]]) {
+        this.bottom.addTransition(this.root, [j, j], this.text[j])
       }
-
-      oldr = r
-      ;[s, k] = this.canonize(s.suffixLink, [k, i - 1])
-      ;[endPoint, r] = this.testAndSplit(s, [k, i - 1], this.text[i])
     }
 
-    if (oldr !== this.root) {
-      oldr.suffixLink = s
-    }
-
-    return [s, k]
-  }
-
-  /**
-   * Performs the test-and-split step of Ukkonen's algorithm.
-   * @param s The current node.
-   * @param param1 The range of indices in the text.
-   * @param t The character to test.
-   * @returns A tuple containing a boolean indicating if the split occurred and the new node.
-   */
-  private testAndSplit(
-    s: SuffixTreeNode<T>,
-    [k, p]: [number, number],
-    t: string
-  ): [boolean, SuffixTreeNode<T>] {
-    if (k <= p) {
-      const [s2, k2, p2] = s.transitions[this.text[k]]
-
-      if (t === this.text[k2 + p - k + 1]) {
-        return [true, s]
-      } else {
-        const r = new SuffixTreeNode<T>()
-        s.addTransition(r, [k2, k2 + p - k], this.text[k2])
-        r.addTransition(s2, [k2 + p - k + 1, p2], this.text[k2 + p - k + 1])
-        return [false, r]
-      }
-    } else {
-      if (!s.transitions[t]) {
-        return [false, s]
-      } else {
-        return [true, s]
-      }
+    // Build suffix tree character by character for new portion
+    for (let i = oldLength; i < this.text.length; i++) {
+      this.addChar(i)
     }
   }
 
   /**
-   * Performs the canonize step of Ukkonen's algorithm.
-   * @param s The current node.
-   * @param param1 The range of indices in the text.
-   * @returns A tuple containing the new node and the new index.
+   * Adds a character to the suffix tree.
+   * @param pos The position of the character to add.
    */
-  private canonize(
-    s: SuffixTreeNode<T> | null,
-    [k, p]: [number, number]
-  ): [SuffixTreeNode<T>, number] {
-    if (!s) {
-      return [this.root, 0]
-    }
+  private addChar(pos: number): void {
+    this.position = pos
+    this.remaining++
+    let lastCreatedNode: SuffixTreeNode<T> | null = null
 
-    if (p < k) {
-      return [s, k]
-    } else {
-      let [s2, k2, p2] = s.transitions[this.text[k]]
+    while (this.remaining > 0) {
+      if (this.activeLength === 0) {
+        this.activeEdge = pos
+      }
 
-      while (p2 - k2 <= p - k) {
-        k = k + p2 - k2 + 1
-        s = s2
+      const edgeStartChar = this.text[this.activeEdge]
 
-        if (k <= p) {
-          ;[s2, k2, p2] = s.transitions[this.text[k]]
+      if (!this.activeNode.transitions[edgeStartChar]) {
+        // Rule 2: No edge starting with this character, create new leaf
+        const newLeaf = new SuffixTreeNode<T>()
+        this.activeNode.addTransition(newLeaf, [pos, Infinity], edgeStartChar)
+
+        if (lastCreatedNode !== null) {
+          lastCreatedNode.suffixLink = this.activeNode
+          lastCreatedNode = null
         }
+      } else {
+        // Edge exists, need to walk down or split
+        const [nextNode, edgeStart, edgeEnd] = this.activeNode.transitions[edgeStartChar]
+        const edgeLength = (edgeEnd === Infinity ? this.position : edgeEnd) - edgeStart + 1
+
+        // Walk down if active length exceeds edge length
+        if (this.activeLength >= edgeLength) {
+          this.activeNode = nextNode
+          this.activeLength -= edgeLength
+          this.activeEdge += edgeLength
+          continue
+        }
+
+        // Check if current character matches
+        const nextChar = this.text[edgeStart + this.activeLength]
+        if (nextChar === this.text[pos]) {
+          // Rule 3: Character already in tree
+          if (lastCreatedNode !== null && this.activeNode !== this.root) {
+            lastCreatedNode.suffixLink = this.activeNode
+            lastCreatedNode = null
+          }
+          this.activeLength++
+          break // Rule 3 extension
+        }
+
+        // Rule 2: Split the edge
+        const splitNode = new SuffixTreeNode<T>()
+        const newLeaf = new SuffixTreeNode<T>()
+
+        // Update existing edge to point to split node
+        this.activeNode.addTransition(
+          splitNode,
+          [edgeStart, edgeStart + this.activeLength - 1],
+          edgeStartChar
+        )
+
+        // Add new leaf from split node
+        splitNode.addTransition(newLeaf, [pos, Infinity], this.text[pos])
+
+        // Add rest of original edge from split node
+        splitNode.addTransition(
+          nextNode,
+          [edgeStart + this.activeLength, edgeEnd],
+          nextChar
+        )
+
+        if (lastCreatedNode !== null) {
+          lastCreatedNode.suffixLink = splitNode
+        }
+        lastCreatedNode = splitNode
       }
 
-      return [s, k]
+      this.remaining--
+
+      if (this.activeNode === this.root && this.activeLength > 0) {
+        this.activeLength--
+        this.activeEdge = pos - this.remaining + 1
+      } else if (this.activeNode !== this.root) {
+        this.activeNode = this.activeNode.suffixLink || this.root
+      }
     }
   }
 }

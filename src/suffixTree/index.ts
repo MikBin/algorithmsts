@@ -71,7 +71,9 @@ export class SuffixTree<T> {
    */
   public addString(str: string): SuffixTree<T> {
     const temp = this.text.length
-    this.text += temp ? '⚇' + str : str
+    // Add separator if not first string, then add string with terminator
+    const separator = temp ? '⚇' : ''
+    this.text += separator + str + '$'
     this.algorithm.addString(str, temp, this.text)
     return this
   }
@@ -84,20 +86,38 @@ export class SuffixTree<T> {
    * @returns The starting index of the substring in the text, or -1 if not found.
    */
   public findSubstring(str: string, node = this.root, matchedSoFar = 0): number {
+    // Don't search for strings containing terminators or separators
+    if (str.includes('$') || str.includes('⚇')) {
+      return -1
+    }
+
     const L = this.text.length
     for (const t in node.transitions) {
       let [nextNode, a, b] = node.transitions[t]
       const effectiveB = b === Infinity ? L : b + 1
-      const sub = this.text.substring(a, effectiveB)
-      const offset = effectiveB - a
-      if (str.startsWith(sub)) {
-        if (str.length === sub.length) {
-          return a - matchedSoFar
-        } else {
-          return this.findSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
+      let sub = this.text.substring(a, effectiveB)
+      
+      // Try to match str against sub, considering that sub might contain terminators
+      let i = 0, j = 0
+      while (i < str.length && j < sub.length) {
+        if (sub[j] === '$' || sub[j] === '⚇') {
+          // Skip terminators/separators in the edge
+          j++
+          continue
         }
-      } else if (sub.startsWith(str)) {
+        if (str[i] !== sub[j]) {
+          break
+        }
+        i++
+        j++
+      }
+      
+      if (i === str.length) {
+        // Complete match
         return a - matchedSoFar
+      } else if (i > 0) {
+        // Partial match, need to continue down the tree
+        return this.findSubstring(str.substring(i), nextNode, matchedSoFar + i)
       }
     }
     return -1
@@ -132,20 +152,37 @@ export class SuffixTree<T> {
     node = this.root,
     matchedSoFar = 0
   ): [number, SuffixTreeNode<T> | null, number] {
+    // Don't search for strings containing terminators or separators
+    if (str.includes('$') || str.includes('⚇')) {
+      return [-1, null, 0]
+    }
+
     const L = this.text.length
     for (const t in node.transitions) {
       let [nextNode, a, b] = node.transitions[t]
       const effectiveB = b === Infinity ? L : b + 1
       const sub = this.text.substring(a, effectiveB)
-      const offset = effectiveB - a
-      if (str.startsWith(sub)) {
-        if (str.length === sub.length) {
-          return [a - matchedSoFar, nextNode, this.countLeaves(nextNode)]
-        } else {
-          return this.findAllSubstring(str.substring(offset), nextNode, matchedSoFar + offset)
+      
+      // Try to match str against sub, considering that sub might contain terminators
+      let i = 0, j = 0
+      while (i < str.length && j < sub.length) {
+        if (sub[j] === '$' || sub[j] === '⚇') {
+          j++
+          continue
         }
-      } else if (sub.startsWith(str)) {
+        if (str[i] !== sub[j]) {
+          break
+        }
+        i++
+        j++
+      }
+      
+      if (i === str.length) {
+        // Complete match
         return [a - matchedSoFar, nextNode, this.countLeaves(nextNode)]
+      } else if (i > 0) {
+        // Partial match, continue down the tree
+        return this.findAllSubstring(str.substring(i), nextNode, matchedSoFar + i)
       }
     }
     return [-1, null, 0]
@@ -167,9 +204,14 @@ export class SuffixTree<T> {
       for (const t in node.transitions) {
         const [s, a, b] = node.transitions[t]
         if (!s.isLeaf()) {
-          const edgeLabel = text.substring(a, b === Infinity ? L : b + 1)
+          let edgeLabel = text.substring(a, b === Infinity ? L : b + 1)
+          // Remove terminators and separators
+          edgeLabel = edgeLabel.replace(/[$⚇]/g, '')
           const newStr = curStr + edgeLabel
-          longestSubstrings.push(newStr)
+          // Only add non-empty strings
+          if (newStr.length > 0) {
+            longestSubstrings.push(newStr)
+          }
           traverse(s, newStr)
         }
       }

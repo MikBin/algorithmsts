@@ -17,10 +17,10 @@ describe("suffix tree test: ", () => {
     expect(mississippiTree.findSubstring("ippi")).toEqual(7);
   });
 
-  // it("counts all occurences", () => {
-  //   const [, , bres] = bananaTree.findAllSubstring("na");
-  //   const [, , mres] = mississippiTree.findAllSubstring("is");
-  //   expect(bres).toEqual(2);
-  //   expect(mres).toEqual(2);
-  // });
+  it("counts all occurences", () => {
+    const [, , bres] = bananaTree.findAllSubstring("na");
+    const [, , mres] = mississippiTree.findAllSubstring("is");
+    expect(bres).toEqual(2);
+    expect(mres).toEqual(2);
+  });
 });
