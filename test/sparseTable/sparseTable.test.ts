@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { SparseTable } from "../../src/SparseTable";
 
-describe.only("SparseTable", () => {
-  describe.only("Sum queries", () => {
+describe("SparseTable", () => {
+  describe("Sum queries", () => {
     const sumOp = (a: number, b: number) => a + b;
     const arr = [1, 3, 4, 8, 6, 1, 4, 2];
     let sparseTable: SparseTable<number> = new SparseTable(arr, sumOp);
