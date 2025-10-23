@@ -20,11 +20,15 @@ let ghToken = process.env.GH_TOKEN
 echo("Deploying docs!!!")
 cd("docs")
 touch(".nojekyll")
+
+// Copy API documentation to docs directory
+exec("cp -r api/* .")
+
 exec("git init")
 exec("git add .")
 exec('git config user.name "Michele Bini"')
 exec('git config user.email "mikbin80@gmail.com"')
-exec('git commit -m "docs(docs): update gh-pages"')
+exec('git commit -m "docs(docs): update gh-pages with API documentation"')
 exec(
   `git push --force --quiet "https://${ghToken}@${repository}" master:gh-pages`
 )
