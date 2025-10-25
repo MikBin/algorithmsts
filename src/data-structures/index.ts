@@ -19,6 +19,7 @@ export { SkipList, SkipListIterator } from './skip-list';
 export type { SkipNode, BinaryComparisonRoutine } from './skip-list';
 
 // Tree-based data structures
+export { AVLTree } from './avl-tree';
 export { SegmentTree, SegmentTreeIterator } from './segment-tree';
 export type {
   BaseSegmentTreeNode,
