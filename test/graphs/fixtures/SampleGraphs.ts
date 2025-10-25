@@ -10,7 +10,7 @@ export class SampleGraphs {
    * Simple directed graph: A -> B -> C
    */
   static get simpleDirectedGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(true); // directed
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
@@ -36,7 +36,7 @@ export class SampleGraphs {
    * Graph with a cycle: A -> B -> C -> A
    */
   static get cyclicGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(true); // directed
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
@@ -50,7 +50,7 @@ export class SampleGraphs {
    * DAG (Directed Acyclic Graph): A -> B, A -> C, B -> D, C -> D
    */
   static get dagGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(true); // directed
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
@@ -83,7 +83,7 @@ export class SampleGraphs {
    * Disconnected graph with two components
    */
   static get disconnectedGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(true); // directed
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
@@ -97,27 +97,28 @@ export class SampleGraphs {
    * Empty graph
    */
   static get emptyGraph(): IGraph<string> {
-    return new AdjacencyListGraph<string>();
+    return new AdjacencyListGraph<string>(true); // directed
   }
 
   /**
    * Single vertex graph
    */
   static get singleVertexGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(true); // directed
     graph.addVertex('A');
     return graph;
   }
 
   /**
-   * Complete graph K4
+   * Complete graph K4 (undirected - should have cycles)
    */
   static get completeGraphK4(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(false); // undirected
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
     graph.addVertex('D');
+    // Add all possible edges for complete graph K4
     graph.addEdge('A', 'B');
     graph.addEdge('A', 'C');
     graph.addEdge('A', 'D');
@@ -131,7 +132,7 @@ export class SampleGraphs {
    * Tree structure
    */
   static get treeGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(true); // directed
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
@@ -148,7 +149,7 @@ export class SampleGraphs {
    * Same graphs but using adjacency matrix implementation
    */
   static get simpleDirectedGraphMatrix(): IGraph<string> {
-    const graph = new AdjacencyMatrixGraph<string>();
+    const graph = new AdjacencyMatrixGraph<string>(true); // directed
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');

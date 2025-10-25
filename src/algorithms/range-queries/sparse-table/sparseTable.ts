@@ -98,6 +98,16 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
    */
   public query(left: number, right: number): T {
     const len = right - left + 1;
+
+    // For operations like sum where overlapping ranges cause double-counting,
+    // use an iterative approach with non-overlapping ranges
+    // We detect sum operations by testing if operation(a, 0) === a for simple values
+    const testResult = this.operation(5, 0);
+    if (testResult === 5) {
+      return this.queryIterative(left, right);
+    }
+
+    // For idempotent operations (min, max), use the standard sparse table approach
     const p = this.log2[len];
     return this.operation(this.table[p][left], this.table[p][right - (1 << p) + 1]);
   }

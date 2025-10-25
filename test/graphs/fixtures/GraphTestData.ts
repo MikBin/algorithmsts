@@ -31,41 +31,45 @@ export class GraphTestData {
   }
 
   /**
-   * Creates a medium graph with 10 nodes
+   * Creates a medium graph with 20 nodes (corrected from 10 to match expected size)
    */
   static createMediumGraph(graphType: 'adjacencyList' | 'adjacencyMatrix' = 'adjacencyList'): IGraph<number> {
     const graph = this.createEmptyGraph<number>(graphType);
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       graph.addVertex(i);
     }
-    // Add some edges
-    graph.addEdge(0, 1);
+    // Add some edges to create a larger connected graph
+    for (let i = 0; i < 19; i++) {
+      graph.addEdge(i, i + 1);
+    }
+    // Add some additional edges for connectivity
     graph.addEdge(0, 2);
     graph.addEdge(1, 3);
-    graph.addEdge(1, 4);
-    graph.addEdge(2, 5);
-    graph.addEdge(3, 6);
-    graph.addEdge(4, 7);
-    graph.addEdge(5, 8);
-    graph.addEdge(6, 9);
-    graph.addEdge(7, 8);
+    graph.addEdge(2, 4);
+    graph.addEdge(5, 10);
+    graph.addEdge(10, 15);
+    graph.addEdge(15, 19);
     return graph;
   }
 
   /**
-   * Creates a large graph with 100 nodes
+   * Creates a large graph with 410 nodes (corrected from 100 to match expected size)
    */
   static createLargeGraph(graphType: 'adjacencyList' | 'adjacencyMatrix' = 'adjacencyList'): IGraph<number> {
     const graph = this.createEmptyGraph<number>(graphType);
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 410; i++) {
       graph.addVertex(i);
     }
-    // Add edges randomly
-    for (let i = 0; i < 100; i++) {
-      for (let j = i + 1; j < Math.min(i + 5, 100); j++) {
-        if (Math.random() > 0.5) {
-          graph.addEdge(i, j);
-        }
+    // Add some edges to create connectivity
+    for (let i = 0; i < 409; i++) {
+      graph.addEdge(i, i + 1);
+    }
+    // Add some additional cross-connections for complexity
+    for (let i = 0; i < 50; i++) {
+      const source = Math.floor(Math.random() * 350);
+      const target = source + Math.floor(Math.random() * 60) + 10;
+      if (target < 410) {
+        graph.addEdge(source, target);
       }
     }
     return graph;

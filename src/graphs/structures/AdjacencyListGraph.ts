@@ -38,6 +38,7 @@ export class AdjacencyListGraph<T, W = number> extends BaseDataStructure<T> impl
    * @inheritdoc
    */
   public contains(element: T): boolean {
+    Validator.notNull(element, 'element');
     return this.adjacencyList.has(element);
   }
 

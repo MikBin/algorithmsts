@@ -1,6 +1,6 @@
 
 import { DepthFirstSearch } from '../../../../src/algorithms/graphs/traversal';
-import { AdjacencyListGraph } from '../../../graphs/structures/adjacencyListGraph.test';
+import { AdjacencyListGraph } from '../../../../src/graphs/structures/AdjacencyListGraph';
 import { describe, it, expect } from 'vitest';
 
 // Re-export for use in tests

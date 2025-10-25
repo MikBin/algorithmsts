@@ -60,27 +60,49 @@ export class CycleDetection<T, W = number> extends BaseAlgorithm<IGraph<T, W>, I
   private detectCycleDirected(graph: IGraph<T, W>, vertices: T[]): ICycleDetectionResult<T> {
     const visited = new Set<T>();
     const visiting = new Set<T>(); // Currently being visited (in recursion stack)
-    const path: T[] = [];
+    const parent = new Map<T, T | null>(); // Track parent to avoid going back
+    const recursionStack = new Set<T>(); // Track current recursion stack
 
     const dfs = (vertex: T): ICycleDetectionResult<T> | null => {
+      if (visited.has(vertex)) {
+        return null;
+      }
+
+      visited.add(vertex);
       visiting.add(vertex);
-      path.push(vertex);
+      recursionStack.add(vertex);
 
       for (const neighbor of graph.getNeighbors(vertex)) {
         if (!visited.has(neighbor)) {
+          parent.set(neighbor, vertex);
           const result = dfs(neighbor);
           if (result) return result;
         } else if (visiting.has(neighbor)) {
-          // Cycle found
-          const cycleStart = path.indexOf(neighbor);
-          const cycle = [...path.slice(cycleStart), neighbor];
+          // Found a cycle - reconstruct it from neighbor to current vertex
+          const cycle: T[] = [];
+
+          // Start from the current vertex and work backwards to neighbor
+          let current = vertex;
+          cycle.push(current);
+
+          // Build cycle path by going back through parents
+          while (current !== neighbor && current !== null && current !== undefined) {
+            const parentVertex = parent.get(current);
+            if (parentVertex !== null && parentVertex !== undefined) {
+              current = parentVertex;
+              cycle.unshift(current);
+            } else {
+              break;
+            }
+          }
+          cycle.unshift(neighbor);
+
           return { hasCycle: true, cycle };
         }
       }
 
       visiting.delete(vertex);
-      visited.add(vertex);
-      path.pop();
+      recursionStack.delete(vertex);
       return null;
     };
 
@@ -111,13 +133,18 @@ export class CycleDetection<T, W = number> extends BaseAlgorithm<IGraph<T, W>, I
           if (result) return result;
         } else if (neighbor !== currentParent) {
           // Cycle found (back edge to non-parent)
-          // Reconstruct cycle
-          const cycle: T[] = [neighbor, vertex];
+          // Reconstruct cycle using DFS path to avoid infinite loops
+          const cycle: T[] = [];
           let current = vertex;
-          while (current !== neighbor) {
-            cycle.push(current);
+          cycle.unshift(current); // Add to front to build in reverse order
+
+          while (current !== null && current !== neighbor) {
             current = parent.get(current)!;
+            if (current !== null) {
+              cycle.unshift(current);
+            }
           }
+
           cycle.push(neighbor); // Close the cycle
           return { hasCycle: true, cycle };
         }

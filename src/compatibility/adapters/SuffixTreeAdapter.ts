@@ -89,6 +89,6 @@ export class SuffixTreeAdapter<T> {
    * Prints the suffix tree to the console
    */
   print(): void {
-    this.newTree.print();
+    console.log(this.newTree.toString());
   }
 }
