@@ -6,18 +6,6 @@
     src="../dist/algorithmsts.umd.js"
     <script src="https://unpkg.com/currency.js@~2.0.0/dist/currency.min.js"></script>
     <script>
-    
-      
-// This implementation is adapted from the one here the snippets provided here
-// http://www.allisons.org/ll/AlgDS/Tree/Suffix/
-//https://github.com/fabsrc/es6-ukkonen-suffix-tree/blob/master/SuffixTree.js
-//http://maclandrol.github.io/SuffixTreeJS/
-//https://coderedirect.com/questions/50474/ukkonens-suffix-tree-algorithm-in-plain-english
-//https://geek-tips.imtqy.com/articles/11349/index.html
-/*
-const sfx = new SuffixTree()
-sfx.addString('mississippi')
-*/
 
 'use strict';
 
@@ -146,8 +134,6 @@ class SuffixTree {
 
 
   convertToJson = () => {
-    // convert tree to json to use with d3js
-   
     let text = this.text;
     let ret = {
         "name" : "",
@@ -189,7 +175,6 @@ class SuffixTree {
       return ret;
   
     }
-    console.log(this.seps);
     return traverse(this.root, this.seps, this.str_list, ret);
   
   }
@@ -214,11 +199,6 @@ class SuffixTree {
   }
 
 
-  
-print = () => {
-  console.log(this.toString());
-}
-  
 }
 
 window.SuffixTree = SuffixTree;
@@ -335,7 +315,6 @@ function newSuffixTree (array) {
     }
   } while (currentIndex < array.length);
 
-console.log({activeNode,activeEdge,activeLength,edge,latestAddedNode})
 return tree;
 }
 

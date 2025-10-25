@@ -22,6 +22,7 @@ const InjectPlugin =
         typescript({
           sourceMap: true,
           inlineSources: true,
+          declaration: true,
         }),
         del({ targets: "dist/*", verbose: true }),
       ]

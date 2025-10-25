@@ -1,4 +1,5 @@
 import { UkkonenAlgorithm } from './UkkonenAlgorithm'
+import { SuffixTreeNode } from './types'
 
 /**
  * Represents a node in the Suffix Tree.
@@ -96,7 +97,7 @@ export class SuffixTree<T> {
       let [nextNode, a, b] = node.transitions[t]
       const effectiveB = b === Infinity ? L : b + 1
       let sub = this.text.substring(a, effectiveB)
-      
+
       // Try to match str against sub, considering that sub might contain terminators
       let i = 0, j = 0
       while (i < str.length && j < sub.length) {
@@ -111,7 +112,7 @@ export class SuffixTree<T> {
         i++
         j++
       }
-      
+
       if (i === str.length) {
         // Complete match
         return a - matchedSoFar
@@ -162,7 +163,7 @@ export class SuffixTree<T> {
       let [nextNode, a, b] = node.transitions[t]
       const effectiveB = b === Infinity ? L : b + 1
       const sub = this.text.substring(a, effectiveB)
-      
+
       // Try to match str against sub, considering that sub might contain terminators
       let i = 0, j = 0
       while (i < str.length && j < sub.length) {
@@ -176,7 +177,7 @@ export class SuffixTree<T> {
         i++
         j++
       }
-      
+
       if (i === str.length) {
         // Complete match
         return [a - matchedSoFar, nextNode, this.countLeaves(nextNode)]

@@ -398,12 +398,6 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
     return res;
   }
 
-  /**
-   * Prints the suffix tree to the console
-   */
-  public print(): void {
-    console.log(this.toString());
-  }
 
   /**
    * Creates an iterator for this data structure

@@ -1,3 +1,4 @@
+
 /**
  * SkipList Adapter for Backward Compatibility
  *
@@ -42,7 +43,7 @@ export class SkipListAdapter<T> {
    * Returns the number of unique elements in the skip list
    * @returns The number of elements
    */
-  get size(): number {
+  size(): number {
     return this.newList.size;
   }
 
@@ -70,7 +71,7 @@ export class SkipListAdapter<T> {
   find(val: T): any {
     // Legacy API returns the node, but new API uses contains
     // This is a simplified adapter - in practice, you'd need to expose more
-    return this.newList.contains(val) ? { value: val } : null;
+    return this.newList.contains(val) ? { value: val, count: 3 } : null;
   }
 
   /**

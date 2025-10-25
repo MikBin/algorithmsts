@@ -66,7 +66,7 @@ export class SampleGraphs {
    * Weighted graph for shortest path testing
    */
   static get weightedGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(false, true); // undirected, weighted
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
@@ -158,7 +158,7 @@ export class SampleGraphs {
   }
 
   static get weightedGraphMatrix(): IGraph<string> {
-    const graph = new AdjacencyMatrixGraph<string>();
+    const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
