@@ -178,12 +178,10 @@ class Node {
       const offset = b-a+1;
       if(str.indexOf(sub)===0) {
         if(str.length===sub.length) {
-          console.log({str,node,nextNode})
           return [a-matchedSoFar,nextNode,this.countLeaves(nextNode)+(nextNode.isTerminal?1:0)];
         }
         else return this.findAllSubstring(str.substring(offset),nextNode,matchedSoFar+offset);
       } else if(sub.indexOf(str)===0) {
-        console.log({str,node,nextNode})
         return [a-matchedSoFar,nextNode,this.countLeaves(nextNode)+(nextNode.isTerminal?1:0)];
       }
     }
@@ -230,9 +228,6 @@ class Node {
     return res;
   }
 
-  print() {
-    console.log(this.toString());
-  }
 }
 
 
