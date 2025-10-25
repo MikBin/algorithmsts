@@ -37,3 +37,7 @@ export type { TrieNode as TrieNodeType } from './trie';
 // Advanced string data structures
 export { SuffixTree, SuffixTreeNode, UkkonenAlgorithm, SuffixTreeIterator } from './suffix-tree';
 export type { IUkkonenAlgorithm } from './suffix-tree';
+
+// B-Tree
+export { BTree, BTreeIterator } from './b-tree';
+export type { BTreeNode } from './b-tree';
