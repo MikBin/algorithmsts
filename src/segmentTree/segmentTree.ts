@@ -58,8 +58,6 @@ export const buildSegTreeIterative = <T, U extends baseSegmentTreeNode>(
     let left = SEG_TREE_ARRAY[l].left
     let right = SEG_TREE_ARRAY[r].right
     SEG_TREE_ARRAY[i] = segmentNodeFactory(sourceArray[i], left, right)
-    //SEG_TREE_ARRAY[i].leftChild = SEG_TREE_ARRAY[l];
-    //SEG_TREE_ARRAY[i].rightChild = SEG_TREE_ARRAY[r];
     segmentNodeMerger(SEG_TREE_ARRAY[i], SEG_TREE_ARRAY[l], SEG_TREE_ARRAY[r])
   }
   return SEG_TREE_ARRAY
@@ -82,7 +80,6 @@ export const buildSegmentTree = <T, U extends baseSegmentTreeNode>(
 
   while (SEG_TREE_ARRAY[j].left == -1 || SEG_TREE_ARRAY[j].right >= l) {
     j--
-    //console.log(`reducing to ${j}`)
   }
   j++
 
@@ -115,15 +112,11 @@ export const iterativeQueryRange = <U extends baseSegmentTreeNode>(
   //@TODO optimize for compilers
   let resLeft = <U>{ left: -1, right: -1 }
   let resRight = <U>{ left: -1, right: -1 }
-  //console.log("query merger iterative started", left, right);
   for (left += n, right += n; left < right; left >>= 1, right >>= 1) {
-    // console.log(`query merger cycle: ${left} ${right}`);
     if (left & 1) {
-      //console.log(`querymerger going to merge left:${left} ${resLeft.left} ${resLeft.right}  ${segmentTree[left].left} ${segmentTree[left].right}`);
       resLeft = queryMerger(resLeft, segmentTree[left++])
     }
     if (right & 1) {
-      // console.log(`querymerger going to merge right:${right} ${resRight.left} ${resRight.right}  ${segmentTree[right - 1].left} ${segmentTree[right - 1].right}`);
       resRight = queryMerger(segmentTree[--right], resRight)
     }
   }
@@ -264,7 +257,6 @@ export const updateRangeLazy = <T, U extends baseSegmentTreeNode>(
     segmentNodeMerger,
     segmentNodePropagator
   )
-  //console.log(`calling updaterange on ${Node.left}/${Node.right} updating range: ${left}-${right}`)
   segmentNodeMerger(Node, leftChild, rightChild)
 
   /*update this root Node given value to be updated in some of its descendants 
@@ -290,13 +282,8 @@ export const updateBottomUm = <U extends baseSegmentTreeNode>(
   segmentTree: Array<U>,
   segmentNodeMerger: segmentTreeNodeMerger<U>
 ): void => {}
-//@TODO https://codeforces.com/blog/entry/18051
-//updateRAnge and lazyPropagation
-//@TODO add outof bound query exception or just call within original array bounds
 export class SegmentTree<T, U extends baseSegmentTreeNode> {
   private _SEG_TREE: Array<U>
-  //protected segmentNodeMerger:segmentTreeNodeMerger<U>;
-  //protected segmentNodeFactory:segmentTreeNodeFactory<T,U>;
   constructor(
     sourceArray: Array<T>,
     protected segmentNodeFactory: segmentTreeNodeFactory<T, U>,
