@@ -8,6 +8,53 @@
   "module": "dist/algorithmsts.esm.js",
   "typings": "dist/types/algorithmsts.d.ts",
   "types": "dist/types/algorithmsts.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/algorithmsts.d.ts",
+      "import": "./dist/algorithmsts.esm.js",
+      "require": "./dist/algorithmsts.min.cjs"
+    },
+    "./core": {
+      "types": "./dist/types/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.cjs"
+    },
+    "./data-structures": {
+      "types": "./dist/types/data-structures/index.d.ts",
+      "import": "./dist/data-structures/index.js",
+      "require": "./dist/data-structures/index.cjs"
+    },
+    "./algorithms": {
+      "types": "./dist/types/algorithms/index.d.ts",
+      "import": "./dist/algorithms/index.js",
+      "require": "./dist/algorithms/index.cjs"
+    },
+    "./graphs": {
+      "types": "./dist/types/graphs/index.d.ts",
+      "import": "./dist/graphs/index.js",
+      "require": "./dist/graphs/index.cjs"
+    },
+    "./performance": {
+      "types": "./dist/types/performance/index.d.ts",
+      "import": "./dist/performance/index.js",
+      "require": "./dist/performance/index.cjs"
+    },
+    "./types": {
+      "types": "./dist/types/types/index.d.ts",
+      "import": "./dist/types/index.js",
+      "require": "./dist/types/index.cjs"
+    },
+    "./compatibility": {
+      "types": "./dist/types/compatibility/index.d.ts",
+      "import": "./dist/compatibility/index.js",
+      "require": "./dist/compatibility/index.cjs"
+    },
+    "./interfaces": {
+      "types": "./dist/types/interfaces.d.ts",
+      "import": "./dist/interfaces.js",
+      "require": "./dist/interfaces.cjs"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -27,11 +74,14 @@
     }
   },
   "scripts": {
-    "lint": "eslint --ext .ts lib/",
+    "lint": "eslint --ext .ts src/",
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
     "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production",
-    "test": "vitest ",
+    "docs": "npx typedoc --entryPoints src/algorithmsts.ts src/core/index.ts src/data-structures/index.ts src/algorithms/index.ts src/graphs/index.ts src/performance/index.ts src/types/index.ts src/compatibility/index.ts --out docs/api --name \"Algorithmsts API Documentation\" --includeVersion --excludePrivate --excludeProtected --excludeInternal --hideGenerator --readme README.md --theme default --githubPages --gitRevision main --skipErrorChecking",
+    "build:docs": "node tools/build-and-docs.ts",
+    "test": "vitest",
     "test:prod": "vitest run --coverage",
+    "bench": "vitest bench",
     "prepare": "husky",
     "v-pub-tarball": "npm publish --dry-run",
     "release": "release-it",
@@ -48,6 +98,7 @@
     "@types/node": "^22.10.3",
     "@typescript-eslint/eslint-plugin": "^8.19.0",
     "@typescript-eslint/parser": "^8.19.0",
+    "@vitest/coverage-istanbul": "^2.1.8",
     "@vitest/ui": "^2.1.8",
     "commitizen": "^4.3.1",
     "cz-git": "^1.11.0",
@@ -61,8 +112,8 @@
     "rollup": "^4.29.1",
     "rollup-plugin-delete": "^2.1.0",
     "semantic-release": "^24.2.0",
+    "typedoc": "^0.28.14",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8",
-    "@vitest/coverage-istanbul": "^2.1.8"
+    "vitest": "^2.1.8"
   }
 }
