@@ -35,7 +35,7 @@ export class LinkedListAdapter<T> {
    * Returns the number of elements in the list
    * @returns The number of elements
    */
-  get size(): number {
+  size(): number {
     return this.newList.size;
   }
 

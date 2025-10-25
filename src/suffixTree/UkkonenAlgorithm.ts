@@ -1,4 +1,5 @@
-import { SuffixTree, SuffixTreeNode } from './index'
+import { SuffixTree } from './index'
+import { SuffixTreeNode } from './types'
 
 /**
  * Implements Ukkonen's algorithm for building a suffix tree.

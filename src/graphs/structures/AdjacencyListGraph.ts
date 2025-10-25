@@ -2,12 +2,7 @@ import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
 import { IIterator } from '../../core/interfaces/IIterator';
 import { Validator } from '../../core/validation/Validator';
 import { ArgumentError } from '../../core/validation/ArgumentError';
-import { DataStructureError } from '../../core/validation/DataStructureError';
 import { IGraph } from '../interfaces/IGraph';
-import { IWeightedGraph } from '../interfaces/IWeightedGraph';
-import { IDirectedGraph } from '../interfaces/IDirectedGraph';
-import { IUndirectedGraph } from '../interfaces/IUndirectedGraph';
-import { IGraphIterator } from '../interfaces/IGraphIterator';
 
 /**
  * Adjacency list implementation of graph data structure
@@ -79,15 +74,17 @@ export class AdjacencyListGraph<T, W = number> extends BaseDataStructure<T> impl
     // For undirected graphs, avoid duplicate edges
     if (!this.directed) {
       const seen = new Set<string>();
-      return edges.filter(([from, to]) => {
+      const uniqueEdges: Array<[T, T] | [T, T, W]> = [];
+      for (const edge of edges) {
+        const [from, to] = edge;
         const key = `${from}-${to}`;
         const reverseKey = `${to}-${from}`;
-        if (seen.has(key) || seen.has(reverseKey)) {
-          return false;
+        if (!seen.has(key) && !seen.has(reverseKey)) {
+          uniqueEdges.push(edge);
+          seen.add(key);
         }
-        seen.add(key);
-        return true;
-      });
+      }
+      return uniqueEdges;
     }
 
     return edges;
@@ -123,7 +120,14 @@ export class AdjacencyListGraph<T, W = number> extends BaseDataStructure<T> impl
    * @inheritdoc
    */
   public hasEdge(from: T, to: T): boolean {
-    return this.getEdgeWeight(from, to) !== undefined;
+    Validator.notNull(from, 'from');
+    Validator.notNull(to, 'to');
+
+    if (!this.contains(from) || !this.contains(to)) {
+      return false;
+    }
+
+    return this.adjacencyList.get(from)?.has(to) || false;
   }
 
   /**
@@ -154,17 +158,18 @@ export class AdjacencyListGraph<T, W = number> extends BaseDataStructure<T> impl
     // Remove edges from other vertices to this vertex
     for (const otherVertex of this.adjacencyList.keys()) {
       if (otherVertex !== vertex) {
-        this.adjacencyList.get(otherVertex)!.delete(vertex);
+        const otherNeighbors = this.adjacencyList.get(otherVertex)!;
+        if (otherNeighbors.delete(vertex)) {
+          // For undirected graphs, we've already counted this edge once
+          // For directed graphs, this is a separate edge
+          if (this.directed) {
+            this.edgeCount--;
+          }
+        }
       }
     }
 
-    // For undirected graphs, also remove reverse edges
-    if (!this.directed) {
-      for (const neighbor of neighbors.keys()) {
-        this.adjacencyList.get(neighbor)!.delete(vertex);
-      }
-    }
-
+    // Remove edges from this vertex to others
     this.edgeCount -= neighbors.size;
     this.adjacencyList.delete(vertex);
     this._size--;
@@ -194,13 +199,14 @@ export class AdjacencyListGraph<T, W = number> extends BaseDataStructure<T> impl
     }
 
     this.adjacencyList.get(from)!.set(to, weight);
-    this.edgeCount++;
 
-    // For undirected graphs, add reverse edge
+    // For undirected graphs, add reverse edge but don't double count
     if (!this.directed) {
       this.adjacencyList.get(to)!.set(from, weight);
-      this.edgeCount++;
     }
+
+    // Only count the edge once for undirected graphs
+    this.edgeCount++;
   }
 
   /**
@@ -219,13 +225,14 @@ export class AdjacencyListGraph<T, W = number> extends BaseDataStructure<T> impl
     }
 
     this.adjacencyList.get(from)!.delete(to);
-    this.edgeCount--;
 
     // For undirected graphs, remove reverse edge
     if (!this.directed) {
       this.adjacencyList.get(to)!.delete(from);
-      this.edgeCount--;
     }
+
+    // Only decrement edge count once for undirected graphs
+    this.edgeCount--;
   }
 
   /**
@@ -272,22 +279,30 @@ export class AdjacencyListGraph<T, W = number> extends BaseDataStructure<T> impl
 class AdjacencyListIterator<T> implements IIterator<T> {
   private vertexIterator: Iterator<T>;
   private currentVertex: T | undefined;
+  private nextValue: T | undefined;
+  private hasNextCalled: boolean = false;
 
   constructor(vertices: IterableIterator<T>) {
     this.vertexIterator = vertices;
   }
 
   public hasNext(): boolean {
-    return !this.vertexIterator.next().done;
+    if (!this.hasNextCalled) {
+      const result = this.vertexIterator.next();
+      this.nextValue = result.done ? undefined : result.value;
+      this.hasNextCalled = true;
+    }
+    return this.nextValue !== undefined;
   }
 
   public next(): T {
-    const result = this.vertexIterator.next();
-    if (result.done) {
+    if (!this.hasNext()) {
       throw new Error('No more elements in iteration');
     }
-    this.currentVertex = result.value;
-    return result.value;
+    this.currentVertex = this.nextValue;
+    this.nextValue = undefined;
+    this.hasNextCalled = false;
+    return this.currentVertex!;
   }
 
   public current(): T {

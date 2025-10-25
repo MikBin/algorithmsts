@@ -35,7 +35,7 @@ export class TrieAdapter<T> {
    * Returns the number of elements in the trie
    * @returns The number of elements
    */
-  get length(): number {
+  length(): number {
     return this.newTrie.size;
   }
 
@@ -73,6 +73,15 @@ export class TrieAdapter<T> {
    * @returns The value if found, null otherwise
    */
   get(key: string): T | null {
+    return this.newTrie.get(key);
+  }
+
+  /**
+   * Finds a key in the trie
+   * @param key The key to find
+   * @returns The value if found, null otherwise
+   */
+  find(key: string): T | null {
     return this.newTrie.get(key);
   }
 
