@@ -240,10 +240,4 @@ export class SuffixTree<T> {
     return res
   }
 
-  /**
-   * Prints the suffix tree to the console.
-   */
-  public print(): void {
-    console.log(this.toString())
-  }
 }
