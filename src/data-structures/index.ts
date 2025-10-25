@@ -45,3 +45,6 @@ export * from './binary-heap';
 // B-Tree
 export { BTree, BTreeIterator } from './b-tree';
 export type { BTreeNode } from './b-tree';
+
+// Red-Black Tree
+export * from './red-black-tree';
