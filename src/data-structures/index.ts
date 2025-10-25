@@ -30,6 +30,7 @@ export type {
   SegmentTreeRangeNodeUpdater,
   SegmentTreeRangeNodePropagator
 } from './segment-tree';
+export * from './binary-search-tree';
 
 // String data structures
 export { Trie, TrieNode, TrieIterator } from './trie';
