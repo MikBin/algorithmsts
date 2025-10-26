@@ -79,6 +79,7 @@ export { LeftistHeap } from './leftist-heap';
 export { SkewHeap } from './skew-heap';
 export { FibonacciHeap } from './fibonacci-heap';
 export { KDTree } from './kd-tree';
+export { Quadtree } from './quadtree';
 export { BKTree } from './bk-tree';
 export { VPTree } from './vp-tree';
 export { PatriciaTrie } from './patricia-trie';
