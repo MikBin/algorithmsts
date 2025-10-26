@@ -53,22 +53,24 @@ export class GraphTestData {
   }
 
   /**
-   * Creates a large graph with 410 nodes (corrected from 100 to match expected size)
+   * Creates a large graph with 100 nodes
    */
   static createLargeGraph(graphType: 'adjacencyList' | 'adjacencyMatrix' = 'adjacencyList'): IGraph<number> {
     const graph = this.createEmptyGraph<number>(graphType);
-    for (let i = 0; i < 410; i++) {
+    for (let i = 0; i < 100; i++) {
       graph.addVertex(i);
     }
     // Add some edges to create connectivity
-    for (let i = 0; i < 409; i++) {
+    for (let i = 0; i < 99; i++) {
       graph.addEdge(i, i + 1);
     }
     // Add some additional cross-connections for complexity
+    // Use a deterministic approach to avoid duplicate edges
     for (let i = 0; i < 50; i++) {
-      const source = Math.floor(Math.random() * 350);
-      const target = source + Math.floor(Math.random() * 60) + 10;
-      if (target < 410) {
+      const source = (i * 2) % 80;
+      const target = (source + 10 + i) % 100;
+      // Avoid self-loops and duplicate edges
+      if (source !== target && !graph.hasEdge(source, target)) {
         graph.addEdge(source, target);
       }
     }

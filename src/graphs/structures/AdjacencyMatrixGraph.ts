@@ -2,7 +2,6 @@ import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
 import { IIterator } from '../../core/interfaces/IIterator';
 import { Validator } from '../../core/validation/Validator';
 import { ArgumentError } from '../../core/validation/ArgumentError';
-import { DataStructureError } from '../../core/validation/DataStructureError';
 import { IGraph } from '../interfaces/IGraph';
 
 /**
@@ -41,6 +40,7 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
    * @inheritdoc
    */
   public contains(element: T): boolean {
+    Validator.notNull(element, 'element');
     return this.vertexIndex.has(element);
   }
 
@@ -66,9 +66,12 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
 
     for (const [from, neighbors] of this.adjacencyMatrix) {
       for (const [to, weight] of neighbors) {
-        if (weight !== undefined) {
+        // For unweighted graphs, check if the edge exists (key is present)
+        // For weighted graphs, check if the weight is not undefined
+        if (this.weighted ? weight !== undefined : neighbors.has(to)) {
           if (this.weighted) {
-            edges.push([from, to, weight]);
+            // Type assertion to ensure weight is not undefined for weighted graphs
+            edges.push([from, to, weight!]);
           } else {
             edges.push([from, to]);
           }
@@ -107,7 +110,9 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
 
     if (vertexNeighbors) {
       for (const [neighbor, weight] of vertexNeighbors) {
-        if (weight !== undefined) {
+        // For unweighted graphs, check if the edge exists (key is present)
+        // For weighted graphs, check if the weight is not undefined
+        if (this.weighted ? weight !== undefined : vertexNeighbors.has(neighbor)) {
           neighbors.push(neighbor);
         }
       }
@@ -133,7 +138,24 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
    * @inheritdoc
    */
   public hasEdge(from: T, to: T): boolean {
-    return this.getEdgeWeight(from, to) !== undefined;
+    // For unweighted graphs, check if the edge exists in the adjacency matrix
+    // regardless of the weight value (which might be undefined)
+    if (!this.contains(from) || !this.contains(to)) {
+      return false;
+    }
+
+    const fromNeighbors = this.adjacencyMatrix.get(from);
+    if (!fromNeighbors) {
+      return false;
+    }
+
+    // For unweighted graphs, the edge exists if the key is present
+    // For weighted graphs, the edge exists if the weight is not undefined
+    if (this.weighted) {
+      return fromNeighbors.get(to) !== undefined;
+    } else {
+      return fromNeighbors.has(to);
+    }
   }
 
   /**
@@ -169,7 +191,11 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
         const otherNeighbors = this.adjacencyMatrix.get(otherVertex)!;
         if (otherNeighbors.has(vertex)) {
           otherNeighbors.delete(vertex);
-          this.edgeCount--;
+          // For undirected graphs, we've already counted this edge once
+          // For directed graphs, this is a separate edge
+          if (this.directed) {
+            this.edgeCount--;
+          }
         }
       }
     }
@@ -180,6 +206,12 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
       for (const neighbor of neighbors.keys()) {
         this.adjacencyMatrix.get(neighbor)!.delete(vertex);
       }
+      // Count edges being removed from this vertex
+      this.edgeCount -= neighbors.size;
+    } else {
+      // For directed graphs, count edges from this vertex
+      const neighbors = this.adjacencyMatrix.get(vertex)!;
+      this.edgeCount -= neighbors.size;
     }
 
     this.adjacencyMatrix.delete(vertex);
@@ -214,14 +246,17 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
       throw new ArgumentError('Weight should not be provided for unweighted graphs');
     }
 
-    this.adjacencyMatrix.get(from)!.set(to, weight);
-    this.edgeCount++;
+    // For unweighted graphs, use a default value to indicate edge existence
+    const edgeValue = this.weighted ? weight : (undefined as W);
+    this.adjacencyMatrix.get(from)!.set(to, edgeValue);
 
-    // For undirected graphs, add reverse edge
+    // For undirected graphs, add reverse edge but don't double count
     if (!this.directed) {
-      this.adjacencyMatrix.get(to)!.set(from, weight);
-      this.edgeCount++;
+      this.adjacencyMatrix.get(to)!.set(from, edgeValue);
     }
+
+    // Only count edge once for undirected graphs
+    this.edgeCount++;
   }
 
   /**
@@ -240,13 +275,14 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
     }
 
     this.adjacencyMatrix.get(from)!.delete(to);
-    this.edgeCount--;
 
     // For undirected graphs, remove reverse edge
     if (!this.directed) {
       this.adjacencyMatrix.get(to)!.delete(from);
-      this.edgeCount--;
     }
+
+    // Only decrement edge count once for undirected graphs
+    this.edgeCount--;
   }
 
   /**
@@ -309,29 +345,25 @@ export class AdjacencyMatrixGraph<T, W = number> extends BaseDataStructure<T> im
  * Iterator implementation for adjacency matrix graph
  */
 class AdjacencyMatrixIterator<T> implements IIterator<T> {
-  private vertexIterator: Iterator<T>;
+  private vertices: T[];
+  private currentIndex: number = 0;
   private currentVertex: T | undefined;
 
   constructor(vertices: IterableIterator<T>) {
-    this.vertexIterator = vertices;
+    this.vertices = Array.from(vertices);
   }
 
   public hasNext(): boolean {
-    const next = this.vertexIterator.next();
-    if (!next.done) {
-      // Reset iterator to previous position
-      return true;
-    }
-    return false;
+    return this.currentIndex < this.vertices.length;
   }
 
   public next(): T {
-    const result = this.vertexIterator.next();
-    if (result.done) {
+    if (!this.hasNext()) {
       throw new Error('No more elements in iteration');
     }
-    this.currentVertex = result.value;
-    return result.value;
+    this.currentVertex = this.vertices[this.currentIndex];
+    this.currentIndex++;
+    return this.currentVertex;
   }
 
   public current(): T {

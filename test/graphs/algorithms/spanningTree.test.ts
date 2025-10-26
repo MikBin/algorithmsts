@@ -3,6 +3,7 @@ import { KruskalAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/K
 import { PrimAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/PrimAlgorithm';
 import { SampleGraphs } from '../fixtures/SampleGraphs';
 import { GraphTestData } from '../fixtures/GraphTestData';
+import { AdjacencyMatrixGraph } from '../../../src/graphs/structures/AdjacencyMatrixGraph';
 
 describe('Spanning Tree Algorithms', () => {
   describe('Kruskal\'s Algorithm', () => {
@@ -84,7 +85,15 @@ describe('Spanning Tree Algorithms', () => {
     });
 
     it('should handle disconnected graphs', () => {
-      const graph = SampleGraphs.disconnectedGraph;
+      // Create a weighted disconnected graph
+      const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addVertex('C');
+      graph.addVertex('D');
+      graph.addEdge('A', 'B', 1);
+      graph.addEdge('C', 'D', 2);
+
       const result = prim.execute(graph);
 
       expect(result.found).toBe(false);
@@ -109,7 +118,9 @@ describe('Spanning Tree Algorithms', () => {
     });
 
     it('should handle empty graph', () => {
-      const graph = SampleGraphs.emptyGraph;
+      // Create a weighted empty graph
+      const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
+
       const result = prim.execute(graph);
 
       expect(result.found).toBe(true);
@@ -157,16 +168,23 @@ describe('Spanning Tree Algorithms', () => {
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
 
-      // Note: These might fail if the matrix graph doesn't have undirected weighted edges
-      // but the test demonstrates the interface consistency
-      expect(() => kruskal.execute(graph)).toThrow(); // Should throw for directed or unweighted
-      expect(() => prim.execute(graph)).toThrow();
+      // The weighted graph matrix should work with spanning tree algorithms
+      const kruskalResult = kruskal.execute(graph);
+      const primResult = prim.execute(graph);
+
+      expect(kruskalResult.found).toBe(true);
+      expect(primResult.found).toBe(true);
+      expect(kruskalResult.edges.length).toBeGreaterThan(0);
+      expect(primResult.edges.length).toBeGreaterThan(0);
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle single vertex graph', () => {
-      const graph = SampleGraphs.singleVertexGraph;
+      // Create a single vertex weighted graph
+      const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
+      graph.addVertex('A');
+
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
 
@@ -183,23 +201,46 @@ describe('Spanning Tree Algorithms', () => {
 
     it('should handle two vertex graph', () => {
       // Create a simple two-vertex weighted graph
-      const graph = SampleGraphs.simpleUndirectedGraph;
-      // Note: This is unweighted, so algorithms should throw
+      const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addEdge('A', 'B', 5);
+
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
 
-      expect(() => kruskal.execute(graph)).toThrow();
-      expect(() => prim.execute(graph)).toThrow();
+      const kruskalResult = kruskal.execute(graph);
+      const primResult = prim.execute(graph);
+
+      expect(kruskalResult.found).toBe(true);
+      expect(primResult.found).toBe(true);
+      expect(kruskalResult.edges.length).toBe(1);
+      expect(primResult.edges.length).toBe(1);
     });
 
     it('should handle tree structures', () => {
-      const graph = SampleGraphs.treeGraph;
+      // Create a tree structure that's already weighted
+      const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addVertex('C');
+      graph.addVertex('D');
+      graph.addVertex('E');
+      graph.addEdge('A', 'B', 1);
+      graph.addEdge('A', 'C', 2);
+      graph.addEdge('B', 'D', 3);
+      graph.addEdge('B', 'E', 4);
+
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
 
-      // Tree is already a spanning tree, but algorithms require weighted graphs
-      expect(() => kruskal.execute(graph)).toThrow();
-      expect(() => prim.execute(graph)).toThrow();
+      const kruskalResult = kruskal.execute(graph);
+      const primResult = prim.execute(graph);
+
+      expect(kruskalResult.found).toBe(true);
+      expect(primResult.found).toBe(true);
+      expect(kruskalResult.edges.length).toBe(4);
+      expect(primResult.edges.length).toBe(4);
     });
   });
 

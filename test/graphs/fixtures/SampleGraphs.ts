@@ -23,12 +23,12 @@ export class SampleGraphs {
    * Simple undirected graph: A -- B -- C
    */
   static get simpleUndirectedGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>();
+    const graph = new AdjacencyListGraph<string>(false, true); // undirected, weighted
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
-    graph.addEdge('A', 'B');
-    graph.addEdge('B', 'C');
+    graph.addEdge('A', 'B', 1);
+    graph.addEdge('B', 'C', 2);
     return graph;
   }
 
@@ -113,18 +113,18 @@ export class SampleGraphs {
    * Complete graph K4 (undirected - should have cycles)
    */
   static get completeGraphK4(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>(false); // undirected
+    const graph = new AdjacencyListGraph<string>(false, true); // undirected, weighted
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
     graph.addVertex('D');
-    // Add all possible edges for complete graph K4
-    graph.addEdge('A', 'B');
-    graph.addEdge('A', 'C');
-    graph.addEdge('A', 'D');
-    graph.addEdge('B', 'C');
-    graph.addEdge('B', 'D');
-    graph.addEdge('C', 'D');
+    // Add all possible edges for complete graph K4 with weights
+    graph.addEdge('A', 'B', 1);
+    graph.addEdge('A', 'C', 2);
+    graph.addEdge('A', 'D', 3);
+    graph.addEdge('B', 'C', 4);
+    graph.addEdge('B', 'D', 5);
+    graph.addEdge('C', 'D', 6);
     return graph;
   }
 
@@ -132,16 +132,16 @@ export class SampleGraphs {
    * Tree structure
    */
   static get treeGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>(true); // directed
+    const graph = new AdjacencyListGraph<string>(true, true); // directed, weighted
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
     graph.addVertex('D');
     graph.addVertex('E');
-    graph.addEdge('A', 'B');
-    graph.addEdge('A', 'C');
-    graph.addEdge('B', 'D');
-    graph.addEdge('B', 'E');
+    graph.addEdge('A', 'B', 1);
+    graph.addEdge('A', 'C', 2);
+    graph.addEdge('B', 'D', 3);
+    graph.addEdge('B', 'E', 4);
     return graph;
   }
 

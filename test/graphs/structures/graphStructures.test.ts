@@ -204,7 +204,9 @@ describe('Graph Structures Comparison', () => {
     });
 
     it('should detect cycles correctly', () => {
+      // The simple undirected graph (A-B-C) has no cycles
       expect(GraphTestUtils.hasCycle(SampleGraphs.simpleUndirectedGraph)).toBe(false);
+      // The cyclic graph (A-B-C-A) has cycles
       expect(GraphTestUtils.hasCycle(SampleGraphs.cyclicGraph)).toBe(true);
     });
 
