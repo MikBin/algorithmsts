@@ -96,7 +96,6 @@ export { PatriciaTrie } from './patricia-trie';
 export { Rope } from './rope';
 export { AhoCorasick } from './aho-corasick';
 export { IntervalTree } from './interval-tree';
-export { RangeTree2D } from './range-tree';
 export { SuffixAutomaton } from './suffix-automaton';
 export { SuffixArray } from './suffix-array';
 export { AATree } from './aa-tree';
