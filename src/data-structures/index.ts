@@ -33,6 +33,7 @@ export type { HashFn as BloomHashFn } from './bloom-filter';
 export { CountMinSketch } from './count-min-sketch';
 export type { CMSHash } from './count-min-sketch';
 export { HyperLogLog } from './hyperloglog';
+export { CuckooFilter } from './cuckoo-filter';
 
 // Tree-based data structures
 export { AVLTree } from './avl-tree';
