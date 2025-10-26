@@ -34,6 +34,7 @@ export { CountMinSketch } from './count-min-sketch';
 export type { CMSHash } from './count-min-sketch';
 export { HyperLogLog } from './hyperloglog';
 export { CuckooFilter } from './cuckoo-filter';
+export { QuotientFilter } from './quotient-filter';
 
 // Tree-based data structures
 export { AVLTree } from './avl-tree';
@@ -62,10 +63,13 @@ export * from './binary-heap';
 export { DAryHeap } from './d-ary-heap';
 export { MinMaxHeap } from './min-max-heap';
 export { IntervalHeap } from './interval-heap';
+export { WeakHeap } from './weak-heap';
 export { PriorityQueue } from './priority-queue';
 // B-Tree
 export { BTree, BTreeIterator } from './b-tree';
 export type { BTreeNode } from './b-tree';
+export { BPlusTree } from './b-plus-tree';
+export { RangeTree2D } from './range-tree';
 
 // Red-Black Tree
 export * from './red-black-tree';
@@ -92,6 +96,7 @@ export { PatriciaTrie } from './patricia-trie';
 export { Rope } from './rope';
 export { AhoCorasick } from './aho-corasick';
 export { IntervalTree } from './interval-tree';
+export { RangeTree2D } from './range-tree';
 export { SuffixAutomaton } from './suffix-automaton';
 export { SuffixArray } from './suffix-array';
 export { AATree } from './aa-tree';

@@ -1,0 +1,1 @@
+export { WeakHeap } from './weakHeap';
