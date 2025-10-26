@@ -200,14 +200,18 @@ describe('Graph Traversal Algorithms', () => {
     });
 
     it('should handle graphs with isolated vertices', () => {
-      const graph = SampleGraphs.disconnectedGraph;
+      const graph = SampleGraphs.singleVertexGraph;
       const bfs = new BreadthFirstSearch<string>();
       const dfs = new DepthFirstSearch<string>();
 
       // Start from vertex with no edges
-      const result = bfs.traverse(graph, 'D');
-      expect(result.visited).toEqual(['D']);
-      expect(result.parents.get('D')).toBeNull();
+      const bfsResult = bfs.traverse(graph, 'A');
+      expect(bfsResult.visited).toEqual(['A']);
+      expect(bfsResult.parents.get('A')).toBeNull();
+
+      const dfsResult = dfs.traverse(graph, 'A');
+      expect(dfsResult.visited).toEqual(['A']);
+      expect(dfsResult.parents.get('A')).toBeNull();
     });
   });
 });
