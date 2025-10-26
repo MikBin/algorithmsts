@@ -77,6 +77,7 @@ export { BinomialHeap } from './binomial-heap';
 export { LeftistHeap } from './leftist-heap';
 export { FibonacciHeap } from './fibonacci-heap';
 export { KDTree } from './kd-tree';
+export { BKTree } from './bk-tree';
 export { PatriciaTrie } from './patricia-trie';
 export { Rope } from './rope';
 export { AhoCorasick } from './aho-corasick';
