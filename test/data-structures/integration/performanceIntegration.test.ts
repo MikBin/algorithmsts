@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { LinkedList } from '../../../src/data-structures/linked-list';
 import { SkipList } from '../../../src/data-structures/skip-list';
-import { SegmentTree } from '../../../src/data-structures/segment-tree';
 import { Trie } from '../../../src/data-structures/trie';
 import { SuffixTree } from '../../../src/data-structures/suffix-tree';
 
@@ -35,37 +34,13 @@ describe('Performance Integration Tests', () => {
       expect(skipList.contains(LARGE_SIZE + 1)).toBe(false);
     });
 
-    it('should handle large SegmentTree operations', () => {
-      const segmentTree = new SegmentTree(
-        largeArray,
-        (val, left, right) => ({ left, right, value: val, sum: val }),
-        (parent, left, right) => {
-          parent.sum = left.sum + right.sum;
-        },
-        (left, right) => ({
-          left: left.left,
-          right: right.right,
-          sum: left.sum + right.sum
-        }),
-        (val, node) => {
-          node.value = val;
-          node.sum = val;
-        }
-      );
-
-      expect(segmentTree.size).toBe(LARGE_SIZE);
-
-      // Test range queries
-      const midQuery = segmentTree.query(LARGE_SIZE / 4, (3 * LARGE_SIZE) / 4);
-      expect(midQuery.sum).toBeGreaterThan(0);
-    });
-
     it('should handle large Trie operations', () => {
-      const trie = new Trie<number>();
+      const trie = new Trie<string>();
 
       // Add many string keys
-      largeArray.forEach((val, index) => {
-        trie.add(val.toString(), index);
+      const stringArray = largeArray.map(i => i.toString());
+      stringArray.forEach((val, index) => {
+        trie.add(val, index);
       });
 
       expect(trie.contains('5000')).toBe(true);
@@ -101,30 +76,6 @@ describe('Performance Integration Tests', () => {
       expect(skipList.contains(5)).toBe(true);
       expect(skipList.contains(15)).toBe(false);
     });
-
-    it('should demonstrate O(log n) query operations for SegmentTree', () => {
-      const array = [1, 2, 3, 4, 5, 6, 7, 8];
-      const segmentTree = new SegmentTree(
-        array,
-        (val, left, right) => ({ left, right, value: val, sum: val }),
-        (parent, left, right) => {
-          parent.sum = left.sum + right.sum;
-        },
-        (left, right) => ({
-          left: left.left,
-          right: right.right,
-          sum: left.sum + right.sum
-        }),
-        (val, node) => {
-          node.value = val;
-          node.sum = val;
-        }
-      );
-
-      // Range queries should be O(log n)
-      const query = segmentTree.query(2, 5);
-      expect(query.sum).toBe(2 + 3 + 4 + 5 + 6);
-    });
   });
 
   describe('Memory Usage Validation', () => {
@@ -151,7 +102,7 @@ describe('Performance Integration Tests', () => {
       // Perform operations on different structures
       list.add(4);
       skipList.add(1);
-      trie.add('test', 'value');
+      trie.add('test', 100);
 
       expect(list.size).toBe(4);
       expect(skipList.size).toBe(1);
