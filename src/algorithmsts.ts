@@ -98,7 +98,7 @@ import { SuffixTree } from './suffixTree/index'
 import { ngramSimilarity } from './strings/similarities'
 
 // Import compatibility layer
-import * as compatibility from './compatibility/index.ts';
+import * as compatibility from './compatibility/index';
 import { LegacyAPI } from './compatibility/utils/LegacyAPI';
 
 /**

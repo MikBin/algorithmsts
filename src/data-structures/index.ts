@@ -13,10 +13,26 @@ export * from '../graphs';
 // Linear data structures
 export { LinkedList, LinkedListIterator } from './linked-list';
 export type { Node } from './linked-list';
+export { Stack } from './stack';
+export { Queue } from './queue';
+export { Deque } from './deque';
+export { CircularBuffer } from './circular-buffer';
+export { ArrayList } from './dynamic-array';
+
+// Maps/Sets
+export { HashMap } from './hash-map';
+export type { Hasher as HashHasher, Equality as HashEquality } from './hash-map';
+export { HashSet } from './hash-set';
+export { SparseSet } from './sparse-set';
 
 // Probabilistic data structures
 export { SkipList, SkipListIterator } from './skip-list';
 export type { SkipNode, BinaryComparisonRoutine } from './skip-list';
+export { BloomFilter } from './bloom-filter';
+export type { HashFn as BloomHashFn } from './bloom-filter';
+export { CountMinSketch } from './count-min-sketch';
+export type { CMSHash } from './count-min-sketch';
+export { HyperLogLog } from './hyperloglog';
 
 // Tree-based data structures
 export { AVLTree } from './avl-tree';
@@ -42,6 +58,7 @@ export type { IUkkonenAlgorithm } from './suffix-tree';
 
 // Heap data structures
 export * from './binary-heap';
+export { PriorityQueue } from './priority-queue';
 // B-Tree
 export { BTree, BTreeIterator } from './b-tree';
 export type { BTreeNode } from './b-tree';
@@ -50,3 +67,10 @@ export type { BTreeNode } from './b-tree';
 export * from './red-black-tree';
 // Fenwick Tree
 export * from './fenwick-tree';
+
+// Others
+export { UnionFind } from './disjoint-set';
+export { BitSet } from './bitset';
+export { MonotonicStack } from './monotonic-stack';
+export { MonotonicQueue } from './monotonic-queue';
+export { LRUCache } from './lru-cache';
