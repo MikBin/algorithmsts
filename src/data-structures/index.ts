@@ -68,6 +68,15 @@ export * from './red-black-tree';
 // Fenwick Tree
 export * from './fenwick-tree';
 
+// New tree/heaps and automata
+export { Treap } from './treap';
+export { SplayTree } from './splay-tree';
+export { PairingHeap } from './pairing-heap';
+export { BinomialHeap } from './binomial-heap';
+export { KDTree } from './kd-tree';
+export { AhoCorasick } from './aho-corasick';
+export { SuffixAutomaton } from './suffix-automaton';
+
 // Others
 export { UnionFind } from './disjoint-set';
 export { BitSet } from './bitset';
