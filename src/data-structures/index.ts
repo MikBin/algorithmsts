@@ -75,6 +75,7 @@ export { SplayTree } from './splay-tree';
 export { PairingHeap } from './pairing-heap';
 export { BinomialHeap } from './binomial-heap';
 export { LeftistHeap } from './leftist-heap';
+export { SkewHeap } from './skew-heap';
 export { FibonacciHeap } from './fibonacci-heap';
 export { KDTree } from './kd-tree';
 export { BKTree } from './bk-tree';
@@ -84,6 +85,7 @@ export { Rope } from './rope';
 export { AhoCorasick } from './aho-corasick';
 export { IntervalTree } from './interval-tree';
 export { SuffixAutomaton } from './suffix-automaton';
+export { SuffixArray } from './suffix-array';
 export { AATree } from './aa-tree';
 export { OrderStatisticTree } from './order-statistic-tree';
 
