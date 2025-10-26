@@ -1,0 +1,1 @@
+export { SuffixAutomaton } from './suffixAutomaton';
