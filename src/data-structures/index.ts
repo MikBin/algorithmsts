@@ -91,6 +91,7 @@ export { SuffixAutomaton } from './suffix-automaton';
 export { SuffixArray } from './suffix-array';
 export { AATree } from './aa-tree';
 export { OrderStatisticTree } from './order-statistic-tree';
+export { ScapegoatTree } from './scapegoat-tree';
 
 // Others
 export { UnionFind } from './disjoint-set';
