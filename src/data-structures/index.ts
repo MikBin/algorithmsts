@@ -95,6 +95,7 @@ export { IntervalTree } from './interval-tree';
 export { SuffixAutomaton } from './suffix-automaton';
 export { SuffixArray } from './suffix-array';
 export { AATree } from './aa-tree';
+export { TwoThreeTree } from './two-three-tree';
 export { OrderStatisticTree } from './order-statistic-tree';
 export { ScapegoatTree } from './scapegoat-tree';
 
