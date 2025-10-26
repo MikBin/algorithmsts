@@ -98,3 +98,4 @@ export { BitSet } from './bitset';
 export { MonotonicStack } from './monotonic-stack';
 export { MonotonicQueue } from './monotonic-queue';
 export { LRUCache } from './lru-cache';
+export { LFUCache } from './lfu-cache';
