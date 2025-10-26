@@ -1,0 +1,1 @@
+export { VPTree } from './vpTree';
