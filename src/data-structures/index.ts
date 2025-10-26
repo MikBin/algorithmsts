@@ -74,6 +74,7 @@ export { SplayTree } from './splay-tree';
 export { PairingHeap } from './pairing-heap';
 export { BinomialHeap } from './binomial-heap';
 export { KDTree } from './kd-tree';
+export { PatriciaTrie } from './patricia-trie';
 export { AhoCorasick } from './aho-corasick';
 export { IntervalTree } from './interval-tree';
 export { SuffixAutomaton } from './suffix-automaton';

@@ -1,0 +1,1 @@
+export { PatriciaTrie } from './patriciaTrie';
