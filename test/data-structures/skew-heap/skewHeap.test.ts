@@ -3,7 +3,7 @@ import { SkewHeap } from '../../../src/data-structures';
 
 describe('SkewHeap', () => {
   it('acts as a priority queue', () => {
-    const h = new SkewHeap<number>((a,b)=>b-a); // min-heap via comparator
+const h = new SkewHeap<number>((a,b)=>a-b); // min-heap comparator
     [5,1,9,3,7,2,8,4,6,0].forEach(x=>h.add(x));
     const out: number[] = [];
     for (let i=0;i<10;i++) out.push(h.poll()!);
