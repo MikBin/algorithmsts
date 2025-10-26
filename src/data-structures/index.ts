@@ -78,6 +78,7 @@ export { AhoCorasick } from './aho-corasick';
 export { IntervalTree } from './interval-tree';
 export { SuffixAutomaton } from './suffix-automaton';
 export { AATree } from './aa-tree';
+export { OrderStatisticTree } from './order-statistic-tree';
 
 // Others
 export { UnionFind } from './disjoint-set';
