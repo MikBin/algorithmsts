@@ -177,6 +177,17 @@ export class Trie<T> extends BaseDataStructure<T> {
   }
 
   /**
+   * Checks if a key exists in the trie (is terminal)
+   * @param key The key to check
+   * @returns True if the key exists and is terminal, false otherwise
+   * @complexity O(m) where m is the length of the key
+   */
+  hasKey(key: string): boolean {
+    const node = this.getNode(key);
+    return node ? node.terminal : false;
+  }
+
+  /**
    * Removes a key from the trie
    * @param key The key to remove
    * @returns True if the key was removed, false otherwise

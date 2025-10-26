@@ -92,11 +92,51 @@ describe('Compatibility Adapters', () => {
 
   describe('SegmentTreeAdapter', () => {
     it('should provide legacy SegmentTree API', () => {
-      const adapter = new SegmentTreeAdapter<number>();
+      // Define a custom node interface for sum queries
+      interface SumNode {
+        left: number;
+        right: number;
+        sum: number;
+      }
+
+      // Create a simple segment tree for sum queries
+      const sourceArray = [1, 2, 3, 4, 5];
+      const segmentNodeFactory = (value: number, left: number, right: number): SumNode => ({
+        left,
+        right,
+        sum: value
+      });
+      const segmentNodeMerger = (parent: SumNode, left: SumNode, right: SumNode): void => {
+        parent.sum = left.sum + right.sum;
+      };
+      const segmentNodeQuery = (a: SumNode, b: SumNode): SumNode => {
+        if (a.left === -1 && a.right === -1) return b;
+        if (b.left === -1 && b.right === -1) return a;
+        return { sum: a.sum + b.sum, left: a.left, right: b.right };
+      };
+      const segmentLeafUpdater = (value: number, leaf: SumNode): void => {
+        leaf.sum = value;
+      };
+
+      const adapter = new SegmentTreeAdapter(
+        sourceArray,
+        segmentNodeFactory,
+        segmentNodeMerger,
+        segmentNodeQuery,
+        segmentLeafUpdater
+      );
 
       // Test basic functionality - adapter should delegate to new implementation
       expect(adapter).toBeDefined();
-      // Specific tests would depend on the legacy API methods
+
+      // Test query method
+      const result = adapter.query(0, 4);
+      expect((result as SumNode).sum).toBe(15); // 1+2+3+4+5
+
+      // Test update method
+      adapter.updateLeaf(10, 2); // Update index 2 from 3 to 10
+      const updatedResult = adapter.query(0, 4);
+      expect((updatedResult as SumNode).sum).toBe(22); // 1+2+10+4+5
     });
   });
 

@@ -45,7 +45,7 @@ export class TrieAdapter<T> {
    * @returns True if the key exists, false otherwise
    */
   contains(key: string): boolean {
-    return this.newTrie.get(key) !== null;
+    return this.newTrie.hasKey(key);
   }
 
   /**
