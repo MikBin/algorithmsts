@@ -33,6 +33,19 @@ export class SampleGraphs {
   }
 
   /**
+   * Unweighted simple undirected graph: A -- B -- C
+   */
+  static get unweightedSimpleUndirectedGraph(): IGraph<string> {
+    const graph = new AdjacencyListGraph<string>(false, false); // undirected, unweighted
+    graph.addVertex('A');
+    graph.addVertex('B');
+    graph.addVertex('C');
+    graph.addEdge('A', 'B');
+    graph.addEdge('B', 'C');
+    return graph;
+  }
+
+  /**
    * Graph with a cycle: A -> B -> C -> A
    */
   static get cyclicGraph(): IGraph<string> {
@@ -83,13 +96,13 @@ export class SampleGraphs {
    * Disconnected graph with two components
    */
   static get disconnectedGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>(true); // directed
+    const graph = new AdjacencyListGraph<string>(false, true); // undirected, weighted
     graph.addVertex('A');
     graph.addVertex('B');
     graph.addVertex('C');
     graph.addVertex('D');
-    graph.addEdge('A', 'B');
-    graph.addEdge('C', 'D');
+    graph.addEdge('A', 'B', 1);
+    graph.addEdge('C', 'D', 1);
     return graph;
   }
 
@@ -104,7 +117,7 @@ export class SampleGraphs {
    * Single vertex graph
    */
   static get singleVertexGraph(): IGraph<string> {
-    const graph = new AdjacencyListGraph<string>(true); // directed
+    const graph = new AdjacencyListGraph<string>(true, true); // directed, weighted
     graph.addVertex('A');
     return graph;
   }

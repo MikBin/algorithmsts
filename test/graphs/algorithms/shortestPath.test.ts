@@ -17,7 +17,7 @@ describe('Shortest Path Algorithms', () => {
 
       expect(result.found).toBe(true);
       expect(result.path).toEqual(['A', 'C', 'D']);
-      expect(result.distance).toBe(7); // A->C(2) + C->D(3) = 5, but wait, A->B(4)+B->D(10)=14, A->C(2)+C->D(3)=5
+      expect(result.distance).toBe(5);
     });
 
     it('should return correct path and distance', () => {

@@ -40,30 +40,48 @@ export class GraphTestUtils {
    */
   static hasCycle<T>(graph: IGraph<T>): boolean {
     const visited = new Set<T>();
-    const recStack = new Set<T>();
 
-    const dfs = (vertex: T): boolean => {
-      visited.add(vertex);
-      recStack.add(vertex);
+    if (graph.isDirected()) {
+      // Use recursion stack method for directed graphs
+      const recStack = new Set<T>();
+      const dfsDirected = (vertex: T): boolean => {
+        visited.add(vertex);
+        recStack.add(vertex);
 
-      for (const neighbor of graph.getNeighbors(vertex)) {
-        if (!visited.has(neighbor)) {
-          if (dfs(neighbor)) {
+        for (const neighbor of graph.getNeighbors(vertex)) {
+          if (!visited.has(neighbor)) {
+            if (dfsDirected(neighbor)) return true;
+          } else if (recStack.has(neighbor)) {
             return true;
           }
-        } else if (recStack.has(neighbor)) {
-          return true;
+        }
+        recStack.delete(vertex);
+        return false;
+      };
+
+      for (const vertex of graph.getVertices()) {
+        if (!visited.has(vertex)) {
+          if (dfsDirected(vertex)) return true;
         }
       }
+    } else {
+      // Use parent tracking method for undirected graphs
+      const dfsUndirected = (vertex: T, parent: T | null): boolean => {
+        visited.add(vertex);
 
-      recStack.delete(vertex);
-      return false;
-    };
+        for (const neighbor of graph.getNeighbors(vertex)) {
+          if (!visited.has(neighbor)) {
+            if (dfsUndirected(neighbor, vertex)) return true;
+          } else if (neighbor !== parent) {
+            return true;
+          }
+        }
+        return false;
+      };
 
-    for (const vertex of graph.getVertices()) {
-      if (!visited.has(vertex)) {
-        if (dfs(vertex)) {
-          return true;
+      for (const vertex of graph.getVertices()) {
+        if (!visited.has(vertex)) {
+          if (dfsUndirected(vertex, null)) return true;
         }
       }
     }
