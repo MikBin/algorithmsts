@@ -74,6 +74,7 @@ export * from './fenwick-tree';
 
 // New tree/heaps and automata
 export { Treap } from './treap';
+export { WAVLTree } from './wavl-tree';
 export { SplayTree } from './splay-tree';
 export { PairingHeap } from './pairing-heap';
 export { BinomialHeap } from './binomial-heap';
