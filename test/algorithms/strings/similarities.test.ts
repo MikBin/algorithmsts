@@ -56,11 +56,9 @@ describe("testing string similarities: ", () => {
     expect(trigramSimilarity.execute({ str1: "apple", str2: "orange" }).similarity).toBeCloseTo(0);
   });
 
-  console.log(jaroDistance.execute({ str1: "ciao bambino", str2: "abcdabcdab" }).distance, jaroDistance.execute({ str1: "orsetto lavatore", str2: "abcdabcdabcdabcd" }).distance, jaroDistance.execute({ str1: "ciao bambino", str2: "orsetto lavatore" }).distance);
   /** the average distance from same string is the distance from the 2 strings
    * NB the common string have to be of the same length of each of the 2.
    */
-  console.log(jaroDistance.execute({ str1: "ciao bambino", str2: "abcdabcdab" }).distance, jaroDistance.execute({ str1: "cioa bambano", str2: "abcdabcdabcdabcd" }).distance, jaroDistance.execute({ str1: "ciao bambino", str2: "cioa bambano" }).distance);
 
 });
 

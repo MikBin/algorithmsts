@@ -180,9 +180,6 @@ describe('testing segmentTree setup query and update: ', () => {
   let testArr19: Array<number> = [3, 45, 6, 7, 8, 23, 1, 2, 55, 6, 7, 85, 34, 6, 12, 66, 34, 22, 8]
 
   const SEG_ITER19: segmentNode[] = buildSegTreeIterative(testArr19, nodeFactoryFn, nodeMergerFn)
-  /* for (let i = 0; i < SEG_ITER19.length; i++) {
-     console.log(i, SEG_ITER19[i]);
-   }*/
   it('creates segment tree of 19 length source: ', () => {
     SEG_ITER19.forEach((node, idx) => {
       if (idx > 0) {
@@ -208,7 +205,6 @@ describe('testing segmentTree setup query and update: ', () => {
     let res = iterativeQueryRange(SEG_ITER19, 0, 7, nodeQueryMerger)
     let resOld = iterativeQueryRange(SEG_ITER, 0, 7, nodeQueryMerger)
     let resRec = queryRange(SEGMENT, 1, 0, 7, nodeQueryMerger)
-    //console.log(res, resRec, resOld);
 
     expect(res).toEqual(resOld)
     expect(res).toEqual(resRec)
@@ -239,7 +235,6 @@ describe('testing segmentTree setup query and update: ', () => {
     let res = iterativeQueryRange(SEG_ITER19, 0, 7, nodeQueryMerger)
     let resOld = iterativeQueryRange(SEG_ITER, 0, 7, nodeQueryMerger)
     let resRec = queryRange(SEGMENT, 1, 0, 7, nodeQueryMerger)
-    // console.log(res, resRec, resOld);
 
     expect(res).toEqual(resOld)
     expect(res).toEqual(resRec)
@@ -1110,7 +1105,6 @@ describe('testing segment tree class: ', () => {
     tree.forEach((N, i) => {
       if (N.right > N.left) {
         let wmv = walfordMeanVariance(financialSeries, N.left, N.right + 1)
-        //if (Math.abs(N.avg - wmv.avg) > 0.001) console.log('err: ', i, N.avg, wmv.avg)
         expect(Math.abs(N.avg - wmv.avg)).toBeLessThan(0.001)
         expect(Math.abs(N.sigma - wmv.sigma)).toBeLessThan(0.001)
       }
@@ -1122,7 +1116,6 @@ describe('testing segment tree class: ', () => {
     let res = FinSegmentTree.query(0, 10)
     let sigma = getSigma(financialSeries, avg, 0, 11)
     let m = getMaxInRange(financialSeries, 0, 11)
-    // console.log(res, avg, sigma)
     expect(res.max).toEqual(m)
     expect(avg.toFixed(3)).toEqual(res.avg.toFixed(3))
     expect(sigma.toFixed(3)).toEqual(res.sigma.toFixed(3))
@@ -1132,7 +1125,6 @@ describe('testing segment tree class: ', () => {
     let res = FinSegmentTree.query(23, 70)
     let m = getMaxInRange(financialSeries, 23, 71)
     let wmv = walfordMeanVariance(financialSeries, 23, 71)
-    //console.log('medium range 23 71', res, wmv)
     expect(res.max).toEqual(m)
     expect(wmv.avg.toFixed(3)).toEqual(res.avg.toFixed(3))
   })
@@ -1140,14 +1132,12 @@ describe('testing segment tree class: ', () => {
   //@TODO to fix variance computation
   it('have full average correct', () => {
     let wmv = walfordMeanVariance(financialSeries)
-    // console.log(wmv)
     let res = FinSegmentTree.query(0, financialSeries.length - 1)
     let highs = financialSeries.map(
       (v): number => {
         return <number>v[2]
       }
     )
-    //console.log(res)
     expect(Math.max(...highs)).toEqual(res.max)
     expect(Math.abs(wmv.avg - res.avg)).toBeLessThan(0.001)
     expect(Math.abs(wmv.sigma - res.sigma)).toBeLessThan(0.001)

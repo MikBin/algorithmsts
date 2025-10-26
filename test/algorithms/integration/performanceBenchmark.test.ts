@@ -66,8 +66,6 @@ describe('Algorithm Performance Benchmark Integration Tests', () => {
       expect(radixTime).toBeLessThan(100);
       expect(countingTime).toBeLessThan(100);
 
-      // Log performance comparison
-      console.log(`RadixSort: ${radixTime}ms, CountingSort: ${countingTime}ms`);
     });
   });
 
@@ -133,7 +131,6 @@ describe('Algorithm Performance Benchmark Integration Tests', () => {
         expect(ngramTime).toBeLessThan(10);
         expect(jaroTime).toBeLessThan(50);
 
-        console.log(`N-gram (${str1.length + str2.length} chars): ${ngramTime}ms, Jaro: ${jaroTime}ms`);
       });
     });
 
@@ -184,7 +181,6 @@ describe('Algorithm Performance Benchmark Integration Tests', () => {
         );
 
         expect(executionTime).toBeLessThan(100); // Should complete within 100ms
-        console.log(`BFS on graph with ${size} nodes: ${executionTime}ms`);
       });
     });
   });

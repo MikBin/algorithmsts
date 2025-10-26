@@ -7,6 +7,5 @@ import algorithms from '../src/algorithmsts'
 describe('retest for coverage report', () => {
   it('calls binary search', () => {
     expect(algorithms).toBeInstanceOf(Object)
-    //console.log(algorithms);
   })
 })

@@ -12,7 +12,6 @@ describe('trie basics functionalities: ', () => {
   words.forEach((w, i) => {
     myTrieB.add(w, w)
   })
-  console.log(myTrieA, myTrieB)
   it('works', () => {
     expect(true).toBeTruthy()
   })
