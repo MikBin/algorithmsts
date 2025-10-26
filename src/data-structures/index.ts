@@ -82,6 +82,7 @@ export { SkewHeap } from './skew-heap';
 export { FibonacciHeap } from './fibonacci-heap';
 export { KDTree } from './kd-tree';
 export { Quadtree } from './quadtree';
+export { Octree } from './octree';
 export { RTree } from './r-tree';
 export { BKTree } from './bk-tree';
 export { VPTree } from './vp-tree';
