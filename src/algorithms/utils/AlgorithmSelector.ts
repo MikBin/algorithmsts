@@ -150,6 +150,21 @@ export class AlgorithmSelector {
   ): AlgorithmSelectionResult<IAlgorithm<any, any>> {
     const { inputSize, prioritizeSpeed = true } = criteria;
 
+    // For accuracy over speed, prefer more sophisticated algorithms
+    if (!prioritizeSpeed) {
+      const algorithm = algorithms.find(a => a.getName().includes('LevenshteinDistance')) ||
+                        algorithms.find(a => a.getName().includes('JaroDistance')) ||
+                        algorithms[0];
+      return {
+        selectedAlgorithm: algorithm!,
+        reason: `For accuracy (max length ${inputSize}), selecting sophisticated distance algorithm`,
+        expectedMetrics: {
+          timeComplexity: algorithm!.getTimeComplexity(),
+          spaceComplexity: algorithm!.getSpaceComplexity()
+        }
+      };
+    }
+
     // For short strings, prefer simpler algorithms
     if (inputSize <= 50) {
       const algorithm = algorithms.find(a => a.getName().includes('NgramSimilarity')) ||
@@ -166,27 +181,12 @@ export class AlgorithmSelector {
     }
 
     // For longer strings, prefer faster algorithms if speed is prioritized
-    if (prioritizeSpeed) {
-      const algorithm = algorithms.find(a => a.getTimeComplexity().includes('O(m + n)')) ||
-                        algorithms.find(a => a.getName().includes('NgramSimilarity')) ||
-                        algorithms[0];
-      return {
-        selectedAlgorithm: algorithm!,
-        reason: `For longer strings (max length ${inputSize}), prioritizing speed with linear complexity`,
-        expectedMetrics: {
-          timeComplexity: algorithm!.getTimeComplexity(),
-          spaceComplexity: algorithm!.getSpaceComplexity()
-        }
-      };
-    }
-
-    // For accuracy over speed, prefer more sophisticated algorithms
-    const algorithm = algorithms.find(a => a.getName().includes('LevenshteinDistance')) ||
-                      algorithms.find(a => a.getName().includes('JaroWinklerDistance')) ||
+    const algorithm = algorithms.find(a => a.getTimeComplexity().includes('O(m + n)')) ||
+                      algorithms.find(a => a.getName().includes('NgramSimilarity')) ||
                       algorithms[0];
     return {
       selectedAlgorithm: algorithm!,
-      reason: `For accuracy (max length ${inputSize}), selecting sophisticated distance algorithm`,
+      reason: `For longer strings (max length ${inputSize}), prioritizing speed with linear complexity`,
       expectedMetrics: {
         timeComplexity: algorithm!.getTimeComplexity(),
         spaceComplexity: algorithm!.getSpaceComplexity()

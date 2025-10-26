@@ -308,22 +308,35 @@ export class JaroDistance extends BaseAlgorithm<JaroDistanceInput, JaroDistanceO
       }
 
       // Find matching characters within max distance
-      for (let i = 0; i < len2; i++) {
-        const char = str2[i];
-        if (charsAndPositions[char]) {
-          let found = false;
-          for (const pos of charsAndPositions[char]) {
-            if (Math.abs(pos - i) <= maxDist) {
-              matchingChars++;
-              if (pos > i) transpositions++; // Character appears later in first string
-              charsAndPositions[char] = charsAndPositions[char].filter(p => p !== pos);
-              found = true;
-              break;
-            }
+      const str1Matches = new Array(len1).fill(false);
+      const str2Matches = new Array(len2).fill(false);
+
+      // First pass: find matching characters
+      for (let i = 0; i < len1; i++) {
+        const start = Math.max(0, i - maxDist);
+        const end = Math.min(i + maxDist + 1, len2);
+
+        for (let j = start; j < end; j++) {
+          if (!str2Matches[j] && str1[i] === str2[j]) {
+            str1Matches[i] = true;
+            str2Matches[j] = true;
+            matchingChars++;
+            break;
           }
-          if (!found) {
-            transpositions++; // Character not found within distance
+        }
+      }
+
+      // Second pass: count transpositions
+      let str2Index = 0;
+      for (let i = 0; i < len1; i++) {
+        if (str1Matches[i]) {
+          while (!str2Matches[str2Index]) {
+            str2Index++;
           }
+          if (str1[i] !== str2[str2Index]) {
+            transpositions++;
+          }
+          str2Index++;
         }
       }
 
