@@ -130,7 +130,27 @@ const iterativeQueryRange = <U extends BaseSegmentTreeNode>(
     }
   }
 
-  let answer = JSON.parse(JSON.stringify(queryMerger(resLeft, resRight)));
+  let answer = queryMerger(resLeft, resRight);
+
+  // Handle case when both resLeft and resRight are empty
+  if (answer.left === -1 && answer.right === -1) {
+    // If we're querying a single element, return that element
+    if (l === r) {
+      return segmentTree[n + l];
+    }
+
+    // For multi-element range, we need to accumulate all elements in the range
+    // Start with the first element
+    let result = segmentTree[n + l];
+    // Then accumulate the rest
+    for (let i = l + 1; i <= r; i++) {
+      // Create a copy of the result to avoid modifying the original
+      let tempResult = JSON.parse(JSON.stringify(result));
+      result = queryMerger(tempResult, segmentTree[n + i]);
+    }
+    return result;
+  }
+
   answer.left = l;
   answer.right = r;
 
@@ -391,11 +411,18 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
    * @complexity O(n)
    */
   toArray(): T[] {
-    // Return the leaf nodes as an approximation
+    // Extract the original values from the leaf nodes
     const result: T[] = [];
     const n = this._SEG_TREE.length / 2;
     for (let i = 0; i < this._size; i++) {
-      result.push(this._SEG_TREE[n + i] as unknown as T);
+      const node = this._SEG_TREE[n + i];
+      // Try to extract the value from the node
+      if (node && 'value' in node) {
+        result.push((node as any).value);
+      } else if (node) {
+        // If no value property, try to use the node itself if it matches T
+        result.push(node as unknown as T);
+      }
     }
     return result;
   }
@@ -408,3 +435,6 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
     return this._SEG_TREE;
   }
 }
+
+// Export internal functions for testing
+export { buildSegmentTree, buildSegTreeIterative, queryRange, iterativeQueryRange, updateLeafNode, updateLeafNodeIterative, updateRangeLazy };

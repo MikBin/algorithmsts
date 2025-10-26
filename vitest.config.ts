@@ -18,7 +18,7 @@ export default defineConfig({
         }
       }
     },
-    reporters: ['verbose', 'json'],
+    reporters: ['default'],
     environment: 'node',
     globals: true,
     setupFiles: [],
