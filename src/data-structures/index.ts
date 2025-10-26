@@ -59,6 +59,7 @@ export type { IUkkonenAlgorithm } from './suffix-tree';
 // Heap data structures
 export * from './binary-heap';
 export { DAryHeap } from './d-ary-heap';
+export { MinMaxHeap } from './min-max-heap';
 export { PriorityQueue } from './priority-queue';
 // B-Tree
 export { BTree, BTreeIterator } from './b-tree';
