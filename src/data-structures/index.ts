@@ -75,6 +75,7 @@ export { SplayTree } from './splay-tree';
 export { PairingHeap } from './pairing-heap';
 export { BinomialHeap } from './binomial-heap';
 export { LeftistHeap } from './leftist-heap';
+export { FibonacciHeap } from './fibonacci-heap';
 export { KDTree } from './kd-tree';
 export { PatriciaTrie } from './patricia-trie';
 export { Rope } from './rope';
