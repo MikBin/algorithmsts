@@ -76,6 +76,7 @@ export { BinomialHeap } from './binomial-heap';
 export { KDTree } from './kd-tree';
 export { AhoCorasick } from './aho-corasick';
 export { SuffixAutomaton } from './suffix-automaton';
+export { AATree } from './aa-tree';
 
 // Others
 export { UnionFind } from './disjoint-set';
