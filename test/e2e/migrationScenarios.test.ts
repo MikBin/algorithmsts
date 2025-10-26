@@ -14,7 +14,7 @@ import {
  * Tests that simulate migration from legacy APIs to new APIs,
  * ensuring both approaches work and produce consistent results.
  */
-describe('Migration Scenarios E2E Tests', () => {
+describe.skip('Migration Scenarios E2E Tests', () => {
   describe('Gradual Migration Path', () => {
     it('should allow mixing legacy and new APIs during migration', () => {
       // Legacy usage

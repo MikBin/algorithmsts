@@ -22,7 +22,10 @@ const InjectPlugin =
         typescript({
           sourceMap: true,
           inlineSources: true,
-          declaration: true,
+          compilerOptions: {
+            declaration: false,
+            emitDeclarationOnly: false,
+          },
         }),
         del({ targets: "dist/*", verbose: true }),
       ]
@@ -34,6 +37,10 @@ const InjectPlugin =
         typescript({
           sourceMap: true,
           inlineSources: true,
+          compilerOptions: {
+            declaration: false,
+            emitDeclarationOnly: false,
+          },
         }),
       ];
 
@@ -46,14 +53,21 @@ export default defineConfig([
     output: [
       // commonjs
       {
-        file: "dist/algorithmsts.min.cjs",
-        format: "commonjs",
+        file: "dist/algorithmsts.cjs.js",
+        format: "cjs",
         sourcemap: true,
       },
       // es module
       {
         file: "dist/algorithmsts.esm.js",
         format: "esm",
+        sourcemap: true,
+      },
+      // umd for browser compatibility
+      {
+        file: "dist/algorithmsts.umd.js",
+        format: "umd",
+        name: "algorithmsts",
         sourcemap: true,
       },
     ],

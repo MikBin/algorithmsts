@@ -20,6 +20,8 @@ export interface BinarySearchInput<T> {
 export interface BinarySearchOutput {
   /** The index of the found element, or -1 if not found */
   index: number;
+  /** Backward-compatible result field */
+  result: number;
 }
 
 /**
@@ -52,7 +54,7 @@ export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinaryS
       const { array, value, compareFn } = input;
 
       if (!array || array.length === 0) {
-        result = { index: -1 };
+        result = { index: -1, result: -1 };
         return;
       }
 
@@ -66,7 +68,7 @@ export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinaryS
 
         if (comparison === 0) {
           // Found the exact value
-          result = { index: mid };
+          result = { index: mid, result: mid };
           return;
         } else if (comparison < 0) {
           // Value is in the left half
@@ -78,7 +80,7 @@ export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinaryS
       }
 
       // Value not found
-      result = { index: -1 };
+      result = { index: -1, result: -1 };
     });
 
     // Log performance if it exceeds target

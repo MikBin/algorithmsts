@@ -81,6 +81,14 @@ export * from './performance';
 // Import and re-export type definitions
 export * from './types';
 
+// Emit a deprecation warning when importing the legacy default export entry
+if (typeof console !== 'undefined' && console.warn) {
+  console.warn(
+    `[DEPRECATED] The default export of algorithmsts is deprecated and will be removed in version 2.0.0. ` +
+    `Please migrate to the new modular API: import from '@mikbin80/algorithmsts/algorithms' or '@mikbin80/algorithmsts/data-structures'.`
+  );
+}
+
 // Import existing modules for backward compatibility
 import * as binSearches from './binarySearch/binarySearch'
 import * as segTree from './segmentTree/segmentTree'
@@ -90,14 +98,15 @@ import { SuffixTree } from './suffixTree/index'
 import { ngramSimilarity } from './strings/similarities'
 
 // Import compatibility layer
-import * as compatibility from './compatibility';
+import * as compatibility from './compatibility/index.ts';
+import { LegacyAPI } from './compatibility/utils/LegacyAPI';
 
 /**
  * Default export maintaining backward compatibility
  * @deprecated Consider importing specific modules for better tree-shaking and performance.
  * Use modular imports like `import { BinarySearch } from '@mikbin80/algorithmsts/algorithms'` instead.
  */
-export default {
+export default LegacyAPI.createLegacyModule({
   binarySearch: binSearches,
   segmentTree: segTree,
   skipList: SkipList,
@@ -110,7 +119,7 @@ export default {
   SegmentTree: compatibility.SegmentTree,
   Trie: compatibility.Trie,
   SuffixTreeAdapter: compatibility.SuffixTree
-}
+}, '2.0.0');
 
 // Legacy comment preserved for reference:
 // used on some strings remove spaces and special chars like ' " ? ...

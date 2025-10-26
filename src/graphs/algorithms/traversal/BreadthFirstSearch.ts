@@ -73,8 +73,10 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
       visited: Array.from(visited),
       paths,
       parents,
-      levels
-    };
+      levels,
+      // Backward-compatible alias used by docs tests
+      get result() { return Array.from(visited); }
+    } as unknown as any;
   }
 
   /**
@@ -83,10 +85,15 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
    * @param startVertex The vertex to start from (passed as additional argument)
    * @returns The traversal result
    */
-  public execute(graph: IGraph<T, W>, startVertex?: T): ITraversalResult<T> {
-    if (startVertex === undefined) {
-      throw new Error('Start vertex must be provided for BFS traversal');
+  public execute(graphOrInput: IGraph<T, W> | { graph: IGraph<T, W>; startNode: T }, maybeStart?: T): ITraversalResult<T> {
+    if (typeof (graphOrInput as any).getVertices === 'function') {
+      const graph = graphOrInput as IGraph<T, W>;
+      if (maybeStart === undefined) {
+        throw new Error('Start vertex must be provided for BFS traversal');
+      }
+      return this.traverse(graph, maybeStart);
     }
-    return this.traverse(graph, startVertex);
+    const { graph, startNode } = graphOrInput as { graph: IGraph<T, W>; startNode: T };
+    return this.traverse(graph, startNode);
   }
 }

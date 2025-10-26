@@ -9,6 +9,12 @@
 
 import { DeprecationWarning } from './DeprecationWarning';
 
+function isClass(fn: unknown): fn is new (...args: any[]) => any {
+  if (typeof fn !== 'function') return false;
+  const str = Function.prototype.toString.call(fn);
+  return str.startsWith('class ') || ('prototype' in fn && Object.getOwnPropertyNames((fn as any).prototype).includes('constructor'));
+}
+
 /**
  * Utility class for managing legacy API compatibility
  */
@@ -28,13 +34,17 @@ export class LegacyAPI {
     version: string
   ): T {
     if (typeof target === 'function') {
+      // Distinguish between functions and class constructors
+      if (isClass(target)) {
+        return DeprecationWarning.wrapConstructor(target as any, oldName, newName, version) as unknown as T;
+      }
       return DeprecationWarning.wrap(target as any, oldName, newName, version);
     }
 
-    // For objects/classes, wrap methods
+    // For objects/namespaces, wrap function properties
     if (typeof target === 'object' && target !== null) {
-      const wrapped = { ...target };
-      for (const key in wrapped) {
+      const wrapped: Record<string, any> = { ...(target as any) };
+      for (const key of Object.keys(wrapped)) {
         if (typeof wrapped[key] === 'function') {
           wrapped[key] = DeprecationWarning.wrap(
             wrapped[key] as any,
@@ -44,7 +54,7 @@ export class LegacyAPI {
           );
         }
       }
-      return wrapped;
+      return wrapped as unknown as T;
     }
 
     return target;
@@ -80,24 +90,53 @@ export class LegacyAPI {
     const wrapped: any = {};
 
     for (const [key, value] of Object.entries(exports)) {
+      let prepared: any;
       if (typeof value === 'function') {
-        wrapped[key] = DeprecationWarning.wrap(
-          value,
-          `algorithmsts.${key}`,
-          `algorithmsts/data-structures or algorithmsts/algorithms`,
-          version
-        );
-      } else if (typeof value === 'object' && value !== null && value.constructor !== Object) {
-        // Class constructor
-        wrapped[key] = DeprecationWarning.wrapConstructor(
-          value as any,
-          `algorithmsts.${key}`,
-          `algorithmsts/data-structures or algorithmsts/algorithms`,
-          version
-        );
+        // Class vs function
+        prepared = isClass(value)
+          ? DeprecationWarning.wrapConstructor(
+              value as any,
+              `algorithmsts.${key}`,
+              `algorithmsts/data-structures or algorithmsts/algorithms`,
+              version
+            )
+          : DeprecationWarning.wrap(
+              value as any,
+              `algorithmsts.${key}`,
+              `algorithmsts/data-structures or algorithmsts/algorithms`,
+              version
+            );
+      } else if (typeof value === 'object' && value !== null) {
+        // Treat as namespace/module object: wrap its callable members
+        const obj: Record<string, any> = { ...(value as any) };
+        for (const prop of Object.keys(obj)) {
+          if (typeof obj[prop] === 'function') {
+            obj[prop] = DeprecationWarning.wrap(
+              obj[prop],
+              `algorithmsts.${key}.${prop}`,
+              `algorithmsts/data-structures or algorithmsts/algorithms`,
+              version
+            );
+          }
+        }
+        prepared = obj;
       } else {
-        wrapped[key] = value;
+        prepared = value;
       }
+
+      // Define accessor that warns on property access
+      Object.defineProperty(wrapped, key, {
+        configurable: true,
+        enumerable: true,
+        get() {
+          DeprecationWarning.warn(
+            `algorithmsts.${key}`,
+            `algorithmsts/data-structures or algorithmsts/algorithms`,
+            version
+          );
+          return prepared;
+        }
+      });
     }
 
     return wrapped;

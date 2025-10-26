@@ -17,6 +17,8 @@ export interface RadixSortNumbersInput {
 export interface RadixSortNumbersOutput {
   /** The sorted array */
   sortedArray: number[];
+  /** Backward-compatible result field */
+  result: number[];
 }
 
 /**
@@ -51,7 +53,7 @@ export class RadixSortNumbers extends BaseAlgorithm<RadixSortNumbersInput, Radix
       const { array } = input;
 
       if (!array || array.length <= 1) {
-        result = { sortedArray: array ? [...array] : [] };
+        result = { sortedArray: array ? [...array] : [], result: array ? [...array] : [] };
         return;
       }
 
@@ -95,7 +97,7 @@ export class RadixSortNumbers extends BaseAlgorithm<RadixSortNumbersInput, Radix
       // Sort positives
       const sortedPositives = sort(positives);
 
-      result = { sortedArray: [...sortedNegatives, ...sortedPositives] };
+      result = { sortedArray: [...sortedNegatives, ...sortedPositives], result: [...sortedNegatives, ...sortedPositives] };
     });
 
     // Log performance warning for large arrays
@@ -121,6 +123,8 @@ export interface RadixSortStringsInput {
 export interface RadixSortStringsOutput {
   /** The sorted array */
   sortedArray: string[];
+  /** Backward-compatible result field */
+  result: string[];
 }
 
 /**
@@ -154,7 +158,7 @@ export class RadixSortStrings extends BaseAlgorithm<RadixSortStringsInput, Radix
       const { array } = input;
 
       if (!array || array.length <= 1) {
-        result = { sortedArray: array ? [...array] : [] };
+        result = { sortedArray: array ? [...array] : [], result: array ? [...array] : [] };
         return;
       }
 
@@ -188,7 +192,7 @@ export class RadixSortStrings extends BaseAlgorithm<RadixSortStringsInput, Radix
         resultArray = buckets.flat();
       }
 
-      result = { sortedArray: resultArray };
+      result = { sortedArray: resultArray, result: resultArray };
     });
 
     // Log performance warning for large arrays

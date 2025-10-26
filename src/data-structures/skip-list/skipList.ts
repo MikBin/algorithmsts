@@ -199,4 +199,25 @@ export class SkipList<T> extends BaseDataStructure<T> {
     }
     return result;
   }
+
+  /**
+   * Legacy alias for add
+   */
+  insert(val: T): void {
+    this.add(val);
+  }
+
+  /**
+   * Find a value and return it, or null if not present
+   */
+  find(val: T): T | null {
+    let currentNode = this.head;
+    for (let i = this.maxLevel; i >= 1; i--) {
+      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, val) < 0) {
+        currentNode = currentNode.pointers[i]!;
+      }
+    }
+    currentNode = currentNode.pointers[1]!;
+    return currentNode && this.comparisonFn(currentNode.value, val) === 0 ? currentNode.value : null;
+  }
 }

@@ -22,6 +22,8 @@ export interface NgramSimilarityInput {
 export interface NgramSimilarityOutput {
   /** Similarity score between 0 and 1 */
   similarity: number;
+  /** Backward-compatible result field */
+  result: number;
 }
 
 /**
@@ -64,7 +66,7 @@ export class NgramSimilarity extends BaseAlgorithm<NgramSimilarityInput, NgramSi
       }
 
       if (s1.length < substringLength || s2.length < substringLength) {
-        result = { similarity: 0 };
+        result = { similarity: 0, result: 0 };
         return;
       }
 
@@ -91,7 +93,7 @@ export class NgramSimilarity extends BaseAlgorithm<NgramSimilarityInput, NgramSi
       const totalNgrams = s1.length - substringLength + 1 + (s2.length - substringLength + 1);
       const similarity = (match * 2) / totalNgrams;
 
-      result = { similarity };
+      result = { similarity, result: similarity };
     });
 
     // Log performance warning for long strings
@@ -252,6 +254,8 @@ export interface JaroDistanceInput {
 export interface JaroDistanceOutput {
   /** Jaro distance between 0 and 1 */
   distance: number;
+  /** Backward-compatible result field */
+  result: number;
 }
 
 /**
@@ -285,11 +289,11 @@ export class JaroDistance extends BaseAlgorithm<JaroDistanceInput, JaroDistanceO
       const len2 = str2.length;
 
       if (len1 === 0 && len2 === 0) {
-        result = { distance: 1 };
+        result = { distance: 1, result: 1 };
         return;
       }
       if (len1 === 0 || len2 === 0) {
-        result = { distance: 0 };
+        result = { distance: 0, result: 0 };
         return;
       }
 
@@ -345,7 +349,7 @@ export class JaroDistance extends BaseAlgorithm<JaroDistanceInput, JaroDistanceO
       const jaroDistance = matchingChars === 0 ? 0 :
         (matchingChars / len1 + matchingChars / len2 + (matchingChars - transpositions) / matchingChars) / 3;
 
-      result = { distance: jaroDistance };
+      result = { distance: jaroDistance, result: jaroDistance };
     });
 
     // Log performance warning for long strings
@@ -448,6 +452,8 @@ export interface LevenshteinDistanceInput {
 export interface LevenshteinDistanceOutput {
   /** Normalized Levenshtein distance between 0 and 1 */
   distance: number;
+  /** Backward-compatible result field */
+  result: number;
 }
 
 /**
@@ -481,11 +487,11 @@ export class LevenshteinDistance extends BaseAlgorithm<LevenshteinDistanceInput,
       const len2 = str2.length;
 
       if (len1 === 0) {
-        result = { distance: len2 === 0 ? 0 : 1 };
+        result = { distance: len2 === 0 ? 0 : 1, result: len2 === 0 ? 0 : 1 };
         return;
       }
       if (len2 === 0) {
-        result = { distance: 1 };
+        result = { distance: 1, result: 1 };
         return;
       }
 
@@ -522,7 +528,7 @@ export class LevenshteinDistance extends BaseAlgorithm<LevenshteinDistanceInput,
       const maxLength = Math.max(len1, len2);
       const normalizedDistance = maxLength === 0 ? 0 : 1 - (editDistance / maxLength);
 
-      result = { distance: normalizedDistance };
+      result = { distance: normalizedDistance, result: normalizedDistance };
     });
 
     // Log performance warning for long strings

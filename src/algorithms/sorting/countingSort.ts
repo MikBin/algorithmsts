@@ -16,6 +16,8 @@ export interface CountingSortInput {
 export interface CountingSortOutput {
   /** The sorted array */
   sortedArray: number[];
+  /** Backward-compatible result field */
+  result: number[];
 }
 
 /**
@@ -50,7 +52,8 @@ export class CountingSort extends BaseAlgorithm<CountingSortInput, CountingSortO
       const { array } = input;
 
       if (!array || array.length <= 1) {
-        result = { sortedArray: array ? [...array] : [] };
+        const out = array ? [...array] : [];
+        result = { sortedArray: out, result: out };
         return;
       }
 
@@ -86,7 +89,7 @@ export class CountingSort extends BaseAlgorithm<CountingSortInput, CountingSortO
         count[array[i] - min]--;
       }
 
-      result = { sortedArray: output };
+      result = { sortedArray: output, result: output };
     });
 
     // Log performance warning for large arrays (O(n+k) should be fast, but warn if slow)

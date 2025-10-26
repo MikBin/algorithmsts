@@ -62,8 +62,12 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
   /**
    * Creates a new SparseTable instance
    */
-  constructor() {
+  constructor(values?: T[], operation?: SparseTableOperation<T>) {
     super('SparseTable', 'O(N log N)', 'O(N log N)');
+    if (values && operation) {
+      this.operation = operation;
+      this.initializeTable(values);
+    }
   }
 
   /**
@@ -102,7 +106,7 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
     // For operations like sum where overlapping ranges cause double-counting,
     // use an iterative approach with non-overlapping ranges
     // We detect sum operations by testing if operation(a, 0) === a for simple values
-    const testResult = this.operation(5, 0);
+    const testResult = this.operation(5 as T, 0 as T);
     if (testResult === 5) {
       return this.queryIterative(left, right);
     }
