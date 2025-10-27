@@ -69,7 +69,8 @@ export { PriorityQueue } from './priority-queue';
 export { BTree, BTreeIterator } from './b-tree';
 export type { BTreeNode } from './b-tree';
 export { BPlusTree } from './b-plus-tree';
-export { RangeTree2D } from './range-tree';
+export { BStarTree } from './b-star-tree';
+export { RangeTree2D, KDRangeTree } from './range-tree';
 
 // Red-Black Tree
 export * from './red-black-tree';
