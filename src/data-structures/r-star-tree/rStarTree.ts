@@ -12,7 +12,10 @@ class RStarNode {
 
 export class RStarTree {
   private root = new RStarNode(true);
-  constructor(private maxEntries = 8, private reinsertFraction = 0) {}
+  private minEntries: number;
+  constructor(private maxEntries = 8, private reinsertFraction = 0) {
+    this.minEntries = Math.max(1, Math.floor(this.maxEntries * 0.4));
+  }
 
   insert(rect: Rect, data?: unknown): void { const split = this._insert(this.root, rect, data); if (split) { const newRoot = new RStarNode(false); newRoot.entries.push({ rect: this.computeMBR(this.root), child: this.root }, { rect: this.computeMBR(split), child: split }); this.root = newRoot; } }
 
@@ -91,7 +94,33 @@ export class RStarTree {
     }
     // internal: search children that intersect
     let removed = false;
-    for (const e of node.entries){ if (this.intersects(e.rect, rect)) { if (this._remove(e.child!, rect, data)) { removed = true; e.rect = this.computeMBR(e.child!); if (e.child!.entries.length===0){ node.entries = node.entries.filter(en=>en!==e); } } } }
+    for (let i=0;i<node.entries.length;i++){
+      const e = node.entries[i];
+      if (this.intersects(e.rect, rect)) {
+        if (this._remove(e.child!, rect, data)) {
+          removed = true;
+          e.rect = this.computeMBR(e.child!);
+          // underflow handling: reinsert entries of underflowed child
+          if (e.child!.entries.length < this.minEntries) {
+            const orphan = e.child!;
+            // remove child from parent
+            node.entries.splice(i,1); i--;
+            // reinsert orphan entries from root
+            for (const en of orphan.entries) {
+              if (orphan.leaf) this.insert(en.rect, en.data);
+              else {
+                const split = this._insert(this.root, en.rect, undefined);
+                if (split) {
+                  const newRoot = new RStarNode(false);
+                  newRoot.entries.push({ rect: this.computeMBR(this.root), child: this.root }, { rect: this.computeMBR(split), child: split });
+                  this.root = newRoot;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     this.refreshMBR(node); return removed;
   }
   private reinsert(node: RStarNode): void {
