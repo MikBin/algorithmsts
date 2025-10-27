@@ -26,6 +26,12 @@ export class IntervalSkipList<T> {
     }
   }
 
+  update(oldStart: number, oldEnd: number, oldValue: T, newStart: number, newEnd: number, newValue: T): boolean {
+    const ok = this.remove(oldStart, oldEnd, oldValue);
+    this.add(newStart, newEnd, newValue);
+    return ok;
+  }
+
   remove(start: number, end: number, value: T): boolean {
     if (end < start) [start, end] = [end, start];
     let removed = false;

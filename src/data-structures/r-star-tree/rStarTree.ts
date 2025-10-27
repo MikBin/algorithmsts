@@ -77,6 +77,23 @@ export class RStarTree {
   private intersectionArea(a: Rect, b: Rect): number { const x = Math.max(0, Math.min(a.x+a.w, b.x+b.w) - Math.max(a.x, b.x)); const y = Math.max(0, Math.min(a.y+a.h, b.y+b.h) - Math.max(a.y, b.y)); return x*y; }
   private computeMBR(nodeOrRect: RStarNode | Rect, ephemeral = false): Rect { if ('leaf' in nodeOrRect){ const node = nodeOrRect as RStarNode; let r = node.entries[0]?.rect; if (!r) return { x:0,y:0,w:0,h:0 }; for (let i=1;i<node.entries.length;i++) r = union(r!, node.entries[i].rect); if (!ephemeral) node.mbr = r!; return r!; } return nodeOrRect as Rect; }
   private refreshMBR(n: RStarNode){ n.mbr = this.computeMBR(n); }
+  remove(rect: Rect, data?: unknown): boolean {
+    const removed = this._remove(this.root, rect, data);
+    if (this.root.entries.length===1 && this.root.entries[0].child) this.root = this.root.entries[0].child;
+    return removed;
+  }
+  private _remove(node: RStarNode, rect: Rect, data?: unknown): boolean {
+    if (node.leaf){
+      const before = node.entries.length;
+      node.entries = node.entries.filter(e=>!(e.rect.x===rect.x && e.rect.y===rect.y && e.rect.w===rect.w && e.rect.h===rect.h && (data===undefined || e.data===data)));
+      if (node.entries.length !== before) { this.refreshMBR(node); return true; }
+      return false;
+    }
+    // internal: search children that intersect
+    let removed = false;
+    for (const e of node.entries){ if (this.intersects(e.rect, rect)) { if (this._remove(e.child!, rect, data)) { removed = true; e.rect = this.computeMBR(e.child!); if (e.child!.entries.length===0){ node.entries = node.entries.filter(en=>en!==e); } } } }
+    this.refreshMBR(node); return removed;
+  }
   private reinsert(node: RStarNode): void {
     // remove a fraction of entries farthest from MBR center and reinsert from root
     if (node.entries.length===0) return;
