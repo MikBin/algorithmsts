@@ -96,6 +96,7 @@ export { RStarTree } from './r-star-tree';
 export { BKTree } from './bk-tree';
 export { VPTree } from './vp-tree';
 export { BallTree } from './ball-tree';
+export { CoverTree } from './cover-tree';
 export { PatriciaTrie } from './patricia-trie';
 export { Rope } from './rope';
 export { CartesianTree } from './cartesian-tree';
