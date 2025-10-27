@@ -31,15 +31,17 @@ export class IntervalSkipList<T> {
     let removed = false;
     for (let i = this.heads.length - 1; i >= 0; i--) {
       let prev: LevelNode<T> | null = null; let cur = this.heads[i];
+      let removedThisLevel = false;
       while (cur && cur.start <= start) {
-        if (!removed && cur.start === start && cur.end === end && cur.value === value) {
+        if (cur.start === start && cur.end === end && cur.value === value) {
           // remove at this level
           if (prev) prev.next = cur.next; else this.heads[i] = cur.next;
-          removed = true;
+          removed = true; removedThisLevel = true;
           break;
         }
         prev = cur; cur = cur.next;
       }
+      // if not found at this level, do nothing and continue
     }
     return removed;
   }
