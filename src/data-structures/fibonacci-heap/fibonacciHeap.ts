@@ -8,7 +8,7 @@ export class FibonacciHeap<T> {
   add(x: T): void { const n = new Node(x); this.min = this.mergeLists(this.min, n); this._size++; }
   merge(other: FibonacciHeap<T>): void { this.min = this.mergeLists(this.min, other.min); this._size += other._size; other.min = null; other._size = 0; }
   poll(): T | null {
-    const z = this.min; if (!z) return null; if (z.child){ let c=z.child; do { const next=c!.right; this.min = this.mergeLists(this.min, c!); c!.parent=null; c=next; } while(c!==z.child); }
+    const z = this.min; if (!z) return null; if (z.child){ let c: Node<T> = z.child; const start = c; do { const next: Node<T> = c.right!; this.min = this.mergeLists(this.min, c); c.parent=null; c=next; } while(c!==start); }
     // remove z
     z.left!.right = z.right; z.right!.left = z.left; if (z===z.right) this.min = null; else { this.min = z.right; this.consolidate(); }
     this._size--; return z.value;

@@ -46,8 +46,8 @@ export class SplayTree<T> extends BaseDataStructure<T> {
     const cmp = this.compare(key, this.root!.key);
     if (cmp === 0) return; // no duplicates
     const n = new Node(key);
-    if (cmp < 0) { n.right = this.root; n.left = this.root.left; this.root.left = null; }
-    else { n.left = this.root; n.right = this.root.right; this.root.right = null; }
+    if (cmp < 0) { n.right = this.root; n.left = this.root!.left; this.root!.left = null; }
+    else { n.left = this.root; n.right = this.root!.right; this.root!.right = null; }
     this.root = n; this._size++;
   }
 
@@ -56,11 +56,11 @@ export class SplayTree<T> extends BaseDataStructure<T> {
   remove(key: T): boolean {
     if (!this.root) return false;
     this.root = this.splay(this.root, key);
-    if (this.compare(this.root.key, key) !== 0) return false;
+    if (!this.root || this.compare(this.root.key, key) !== 0) return false;
     if (!this.root.left) { this.root = this.root.right; }
     else {
-      const right = this.root.right;
-      this.root = this.splay(this.root.left, key);
+      const right = this.root!.right;
+      this.root = this.splay(this.root!.left, key);
       if (this.root) this.root.right = right;
     }
     this._size--; return true;
