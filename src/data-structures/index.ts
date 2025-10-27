@@ -85,6 +85,7 @@ export { PairingHeap } from './pairing-heap';
 export { BinomialHeap } from './binomial-heap';
 export { LeftistHeap } from './leftist-heap';
 export { SkewHeap } from './skew-heap';
+export { ViolationHeap } from './violation-heap';
 export { FibonacciHeap } from './fibonacci-heap';
 export { KDTree } from './kd-tree';
 export { VanEmdeBoasTree } from './van-emde-boas';
