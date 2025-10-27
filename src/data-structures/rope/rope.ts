@@ -22,4 +22,7 @@ export class Rope {
 
   toString(): string { return this._toString(this.root); }
   private _toString(n: RopeNode | null): string { if (!n) return ''; if (n.str !== null) return n.str; return this._toString(n.left) + this._toString(n.right); }
+
+  substring(start: number, end: number): string { const s=this.toString(); return s.slice(start, end); }
+  insert(index: number, s: string): Rope { const current=this.toString(); const ns=current.slice(0,index)+s+current.slice(index); return Rope.fromString(ns); }
 }
