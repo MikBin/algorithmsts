@@ -80,6 +80,108 @@ list.add(3);
 console.log(list.toArray()); // [1, 2, 3]
 ```
 
+### Code Examples
+
+#### Queue
+A queue is a linear data structure that follows the First-In-First-Out (FIFO) principle.
+
+```typescript
+import { Queue } from '@mikbin80/algorithmsts/data-structures';
+
+const queue = new Queue<number>();
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+
+console.log(queue.dequeue()); // 1
+console.log(queue.peek()); // 2
+```
+
+#### Stack
+A stack is a linear data structure that follows the Last-In-First-Out (LIFO) principle.
+
+```typescript
+import { Stack } from '@mikbin80/algorithmsts/data-structures';
+
+const stack = new Stack<number>();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+
+console.log(stack.pop()); // 3
+console.log(stack.peek()); // 2
+```
+
+#### Hash Map
+A hash map is a data structure that implements an associative array abstract data type, a structure that can map keys to values.
+
+```typescript
+import { HashMap } from '@mikbin80/algorithmsts/data-structures';
+
+const map = new HashMap<string, number>();
+map.set("a", 1);
+map.set("b", 2);
+map.set("c", 3);
+
+console.log(map.get("b")); // 2
+console.log(map.has("c")); // true
+map.delete("a");
+```
+
+#### Priority Queue
+A priority queue is a data structure that allows adding elements with a priority and retrieving the element with the highest priority.
+
+```typescript
+import { PriorityQueue } from '@mikbin80/algorithmsts/data-structures';
+
+const pq = new PriorityQueue<number>((a, b) => b - a);
+pq.enqueue(3);
+pq.enqueue(1);
+pq.enqueue(4);
+
+console.log(pq.dequeue()); // 4
+console.log(pq.peek()); // 3
+```
+
+#### Disjoint Set
+A disjoint set is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets.
+
+```typescript
+import { UnionFind } from '@mikbin80/algorithmsts/data-structures';
+
+const uf = new UnionFind(5);
+uf.union(0, 1);
+uf.union(2, 3);
+uf.union(0, 4);
+
+console.log(uf.connected(1, 4)); // true
+console.log(uf.connected(1, 2)); // false
+```
+
+### Sorting Algorithms
+
+#### Counting Sort
+Counting sort is a sorting algorithm that sorts the elements of an array by counting the number of occurrences of each unique element in the array.
+
+```typescript
+import { CountingSort } from '@mikbin80/algorithmsts/algorithms';
+
+const countingSort = new CountingSort();
+const sortedArray = countingSort.execute({ array: [4, 2, 2, 8, 3, 3, 1] });
+console.log(sortedArray); // { sortedArray: [1, 2, 2, 3, 3, 4, 8], result: [1, 2, 2, 3, 3, 4, 8] }
+```
+
+#### Radix Sort
+Radix sort is a non-comparative sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value.
+
+```typescript
+import { RadixSort } from '@mikbin80/algorithmsts/algorithms';
+
+const radixSort = new RadixSort();
+const sortedArray = radixSort.execute({ array: [170, 45, 75, 90, 802, 24, 2, 66] });
+console.log(sortedArray); // { sortedArray: [2, 24, 45, 66, 75, 90, 170, 802], result: [2, 24, 45, 66, 75, 90, 170, 802] }
+```
+
 ### Probabilistic Data Structures
 
 #### Skip List
