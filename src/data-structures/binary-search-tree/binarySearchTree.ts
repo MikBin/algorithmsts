@@ -70,7 +70,7 @@ export class BinarySearchTree<T> {
    * @param value The value to delete.
    * @returns `true` if the value was deleted, `false` otherwise.
    */
-  delete(value: T): boolean {
+  remove(value: T): boolean {
     const nodeToDelete = this.search(value);
 
     if (!nodeToDelete) {
@@ -304,5 +304,17 @@ export class BinarySearchTree<T> {
 
   [Symbol.iterator](): Generator<T, void, unknown> {
     return inOrderTraversal(this.root);
+  }
+  /**
+   * @notice Converts the BST to a JSON representation.
+   * @returns A JSON object representing the tree structure.
+   */
+  toJson(): string {
+    return JSON.stringify(this.root, (key, value) => {
+      if (key === 'parent') {
+        return undefined; // Exclude parent to avoid circular references
+      }
+      return value;
+    });
   }
 }
