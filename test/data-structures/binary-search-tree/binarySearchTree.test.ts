@@ -35,7 +35,7 @@ describe('BinarySearchTree', () => {
     const bst = new BinarySearchTree<number>();
     bst.insert(10);
     bst.insert(5);
-    bst.delete(5);
+    bst.remove(5);
     expect(bst.traversalInOrder()).toEqual([10]);
   });
 
@@ -44,7 +44,7 @@ describe('BinarySearchTree', () => {
     bst.insert(10);
     bst.insert(5);
     bst.insert(3);
-    bst.delete(5);
+    bst.remove(5);
     expect(bst.traversalInOrder()).toEqual([3, 10]);
   });
 
@@ -55,7 +55,7 @@ describe('BinarySearchTree', () => {
     bst.insert(15);
     bst.insert(3);
     bst.insert(7);
-    bst.delete(5);
+    bst.remove(5);
     expect(bst.traversalInOrder()).toEqual([3, 7, 10, 15]);
   });
 
@@ -64,7 +64,7 @@ describe('BinarySearchTree', () => {
     bst.insert(10);
     bst.insert(5);
     bst.insert(15);
-    bst.delete(10);
+    bst.remove(10);
     expect(bst.traversalInOrder()).toEqual([5, 15]);
   });
 
@@ -74,7 +74,7 @@ describe('BinarySearchTree', () => {
     bst.insert(5);
     bst.insert(15);
     expect(bst.getSize()).toBe(3);
-    bst.delete(5);
+    bst.remove(5);
     expect(bst.getSize()).toBe(2);
   });
 
@@ -133,5 +133,16 @@ describe('BinarySearchTree', () => {
     bst.insert('banana');
     bst.insert('kiwi');
     expect(bst.traversalInOrder()).toEqual(['kiwi', 'apple', 'banana']);
+  });
+
+  it('should convert the tree to a JSON string', () => {
+    const bst = new BinarySearchTree<number>();
+    bst.insert(10);
+    bst.insert(5);
+    bst.insert(15);
+    const json = bst.toJson();
+    const expectedJson =
+      '{"value":10,"left":{"value":5,"left":null,"right":null},"right":{"value":15,"left":null,"right":null}}';
+    expect(json).toBe(expectedJson);
   });
 });
