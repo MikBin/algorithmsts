@@ -57,4 +57,8 @@ export class RTree {
   private intersects(a: Rect, b: Rect): boolean { return !(a.x+a.w <= b.x || b.x+b.w <= a.x || a.y+a.h <= b.y || b.y+b.h <= a.y); }
   private computeMBR(nodeOrRect: RNode | Rect, ephemeral = false): Rect { if ('leaf' in nodeOrRect){ const node = nodeOrRect as RNode; let r = node.entries[0]?.rect; if (!r) return { x:0,y:0,w:0,h:0 }; for (let i=1;i<node.entries.length;i++) r = union(r!, node.entries[i].rect); if (!ephemeral) node.mbr = r!; return r!; } return nodeOrRect as Rect; }
   private refreshMBR(n: RNode){ n.mbr = this.computeMBR(n); }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

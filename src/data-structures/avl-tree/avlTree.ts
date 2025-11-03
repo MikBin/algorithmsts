@@ -284,4 +284,13 @@ export class AVLTree<T> implements Iterable<T> {
   [Symbol.iterator](): Iterator<T> {
     return new AVLTreeIterator(this.root);
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root, (key, value) => {
+      if (key === 'parent') {
+        return undefined;
+      }
+      return value;
+    });
+  }
 }

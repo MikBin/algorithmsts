@@ -11,4 +11,8 @@ export class CountMinSketch {
   add(s: string, count = 1): void { for (let d=0; d<this.depth; d++) this.table[d][this.idx(s,d)] += count; }
   estimate(s: string): number { let m = Infinity; for (let d=0; d<this.depth; d++) m = Math.min(m, this.table[d][this.idx(s,d)]); return m === Infinity ? 0 : m; }
   reset(): void { for (const row of this.table) row.fill(0); }
+
+  toJson(): string {
+    return JSON.stringify(this.table.map(row => Array.from(row)));
+  }
 }

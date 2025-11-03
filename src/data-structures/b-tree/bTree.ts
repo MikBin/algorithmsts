@@ -469,4 +469,13 @@ export class BTree<T> extends BaseDataStructure<T> {
     }
     return low;
   }
+
+  toJson(): string {
+    return JSON.stringify(this._root, (key, value) => {
+      if (key === 'parent') {
+        return undefined;
+      }
+      return value;
+    });
+  }
 }

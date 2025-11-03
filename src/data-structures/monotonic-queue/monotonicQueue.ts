@@ -6,4 +6,8 @@ export class MonotonicQueue<T> {
   front(): T | undefined { return this.data[0]; }
   size(): number { return this.data.length; }
   toArray(): T[] { return [...this.data]; }
+
+  toJson(): string {
+    return JSON.stringify(this.data);
+  }
 }

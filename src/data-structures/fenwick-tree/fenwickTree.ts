@@ -124,4 +124,8 @@ export class FenwickTree implements IFenwickTree {
     private lsb(index: number): number {
         return index & -index;
     }
+
+    toJson(): string {
+        return JSON.stringify(this._tree);
+    }
 }

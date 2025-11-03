@@ -24,4 +24,8 @@ export class OrderStatisticTree<T> {
   rank(key: T): number { let n = this.root; let r = 0; while (n) { const c = this.compare(key, n.key); if (c < 0) { n = n.left; } else { r += (n.left?.size ?? 0) + (c===0 ? 0 : 1); if (c===0) return r; n = n.right; } } return r; }
 
   toArray(): T[] { const res: T[] = []; const stack: (OrderNode<T>|null)[] = [this.root]; while (stack.length){ const n=stack.pop(); if (!n) continue; res.push(n.key); stack.push(n.left,n.right); } return res; }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

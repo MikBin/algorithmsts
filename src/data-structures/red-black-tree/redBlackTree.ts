@@ -452,4 +452,13 @@ export class RedBlackTree<T> implements Iterable<T> {
   [Symbol.iterator](): Iterator<T> {
     return new RedBlackTreeIterator<T>(this.root, this.NIL);
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root, (key, value) => {
+      if (key === 'parent' || value === this.NIL) {
+        return undefined;
+      }
+      return value;
+    });
+  }
 }

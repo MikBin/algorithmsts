@@ -37,4 +37,8 @@ export class RangeTree2D<T=unknown> {
     dfs(this.root);
     return out;
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

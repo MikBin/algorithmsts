@@ -39,4 +39,7 @@ export class HashMap<K, V> {
   values(): V[] { const out: V[] = []; for (const b of this.buckets) for (const [,v] of b) out.push(v); return out; }
   entries(): [K, V][] { const out: [K, V][] = []; for (const b of this.buckets) for (const e of b) out.push(e); return out; }
   forEach(fn: (value: V, key: K) => void): void { for (const [k,v] of this.entries()) fn(v,k); }
+  toJson(): string {
+    return JSON.stringify(this.buckets);
+  }
 }

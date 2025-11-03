@@ -10,4 +10,8 @@ export class QuotientFilter {
   add(s: string): void { this.buckets[this.q(s)].add(this.r(s)); }
   mightContain(s: string): boolean { return this.buckets[this.q(s)].has(this.r(s)); }
   reset(): void { for (const b of this.buckets) b.clear(); }
+
+  toJson(): string {
+    return JSON.stringify(this.buckets.map(b => Array.from(b)));
+  }
 }

@@ -37,4 +37,8 @@ export class CartesianTree<T> {
     dfs(this.root);
     return out;
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

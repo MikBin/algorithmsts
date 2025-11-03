@@ -10,4 +10,8 @@ export class HashSet<T> {
   clear(): void { this.map = new HashMap<T, true>(); }
   values(): T[] { return this.map.keys(); }
   toArray(): T[] { return this.values(); }
+
+  toJson(): string {
+    return this.map.toJson();
+  }
 }

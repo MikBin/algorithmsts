@@ -149,4 +149,8 @@ export class RStarTree {
       }
     }
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

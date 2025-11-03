@@ -16,4 +16,12 @@ export class BloomFilter {
   add(s: string): void { for (let i=0;i<this.k;i++){ const j=this.idx(s,i); this.bits[j]=1; } }
   mightContain(s: string): boolean { for (let i=0;i<this.k;i++){ const j=this.idx(s,i); if (this.bits[j]===0) return false; } return true; }
   reset(): void { this.bits.fill(0); }
+
+  toJson(): string {
+    return JSON.stringify({
+      m: this.m,
+      k: this.k,
+      bits: Array.from(this.bits),
+    });
+  }
 }

@@ -43,4 +43,8 @@ export class Quadtree {
     if (!n.divided) return;
     this._query(n.nw!,x,y,w,h,out); this._query(n.ne!,x,y,w,h,out); this._query(n.sw!,x,y,w,h,out); this._query(n.se!,x,y,w,h,out);
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

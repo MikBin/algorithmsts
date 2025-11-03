@@ -9,4 +9,8 @@ export class PriorityQueue<T> {
   dequeue(): T | null { return this.heap.poll(); }
   peek(): T | null { return this.heap.peek(); }
   clear(): void { this.heap.clear(); }
+
+  toJson(): string {
+    return this.heap.toJson();
+  }
 }

@@ -109,4 +109,5 @@ export class AATree<T> extends BaseDataStructure<T> {
   clear(): void { this.root = null; this._size = 0; }
   iterator(): IIterator<T> { return new InOrderIterator(this.root); }
   toArray(): T[] { const out: T[] = []; const it = this.iterator(); while (it.hasNext()) out.push(it.next()); return out; }
+  toJson(): string { return JSON.stringify(this.root); }
 }
