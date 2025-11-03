@@ -6,4 +6,8 @@ export class MonotonicStack<T> {
   top(): T | undefined { return this.data[this.data.length-1]; }
   isEmpty(): boolean { return this.data.length===0; }
   toArray(): T[] { return [...this.data]; }
+
+  toJson(): string {
+    return JSON.stringify(this.data);
+  }
 }

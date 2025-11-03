@@ -18,4 +18,8 @@ export class ArrayList<T> extends BaseDataStructure<T> {
   iterator(): IIterator<T> { return new ArrayIterator(this.toArray()); }
   contains(e: T): boolean { return this.toArray().includes(e as any); }
   toArray(): T[] { const out: T[] = new Array(this.len) as any; for (let i=0;i<this.len;i++) out[i]=this.data[i] as T; return out; }
+
+  toJson(): string {
+    return JSON.stringify(this.toArray());
+  }
 }

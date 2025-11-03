@@ -51,4 +51,20 @@ export class AhoCorasick {
   }
 
   clear(): void { this.root = createNode(); this.patterns = []; }
+
+  toJson(): string {
+    const replacer = (key: any, value: any) => {
+      if (key === 'fail') {
+        return undefined;
+      }
+      if (value instanceof Map) {
+        return {
+          dataType: 'Map',
+          value: Array.from(value.entries()),
+        };
+      }
+      return value;
+    };
+    return JSON.stringify(this.root, replacer);
+  }
 }

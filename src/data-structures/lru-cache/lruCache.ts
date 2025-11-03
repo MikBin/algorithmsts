@@ -9,4 +9,8 @@ export class LRUCache<K, V> {
   size(): number { return this.map.size; }
   keys(): K[] { return Array.from(this.map.keys()); }
   values(): V[] { return Array.from(this.map.values()); }
+
+  toJson(): string {
+    return JSON.stringify(Array.from(this.map.entries()));
+  }
 }

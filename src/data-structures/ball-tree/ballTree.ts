@@ -59,4 +59,8 @@ export class BallTree<T=unknown> {
     dfs(this.root);
     return out;
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

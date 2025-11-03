@@ -31,4 +31,8 @@ export class HyperLogLog {
   }
 
   reset(): void { this.registers.fill(0); }
+
+  toJson(): string {
+    return JSON.stringify(Array.from(this.registers));
+  }
 }

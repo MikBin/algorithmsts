@@ -40,4 +40,8 @@ export class IntervalHeap<T> {
 
   private trickleDownMin(i:number){ while(true){ const [l,r]=this.children(i); let m=i; for (const c of [l,l+1,r,r+1]) if (c<this.a.length && (c%2===0) && this.compare(this.a[c] as T, this.a[m] as T) < 0) m=c; if (m===i) break; this.swap(i,m); this.ensureOrder(m); i=m; } }
   private trickleDownMax(i:number){ while(true){ const [l,r]=this.children(i&~1); let m=i; for (const c of [l,l+1,r,r+1]) if (c<this.a.length && (c%2===1) && this.compare(this.a[c] as T, this.a[m] as T) > 0) m=c; if (m===i) break; this.swap(i,m); this.ensureOrder(m^1); i=m; } }
+
+  toJson(): string {
+    return JSON.stringify(this.a);
+  }
 }

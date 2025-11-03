@@ -21,4 +21,8 @@ export class Queue<T> extends BaseDataStructure<T> {
   iterator(): IIterator<T> { return new ArrayIterator(this.toArray()); }
   contains(element: T): boolean { return this.toArray().includes(element as any); }
   toArray(): T[] { return this.data.slice(this.head); }
+
+  toJson(): string {
+    return JSON.stringify(this.toArray());
+  }
 }

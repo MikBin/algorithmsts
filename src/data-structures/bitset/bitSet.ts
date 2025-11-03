@@ -19,4 +19,7 @@ export class BitSet {
   toArray(): number[] { const res: number[] = []; for (let i=0;i<this._size;i++) if (this.get(i)) res.push(i); return res; }
   union(other: BitSet): BitSet { if (other.size!==this.size) throw new Error('size mismatch'); const out = new BitSet(this.size); for (let i=0;i<this.words.length;i++) out.words[i]=this.words[i]|other.words[i]; return out; }
   intersect(other: BitSet): BitSet { if (other.size!==this.size) throw new Error('size mismatch'); const out = new BitSet(this.size); for (let i=0;i<this.words.length;i++) out.words[i]=this.words[i]&other.words[i]; return out; }
+  toJson(): string {
+    return JSON.stringify(Array.from(this.words));
+  }
 }

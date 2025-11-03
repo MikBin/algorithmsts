@@ -39,4 +39,8 @@ export class Octree {
     for (const p of n.points){ if (p.x>=x && p.x<x+w && p.y>=y && p.y<y+h && p.z>=z && p.z<z+d) out.push(p); }
     if (!n.divided) return; for (let i=0;i<8;i++) this._query(n.children[i]!, x,y,z,w,h,d, out);
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

@@ -96,4 +96,8 @@ export class BPlusTree<K, V> {
       return [upKey, right];
     }
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

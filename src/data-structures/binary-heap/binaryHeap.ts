@@ -137,4 +137,8 @@ export class BinaryHeap<T> {
       },
     };
   }
+
+  toJson(): string {
+    return JSON.stringify(this._heap);
+  }
 }

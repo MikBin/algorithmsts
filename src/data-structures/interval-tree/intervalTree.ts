@@ -69,4 +69,8 @@ export class IntervalTree {
   clear(): void { this.root = null; this._size = 0; }
   iterator(): IIterator<Interval> { return new InOrderIterator(this.root); }
   toArray(): Interval[] { const a: Interval[] = []; const it = this.iterator(); while (it.hasNext()) a.push(it.next()); return a; }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

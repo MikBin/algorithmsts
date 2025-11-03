@@ -7,4 +7,12 @@ export class UnionFind {
   union(a: number, b: number): boolean { let ra=this.find(a), rb=this.find(b); if (ra===rb) return false; if (this.sizeArr[ra]<this.sizeArr[rb]) [ra,rb]=[rb,ra]; this.parent[rb]=ra; this.sizeArr[ra]+=this.sizeArr[rb]; this._count--; return true; }
   connected(a: number, b: number): boolean { return this.find(a)===this.find(b); }
   setCount(): number { return this._count; }
+
+  toJson(): string {
+    return JSON.stringify({
+      parent: this.parent,
+      sizeArr: this.sizeArr,
+      count: this._count,
+    });
+  }
 }

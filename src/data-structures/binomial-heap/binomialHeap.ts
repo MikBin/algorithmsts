@@ -40,5 +40,14 @@ export class BinomialHeap<T> {
   }
   private meld(a: Node<T>, b: Node<T>): Node<T> { if (this.compare(a.value, b.value) <= 0) { b.parent = a; b.sibling = a.child; a.child = b; a.order++; return a; } else { a.parent = b; a.sibling = b.child; b.child = a; b.order++; return b; } }
   private findMinTree(): [number, Node<T>] { let idx = -1; let min: T | null = null; for (let i = 0; i < this.trees.length; i++) { const t = this.trees[i]; if (!t) continue; if (min === null || this.compare(t.value, min) < 0) { min = t.value; idx = i; } } return [idx, this.trees[idx]!] }
+
+  toJson(): string {
+    return JSON.stringify(this.trees, (key, value) => {
+      if (key === 'parent' || key === 'sibling') {
+        return undefined;
+      }
+      return value;
+    });
+  }
 }
 class Node<T> { constructor(public value: T, public order = 0, public parent: Node<T> | null = null, public child: Node<T> | null = null, public sibling: Node<T> | null = null) {} }

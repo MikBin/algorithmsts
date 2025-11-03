@@ -35,4 +35,8 @@ export class MinMaxHeap<T> {
   private trickleDownMax(i:number){ while(true){ const m = this.maxDescendantIndex(i); if (m===-1) break; if (this.cmp(this.a[m], this.a[i])>0){ this.swap(i,m); if (m>=3){ const p=this.parent(m); if (this.cmp(this.a[m], this.a[p])<0) this.swap(m,p); i=m; } else break; } else break; } }
   private minDescendantIndex(i:number):number{ const cand:number[]=[]; const [c1,c2]=this.children(i); [c1,c2].forEach(c=>{ if (c<this.a.length){ cand.push(c); const [gc1,gc2]=this.children(c); if (gc1<this.a.length) cand.push(gc1); if (gc2<this.a.length) cand.push(gc2); } }); if (cand.length===0) return -1; let idx=cand[0]; for (const c of cand) if (this.cmp(this.a[c], this.a[idx])<0) idx=c; return idx; }
   private maxDescendantIndex(i:number):number{ const cand:number[]=[]; const [c1,c2]=this.children(i); [c1,c2].forEach(c=>{ if (c<this.a.length){ cand.push(c); const [gc1,gc2]=this.children(c); if (gc1<this.a.length) cand.push(gc1); if (gc2<this.a.length) cand.push(gc2); } }); if (cand.length===0) return -1; let idx=cand[0]; for (const c of cand) if (this.cmp(this.a[c], this.a[idx])>0) idx=c; return idx; }
+
+  toJson(): string {
+    return JSON.stringify(this.a);
+  }
 }

@@ -23,4 +23,8 @@ export class CuckooFilter {
   private insertInto(i: number, f: Fingerprint): boolean { const b = this.buckets[i]; if (b.length < this.bucketSize) { b.push(f); return true; } return false; }
   mightContain(s: string): boolean { const f=this.fp(s); const i1=this.i1(s); const i2=this.i2(i1,f); return this.buckets[i1].includes(f) || this.buckets[i2].includes(f); }
   size(): number { return this._size; }
+
+  toJson(): string {
+    return JSON.stringify(this.buckets);
+  }
 }

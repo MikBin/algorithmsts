@@ -21,5 +21,15 @@ export class FibonacciHeap<T> {
     y.left!.right=y.right; y.right!.left=y.left; y.parent=x; if (!x.child){ x.child=y; y.left=y.right=y; } else { y.left=x.child; y.right=x.child!.right; x.child!.right!.left=y; x.child!.right=y; }
     x.degree++; y.mark=false;
   }
+
+  toJson(): string {
+    const replacer = (key: any, value: any) => {
+      if (key === 'parent' || key === 'left' || key === 'right') {
+        return undefined;
+      }
+      return value;
+    };
+    return JSON.stringify(this.min, replacer);
+  }
 }
 class Node<T> { constructor(public value: T, public degree=0, public parent: Node<T>|null=null, public child: Node<T>|null=null, public left: Node<T>|null=null, public right: Node<T>|null=null, public mark=false){ this.left=this; this.right=this; } }

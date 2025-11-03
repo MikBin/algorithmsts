@@ -18,4 +18,8 @@ export class KDTree {
   kNearest(q: Point, k: number): { point: Point; dist: number }[] { const pts=this.toArray(); const dist=(a:Point,b:Point)=>{ let s=0; for (let i=0;i<this.k;i++){ const d=a[i]-b[i]; s+=d*d; } return Math.sqrt(s); }; const arr=pts.map(p=>({ point:p, dist: dist(q,p) })); arr.sort((a,b)=>a.dist-b.dist); return arr.slice(0, Math.max(0,k)); }
   toArray(): Point[] { const res: Point[] = []; const stack: (KDNode|null)[] = [this.root]; while (stack.length) { const n = stack.pop(); if (!n) continue; res.push(n.point); stack.push(n.left, n.right); } return res; }
   clear(): void { this.root = null; this._size = 0; }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

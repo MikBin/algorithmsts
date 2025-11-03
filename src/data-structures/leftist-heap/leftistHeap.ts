@@ -16,5 +16,9 @@ export class LeftistHeap<T> {
     a.npl = ((a.right?.npl ?? -1) + 1);
     return a;
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }
 class Node<T> { constructor(public value: T, public left: Node<T>|null=null, public right: Node<T>|null=null, public npl: number = 0){} }

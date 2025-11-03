@@ -104,4 +104,8 @@ export class BStarTree<K, V> {
     node.keys = node.keys.slice(0, leftCount);
     return [upKey, right];
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

@@ -274,6 +274,19 @@ export class LinkedList<T> extends BaseDataStructure<T> {
   }
 
   /**
+   * @notice Converts the LinkedList to a JSON representation.
+   * @returns A JSON object representing the list structure.
+   */
+  toJson(): string {
+    return JSON.stringify(this.head, (key, value) => {
+      if (key === 'prev') {
+        return undefined; // Exclude prev to avoid circular references
+      }
+      return value;
+    });
+  }
+
+  /**
    * Checks if the list is empty
    * @returns True if the list is empty, false otherwise
    * @complexity O(1)

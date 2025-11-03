@@ -18,4 +18,8 @@ export class Deque<T> extends BaseDataStructure<T> {
   iterator(): IIterator<T> { return new ArrayIterator(this.buf.toArray()); }
   contains(e: T): boolean { return this.buf.toArray().includes(e as any); }
   toArray(): T[] { return this.buf.toArray(); }
+
+  toJson(): string {
+    return this.buf.toJson();
+  }
 }

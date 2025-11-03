@@ -33,4 +33,8 @@ export class CircularBuffer<T> {
   clear(): void { this.buf = new Array(this.capacity); this.head = this.tail = 0; this._size = 0; }
   toArray(): T[] { const out: T[] = []; for (let i = 0; i < this._size; i++) out.push(this.buf[(this.head + i) % this.capacity] as T); return out; }
   iterator(): IIterator<T> { return new ArrayIterator(this.toArray()); }
+
+  toJson(): string {
+    return JSON.stringify(this.toArray());
+  }
 }

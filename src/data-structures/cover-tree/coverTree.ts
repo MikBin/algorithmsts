@@ -41,4 +41,8 @@ export class CoverTree<T=unknown> {
     arr.sort((a,b)=>a.dist-b.dist);
     return arr.slice(0, k);
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

@@ -30,5 +30,9 @@ export class PairingHeap<T> {
     for (let i = arr.length - 1; i >= 0; i--) res = this.meld(res, arr[i]);
     return res;
   }
+
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }
 class Node<T> { constructor(public value: T, public child: Node<T> | null = null, public sibling: Node<T> | null = null) {} }

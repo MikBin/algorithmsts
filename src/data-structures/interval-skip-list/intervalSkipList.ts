@@ -122,4 +122,13 @@ export class IntervalSkipList<T> {
     for (const m of merged) this.add(m.s, m.e, value);
     return merged.length;
   }
+
+  toJson(): string {
+    return JSON.stringify(this.heads, (key, value) => {
+      if (key === 'down' || key === 'next') {
+        return undefined;
+      }
+      return value;
+    });
+  }
 }

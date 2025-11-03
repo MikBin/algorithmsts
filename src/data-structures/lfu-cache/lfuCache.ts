@@ -20,4 +20,14 @@ export class LFUCache<K, V> {
   has(key: K): boolean { return this.values.has(key); }
   delete(key: K): boolean { if (!this.values.has(key)) return false; const c=this.counts.get(key)!; this.values.delete(key); this.counts.delete(key); const s=this.freq.get(c)!; s.delete(key); if (s.size===0) this.freq.delete(c); if (this.minFreq===c && !this.freq.has(c)) this.minFreq = Math.min(...Array.from(this.freq.keys(), n => n)); return true; }
   clear(): void { this.values.clear(); this.counts.clear(); this.freq.clear(); this.minFreq=0; }
+
+  toJson(): string {
+    return JSON.stringify({
+      capacity: this.capacity,
+      values: Array.from(this.values.entries()),
+      counts: Array.from(this.counts.entries()),
+      freq: Array.from(this.freq.entries()).map(([f, s]) => [f, Array.from(s)]),
+      minFreq: this.minFreq,
+    });
+  }
 }

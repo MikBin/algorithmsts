@@ -12,4 +12,8 @@ export class DAryHeap<T> {
   poll(): T | null { if (this.isEmpty()) return null; const root=this.heap[0]; const last=this.heap.pop()!; if (!this.isEmpty()){ this.heap[0]=last; this.bubbleDown(0);} return root; }
   private bubbleDown(i:number){ while(true){ let best=i; for(let k=0;k<this.d;k++){ const c=this.child(i,k); if (c<this.heap.length && this.compare(this.heap[c], this.heap[best])>0) best=c; } if (best!==i){ this.swap(i,best); i=best; } else break; } }
   clear(): void { this.heap=[]; }
+
+  toJson(): string {
+    return JSON.stringify(this.heap);
+  }
 }
