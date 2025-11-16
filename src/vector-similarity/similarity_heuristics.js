@@ -1,0 +1,401 @@
+/**
+ * Advanced Vector Similarity Heuristics Module
+ * 
+ * This module provides a collection of additional vector similarity heuristics,
+ * each accepting two input vectors and returning a similarity score in [0, 1].
+ * 
+ * Key features:
+ * - Comprehensive input validation
+ * - Consistent error handling
+ * - Support for weighted metrics
+ * - Numerically stable implementations
+ */
+
+/**
+ * Weighted Minkowski Distance converted to Similarity
+ * 
+ * The weighted Minkowski distance is defined as:
+ * d(A,B) = (Σ(wi * |Ai - Bi|^p))^(1/p)
+ * 
+ * Where:
+ * - p is the order (p=1 for Manhattan, p=2 for Euclidean, etc.)
+ * - wi are the weights for each dimension
+ * - Results are converted to similarity: similarity = 1 / (1 + normalized_distance)
+ * 
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @param {Object} [options] - Configuration options
+ * @param {number} [options.p=2] - Minkowski order (must be > 0)
+ * @param {number[]} [options.weights] - Optional weights for each dimension
+ * @returns {number} Similarity score in [0, 1]
+ * @throws {TypeError} If inputs are invalid
+ */
+function weightedMinkowskiSimilarity(A, B, options = {}) {
+  if (!Array.isArray(A)) {
+    throw new TypeError("Invalid input: A must be an array.");
+  }
+  if (!Array.isArray(B)) {
+    throw new TypeError("Invalid input: B must be an array.");
+  }
+
+  const n = A.length;
+  if (n === 0 || B.length === 0) {
+    throw new Error("Invalid input: Vectors must be non-empty arrays.");
+  }
+  if (n !== B.length) {
+    throw new Error("Invalid input: Vectors must have the same length.");
+  }
+
+  // Validate elements
+  for (let i = 0; i < n; i++) {
+    if (!Number.isFinite(A[i])) {
+      throw new Error(`Invalid element in A at index ${i}: must be finite number`);
+    }
+    if (!Number.isFinite(B[i])) {
+      throw new Error(`Invalid element in B at index ${i}: must be finite number`);
+    }
+  }
+
+  const { p = 2, weights = null } = options;
+  if (!Number.isFinite(p) || p <= 0) {
+    throw new Error("Invalid option p: must be a positive finite number");
+  }
+  if (weights !== null) {
+    if (!Array.isArray(weights) || weights.length !== n) {
+      throw new Error("Invalid option weights: must be array of same length as input vectors");
+    }
+    for (let i = 0; i < n; i++) {
+      if (!Number.isFinite(weights[i]) || weights[i] < 0) {
+        throw new Error(`Invalid weight at index ${i}: must be non-negative finite number`);
+      }
+    }
+  }
+
+  // Compute weighted Minkowski distance
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    const diff = Math.abs(A[i] - B[i]);
+    const weight = weights ? weights[i] : 1;
+    sum += weight * Math.pow(diff, p);
+  }
+
+  const distance = Math.pow(sum, 1 / p);
+  
+  // Convert to similarity using exponential decay for numerical stability
+  const similarity = 1 / (1 + distance);
+  
+  return Math.max(0, Math.min(1, similarity));
+}
+
+/**
+ * Canberra Similarity
+ * 
+ * The Canberra distance is:
+ * d(A,B) = Σ(|Ai - Bi| / (|Ai| + |Bi|))
+ * 
+ * Handles the special case where both Ai and Bi are zero (adds 0 to distance).
+ * Returns similarity = 1 / (1 + normalized_distance)
+ * 
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Similarity score in [0, 1]
+ */
+function canberraSimilarity(A, B) {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError("Inputs must be arrays.");
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error("Vectors must be non-empty and of same length.");
+  }
+
+  let distance = 0;
+  let validTerms = 0;
+
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(`Invalid elements at index ${i}: must be finite numbers`);
+    }
+
+    const numerator = Math.abs(A[i] - B[i]);
+    const denominator = Math.abs(A[i]) + Math.abs(B[i]);
+    
+    // Skip term if both values are zero (0/0 case)
+    if (denominator > 0) {
+      distance += numerator / denominator;
+      validTerms++;
+    }
+  }
+
+  if (validTerms === 0) {
+    return 1; // All zero vectors
+  }
+
+  // Normalize by number of valid terms and convert to similarity
+  const normalizedDistance = distance / validTerms;
+  const similarity = 1 / (1 + normalizedDistance);
+  
+  return Math.max(0, Math.min(1, similarity));
+}
+
+/**
+ * Chebyshev Similarity (L-infinity distance)
+ * 
+ * Chebyshev distance is the maximum absolute difference:
+ * d(A,B) = max(|Ai - Bi|)
+ * 
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Similarity score in [0, 1]
+ */
+function chebyshevSimilarity(A, B) {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError("Inputs must be arrays.");
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error("Vectors must be non-empty and of same length.");
+  }
+
+  let maxDiff = 0;
+
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(`Invalid elements at index ${i}: must be finite numbers`);
+    }
+
+    const diff = Math.abs(A[i] - B[i]);
+    if (diff > maxDiff) {
+      maxDiff = diff;
+    }
+  }
+
+  // Convert to similarity using exponential decay
+  const similarity = 1 / (1 + maxDiff);
+  
+  return Math.max(0, Math.min(1, similarity));
+}
+
+/**
+ * Bray-Curtis Similarity
+ * 
+ * Bray-Curtis distance is commonly used in ecology:
+ * d(A,B) = Σ|Ai - Bi| / Σ(Ai + Bi)
+ * 
+ * Returns the Bray-Curtis similarity directly (1 - distance).
+ * 
+ * @param {number[]} A - First numeric vector (should be non-negative)
+ * @param {number[]} B - Second numeric vector (should be non-negative)
+ * @returns {number} Similarity score in [0, 1]
+ */
+function brayCurtisSimilarity(A, B) {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError("Inputs must be arrays.");
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error("Vectors must be non-empty and of same length.");
+  }
+
+  let sumDiff = 0;
+  let sumTotal = 0;
+
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(`Invalid elements at index ${i}: must be finite numbers`);
+    }
+    if (A[i] < 0 || B[i] < 0) {
+      throw new Error(`Negative values not allowed at index ${i}: Bray-Curtis requires non-negative inputs`);
+    }
+
+    sumDiff += Math.abs(A[i] - B[i]);
+    sumTotal += A[i] + B[i];
+  }
+
+  if (sumTotal === 0) {
+    return 1; // Both vectors are all zeros
+  }
+
+  // Bray-Curtis similarity = 1 - distance
+  const similarity = 1 - (sumDiff / sumTotal);
+  
+  return Math.max(0, Math.min(1, similarity));
+}
+
+/**
+ * Harmonic Mean Similarity
+ * 
+ * Uses the harmonic mean of individual coordinate similarities.
+ * For each coordinate i:
+ *   similarity_i = 1 - (|Ai - Bi| / (|Ai| + |Bi| + epsilon))
+ * 
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @param {Object} [options] - Configuration options
+ * @param {number} [options.epsilon=1e-10] - Small value to avoid division by zero
+ * @returns {number} Similarity score in [0, 1]
+ */
+function harmonicMeanSimilarity(A, B, options = {}) {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError("Inputs must be arrays.");
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error("Vectors must be non-empty and of same length.");
+  }
+
+  const { epsilon = 1e-10 } = options;
+
+  let sumReciprocal = 0;
+  let validCount = 0;
+
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(`Invalid elements at index ${i}: must be finite numbers`);
+    }
+
+    const diff = Math.abs(A[i] - B[i]);
+    const denom = Math.abs(A[i]) + Math.abs(B[i]) + epsilon;
+    const coordinateSim = 1 - (diff / denom);
+    
+    if (coordinateSim > 0) {
+      sumReciprocal += 1 / coordinateSim;
+      validCount++;
+    }
+  }
+
+  if (validCount === 0) {
+    return 0; // All coordinates are identical and zero
+  }
+
+  // Harmonic mean: n / Σ(1/xi)
+  const similarity = validCount / sumReciprocal;
+  
+  return Math.max(0, Math.min(1, similarity));
+}
+
+/**
+ * Geometric Mean Similarity
+ * 
+ * Uses the geometric mean of individual coordinate similarities.
+ * For each coordinate i:
+ *   similarity_i = 1 - (|Ai - Bi| / (max(|Ai|, |Bi|) + epsilon))
+ * 
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @param {Object} [options] - Configuration options
+ * @param {number} [options.epsilon=1e-10] - Small value to avoid division by zero
+ * @returns {number} Similarity score in [0, 1]
+ */
+function geometricMeanSimilarity(A, B, options = {}) {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError("Inputs must be arrays.");
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error("Vectors must be non-empty and of same length.");
+  }
+
+  const { epsilon = 1e-10 } = options;
+
+  let sumLog = 0;
+  let validCount = 0;
+
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(`Invalid elements at index ${i}: must be finite numbers`);
+    }
+
+    if (A[i] === 0 && B[i] === 0) {
+      // Both zero, perfect similarity for this coordinate
+      validCount++;
+      continue;
+    }
+
+    const diff = Math.abs(A[i] - B[i]);
+    const maxVal = Math.max(Math.abs(A[i]), Math.abs(B[i])) + epsilon;
+    const coordinateSim = 1 - (diff / maxVal);
+    
+    if (coordinateSim > 0) {
+      sumLog += Math.log(coordinateSim);
+      validCount++;
+    }
+  }
+
+  if (validCount === 0) {
+    return 0; // No valid coordinates
+  }
+
+  // Geometric mean: exp((1/n) * Σ(log(xi)))
+  const similarity = Math.exp(sumLog / validCount);
+  
+  return Math.max(0, Math.min(1, similarity));
+}
+
+/**
+ * Ratio-based Similarity
+ * 
+ * Uses the ratio of corresponding elements with handling for zero values:
+ * similarity_i = min(Ai, Bi) / max(Ai, Bi) for non-zero pairs
+ * similarity_i = 1 for both zero
+ * 
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Similarity score in [0, 1]
+ */
+function ratioBasedSimilarity(A, B) {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError("Inputs must be arrays.");
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error("Vectors must be non-empty and of same length.");
+  }
+
+  let sumRatios = 0;
+  let validCount = 0;
+
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(`Invalid elements at index ${i}: must be finite numbers`);
+    }
+
+    const a = Math.abs(A[i]);
+    const b = Math.abs(B[i]);
+
+    if (a === 0 && b === 0) {
+      // Both zero, perfect similarity
+      sumRatios += 1;
+    } else if (a === 0 || b === 0) {
+      // One zero, one non-zero: poor similarity
+      sumRatios += 0;
+    } else {
+      // Both non-zero: ratio similarity
+      const ratio = Math.min(a, b) / Math.max(a, b);
+      sumRatios += ratio;
+    }
+    validCount++;
+  }
+
+  const similarity = sumRatios / validCount;
+  
+  return Math.max(0, Math.min(1, similarity));
+}
+
+// CommonJS (Node.js)
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    weightedMinkowskiSimilarity,
+    canberraSimilarity,
+    chebyshevSimilarity,
+    brayCurtisSimilarity,
+    harmonicMeanSimilarity,
+    geometricMeanSimilarity,
+    ratioBasedSimilarity
+  };
+}
+
+// ES Module / modern bundlers
+export {
+  weightedMinkowskiSimilarity,
+  canberraSimilarity,
+  chebyshevSimilarity,
+  brayCurtisSimilarity,
+  harmonicMeanSimilarity,
+  geometricMeanSimilarity,
+  ratioBasedSimilarity
+};
