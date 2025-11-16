@@ -1,105 +1,128 @@
 import { describe, it, expect } from 'vitest';
 import {
-  computeVectorSimilarityMeanStdPower,
-  computeVectorSimilarityMeanStdPenalized,
-  computeVectorSimilarityMetricLike,
-  computeVectorSimilarityRobust,
-  computeVectorSimilarityTunable,
-  computeVectorSimilarityVarianceWeighted,
-} from '../../src/vector-similarity';
+  weightedMinkowskiSimilarity,
+  canberraSimilarity,
+  chebyshevSimilarity,
+  brayCurtisSimilarity,
+  harmonicMeanSimilarity,
+  geometricMeanSimilarity,
+  ratioBasedSimilarity,
+} from '../../src/vector-similarity/similarity/heuristics';
 
-describe('Vector Similarity Functions', () => {
-  describe('computeVectorSimilarityMeanStdPower', () => {
+describe('Heuristics Similarity Functions', () => {
+  describe('weightedMinkowskiSimilarity', () => {
     it('should return 1 for identical vectors', () => {
       const a = [1, 2, 3];
       const b = [1, 2, 3];
-      expect(computeVectorSimilarityMeanStdPower(a, b)).toBe(1);
+      expect(weightedMinkowskiSimilarity(a, b)).toBe(1);
     });
 
     it('should return a value between 0 and 1 for different vectors', () => {
       const a = [1, 2, 3];
       const b = [4, 5, 6];
-      const similarity = computeVectorSimilarityMeanStdPower(a, b);
+      const similarity = weightedMinkowskiSimilarity(a, b);
+      expect(similarity).toBeGreaterThanOrEqual(0);
+      expect(similarity).toBeLessThanOrEqual(1);
+    });
+
+    it('should throw an error for invalid input', () => {
+      const a = [1, 2];
+      const b = [1, 2, 3];
+      expect(() => weightedMinkowskiSimilarity(a, b)).toThrow();
+    });
+  });
+
+  describe('canberraSimilarity', () => {
+    it('should return 1 for identical vectors', () => {
+      const a = [1, 2, 3];
+      const b = [1, 2, 3];
+      expect(canberraSimilarity(a, b)).toBe(1);
+    });
+
+    it('should return a value between 0 and 1 for different vectors', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5, 6];
+      const similarity = canberraSimilarity(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
   });
 
-  describe('computeVectorSimilarityMeanStdPenalized', () => {
+  describe('chebyshevSimilarity', () => {
     it('should return 1 for identical vectors', () => {
       const a = [1, 2, 3];
       const b = [1, 2, 3];
-      expect(computeVectorSimilarityMeanStdPenalized(a, b)).toBe(1);
+      expect(chebyshevSimilarity(a, b)).toBe(1);
     });
 
     it('should return a value between 0 and 1 for different vectors', () => {
       const a = [1, 2, 3];
       const b = [4, 5, 6];
-      const similarity = computeVectorSimilarityMeanStdPenalized(a, b);
+      const similarity = chebyshevSimilarity(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
   });
 
-  describe('computeVectorSimilarityMetricLike', () => {
+  describe('brayCurtisSimilarity', () => {
     it('should return 1 for identical vectors', () => {
       const a = [1, 2, 3];
       const b = [1, 2, 3];
-      expect(computeVectorSimilarityMetricLike(a, b)).toBe(1);
+      expect(brayCurtisSimilarity(a, b)).toBe(1);
     });
 
     it('should return a value between 0 and 1 for different vectors', () => {
       const a = [1, 2, 3];
       const b = [4, 5, 6];
-      const similarity = computeVectorSimilarityMetricLike(a, b);
+      const similarity = brayCurtisSimilarity(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
   });
 
-  describe('computeVectorSimilarityRobust', () => {
+  describe('harmonicMeanSimilarity', () => {
     it('should return 1 for identical vectors', () => {
       const a = [1, 2, 3];
       const b = [1, 2, 3];
-      expect(computeVectorSimilarityRobust(a, b)).toBe(1);
+      expect(harmonicMeanSimilarity(a, b)).toBe(1);
     });
 
     it('should return a value between 0 and 1 for different vectors', () => {
       const a = [1, 2, 3];
       const b = [4, 5, 6];
-      const similarity = computeVectorSimilarityRobust(a, b);
+      const similarity = harmonicMeanSimilarity(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
   });
 
-  describe('computeVectorSimilarityTunable', () => {
+  describe('geometricMeanSimilarity', () => {
     it('should return 1 for identical vectors', () => {
       const a = [1, 2, 3];
       const b = [1, 2, 3];
-      expect(computeVectorSimilarityTunable(a, b)).toBe(1);
+      expect(geometricMeanSimilarity(a, b)).toBe(1);
     });
 
     it('should return a value between 0 and 1 for different vectors', () => {
       const a = [1, 2, 3];
       const b = [4, 5, 6];
-      const similarity = computeVectorSimilarityTunable(a, b);
+      const similarity = geometricMeanSimilarity(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
   });
 
-  describe('computeVectorSimilarityVarianceWeighted', () => {
+  describe('ratioBasedSimilarity', () => {
     it('should return 1 for identical vectors', () => {
       const a = [1, 2, 3];
       const b = [1, 2, 3];
-      expect(computeVectorSimilarityVarianceWeighted(a, b)).toBe(1);
+      expect(ratioBasedSimilarity(a, b)).toBe(1);
     });
 
     it('should return a value between 0 and 1 for different vectors', () => {
       const a = [1, 2, 3];
       const b = [4, 5, 6];
-      const similarity = computeVectorSimilarityVarianceWeighted(a, b);
+      const similarity = ratioBasedSimilarity(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
