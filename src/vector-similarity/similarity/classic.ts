@@ -146,6 +146,24 @@ export function pearsonCorrelation(a: number[], b: number[]): number {
 }
 
 /**
+ * Dot product
+ * Measures both the direction and magnitude of the vectors
+ * Range: (-∞, ∞)
+ */
+export function dotProduct(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error('Vectors must have the same length');
+  }
+
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    sum += a[i] * b[i];
+  }
+
+  return sum;
+}
+
+/**
  * Convert distance to similarity (for functions that return distances)
  * Higher values indicate more similarity
  */

@@ -6,6 +6,7 @@ import {
   pearsonCorrelation,
   euclideanSimilarity,
   manhattanSimilarity,
+  dotProduct,
 } from '../../src/vector-similarity/similarity/classic';
 
 describe('Classic Similarity Functions', () => {
@@ -142,6 +143,32 @@ describe('Classic Similarity Functions', () => {
       const similarity = manhattanSimilarity(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
+    });
+  });
+
+  describe('dotProduct', () => {
+    it('should return the correct dot product for identical vectors', () => {
+      const a = [1, 2, 3];
+      const b = [1, 2, 3];
+      expect(dotProduct(a, b)).toBe(14);
+    });
+
+    it('should return 0 for orthogonal vectors', () => {
+      const a = [1, 0];
+      const b = [0, 1];
+      expect(dotProduct(a, b)).toBe(0);
+    });
+
+    it('should return the correct dot product for different vectors', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5, 6];
+      expect(dotProduct(a, b)).toBe(32);
+    });
+
+    it('should throw an error for vectors of different lengths', () => {
+      const a = [1, 2];
+      const b = [1, 2, 3];
+      expect(() => dotProduct(a, b)).toThrow('Vectors must have the same length');
     });
   });
 });
