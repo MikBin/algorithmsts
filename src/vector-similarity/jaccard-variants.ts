@@ -15,7 +15,7 @@
  * @returns {number} Jaccard similarity score
  * @throws {Error} If inputs are not arrays or have mismatched lengths
  */
-function jaccardSimilarityBinary(a, b) {
+export function jaccardSimilarityBinary(a: number[], b: number[]): number {
   if (!Array.isArray(a) || !Array.isArray(b)) {
     throw new Error('Inputs must be arrays');
   }
@@ -51,7 +51,7 @@ function jaccardSimilarityBinary(a, b) {
  * @returns {number} Weighted Jaccard similarity score
  * @throws {Error} If inputs are not arrays or have mismatched lengths
  */
-function jaccardSimilarityWeighted(a, b) {
+export function jaccardSimilarityWeighted(a: number[], b: number[]): number {
   if (!Array.isArray(a) || !Array.isArray(b)) {
     throw new Error('Inputs must be arrays');
   }
@@ -88,7 +88,7 @@ function jaccardSimilarityWeighted(a, b) {
  * @returns {number} Real-valued Jaccard similarity score
  * @throws {Error} If inputs are not arrays or have mismatched lengths
  */
-function jaccardSimilarityRealValued(a, b) {
+export function jaccardSimilarityRealValued(a: number[], b: number[]): number {
   if (!Array.isArray(a) || !Array.isArray(b)) {
     throw new Error('Inputs must be arrays');
   }
@@ -112,10 +112,3 @@ function jaccardSimilarityRealValued(a, b) {
 
   return union === 0 ? 1 : intersection / union;
 }
-
-// Export all functions
-module.exports = {
-  jaccardSimilarityBinary,
-  jaccardSimilarityWeighted,
-  jaccardSimilarityRealValued
-};

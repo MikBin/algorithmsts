@@ -53,6 +53,11 @@
       "types": "./dist/types/interfaces.d.ts",
       "import": "./dist/interfaces.js",
       "require": "./dist/interfaces.cjs"
+    },
+    "./vector-similarity": {
+      "types": "./dist/types/vector-similarity/index.d.ts",
+      "import": "./dist/vector-similarity/index.js",
+      "require": "./dist/vector-similarity/index.cjs"
     }
   },
   "files": [
