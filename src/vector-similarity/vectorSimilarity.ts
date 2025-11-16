@@ -2,25 +2,25 @@
  * Deprecated compatibility wrapper for vector similarity functions.
  *
  * The concrete implementations have been moved into:
- *   - ./similarity/vectorSimilarityMeanStdPower.js
- *   - ./similarity/vectorSimilarityMeanStdPenalized.js
+ *   - ./similarity/vectorSimilarityMeanStdPower.ts
+ *   - ./similarity/vectorSimilarityMeanStdPenalized.ts
  *
  * This module re-exports the same APIs to avoid breaking existing imports.
  * New code should import directly from the files in the ./similarity directory.
  */
 
-import { computeVectorSimilarityMeanStdPower } from "./vectorSimilarityMeanStdPower.js";
-import { computeVectorSimilarityMeanStdPenalized } from "./vectorSimilarityMeanStdPenalized.js";
+import { computeVectorSimilarityMeanStdPower } from "./vectorSimilarityMeanStdPower";
+import { computeVectorSimilarityMeanStdPenalized } from "./vectorSimilarityMeanStdPenalized";
 
 /**
  * @deprecated Use computeVectorSimilarityMeanStdPower from
- * "./similarity/vectorSimilarityMeanStdPower.js" instead.
+ * "./similarity/vectorSimilarityMeanStdPower.ts" instead.
  */
 const computeVectorSimilarity = computeVectorSimilarityMeanStdPower;
 
 /**
  * @deprecated Use computeVectorSimilarityMeanStdPenalized from
- * "./similarity/vectorSimilarityMeanStdPenalized.js" instead.
+ * "./similarity/vectorSimilarityMeanStdPenalized.ts" instead.
  */
 const computeVectorSimilarityPenalized = computeVectorSimilarityMeanStdPenalized;
 
@@ -28,10 +28,3 @@ export {
   computeVectorSimilarity,
   computeVectorSimilarityPenalized,
 };
-
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = {
-    computeVectorSimilarity,
-    computeVectorSimilarityPenalized,
-  };
-}
