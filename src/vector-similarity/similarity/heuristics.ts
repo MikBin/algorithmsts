@@ -303,68 +303,6 @@ export function harmonicMeanSimilarity(
 }
 
 /**
- * Geometric Mean Similarity
- *
- * Uses the geometric mean of individual coordinate similarities.
- * For each coordinate i:
- *   similarity_i = 1 - (|Ai - Bi| / (max(|Ai|, |Bi|) + epsilon))
- *
- * @param {number[]} A - First numeric vector
- * @param {number[]} B - Second numeric vector
- * @param {MeanSimilarityOptions} [options] - Configuration options
- * @returns {number} Similarity score in [0, 1]
- */
-export function geometricMeanSimilarity(
-  A: number[],
-  B: number[],
-  options: MeanSimilarityOptions = {}
-): number {
-  if (!Array.isArray(A) || !Array.isArray(B)) {
-    throw new TypeError('Inputs must be arrays.');
-  }
-  if (A.length !== B.length || A.length === 0) {
-    throw new Error('Vectors must be non-empty and of same length.');
-  }
-
-  const { epsilon = 1e-10 } = options;
-
-  let sumLog = 0;
-  let validCount = 0;
-
-  for (let i = 0; i < A.length; i++) {
-    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
-      throw new Error(
-        `Invalid elements at index ${i}: must be finite numbers`
-      );
-    }
-
-    if (A[i] === 0 && B[i] === 0) {
-      // Both zero, perfect similarity for this coordinate
-      validCount++;
-      continue;
-    }
-
-    const diff = Math.abs(A[i] - B[i]);
-    const maxVal = Math.max(Math.abs(A[i]), Math.abs(B[i])) + epsilon;
-    const coordinateSim = 1 - diff / maxVal;
-
-    if (coordinateSim > 0) {
-      sumLog += Math.log(coordinateSim);
-      validCount++;
-    }
-  }
-
-  if (validCount === 0) {
-    return 0; // No valid coordinates
-  }
-
-  // Geometric mean: exp((1/n) * Σ(log(xi)))
-  const similarity = Math.exp(sumLog / validCount);
-
-  return Math.max(0, Math.min(1, similarity));
-}
-
-/**
  * Wave-Hedges Similarity
  *
  * A robust similarity metric that is resistant to outliers. It calculates the
