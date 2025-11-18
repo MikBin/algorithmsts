@@ -2,6 +2,8 @@
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
+import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
+import { pearsonCorrelationSimilarity } from './similarity/classic';
 
 const vecA = [1, 2, 3];
 const vecB = [1, 2, 4];
@@ -37,4 +39,30 @@ console.log(
 console.log(
   'PenalizedSimilarity(A, D):',
   computeVectorSimilarityMeanStdPenalized(vecA, vecD).toFixed(4)
+);
+
+console.log(
+  'vectorSimilarityCorrelation(A, B):',
+  vectorSimilarityCorrelation(vecA, vecB).toFixed(4)
+);
+console.log(
+  'vectorSimilarityCorrelation(A, C):',
+  vectorSimilarityCorrelation(vecA, vecC).toFixed(4)
+);
+console.log(
+  'vectorSimilarityCorrelation(A, D):',
+  vectorSimilarityCorrelation(vecA, vecD).toFixed(4)
+);
+
+console.log(
+  'pearsonCorrelationSimilarity(A, B):',
+  pearsonCorrelationSimilarity(vecA, vecB).toFixed(4)
+);
+console.log(
+  'pearsonCorrelationSimilarity(A, C):',
+  pearsonCorrelationSimilarity(vecA, vecC).toFixed(4)
+);
+console.log(
+  'pearsonCorrelationSimilarity(A, D):',
+  pearsonCorrelationSimilarity(vecA, vecD).toFixed(4)
 );

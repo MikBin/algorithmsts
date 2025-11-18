@@ -27,7 +27,7 @@
  * @param B The second vector.
  * @returns The similarity between the two vectors.
  */
-function computeVectorSimilarityCorrelation(
+function vectorSimilarityCorrelation(
   A: number[],
   B: number[]
 ): number {
@@ -89,4 +89,4 @@ function computeVectorSimilarityCorrelation(
   return similarity/2;
 }
 
-export { computeVectorSimilarityCorrelation };
+export { vectorSimilarityCorrelation };

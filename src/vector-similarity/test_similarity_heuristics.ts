@@ -9,6 +9,8 @@ const {
   geometricMeanSimilarity,
   ratioBasedSimilarity,
 } = require('./similarity/heuristics');
+const { vectorSimilarityCorrelation } = require('./similarity/vectorSimilarityCorrelation');
+const { pearsonCorrelationSimilarity } = require('./similarity/classic');
 
 function runTest(name: string, testFunc: () => void) {
   try {
@@ -61,6 +63,18 @@ runTest('ratioBasedSimilarity', () => {
   const a = [1, 2, 3];
   const b = [1, 2, 3];
   assert.strictEqual(ratioBasedSimilarity(a, b), 1);
+});
+
+runTest('vectorSimilarityCorrelation', () => {
+    const a = [1, 2, 3];
+    const b = [1, 2, 3];
+    assert.strictEqual(vectorSimilarityCorrelation(a, b), 1);
+});
+
+runTest('pearsonCorrelationSimilarity', () => {
+    const a = [1, 2, 3];
+    const b = [1, 2, 3];
+    assert.strictEqual(pearsonCorrelationSimilarity(a, b), 1);
 });
 
 console.log('All tests passed!');
