@@ -23,6 +23,24 @@ describe('Vector Similarity Functions', () => {
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
+
+    it('should handle zero vectors', () => {
+      const a = [0, 0, 0];
+      const b = [0, 0, 0];
+      expect(computeVectorSimilarityMeanStdPower(a, b)).toBe(1);
+    });
+
+    it('should handle vectors with negative numbers', () => {
+      const a = [-1, -2, -3];
+      const b = [-1, -2, -3];
+      expect(computeVectorSimilarityMeanStdPower(a, b)).toBe(1);
+    });
+
+    it('should throw an error for vectors of different lengths', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5];
+      expect(() => computeVectorSimilarityMeanStdPower(a, b)).toThrow();
+    });
   });
 
   describe('computeVectorSimilarityMeanStdPenalized', () => {
@@ -38,6 +56,24 @@ describe('Vector Similarity Functions', () => {
       const similarity = computeVectorSimilarityMeanStdPenalized(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
+    });
+
+    it('should handle zero vectors', () => {
+      const a = [0, 0, 0];
+      const b = [0, 0, 0];
+      expect(computeVectorSimilarityMeanStdPenalized(a, b)).toBe(1);
+    });
+
+    it('should handle vectors with negative numbers', () => {
+      const a = [-1, -2, -3];
+      const b = [-1, -2, -3];
+      expect(computeVectorSimilarityMeanStdPenalized(a, b)).toBe(1);
+    });
+
+    it('should throw an error for vectors of different lengths', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5];
+      expect(() => computeVectorSimilarityMeanStdPenalized(a, b)).toThrow();
     });
   });
 
@@ -55,6 +91,24 @@ describe('Vector Similarity Functions', () => {
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
+
+    it('should handle zero vectors', () => {
+      const a = [0, 0, 0];
+      const b = [0, 0, 0];
+      expect(computeVectorSimilarityMetricLike(a, b)).toBe(1);
+    });
+
+    it('should handle vectors with negative numbers', () => {
+      const a = [-1, -2, -3];
+      const b = [-1, -2, -3];
+      expect(computeVectorSimilarityMetricLike(a, b)).toBe(1);
+    });
+
+    it('should throw an error for vectors of different lengths', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5];
+      expect(() => computeVectorSimilarityMetricLike(a, b)).toThrow();
+    });
   });
 
   describe('computeVectorSimilarityRobust', () => {
@@ -70,6 +124,24 @@ describe('Vector Similarity Functions', () => {
       const similarity = computeVectorSimilarityRobust(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
+    });
+
+    it('should handle zero vectors', () => {
+      const a = [0, 0, 0];
+      const b = [0, 0, 0];
+      expect(computeVectorSimilarityRobust(a, b)).toBe(1);
+    });
+
+    it('should handle vectors with negative numbers', () => {
+      const a = [-1, -2, -3];
+      const b = [-1, -2, -3];
+      expect(computeVectorSimilarityRobust(a, b)).toBe(1);
+    });
+
+    it('should throw an error for vectors of different lengths', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5];
+      expect(() => computeVectorSimilarityRobust(a, b)).toThrow();
     });
   });
 
@@ -87,6 +159,24 @@ describe('Vector Similarity Functions', () => {
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
     });
+
+    it('should handle zero vectors', () => {
+      const a = [0, 0, 0];
+      const b = [0, 0, 0];
+      expect(computeVectorSimilarityTunable(a, b)).toBe(1);
+    });
+
+    it('should handle vectors with negative numbers', () => {
+      const a = [-1, -2, -3];
+      const b = [-1, -2, -3];
+      expect(computeVectorSimilarityTunable(a, b)).toBe(1);
+    });
+
+    it('should throw an error for vectors of different lengths', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5];
+      expect(() => computeVectorSimilarityTunable(a, b)).toThrow();
+    });
   });
 
   describe('computeVectorSimilarityVarianceWeighted', () => {
@@ -102,6 +192,24 @@ describe('Vector Similarity Functions', () => {
       const similarity = computeVectorSimilarityVarianceWeighted(a, b);
       expect(similarity).toBeGreaterThanOrEqual(0);
       expect(similarity).toBeLessThanOrEqual(1);
+    });
+
+    it('should handle zero vectors', () => {
+      const a = [0, 0, 0];
+      const b = [0, 0, 0];
+      expect(computeVectorSimilarityVarianceWeighted(a, b)).toBe(1);
+    });
+
+    it('should handle vectors with negative numbers', () => {
+      const a = [-1, -2, -3];
+      const b = [-1, -2, -3];
+      expect(computeVectorSimilarityVarianceWeighted(a, b)).toBe(1);
+    });
+
+    it('should throw an error for vectors of different lengths', () => {
+      const a = [1, 2, 3];
+      const b = [4, 5];
+      expect(() => computeVectorSimilarityVarianceWeighted(a, b)).toThrow();
     });
   });
 });
