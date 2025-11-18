@@ -49,6 +49,10 @@ describe('Similarity Functions Return Value Range', () => {
       [0, 0, 0],
       [0, 0, 0],
     ],
+    opposite: [
+      [1, -2, 3],
+      [-1, 2, -3],
+    ],
   };
 
   const similarityFunctions = {
