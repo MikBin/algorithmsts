@@ -2,6 +2,7 @@
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
+import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
 
 function addNoise(vector: number[], noiseLevel: number): number[] {
   return vector.map((x) => x + (Math.random() - 0.5) * noiseLevel);
@@ -22,7 +23,9 @@ noiseLevels.forEach((noiseLevel) => {
     baseVector,
     noisyVector
   );
+  const correlationSim = vectorSimilarityCorrelation(baseVector, noisyVector);
 
   console.log(`Similarity: ${sim.toFixed(4)}`);
   console.log(`Penalized Similarity: ${penalizedSim.toFixed(4)}`);
+  console.log(`Correlation Similarity: ${correlationSim.toFixed(4)}`);
 });

@@ -145,6 +145,9 @@ export function pearsonCorrelation(a: number[], b: number[]): number {
   return numerator / Math.sqrt(denomA * denomB);
 }
 
+export const pearsonCorrelationSimilarity = (a: number[], b: number[]): number => {
+  return (1 + pearsonCorrelation(a, b)) / 2;
+}
 /**
  * Dot product
  * Measures both the direction and magnitude of the vectors
