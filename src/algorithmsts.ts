@@ -106,7 +106,7 @@ import { LegacyAPI } from './compatibility/utils/LegacyAPI';
  * @deprecated Consider importing specific modules for better tree-shaking and performance.
  * Use modular imports like `import { BinarySearch } from '@mikbin80/algorithmsts/algorithms'` instead.
  */
-export default LegacyAPI.createLegacyModule({
+const algorithmsts = LegacyAPI.createLegacyModule({
   binarySearch: binSearches,
   segmentTree: segTree,
   skipList: SkipList,
@@ -120,6 +120,7 @@ export default LegacyAPI.createLegacyModule({
   Trie: compatibility.Trie,
   SuffixTreeAdapter: compatibility.SuffixTree
 }, '2.0.0');
+export default algorithmsts;
 
 // Legacy comment preserved for reference:
 // used on some strings remove spaces and special chars like ' " ? ...

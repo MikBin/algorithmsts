@@ -15,7 +15,7 @@ export class FibonacciHeap<T> {
   }
   clear(): void { this.min=null; this._size=0; }
   private mergeLists(a: Node<T> | null, b: Node<T> | null): Node<T> | null { if (!a) return b; if (!b) return a; if (this.compare(a.value,b.value) > 0) [a,b]=[b,a]; const aRight=a.right!; a.right=b.right; b.right!.left=a; b.right=aRight; aRight.left=b; return a; }
-  private consolidate(): void { const A: Array<Node<T> | null> = []; const roots: Node<T>[] = []; if (!this.min) return; let w=this.min; do { roots.push(w!); w=w!.right!; } while(w!==this.min); for (const x of roots){ let d=x.degree; while(A[d]){ let y=A[d]!; if (this.compare(x.value,y.value) > 0) { const tmp=x; (x as any)=y; (y as any)=tmp; } this.link(y,x); A[d]=null; d++; } A[d]=x; } this.min=null; for (const a of A){ if (!a) continue; a.left=a.right=a; this.min=this.mergeLists(this.min,a); } }
+  private consolidate(): void { const A: Array<Node<T> | null> = []; const roots: Node<T>[] = []; if (!this.min) return; let w=this.min; do { roots.push(w!); w=w!.right!; } while(w!==this.min); for (let x of roots){ let d=x.degree; while(A[d]){ let y=A[d]!; if (this.compare(x.value,y.value) > 0) { const tmp=x; (x as any)=y; (y as any)=tmp; } this.link(y,x); A[d]=null; d++; } A[d]=x; } this.min=null; for (const a of A){ if (!a) continue; a.left=a.right=a; this.min=this.mergeLists(this.min,a); } }
   private link(y: Node<T>, x: Node<T>): void { // make y child of x
     // remove y from root list
     y.left!.right=y.right; y.right!.left=y.left; y.parent=x; if (!x.child){ x.child=y; y.left=y.right=y; } else { y.left=x.child; y.right=x.child!.right; x.child!.right!.left=y; x.child!.right=y; }

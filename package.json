@@ -81,11 +81,11 @@
   "scripts": {
     "lint": "eslint src/",
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
-    "build": "tsc -p tsconfig.json && node tools/fast-build-stub.mjs",
+    "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production",
     "docs": "npm run generate-docs",
     "generate-docs": "echo generate-docs",
     "build:docs": "node tools/build-and-docs.ts",
-    "test": "vitest",
+    "test": "vitest run --no-watch",
     "test:prod": "vitest run --coverage",
     "bench": "vitest bench",
     "prepare": "husky",
