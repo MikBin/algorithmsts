@@ -1,8 +1,7 @@
 // A simple demo script for comparing vector similarity functions
 import {
-  computeVectorSimilarity,
-  computeVectorSimilarityPenalized,
-} from './vectorSimilarity';
+  computeVectorSimilarityMeanStdPenalized,
+} from './similarity/vectorSimilarityMeanStdPenalized';
 
 const vecA = [1, 2, 3];
 const vecB = [1, 2, 4];
@@ -16,26 +15,26 @@ console.log('vecD:', vecD);
 
 console.log(
   'Similarity(A, B):',
-  computeVectorSimilarity(vecA, vecB).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecA, vecB).toFixed(4)
 );
 console.log(
   'Similarity(A, C):',
-  computeVectorSimilarity(vecA, vecC).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecA, vecC).toFixed(4)
 );
 console.log(
   'Similarity(A, D):',
-  computeVectorSimilarity(vecA, vecD).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecA, vecD).toFixed(4)
 );
 
 console.log(
   'PenalizedSimilarity(A, B):',
-  computeVectorSimilarityPenalized(vecA, vecB).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecA, vecB).toFixed(4)
 );
 console.log(
   'PenalizedSimilarity(A, C):',
-  computeVectorSimilarityPenalized(vecA, vecC).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecA, vecC).toFixed(4)
 );
 console.log(
   'PenalizedSimilarity(A, D):',
-  computeVectorSimilarityPenalized(vecA, vecD).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecA, vecD).toFixed(4)
 );

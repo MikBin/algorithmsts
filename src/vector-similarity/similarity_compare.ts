@@ -1,7 +1,7 @@
 // A simple script for comparing different similarity functions
-import { cosineSimilarity } from './similarity-functions';
-import { jaccardSimilarityBinary } from './jaccard-variants';
-import { computeVectorSimilarity } from './vectorSimilarity';
+import { cosineSimilarity } from './similarity/classic';
+import { jaccardSimilarityBinary } from './similarity/jaccard';
+import { computeVectorSimilarityMeanStdPenalized } from './similarity/vectorSimilarityMeanStdPenalized';
 
 const vecA = [1, 1, 0, 1];
 const vecB = [1, 0, 1, 1];
@@ -18,7 +18,7 @@ console.log(
 );
 console.log(
   'Custom Similarity:',
-  computeVectorSimilarity(vecA, vecB).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecA, vecB).toFixed(4)
 );
 
 console.log('\n--- Continuous Vectors ---');
@@ -27,5 +27,5 @@ console.log('vecD:', vecD.map((x) => x.toFixed(2)).join(', '));
 console.log('Cosine Similarity:', cosineSimilarity(vecC, vecD).toFixed(4));
 console.log(
   'Custom Similarity:',
-  computeVectorSimilarity(vecC, vecD).toFixed(4)
+  computeVectorSimilarityMeanStdPenalized(vecC, vecD).toFixed(4)
 );

@@ -10,7 +10,7 @@ export class ViolationHeap<T> {
   clear(): void { this.root = null; this._size = 0; }
   private mergeChildren(n: Node<T>): Node<T> | null {
     // pair children from left to right then meld back from right to left
-    const arr: Node<T>[] = [];
+    const arr: (Node<T> | null)[] = [];
     let c = n.child;
     while (c) { const a = c; const b = c.next; c = b ? b.next : null; if (a) a.next = null; if (b) b.next = null; arr.push(this.meld(a, b)); }
     let res: Node<T> | null = null; for (let i = arr.length - 1; i >= 0; i--) res = this.meld(res, arr[i]);

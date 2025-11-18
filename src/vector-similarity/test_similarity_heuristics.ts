@@ -8,9 +8,9 @@ const {
   harmonicMeanSimilarity,
   geometricMeanSimilarity,
   ratioBasedSimilarity,
-} = require('./similarity_heuristics');
+} = require('./similarity/heuristics');
 
-function runTest(name, testFunc) {
+function runTest(name: string, testFunc: () => void) {
   try {
     testFunc();
     console.log(`✅ ${name}`);

@@ -1,8 +1,7 @@
 // A simple benchmarking script for vector similarity functions
 import {
-  computeVectorSimilarity,
-  computeVectorSimilarityPenalized,
-} from './vectorSimilarity';
+  computeVectorSimilarityMeanStdPenalized,
+} from './similarity/vectorSimilarityMeanStdPenalized';
 
 function generateRandomVector(n: number): number[] {
   const vector: number[] = [];
@@ -27,8 +26,8 @@ const vectorSize = 1000;
 const vecA = generateRandomVector(vectorSize);
 const vecB = generateRandomVector(vectorSize);
 
-const time1 = runBenchmark(computeVectorSimilarity, vecA, vecB);
-console.log(`computeVectorSimilarity took ${time1 / 1e6} ms`);
+const time1 = runBenchmark(computeVectorSimilarityMeanStdPenalized, vecA, vecB);
+console.log(`computeVectorSimilarityMeanStdPenalized took ${time1 / 1e6} ms`);
 
-const time2 = runBenchmark(computeVectorSimilarityPenalized, vecA, vecB);
-console.log(`computeVectorSimilarityPenalized took ${time2 / 1e6} ms`);
+const time2 = runBenchmark(computeVectorSimilarityMeanStdPenalized, vecA, vecB);
+console.log(`computeVectorSimilarityMeanStdPenalized took ${time2 / 1e6} ms`);

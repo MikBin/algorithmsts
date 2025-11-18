@@ -45,8 +45,8 @@ export class BPlusTree<K, V> {
 
   toArray(): Array<{ key: K; value: V }> {
     // iterate leaves
-    let n = this.root;
-    while (!n.isLeaf) n = n.children[0];
+    let n: BPlusNode<K, V> | null = this.root;
+    while (n && !n.isLeaf) n = n.children[0];
     const out: Array<{ key: K; value: V }> = [];
     while (n) {
       for (let i = 0; i < n.keys.length; i++) out.push({ key: n.keys[i], value: n.values![i] });

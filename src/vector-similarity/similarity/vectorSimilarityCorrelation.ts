@@ -84,7 +84,7 @@ function computeVectorSimilarityCorrelation(
   const exponent = (1 + std);
 
   const sign = Math.sign(mean);
-  const similarity = 1 - sign * Math.pow(Math.abs(mean), exponent ** sign);
+  const similarity = 1 + sign * Math.pow(Math.abs(mean), exponent ** sign);
 
   return similarity/2;
 }

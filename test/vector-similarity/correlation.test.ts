@@ -16,10 +16,10 @@ describe('computeVectorSimilarityCorrelation', () => {
     expect(computeVectorSimilarityCorrelation(a, b)).toBeLessThan(1);
   });
 
-  it('should return -1 for opposite vectors', () => {
+  it('should return 0 for opposite vectors', () => {
     const a = [1, 2, 3];
     const b = [-1, -2, -3];
-    expect(computeVectorSimilarityCorrelation(a, b)).toBeCloseTo(-1);
+    expect(computeVectorSimilarityCorrelation(a, b)).toBeCloseTo(0);
   });
 
   it('should handle zero vectors', () => {
