@@ -1,7 +1,6 @@
 import { defineConfig } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
-import del from "rollup-plugin-delete";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 console.log("🌶 rollup current mode: ", process.env.BUILD);
@@ -27,7 +26,6 @@ const InjectPlugin =
             emitDeclarationOnly: false,
           },
         }),
-        del({ targets: "dist/*", verbose: true }),
       ]
     : [
         nodeResolve({
@@ -62,6 +60,8 @@ export default defineConfig([
         file: "dist/algorithmsts.esm.js",
         format: "esm",
         sourcemap: true,
+        inlineDynamicImports: true,
+        exports: "named",
       },
       // umd for browser compatibility
       {

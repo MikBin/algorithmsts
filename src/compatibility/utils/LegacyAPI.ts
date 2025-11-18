@@ -134,6 +134,13 @@ export class LegacyAPI {
             `algorithmsts/data-structures or algorithmsts/algorithms`,
             version
           );
+          // Redefine the property to avoid future getter calls
+          Object.defineProperty(wrapped, key, {
+            value: prepared,
+            writable: true,
+            configurable: true,
+            enumerable: true
+          });
           return prepared;
         }
       });
