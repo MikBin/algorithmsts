@@ -412,3 +412,69 @@ export function waveHedgesSimilarity(A: number[], B: number[]): number {
   const similarity = sum / A.length;
   return Math.max(0, Math.min(1, similarity));
 }
+
+/**
+ * Kendall Rank Correlation Coefficient (Tau-a)
+ *
+ * Measures the ordinal association between two vectors. It is non-parametric
+ * and does not assume linearity. The coefficient is calculated as:
+ * Tau = (C - D) / (C + D), where C is concordant pairs, D is discordant.
+ * The result is in [-1, 1].
+ *
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Kendall's Tau coefficient in [-1, 1]
+ */
+function kendallCorrelation(A: number[], B: number[]): number {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError('Inputs must be arrays.');
+  }
+  if (A.length !== B.length) {
+    throw new Error('Vectors must be of the same length.');
+  }
+
+  const n = A.length;
+  if (n < 2) {
+    return 1.0; // Perfect correlation for single or empty vectors
+  }
+
+  let concordant = 0;
+  let discordant = 0;
+
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = i + 1; j < n; j++) {
+      const a_ij = A[i] - A[j];
+      const b_ij = B[i] - B[j];
+      const product = a_ij * b_ij;
+
+      if (product > 0) {
+        concordant++;
+      } else if (product < 0) {
+        discordant++;
+      }
+      // If product is 0, the pair is tied. We ignore ties for Tau-a.
+    }
+  }
+
+  const totalPairs = (n * (n - 1)) / 2;
+  if (totalPairs === 0 || concordant + discordant === 0) {
+    return 1.0; // If all pairs are tied, consider it perfect correlation
+  }
+
+  return (concordant - discordant) / (concordant + discordant);
+}
+
+/**
+ * Kendall Rank Correlation Similarity
+ *
+ * Converts the Kendall's Tau coefficient from [-1, 1] to a similarity
+ * score in [0, 1] using the formula: (1 + Tau) / 2.
+ *
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Similarity score in [0, 1]
+ */
+export function kendallCorrelationSimilarity(A: number[], B: number[]): number {
+  const correlation = kendallCorrelation(A, B);
+  return (1 + correlation) / 2;
+}
