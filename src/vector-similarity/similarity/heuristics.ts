@@ -414,3 +414,52 @@ export function ratioBasedSimilarity(A: number[], B: number[]): number {
 
   return Math.max(0, Math.min(1, similarity));
 }
+
+/**
+ * Wave-Hedges Similarity
+ *
+ * A robust similarity metric that is resistant to outliers. It calculates the
+ * similarity for each dimension as the ratio of the absolute difference to the
+ * maximum absolute value of the pair, then averages these ratios.
+ *
+ * similarity = (1/n) * Σ(1 - (|Ai - Bi| / max(|Ai|, |Bi|)))
+ *
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Similarity score in [0, 1]
+ */
+export function waveHedgesSimilarity(A: number[], B: number[]): number {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError('Inputs must be arrays.');
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error('Vectors must be non-empty and of the same length.');
+  }
+
+  let sum = 0;
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(
+        `Invalid elements at index ${i}: must be finite numbers`
+      );
+    }
+    const a = A[i];
+    const b = B[i];
+
+    if (a === b) {
+      sum += 1;
+      continue;
+    }
+
+    const maxVal = Math.max(Math.abs(a), Math.abs(b));
+    if (maxVal === 0) {
+      sum += 1; // Both are 0, so they are perfectly similar
+    } else {
+      const diff = Math.abs(a - b);
+      sum += 1 - diff / maxVal;
+    }
+  }
+
+  const similarity = sum / A.length;
+  return Math.max(0, Math.min(1, similarity));
+}

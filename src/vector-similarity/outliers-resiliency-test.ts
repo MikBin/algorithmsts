@@ -5,7 +5,7 @@ import {
 } from './similarity/vectorSimilarityMeanStdPenalized';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
 import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity } from './similarity/classic';
-import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity, brayCurtisSimilarity, harmonicMeanSimilarity, geometricMeanSimilarity, ratioBasedSimilarity } from './similarity/heuristics';
+import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity, brayCurtisSimilarity, harmonicMeanSimilarity, geometricMeanSimilarity, ratioBasedSimilarity, waveHedgesSimilarity } from './similarity/heuristics';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
 import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower';
@@ -39,6 +39,7 @@ try {
 console.log('Harmonic Mean Similarity:', harmonicMeanSimilarity(vecA, vecB).toFixed(4));
 console.log('Geometric Mean Similarity:', geometricMeanSimilarity(vecA, vecB).toFixed(4));
 console.log('Ratio Based Similarity:', ratioBasedSimilarity(vecA, vecB).toFixed(4));
+console.log('Wave-Hedges Similarity:', waveHedgesSimilarity(vecA, vecB).toFixed(4));
 console.log('Jaccard Binary Similarity:', jaccardSimilarityBinary(vecA, vecB).toFixed(4));
 console.log('Jaccard Weighted Similarity:', jaccardSimilarityWeighted(vecA, vecB).toFixed(4));
 console.log('Jaccard Real Valued Similarity:', jaccardSimilarityRealValued(vecA, vecB).toFixed(4));
@@ -76,6 +77,7 @@ try {
 console.log('Harmonic Mean Similarity:', harmonicMeanSimilarity(vecC, vecD).toFixed(4));
 console.log('Geometric Mean Similarity:', geometricMeanSimilarity(vecC, vecD).toFixed(4));
 console.log('Ratio Based Similarity:', ratioBasedSimilarity(vecC, vecD).toFixed(4));
+console.log('Wave-Hedges Similarity:', waveHedgesSimilarity(vecC, vecD).toFixed(4));
 console.log('Jaccard Binary Similarity:', jaccardSimilarityBinary(vecC, vecD).toFixed(4));
 console.log('Jaccard Weighted Similarity:', jaccardSimilarityWeighted(vecC, vecD).toFixed(4));
 console.log('Jaccard Real Valued Similarity:', jaccardSimilarityRealValued(vecC, vecD).toFixed(4));
