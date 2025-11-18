@@ -365,57 +365,6 @@ export function geometricMeanSimilarity(
 }
 
 /**
- * Ratio-based Similarity
- *
- * Uses the ratio of corresponding elements with handling for zero values:
- * similarity_i = min(Ai, Bi) / max(Ai, Bi) for non-zero pairs
- * similarity_i = 1 for both zero
- *
- * @param {number[]} A - First numeric vector
- * @param {number[]} B - Second numeric vector
- * @returns {number} Similarity score in [0, 1]
- */
-export function ratioBasedSimilarity(A: number[], B: number[]): number {
-  if (!Array.isArray(A) || !Array.isArray(B)) {
-    throw new TypeError('Inputs must be arrays.');
-  }
-  if (A.length !== B.length || A.length === 0) {
-    throw new Error('Vectors must be non-empty and of same length.');
-  }
-
-  let sumRatios = 0;
-  let validCount = 0;
-
-  for (let i = 0; i < A.length; i++) {
-    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
-      throw new Error(
-        `Invalid elements at index ${i}: must be finite numbers`
-      );
-    }
-
-    const a = Math.abs(A[i]);
-    const b = Math.abs(B[i]);
-
-    if (a === 0 && b === 0) {
-      // Both zero, perfect similarity
-      sumRatios += 1;
-    } else if (a === 0 || b === 0) {
-      // One zero, one non-zero: poor similarity
-      sumRatios += 0;
-    } else {
-      // Both non-zero: ratio similarity
-      const ratio = Math.min(a, b) / Math.max(a, b);
-      sumRatios += ratio;
-    }
-    validCount++;
-  }
-
-  const similarity = sumRatios / validCount;
-
-  return Math.max(0, Math.min(1, similarity));
-}
-
-/**
  * Wave-Hedges Similarity
  *
  * A robust similarity metric that is resistant to outliers. It calculates the
