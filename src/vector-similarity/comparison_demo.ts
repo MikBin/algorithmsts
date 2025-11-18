@@ -1,68 +1,73 @@
+
 // A simple demo script for comparing vector similarity functions
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity } from './similarity/classic';
+import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity } from './similarity/classic';
+import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity, brayCurtisSimilarity, harmonicMeanSimilarity, waveHedgesSimilarity, kendallCorrelationSimilarity } from './similarity/heuristics';
+import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
+import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
+import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower';
+import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike';
+import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable';
+import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
 
-const vecA = [1, 2, 3];
-const vecB = [1, 2, 4];
-const vecC = [1, 2, 10];
-const vecD = [1, 2, 3];
+const vecA = [1, 2, 3, 4, 5];
+const vecB = [1.1, 2.2, 3.3, 4.4, 5.5]; // Similar
+const vecC = [1, 2, 100, 4, 5]; // Outlier
+const vecD = [5, 4, 3, 2, 1]; // Negatively Correlated
+const vecE = [1, 2, 3, 4, 5]; // Identical
 
-console.log('vecA:', vecA);
-console.log('vecB:', vecB);
-console.log('vecC:', vecC);
-console.log('vecD:', vecD);
+const vectors = {
+    A: vecA,
+    B: vecB,
+    C: vecC,
+    D: vecD,
+    E: vecE,
+};
 
-console.log(
-  'Similarity(A, B):',
-  computeVectorSimilarityMeanStdPenalized(vecA, vecB).toFixed(4)
-);
-console.log(
-  'Similarity(A, C):',
-  computeVectorSimilarityMeanStdPenalized(vecA, vecC).toFixed(4)
-);
-console.log(
-  'Similarity(A, D):',
-  computeVectorSimilarityMeanStdPenalized(vecA, vecD).toFixed(4)
-);
+const similarityFunctions = {
+  pearsonCorrelationSimilarity,
+  cosineSimilarity,
+  euclideanSimilarity,
+  manhattanSimilarity,
+  weightedMinkowskiSimilarity,
+  canberraSimilarity,
+  chebyshevSimilarity,
+  brayCurtisSimilarity,
+  harmonicMeanSimilarity,
+  waveHedgesSimilarity,
+  kendallCorrelationSimilarity,
+  jaccardSimilarityBinary,
+  jaccardSimilarityWeighted,
+  jaccardSimilarityRealValued,
+  computeVectorSimilarityMeanStdPenalized,
+  vectorSimilarityCorrelation,
+  computeVectorSimilarityRobust,
+  computeVectorSimilarityMeanStdPower,
+  computeVectorSimilarityMetricLike,
+  computeVectorSimilarityTunable,
+  computeVectorSimilarityVarianceWeighted,
+};
 
-console.log(
-  'PenalizedSimilarity(A, B):',
-  computeVectorSimilarityMeanStdPenalized(vecA, vecB).toFixed(4)
-);
-console.log(
-  'PenalizedSimilarity(A, C):',
-  computeVectorSimilarityMeanStdPenalized(vecA, vecC).toFixed(4)
-);
-console.log(
-  'PenalizedSimilarity(A, D):',
-  computeVectorSimilarityMeanStdPenalized(vecA, vecD).toFixed(4)
-);
+console.log('--- Vector Definitions ---');
+Object.entries(vectors).forEach(([name, vector]) => {
+    console.log(`Vector ${name}:`, vector);
+});
 
-console.log(
-  'vectorSimilarityCorrelation(A, B):',
-  vectorSimilarityCorrelation(vecA, vecB).toFixed(4)
-);
-console.log(
-  'vectorSimilarityCorrelation(A, C):',
-  vectorSimilarityCorrelation(vecA, vecC).toFixed(4)
-);
-console.log(
-  'vectorSimilarityCorrelation(A, D):',
-  vectorSimilarityCorrelation(vecA, vecD).toFixed(4)
-);
+console.log('\n--- Similarity Comparisons (A vs. Others) ---');
 
-console.log(
-  'pearsonCorrelationSimilarity(A, B):',
-  pearsonCorrelationSimilarity(vecA, vecB).toFixed(4)
-);
-console.log(
-  'pearsonCorrelationSimilarity(A, C):',
-  pearsonCorrelationSimilarity(vecA, vecC).toFixed(4)
-);
-console.log(
-  'pearsonCorrelationSimilarity(A, D):',
-  pearsonCorrelationSimilarity(vecA, vecD).toFixed(4)
-);
+Object.entries(similarityFunctions).forEach(([name, func]) => {
+    console.log(`\n--- ${name} ---`);
+    Object.entries(vectors).forEach(([vecName, vector]) => {
+        if (vecName !== 'A') {
+            try {
+                const result = func(vecA, vector);
+                console.log(`Similarity(A, ${vecName}): ${result.toFixed(4)}`);
+            } catch (e) {
+                console.log(`Similarity(A, ${vecName}): Error - ${(e as Error).message}`);
+            }
+        }
+    });
+});

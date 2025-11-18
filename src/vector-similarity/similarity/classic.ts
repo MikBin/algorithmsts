@@ -27,8 +27,11 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   normA = Math.sqrt(normA);
   normB = Math.sqrt(normB);
 
+  if (normA === 0 && normB === 0) {
+    return 1; // Both vectors are zero vectors
+  }
   if (normA === 0 || normB === 0) {
-    return 0; // Handle zero vectors
+    return 0; // One of the vectors is a zero vector
   }
 
   return dotProduct / (normA * normB);
@@ -139,7 +142,13 @@ export function pearsonCorrelation(a: number[], b: number[]): number {
   }
 
   if (denomA === 0 || denomB === 0) {
-    return 0; // Handle constant vectors
+    // Handle constant vectors. If both are constant and identical, correlation is 1.
+    if (denomA === 0 && denomB === 0) {
+        if (meanA === meanB) {
+            return 1;
+        }
+    }
+    return 0; 
   }
 
   return numerator / Math.sqrt(denomA * denomB);
