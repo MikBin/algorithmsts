@@ -2,6 +2,7 @@
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
+import { pearsonCorrelationSimilarity } from './similarity/classic';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
 
 function generateRandomVector(n: number): number[] {
@@ -30,8 +31,8 @@ const vecB = generateRandomVector(vectorSize);
 const time1 = runBenchmark(computeVectorSimilarityMeanStdPenalized, vecA, vecB);
 console.log(`computeVectorSimilarityMeanStdPenalized took ${time1 / 1e6} ms`);
 
-const time2 = runBenchmark(computeVectorSimilarityMeanStdPenalized, vecA, vecB);
-console.log(`computeVectorSimilarityMeanStdPenalized took ${time2 / 1e6} ms`);
+const time2 = runBenchmark(pearsonCorrelationSimilarity, vecA, vecB);
+console.log(`pearsonCorrelationSimilarity took ${time2 / 1e6} ms`);
 
 const time3 = runBenchmark(vectorSimilarityCorrelation, vecA, vecB);
 console.log(`vectorSimilarityCorrelation took ${time3 / 1e6} ms`);
