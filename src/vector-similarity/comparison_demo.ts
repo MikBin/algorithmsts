@@ -4,7 +4,7 @@ import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity, squaredEuclideanSimilarity } from './similarity/classic';
+import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic';
 import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
@@ -14,10 +14,10 @@ import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTun
 import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
 import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection';
 import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy';
-import { pearsonChiSquareSimilarity, neymanChiSquareSimilarity, additiveSymmetricChiSquareSimilarity, squaredChiSquareSimilarity } from './similarity/chi-square';
-import { fidelitySimilarity, hellingerSimilarity, matusitaSimilarity, squaredChordSimilarity } from './similarity/fidelity';
-import { normalizedFidelitySimilarity } from './similarity/normalized-fidelity';
-import { normalizedChiSquareSimilarity } from './similarity/normalized-chi-square';
+import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square';
+import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square';
+import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity';
+import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity';
 
 const vecA = [1, 2, 3, 4, 5];
 const vecB = [1.1, 2.2, 3.3, 4.4, 5.5]; // Similar
@@ -37,9 +37,8 @@ const similarityFunctions = {
   pearsonCorrelationSimilarity,
   cosineSimilarity,
   euclideanSimilarity,
-  squaredEuclideanSimilarity,
   manhattanSimilarity,
-  gowerSimilarity,
+  gowerSimilarity: (a: number[], b: number[]) => gowerSimilarity(a, b, []),
   soergelSimilarity,
   kulczynskiSimilarity,
   lorentzianSimilarity,
@@ -54,16 +53,20 @@ const similarityFunctions = {
   jeffreysSimilarity,
   kSimilarity,
   topsoeSimilarity,
-  pearsonChiSquareSimilarity,
-  neymanChiSquareSimilarity,
-  additiveSymmetricChiSquareSimilarity,
-  squaredChiSquareSimilarity,
-  normalizedChiSquareSimilarity,
+  pearsonChiSquareDistance,
+  neymanChiSquareDistance,
+  additiveSymmetricChiSquareDistance,
+  squaredChiSquareDistance,
+  normalizedPearsonChiSquareSimilarity,
+  normalizedNeymanChiSquareSimilarity,
+  normalizedAdditiveSymmetricChiSquareSimilarity,
+  normalizedSquaredChiSquareSimilarity,
   fidelitySimilarity,
-  hellingerSimilarity,
-  matusitaSimilarity,
-  squaredChordSimilarity,
-  normalizedFidelitySimilarity,
+  hellingerDistance,
+  matusitaDistance,
+  squaredChordDistance,
+  normalizedMatusitaSimilarity,
+  normalizedSquaredChordSimilarity,
   jaccardSimilarityBinary,
   jaccardSimilarityWeighted,
   jaccardSimilarityRealValued,

@@ -4,7 +4,7 @@ import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity, squaredEuclideanSimilarity } from './similarity/classic';
+import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic';
 import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
@@ -14,10 +14,10 @@ import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTun
 import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
 import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection';
 import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy';
-import { pearsonChiSquareSimilarity, neymanChiSquareSimilarity, additiveSymmetricChiSquareSimilarity, squaredChiSquareSimilarity } from './similarity/chi-square';
-import { fidelitySimilarity, hellingerSimilarity, matusitaSimilarity, squaredChordSimilarity } from './similarity/fidelity';
-import { normalizedFidelitySimilarity } from './similarity/normalized-fidelity';
-import { normalizedChiSquareSimilarity } from './similarity/normalized-chi-square';
+import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square';
+import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square';
+import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity';
+import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity';
 
 
 // Test case 1: Short vectors with one major outlier
@@ -33,9 +33,8 @@ console.log('Correlation Similarity:', vectorSimilarityCorrelation(vecA, vecB).t
 console.log('Pearson Similarity:', pearsonCorrelationSimilarity(vecA, vecB).toFixed(4));
 console.log('Cosine Similarity:', cosineSimilarity(vecA, vecB).toFixed(4));
 console.log('Euclidean Similarity:', euclideanSimilarity(vecA, vecB).toFixed(4));
-console.log('Squared Euclidean Similarity:', squaredEuclideanSimilarity(vecA, vecB).toFixed(4));
 console.log('Manhattan Similarity:', manhattanSimilarity(vecA, vecB).toFixed(4));
-console.log('Gower Similarity:', gowerSimilarity(vecA, vecB).toFixed(4));
+console.log('Gower Similarity:', gowerSimilarity(vecA, vecB, []).toFixed(4));
 console.log('Soergel Similarity:', soergelSimilarity(vecA, vecB).toFixed(4));
 console.log('Kulczynski Similarity:', kulczynskiSimilarity(vecA, vecB).toFixed(4));
 console.log('Lorentzian Similarity:', lorentzianSimilarity(vecA, vecB).toFixed(4));
@@ -50,16 +49,20 @@ console.log('Kullback-Leibler Similarity:', kullbackLeiblerSimilarity(vecA, vecB
 console.log('Jeffreys Similarity:', jeffreysSimilarity(vecA, vecB).toFixed(4));
 console.log('K-Divergence Similarity:', kSimilarity(vecA, vecB).toFixed(4));
 console.log('Topsoe Similarity:', topsoeSimilarity(vecA, vecB).toFixed(4));
-console.log('Pearson Chi-Square Similarity:', pearsonChiSquareSimilarity(vecA, vecB).toFixed(4));
-console.log('Neyman Chi-Square Similarity:', neymanChiSquareSimilarity(vecA, vecB).toFixed(4));
-console.log('Additive Symmetric Chi-Square Similarity:', additiveSymmetricChiSquareSimilarity(vecA, vecB).toFixed(4));
-console.log('Squared Chi-Square Similarity:', squaredChiSquareSimilarity(vecA, vecB).toFixed(4));
-console.log('Normalized Chi-Square Similarity:', normalizedChiSquareSimilarity(vecA, vecB).toFixed(4));
+console.log('Pearson Chi-Square Distance:', pearsonChiSquareDistance(vecA, vecB).toFixed(4));
+console.log('Neyman Chi-Square Distance:', neymanChiSquareDistance(vecA, vecB).toFixed(4));
+console.log('Additive Symmetric Chi-Square Distance:', additiveSymmetricChiSquareDistance(vecA, vecB).toFixed(4));
+console.log('Squared Chi-Square Distance:', squaredChiSquareDistance(vecA, vecB).toFixed(4));
+console.log('Normalized Pearson Chi-Square Similarity:', normalizedPearsonChiSquareSimilarity(vecA, vecB).toFixed(4));
+console.log('Normalized Neyman Chi-Square Similarity:', normalizedNeymanChiSquareSimilarity(vecA, vecB).toFixed(4));
+console.log('Normalized Additive Symmetric Chi-Square Similarity:', normalizedAdditiveSymmetricChiSquareSimilarity(vecA, vecB).toFixed(4));
+console.log('Normalized Squared Chi-Square Similarity:', normalizedSquaredChiSquareSimilarity(vecA, vecB).toFixed(4));
 console.log('Fidelity Similarity:', fidelitySimilarity(vecA, vecB).toFixed(4));
-console.log('Hellinger Similarity:', hellingerSimilarity(vecA, vecB).toFixed(4));
-console.log('Matusita Similarity:', matusitaSimilarity(vecA, vecB).toFixed(4));
-console.log('Squared-Chord Similarity:', squaredChordSimilarity(vecA, vecB).toFixed(4));
-console.log('Normalized Fidelity Similarity:', normalizedFidelitySimilarity(vecA, vecB).toFixed(4));
+console.log('Hellinger Distance:', hellingerDistance(vecA, vecB).toFixed(4));
+console.log('Matusita Distance:', matusitaDistance(vecA, vecB).toFixed(4));
+console.log('Squared-Chord Distance:', squaredChordDistance(vecA, vecB).toFixed(4));
+console.log('Normalized Matusita Similarity:', normalizedMatusitaSimilarity(vecA, vecB).toFixed(4));
+console.log('Normalized Squared-Chord Similarity:', normalizedSquaredChordSimilarity(vecA, vecB).toFixed(4));
 console.log('Jaccard Binary Similarity:', jaccardSimilarityBinary(vecA, vecB).toFixed(4));
 console.log('Jaccard Weighted Similarity:', jaccardSimilarityWeighted(vecA, vecB).toFixed(4));
 console.log('Jaccard Real Valued Similarity:', jaccardSimilarityRealValued(vecA, vecB).toFixed(4));
@@ -84,9 +87,8 @@ console.log('Correlation Similarity:', vectorSimilarityCorrelation(vecC, vecD).t
 console.log('Pearson Similarity:', pearsonCorrelationSimilarity(vecC, vecD).toFixed(4));
 console.log('Cosine Similarity:', cosineSimilarity(vecC, vecD).toFixed(4));
 console.log('Euclidean Similarity:', euclideanSimilarity(vecC, vecD).toFixed(4));
-console.log('Squared Euclidean Similarity:', squaredEuclideanSimilarity(vecC, vecD).toFixed(4));
 console.log('Manhattan Similarity:', manhattanSimilarity(vecC, vecD).toFixed(4));
-console.log('Gower Similarity:', gowerSimilarity(vecC, vecD).toFixed(4));
+console.log('Gower Similarity:', gowerSimilarity(vecC, vecD, []).toFixed(4));
 console.log('Soergel Similarity:', soergelSimilarity(vecC, vecD).toFixed(4));
 console.log('Kulczynski Similarity:', kulczynskiSimilarity(vecC, vecD).toFixed(4));
 console.log('Lorentzian Similarity:', lorentzianSimilarity(vecC, vecD).toFixed(4));
@@ -101,16 +103,20 @@ console.log('Kullback-Leibler Similarity:', kullbackLeiblerSimilarity(vecC, vecD
 console.log('Jeffreys Similarity:', jeffreysSimilarity(vecC, vecD).toFixed(4));
 console.log('K-Divergence Similarity:', kSimilarity(vecC, vecD).toFixed(4));
 console.log('Topsoe Similarity:', topsoeSimilarity(vecC, vecD).toFixed(4));
-console.log('Pearson Chi-Square Similarity:', pearsonChiSquareSimilarity(vecC, vecD).toFixed(4));
-console.log('Neyman Chi-Square Similarity:', neymanChiSquareSimilarity(vecC, vecD).toFixed(4));
-console.log('Additive Symmetric Chi-Square Similarity:', additiveSymmetricChiSquareSimilarity(vecC, vecD).toFixed(4));
-console.log('Squared Chi-Square Similarity:', squaredChiSquareSimilarity(vecC, vecD).toFixed(4));
-console.log('Normalized Chi-Square Similarity:', normalizedChiSquareSimilarity(vecC, vecD).toFixed(4));
+console.log('Pearson Chi-Square Distance:', pearsonChiSquareDistance(vecC, vecD).toFixed(4));
+console.log('Neyman Chi-Square Distance:', neymanChiSquareDistance(vecC, vecD).toFixed(4));
+console.log('Additive Symmetric Chi-Square Distance:', additiveSymmetricChiSquareDistance(vecC, vecD).toFixed(4));
+console.log('Squared Chi-Square Distance:', squaredChiSquareDistance(vecC, vecD).toFixed(4));
+console.log('Normalized Pearson Chi-Square Similarity:', normalizedPearsonChiSquareSimilarity(vecC, vecD).toFixed(4));
+console.log('Normalized Neyman Chi-Square Similarity:', normalizedNeymanChiSquareSimilarity(vecC, vecD).toFixed(4));
+console.log('Normalized Additive Symmetric Chi-Square Similarity:', normalizedAdditiveSymmetricChiSquareSimilarity(vecC, vecD).toFixed(4));
+console.log('Normalized Squared Chi-Square Similarity:', normalizedSquaredChiSquareSimilarity(vecC, vecD).toFixed(4));
 console.log('Fidelity Similarity:', fidelitySimilarity(vecC, vecD).toFixed(4));
-console.log('Hellinger Similarity:', hellingerSimilarity(vecC, vecD).toFixed(4));
-console.log('Matusita Similarity:', matusitaSimilarity(vecC, vecD).toFixed(4));
-console.log('Squared-Chord Similarity:', squaredChordSimilarity(vecC, vecD).toFixed(4));
-console.log('Normalized Fidelity Similarity:', normalizedFidelitySimilarity(vecC, vecD).toFixed(4));
+console.log('Hellinger Distance:', hellingerDistance(vecC, vecD).toFixed(4));
+console.log('Matusita Distance:', matusitaDistance(vecC, vecD).toFixed(4));
+console.log('Squared-Chord Distance:', squaredChordDistance(vecC, vecD).toFixed(4));
+console.log('Normalized Matusita Similarity:', normalizedMatusitaSimilarity(vecC, vecD).toFixed(4));
+console.log('Normalized Squared-Chord Similarity:', normalizedSquaredChordSimilarity(vecC, vecD).toFixed(4));
 console.log('Jaccard Binary Similarity:', jaccardSimilarityBinary(vecC, vecD).toFixed(4));
 console.log('Jaccard Weighted Similarity:', jaccardSimilarityWeighted(vecC, vecD).toFixed(4));
 console.log('Jaccard Real Valued Similarity:', jaccardSimilarityRealValued(vecC, vecD).toFixed(4));

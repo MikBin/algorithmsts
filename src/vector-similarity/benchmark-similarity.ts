@@ -4,7 +4,7 @@ import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity, squaredEuclideanSimilarity } from './similarity/classic';
+import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic';
 import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
@@ -14,10 +14,10 @@ import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTun
 import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
 import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection';
 import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy';
-import { pearsonChiSquareSimilarity, neymanChiSquareSimilarity, additiveSymmetricChiSquareSimilarity, squaredChiSquareSimilarity } from './similarity/chi-square';
-import { fidelitySimilarity, hellingerSimilarity, matusitaSimilarity, squaredChordSimilarity } from './similarity/fidelity';
-import { normalizedFidelitySimilarity } from './similarity/normalized-fidelity';
-import { normalizedChiSquareSimilarity } from './similarity/normalized-chi-square';
+import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square';
+import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square';
+import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity';
+import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity';
 
 function generateRandomVector(n: number): number[] {
   const vector: number[] = [];
@@ -56,9 +56,8 @@ console.log(`--- Benchmarking with Vector Size: ${vectorSize}, Iterations: ${ite
 runBenchmark('Pearson Similarity', pearsonCorrelationSimilarity, vecA, vecB, iterations);
 runBenchmark('Cosine Similarity', cosineSimilarity, vecA, vecB, iterations);
 runBenchmark('Euclidean Similarity', euclideanSimilarity, vecA, vecB, iterations);
-runBenchmark('Squared Euclidean Similarity', squaredEuclideanSimilarity, vecA, vecB, iterations);
 runBenchmark('Manhattan Similarity', manhattanSimilarity, vecA, vecB, iterations);
-runBenchmark('Gower Similarity', gowerSimilarity, vecA, vecB, iterations);
+runBenchmark('Gower Similarity', (a,b) => gowerSimilarity(a,b, []), vecA, vecB, iterations);
 runBenchmark('Soergel Similarity', soergelSimilarity, vecA, vecB, iterations);
 runBenchmark('Kulczynski Similarity', kulczynskiSimilarity, vecA, vecB, iterations);
 runBenchmark('Lorentzian Similarity', lorentzianSimilarity, vecA, vecB, iterations);
@@ -86,18 +85,24 @@ runBenchmark('K-Divergence Similarity', kSimilarity, vecA, vecB, iterations);
 runBenchmark('Topsoe Similarity', topsoeSimilarity, vecA, vecB, iterations);
 
 // Chi-Square
-runBenchmark('Pearson Chi-Square Similarity', pearsonChiSquareSimilarity, vecA, vecB, iterations);
-runBenchmark('Neyman Chi-Square Similarity', neymanChiSquareSimilarity, vecA, vecB, iterations);
-runBenchmark('Additive Symmetric Chi-Square Similarity', additiveSymmetricChiSquareSimilarity, vecA, vecB, iterations);
-runBenchmark('Squared Chi-Square Similarity', squaredChiSquareSimilarity, vecA, vecB, iterations);
-runBenchmark('Normalized Chi-Square Similarity', normalizedChiSquareSimilarity, vecA, vecB, iterations);
+runBenchmark('Pearson Chi-Square Distance', pearsonChiSquareDistance, vecA, vecB, iterations);
+runBenchmark('Neyman Chi-Square Distance', neymanChiSquareDistance, vecA, vecB, iterations);
+runBenchmark('Additive Symmetric Chi-Square Distance', additiveSymmetricChiSquareDistance, vecA, vecB, iterations);
+runBenchmark('Squared Chi-Square Distance', squaredChiSquareDistance, vecA, vecB, iterations);
+runBenchmark('Normalized Pearson Chi-Square Similarity', normalizedPearsonChiSquareSimilarity, vecA, vecB, iterations);
+runBenchmark('Normalized Neyman Chi-Square Similarity', normalizedNeymanChiSquareSimilarity, vecA, vecB, iterations);
+runBenchmark('Normalized Additive Symmetric Chi-Square Similarity', normalizedAdditiveSymmetricChiSquareSimilarity, vecA, vecB, iterations);
+runBenchmark('Normalized Squared Chi-Square Similarity', normalizedSquaredChiSquareSimilarity, vecA, vecB, iterations);
+
 
 // Fidelity
 runBenchmark('Fidelity Similarity', fidelitySimilarity, vecA, vecB, iterations);
-runBenchmark('Hellinger Similarity', hellingerSimilarity, vecA, vecB, iterations);
-runBenchmark('Matusita Similarity', matusitaSimilarity, vecA, vecB, iterations);
-runBenchmark('Squared-Chord Similarity', squaredChordSimilarity, vecA, vecB, iterations);
-runBenchmark('Normalized Fidelity Similarity', normalizedFidelitySimilarity, vecA, vecB, iterations);
+runBenchmark('Hellinger Distance', hellingerDistance, vecA, vecB, iterations);
+runBenchmark('Matusita Distance', matusitaDistance, vecA, vecB, iterations);
+runBenchmark('Squared-Chord Distance', squaredChordDistance, vecA, vecB, iterations);
+runBenchmark('Normalized Matusita Similarity', normalizedMatusitaSimilarity, vecA, vecB, iterations);
+runBenchmark('Normalized Squared-Chord Similarity', normalizedSquaredChordSimilarity, vecA, vecB, iterations);
+
 
 // Custom
 runBenchmark('Penalized Similarity', computeVectorSimilarityMeanStdPenalized, vecA, vecB, iterations);
