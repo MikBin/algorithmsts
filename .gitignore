@@ -13,3 +13,4 @@ docs
 package-lock.json
 assets
 .tmp
+/tmp
