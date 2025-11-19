@@ -39,10 +39,10 @@
 
 | Measure | File | Status | Notes |
 |---------|------|--------|-------|
-| **Intersection Similarity** | - | ❌ | Not implemented |
-| **Wave Hedges Distance** | - | ❌ | Not implemented |
-| **Sørensen Distance** | - | ❌ | Not implemented |
-| **Motyka Similarity** | - | ❌ | Not implemented |
+| **Intersection Similarity** | `intersection.ts` | ✅ | `intersectionSimilarity()` |
+| **Wave Hedges Distance** | `intersection.ts` | ✅ | `waveHedgesDistance()` + `waveHedgesSimilarity()` |
+| **Sørensen Distance** | `intersection.ts` | ✅ | `sorensenDistance()` + `sorensenSimilarity()` |
+| **Motyka Similarity** | `intersection.ts` | ✅ | `motykaSimilarity()` + `motykaDistance()` |
 | **Kulczynski Similarity** | - | ❌ | Not implemented (PDF form) |
 | **Jaccard (PDF form)** | - | ❌ | Not implemented (PDF form) |
 
@@ -50,11 +50,11 @@
 
 | Measure | File | Status | Notes |
 |---------|------|--------|-------|
-| **Kullback-Leibler Divergence** | - | ❌ | Not implemented |
-| **Cross Entropy** | - | ❌ | Not implemented |
-| **Jeffreys-Divergence** | - | ❌ | Not implemented |
-| **K-Divergence** | - | ❌ | Not implemented |
-| **Topsøe Divergence** | - | ❌ | Not implemented |
+| **Kullback-Leibler Divergence** | `entropy.ts` | ✅ | `kullbackLeiblerDivergence()` + `kullbackLeiblerSimilarity()` |
+| **Cross Entropy** | `entropy.ts` | ✅ | `crossEntropy()` |
+| **Jeffreys-Divergence** | `entropy.ts` | ✅ | `jeffreysDivergence()` + `jeffreysSimilarity()` |
+| **K-Divergence** | `entropy.ts` | ✅ | `kDivergence()` + `kSimilarity()` |
+| **Topsøe Divergence** | `entropy.ts` | ✅ | `topsoeDivergence()` + `topsoeSimilarity()` |
 
 ### 5. χ² (Chi-Square) Family
 
@@ -108,14 +108,14 @@
 ```
 Inner Product Based:     5/6 implemented (83%)
 Minkowski Family:        3/11 implemented (27%)
-Intersection:           0/6 implemented (0%)
-Entropy:                0/5 implemented (0%)
+Intersection:           4/6 implemented (67%)
+Entropy:                5/5 implemented (100%)
 Chi-Square:             0/5 implemented (0%)
 Fidelity:               0/4 implemented (0%)
 String Measures:        0/6 implemented (0%)
 Custom/Advanced:        8/8 implemented (100%)
 ────────────────────────────────────
-TOTAL:                  16/52 (31%)
+TOTAL:                  25/52 (48%)
 ```
 
 ### Core Coverage
@@ -166,6 +166,8 @@ src/vector-similarity/similarity/
 ├── vectorSimilarityRobust.ts           ✅ Robust measures
 ├── vectorSimilarityTunable.ts          ✅ Configurable
 ├── vectorSimilarityCorrelation.ts      ✅ Correlation-based
+├── intersection.ts                     ✅ Intersection measures
+├── entropy.ts                          ✅ Entropy-based measures
 └── index.ts                             Exports all modules
 ```
 
