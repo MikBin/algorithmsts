@@ -416,3 +416,84 @@ export function kendallCorrelationSimilarity(A: number[], B: number[]): number {
   const correlation = kendallCorrelation(A, B);
   return (1 + correlation) / 2;
 }
+
+/**
+ * Geometric Mean Similarity
+ *
+ * similarity = (Π(min(Ai, Bi) / max(Ai, Bi)))^(1/n)
+ *
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Similarity score in [0, 1]
+ */
+export function geometricMeanSimilarity(A: number[], B: number[]): number {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError('Inputs must be arrays.');
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error('Vectors must be non-empty and of same length.');
+  }
+
+  let productOfRatios = 1;
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(
+        `Invalid elements at index ${i}: must be finite numbers`
+      );
+    }
+    const a = A[i];
+    const b = B[i];
+
+    if (a === b) {
+      continue; // ratio is 1, so no change to product
+    }
+
+    const maxVal = Math.max(Math.abs(a), Math.abs(b));
+    const minVal = Math.min(Math.abs(a), Math.abs(b));
+
+    if (maxVal === 0) {
+      continue; // ratio is 1, so no change to product
+    }
+    productOfRatios *= minVal / maxVal;
+  }
+
+  const similarity = Math.pow(productOfRatios, 1 / A.length);
+  return Math.max(0, Math.min(1, similarity));
+}
+
+/**
+ * Ratio-Based Similarity
+ *
+ * similarity = 1 - (Σ(|Ai - Bi| / (|Ai| + |Bi|))) / n
+ *
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
+ * @returns {number} Similarity score in [0, 1]
+ */
+export function ratioBasedSimilarity(A: number[], B: number[]): number {
+  if (!Array.isArray(A) || !Array.isArray(B)) {
+    throw new TypeError('Inputs must be arrays.');
+  }
+  if (A.length !== B.length || A.length === 0) {
+    throw new Error('Vectors must be non-empty and of same length.');
+  }
+
+  let sumOfRatios = 0;
+  for (let i = 0; i < A.length; i++) {
+    if (!Number.isFinite(A[i]) || !Number.isFinite(B[i])) {
+      throw new Error(
+        `Invalid elements at index ${i}: must be finite numbers`
+      );
+    }
+    const a = A[i];
+    const b = B[i];
+    const denominator = Math.abs(a) + Math.abs(b);
+
+    if (denominator > 0) {
+      sumOfRatios += Math.abs(a - b) / denominator;
+    }
+  }
+
+  const similarity = 1 - sumOfRatios / A.length;
+  return Math.max(0, Math.min(1, similarity));
+}

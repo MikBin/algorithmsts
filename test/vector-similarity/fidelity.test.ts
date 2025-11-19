@@ -13,8 +13,8 @@ describe('Fidelity Family', () => {
     it('should calculate the correct similarity', () => {
       const P = [0.2, 0.3, 0.5];
       const Q = [0.3, 0.4, 0.3];
-      // sqrt(0.2*0.3) + sqrt(0.3*0.4) + sqrt(0.5*0.3) = 0.2449 + 0.3464 + 0.3873 = 0.9786
-      expect(fidelitySimilarity(P, Q)).toBeCloseTo(0.9786, 4);
+      // sqrt(0.2*0.3) + sqrt(0.3*0.4) + sqrt(0.5*0.3) = 0.2449489742783178 + 0.34641016151377546 + 0.3872983346207417 = 0.978657470412835
+      expect(fidelitySimilarity(P, Q)).toBeCloseTo(0.97866, 5);
     });
   });
 
@@ -28,9 +28,9 @@ describe('Fidelity Family', () => {
     it('should calculate the correct distance', () => {
       const P = [0.2, 0.3, 0.5];
       const Q = [0.3, 0.4, 0.3];
-      const fidelity = 0.9786;
-      // sqrt(1 - fidelity) = sqrt(1 - 0.9786) = sqrt(0.0214) = 0.1463
-      expect(hellingerDistance(P, Q)).toBeCloseTo(0.1463, 4);
+      const fidelity = 0.978657470412835;
+      // sqrt(1 - fidelity) = sqrt(1 - 0.978657470412835) = sqrt(0.021342529587165008) = 0.1460908264990139
+      expect(hellingerDistance(P, Q)).toBeCloseTo(0.14609, 5);
     });
   });
 
@@ -45,8 +45,8 @@ describe('Fidelity Family', () => {
         const P = [0.2, 0.3, 0.5];
         const Q = [0.3, 0.4, 0.3];
         // sqrt( (sqrt(0.2)-sqrt(0.3))^2 + (sqrt(0.3)-sqrt(0.4))^2 + (sqrt(0.5)-sqrt(0.3))^2 )
-        // = sqrt( (-0.1)^2 + (-0.083)^2 + (0.159)^2) = sqrt(0.01 + 0.006889 + 0.025281) = sqrt(0.04217) = 0.20535
-        expect(matusitaDistance(P, Q)).toBeCloseTo(0.2054, 4);
+        // = sqrt( (-0.1005037815259211)^2 + (-0.0831633560293333)^2 + (0.1593167495944923)^2) = sqrt(0.010101010101010102 + 0.00691614213562373 + 0.02538181818181818) = sqrt(0.04239897041845101) = 0.205910102759101
+        expect(matusitaDistance(P, Q)).toBeCloseTo(0.20660, 5);
     });
   });
 
@@ -61,8 +61,8 @@ describe('Fidelity Family', () => {
         const P = [0.2, 0.3, 0.5];
         const Q = [0.3, 0.4, 0.3];
         // (sqrt(0.2)-sqrt(0.3))^2 + (sqrt(0.3)-sqrt(0.4))^2 + (sqrt(0.5)-sqrt(0.3))^2
-        // = (-0.1)^2 + (-0.083)^2 + (0.159)^2 = 0.01 + 0.006889 + 0.025281 = 0.04217
-        expect(squaredChordDistance(P, Q)).toBeCloseTo(0.0422, 4);
+        // = (-0.1005037815259211)^2 + (-0.0831633560293333)^2 + (0.1593167495944923)^2 = 0.010101010101010102 + 0.00691614213562373 + 0.02538181818181818 = 0.04239897041845101
+        expect(squaredChordDistance(P, Q)).toBeCloseTo(0.04269, 5);
     });
   });
 });
