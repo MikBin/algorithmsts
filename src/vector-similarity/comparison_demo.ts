@@ -1,5 +1,8 @@
 
 // A simple demo script for comparing vector similarity functions
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized.ts';
@@ -18,6 +21,9 @@ import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChi
 import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square.ts';
 import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity.ts';
 import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity.ts';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const vecA = [1, 2, 3, 4, 5];
 const vecB = [1.1, 2.2, 3.3, 4.4, 5.5]; // Similar
@@ -79,23 +85,26 @@ const similarityFunctions = {
   computeVectorSimilarityVarianceWeighted,
 };
 
-console.log('--- Vector Definitions ---');
-Object.entries(vectors).forEach(([name, vector]) => {
-    console.log(`Vector ${name}:`, vector);
-});
-
-console.log('\n--- Similarity Comparisons (A vs. Others) ---');
+const results = {
+    vectors,
+    comparisons: {} as Record<string, Record<string, number | string>>,
+};
 
 Object.entries(similarityFunctions).forEach(([name, func]) => {
-    console.log(`\n--- ${name} ---`);
+    results.comparisons[name] = {};
     Object.entries(vectors).forEach(([vecName, vector]) => {
         if (vecName !== 'A') {
             try {
                 const result = func(vecA, vector);
-                console.log(`Similarity(A, ${vecName}): ${result.toFixed(4)}`);
+                results.comparisons[name][`A_vs_${vecName}`] = result;
             } catch (e) {
-                console.log(`Similarity(A, ${vecName}): Error - ${(e as Error).message}`);
+                results.comparisons[name][`A_vs_${vecName}`] = `Error: ${(e as Error).message}`;
             }
         }
     });
 });
+
+const outputPath = path.join(__dirname, '..', '..', 'visualization', 'similarity_results.json');
+fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
+
+console.log(`Results saved to ${outputPath}`);
