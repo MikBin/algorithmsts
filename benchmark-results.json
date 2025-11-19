@@ -1,0 +1,217 @@
+[
+  {
+    "name": "Pearson Similarity",
+    "avgTime": 1.8078781000000002,
+    "iterations": 10
+  },
+  {
+    "name": "Cosine Similarity",
+    "avgTime": 1.5665238000000001,
+    "iterations": 10
+  },
+  {
+    "name": "Euclidean Similarity",
+    "avgTime": 0.8090662,
+    "iterations": 10
+  },
+  {
+    "name": "Manhattan Similarity",
+    "avgTime": 0.5574916,
+    "iterations": 10
+  },
+  {
+    "name": "Gower Similarity",
+    "avgTime": 0.7641054,
+    "iterations": 10
+  },
+  {
+    "name": "Soergel Similarity",
+    "avgTime": 0.9765364,
+    "iterations": 10
+  },
+  {
+    "name": "Kulczynski Similarity",
+    "avgTime": 0.8542470999999999,
+    "iterations": 10
+  },
+  {
+    "name": "Lorentzian Similarity",
+    "avgTime": 1.0489523,
+    "iterations": 10
+  },
+  {
+    "name": "Weighted Minkowski Similarity",
+    "avgTime": 0.2344779,
+    "iterations": 10
+  },
+  {
+    "name": "Canberra Similarity",
+    "avgTime": 0.35049759999999996,
+    "iterations": 10
+  },
+  {
+    "name": "Chebyshev Similarity",
+    "avgTime": 0.9432431,
+    "iterations": 10
+  },
+  {
+    "name": "Jaccard Binary Similarity",
+    "avgTime": 0.39547190000000004,
+    "iterations": 10
+  },
+  {
+    "name": "Jaccard Weighted Similarity",
+    "avgTime": 1.0478011999999999,
+    "iterations": 10
+  },
+  {
+    "name": "Jaccard Real Valued Similarity",
+    "avgTime": 0.8940145,
+    "iterations": 10
+  },
+  {
+    "name": "Intersection Similarity",
+    "avgTime": 0.5627085,
+    "iterations": 10
+  },
+  {
+    "name": "Wave-Hedges Similarity",
+    "avgTime": 0.6598054,
+    "iterations": 10
+  },
+  {
+    "name": "Sorensen Similarity",
+    "avgTime": 0.18510279999999998,
+    "iterations": 10
+  },
+  {
+    "name": "Motyka Similarity",
+    "avgTime": 0.18362,
+    "iterations": 10
+  },
+  {
+    "name": "Kullback-Leibler Similarity",
+    "avgTime": 0.16045,
+    "iterations": 10
+  },
+  {
+    "name": "Jeffreys Similarity",
+    "avgTime": 0.1125631,
+    "iterations": 10
+  },
+  {
+    "name": "K-Divergence Similarity",
+    "avgTime": 0.1064866,
+    "iterations": 10
+  },
+  {
+    "name": "Topsoe Similarity",
+    "avgTime": 0.126706,
+    "iterations": 10
+  },
+  {
+    "name": "Pearson Chi-Square Distance",
+    "avgTime": 0.1495268,
+    "iterations": 10
+  },
+  {
+    "name": "Neyman Chi-Square Distance",
+    "avgTime": 0.1347388,
+    "iterations": 10
+  },
+  {
+    "name": "Additive Symmetric Chi-Square Distance",
+    "avgTime": 0.2135716,
+    "iterations": 10
+  },
+  {
+    "name": "Squared Chi-Square Distance",
+    "avgTime": 0.14132229999999998,
+    "iterations": 10
+  },
+  {
+    "name": "Normalized Pearson Chi-Square Similarity",
+    "avgTime": 0.027402700000000002,
+    "iterations": 10
+  },
+  {
+    "name": "Normalized Neyman Chi-Square Similarity",
+    "avgTime": 0.024796,
+    "iterations": 10
+  },
+  {
+    "name": "Normalized Additive Symmetric Chi-Square Similarity",
+    "avgTime": 0.031216900000000002,
+    "iterations": 10
+  },
+  {
+    "name": "Normalized Squared Chi-Square Similarity",
+    "avgTime": 0.0266202,
+    "iterations": 10
+  },
+  {
+    "name": "Fidelity Similarity",
+    "avgTime": 0.2563033,
+    "iterations": 10
+  },
+  {
+    "name": "Hellinger Distance",
+    "avgTime": 0.1353146,
+    "iterations": 10
+  },
+  {
+    "name": "Matusita Distance",
+    "avgTime": 0.1861329,
+    "iterations": 10
+  },
+  {
+    "name": "Squared-Chord Distance",
+    "avgTime": 0.13740570000000002,
+    "iterations": 10
+  },
+  {
+    "name": "Normalized Matusita Similarity",
+    "avgTime": 0.0274747,
+    "iterations": 10
+  },
+  {
+    "name": "Normalized Squared-Chord Similarity",
+    "avgTime": 0.0276481,
+    "iterations": 10
+  },
+  {
+    "name": "Penalized Similarity",
+    "avgTime": 0.3625887,
+    "iterations": 10
+  },
+  {
+    "name": "Correlation Similarity",
+    "avgTime": 0.2978723,
+    "iterations": 10
+  },
+  {
+    "name": "Robust Similarity",
+    "avgTime": 0.362547,
+    "iterations": 10
+  },
+  {
+    "name": "Mean/Std Power Similarity",
+    "avgTime": 0.35113690000000003,
+    "iterations": 10
+  },
+  {
+    "name": "Metric Like Similarity",
+    "avgTime": 0.270435,
+    "iterations": 10
+  },
+  {
+    "name": "Tunable Similarity",
+    "avgTime": 0.3124533,
+    "iterations": 10
+  },
+  {
+    "name": "Variance Weighted Similarity",
+    "avgTime": 0.3864812,
+    "iterations": 10
+  }
+]
