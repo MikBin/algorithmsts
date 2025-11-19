@@ -121,6 +121,7 @@
     "rollup": "^4.29.1",
     "rollup-plugin-delete": "^2.1.0",
     "semantic-release": "^24.2.0",
+    "ts-node": "^10.9.2",
     "typedoc": "^0.28.14",
     "typescript": "^5.7.2",
     "undici-types": "^7.16.0",
