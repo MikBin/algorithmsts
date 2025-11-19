@@ -17,8 +17,8 @@
 | **Inner Product (Dot Product)** | `classic.ts` | ✅ | `dotProduct()` - Basic inner product |
 | **Pearson Correlation** | `classic.ts` | ✅ | `pearsonCorrelation()` + `pearsonCorrelationSimilarity()` |
 | **Jaccard Similarity** | `classic.ts`, `jaccard.ts` | ✅ | Binary, weighted, and real-valued variants |
-| **Angular Distance** | - | ❌ | Not implemented |
-| **Dice Coefficient** | - | ❌ | Not implemented |
+| **Angular Distance** | `classic.ts` | ✅ | `angularDistance()` + `angularSimilarity()` |
+| **Dice Coefficient** | `classic.ts` | ✅ | `diceCoefficient()` + `diceDistance()` |
 
 ### 2. Minkowski Distance Family
 
@@ -28,12 +28,12 @@
 | **L₂² (Squared Euclidean)** | `heuristics.ts` | ⚠️ | Via weighted Minkowski with p=2 |
 | **L₁ (Manhattan)** | `classic.ts` | ✅ | `manhattanDistance()` + `manhattanSimilarity()` |
 | **Lₚ (Minkowski)** | `heuristics.ts` | ✅ | `weightedMinkowskiSimilarity()` with configurable p |
-| **L∞ (Chebyshev)** | - | ❌ | Not implemented |
-| **Gower Distance** | - | ❌ | Not implemented |
-| **Soergel Distance** | - | ❌ | Not implemented |
-| **Kulczynski Distance** | - | ❌ | Not implemented |
-| **Canberra Distance** | - | ❌ | Not implemented |
-| **Lorentzian Distance** | - | ❌ | Not implemented |
+| **L∞ (Chebyshev)** | `classic.ts` | ✅ | `chebyshevDistance()` + `chebyshevSimilarity()` |
+| **Gower Distance** | `classic.ts` | ✅ | `gowerDistance()` + `gowerSimilarity()` |
+| **Soergel Distance** | `classic.ts` | ✅ | `soergelDistance()` + `soergelSimilarity()` |
+| **Kulczynski Distance** | `classic.ts` | ✅ | `kulczynskiDistance()` + `kulczynskiSimilarity()` |
+| **Canberra Distance** | `classic.ts` | ✅ | `canberraDistance()` + `canberraSimilarity()` |
+| **Lorentzian Distance** | `classic.ts` | ✅ | `lorentzianDistance()` + `lorentzianSimilarity()` |
 
 ### 3. Intersection Similarity Measures
 

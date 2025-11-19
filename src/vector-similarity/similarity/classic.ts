@@ -207,3 +207,233 @@ export function manhattanSimilarity(a: number[], b: number[]): number {
   const distance = manhattanDistance(a, b);
   return distanceToSimilarity(distance);
 }
+
+/**
+ * Angular distance
+ * Measures the angle between two vectors, normalized to [0, 1]
+ * Range: [0, 1] (0 means identical direction)
+ */
+export function angularDistance(a: number[], b: number[]): number {
+  const sim = cosineSimilarity(a, b);
+  // Clamp sim to the range [-1, 1] to avoid Math.acos domain errors
+  const clampedSim = Math.max(-1, Math.min(1, sim));
+  return Math.acos(clampedSim) / Math.PI;
+}
+
+/**
+ * Angular similarity
+ * Converts angular distance to a similarity score
+ * Range: [0, 1] (1 means identical direction)
+ */
+export function angularSimilarity(a: number[], b: number[]): number {
+  return 1 - angularDistance(a, b);
+}
+
+/**
+ * Dice coefficient
+ * Measures the similarity between two sets, sensitive to the magnitude of the vectors
+ * Range: [0, 1] (1 means identical)
+ */
+export function diceCoefficient(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error('Vectors must have the same length');
+  }
+
+  const dotProd = dotProduct(a, b);
+  let normASq = 0;
+  let normBSq = 0;
+
+  for (let i = 0; i < a.length; i++) {
+    normASq += a[i] * a[i];
+    normBSq += b[i] * b[i];
+  }
+
+  const denominator = normASq + normBSq;
+  return denominator === 0 ? 1 : (2 * dotProd) / denominator;
+}
+
+/**
+ * Dice distance
+ * Converts Dice coefficient to a distance score
+ * Range: [0, 1] (0 means identical)
+ */
+export function diceDistance(a: number[], b: number[]): number {
+  return 1 - diceCoefficient(a, b);
+}
+
+/**
+ * Chebyshev distance (L∞ distance)
+ * Measures the maximum absolute difference between vector components
+ * Range: [0, ∞) (0 means identical)
+ */
+export function chebyshevDistance(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error('Vectors must have the same length');
+  }
+
+  let maxDiff = 0;
+  for (let i = 0; i < a.length; i++) {
+    maxDiff = Math.max(maxDiff, Math.abs(a[i] - b[i]));
+  }
+
+  return maxDiff;
+}
+
+/**
+ * Chebyshev similarity
+ * Converts Chebyshev distance to a similarity score
+ * Range: [0, 1] (1 means identical)
+ */
+export function chebyshevSimilarity(a: number[], b: number[]): number {
+  const distance = chebyshevDistance(a, b);
+  return distanceToSimilarity(distance);
+}
+
+/**
+ * Gower distance
+ * A distance measure for mixed data types, normalized by the range of each variable
+ * Range: [0, 1] (0 means identical)
+ */
+export function gowerDistance(a: number[], b: number[], ranges: number[]): number {
+  if (a.length !== b.length || a.length !== ranges.length) {
+    throw new Error('Vectors and ranges must have the same length');
+  }
+
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    if (ranges[i] > 0) {
+      sum += Math.abs(a[i] - b[i]) / ranges[i];
+    }
+  }
+
+  return sum / a.length;
+}
+
+/**
+ * Gower similarity
+ * Converts Gower distance to a similarity score
+ * Range: [0, 1] (1 means identical)
+ */
+export function gowerSimilarity(a: number[], b: number[], ranges: number[]): number {
+  return 1 - gowerDistance(a, b, ranges);
+}
+
+/**
+ * Soergel distance
+ * A distance measure for sets, equivalent to Jaccard distance for binary vectors
+ * Range: [0, 1] (0 means identical)
+ */
+export function soergelDistance(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error('Vectors must have the same length');
+  }
+
+  let numerator = 0;
+  let denominator = 0;
+
+  for (let i = 0; i < a.length; i++) {
+    numerator += Math.abs(a[i] - b[i]);
+    denominator += Math.max(a[i], b[i]);
+  }
+
+  return denominator === 0 ? 0 : numerator / denominator;
+}
+
+/**
+ * Soergel similarity
+ * Converts Soergel distance to a similarity score
+ * Range: [0, 1] (1 means identical)
+ */
+export function soergelSimilarity(a: number[], b: number[]): number {
+  return 1 - soergelDistance(a, b);
+}
+
+/**
+ * Kulczynski distance
+ * A distance measure that is sensitive to differences in the magnitudes of the vectors
+ * Range: [0, ∞) (0 means identical)
+ */
+export function kulczynskiDistance(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error('Vectors must have the same length');
+  }
+
+  let numerator = 0;
+  let denominator = 0;
+
+  for (let i = 0; i < a.length; i++) {
+    numerator += Math.abs(a[i] - b[i]);
+    denominator += Math.min(a[i], b[i]);
+  }
+
+  return denominator === 0 ? 0 : numerator / denominator;
+}
+
+/**
+ * Kulczynski similarity
+ * Converts Kulczynski distance to a similarity score
+ * Range: [0, 1] (1 means identical)
+ */
+export function kulczynskiSimilarity(a: number[], b: number[]): number {
+  const distance = kulczynskiDistance(a, b);
+  return distanceToSimilarity(distance);
+}
+
+/**
+ * Canberra distance
+ * A weighted version of Manhattan distance, sensitive to small changes near zero
+ * Range: [0, ∞) (0 means identical)
+ */
+export function canberraDistance(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error('Vectors must have the same length');
+  }
+
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    const denominator = Math.abs(a[i]) + Math.abs(b[i]);
+    if (denominator > 0) {
+      sum += Math.abs(a[i] - b[i]) / denominator;
+    }
+  }
+
+  return sum;
+}
+
+/**
+ * Canberra similarity
+ * Converts Canberra distance to a similarity score
+ * Range: [0, 1] (1 means identical)
+ */
+export function canberraSimilarity(a: number[], b: number[]): number {
+  const distance = canberraDistance(a, b);
+  return distanceToSimilarity(distance);
+}
+
+/**
+ * Lorentzian distance
+ * A distance measure that is less sensitive to outliers than Euclidean distance
+ * Range: [0, ∞) (0 means identical)
+ */
+export function lorentzianDistance(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error('Vectors must have the same length');
+  }
+
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    sum += Math.log(1 + Math.abs(a[i] - b[i]));
+  }
+
+  return sum;
+}
+
+/**
+ * Lorentzian similarity
+ * Converts Lorentzian distance to a similarity score
+ * Range: [0, 1] (1 means identical)
+ */
+export function lorentzianSimilarity(a: number[], b: number[]): number {
+  const distance = lorentzianDistance(a, b);
+  return distanceToSimilarity(distance);
+}
