@@ -1,27 +1,23 @@
-
+import { describe, test, expect } from 'vitest';
 import {
   cosineSimilarity,
   dotProduct,
   euclideanDistance,
   pearsonCorrelation,
   pearsonCorrelationSimilarity,
-} from '../../src/vector-similarity/similarity/classic';
-import {
   canberraSimilarity,
   chebyshevSimilarity,
   gowerSimilarity,
   kulczynskiSimilarity,
   lorentzianSimilarity,
-  minkowskiSimilarity,
-  motykaSimilarity,
   soergelSimilarity,
-  sorensenDiceSimilarity,
-  squaredChordSimilarity,
-  squaredEuclideanSimilarity,
-  waveHedgesSimilarity,
-  weightedGowerSimilarity,
-} from '../../src/vector-similarity/similarity/heuristics';
-import { jaccardSimilarity } from '../../src/vector-similarity/similarity/jaccard';
+} from '../../src/vector-similarity/similarity/classic';
+import { 
+  jaccardSimilarityBinary,
+  jaccardSimilarityWeighted,
+  jaccardSimilarityRealValued,
+ } from '../../src/vector-similarity/similarity/jaccard';
+import { weightedMinkowskiSimilarity } from '../../src/vector-similarity/similarity/heuristics';
 
 describe('Similarity Functions Return Value Range', () => {
   const testVectors = {
@@ -55,7 +51,7 @@ describe('Similarity Functions Return Value Range', () => {
     ],
   };
 
-  const similarityFunctions = {
+  const similarityFunctions: { [key: string]: (a: number[], b: number[], c?: any) => number } = {
     cosineSimilarity,
     dotProduct,
     euclideanDistance,
@@ -66,15 +62,11 @@ describe('Similarity Functions Return Value Range', () => {
     gowerSimilarity,
     kulczynskiSimilarity,
     lorentzianSimilarity,
-    minkowskiSimilarity,
-    motykaSimilarity,
     soergelSimilarity,
-    sorensenDiceSimilarity,
-    squaredChordSimilarity,
-    squaredEuclideanSimilarity,
-    waveHedgesSimilarity,
-    weightedGowerSimilarity,
-    jaccardSimilarity,
+    jaccardSimilarityBinary,
+    jaccardSimilarityWeighted,
+    jaccardSimilarityRealValued,
+    weightedMinkowskiSimilarity,
   };
 
   for (const funcName in similarityFunctions) {

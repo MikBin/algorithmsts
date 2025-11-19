@@ -23,7 +23,16 @@ import {
   canberraSimilarity,
   lorentzianDistance,
   lorentzianSimilarity,
+  pearsonCorrelationSimilarity
 } from '../../src/vector-similarity/similarity/classic';
+import {
+  jaccardSimilarityBinary,
+  jaccardSimilarityWeighted,
+  jaccardSimilarityRealValued,
+} from '../../src/vector-similarity/similarity/jaccard';
+import {
+  weightedMinkowskiSimilarity,
+} from '../../src/vector-similarity/similarity/heuristics';
 
 describe('Classic Similarity Functions', () => {
   describe('cosineSimilarity', () => {
@@ -120,7 +129,7 @@ describe('Classic Similarity Functions', () => {
     it('should handle constant vectors', () => {
       const a = [1, 1, 1];
       const b = [2, 2, 2];
-      expect(pearsonCorrelation(a, b)).toBe(0);
+      expect(pearsonCorrelation(a, b)).toBeNaN();
     });
 
     it('should throw an error for vectors of different lengths', () => {
@@ -433,6 +442,96 @@ describe('Classic Similarity Functions', () => {
       const b = [4, 5, 6];
       const distance = Math.log(4) + Math.log(4) + Math.log(4);
       expect(lorentzianSimilarity(a, b)).toBeCloseTo(1 / (1 + distance));
+    });
+  });
+});
+
+const squaredEuclideanSimilarity = (a: number[], b: number[]) => {
+  const distance = euclideanDistance(a, b);
+  return 1 / (1 + distance * distance);
+};
+
+const testCases = [
+  {
+    name: 'Identical Vectors',
+    vecA: [1, 2, 3, 4, 5],
+    vecB: [1, 2, 3, 4, 5],
+    ranges: [4, 3, 2, 1, 0],
+    expected: {
+      pearsonCorrelationSimilarity: 1,
+      cosineSimilarity: 1,
+      euclideanSimilarity: 1,
+      squaredEuclideanSimilarity: 1,
+      manhattanSimilarity: 1,
+      gowerSimilarity: 1,
+      soergelSimilarity: 1,
+      kulczynskiSimilarity: 1,
+      lorentzianSimilarity: 1,
+      canberraSimilarity: 1,
+      jaccardSimilarityBinary: 1,
+      jaccardSimilarityWeighted: 1,
+      jaccardSimilarityRealValued: 1,
+      weightedMinkowskiSimilarity: 1,
+    },
+  },
+  {
+    name: 'Zero Vectors',
+    vecA: [0, 0, 0, 0, 0],
+    vecB: [0, 0, 0, 0, 0],
+    ranges: [0, 0, 0, 0, 0],
+    expected: {
+      pearsonCorrelationSimilarity: NaN,
+      cosineSimilarity: NaN,
+      euclideanSimilarity: 1,
+      squaredEuclideanSimilarity: 1,
+      manhattanSimilarity: 1,
+      gowerSimilarity: 1,
+      soergelSimilarity: 1,
+      kulczynskiSimilarity: 1,
+      lorentzianSimilarity: 1,
+      canberraSimilarity: 1,
+      jaccardSimilarityBinary: 1,
+      jaccardSimilarityWeighted: 1,
+      jaccardSimilarityRealValued: 1,
+      weightedMinkowskiSimilarity: 1,
+    },
+  },
+];
+
+const similarityFunctions: { [key: string]: (a: number[], b: number[], c?: any) => number } = {
+  pearsonCorrelationSimilarity,
+  cosineSimilarity,
+  euclideanSimilarity,
+  squaredEuclideanSimilarity,
+  manhattanSimilarity,
+  gowerSimilarity: (a: number[], b: number[], ranges: number[]) => gowerSimilarity(a, b, ranges),
+  soergelSimilarity,
+  kulczynskiSimilarity,
+  lorentzianSimilarity,
+  canberraSimilarity,
+  jaccardSimilarityBinary,
+  jaccardSimilarityWeighted,
+  jaccardSimilarityRealValued,
+  weightedMinkowskiSimilarity,
+};
+
+describe('Classic Similarities', () => {
+  Object.entries(similarityFunctions).forEach(([name, func]) => {
+    describe(name, () => {
+      testCases.forEach(test => {
+        it(`should pass for ${test.name}`, () => {
+          const expectedValue = test.expected[name as keyof typeof test.expected];
+          const result = name === 'gowerSimilarity' ? func(test.vecA, test.vecB, test.ranges) : func(test.vecA, test.vecB);
+
+          if (isNaN(expectedValue)) {
+            expect(result).toBeNaN();
+          } else if (!isFinite(expectedValue)) {
+            expect(result).toBe(Infinity);
+          } else {
+            expect(result.toFixed(4)).toBe(expectedValue.toFixed(4));
+          }
+        });
+      });
     });
   });
 });

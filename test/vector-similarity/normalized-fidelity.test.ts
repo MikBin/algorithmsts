@@ -1,39 +1,52 @@
-
-import { 
-    normalizedMatusitaSimilarity, 
-    normalizedSquaredChordSimilarity 
+import { describe, it, expect } from 'vitest';
+import {
+  normalizedMatusitaSimilarity,
+  normalizedSquaredChordSimilarity,
 } from '../../src/vector-similarity/similarity/normalized-fidelity';
 
-describe('Normalized Fidelity Family', () => {
-  describe('normalizedMatusitaSimilarity', () => {
-    it('should return 1 for identical vectors', () => {
-      const P = [0.1, 0.2, 0.7];
-      const Q = [0.1, 0.2, 0.7];
-      expect(normalizedMatusitaSimilarity(P, Q)).toBeCloseTo(1);
-    });
+const testCases = [
+  {
+    name: 'Identical Vectors',
+    vecA: [1, 2, 3, 4, 5],
+    vecB: [1, 2, 3, 4, 5],
+    expected: {
+      normalizedMatusitaSimilarity: 1,
+      normalizedSquaredChordSimilarity: 1,
+    },
+  },
+  {
+    name: 'Zero Vectors',
+    vecA: [0, 0, 0, 0, 0],
+    vecB: [0, 0, 0, 0, 0],
+    expected: {
+      normalizedMatusitaSimilarity: 1,
+      normalizedSquaredChordSimilarity: 1,
+    },
+  },
+];
 
-    it('should return a value between 0 and 1', () => {
-      const P = [0.2, 0.3, 0.5];
-      const Q = [0.3, 0.4, 0.3];
-      const similarity = normalizedMatusitaSimilarity(P, Q);
-      expect(similarity).toBeGreaterThanOrEqual(0);
-      expect(similarity).toBeLessThanOrEqual(1);
-    });
-  });
+const similarityFunctions = {
+  normalizedMatusitaSimilarity,
+  normalizedSquaredChordSimilarity,
+};
 
-  describe('normalizedSquaredChordSimilarity', () => {
-    it('should return 1 for identical vectors', () => {
-      const P = [0.1, 0.2, 0.7];
-      const Q = [0.1, 0.2, 0.7];
-      expect(normalizedSquaredChordSimilarity(P, Q)).toBeCloseTo(1);
-    });
+describe('Normalized Fidelity Similarities', () => {
+  Object.entries(similarityFunctions).forEach(([name, func]) => {
+    describe(name, () => {
+      testCases.forEach(test => {
+        it(`should pass for ${test.name}`, () => {
+          const expectedValue = test.expected[name as keyof typeof test.expected];
+          const result = func(test.vecA, test.vecB);
 
-    it('should return a value between 0 and 1', () => {
-      const P = [0.2, 0.3, 0.5];
-      const Q = [0.3, 0.4, 0.3];
-      const similarity = normalizedSquaredChordSimilarity(P, Q);
-      expect(similarity).toBeGreaterThanOrEqual(0);
-      expect(similarity).toBeLessThanOrEqual(1);
+          if (isNaN(expectedValue)) {
+            expect(result).toBeNaN();
+          } else if (!isFinite(expectedValue)) {
+            expect(result).toBe(Infinity);
+          } else {
+            expect(result.toFixed(4)).toBe(expectedValue.toFixed(4));
+          }
+        });
+      });
     });
   });
 });

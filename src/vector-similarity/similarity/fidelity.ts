@@ -9,7 +9,21 @@ export function fidelitySimilarity(P: number[], Q: number[]): number {
   if (P.length !== Q.length) {
     throw new Error("Vectors must have the same length.");
   }
-  return P.reduce((sum, p, i) => sum + Math.sqrt(p * Q[i]), 0);
+  const pSum = P.reduce((sum, val) => sum + val, 0);
+  const qSum = Q.reduce((sum, val) => sum + val, 0);
+
+  if (pSum === 0 && qSum === 0) {
+    return 1;
+  }
+
+  if (pSum === 0 || qSum === 0) {
+    return 0;
+  }
+
+  const pNormalized = P.map(val => val / pSum);
+  const qNormalized = Q.map(val => val / qSum);
+
+  return pNormalized.reduce((sum, p, i) => sum + Math.sqrt(p * qNormalized[i]), 0);
 }
 
 /**

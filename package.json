@@ -86,6 +86,7 @@
     "generate-docs": "echo generate-docs",
     "build:docs": "node tools/build-and-docs.ts",
     "test": "vitest run --no-watch",
+    "test:vector-similarity": "vitest run src/vector-similarity/test_*.ts",
     "test:prod": "vitest run --coverage",
     "bench": "vitest bench",
     "prepare": "husky",

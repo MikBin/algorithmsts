@@ -4,14 +4,20 @@ import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity } from './similarity/classic';
-import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity, brayCurtisSimilarity, harmonicMeanSimilarity, waveHedgesSimilarity, kendallCorrelationSimilarity } from './similarity/heuristics';
+import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity, squaredEuclideanSimilarity } from './similarity/classic';
+import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
 import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower';
 import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike';
 import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable';
 import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
+import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection';
+import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy';
+import { pearsonChiSquareSimilarity, neymanChiSquareSimilarity, additiveSymmetricChiSquareSimilarity, squaredChiSquareSimilarity } from './similarity/chi-square';
+import { fidelitySimilarity, hellingerSimilarity, matusitaSimilarity, squaredChordSimilarity } from './similarity/fidelity';
+import { normalizedFidelitySimilarity } from './similarity/normalized-fidelity';
+import { normalizedChiSquareSimilarity } from './similarity/normalized-chi-square';
 
 function addNoise(vector: number[], noiseLevel: number): number[] {
   return vector.map((x) => x + (Math.random() - 0.5) * noiseLevel);
@@ -30,20 +36,35 @@ noiseLevels.forEach((noiseLevel) => {
   console.log('Penalized Similarity:', computeVectorSimilarityMeanStdPenalized(baseVector, noisyVector).toFixed(4));
   console.log('Correlation Similarity:', vectorSimilarityCorrelation(baseVector, noisyVector).toFixed(4));
   console.log('Pearson Similarity:', pearsonCorrelationSimilarity(baseVector, noisyVector).toFixed(4));
-  console.log('Kendall Similarity:', kendallCorrelationSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Cosine Similarity:', cosineSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Euclidean Similarity:', euclideanSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Squared Euclidean Similarity:', squaredEuclideanSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Manhattan Similarity:', manhattanSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Gower Similarity:', gowerSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Soergel Similarity:', soergelSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Kulczynski Similarity:', kulczynskiSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Lorentzian Similarity:', lorentzianSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Weighted Minkowski Similarity:', weightedMinkowskiSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Canberra Similarity:', canberraSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Chebyshev Similarity:', chebyshevSimilarity(baseVector, noisyVector).toFixed(4));
-  try {
-    console.log('Bray-Curtis Similarity:', brayCurtisSimilarity(baseVector, noisyVector).toFixed(4));
-  } catch (e) {
-    console.log('Bray-Curtis Similarity: Error - ' + e.message);
-  }
-  console.log('Harmonic Mean Similarity:', harmonicMeanSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Intersection Similarity:', intersectionSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Wave-Hedges Similarity:', waveHedgesSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Sorensen Similarity:', sorensenSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Motyka Similarity:', motykaSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Kullback-Leibler Similarity:', kullbackLeiblerSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Jeffreys Similarity:', jeffreysSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('K-Divergence Similarity:', kSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Topsoe Similarity:', topsoeSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Pearson Chi-Square Similarity:', pearsonChiSquareSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Neyman Chi-Square Similarity:', neymanChiSquareSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Additive Symmetric Chi-Square Similarity:', additiveSymmetricChiSquareSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Squared Chi-Square Similarity:', squaredChiSquareSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Normalized Chi-Square Similarity:', normalizedChiSquareSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Fidelity Similarity:', fidelitySimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Hellinger Similarity:', hellingerSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Matusita Similarity:', matusitaSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Squared-Chord Similarity:', squaredChordSimilarity(baseVector, noisyVector).toFixed(4));
+  console.log('Normalized Fidelity Similarity:', normalizedFidelitySimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Jaccard Binary Similarity:', jaccardSimilarityBinary(baseVector, noisyVector).toFixed(4));
   console.log('Jaccard Weighted Similarity:', jaccardSimilarityWeighted(baseVector, noisyVector).toFixed(4));
   console.log('Jaccard Real Valued Similarity:', jaccardSimilarityRealValued(baseVector, noisyVector).toFixed(4));
