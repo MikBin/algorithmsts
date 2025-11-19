@@ -9,72 +9,72 @@ import {
   soergelSimilarity,
   kulczynskiSimilarity,
   lorentzianSimilarity,
-} from './similarity/classic';
+} from './similarity/classic.ts';
 import {
   jaccardSimilarityBinary,
   jaccardSimilarityWeighted,
   jaccardSimilarityRealValued,
-} from './similarity/jaccard';
+} from './similarity/jaccard.ts';
 import {
   computeVectorSimilarityMeanStdPenalized,
-} from './similarity/vectorSimilarityMeanStdPenalized';
+} from './similarity/vectorSimilarityMeanStdPenalized.ts';
 import {
   vectorSimilarityCorrelation,
-} from './similarity/vectorSimilarityCorrelation';
+} from './similarity/vectorSimilarityCorrelation.ts';
 import {
   weightedMinkowskiSimilarity,
   canberraSimilarity,
   chebyshevSimilarity,
-} from './similarity/heuristics';
+} from './similarity/heuristics.ts';
 import {
   computeVectorSimilarityRobust,
-} from './similarity/vectorSimilarityRobust';
+} from './similarity/vectorSimilarityRobust.ts';
 import {
   computeVectorSimilarityMeanStdPower,
-} from './similarity/vectorSimilarityMeanStdPower';
+} from './similarity/vectorSimilarityMeanStdPower.ts';
 import {
   computeVectorSimilarityMetricLike,
-} from './similarity/vectorSimilarityMetricLike';
+} from './similarity/vectorSimilarityMetricLike.ts';
 import {
   computeVectorSimilarityTunable,
-} from './similarity/vectorSimilarityTunable';
+} from './similarity/vectorSimilarityTunable.ts';
 import {
   computeVectorSimilarityVarianceWeighted,
-} from './similarity/vectorSimilarityVarianceWeighted';
+} from './similarity/vectorSimilarityVarianceWeighted.ts';
 import {
   intersectionSimilarity,
   waveHedgesSimilarity,
   sorensenSimilarity,
   motykaSimilarity,
-} from './similarity/intersection';
+} from './similarity/intersection.ts';
 import {
   kullbackLeiblerSimilarity,
   jeffreysSimilarity,
   kSimilarity,
   topsoeSimilarity,
-} from './similarity/entropy';
+} from './similarity/entropy.ts';
 import {
   pearsonChiSquareDistance,
   neymanChiSquareDistance,
   additiveSymmetricChiSquareDistance,
   squaredChiSquareDistance,
-} from './similarity/chi-square';
+} from './similarity/chi-square.ts';
 import {
   normalizedPearsonChiSquareSimilarity,
   normalizedNeymanChiSquareSimilarity,
   normalizedAdditiveSymmetricChiSquareSimilarity,
   normalizedSquaredChiSquareSimilarity,
-} from './similarity/normalized-chi-square';
+} from './similarity/normalized-chi-square.ts';
 import {
   fidelitySimilarity,
   hellingerDistance,
   matusitaDistance,
   squaredChordDistance,
-} from './similarity/fidelity';
+} from './similarity/fidelity.ts';
 import {
   normalizedMatusitaSimilarity,
   normalizedSquaredChordSimilarity,
-} from './similarity/normalized-fidelity';
+} from './similarity/normalized-fidelity.ts';
 
 const vecA = [1, 1, 0, 1];
 const vecB = [1, 0, 1, 1];
@@ -86,7 +86,7 @@ const similarityFunctions = {
   cosineSimilarity,
   euclideanSimilarity,
   manhattanSimilarity,
-  gowerSimilarity: (a: number[], b: number[]) => gowerSimilarity(a, b, []),
+  gowerSimilarity: (a: number[], b: number[]) => gowerSimilarity(a, b, Array(a.length).fill(1)),
   soergelSimilarity,
   kulczynskiSimilarity,
   lorentzianSimilarity,

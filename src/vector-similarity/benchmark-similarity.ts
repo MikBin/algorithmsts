@@ -2,22 +2,22 @@
 // A simple benchmarking script for vector similarity functions
 import {
   computeVectorSimilarityMeanStdPenalized,
-} from './similarity/vectorSimilarityMeanStdPenalized';
-import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic';
-import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
-import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
-import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
-import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower';
-import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike';
-import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable';
-import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
-import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection';
-import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy';
-import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square';
-import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square';
-import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity';
-import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity';
+} from './similarity/vectorSimilarityMeanStdPenalized.ts';
+import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation.ts';
+import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic.ts';
+import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics.ts';
+import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard.ts';
+import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust.ts';
+import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower.ts';
+import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike.ts';
+import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable.ts';
+import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted.ts';
+import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection.ts';
+import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy.ts';
+import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square.ts';
+import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square.ts';
+import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity.ts';
+import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity.ts';
 
 function generateRandomVector(n: number): number[] {
   const vector: number[] = [];
@@ -57,7 +57,7 @@ runBenchmark('Pearson Similarity', pearsonCorrelationSimilarity, vecA, vecB, ite
 runBenchmark('Cosine Similarity', cosineSimilarity, vecA, vecB, iterations);
 runBenchmark('Euclidean Similarity', euclideanSimilarity, vecA, vecB, iterations);
 runBenchmark('Manhattan Similarity', manhattanSimilarity, vecA, vecB, iterations);
-runBenchmark('Gower Similarity', (a,b) => gowerSimilarity(a,b, []), vecA, vecB, iterations);
+runBenchmark('Gower Similarity', (a,b) => gowerSimilarity(a,b, Array(a.length).fill(1)), vecA, vecB, iterations);
 runBenchmark('Soergel Similarity', soergelSimilarity, vecA, vecB, iterations);
 runBenchmark('Kulczynski Similarity', kulczynskiSimilarity, vecA, vecB, iterations);
 runBenchmark('Lorentzian Similarity', lorentzianSimilarity, vecA, vecB, iterations);

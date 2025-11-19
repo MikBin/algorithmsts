@@ -1,5 +1,5 @@
 
-import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './chi-square';
+import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './chi-square.ts';
 
 /**
  * Calculates the normalized Pearson Chi-Square similarity between two vectors.

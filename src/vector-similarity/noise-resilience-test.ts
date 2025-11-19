@@ -2,22 +2,22 @@
 // A simple script to test noise resilience of vector similarity functions
 import {
   computeVectorSimilarityMeanStdPenalized,
-} from './similarity/vectorSimilarityMeanStdPenalized';
-import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic';
-import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
-import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
-import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
-import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower';
-import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike';
-import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable';
-import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
-import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection';
-import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy';
-import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square';
-import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square';
-import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity';
-import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity';
+} from './similarity/vectorSimilarityMeanStdPenalized.ts';
+import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation.ts';
+import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic.ts';
+import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics.ts';
+import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard.ts';
+import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust.ts';
+import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower.ts';
+import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike.ts';
+import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable.ts';
+import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted.ts';
+import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection.ts';
+import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy.ts';
+import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square.ts';
+import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square.ts';
+import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity.ts';
+import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity.ts';
 
 function addNoise(vector: number[], noiseLevel: number): number[] {
   return vector.map((x) => x + (Math.random() - 0.5) * noiseLevel);
@@ -39,7 +39,7 @@ noiseLevels.forEach((noiseLevel) => {
   console.log('Cosine Similarity:', cosineSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Euclidean Similarity:', euclideanSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Manhattan Similarity:', manhattanSimilarity(baseVector, noisyVector).toFixed(4));
-  console.log('Gower Similarity:', gowerSimilarity(baseVector, noisyVector, []).toFixed(4));
+  console.log('Gower Similarity:', gowerSimilarity(baseVector, noisyVector, Array(baseVector.length).fill(1)).toFixed(4));
   console.log('Soergel Similarity:', soergelSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Kulczynski Similarity:', kulczynskiSimilarity(baseVector, noisyVector).toFixed(4));
   console.log('Lorentzian Similarity:', lorentzianSimilarity(baseVector, noisyVector).toFixed(4));

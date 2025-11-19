@@ -5,7 +5,7 @@
  * to sum to 1, but the functions will execute on any non-negative vectors.
  */
 
-import { distanceToSimilarity } from './classic';
+import { distanceToSimilarity } from './classic.ts';
 
 /**
  * Kullback-Leibler Divergence (KL Divergence)
