@@ -1,5 +1,7 @@
 # Similarity and Distance Measures Guide
 
+**For the current implementation status of these functions, please see [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).**
+
 Reference: "A Guide to Similarity Measures" (arXiv:2408.07706v1)
 
 ## Classification of Similarity Measures
