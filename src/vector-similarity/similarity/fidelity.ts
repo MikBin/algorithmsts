@@ -9,6 +9,9 @@ export function fidelitySimilarity(P: number[], Q: number[]): number {
   if (P.length !== Q.length) {
     throw new Error("Vectors must have the same length.");
   }
+  if (P.some(x => x < 0) || Q.some(x => x < 0)) {
+    throw new Error("Input vectors must be non-negative for Fidelity similarity.");
+  }
   const pSum = P.reduce((sum, val) => sum + val, 0);
   const qSum = Q.reduce((sum, val) => sum + val, 0);
 
@@ -50,6 +53,9 @@ export function matusitaDistance(P: number[], Q: number[]): number {
   if (P.length !== Q.length) {
     throw new Error("Vectors must have the same length.");
   }
+  if (P.some(x => x < 0) || Q.some(x => x < 0)) {
+    throw new Error("Input vectors must be non-negative for Matusita distance.");
+  }
   const squaredChord = P.reduce((sum, p, i) => sum + Math.pow(Math.sqrt(p) - Math.sqrt(Q[i]), 2), 0);
   return Math.sqrt(squaredChord);
 }
@@ -63,6 +69,9 @@ export function matusitaDistance(P: number[], Q: number[]): number {
 export function squaredChordDistance(P: number[], Q: number[]): number {
   if (P.length !== Q.length) {
     throw new Error("Vectors must have the same length.");
+  }
+  if (P.some(x => x < 0) || Q.some(x => x < 0)) {
+    throw new Error("Input vectors must be non-negative for Squared-Chord distance.");
   }
   return P.reduce((sum, p, i) => sum + Math.pow(Math.sqrt(p) - Math.sqrt(Q[i]), 2), 0);
 }
