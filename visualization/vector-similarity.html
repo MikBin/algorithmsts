@@ -4,152 +4,143 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vector Similarity Analysis</title>
+    <link rel="stylesheet" href="vector-similarity.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f5f5f5;
-      }
-      h1, h2, h3 {
-        color: #2c3e50;
-      }
-      .section {
-        background: white;
-        padding: 20px;
-        margin-bottom: 30px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-      .chart-container {
-        position: relative;
-        width: 100%;
-        height: 500px;
-        overflow-x: auto;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-        font-size: 14px;
-      }
-      th, td {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        text-align: left;
-      }
-      th {
-        background-color: #f8f9fa;
-        font-weight: 600;
-      }
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-      .axis-label {
-        font-size: 12px;
-      }
-      .value-label {
-        font-size: 10px;
-      }
-      .matrix-cell {
-        font-size: 10px;
-      }
-      .heatmap-container {
-        overflow-x: auto;
-      }
-    </style>
   </head>
   <body>
-    <h1>Vector Similarity Analysis</h1>
+    <div id="app">
+      <h1>Vector Similarity Analysis</h1>
 
-    <div class="section">
-      <h2>Vector Visualization</h2>
-      <p>Visualizing vector components (Index vs Value).</p>
-      <div class="chart-container">
-        <canvas id="vector-chart"></canvas>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Performance Benchmark</h2>
-      <p>Average execution time per operation (lower is better). Sorted by speed.</p>
-      <div class="chart-container">
-        <canvas id="benchmark-chart"></canvas>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Outlier Resiliency</h2>
-      <div id="outliers-container"></div>
-    </div>
-
-    <div class="section">
-      <h2>Stress Tests</h2>
-      <div id="stress-container"></div>
-    </div>
-
-    <div class="section">
-      <h2>Similarity Comparison (Binary vs Continuous)</h2>
-      <div id="compare-container" style="display: flex; gap: 20px; flex-wrap: wrap;"></div>
-    </div>
-
-    <div class="section">
-      <h2>Comparison Demo Matrix</h2>
-      <p>Similarity scores of Vector A vs others.</p>
-      <div id="demo-matrix" class="heatmap-container"></div>
-    </div>
-
-    <div class="section">
-      <h2>Nonlinear Analysis</h2>
-      <p>Performance of similarity functions on nonlinear data patterns with different noise levels.</p>
-
-      <div style="margin-bottom: 20px;">
-        <label for="function-type-filter">Function Type:</label>
-        <select id="function-type-filter">
-          <option value="all">All Types</option>
-          <option value="quadratic">Quadratic</option>
-          <option value="exponential">Exponential</option>
-          <option value="logarithmic">Logarithmic</option>
-          <option value="sqrt">Square Root</option>
-          <option value="sin">Sine</option>
-          <option value="cos">Cosine</option>
-          <option value="tan">Tangent</option>
-        </select>
-
-        <label for="vector-size-filter" style="margin-left: 15px;">Vector Size:</label>
-        <select id="vector-size-filter">
-          <option value="all">All Sizes</option>
-          <option value="100">100</option>
-          <option value="1000">1000</option>
-          <option value="10000">10000</option>
-        </select>
-
-        <label for="noise-level-filter" style="margin-left: 15px;">Noise Level:</label>
-        <select id="noise-level-filter">
-          <option value="all">All Levels</option>
-          <option value="0.05">5% (0.05)</option>
-          <option value="0.1">10% (0.1)</option>
-          <option value="0.15">15% (0.15)</option>
-        </select>
-
-        <button id="apply-filters" style="margin-left: 15px;">Apply Filters</button>
+      <div class="section">
+        <h2>Vector Visualization</h2>
+        <p>Visualizing vector components (Index vs Value).</p>
+        <div class="chart-container">
+           <chart-component type="line" :data="vectorChartData" :options="vectorChartOptions"></chart-component>
+        </div>
       </div>
 
-      <div class="chart-container">
-        <canvas id="nonlinear-scores-chart"></canvas>
+      <div class="section">
+        <h2>Performance Benchmark</h2>
+        <p>Average execution time per operation (lower is better). Sorted by speed.</p>
+        <div class="chart-container">
+           <chart-component type="bar" :data="benchmarkChartData" :options="benchmarkChartOptions"></chart-component>
+        </div>
       </div>
 
-      <div class="chart-container">
-        <canvas id="nonlinear-performance-chart"></canvas>
+      <div class="section">
+        <h2>Outlier Resiliency</h2>
+        <div v-for="(test, index) in outlierTests" :key="index" class="test-case">
+           <sortable-table
+              :title="test.testCase"
+              :vectors="test.vectors"
+              :headers="['Function Name', 'Similarity Score']"
+              :rows="test.rows"
+              data-testid="outliers-table"
+           ></sortable-table>
+        </div>
       </div>
 
-      <div id="nonlinear-insights" style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-        <h3>Key Insights:</h3>
-        <ul id="insights-list"></ul>
+      <div class="section">
+        <h2>Stress Tests</h2>
+        <div v-for="(test, index) in stressTests" :key="index" class="test-case">
+           <sortable-table
+              :title="test.testCase"
+              :vectors="test.vectors"
+              :headers="['Function Name', 'Similarity Score']"
+              :rows="test.rows"
+              data-testid="stress-table"
+           ></sortable-table>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Similarity Comparison (Binary vs Continuous)</h2>
+        <div class="comparison-container">
+          <div v-for="(comp, type) in comparisonTests" :key="type" class="comparison-col">
+             <sortable-table
+                :title="'Type: ' + type"
+                :vectors="comp.vectors"
+                :headers="['Function', 'Score']"
+                :rows="comp.rows"
+                data-testid="comparison-table"
+             ></sortable-table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Comparison Demo Matrix</h2>
+        <p>Similarity scores of Vector A vs others.</p>
+        <div class="heatmap-container">
+           <sortable-table
+             title=""
+             :headers="demoMatrixHeaders"
+             :rows="demoMatrixRows"
+             data-testid="demo-matrix-table"
+           ></sortable-table>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Nonlinear Analysis</h2>
+        <p>Performance of similarity functions on nonlinear data patterns with different noise levels.</p>
+
+        <div class="controls">
+          <label for="function-type-filter">Function Type:</label>
+          <select id="function-type-filter" v-model="filters.type">
+            <option value="all">All Types</option>
+            <option value="quadratic">Quadratic</option>
+            <option value="exponential">Exponential</option>
+            <option value="logarithmic">Logarithmic</option>
+            <option value="sqrt">Square Root</option>
+            <option value="sin">Sine</option>
+            <option value="cos">Cosine</option>
+            <option value="tan">Tangent</option>
+          </select>
+
+          <label for="vector-size-filter">Vector Size:</label>
+          <select id="vector-size-filter" v-model="filters.size">
+            <option value="all">All Sizes</option>
+            <option value="100">100</option>
+            <option value="1000">1000</option>
+            <option value="10000">10000</option>
+          </select>
+
+          <label for="noise-level-filter">Noise Level:</label>
+          <select id="noise-level-filter" v-model="filters.noise">
+            <option value="all">All Levels</option>
+            <option value="0.05">5% (0.05)</option>
+            <option value="0.1">10% (0.1)</option>
+            <option value="0.15">15% (0.15)</option>
+          </select>
+
+          <button @click="applyFilters">Apply Filters</button>
+        </div>
+
+        <div class="chart-container">
+          <chart-component v-if="nonlinearScoresData" type="bar" :data="nonlinearScoresData" :options="nonlinearScoresOptions"></chart-component>
+        </div>
+
+        <div class="chart-container">
+          <chart-component v-if="nonlinearPerformanceData" type="bar" :data="nonlinearPerformanceData" :options="nonlinearPerformanceOptions"></chart-component>
+        </div>
+
+        <div v-if="nonlinearInsights && nonlinearInsights.length" style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+          <h3>Key Insights:</h3>
+          <ul>
+            <li v-for="(insight, i) in nonlinearInsights" :key="i">{{ insight }}</li>
+          </ul>
+        </div>
+
+         <div style="margin-top: 30px;">
+             <h3>Detailed Results Table</h3>
+             <sortable-table
+                :headers="['Type', 'Size', 'Noise Type', 'Noise Level', 'Metric', 'Score', 'Time (ms)']"
+                :rows="nonlinearTableRows"
+                data-testid="nonlinear-table"
+             ></sortable-table>
+         </div>
+
       </div>
     </div>
 
