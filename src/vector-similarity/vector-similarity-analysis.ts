@@ -1,4 +1,5 @@
 
+/* eslint-env node */
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
@@ -322,8 +323,16 @@ const main = () => {
   }
 
   fs.writeFileSync(path.join(outputDir, 'vector-similarity-analysis.json'), JSON.stringify(allResults, null, 2));
-
   console.log('Test results saved to tmp/vector-similarity-analysis.json');
+
+  const visualizationDir = path.resolve(__dirname, '../../visualization');
+  if (!fs.existsSync(visualizationDir)) {
+    fs.mkdirSync(visualizationDir, { recursive: true });
+  }
+
+  const jsContent = `export const analysisResults = ${JSON.stringify(allResults, null, 2)};`;
+  fs.writeFileSync(path.join(visualizationDir, 'similarity-data.js'), jsContent);
+  console.log('Visualization data saved to visualization/similarity-data.js');
 };
 
 main();
