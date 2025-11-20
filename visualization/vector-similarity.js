@@ -372,7 +372,7 @@ const renderNonlinearScoresChart = (data) => {
 
   // Similarity functions to visualize
   const similarityFunctions = [
-    'cosineSimilarity',
+    'normalizedCosineSimilarity',
     'pearsonCorrelationSimilarity',
     'euclideanSimilarity',
     'polynomialKernelSimilarity',
@@ -466,7 +466,7 @@ const renderNonlinearPerformanceChart = (data) => {
 
   // Calculate average performance for each function type
   const functionTypes = Object.keys(performanceData);
-  const similarityFunctions = ['cosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
+  const similarityFunctions = ['normalizedCosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
                            'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'];
 
   const datasets = [];
