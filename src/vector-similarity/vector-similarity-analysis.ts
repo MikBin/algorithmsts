@@ -361,8 +361,8 @@ const runNonLinearAnalysis = () => {
       'sphere', 'toroid', 'helix'
   ];
 
-  const sizes = [200]; // Use one medium size for broad coverage
-  const baseNoiseLevel = 0.1;
+  const sizes = [100, 50, 10]; // Restrict to requested sizes
+  const standardNoiseLevels = [0.1, 0.5]; // Restrict to requested noise levels
 
   const targetMetrics = [
     'normalizedCosineSimilarity',
@@ -408,19 +408,21 @@ const runNonLinearAnalysis = () => {
   // 1. Standard Coverage
   standardTypes.forEach(type => {
       sizes.forEach(size => {
-          const params: GenerationParams = {
-              type,
-              size,
-              noiseSettings: { type: 'gaussian', level: baseNoiseLevel }
-          };
-          results.push(runAnalysisCase(service, params));
+          standardNoiseLevels.forEach(level => {
+              const params: GenerationParams = {
+                  type,
+                  size,
+                  noiseSettings: { type: 'gaussian', level: level }
+              };
+              results.push(runAnalysisCase(service, params));
+          });
       });
   });
 
   // 2. Noise Robustness (Varying Noise Types on a subset)
   const robustnessTypes: GeneratorType[] = ['sin', 'circle', 'sphere'];
   const noiseTypes: NoiseType[] = ['gaussian', 'uniform', 'impulsive'];
-  const noiseLevels = [0.1, 0.5, 1.0];
+  const noiseLevels = [0.1, 0.5];
 
   robustnessTypes.forEach(type => {
       noiseTypes.forEach(nType => {
