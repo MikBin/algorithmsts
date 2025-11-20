@@ -10,3 +10,7 @@
 
 export { DijkstraAlgorithm } from './DijkstraAlgorithm';
 export { AStarAlgorithm } from './AStarAlgorithm';
+export { BellmanFordAlgorithm } from './BellmanFordAlgorithm';
+export { FloydWarshallAlgorithm } from './FloydWarshallAlgorithm';
+export type { IFloydWarshallResult } from './FloydWarshallAlgorithm';
+export { DAGShortestPathAlgorithm } from './DAGShortestPathAlgorithm';

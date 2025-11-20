@@ -10,4 +10,5 @@
 
 export { KruskalAlgorithm } from './KruskalAlgorithm';
 export { PrimAlgorithm } from './PrimAlgorithm';
+export { BoruvkaAlgorithm } from './BoruvkaAlgorithm';
 export type { ISpanningTreeResult } from './KruskalAlgorithm';
