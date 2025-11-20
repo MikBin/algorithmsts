@@ -22,6 +22,10 @@ export const kullbackLeiblerDivergence = (p: number[], q: number[]): number => {
     throw new Error('Vectors must have the same length');
   }
 
+  if (p.some(x => x < 0) || q.some(x => x < 0)) {
+    throw new Error('Input vectors must be non-negative for Kullback-Leibler divergence');
+  }
+
   let divergence = 0;
   for (let i = 0; i < p.length; i++) {
     const pi = p[i];
@@ -50,6 +54,10 @@ export const kullbackLeiblerDivergence = (p: number[], q: number[]): number => {
 export const crossEntropy = (p: number[], q: number[]): number => {
   if (p.length !== q.length) {
     throw new Error('Vectors must have the same length');
+  }
+
+  if (p.some(x => x < 0) || q.some(x => x < 0)) {
+    throw new Error('Input vectors must be non-negative for cross entropy');
   }
 
   let entropy = 0;
@@ -90,6 +98,9 @@ export const kDivergence = (p: number[], q: number[]): number => {
   if (p.length !== q.length) {
     throw new Error('Vectors must have the same length');
   }
+  if (p.some(x => x < 0) || q.some(x => x < 0)) {
+    throw new Error('Input vectors must be non-negative for K-Divergence');
+  }
   const m = p.map((val, i) => (val + q[i]) / 2);
   return kullbackLeiblerDivergence(p, m);
 };
@@ -104,6 +115,9 @@ export const kDivergence = (p: number[], q: number[]): number => {
 export const topsoeDivergence = (p: number[], q: number[]): number => {
   if (p.length !== q.length) {
     throw new Error('Vectors must have the same length');
+  }
+  if (p.some(x => x < 0) || q.some(x => x < 0)) {
+    throw new Error('Input vectors must be non-negative for Topsøe Divergence');
   }
   const m = p.map((val, i) => (val + q[i]) / 2);
   return kullbackLeiblerDivergence(p, m) + kullbackLeiblerDivergence(q, m);

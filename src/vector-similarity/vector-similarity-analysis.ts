@@ -88,7 +88,8 @@ const runOutliersResiliencyTest = () => {
     try {
       testCase1.similarities[name] = parseFloat(similarityFunctions[name](vecA, vecB).toFixed(4));
     } catch (e) {
-      testCase1.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      testCase1.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
   results.push(testCase1);
@@ -104,7 +105,8 @@ const runOutliersResiliencyTest = () => {
     try {
       testCase2.similarities[name] = parseFloat(similarityFunctions[name](vecC, vecD).toFixed(4));
     } catch (e) {
-      testCase2.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      testCase2.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
   results.push(testCase2);
@@ -182,7 +184,8 @@ const runSimilarityCompare = () => {
     try {
       results.binary.similarities[name] = parseFloat(similarityFunctions[name](vecA, vecB).toFixed(4));
     } catch (e) {
-      results.binary.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      results.binary.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
 
@@ -190,7 +193,8 @@ const runSimilarityCompare = () => {
     try {
       results.continuous.similarities[name] = parseFloat(similarityFunctions[name](vecC, vecD).toFixed(4));
     } catch (e) {
-      results.continuous.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      results.continuous.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
 
@@ -225,7 +229,8 @@ const runComparisonDemo = () => {
                 const result = similarityFunctions[name](vecA, vectors[vecName]);
                 results.comparisons[name][`A_vs_${vecName}`] = result;
             } catch (e) {
-                results.comparisons[name][`A_vs_${vecName}`] = `Error: ${(e as Error).message}`;
+                const msg = (e as Error).message;
+                results.comparisons[name][`A_vs_${vecName}`] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
             }
         }
     }
@@ -256,7 +261,8 @@ const runNoiseResilienceLevelsTest = () => {
       try {
         similarities[name] = parseFloat(similarityFunctions[name](baseVector, noisyVector).toFixed(4));
       } catch (e) {
-        similarities[name] = `Error: ${(e as Error).message}`;
+        const msg = (e as Error).message;
+        similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
       }
     }
     results.noiseLevels[noiseLevel] = similarities;
@@ -281,7 +287,8 @@ const runStressTests = () => {
     try {
       noiseTest.similarities[name] = parseFloat(similarityFunctions[name](baseVec, noisyVec).toFixed(4));
     } catch (e) {
-      noiseTest.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      noiseTest.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
   results.push(noiseTest);
@@ -298,7 +305,8 @@ const runStressTests = () => {
     try {
       scaleTest.similarities[name] = parseFloat(similarityFunctions[name](baseVec, scaleVec).toFixed(4));
     } catch (e) {
-      scaleTest.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      scaleTest.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
   results.push(scaleTest);
@@ -316,7 +324,8 @@ const runStressTests = () => {
     try {
       sparseTest.similarities[name] = parseFloat(similarityFunctions[name](sparseVecA, sparseVecB).toFixed(4));
     } catch (e) {
-      sparseTest.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      sparseTest.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
   results.push(sparseTest);
@@ -334,7 +343,8 @@ const runStressTests = () => {
     try {
       highRangeTest.similarities[name] = parseFloat(similarityFunctions[name](highRangeVecA, highRangeVecB).toFixed(4));
     } catch (e) {
-      highRangeTest.similarities[name] = `Error: ${(e as Error).message}`;
+      const msg = (e as Error).message;
+      highRangeTest.similarities[name] = msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`;
     }
   }
   results.push(highRangeTest);
@@ -376,15 +386,23 @@ const runNonLinearAnalysis = () => {
 
         targetMetrics.forEach(metricName => {
             if (similarityFunctions[metricName]) {
-                const start = process.hrtime();
-                const score = similarityFunctions[metricName](vecA, vecB);
-                const end = process.hrtime(start);
-                const timeMs = (end[0] * 1e9 + end[1]) / 1e6;
+                try {
+                  const start = process.hrtime();
+                  const score = similarityFunctions[metricName](vecA, vecB);
+                  const end = process.hrtime(start);
+                  const timeMs = (end[0] * 1e9 + end[1]) / 1e6;
 
-                caseResult.metrics[metricName] = {
-                    score: parseFloat(score.toFixed(4)),
-                    timeMs: parseFloat(timeMs.toFixed(4))
-                };
+                  caseResult.metrics[metricName] = {
+                      score: parseFloat(score.toFixed(4)),
+                      timeMs: parseFloat(timeMs.toFixed(4))
+                  };
+                } catch (e) {
+                   const msg = (e as Error).message;
+                   caseResult.metrics[metricName] = {
+                      score: msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`,
+                      timeMs: 0
+                   };
+                }
             }
         });
         results.push(caseResult);
