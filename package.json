@@ -91,7 +91,8 @@
     "prepare": "husky",
     "v-pub-tarball": "npm publish --dry-run",
     "release": "release-it",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "analyze-similarity": "ts-node src/vector-similarity/vector-similarity-analysis.ts"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
