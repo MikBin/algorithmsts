@@ -229,6 +229,38 @@ const runComparisonDemo = () => {
   return results;
 };
 
+const addNoise = (vector: number[], noiseLevel: number): number[] => {
+  return vector.map((x) => x + (Math.random() - 0.5) * noiseLevel);
+}
+
+const runNoiseResilienceLevelsTest = () => {
+  const baseVector = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const noiseLevels = [0.1, 0.5, 1.0, 2.0, 5.0];
+
+  const results: any = {
+    baseVector,
+    noiseLevels: {},
+  };
+
+  noiseLevels.forEach((noiseLevel) => {
+    const noisyVector = addNoise(baseVector, noiseLevel);
+    const similarities: any = {
+      noisyVector: noisyVector.map((x) => parseFloat(x.toFixed(4))),
+    };
+
+    for (const name in similarityFunctions) {
+      try {
+        similarities[name] = parseFloat(similarityFunctions[name](baseVector, noisyVector).toFixed(4));
+      } catch (e) {
+        similarities[name] = `Error: ${(e as Error).message}`;
+      }
+    }
+    results.noiseLevels[noiseLevel] = similarities;
+  });
+
+  return results;
+};
+
 const runStressTests = () => {
   const results = [];
 
@@ -313,6 +345,7 @@ const main = () => {
     similarityCompare: runSimilarityCompare(),
     comparisonDemo: runComparisonDemo(),
     stressTests: runStressTests(),
+    noiseResilienceLevelsTest: runNoiseResilienceLevelsTest(),
   };
 
   const __filename = fileURLToPath(import.meta.url);
