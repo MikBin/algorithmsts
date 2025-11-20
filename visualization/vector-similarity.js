@@ -367,64 +367,35 @@ const renderNonlinearScoresChart = (data) => {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  // Group data by function type for better visualization
-  const groupedData = {};
-  data.forEach(item => {
-    if (!groupedData[item.type]) {
-      groupedData[item.type] = [];
-    }
-    groupedData[item.type].push(item);
-  });
+  // One label per test case, using the precomputed label field
+  const labels = data.map((item) => item.label);
 
-  // Prepare datasets for each similarity function
-  const similarityFunctions = ['cosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
-                           'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'];
+  // Similarity functions to visualize
+  const similarityFunctions = [
+    'cosineSimilarity',
+    'pearsonCorrelationSimilarity',
+    'euclideanSimilarity',
+    'polynomialKernelSimilarity',
+    'rbfKernelSimilarity',
+    'computeVectorSimilarityMeanStdPower',
+  ];
 
-  const datasets = [];
   const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
 
-  // Prepare datasets for each similarity function
-  const nonLinearFunctions = ['cosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
-                           'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'];
-
-  const nonLinearDatasets = [];
-  const nonLinearColors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
-
-  // Collect all labels and scores first
-  const allLabels = [];
-  const allScores = [];
-
-  // First, collect all data points
-  Object.entries(groupedData).forEach(([type, items]) => {
-    items.forEach(item => {
-      nonLinearFunctions.forEach((funcName, funcIndex) => {
-        if (item.metrics[funcName]) {
-          // Create a unique label for each data point
-          const label = `${type} (${funcName.replace(/([A-Z])/g, ' $1').trim()}, n=${item.size}, σ=${item.noise})`;
-          allLabels.push(label);
-          allScores.push({
-            label: label,
-            score: item.metrics[funcName].score,
-            funcIndex: funcIndex
-          });
-        }
-      });
+  // Build one dataset per similarity function, aligned with labels array
+  const datasets = similarityFunctions.map((funcName, index) => {
+    const scores = data.map((item) => {
+      const metric = item.metrics[funcName];
+      return metric ? metric.score : null;
     });
-  });
 
-  // Group by function for datasets
-  nonLinearFunctions.forEach((funcName, index) => {
-    const funcData = allScores.filter(item => item.funcIndex === index);
-    const scores = funcData.map(item => item.score);
-    const labels = funcData.map(item => item.label);
-
-    nonLinearDatasets.push({
+    return {
       label: funcName.replace(/([A-Z])/g, ' $1').trim(),
       data: scores,
-      backgroundColor: nonLinearColors[index % nonLinearColors.length],
-      borderColor: nonLinearColors[index % nonLinearColors.length],
-      borderWidth: 1
-    });
+      backgroundColor: colors[index % colors.length],
+      borderColor: colors[index % colors.length],
+      borderWidth: 1,
+    };
   });
 
   // Destroy existing chart if it exists
@@ -435,40 +406,40 @@ const renderNonlinearScoresChart = (data) => {
   canvas.chart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: allLabels,
-      datasets: datasets
+      labels,
+      datasets,
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: 'top'
+          position: 'top',
         },
         tooltip: {
           callbacks: {
-            label: (context) => {
-              return `${context.dataset.label}: ${context.raw.toFixed(4)}`;
-            }
-          }
-        }
+            label: (context) =>
+              `${context.dataset.label}: ${Number.isFinite(context.raw) ? context.raw.toFixed(4) : 'N/A'}`,
+          },
+        },
       },
       scales: {
         y: {
           beginAtZero: true,
+          max: 1,
           title: {
             display: true,
-            text: 'Similarity Score'
-          }
+            text: 'Similarity Score',
+          },
         },
         x: {
           ticks: {
-            maxRotation: 45,
-            minRotation: 45
-          }
-        }
-      }
-    }
+            maxRotation: 60,
+            minRotation: 60,
+          },
+        },
+      },
+    },
   });
 };
 
