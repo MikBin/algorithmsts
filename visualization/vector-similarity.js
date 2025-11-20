@@ -278,8 +278,44 @@ const App = {
         noise: 'all'
     });
 
+    // Debug visibility
+    const showDebug = ref(false);
+
+    // Parse query params on mount
+    onMounted(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('debug') === 'true') {
+            showDebug.value = true;
+        }
+    });
+
+    const toggleDebug = () => {
+        showDebug.value = !showDebug.value;
+    };
+
     const nonlinearInsights = computed(() => {
         return analysisResults.nonLinearAnalysis ? analysisResults.nonLinearAnalysis.insights : [];
+    });
+
+    // Computed options derived from data
+    const availableTypes = computed(() => {
+      if (!analysisResults.nonLinearAnalysis) return [];
+      const types = new Set(analysisResults.nonLinearAnalysis.detailedResults.map(item => item.type));
+      return Array.from(types).sort();
+    });
+
+    const availableSizes = computed(() => {
+      if (!analysisResults.nonLinearAnalysis) return [];
+      const sizes = new Set(analysisResults.nonLinearAnalysis.detailedResults.map(item => item.size));
+      return Array.from(sizes).sort((a, b) => a - b);
+    });
+
+    const availableNoiseLevels = computed(() => {
+      if (!analysisResults.nonLinearAnalysis) return [];
+      const levels = new Set(analysisResults.nonLinearAnalysis.detailedResults.map(item =>
+        item.noiseSettings && item.noiseSettings.level ? item.noiseSettings.level : null
+      ).filter(l => l !== null));
+      return Array.from(levels).sort((a, b) => a - b);
     });
 
     const filteredNonlinearData = computed(() => {
@@ -291,6 +327,18 @@ const App = {
                 (item.noiseSettings && item.noiseSettings.level && item.noiseSettings.level.toString() === filters.value.noise);
             return typeMatch && sizeMatch && noiseMatch;
          });
+    });
+
+    // Debug info
+    const debugInfo = computed(() => {
+        return {
+            filters: filters.value,
+            totalItems: analysisResults.nonLinearAnalysis ? analysisResults.nonLinearAnalysis.detailedResults.length : 0,
+            filteredItems: filteredNonlinearData.value.length,
+            availableTypes: availableTypes.value,
+            availableSizes: availableSizes.value,
+            availableNoiseLevels: availableNoiseLevels.value
+        };
     });
 
     // Derived table data for nonlinear analysis (flat structure for sorting)
@@ -318,6 +366,7 @@ const App = {
     const applyFilters = () => {
         // Trigger reactivity if needed, though computed properties handle it automatically.
         // This method might be redundant with v-model but good for explicit "Apply" action UX
+        console.log('Filters applied:', debugInfo.value);
     };
 
     const nonlinearScoresData = computed(() => {
@@ -410,7 +459,13 @@ const App = {
         nonlinearInsights,
         nonlinearTableRows,
         filters,
-        applyFilters
+        applyFilters,
+        availableTypes,
+        availableSizes,
+        availableNoiseLevels,
+        debugInfo,
+        showDebug,
+        toggleDebug
     };
   }
 };
