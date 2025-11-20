@@ -298,6 +298,270 @@ const renderDemoMatrix = () => {
   container.appendChild(table);
 };
 
+// --- Nonlinear Analysis Renderers ---
+
+const renderNonlinearAnalysis = () => {
+  if (!analysisResults.nonLinearAnalysis) return;
+
+  const { detailedResults, insights } = analysisResults.nonLinearAnalysis;
+
+  // Render insights
+  renderInsights(insights);
+
+  // Set up filter event listeners
+  setupFilterListeners();
+
+  // Initial render with all data
+  renderNonlinearCharts(detailedResults);
+};
+
+const renderInsights = (insights) => {
+  const insightsList = document.getElementById('insights-list');
+  if (!insightsList) return;
+
+  insightsList.innerHTML = '';
+  insights.forEach(insight => {
+    const li = document.createElement('li');
+    li.textContent = insight;
+    insightsList.appendChild(li);
+  });
+};
+
+const setupFilterListeners = () => {
+  const applyButton = document.getElementById('apply-filters');
+  if (applyButton) {
+    applyButton.addEventListener('click', () => {
+      const functionType = document.getElementById('function-type-filter').value;
+      const vectorSize = document.getElementById('vector-size-filter').value;
+      const noiseLevel = document.getElementById('noise-level-filter').value;
+
+      const filteredData = filterNonlinearData(
+        analysisResults.nonLinearAnalysis.detailedResults,
+        functionType,
+        vectorSize,
+        noiseLevel
+      );
+
+      renderNonlinearCharts(filteredData);
+    });
+  }
+};
+
+const filterNonlinearData = (data, functionType, vectorSize, noiseLevel) => {
+  return data.filter(item => {
+    const typeMatch = functionType === 'all' || item.type === functionType;
+    const sizeMatch = vectorSize === 'all' || item.size.toString() === vectorSize;
+    const noiseMatch = noiseLevel === 'all' || item.noise.toString() === noiseLevel;
+
+    return typeMatch && sizeMatch && noiseMatch;
+  });
+};
+
+const renderNonlinearCharts = (data) => {
+  renderNonlinearScoresChart(data);
+  renderNonlinearPerformanceChart(data);
+};
+
+const renderNonlinearScoresChart = (data) => {
+  const canvas = document.getElementById('nonlinear-scores-chart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Group data by function type for better visualization
+  const groupedData = {};
+  data.forEach(item => {
+    if (!groupedData[item.type]) {
+      groupedData[item.type] = [];
+    }
+    groupedData[item.type].push(item);
+  });
+
+  // Prepare datasets for each similarity function
+  const similarityFunctions = ['cosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
+                           'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'];
+
+  const datasets = [];
+  const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+
+  // Prepare datasets for each similarity function
+  const nonLinearFunctions = ['cosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
+                           'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'];
+
+  const nonLinearDatasets = [];
+  const nonLinearColors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+
+  // Collect all labels and scores first
+  const allLabels = [];
+  const allScores = [];
+
+  // First, collect all data points
+  Object.entries(groupedData).forEach(([type, items]) => {
+    items.forEach(item => {
+      nonLinearFunctions.forEach((funcName, funcIndex) => {
+        if (item.metrics[funcName]) {
+          // Create a unique label for each data point
+          const label = `${type} (${funcName.replace(/([A-Z])/g, ' $1').trim()}, n=${item.size}, σ=${item.noise})`;
+          allLabels.push(label);
+          allScores.push({
+            label: label,
+            score: item.metrics[funcName].score,
+            funcIndex: funcIndex
+          });
+        }
+      });
+    });
+  });
+
+  // Group by function for datasets
+  nonLinearFunctions.forEach((funcName, index) => {
+    const funcData = allScores.filter(item => item.funcIndex === index);
+    const scores = funcData.map(item => item.score);
+    const labels = funcData.map(item => item.label);
+
+    nonLinearDatasets.push({
+      label: funcName.replace(/([A-Z])/g, ' $1').trim(),
+      data: scores,
+      backgroundColor: nonLinearColors[index % nonLinearColors.length],
+      borderColor: nonLinearColors[index % nonLinearColors.length],
+      borderWidth: 1
+    });
+  });
+
+  // Destroy existing chart if it exists
+  if (canvas.chart) {
+    canvas.chart.destroy();
+  }
+
+  canvas.chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: allLabels,
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top'
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              return `${context.dataset.label}: ${context.raw.toFixed(4)}`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Similarity Score'
+          }
+        },
+        x: {
+          ticks: {
+            maxRotation: 45,
+            minRotation: 45
+          }
+        }
+      }
+    }
+  });
+};
+
+const renderNonlinearPerformanceChart = (data) => {
+  const canvas = document.getElementById('nonlinear-performance-chart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Group data by function type and calculate average performance
+  const performanceData = {};
+
+  data.forEach(item => {
+    if (!performanceData[item.type]) {
+      performanceData[item.type] = {};
+    }
+
+    Object.entries(item.metrics).forEach(([funcName, metrics]) => {
+      if (!performanceData[item.type][funcName]) {
+        performanceData[item.type][funcName] = [];
+      }
+      performanceData[item.type][funcName].push(metrics.timeMs);
+    });
+  });
+
+  // Calculate average performance for each function type
+  const functionTypes = Object.keys(performanceData);
+  const similarityFunctions = ['cosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
+                           'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'];
+
+  const datasets = [];
+  const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+
+  similarityFunctions.forEach((funcName, index) => {
+    const avgTimes = [];
+
+    functionTypes.forEach(type => {
+      if (performanceData[type] && performanceData[type][funcName]) {
+        const times = performanceData[type][funcName];
+        const avgTime = times.reduce((a, b) => a + b, 0) / times.length;
+        avgTimes.push(avgTime);
+      } else {
+        avgTimes.push(0);
+      }
+    });
+
+    datasets.push({
+      label: funcName.replace(/([A-Z])/g, ' $1').trim(),
+      data: avgTimes,
+      backgroundColor: colors[index % colors.length],
+      borderColor: colors[index % colors.length],
+      borderWidth: 1
+    });
+  });
+
+  // Destroy existing chart if it exists
+  if (canvas.chart) {
+    canvas.chart.destroy();
+  }
+
+  canvas.chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: functionTypes.map(type => type.charAt(0).toUpperCase() + type.slice(1)),
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top'
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              return `${context.dataset.label}: ${context.raw.toFixed(4)} ms`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Average Execution Time (ms)'
+          }
+        }
+      }
+    }
+  });
+};
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   renderVectorVisualization();
@@ -306,4 +570,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderStressTests();
   renderComparison();
   renderDemoMatrix();
+  renderNonlinearAnalysis();
 });
