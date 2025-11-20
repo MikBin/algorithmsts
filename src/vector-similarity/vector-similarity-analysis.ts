@@ -23,9 +23,9 @@ import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilari
 import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity.ts';
 import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity.ts';
 import { polynomialKernelSimilarity, rbfKernelSimilarity } from './similarity/nonLinear.ts';
-import { VectorGenerationService } from './vectorGenerationService.ts';
+import { VectorGenerationService, GenerationParams, GeneratorType, NoiseType } from './vectorGenerationService.ts';
 
-const similarityFunctions = {
+const similarityFunctions: Record<string, (a: number[], b: number[]) => number> = {
   pearsonCorrelationSimilarity,
   cosineSimilarity,
   euclideanSimilarity,
@@ -78,7 +78,7 @@ const runOutliersResiliencyTest = () => {
   const results = [];
   const vecA = [1, 34000, -0.0001];
   const vecB = [1.1, 37800, -0.00015];
-  const testCase1 = {
+  const testCase1: any = {
     testCase: 'Short Vectors with a Single Outlier',
     vecA,
     vecB,
@@ -95,7 +95,7 @@ const runOutliersResiliencyTest = () => {
   results.push(testCase1);
   const vecC = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const vecD = [1.1, 2.2, 3.3, 4.4, 50000, 6.6, 7.7, -20000, 9.9, 10.1];
-  const testCase2 = {
+  const testCase2: any = {
     testCase: 'Longer Vectors with Multiple Outliers',
     vecC,
     vecD,
@@ -167,7 +167,7 @@ const runSimilarityCompare = () => {
   const vecC = [0.5, 0.8, 0.2, 0.9];
   const vecD = [0.6, 0.7, 0.1, 1.0];
 
-  const results = {
+  const results: any = {
     binary: {
       vecA,
       vecB,
@@ -208,7 +208,7 @@ const runComparisonDemo = () => {
   const vecD = [5, 4, 3, 2, 1];
   const vecE = [1, 2, 3, 4, 5];
 
-  const vectors = {
+  const vectors: Record<string, number[]> = {
       A: vecA,
       B: vecB,
       C: vecC,
@@ -277,7 +277,7 @@ const runStressTests = () => {
   // Test case 1: Noise Resilience
   const baseVec = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const noisyVec = baseVec.map(x => x + (Math.random() - 0.5) * 0.1);
-  const noiseTest = {
+  const noiseTest: any = {
     testCase: 'Noise Resilience',
     baseVec,
     noisyVec,
@@ -295,7 +295,7 @@ const runStressTests = () => {
 
   // Test case 2: Scale Invariance
   const scaleVec = baseVec.map(x => x * 100);
-  const scaleTest = {
+  const scaleTest: any = {
     testCase: 'Scale Invariance',
     baseVec,
     scaleVec,
@@ -314,7 +314,7 @@ const runStressTests = () => {
   // Test case 3: Sparse Vectors
   const sparseVecA = [1, 0, 0, 0, 5, 0, 0, 8, 0, 10];
   const sparseVecB = [0, 0, 3, 0, 5, 0, 7, 0, 9, 0];
-  const sparseTest = {
+  const sparseTest: any = {
     testCase: 'Sparse Vectors',
     sparseVecA,
     sparseVecB,
@@ -333,7 +333,7 @@ const runStressTests = () => {
   // Test case 4: High Dynamic Range
   const highRangeVecA = [1e-9, 1e-6, 1e-3, 1, 1e3, 1e6, 1e9];
   const highRangeVecB = [1.1e-9, 1.1e-6, 1.1e-3, 1.1, 1.1e3, 1.1e6, 1.1e9];
-  const highRangeTest = {
+  const highRangeTest: any = {
     testCase: 'High Dynamic Range',
     highRangeVecA,
     highRangeVecB,
@@ -354,14 +354,23 @@ const runStressTests = () => {
 
 const runNonLinearAnalysis = () => {
   const service = new VectorGenerationService();
-  const sizes = [100, 1000, 10000];
-  const noiseLevels = [0.05, 0.1, 0.15]; // 5%, 10%, 15%
-  const functionTypes = ['quadratic', 'exponential', 'logarithmic', 'sqrt', 'sin', 'cos', 'tan'] as const;
-
   const results: any[] = [];
 
-  // Define a subset of relevant metrics for cleaner analysis (or use all)
-  // Including standard ones + non-linear ones
+  // 1. Functional & Geometric Diversity (Standard Noise)
+  // Reduced set of types to run by default, but includes new ones
+  const standardTypes: GeneratorType[] = [
+      'quadratic', 'cubic', 'exponential', 'logarithmic', 'sqrt',
+      'sin', 'cos', 'tan', 'csc', 'sec', 'cot',
+      'asin', 'acos', 'atan',
+      'sinh', 'cosh', 'tanh',
+      'circle', 'ellipse', 'spiral_archimedean', 'spiral_logarithmic',
+      'lemniscate', 'rose', 'cardioid', 'lissajous',
+      'sphere', 'toroid', 'helix'
+  ];
+
+  const sizes = [200]; // Use one medium size for broad coverage
+  const baseNoiseLevel = 0.1;
+
   const targetMetrics = [
     'cosineSimilarity',
     'pearsonCorrelationSimilarity',
@@ -371,43 +380,81 @@ const runNonLinearAnalysis = () => {
     'computeVectorSimilarityMeanStdPower'
   ];
 
-  functionTypes.forEach(type => {
-    sizes.forEach(size => {
-      noiseLevels.forEach(noise => {
-        const { vecA, vecB, label } = service.generateVectorPair(type, size, noise);
-
-        const caseResult: any = {
-          type,
-          size,
-          noise,
+  const runAnalysisCase = (service: VectorGenerationService, params: GenerationParams) => {
+      const { vecA, vecB, label } = service.generateVectorPair(params);
+      const caseResult: any = {
+          ...params,
           label,
           metrics: {}
-        };
+      };
 
-        targetMetrics.forEach(metricName => {
-            if (similarityFunctions[metricName]) {
-                try {
-                  const start = process.hrtime();
-                  const score = similarityFunctions[metricName](vecA, vecB);
-                  const end = process.hrtime(start);
-                  const timeMs = (end[0] * 1e9 + end[1]) / 1e6;
+      targetMetrics.forEach(metricName => {
+          if (similarityFunctions[metricName]) {
+              try {
+                const start = process.hrtime();
+                const score = similarityFunctions[metricName](vecA, vecB);
+                const end = process.hrtime(start);
+                const timeMs = (end[0] * 1e9 + end[1]) / 1e6;
 
-                  caseResult.metrics[metricName] = {
-                      score: parseFloat(score.toFixed(4)),
-                      timeMs: parseFloat(timeMs.toFixed(4))
-                  };
-                } catch (e) {
-                   const msg = (e as Error).message;
-                   caseResult.metrics[metricName] = {
-                      score: msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`,
-                      timeMs: 0
-                   };
-                }
-            }
-        });
-        results.push(caseResult);
+                caseResult.metrics[metricName] = {
+                    score: parseFloat(score.toFixed(4)),
+                    timeMs: parseFloat(timeMs.toFixed(4))
+                };
+              } catch (e) {
+                 const msg = (e as Error).message;
+                 caseResult.metrics[metricName] = {
+                    score: msg.includes('must be non-negative') ? 'N/A (Invalid Input)' : `Error: ${msg}`,
+                    timeMs: 0
+                 };
+              }
+          }
       });
-    });
+      return caseResult;
+  };
+
+  // 1. Standard Coverage
+  standardTypes.forEach(type => {
+      sizes.forEach(size => {
+          const params: GenerationParams = {
+              type,
+              size,
+              noiseSettings: { type: 'gaussian', level: baseNoiseLevel }
+          };
+          results.push(runAnalysisCase(service, params));
+      });
+  });
+
+  // 2. Noise Robustness (Varying Noise Types on a subset)
+  const robustnessTypes: GeneratorType[] = ['sin', 'circle', 'sphere'];
+  const noiseTypes: NoiseType[] = ['gaussian', 'uniform', 'impulsive'];
+  const noiseLevels = [0.1, 0.5, 1.0];
+
+  robustnessTypes.forEach(type => {
+      noiseTypes.forEach(nType => {
+          noiseLevels.forEach(level => {
+               const params: GenerationParams = {
+                  type,
+                  size: 200,
+                  noiseSettings: { type: nType, level: level, probability: 0.1 }
+              };
+              results.push(runAnalysisCase(service, params));
+          });
+      });
+  });
+
+  // 3. Anomaly Resilience
+  const anomalies: ('peak' | 'discontinuity' | 'high_freq_oscillation')[] = ['peak', 'discontinuity', 'high_freq_oscillation'];
+
+  robustnessTypes.forEach(type => {
+      anomalies.forEach(anomaly => {
+           const params: GenerationParams = {
+              type,
+              size: 200,
+              noiseSettings: { type: 'gaussian', level: 0.05 }, // Low base noise
+              anomalySettings: { type: anomaly, intensity: 5, probability: 0.02 }
+          };
+          results.push(runAnalysisCase(service, params));
+      });
   });
 
   // Generate insights
@@ -422,45 +469,49 @@ const runNonLinearAnalysis = () => {
 const generateInsights = (results: any[]) => {
     const insights: string[] = [];
 
-    // Analyze Quadratic Performance
-    const quadratic = results.filter(r => r.type === 'quadratic' && r.size === 1000 && r.noise === 0.05);
-    if (quadratic.length > 0) {
-        const q = quadratic[0].metrics;
-        if (q.polynomialKernelSimilarity && q.cosineSimilarity) {
-            if (q.polynomialKernelSimilarity.score > q.cosineSimilarity.score) {
-                insights.push(`Polynomial Kernel Similarity outperformed Cosine Similarity on Quadratic data (Score: ${q.polynomialKernelSimilarity.score} vs ${q.cosineSimilarity.score}).`);
-            }
-        }
+    // 1. Find Best Metric for Non-Linear Geometry (Circle/Helix)
+    // Filter for 'circle' with standard gaussian noise
+    const circleTests = results.filter(r => r.type === 'circle' && r.noiseSettings?.type === 'gaussian' && !r.anomalySettings);
+    if (circleTests.length > 0) {
+         // Grab one case
+         const c = circleTests[0].metrics;
+         // Compare Cosine vs Kernel
+         const cos = c.cosineSimilarity?.score;
+         const poly = c.polynomialKernelSimilarity?.score;
+         if (typeof cos === 'number' && typeof poly === 'number') {
+             if (poly > cos) {
+                 insights.push(`Polynomial Kernel Similarity (${poly}) outperformed Cosine Similarity (${cos}) on circular geometry.`);
+             }
+         }
     }
 
-    // General observations on noise
-    const highNoise = results.filter(r => r.noise === 0.15 && r.size === 1000);
-    let robustMetric = '';
-    let maxScore = -Infinity;
+    // 2. Robustness to Impulsive Noise
+    const impulsiveTests = results.filter(r => r.noiseSettings?.type === 'impulsive' && r.noiseSettings?.level === 1.0);
+    if (impulsiveTests.length > 0) {
+        let bestMetric = '';
+        let bestScore = -Infinity;
+        const sums: Record<string, number> = {};
+        const counts: Record<string, number> = {};
 
-    // Average scores across high noise
-    const avgScores: Record<string, number> = {};
-    const counts: Record<string, number> = {};
+        impulsiveTests.forEach(test => {
+             for(const [m, data] of Object.entries(test.metrics)) {
+                 const score = (data as any).score;
+                 if (typeof score === 'number') {
+                     sums[m] = (sums[m] || 0) + score;
+                     counts[m] = (counts[m] || 0) + 1;
+                 }
+             }
+        });
 
-    highNoise.forEach(res => {
-        for (const [metric, data] of Object.entries(res.metrics)) {
-            const score = (data as any).score;
-            if (!isNaN(score)) {
-                 avgScores[metric] = (avgScores[metric] || 0) + score;
-                 counts[metric] = (counts[metric] || 0) + 1;
+        for(const m in sums) {
+            const avg = sums[m] / counts[m];
+            if (avg > bestScore && avg <= 1.0) {
+                bestScore = avg;
+                bestMetric = m;
             }
         }
-    });
-
-    for (const metric in avgScores) {
-        const avg = avgScores[metric] / counts[metric];
-        if (avg > maxScore && avg <= 1.0) { // Filter out unnormalized if any slipped through
-            maxScore = avg;
-            robustMetric = metric;
-        }
+        insights.push(`Metric '${bestMetric}' showed highest resilience to impulsive noise (Avg Score: ${bestScore.toFixed(4)}).`);
     }
-
-    insights.push(`Under high noise (15%), ${robustMetric} showed the highest average similarity retention (${maxScore.toFixed(4)}).`);
 
     return insights;
 };
