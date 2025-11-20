@@ -38,6 +38,15 @@ export function cosineSimilarity(a: number[], b: number[]): number {
 }
 
 /**
+ * Normalized Cosine similarity
+ * Converts Cosine similarity to a score in [0, 1]
+ * Range: [0, 1] (1 means identical direction, 0 means opposite direction)
+ */
+export function normalizedCosineSimilarity(a: number[], b: number[]): number {
+  return (1 + cosineSimilarity(a, b)) / 2;
+}
+
+/**
  * Euclidean distance
  * Measures the straight-line distance between two vectors
  * Range: [0, ∞) (0 means identical)

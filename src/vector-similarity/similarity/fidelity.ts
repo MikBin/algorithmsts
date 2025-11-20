@@ -75,3 +75,15 @@ export function squaredChordDistance(P: number[], Q: number[]): number {
   }
   return P.reduce((sum, p, i) => sum + Math.pow(Math.sqrt(p) - Math.sqrt(Q[i]), 2), 0);
 }
+
+/**
+ * Calculates the Hellinger similarity between two vectors.
+ * Derived from Hellinger distance: 1 - HellingerDistance.
+ * Range: [0, 1]
+ * @param P - The first vector.
+ * @param Q - The second vector.
+ * @returns The Hellinger similarity.
+ */
+export function hellingerSimilarity(P: number[], Q: number[]): number {
+  return 1 - hellingerDistance(P, Q);
+}

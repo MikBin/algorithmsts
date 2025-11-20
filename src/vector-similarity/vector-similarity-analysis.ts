@@ -8,7 +8,7 @@ import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized.ts';
 import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation.ts';
-import { pearsonCorrelationSimilarity, cosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic.ts';
+import { pearsonCorrelationSimilarity, normalizedCosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic.ts';
 import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics.ts';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard.ts';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust.ts';
@@ -18,16 +18,15 @@ import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTun
 import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted.ts';
 import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection.ts';
 import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy.ts';
-import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChiSquareDistance, squaredChiSquareDistance } from './similarity/chi-square.ts';
 import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square.ts';
-import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity.ts';
+import { fidelitySimilarity, hellingerSimilarity } from './similarity/fidelity.ts';
 import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity.ts';
 import { polynomialKernelSimilarity, rbfKernelSimilarity } from './similarity/nonLinear.ts';
 import { VectorGenerationService, GenerationParams, GeneratorType, NoiseType } from './vectorGenerationService.ts';
 
 const similarityFunctions: Record<string, (a: number[], b: number[]) => number> = {
   pearsonCorrelationSimilarity,
-  cosineSimilarity,
+  normalizedCosineSimilarity,
   euclideanSimilarity,
   manhattanSimilarity,
   gowerSimilarity: (a: number[], b: number[]) => gowerSimilarity(a, b, Array(a.length).fill(1)),
@@ -45,18 +44,12 @@ const similarityFunctions: Record<string, (a: number[], b: number[]) => number> 
   jeffreysSimilarity,
   kSimilarity,
   topsoeSimilarity,
-  pearsonChiSquareDistance,
-  neymanChiSquareDistance,
-  additiveSymmetricChiSquareDistance,
-  squaredChiSquareDistance,
   normalizedPearsonChiSquareSimilarity,
   normalizedNeymanChiSquareSimilarity,
   normalizedAdditiveSymmetricChiSquareSimilarity,
   normalizedSquaredChiSquareSimilarity,
   fidelitySimilarity,
-  hellingerDistance,
-  matusitaDistance,
-  squaredChordDistance,
+  hellingerSimilarity,
   normalizedMatusitaSimilarity,
   normalizedSquaredChordSimilarity,
   jaccardSimilarityBinary,
@@ -372,7 +365,7 @@ const runNonLinearAnalysis = () => {
   const baseNoiseLevel = 0.1;
 
   const targetMetrics = [
-    'cosineSimilarity',
+    'normalizedCosineSimilarity',
     'pearsonCorrelationSimilarity',
     'euclideanSimilarity',
     'polynomialKernelSimilarity',
@@ -476,7 +469,7 @@ const generateInsights = (results: any[]) => {
          // Grab one case
          const c = circleTests[0].metrics;
          // Compare Cosine vs Kernel
-         const cos = c.cosineSimilarity?.score;
+         const cos = c.normalizedCosineSimilarity?.score;
          const poly = c.polynomialKernelSimilarity?.score;
          if (typeof cos === 'number' && typeof poly === 'number') {
              if (poly > cos) {
