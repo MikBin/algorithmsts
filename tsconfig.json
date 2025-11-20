@@ -16,8 +16,14 @@
     "emitDeclarationOnly": true,
     "downlevelIteration": true,
     "outDir": "./dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
-  "exclude": ["test", "**/*.test.ts", "**/*.spec.ts"]
+  "exclude": ["test", "**/*.test.ts", "**/*.spec.ts"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }

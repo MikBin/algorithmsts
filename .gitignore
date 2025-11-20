@@ -14,3 +14,4 @@ package-lock.json
 assets
 .tmp
 /tmp
+visualization/similarity-data.js
