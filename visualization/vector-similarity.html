@@ -89,32 +89,31 @@
           <label for="function-type-filter">Function Type:</label>
           <select id="function-type-filter" v-model="filters.type">
             <option value="all">All Types</option>
-            <option value="quadratic">Quadratic</option>
-            <option value="exponential">Exponential</option>
-            <option value="logarithmic">Logarithmic</option>
-            <option value="sqrt">Square Root</option>
-            <option value="sin">Sine</option>
-            <option value="cos">Cosine</option>
-            <option value="tan">Tangent</option>
+            <option v-for="type in availableTypes" :key="type" :value="type">{{ type }}</option>
           </select>
 
           <label for="vector-size-filter">Vector Size:</label>
           <select id="vector-size-filter" v-model="filters.size">
             <option value="all">All Sizes</option>
-            <option value="100">100</option>
-            <option value="1000">1000</option>
-            <option value="10000">10000</option>
+            <option v-for="size in availableSizes" :key="size" :value="size.toString()">{{ size }}</option>
           </select>
 
           <label for="noise-level-filter">Noise Level:</label>
           <select id="noise-level-filter" v-model="filters.noise">
             <option value="all">All Levels</option>
-            <option value="0.05">5% (0.05)</option>
-            <option value="0.1">10% (0.1)</option>
-            <option value="0.15">15% (0.15)</option>
+            <option v-for="level in availableNoiseLevels" :key="level" :value="level.toString()">{{ level }}</option>
           </select>
 
           <button @click="applyFilters">Apply Filters</button>
+          <button @click="toggleDebug" style="margin-left: 10px; opacity: 0.6; font-size: 0.8em;">Debug</button>
+        </div>
+
+        <!-- Debug Panel (Visible for testing/dev) -->
+        <div id="debug-panel" v-if="showDebug && debugInfo" style="margin-top: 10px; padding: 5px; background: #eee; font-size: 0.8em; border: 1px solid #ccc;">
+            <strong>Debug Info:</strong>
+            Total: {{ debugInfo.totalItems }},
+            Filtered: {{ debugInfo.filteredItems }},
+            Filters: {{ JSON.stringify(debugInfo.filters) }}
         </div>
 
         <div class="chart-container">
