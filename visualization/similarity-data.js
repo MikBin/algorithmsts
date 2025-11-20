@@ -55,7 +55,9 @@ export const analysisResults = {
         "computeVectorSimilarityMeanStdPower": 0.9068,
         "computeVectorSimilarityMetricLike": 0.5703,
         "computeVectorSimilarityTunable": 0.8717,
-        "computeVectorSimilarityVarianceWeighted": 0.9028
+        "computeVectorSimilarityVarianceWeighted": 0.9028,
+        "polynomialKernelSimilarity": 1,
+        "rbfKernelSimilarity": 0
       }
     },
     {
@@ -127,224 +129,236 @@ export const analysisResults = {
         "computeVectorSimilarityMeanStdPower": 0.8441,
         "computeVectorSimilarityMetricLike": 0.4234,
         "computeVectorSimilarityTunable": 0.8082,
-        "computeVectorSimilarityVarianceWeighted": 0.7675
+        "computeVectorSimilarityVarianceWeighted": 0.7675,
+        "polynomialKernelSimilarity": 0.0073,
+        "rbfKernelSimilarity": 0
       }
     }
   ],
   "benchmark": [
     {
       "name": "pearsonCorrelationSimilarity",
-      "avgTime": 0.757234,
+      "avgTime": 0.2987769,
       "iterations": 10
     },
     {
       "name": "cosineSimilarity",
-      "avgTime": 0.2521768,
+      "avgTime": 0.1466345,
       "iterations": 10
     },
     {
       "name": "euclideanSimilarity",
-      "avgTime": 0.119063,
+      "avgTime": 0.067569,
       "iterations": 10
     },
     {
       "name": "manhattanSimilarity",
-      "avgTime": 0.1292618,
+      "avgTime": 0.0842309,
       "iterations": 10
     },
     {
       "name": "gowerSimilarity",
-      "avgTime": 0.1806678,
+      "avgTime": 0.10260380000000001,
       "iterations": 10
     },
     {
       "name": "soergelSimilarity",
-      "avgTime": 0.8477205,
+      "avgTime": 0.2069364,
       "iterations": 10
     },
     {
       "name": "kulczynskiSimilarity",
-      "avgTime": 0.9748931999999999,
+      "avgTime": 0.14750529999999998,
       "iterations": 10
     },
     {
       "name": "lorentzianSimilarity",
-      "avgTime": 0.1225528,
+      "avgTime": 0.1095109,
       "iterations": 10
     },
     {
       "name": "weightedMinkowskiSimilarity",
-      "avgTime": 0.2137886,
+      "avgTime": 0.198307,
       "iterations": 10
     },
     {
       "name": "canberraSimilarity",
-      "avgTime": 1.1113305,
+      "avgTime": 0.2004133,
       "iterations": 10
     },
     {
       "name": "chebyshevSimilarity",
-      "avgTime": 0.8876790999999999,
+      "avgTime": 0.19904529999999998,
       "iterations": 10
     },
     {
       "name": "intersectionSimilarity",
-      "avgTime": 0.5159565,
+      "avgTime": 0.08425260000000001,
       "iterations": 10
     },
     {
       "name": "waveHedgesSimilarity",
-      "avgTime": 0.6573569,
+      "avgTime": 0.12241410000000001,
       "iterations": 10
     },
     {
       "name": "sorensenSimilarity",
-      "avgTime": 1.2365464,
+      "avgTime": 0.13184410000000002,
       "iterations": 10
     },
     {
       "name": "motykaSimilarity",
-      "avgTime": 0.201175,
+      "avgTime": 0.14385610000000001,
       "iterations": 10
     },
     {
       "name": "kullbackLeiblerSimilarity",
-      "avgTime": 0.1184645,
+      "avgTime": 0.11986530000000001,
       "iterations": 10
     },
     {
       "name": "jeffreysSimilarity",
-      "avgTime": 0.1602343,
+      "avgTime": 0.1439242,
       "iterations": 10
     },
     {
       "name": "kSimilarity",
-      "avgTime": 0.0892551,
+      "avgTime": 0.06769069999999999,
       "iterations": 10
     },
     {
       "name": "topsoeSimilarity",
-      "avgTime": 0.1097412,
+      "avgTime": 0.08447360000000001,
       "iterations": 10
     },
     {
       "name": "pearsonChiSquareDistance",
-      "avgTime": 0.1110829,
+      "avgTime": 0.1457934,
       "iterations": 10
     },
     {
       "name": "neymanChiSquareDistance",
-      "avgTime": 0.11244860000000001,
+      "avgTime": 0.09561910000000001,
       "iterations": 10
     },
     {
       "name": "additiveSymmetricChiSquareDistance",
-      "avgTime": 0.1390806,
+      "avgTime": 0.1211555,
       "iterations": 10
     },
     {
       "name": "squaredChiSquareDistance",
-      "avgTime": 0.1757666,
+      "avgTime": 0.1085067,
       "iterations": 10
     },
     {
       "name": "normalizedPearsonChiSquareSimilarity",
-      "avgTime": 0.0273455,
+      "avgTime": 0.0265806,
       "iterations": 10
     },
     {
       "name": "normalizedNeymanChiSquareSimilarity",
-      "avgTime": 0.023530799999999998,
+      "avgTime": 0.0264538,
       "iterations": 10
     },
     {
       "name": "normalizedAdditiveSymmetricChiSquareSimilarity",
-      "avgTime": 0.0310934,
+      "avgTime": 0.021430400000000002,
       "iterations": 10
     },
     {
       "name": "normalizedSquaredChiSquareSimilarity",
-      "avgTime": 0.0214788,
+      "avgTime": 0.0194642,
       "iterations": 10
     },
     {
       "name": "fidelitySimilarity",
-      "avgTime": 0.2333575,
+      "avgTime": 0.189634,
       "iterations": 10
     },
     {
       "name": "hellingerDistance",
-      "avgTime": 0.14798029999999998,
+      "avgTime": 0.14216689999999998,
       "iterations": 10
     },
     {
       "name": "matusitaDistance",
-      "avgTime": 0.13849979999999998,
+      "avgTime": 0.1050569,
       "iterations": 10
     },
     {
       "name": "squaredChordDistance",
-      "avgTime": 0.1826875,
+      "avgTime": 0.1269354,
       "iterations": 10
     },
     {
       "name": "normalizedMatusitaSimilarity",
-      "avgTime": 0.027420299999999998,
+      "avgTime": 0.0283418,
       "iterations": 10
     },
     {
       "name": "normalizedSquaredChordSimilarity",
-      "avgTime": 0.0325451,
+      "avgTime": 0.0203643,
       "iterations": 10
     },
     {
       "name": "jaccardSimilarityBinary",
-      "avgTime": 0.1089571,
+      "avgTime": 0.10492030000000001,
       "iterations": 10
     },
     {
       "name": "jaccardSimilarityWeighted",
-      "avgTime": 0.1598485,
+      "avgTime": 0.1447535,
       "iterations": 10
     },
     {
       "name": "jaccardSimilarityRealValued",
-      "avgTime": 0.174555,
+      "avgTime": 0.14592270000000002,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityMeanStdPenalized",
-      "avgTime": 0.3274031,
+      "avgTime": 0.3359003,
       "iterations": 10
     },
     {
       "name": "vectorSimilarityCorrelation",
-      "avgTime": 0.26239670000000004,
+      "avgTime": 0.1990886,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityRobust",
-      "avgTime": 0.27193429999999996,
+      "avgTime": 0.2480852,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityMeanStdPower",
-      "avgTime": 0.3322618,
+      "avgTime": 0.3623502,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityMetricLike",
-      "avgTime": 0.244301,
+      "avgTime": 0.23712329999999998,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityTunable",
-      "avgTime": 0.3514738,
+      "avgTime": 0.28099359999999995,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityVarianceWeighted",
-      "avgTime": 0.3371788,
+      "avgTime": 0.29868740000000005,
+      "iterations": 10
+    },
+    {
+      "name": "polynomialKernelSimilarity",
+      "avgTime": 0.1459472,
+      "iterations": 10
+    },
+    {
+      "name": "rbfKernelSimilarity",
+      "avgTime": 0.0663798,
       "iterations": 10
     }
   ],
@@ -405,7 +419,9 @@ export const analysisResults = {
         "computeVectorSimilarityMeanStdPower": 0.6902,
         "computeVectorSimilarityMetricLike": 0.1824,
         "computeVectorSimilarityTunable": 0.6495,
-        "computeVectorSimilarityVarianceWeighted": 0.5906
+        "computeVectorSimilarityVarianceWeighted": 0.5906,
+        "polynomialKernelSimilarity": 0.5625,
+        "rbfKernelSimilarity": 0.9802
       }
     },
     "continuous": {
@@ -464,7 +480,9 @@ export const analysisResults = {
         "computeVectorSimilarityMeanStdPower": 0.8788,
         "computeVectorSimilarityMetricLike": 0.4868,
         "computeVectorSimilarityTunable": 0.8376,
-        "computeVectorSimilarityVarianceWeighted": 0.8688
+        "computeVectorSimilarityVarianceWeighted": 0.8688,
+        "polynomialKernelSimilarity": 0.9862,
+        "rbfKernelSimilarity": 0.9996
       }
     }
   },
@@ -764,6 +782,18 @@ export const analysisResults = {
         "A_vs_C": 0.7874499528000002,
         "A_vs_D": 0.6861576,
         "A_vs_E": 1
+      },
+      "polynomialKernelSimilarity": {
+        "A_vs_B": 0.9998546050544571,
+        "A_vs_C": 0.21401022337869158,
+        "A_vs_D": 0.413265306122449,
+        "A_vs_E": 1
+      },
+      "rbfKernelSimilarity": {
+        "A_vs_B": 0.9945150973089191,
+        "A_vs_C": 1.371614910949349e-41,
+        "A_vs_D": 0.6703200460356393,
+        "A_vs_E": 1
       }
     }
   },
@@ -783,61 +813,63 @@ export const analysisResults = {
         10
       ],
       "noisyVec": [
-        0.9516297056832659,
-        2.0250852662596666,
-        3.0034869110660387,
-        4.03806612089573,
-        4.99389872672025,
-        6.024375393216289,
-        7.007554297024308,
-        8.021184332437983,
-        9.028290926525592,
-        9.97060110917864
+        0.9881973261489899,
+        2.002351897082028,
+        3.009961730162716,
+        4.034847256852778,
+        5.024974536865662,
+        5.994699193011197,
+        7.029857623667026,
+        8.048620680089742,
+        9.010862716094124,
+        9.976224114214164
       ],
       "similarities": {
         "pearsonCorrelationSimilarity": 1,
         "cosineSimilarity": 1,
-        "euclideanSimilarity": 0.9216,
-        "manhattanSimilarity": 0.8117,
-        "gowerSimilarity": 0.9768,
-        "soergelSimilarity": 0.9958,
-        "kulczynskiSimilarity": 0.9958,
-        "lorentzianSimilarity": 0.8141,
-        "weightedMinkowskiSimilarity": 0.9216,
-        "canberraSimilarity": 0.9956,
-        "chebyshevSimilarity": 0.9539,
-        "intersectionSimilarity": 54.9161,
-        "waveHedgesSimilarity": 0.9205,
-        "sorensenSimilarity": 0.9979,
-        "motykaSimilarity": 0.9958,
-        "kullbackLeiblerSimilarity": 1.0666,
-        "jeffreysSimilarity": 0.9966,
-        "kSimilarity": 1.0327,
-        "topsoeSimilarity": 0.9991,
-        "pearsonChiSquareDistance": 0.0035,
-        "neymanChiSquareDistance": 0.0034,
-        "additiveSymmetricChiSquareDistance": 0.0068,
-        "squaredChiSquareDistance": 0.0017,
-        "normalizedPearsonChiSquareSimilarity": 0.9965,
-        "normalizedNeymanChiSquareSimilarity": 0.9966,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9932,
-        "normalizedSquaredChiSquareSimilarity": 0.9983,
+        "euclideanSimilarity": 0.9278,
+        "manhattanSimilarity": 0.8317,
+        "gowerSimilarity": 0.9798,
+        "soergelSimilarity": 0.9963,
+        "kulczynskiSimilarity": 0.9963,
+        "lorentzianSimilarity": 0.8337,
+        "weightedMinkowskiSimilarity": 0.9278,
+        "canberraSimilarity": 0.9978,
+        "chebyshevSimilarity": 0.9536,
+        "intersectionSimilarity": 54.9591,
+        "waveHedgesSimilarity": 0.9573,
+        "sorensenSimilarity": 0.9982,
+        "motykaSimilarity": 0.9963,
+        "kullbackLeiblerSimilarity": 1.1364,
+        "jeffreysSimilarity": 0.9989,
+        "kSimilarity": 1.064,
+        "topsoeSimilarity": 0.9997,
+        "pearsonChiSquareDistance": 0.0011,
+        "neymanChiSquareDistance": 0.0011,
+        "additiveSymmetricChiSquareDistance": 0.0022,
+        "squaredChiSquareDistance": 0.0005,
+        "normalizedPearsonChiSquareSimilarity": 0.9989,
+        "normalizedNeymanChiSquareSimilarity": 0.9989,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9978,
+        "normalizedSquaredChiSquareSimilarity": 0.9995,
         "fidelitySimilarity": 1,
-        "hellingerDistance": 0.0028,
-        "matusitaDistance": 0.0292,
-        "squaredChordDistance": 0.0009,
-        "normalizedMatusitaSimilarity": 0.9716,
-        "normalizedSquaredChordSimilarity": 0.9991,
+        "hellingerDistance": 0.0014,
+        "matusitaDistance": 0.0166,
+        "squaredChordDistance": 0.0003,
+        "normalizedMatusitaSimilarity": 0.9837,
+        "normalizedSquaredChordSimilarity": 0.9997,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9958,
-        "jaccardSimilarityRealValued": 0.9958,
-        "computeVectorSimilarityMeanStdPenalized": 0.9903,
-        "vectorSimilarityCorrelation": 0.9956,
-        "computeVectorSimilarityRobust": 0.9895,
-        "computeVectorSimilarityMeanStdPower": 0.9956,
-        "computeVectorSimilarityMetricLike": 0.9731,
-        "computeVectorSimilarityTunable": 0.9935,
-        "computeVectorSimilarityVarianceWeighted": 0.9955
+        "jaccardSimilarityWeighted": 0.9963,
+        "jaccardSimilarityRealValued": 0.9963,
+        "computeVectorSimilarityMeanStdPenalized": 0.9964,
+        "vectorSimilarityCorrelation": 0.9978,
+        "computeVectorSimilarityRobust": 0.9945,
+        "computeVectorSimilarityMeanStdPower": 0.9978,
+        "computeVectorSimilarityMetricLike": 0.986,
+        "computeVectorSimilarityTunable": 0.9967,
+        "computeVectorSimilarityVarianceWeighted": 0.9978,
+        "polynomialKernelSimilarity": 1,
+        "rbfKernelSimilarity": 0.9999
       }
     },
     {
@@ -909,7 +941,9 @@ export const analysisResults = {
         "computeVectorSimilarityMeanStdPower": 0.505,
         "computeVectorSimilarityMetricLike": 0.0016,
         "computeVectorSimilarityTunable": 0.3589,
-        "computeVectorSimilarityVarianceWeighted": 0.505
+        "computeVectorSimilarityVarianceWeighted": 0.505,
+        "polynomialKernelSimilarity": 0.9975,
+        "rbfKernelSimilarity": 0
       }
     },
     {
@@ -981,7 +1015,9 @@ export const analysisResults = {
         "computeVectorSimilarityMeanStdPower": 0.6384,
         "computeVectorSimilarityMetricLike": 0.1216,
         "computeVectorSimilarityTunable": 0.5857,
-        "computeVectorSimilarityVarianceWeighted": 0.5572
+        "computeVectorSimilarityVarianceWeighted": 0.5572,
+        "polynomialKernelSimilarity": 0.0215,
+        "rbfKernelSimilarity": 0.0478
       }
     },
     {
@@ -1047,7 +1083,9 @@ export const analysisResults = {
         "computeVectorSimilarityMeanStdPower": 0.9545,
         "computeVectorSimilarityMetricLike": 0.7488,
         "computeVectorSimilarityTunable": 0.9326,
-        "computeVectorSimilarityVarianceWeighted": 0.9545
+        "computeVectorSimilarityVarianceWeighted": 0.9545,
+        "polynomialKernelSimilarity": 1,
+        "rbfKernelSimilarity": 0
       }
     }
   ],
@@ -1067,289 +1105,2322 @@ export const analysisResults = {
     "noiseLevels": {
       "1": {
         "noisyVector": [
-          1.0939,
-          1.5362,
-          2.636,
-          3.7373,
-          4.6882,
-          5.7716,
-          6.7067,
-          8.3758,
-          9.4067,
-          10.237
+          1.3563,
+          1.5206,
+          3.0573,
+          3.5707,
+          5.2973,
+          6.1744,
+          6.7432,
+          8.3747,
+          8.9525,
+          9.6777
         ],
-        "pearsonCorrelationSimilarity": 0.9984,
+        "pearsonCorrelationSimilarity": 0.9971,
         "cosineSimilarity": 0.9987,
-        "euclideanSimilarity": 0.4971,
-        "manhattanSimilarity": 0.2477,
-        "gowerSimilarity": 0.6963,
-        "soergelSimilarity": 0.9459,
-        "kulczynskiSimilarity": 0.9459,
-        "lorentzianSimilarity": 0.2761,
-        "weightedMinkowskiSimilarity": 0.4971,
-        "canberraSimilarity": 0.9611,
-        "chebyshevSimilarity": 0.6832,
-        "intersectionSimilarity": 53.0761,
-        "waveHedgesSimilarity": 0.5687,
-        "sorensenSimilarity": 0.9722,
-        "motykaSimilarity": 0.9459,
-        "kullbackLeiblerSimilarity": 0.5121,
-        "jeffreysSimilarity": 0.7825,
-        "kSimilarity": 0.6948,
-        "topsoeSimilarity": 0.9351,
-        "pearsonChiSquareDistance": 0.2993,
-        "neymanChiSquareDistance": 0.2598,
-        "additiveSymmetricChiSquareDistance": 0.5592,
-        "squaredChiSquareDistance": 0.1386,
-        "normalizedPearsonChiSquareSimilarity": 0.7696,
-        "normalizedNeymanChiSquareSimilarity": 0.7938,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.6414,
-        "normalizedSquaredChiSquareSimilarity": 0.8783,
-        "fidelitySimilarity": 0.9994,
-        "hellingerDistance": 0.0247,
-        "matusitaDistance": 0.2635,
-        "squaredChordDistance": 0.0694,
-        "normalizedMatusitaSimilarity": 0.7914,
-        "normalizedSquaredChordSimilarity": 0.9351,
+        "euclideanSimilarity": 0.5031,
+        "manhattanSimilarity": 0.2635,
+        "gowerSimilarity": 0.7205,
+        "soergelSimilarity": 0.9503,
+        "kulczynskiSimilarity": 0.9503,
+        "lorentzianSimilarity": 0.2939,
+        "weightedMinkowskiSimilarity": 0.5031,
+        "canberraSimilarity": 0.9563,
+        "chebyshevSimilarity": 0.6759,
+        "intersectionSimilarity": 53.4646,
+        "waveHedgesSimilarity": 0.5459,
+        "sorensenSimilarity": 0.9745,
+        "motykaSimilarity": 0.9503,
+        "kullbackLeiblerSimilarity": 0.6893,
+        "jeffreysSimilarity": 0.741,
+        "kSimilarity": 0.8467,
+        "topsoeSimilarity": 0.9198,
+        "pearsonChiSquareDistance": 0.3566,
+        "neymanChiSquareDistance": 0.3494,
+        "additiveSymmetricChiSquareDistance": 0.706,
+        "squaredChiSquareDistance": 0.1739,
+        "normalizedPearsonChiSquareSimilarity": 0.7371,
+        "normalizedNeymanChiSquareSimilarity": 0.7411,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.5862,
+        "normalizedSquaredChiSquareSimilarity": 0.8519,
+        "fidelitySimilarity": 0.9992,
+        "hellingerDistance": 0.0281,
+        "matusitaDistance": 0.2954,
+        "squaredChordDistance": 0.0873,
+        "normalizedMatusitaSimilarity": 0.7719,
+        "normalizedSquaredChordSimilarity": 0.9197,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9459,
-        "jaccardSimilarityRealValued": 0.9459,
-        "computeVectorSimilarityMeanStdPenalized": 0.9399,
-        "vectorSimilarityCorrelation": 0.9598,
-        "computeVectorSimilarityRobust": 0.915,
-        "computeVectorSimilarityMeanStdPower": 0.9609,
-        "computeVectorSimilarityMetricLike": 0.7859,
-        "computeVectorSimilarityTunable": 0.9437,
-        "computeVectorSimilarityVarianceWeighted": 0.9593
+        "jaccardSimilarityWeighted": 0.9503,
+        "jaccardSimilarityRealValued": 0.9503,
+        "computeVectorSimilarityMeanStdPenalized": 0.9251,
+        "vectorSimilarityCorrelation": 0.9547,
+        "computeVectorSimilarityRobust": 0.911,
+        "computeVectorSimilarityMeanStdPower": 0.9565,
+        "computeVectorSimilarityMetricLike": 0.7676,
+        "computeVectorSimilarityTunable": 0.9383,
+        "computeVectorSimilarityVarianceWeighted": 0.9521,
+        "polynomialKernelSimilarity": 0.9975,
+        "rbfKernelSimilarity": 0.9903
       },
       "2": {
         "noisyVector": [
-          1.7271,
-          2.805,
-          3.1767,
-          4.8989,
-          4.6498,
-          6.9534,
-          6.5137,
-          8.683,
-          8.4418,
-          10.7827
+          0.6294,
+          1.3691,
+          3.3113,
+          3.3291,
+          5.0148,
+          5.0364,
+          7.7722,
+          8.8391,
+          9.6398,
+          10.8823
         ],
-        "pearsonCorrelationSimilarity": 0.9898,
-        "cosineSimilarity": 0.9951,
-        "euclideanSimilarity": 0.3162,
-        "manhattanSimilarity": 0.1347,
-        "gowerSimilarity": 0.3578,
-        "soergelSimilarity": 0.893,
-        "kulczynskiSimilarity": 0.893,
-        "lorentzianSimilarity": 0.171,
-        "weightedMinkowskiSimilarity": 0.3162,
-        "canberraSimilarity": 0.9242,
-        "chebyshevSimilarity": 0.5119,
-        "intersectionSimilarity": 53.6053,
-        "waveHedgesSimilarity": 0.4103,
-        "sorensenSimilarity": 0.9435,
-        "motykaSimilarity": 0.893,
-        "kullbackLeiblerSimilarity": -0.4864,
-        "jeffreysSimilarity": 0.4517,
-        "kSimilarity": -1.5206,
-        "topsoeSimilarity": 0.7682,
-        "pearsonChiSquareDistance": 1.0528,
-        "neymanChiSquareDistance": 1.4291,
-        "additiveSymmetricChiSquareDistance": 2.4819,
-        "squaredChiSquareDistance": 0.6003,
-        "normalizedPearsonChiSquareSimilarity": 0.4871,
-        "normalizedNeymanChiSquareSimilarity": 0.4117,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.2872,
-        "normalizedSquaredChiSquareSimilarity": 0.6249,
-        "fidelitySimilarity": 0.9978,
-        "hellingerDistance": 0.0464,
-        "matusitaDistance": 0.5501,
-        "squaredChordDistance": 0.3026,
-        "normalizedMatusitaSimilarity": 0.6451,
-        "normalizedSquaredChordSimilarity": 0.7677,
+        "pearsonCorrelationSimilarity": 0.9948,
+        "cosineSimilarity": 0.9956,
+        "euclideanSimilarity": 0.3204,
+        "manhattanSimilarity": 0.1409,
+        "gowerSimilarity": 0.3904,
+        "soergelSimilarity": 0.8957,
+        "kulczynskiSimilarity": 0.8957,
+        "lorentzianSimilarity": 0.179,
+        "weightedMinkowskiSimilarity": 0.3204,
+        "canberraSimilarity": 0.924,
+        "chebyshevSimilarity": 0.5093,
+        "intersectionSimilarity": 52.364,
+        "waveHedgesSimilarity": 0.4077,
+        "sorensenSimilarity": 0.945,
+        "motykaSimilarity": 0.8957,
+        "kullbackLeiblerSimilarity": 1.4271,
+        "jeffreysSimilarity": 0.4959,
+        "kSimilarity": 1.4067,
+        "topsoeSimilarity": 0.7979,
+        "pearsonChiSquareDistance": 1.1282,
+        "neymanChiSquareDistance": 0.9325,
+        "additiveSymmetricChiSquareDistance": 2.0607,
+        "squaredChiSquareDistance": 0.5048,
+        "normalizedPearsonChiSquareSimilarity": 0.4699,
+        "normalizedNeymanChiSquareSimilarity": 0.5175,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.3267,
+        "normalizedSquaredChiSquareSimilarity": 0.6645,
+        "fidelitySimilarity": 0.9977,
+        "hellingerDistance": 0.0476,
+        "matusitaDistance": 0.5037,
+        "squaredChordDistance": 0.2537,
+        "normalizedMatusitaSimilarity": 0.665,
+        "normalizedSquaredChordSimilarity": 0.7977,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.893,
-        "jaccardSimilarityRealValued": 0.893,
-        "computeVectorSimilarityMeanStdPenalized": 0.8857,
-        "vectorSimilarityCorrelation": 0.9201,
-        "computeVectorSimilarityRobust": 0.8529,
-        "computeVectorSimilarityMeanStdPower": 0.9239,
-        "computeVectorSimilarityMetricLike": 0.6314,
-        "computeVectorSimilarityTunable": 0.8942,
-        "computeVectorSimilarityVarianceWeighted": 0.9176
+        "jaccardSimilarityWeighted": 0.8957,
+        "jaccardSimilarityRealValued": 0.8957,
+        "computeVectorSimilarityMeanStdPenalized": 0.8875,
+        "vectorSimilarityCorrelation": 0.9197,
+        "computeVectorSimilarityRobust": 0.8506,
+        "computeVectorSimilarityMeanStdPower": 0.9233,
+        "computeVectorSimilarityMetricLike": 0.6282,
+        "computeVectorSimilarityTunable": 0.893,
+        "computeVectorSimilarityVarianceWeighted": 0.918,
+        "polynomialKernelSimilarity": 0.9913,
+        "rbfKernelSimilarity": 0.956
       },
       "5": {
         "noisyVector": [
-          0.2891,
-          2.975,
-          4.2492,
-          3.1544,
-          4.5567,
-          5.6788,
-          9.3187,
-          9.5736,
-          8.1691,
-          7.7762
+          -0.0842,
+          1.2068,
+          4.8688,
+          4.0462,
+          5.4566,
+          3.9524,
+          4.5011,
+          8.6464,
+          7.1928,
+          8.8925
         ],
-        "pearsonCorrelationSimilarity": 0.9479,
-        "cosineSimilarity": 0.9776,
-        "euclideanSimilarity": 0.1928,
-        "manhattanSimilarity": 0.0801,
-        "gowerSimilarity": -0.1492,
-        "soergelSimilarity": 0.812,
-        "kulczynskiSimilarity": 0.812,
-        "lorentzianSimilarity": 0.1219,
-        "weightedMinkowskiSimilarity": 0.1928,
-        "canberraSimilarity": 0.8683,
-        "chebyshevSimilarity": 0.3013,
-        "intersectionSimilarity": 49.6244,
-        "waveHedgesSimilarity": 0.2929,
-        "sorensenSimilarity": 0.8962,
-        "motykaSimilarity": 0.812,
-        "kullbackLeiblerSimilarity": 0.4775,
-        "jeffreysSimilarity": 0.2198,
-        "kSimilarity": 0.95,
-        "topsoeSimilarity": 0.5342,
-        "pearsonChiSquareDistance": 4.279,
-        "neymanChiSquareDistance": 3.385,
-        "additiveSymmetricChiSquareDistance": 7.664,
-        "squaredChiSquareDistance": 1.7165,
-        "normalizedPearsonChiSquareSimilarity": 0.1894,
-        "normalizedNeymanChiSquareSimilarity": 0.2281,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.1154,
-        "normalizedSquaredChiSquareSimilarity": 0.3681,
-        "fidelitySimilarity": 0.9921,
-        "hellingerDistance": 0.089,
-        "matusitaDistance": 0.9378,
-        "squaredChordDistance": 0.8794,
-        "normalizedMatusitaSimilarity": 0.5161,
-        "normalizedSquaredChordSimilarity": 0.5321,
+        "pearsonCorrelationSimilarity": 0.9471,
+        "cosineSimilarity": 0.9754,
+        "euclideanSimilarity": 0.1796,
+        "manhattanSimilarity": 0.0749,
+        "gowerSimilarity": -0.2357,
+        "soergelSimilarity": 0.787,
+        "kulczynskiSimilarity": 0.787,
+        "lorentzianSimilarity": 0.1185,
+        "weightedMinkowskiSimilarity": 0.1796,
+        "canberraSimilarity": 0.8219,
+        "chebyshevSimilarity": 0.2858,
+        "intersectionSimilarity": 45.6614,
+        "waveHedgesSimilarity": 0.2473,
+        "sorensenSimilarity": 0.8808,
+        "motykaSimilarity": 0.787,
+        "kullbackLeiblerSimilarity": null,
+        "jeffreysSimilarity": null,
+        "kSimilarity": 0.2054,
+        "topsoeSimilarity": null,
+        "pearsonChiSquareDistance": -9.5998,
+        "neymanChiSquareDistance": 4.825,
+        "additiveSymmetricChiSquareDistance": -4.7749,
+        "squaredChiSquareDistance": 3.1996,
+        "normalizedPearsonChiSquareSimilarity": -0.1163,
+        "normalizedNeymanChiSquareSimilarity": 0.1717,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": -0.2649,
+        "normalizedSquaredChiSquareSimilarity": 0.2381,
+        "fidelitySimilarity": null,
+        "hellingerDistance": null,
+        "matusitaDistance": null,
+        "squaredChordDistance": null,
+        "normalizedMatusitaSimilarity": null,
+        "normalizedSquaredChordSimilarity": null,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.812,
-        "jaccardSimilarityRealValued": 0.812,
-        "computeVectorSimilarityMeanStdPenalized": 0.8172,
-        "vectorSimilarityCorrelation": 0.8601,
-        "computeVectorSimilarityRobust": 0.7746,
-        "computeVectorSimilarityMeanStdPower": 0.8687,
-        "computeVectorSimilarityMetricLike": 0.4577,
-        "computeVectorSimilarityTunable": 0.8245,
-        "computeVectorSimilarityVarianceWeighted": 0.8555
+        "jaccardSimilarityWeighted": 0.7899,
+        "jaccardSimilarityRealValued": 0.787,
+        "computeVectorSimilarityMeanStdPenalized": 0.7494,
+        "vectorSimilarityCorrelation": 0.8108,
+        "computeVectorSimilarityRobust": 0.747,
+        "computeVectorSimilarityMeanStdPower": 0.8264,
+        "computeVectorSimilarityMetricLike": 0.3806,
+        "computeVectorSimilarityTunable": 0.7806,
+        "computeVectorSimilarityVarianceWeighted": 0.7856,
+        "polynomialKernelSimilarity": 0.9514,
+        "rbfKernelSimilarity": 0.8118
       },
       "0.1": {
         "noisyVector": [
-          1.0215,
-          2.0393,
-          2.9914,
-          3.9768,
-          4.9924,
-          5.9806,
-          6.9568,
-          8.0311,
-          9.0183,
-          9.9572
+          0.9879,
+          2.0312,
+          2.9752,
+          3.9821,
+          5.0371,
+          6.0452,
+          6.9587,
+          8.0047,
+          9.0234,
+          10.0426
         ],
         "pearsonCorrelationSimilarity": 1,
         "cosineSimilarity": 1,
-        "euclideanSimilarity": 0.9176,
-        "manhattanSimilarity": 0.7967,
-        "gowerSimilarity": 0.9745,
-        "soergelSimilarity": 0.9954,
-        "kulczynskiSimilarity": 0.9954,
-        "lorentzianSimilarity": 0.7992,
-        "weightedMinkowskiSimilarity": 0.9176,
-        "canberraSimilarity": 0.9965,
-        "chebyshevSimilarity": 0.9586,
-        "intersectionSimilarity": 54.8551,
-        "waveHedgesSimilarity": 0.9345,
-        "sorensenSimilarity": 0.9977,
-        "motykaSimilarity": 0.9954,
-        "kullbackLeiblerSimilarity": 0.9655,
-        "jeffreysSimilarity": 0.9979,
-        "kSimilarity": 0.9827,
+        "euclideanSimilarity": 0.9109,
+        "manhattanSimilarity": 0.7811,
+        "gowerSimilarity": 0.972,
+        "soergelSimilarity": 0.9949,
+        "kulczynskiSimilarity": 0.9949,
+        "lorentzianSimilarity": 0.7839,
+        "weightedMinkowskiSimilarity": 0.9109,
+        "canberraSimilarity": 0.9966,
+        "chebyshevSimilarity": 0.9568,
+        "intersectionSimilarity": 54.9039,
+        "waveHedgesSimilarity": 0.936,
+        "sorensenSimilarity": 0.9975,
+        "motykaSimilarity": 0.9949,
+        "kullbackLeiblerSimilarity": 1.0955,
+        "jeffreysSimilarity": 0.998,
+        "kSimilarity": 1.0458,
         "topsoeSimilarity": 0.9995,
-        "pearsonChiSquareDistance": 0.0021,
-        "neymanChiSquareDistance": 0.0021,
-        "additiveSymmetricChiSquareDistance": 0.0041,
+        "pearsonChiSquareDistance": 0.002,
+        "neymanChiSquareDistance": 0.002,
+        "additiveSymmetricChiSquareDistance": 0.004,
         "squaredChiSquareDistance": 0.001,
-        "normalizedPearsonChiSquareSimilarity": 0.9979,
-        "normalizedNeymanChiSquareSimilarity": 0.9979,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9959,
+        "normalizedPearsonChiSquareSimilarity": 0.998,
+        "normalizedNeymanChiSquareSimilarity": 0.998,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.996,
         "normalizedSquaredChiSquareSimilarity": 0.999,
         "fidelitySimilarity": 1,
-        "hellingerDistance": 0.0022,
-        "matusitaDistance": 0.0227,
+        "hellingerDistance": 0.0021,
+        "matusitaDistance": 0.0225,
         "squaredChordDistance": 0.0005,
-        "normalizedMatusitaSimilarity": 0.9778,
+        "normalizedMatusitaSimilarity": 0.978,
         "normalizedSquaredChordSimilarity": 0.9995,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9954,
-        "jaccardSimilarityRealValued": 0.9954,
-        "computeVectorSimilarityMeanStdPenalized": 0.9938,
-        "vectorSimilarityCorrelation": 0.9965,
-        "computeVectorSimilarityRobust": 0.9913,
-        "computeVectorSimilarityMeanStdPower": 0.9965,
-        "computeVectorSimilarityMetricLike": 0.9781,
-        "computeVectorSimilarityTunable": 0.9947,
-        "computeVectorSimilarityVarianceWeighted": 0.9965
+        "jaccardSimilarityWeighted": 0.9949,
+        "jaccardSimilarityRealValued": 0.9949,
+        "computeVectorSimilarityMeanStdPenalized": 0.9949,
+        "vectorSimilarityCorrelation": 0.9966,
+        "computeVectorSimilarityRobust": 0.9915,
+        "computeVectorSimilarityMeanStdPower": 0.9966,
+        "computeVectorSimilarityMetricLike": 0.9786,
+        "computeVectorSimilarityTunable": 0.9949,
+        "computeVectorSimilarityVarianceWeighted": 0.9966,
+        "polynomialKernelSimilarity": 1,
+        "rbfKernelSimilarity": 0.9999
       },
       "0.5": {
         "noisyVector": [
-          0.8905,
-          1.9914,
-          2.8757,
-          3.9366,
-          5.1904,
-          6.1564,
-          7.1603,
-          7.8982,
-          9.202,
-          10.0011
+          0.9618,
+          1.9086,
+          2.791,
+          4.0601,
+          4.9851,
+          6.2077,
+          7.079,
+          8.1384,
+          8.9017,
+          9.8751
         ],
         "pearsonCorrelationSimilarity": 0.9996,
         "cosineSimilarity": 0.9998,
-        "euclideanSimilarity": 0.7086,
-        "manhattanSimilarity": 0.4722,
-        "gowerSimilarity": 0.8882,
-        "soergelSimilarity": 0.9799,
-        "kulczynskiSimilarity": 0.9799,
-        "lorentzianSimilarity": 0.4899,
-        "weightedMinkowskiSimilarity": 0.7086,
-        "canberraSimilarity": 0.9853,
-        "chebyshevSimilarity": 0.832,
-        "intersectionSimilarity": 54.5924,
-        "waveHedgesSimilarity": 0.775,
-        "sorensenSimilarity": 0.9899,
-        "motykaSimilarity": 0.9799,
-        "kullbackLeiblerSimilarity": 1.394,
-        "jeffreysSimilarity": 0.9619,
-        "kSimilarity": 1.1714,
-        "topsoeSimilarity": 0.9902,
-        "pearsonChiSquareDistance": 0.0402,
-        "neymanChiSquareDistance": 0.039,
-        "additiveSymmetricChiSquareDistance": 0.0792,
-        "squaredChiSquareDistance": 0.0198,
-        "normalizedPearsonChiSquareSimilarity": 0.9614,
-        "normalizedNeymanChiSquareSimilarity": 0.9624,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9266,
-        "normalizedSquaredChiSquareSimilarity": 0.9806,
+        "euclideanSimilarity": 0.72,
+        "manhattanSimilarity": 0.485,
+        "gowerSimilarity": 0.8938,
+        "soergelSimilarity": 0.9809,
+        "kulczynskiSimilarity": 0.9809,
+        "lorentzianSimilarity": 0.5016,
+        "weightedMinkowskiSimilarity": 0.72,
+        "canberraSimilarity": 0.9871,
+        "chebyshevSimilarity": 0.8271,
+        "intersectionSimilarity": 54.4233,
+        "waveHedgesSimilarity": 0.796,
+        "sorensenSimilarity": 0.9903,
+        "motykaSimilarity": 0.9809,
+        "kullbackLeiblerSimilarity": 0.9018,
+        "jeffreysSimilarity": 0.9664,
+        "kSimilarity": 0.9523,
+        "topsoeSimilarity": 0.9914,
+        "pearsonChiSquareDistance": 0.0353,
+        "neymanChiSquareDistance": 0.0343,
+        "additiveSymmetricChiSquareDistance": 0.0696,
+        "squaredChiSquareDistance": 0.0174,
+        "normalizedPearsonChiSquareSimilarity": 0.9659,
+        "normalizedNeymanChiSquareSimilarity": 0.9669,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9349,
+        "normalizedSquaredChiSquareSimilarity": 0.9829,
         "fidelitySimilarity": 0.9999,
-        "hellingerDistance": 0.0093,
-        "matusitaDistance": 0.0995,
-        "squaredChordDistance": 0.0099,
-        "normalizedMatusitaSimilarity": 0.9095,
-        "normalizedSquaredChordSimilarity": 0.9902,
+        "hellingerDistance": 0.0089,
+        "matusitaDistance": 0.0932,
+        "squaredChordDistance": 0.0087,
+        "normalizedMatusitaSimilarity": 0.9147,
+        "normalizedSquaredChordSimilarity": 0.9914,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9799,
-        "jaccardSimilarityRealValued": 0.9799,
-        "computeVectorSimilarityMeanStdPenalized": 0.974,
-        "vectorSimilarityCorrelation": 0.985,
-        "computeVectorSimilarityRobust": 0.9657,
-        "computeVectorSimilarityMeanStdPower": 0.9853,
-        "computeVectorSimilarityMetricLike": 0.9122,
-        "computeVectorSimilarityTunable": 0.9783,
-        "computeVectorSimilarityVarianceWeighted": 0.9848
+        "jaccardSimilarityWeighted": 0.9809,
+        "jaccardSimilarityRealValued": 0.9809,
+        "computeVectorSimilarityMeanStdPenalized": 0.9795,
+        "vectorSimilarityCorrelation": 0.9869,
+        "computeVectorSimilarityRobust": 0.9692,
+        "computeVectorSimilarityMeanStdPower": 0.9871,
+        "computeVectorSimilarityMetricLike": 0.9221,
+        "computeVectorSimilarityTunable": 0.9808,
+        "computeVectorSimilarityVarianceWeighted": 0.9869,
+        "polynomialKernelSimilarity": 0.9996,
+        "rbfKernelSimilarity": 0.9985
       }
     }
+  },
+  "nonLinearAnalysis": {
+    "detailedResults": [
+      {
+        "type": "quadratic",
+        "size": 100,
+        "noise": 0.05,
+        "label": "quadratic (n=100, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.1425
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.3449
+          },
+          "euclideanSimilarity": {
+            "score": 0.12,
+            "timeMs": 0.1183
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9998,
+            "timeMs": 0.1797
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5843,
+            "timeMs": 0.0989
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9797,
+            "timeMs": 0.4773
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 100,
+        "noise": 0.1,
+        "label": "quadratic (n=100, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9995,
+            "timeMs": 0.0134
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9994,
+            "timeMs": 0.0272
+          },
+          "euclideanSimilarity": {
+            "score": 0.0548,
+            "timeMs": 0.0068
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.0198
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0509,
+            "timeMs": 0.0078
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9494,
+            "timeMs": 0.0355
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 100,
+        "noise": 0.15,
+        "label": "quadratic (n=100, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.0132
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9987,
+            "timeMs": 0.026
+          },
+          "euclideanSimilarity": {
+            "score": 0.0396,
+            "timeMs": 0.0062
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9977,
+            "timeMs": 0.0233
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0028,
+            "timeMs": 0.0115
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9415,
+            "timeMs": 0.0351
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 1000,
+        "noise": 0.05,
+        "label": "quadratic (n=1000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.1142
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9998,
+            "timeMs": 0.3099
+          },
+          "euclideanSimilarity": {
+            "score": 0.0352,
+            "timeMs": 0.0573
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.1868
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0006,
+            "timeMs": 0.0552
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9773,
+            "timeMs": 0.3949
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 1000,
+        "noise": 0.1,
+        "label": "quadratic (n=1000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9994,
+            "timeMs": 1.5289
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9993,
+            "timeMs": 3.2877
+          },
+          "euclideanSimilarity": {
+            "score": 0.0177,
+            "timeMs": 0.5833
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9988,
+            "timeMs": 1.6554
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.6718
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9571,
+            "timeMs": 2.4719
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 1000,
+        "noise": 0.15,
+        "label": "quadratic (n=1000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9987,
+            "timeMs": 1.2076
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9984,
+            "timeMs": 3.4469
+          },
+          "euclideanSimilarity": {
+            "score": 0.012,
+            "timeMs": 0.6183
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9973,
+            "timeMs": 0.0091
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.6542
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9398,
+            "timeMs": 2.2071
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 10000,
+        "noise": 0.05,
+        "label": "quadratic (n=10000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9998,
+            "timeMs": 12.0575
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9998,
+            "timeMs": 43.8013
+          },
+          "euclideanSimilarity": {
+            "score": 0.0112,
+            "timeMs": 1.8391
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0603
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 2.9362
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9756,
+            "timeMs": 15.5978
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 10000,
+        "noise": 0.1,
+        "label": "quadratic (n=10000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9994,
+            "timeMs": 0.1634
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0809
+          },
+          "euclideanSimilarity": {
+            "score": 0.0056,
+            "timeMs": 0.0733
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9988,
+            "timeMs": 0.0443
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.149
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9575,
+            "timeMs": 0.8439
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 10000,
+        "noise": 0.15,
+        "label": "quadratic (n=10000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9986,
+            "timeMs": 0.0209
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.0291
+          },
+          "euclideanSimilarity": {
+            "score": 0.0037,
+            "timeMs": 0.0149
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9972,
+            "timeMs": 0.0426
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0156
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9384,
+            "timeMs": 0.157
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 100,
+        "noise": 0.05,
+        "label": "exponential (n=100, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9974,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9949,
+            "timeMs": 0.0013
+          },
+          "euclideanSimilarity": {
+            "score": 0.2728,
+            "timeMs": 0.0015
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9949,
+            "timeMs": 0.0051
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9314,
+            "timeMs": 0.0027
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9693,
+            "timeMs": 0.0023
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 100,
+        "noise": 0.1,
+        "label": "exponential (n=100, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.991,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9826,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.1638,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9821,
+            "timeMs": 0.0018
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7705,
+            "timeMs": 0.0009
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9438,
+            "timeMs": 0.0023
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 100,
+        "noise": 0.15,
+        "label": "exponential (n=100, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9816,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9621,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.1234,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9636,
+            "timeMs": 0.0013
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6035,
+            "timeMs": 0.001
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9135,
+            "timeMs": 0.0018
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 1000,
+        "noise": 0.05,
+        "label": "exponential (n=1000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9975,
+            "timeMs": 0.0026
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9948,
+            "timeMs": 0.0033
+          },
+          "euclideanSimilarity": {
+            "score": 0.1084,
+            "timeMs": 0.0026
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.995,
+            "timeMs": 0.0056
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5086,
+            "timeMs": 0.0021
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9697,
+            "timeMs": 0.0165
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 1000,
+        "noise": 0.1,
+        "label": "exponential (n=1000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9883,
+            "timeMs": 0.0041
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9766,
+            "timeMs": 0.0038
+          },
+          "euclideanSimilarity": {
+            "score": 0.0529,
+            "timeMs": 0.0022
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9767,
+            "timeMs": 0.0061
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0403,
+            "timeMs": 0.0023
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9388,
+            "timeMs": 0.0168
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 1000,
+        "noise": 0.15,
+        "label": "exponential (n=1000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9753,
+            "timeMs": 0.0042
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9518,
+            "timeMs": 0.0063
+          },
+          "euclideanSimilarity": {
+            "score": 0.0365,
+            "timeMs": 0.0032
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9512,
+            "timeMs": 0.0088
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0009,
+            "timeMs": 0.0033
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9148,
+            "timeMs": 0.0272
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 10000,
+        "noise": 0.05,
+        "label": "exponential (n=10000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9973,
+            "timeMs": 0.022
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9943,
+            "timeMs": 0.0704
+          },
+          "euclideanSimilarity": {
+            "score": 0.0355,
+            "timeMs": 0.016
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9945,
+            "timeMs": 0.0469
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0006,
+            "timeMs": 0.016
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9692,
+            "timeMs": 0.2445
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 10000,
+        "noise": 0.1,
+        "label": "exponential (n=10000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9896,
+            "timeMs": 0.0184
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9789,
+            "timeMs": 0.0261
+          },
+          "euclideanSimilarity": {
+            "score": 0.0184,
+            "timeMs": 0.0136
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9792,
+            "timeMs": 0.0394
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0134
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9411,
+            "timeMs": 0.1828
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 10000,
+        "noise": 0.15,
+        "label": "exponential (n=10000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9763,
+            "timeMs": 0.0171
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9539,
+            "timeMs": 0.026
+          },
+          "euclideanSimilarity": {
+            "score": 0.0121,
+            "timeMs": 0.0134
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9531,
+            "timeMs": 0.0393
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0135
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9141,
+            "timeMs": 0.1915
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 100,
+        "noise": 0.05,
+        "label": "logarithmic (n=100, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9955,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.5463,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9978,
+            "timeMs": 0.0016
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9931,
+            "timeMs": 0.0009
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9566,
+            "timeMs": 0.0022
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 100,
+        "noise": 0.1,
+        "label": "logarithmic (n=100, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9966,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.987,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.411,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9933,
+            "timeMs": 0.0012
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9797,
+            "timeMs": 0.0006
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9424,
+            "timeMs": 0.002
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 100,
+        "noise": 0.15,
+        "label": "logarithmic (n=100, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9938,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.977,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.336,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9878,
+            "timeMs": 0.0012
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9617,
+            "timeMs": 0.0006
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.934,
+            "timeMs": 0.0021
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 1000,
+        "noise": 0.05,
+        "label": "logarithmic (n=1000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9991,
+            "timeMs": 0.0028
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9965,
+            "timeMs": 0.0038
+          },
+          "euclideanSimilarity": {
+            "score": 0.3038,
+            "timeMs": 0.0023
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.0061
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9488,
+            "timeMs": 0.0023
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9698,
+            "timeMs": 0.0187
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 1000,
+        "noise": 0.1,
+        "label": "logarithmic (n=1000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9964,
+            "timeMs": 0.003
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9853,
+            "timeMs": 0.0037
+          },
+          "euclideanSimilarity": {
+            "score": 0.1747,
+            "timeMs": 0.0021
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9927,
+            "timeMs": 0.0055
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8001,
+            "timeMs": 0.0022
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9454,
+            "timeMs": 0.0168
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 1000,
+        "noise": 0.15,
+        "label": "logarithmic (n=1000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9917,
+            "timeMs": 0.0029
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9672,
+            "timeMs": 0.0036
+          },
+          "euclideanSimilarity": {
+            "score": 0.1229,
+            "timeMs": 0.0021
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9835,
+            "timeMs": 0.0056
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6006,
+            "timeMs": 0.0023
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.925,
+            "timeMs": 0.0172
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 10000,
+        "noise": 0.05,
+        "label": "logarithmic (n=10000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9991,
+            "timeMs": 0.0171
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9964,
+            "timeMs": 0.026
+          },
+          "euclideanSimilarity": {
+            "score": 0.1205,
+            "timeMs": 0.0134
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.0393
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5872,
+            "timeMs": 0.0134
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9711,
+            "timeMs": 0.1953
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 10000,
+        "noise": 0.1,
+        "label": "logarithmic (n=10000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9965,
+            "timeMs": 0.015
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9857,
+            "timeMs": 0.026
+          },
+          "euclideanSimilarity": {
+            "score": 0.0637,
+            "timeMs": 0.0133
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.993,
+            "timeMs": 0.0393
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.1154,
+            "timeMs": 0.0137
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9467,
+            "timeMs": 0.1729
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 10000,
+        "noise": 0.15,
+        "label": "logarithmic (n=10000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9919,
+            "timeMs": 0.016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9683,
+            "timeMs": 0.0278
+          },
+          "euclideanSimilarity": {
+            "score": 0.0428,
+            "timeMs": 0.0142
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9838,
+            "timeMs": 0.0419
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0067,
+            "timeMs": 0.0458
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9234,
+            "timeMs": 0.1857
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 100,
+        "noise": 0.05,
+        "label": "sqrt (n=100, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9996,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.997,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.5866,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9992,
+            "timeMs": 0.002
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.995,
+            "timeMs": 0.0011
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9871,
+            "timeMs": 0.0025
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 100,
+        "noise": 0.1,
+        "label": "sqrt (n=100, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9878,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.4058,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9965,
+            "timeMs": 0.0013
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9788,
+            "timeMs": 0.0007
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9711,
+            "timeMs": 0.0022
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 100,
+        "noise": 0.15,
+        "label": "sqrt (n=100, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9967,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9801,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.3343,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9934,
+            "timeMs": 0.0012
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9611,
+            "timeMs": 0.0007
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9634,
+            "timeMs": 0.0022
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 1000,
+        "noise": 0.05,
+        "label": "sqrt (n=1000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9995,
+            "timeMs": 0.0026
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9966,
+            "timeMs": 0.0038
+          },
+          "euclideanSimilarity": {
+            "score": 0.2983,
+            "timeMs": 0.0021
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9991,
+            "timeMs": 0.0058
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9462,
+            "timeMs": 0.0023
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9862,
+            "timeMs": 0.0182
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 1000,
+        "noise": 0.1,
+        "label": "sqrt (n=1000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.0024
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9874,
+            "timeMs": 0.0032
+          },
+          "euclideanSimilarity": {
+            "score": 0.1798,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9965,
+            "timeMs": 0.0049
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8122,
+            "timeMs": 0.002
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9742,
+            "timeMs": 0.0153
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 1000,
+        "noise": 0.15,
+        "label": "sqrt (n=1000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0024
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.974,
+            "timeMs": 0.0037
+          },
+          "euclideanSimilarity": {
+            "score": 0.1312,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9927,
+            "timeMs": 0.0051
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6451,
+            "timeMs": 0.002
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9621,
+            "timeMs": 0.0156
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 10000,
+        "noise": 0.05,
+        "label": "sqrt (n=10000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9996,
+            "timeMs": 0.0178
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9967,
+            "timeMs": 0.0308
+          },
+          "euclideanSimilarity": {
+            "score": 0.1201,
+            "timeMs": 0.0158
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9991,
+            "timeMs": 0.0467
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5847,
+            "timeMs": 0.0159
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9865,
+            "timeMs": 0.1887
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 10000,
+        "noise": 0.1,
+        "label": "sqrt (n=10000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0164
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.987,
+            "timeMs": 0.0277
+          },
+          "euclideanSimilarity": {
+            "score": 0.0637,
+            "timeMs": 0.0142
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9964,
+            "timeMs": 0.042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.1156,
+            "timeMs": 0.0145
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9731,
+            "timeMs": 0.1593
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 10000,
+        "noise": 0.15,
+        "label": "sqrt (n=10000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.996,
+            "timeMs": 0.0159
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9718,
+            "timeMs": 0.026
+          },
+          "euclideanSimilarity": {
+            "score": 0.0435,
+            "timeMs": 0.0134
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.992,
+            "timeMs": 0.0469
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0079,
+            "timeMs": 0.0136
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9603,
+            "timeMs": 0.1523
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 100,
+        "noise": 0.05,
+        "label": "sin (n=100, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.993,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9965,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.5397,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9862,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9928,
+            "timeMs": 0.0009
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8982,
+            "timeMs": 0.0021
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 100,
+        "noise": 0.1,
+        "label": "sin (n=100, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9707,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9853,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.368,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9433,
+            "timeMs": 0.0011
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9709,
+            "timeMs": 0.0006
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8477,
+            "timeMs": 0.0019
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 100,
+        "noise": 0.15,
+        "label": "sin (n=100, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.942,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.971,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.2852,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8894,
+            "timeMs": 0.001
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9391,
+            "timeMs": 0.0006
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7721,
+            "timeMs": 0.0022
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 1000,
+        "noise": 0.05,
+        "label": "sin (n=1000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9927,
+            "timeMs": 0.0021
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0033
+          },
+          "euclideanSimilarity": {
+            "score": 0.2689,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9854,
+            "timeMs": 0.0049
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9287,
+            "timeMs": 0.0019
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9046,
+            "timeMs": 0.0157
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 1000,
+        "noise": 0.1,
+        "label": "sin (n=1000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9711,
+            "timeMs": 0.0029
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9856,
+            "timeMs": 0.0032
+          },
+          "euclideanSimilarity": {
+            "score": 0.1555,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9432,
+            "timeMs": 0.005
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7445,
+            "timeMs": 0.002
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8515,
+            "timeMs": 0.0157
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 1000,
+        "noise": 0.15,
+        "label": "sin (n=1000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9343,
+            "timeMs": 0.0026
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9673,
+            "timeMs": 0.0035
+          },
+          "euclideanSimilarity": {
+            "score": 0.1075,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8731,
+            "timeMs": 0.0052
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5017,
+            "timeMs": 0.0022
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7869,
+            "timeMs": 0.0163
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 10000,
+        "noise": 0.05,
+        "label": "sin (n=10000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9925,
+            "timeMs": 0.0159
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9962,
+            "timeMs": 0.0279
+          },
+          "euclideanSimilarity": {
+            "score": 0.1033,
+            "timeMs": 0.0142
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.985,
+            "timeMs": 0.053
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.4707,
+            "timeMs": 0.0135
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9036,
+            "timeMs": 0.1496
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 10000,
+        "noise": 0.1,
+        "label": "sin (n=10000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9704,
+            "timeMs": 0.0189
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9852,
+            "timeMs": 0.0306
+          },
+          "euclideanSimilarity": {
+            "score": 0.0543,
+            "timeMs": 0.0158
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9416,
+            "timeMs": 0.0465
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0484,
+            "timeMs": 0.0276
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8374,
+            "timeMs": 0.1732
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 10000,
+        "noise": 0.15,
+        "label": "sin (n=10000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9355,
+            "timeMs": 0.0153
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9677,
+            "timeMs": 0.0277
+          },
+          "euclideanSimilarity": {
+            "score": 0.037,
+            "timeMs": 0.0142
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8751,
+            "timeMs": 0.0419
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0011,
+            "timeMs": 0.0146
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7861,
+            "timeMs": 0.1609
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 100,
+        "noise": 0.05,
+        "label": "cos (n=100, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9913,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9957,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.5151,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.983,
+            "timeMs": 0.0019
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9912,
+            "timeMs": 0.001
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9029,
+            "timeMs": 0.0022
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 100,
+        "noise": 0.1,
+        "label": "cos (n=100, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9735,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9868,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.3791,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9488,
+            "timeMs": 0.0012
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9735,
+            "timeMs": 0.0007
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8406,
+            "timeMs": 0.002
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 100,
+        "noise": 0.15,
+        "label": "cos (n=100, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9336,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9668,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.278,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.874,
+            "timeMs": 0.0011
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9348,
+            "timeMs": 0.0005
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7889,
+            "timeMs": 0.002
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 1000,
+        "noise": 0.05,
+        "label": "cos (n=1000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9927,
+            "timeMs": 0.0018
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0031
+          },
+          "euclideanSimilarity": {
+            "score": 0.2687,
+            "timeMs": 0.0018
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9854,
+            "timeMs": 0.0047
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9286,
+            "timeMs": 0.0018
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9046,
+            "timeMs": 0.0161
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 1000,
+        "noise": 0.1,
+        "label": "cos (n=1000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9708,
+            "timeMs": 0.0029
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9854,
+            "timeMs": 0.0043
+          },
+          "euclideanSimilarity": {
+            "score": 0.1543,
+            "timeMs": 0.0022
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9426,
+            "timeMs": 0.0059
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7404,
+            "timeMs": 0.0023
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8474,
+            "timeMs": 0.018
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 1000,
+        "noise": 0.15,
+        "label": "cos (n=1000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9366,
+            "timeMs": 0.0036
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9684,
+            "timeMs": 0.0041
+          },
+          "euclideanSimilarity": {
+            "score": 0.1098,
+            "timeMs": 0.0023
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8775,
+            "timeMs": 0.0062
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5184,
+            "timeMs": 0.0025
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7878,
+            "timeMs": 0.0187
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 10000,
+        "noise": 0.05,
+        "label": "cos (n=10000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9925,
+            "timeMs": 0.018
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0277
+          },
+          "euclideanSimilarity": {
+            "score": 0.1034,
+            "timeMs": 0.0143
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9851,
+            "timeMs": 0.042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.4718,
+            "timeMs": 0.0143
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.9027,
+            "timeMs": 0.1924
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 10000,
+        "noise": 0.1,
+        "label": "cos (n=10000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9708,
+            "timeMs": 0.0144
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9854,
+            "timeMs": 0.026
+          },
+          "euclideanSimilarity": {
+            "score": 0.0548,
+            "timeMs": 0.0133
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9425,
+            "timeMs": 0.0394
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0509,
+            "timeMs": 0.0135
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8394,
+            "timeMs": 0.1846
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 10000,
+        "noise": 0.15,
+        "label": "cos (n=10000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.9362,
+            "timeMs": 0.0163
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9681,
+            "timeMs": 0.0261
+          },
+          "euclideanSimilarity": {
+            "score": 0.0372,
+            "timeMs": 0.0134
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8764,
+            "timeMs": 0.0393
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.0012,
+            "timeMs": 0.0136
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7885,
+            "timeMs": 0.151
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 100,
+        "noise": 0.05,
+        "label": "tan (n=100, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.6961,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8516,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.0283,
+            "timeMs": 0.0006
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.4848,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0009
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8648,
+            "timeMs": 0.0021
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 100,
+        "noise": 0.1,
+        "label": "tan (n=100, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.159,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.5879,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.0043,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.0253,
+            "timeMs": 0.0011
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0006
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7954,
+            "timeMs": 0.0019
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 100,
+        "noise": 0.15,
+        "label": "tan (n=100, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": -0.0304,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.4798,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.0007,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.0009,
+            "timeMs": 0.001
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0009
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.6687,
+            "timeMs": 0.0022
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 1000,
+        "noise": 0.05,
+        "label": "tan (n=1000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.241,
+            "timeMs": 0.0023
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.6205,
+            "timeMs": 0.003
+          },
+          "euclideanSimilarity": {
+            "score": 0.0033,
+            "timeMs": 0.0018
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.0581,
+            "timeMs": 0.0048
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0019
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.8693,
+            "timeMs": 0.0156
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 1000,
+        "noise": 0.1,
+        "label": "tan (n=1000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": -0.0071,
+            "timeMs": 0.0025
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.4963,
+            "timeMs": 0.0033
+          },
+          "euclideanSimilarity": {
+            "score": 0.0002,
+            "timeMs": 0.002
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.0001,
+            "timeMs": 0.0051
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.002
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7683,
+            "timeMs": 0.016
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 1000,
+        "noise": 0.15,
+        "label": "tan (n=1000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": -0.0089,
+            "timeMs": 0.0021
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.4942,
+            "timeMs": 0.0033
+          },
+          "euclideanSimilarity": {
+            "score": 0.0006,
+            "timeMs": 0.0025
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.0001,
+            "timeMs": 0.0054
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0022
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7114,
+            "timeMs": 0.0157
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 10000,
+        "noise": 0.05,
+        "label": "tan (n=10000, σ=0.05)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.1677,
+            "timeMs": 0.0147
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.5838,
+            "timeMs": 0.026
+          },
+          "euclideanSimilarity": {
+            "score": 0.0011,
+            "timeMs": 0.0133
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.0281,
+            "timeMs": 0.0393
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0136
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.867,
+            "timeMs": 0.1504
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 10000,
+        "noise": 0.1,
+        "label": "tan (n=10000, σ=0.1)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": 0.0036,
+            "timeMs": 0.0177
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.5019,
+            "timeMs": 0.0309
+          },
+          "euclideanSimilarity": {
+            "score": 0,
+            "timeMs": 0.0158
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0467
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.016
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7742,
+            "timeMs": 0.1915
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 10000,
+        "noise": 0.15,
+        "label": "tan (n=10000, σ=0.15)",
+        "metrics": {
+          "cosineSimilarity": {
+            "score": -0.0012,
+            "timeMs": 0.018
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.4994,
+            "timeMs": 0.0276
+          },
+          "euclideanSimilarity": {
+            "score": 0,
+            "timeMs": 0.0143
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0,
+            "timeMs": 0.0144
+          },
+          "computeVectorSimilarityMeanStdPower": {
+            "score": 0.7056,
+            "timeMs": 0.159
+          }
+        }
+      }
+    ],
+    "insights": [
+      "Under high noise (15%), pearsonCorrelationSimilarity showed the highest average similarity retention (0.9030)."
+    ]
   }
 };

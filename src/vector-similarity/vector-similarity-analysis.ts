@@ -22,6 +22,8 @@ import { pearsonChiSquareDistance, neymanChiSquareDistance, additiveSymmetricChi
 import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square.ts';
 import { fidelitySimilarity, hellingerDistance, matusitaDistance, squaredChordDistance } from './similarity/fidelity.ts';
 import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity.ts';
+import { polynomialKernelSimilarity, rbfKernelSimilarity } from './similarity/nonLinear.ts';
+import { VectorGenerationService } from './vectorGenerationService.ts';
 
 const similarityFunctions = {
   pearsonCorrelationSimilarity,
@@ -67,6 +69,8 @@ const similarityFunctions = {
   computeVectorSimilarityMetricLike,
   computeVectorSimilarityTunable,
   computeVectorSimilarityVarianceWeighted,
+  polynomialKernelSimilarity,
+  rbfKernelSimilarity
 };
 
 
@@ -338,7 +342,114 @@ const runStressTests = () => {
   return results;
 };
 
+const runNonLinearAnalysis = () => {
+  const service = new VectorGenerationService();
+  const sizes = [100, 1000, 10000];
+  const noiseLevels = [0.05, 0.1, 0.15]; // 5%, 10%, 15%
+  const functionTypes = ['quadratic', 'exponential', 'logarithmic', 'sqrt', 'sin', 'cos', 'tan'] as const;
+
+  const results: any[] = [];
+
+  // Define a subset of relevant metrics for cleaner analysis (or use all)
+  // Including standard ones + non-linear ones
+  const targetMetrics = [
+    'cosineSimilarity',
+    'pearsonCorrelationSimilarity',
+    'euclideanSimilarity',
+    'polynomialKernelSimilarity',
+    'rbfKernelSimilarity',
+    'computeVectorSimilarityMeanStdPower'
+  ];
+
+  functionTypes.forEach(type => {
+    sizes.forEach(size => {
+      noiseLevels.forEach(noise => {
+        const { vecA, vecB, label } = service.generateVectorPair(type, size, noise);
+
+        const caseResult: any = {
+          type,
+          size,
+          noise,
+          label,
+          metrics: {}
+        };
+
+        targetMetrics.forEach(metricName => {
+            if (similarityFunctions[metricName]) {
+                const start = process.hrtime();
+                const score = similarityFunctions[metricName](vecA, vecB);
+                const end = process.hrtime(start);
+                const timeMs = (end[0] * 1e9 + end[1]) / 1e6;
+
+                caseResult.metrics[metricName] = {
+                    score: parseFloat(score.toFixed(4)),
+                    timeMs: parseFloat(timeMs.toFixed(4))
+                };
+            }
+        });
+        results.push(caseResult);
+      });
+    });
+  });
+
+  // Generate insights
+  const insights = generateInsights(results);
+
+  return {
+    detailedResults: results,
+    insights
+  };
+};
+
+const generateInsights = (results: any[]) => {
+    const insights: string[] = [];
+
+    // Analyze Quadratic Performance
+    const quadratic = results.filter(r => r.type === 'quadratic' && r.size === 1000 && r.noise === 0.05);
+    if (quadratic.length > 0) {
+        const q = quadratic[0].metrics;
+        if (q.polynomialKernelSimilarity && q.cosineSimilarity) {
+            if (q.polynomialKernelSimilarity.score > q.cosineSimilarity.score) {
+                insights.push(`Polynomial Kernel Similarity outperformed Cosine Similarity on Quadratic data (Score: ${q.polynomialKernelSimilarity.score} vs ${q.cosineSimilarity.score}).`);
+            }
+        }
+    }
+
+    // General observations on noise
+    const highNoise = results.filter(r => r.noise === 0.15 && r.size === 1000);
+    let robustMetric = '';
+    let maxScore = -Infinity;
+
+    // Average scores across high noise
+    const avgScores: Record<string, number> = {};
+    const counts: Record<string, number> = {};
+
+    highNoise.forEach(res => {
+        for (const [metric, data] of Object.entries(res.metrics)) {
+            const score = (data as any).score;
+            if (!isNaN(score)) {
+                 avgScores[metric] = (avgScores[metric] || 0) + score;
+                 counts[metric] = (counts[metric] || 0) + 1;
+            }
+        }
+    });
+
+    for (const metric in avgScores) {
+        const avg = avgScores[metric] / counts[metric];
+        if (avg > maxScore && avg <= 1.0) { // Filter out unnormalized if any slipped through
+            maxScore = avg;
+            robustMetric = metric;
+        }
+    }
+
+    insights.push(`Under high noise (15%), ${robustMetric} showed the highest average similarity retention (${maxScore.toFixed(4)}).`);
+
+    return insights;
+};
+
 const main = () => {
+  const nonLinearResults = runNonLinearAnalysis();
+
   const allResults = {
     outliersResiliencyTest: runOutliersResiliencyTest(),
     benchmark: runBenchmark(),
@@ -346,6 +457,7 @@ const main = () => {
     comparisonDemo: runComparisonDemo(),
     stressTests: runStressTests(),
     noiseResilienceLevelsTest: runNoiseResilienceLevelsTest(),
+    nonLinearAnalysis: nonLinearResults
   };
 
   const __filename = fileURLToPath(import.meta.url);
