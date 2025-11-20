@@ -351,7 +351,11 @@ const filterNonlinearData = (data, functionType, vectorSize, noiseLevel) => {
   return data.filter(item => {
     const typeMatch = functionType === 'all' || item.type === functionType;
     const sizeMatch = vectorSize === 'all' || item.size.toString() === vectorSize;
-    const noiseMatch = noiseLevel === 'all' || item.noise.toString() === noiseLevel;
+    const noiseMatch =
+      noiseLevel === 'all' ||
+      (item.noiseSettings &&
+        item.noiseSettings.level &&
+        item.noiseSettings.level.toString() === noiseLevel);
 
     return typeMatch && sizeMatch && noiseMatch;
   });
