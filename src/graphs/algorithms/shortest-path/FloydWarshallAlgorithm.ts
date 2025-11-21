@@ -32,17 +32,30 @@ export class FloydWarshallAlgorithm<T, W extends number = number>
       distances.set(i, new Map());
       next.set(i, new Map());
       for (const j of verts) {
+        let weight = Infinity as W;
+        let nextNode: T | null = null;
+
         if (i === j) {
-          distances.get(i)!.set(j, 0 as W);
-          next.get(i)!.set(j, j);
+            weight = 0 as W;
+            nextNode = j;
+            // If there is a self-loop with negative weight, we should take it into account
+            // to detect negative cycles immediately or during relaxation.
+            // However, standard FW usually inits d[i][i]=0.
+            // If we have a negative self-loop, relaxation k=i will update d[i][i].
+            // Wait, d[i][i] = min(0, w(i,i)).
+             if (graph.hasEdge(i, j)) {
+                const w = graph.getEdgeWeight(i, j)!;
+                if ((w as number) < 0) {
+                    weight = w;
+                }
+            }
         } else if (graph.hasEdge(i, j)) {
-          const w = graph.getEdgeWeight(i, j)!;
-          distances.get(i)!.set(j, w);
-          next.get(i)!.set(j, j);
-        } else {
-          distances.get(i)!.set(j, Infinity as W);
-          next.get(i)!.set(j, null);
+          weight = graph.getEdgeWeight(i, j)!;
+          nextNode = j;
         }
+
+        distances.get(i)!.set(j, weight);
+        next.get(i)!.set(j, nextNode);
       }
     }
 
@@ -53,7 +66,8 @@ export class FloydWarshallAlgorithm<T, W extends number = number>
           const dik = distances.get(i)!.get(k)! as number;
           const dkj = distances.get(k)!.get(j)! as number;
           const dij = distances.get(i)!.get(j)! as number;
-          if (dik + dkj < dij) {
+
+          if (dik !== Infinity && dkj !== Infinity && dik + dkj < dij) {
             distances.get(i)!.set(j, (dik + dkj) as W);
             next.get(i)!.set(j, next.get(i)!.get(k)!);
           }
@@ -72,12 +86,21 @@ export class FloydWarshallAlgorithm<T, W extends number = number>
 
     const getPath = (u: T, v: T): T[] => {
       if (next.get(u)?.get(v) == null) return [];
+      // If there is a negative cycle involving u, path might be infinite/undefined in reality,
+      // but we just reconstruct what we have.
+      // Check if start/end are valid
+      if (!distances.has(u) || !distances.has(v)) return [];
+
       const path: T[] = [u];
       let cur: T | null = u;
       while (cur !== v) {
         cur = next.get(cur!)!.get(v)!;
         if (cur == null) return [];
         path.push(cur);
+        if (path.length > verts.length + 1) {
+            // Prevent infinite loop in path reconstruction if cycle exists
+             return [];
+        }
       }
       return path;
     };

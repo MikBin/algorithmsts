@@ -4,6 +4,32 @@ import { PrimAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/Prim
 import { SampleGraphs } from '../fixtures/SampleGraphs';
 import { GraphTestData } from '../fixtures/GraphTestData';
 import { AdjacencyMatrixGraph } from '../../../src/graphs/structures/AdjacencyMatrixGraph';
+import { IGraph } from '../../../src/graphs/interfaces/IGraph';
+
+// Mock graph for testing edge cases
+class BadGraph implements IGraph<string, number> {
+    addVertex(v: string): void {}
+    addEdge(u: string, v: string, w?: number): void {}
+    getVertices(): string[] { return ['A', 'B']; }
+    getEdges(): [string, string, number?][] {
+        // Return edge without weight even though isWeighted is true
+        return [['A', 'B']];
+    }
+    getNeighbors(v: string): string[] { return []; }
+    hasEdge(u: string, v: string): boolean { return true; }
+    getEdgeWeight(u: string, v: string): number | undefined { return undefined; }
+    isDirected(): boolean { return false; }
+    isWeighted(): boolean { return true; }
+    getVertexCount(): number { return 2; }
+    getEdgeCount(): number { return 1; }
+    clear(): void {}
+    removeVertex(v: string): boolean { return true; }
+    removeEdge(u: string, v: string): boolean { return true; }
+    outDegree(v: string): number { return 0; }
+    inDegree(v: string): number { return 0; }
+    transpose(): IGraph<string, number> { return this; }
+    clone(): IGraph<string, number> { return this; }
+}
 
 describe('Spanning Tree Algorithms', () => {
   describe('Kruskal\'s Algorithm', () => {
@@ -54,6 +80,11 @@ describe('Spanning Tree Algorithms', () => {
         expect(verticesInTree.size).toBe(graph.getVertexCount());
         expect(result.edges.length).toBe(graph.getVertexCount() - 1);
       }
+    });
+
+    it('should throw if edges lack weights in weighted graph', () => {
+        const badGraph = new BadGraph();
+        expect(() => kruskal.execute(badGraph)).toThrow(/All edges must have weights/);
     });
   });
 
@@ -125,6 +156,15 @@ describe('Spanning Tree Algorithms', () => {
       expect(result.found).toBe(true);
       expect(result.edges.length).toBe(0);
       expect(result.totalWeight).toBe(0);
+    });
+
+    it('should handle empty adjacency list graph', () => {
+      const graph = SampleGraphs.emptyGraph;
+      // SampleGraphs.emptyGraph is directed, we need undirected weighted
+      const undirGraph = new AdjacencyMatrixGraph<string>(false, true);
+      const result = prim.execute(undirGraph);
+      expect(result.found).toBe(true);
+      expect(result.edges.length).toBe(0);
     });
   });
 
