@@ -2,10 +2,23 @@
  * Entropy-based similarity and divergence measures module.
  * These functions treat vectors as probability distributions.
  * Note: For these measures to be mathematically sound, the vectors should be normalized
- * to sum to 1, but the functions will execute on any non-negative vectors.
+ * to sum to 1. The functions perform internal normalization of input vectors
+ * (using absolute values) to ensure robustness and non-negative results.
  */
 
 import { distanceToSimilarity } from './classic.ts';
+
+/**
+ * Helper to normalize vectors to probability distributions (sum = 1)
+ */
+function toProbabilityDistribution(v: number[]): number[] {
+  const sum = v.reduce((acc, val) => acc + Math.abs(val), 0);
+  if (sum === 0) {
+    // If zero vector, return uniform distribution to avoid division by zero
+    return v.map(() => 1 / v.length);
+  }
+  return v.map(val => Math.abs(val) / sum);
+}
 
 /**
  * Kullback-Leibler Divergence (KL Divergence)
@@ -22,14 +35,14 @@ export const kullbackLeiblerDivergence = (p: number[], q: number[]): number => {
     throw new Error('Vectors must have the same length');
   }
 
-  if (p.some(x => x < 0) || q.some(x => x < 0)) {
-    throw new Error('Input vectors must be non-negative for Kullback-Leibler divergence');
-  }
+  // Normalize inputs
+  const P = toProbabilityDistribution(p);
+  const Q = toProbabilityDistribution(q);
 
   let divergence = 0;
-  for (let i = 0; i < p.length; i++) {
-    const pi = p[i];
-    const qi = q[i];
+  for (let i = 0; i < P.length; i++) {
+    const pi = P[i];
+    const qi = Q[i];
 
     if (pi === 0) {
       continue; // 0 * log(0/qi) is 0
@@ -39,7 +52,7 @@ export const kullbackLeiblerDivergence = (p: number[], q: number[]): number => {
     }
     divergence += pi * Math.log(pi / qi);
   }
-  return divergence;
+  return Math.max(0, divergence); // Ensure non-negative due to float precision
 };
 
 /**
@@ -56,14 +69,13 @@ export const crossEntropy = (p: number[], q: number[]): number => {
     throw new Error('Vectors must have the same length');
   }
 
-  if (p.some(x => x < 0) || q.some(x => x < 0)) {
-    throw new Error('Input vectors must be non-negative for cross entropy');
-  }
+  const P = toProbabilityDistribution(p);
+  const Q = toProbabilityDistribution(q);
 
   let entropy = 0;
-  for (let i = 0; i < p.length; i++) {
-    const pi = p[i];
-    const qi = q[i];
+  for (let i = 0; i < P.length; i++) {
+    const pi = P[i];
+    const qi = Q[i];
 
     if (pi === 0) {
       continue;
@@ -73,7 +85,7 @@ export const crossEntropy = (p: number[], q: number[]): number => {
     }
     entropy -= pi * Math.log(qi);
   }
-  return entropy;
+  return Math.max(0, entropy);
 };
 
 
@@ -98,11 +110,14 @@ export const kDivergence = (p: number[], q: number[]): number => {
   if (p.length !== q.length) {
     throw new Error('Vectors must have the same length');
   }
-  if (p.some(x => x < 0) || q.some(x => x < 0)) {
-    throw new Error('Input vectors must be non-negative for K-Divergence');
-  }
-  const m = p.map((val, i) => (val + q[i]) / 2);
-  return kullbackLeiblerDivergence(p, m);
+  // Normalize internally by calling kullbackLeiblerDivergence, but we need the mean of distributions
+  const P = toProbabilityDistribution(p);
+  const Q = toProbabilityDistribution(q);
+  const m = P.map((val, i) => (val + Q[i]) / 2);
+
+  // P and m are already distributions
+  // To reuse the internal logic without re-normalizing, we can just implement the loop or trust KL to re-normalize (it's idempotent if sum=1)
+  return kullbackLeiblerDivergence(P, m);
 };
 
 
@@ -116,11 +131,11 @@ export const topsoeDivergence = (p: number[], q: number[]): number => {
   if (p.length !== q.length) {
     throw new Error('Vectors must have the same length');
   }
-  if (p.some(x => x < 0) || q.some(x => x < 0)) {
-    throw new Error('Input vectors must be non-negative for Topsøe Divergence');
-  }
-  const m = p.map((val, i) => (val + q[i]) / 2);
-  return kullbackLeiblerDivergence(p, m) + kullbackLeiblerDivergence(q, m);
+  const P = toProbabilityDistribution(p);
+  const Q = toProbabilityDistribution(q);
+  const m = P.map((val, i) => (val + Q[i]) / 2);
+
+  return kullbackLeiblerDivergence(P, m) + kullbackLeiblerDivergence(Q, m);
 };
 
 /**

@@ -151,13 +151,7 @@ export function pearsonCorrelation(a: number[], b: number[]): number {
   }
 
   if (denomA === 0 || denomB === 0) {
-    // Handle constant vectors. If both are constant and identical, correlation is 1.
-    if (denomA === 0 && denomB === 0) {
-        if (meanA === meanB) {
-            return 1;
-        }
-    }
-    return NaN; 
+    return NaN;
   }
 
   return numerator / Math.sqrt(denomA * denomB);
@@ -311,7 +305,9 @@ export function gowerDistance(a: number[], b: number[], ranges: number[]): numbe
   let sum = 0;
   for (let i = 0; i < a.length; i++) {
     if (ranges[i] > 0) {
-      sum += Math.abs(a[i] - b[i]) / ranges[i];
+        // Clamp the contribution to 1 to prevent outliers from violating the range [0, 1]
+        const normalizedDiff = Math.abs(a[i] - b[i]) / ranges[i];
+        sum += Math.min(1, normalizedDiff);
     }
   }
 
@@ -342,7 +338,8 @@ export function soergelDistance(a: number[], b: number[]): number {
 
   for (let i = 0; i < a.length; i++) {
     numerator += Math.abs(a[i] - b[i]);
-    denominator += Math.max(a[i], b[i]);
+    // Use absolute values for max to handle negative inputs robustly
+    denominator += Math.max(Math.abs(a[i]), Math.abs(b[i]));
   }
 
   return denominator === 0 ? 0 : numerator / denominator;
@@ -372,7 +369,8 @@ export function kulczynskiDistance(a: number[], b: number[]): number {
 
   for (let i = 0; i < a.length; i++) {
     numerator += Math.abs(a[i] - b[i]);
-    denominator += Math.min(a[i], b[i]);
+    // Use absolute values for min to handle negative inputs robustly
+    denominator += Math.min(Math.abs(a[i]), Math.abs(b[i]));
   }
 
   return denominator === 0 ? 0 : numerator / denominator;
