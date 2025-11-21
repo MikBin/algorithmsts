@@ -3,6 +3,7 @@ import { TopologicalSort } from '../../../src/graphs/algorithms/graph/Topologica
 import { CycleDetection } from '../../../src/graphs/algorithms/graph/CycleDetection';
 import { SampleGraphs } from '../fixtures/SampleGraphs';
 import { GraphTestData } from '../fixtures/GraphTestData';
+import { AdjacencyListGraph } from '../../../src/graphs/structures/AdjacencyListGraph';
 
 describe('Graph Algorithms', () => {
   describe('Topological Sort', () => {
@@ -122,6 +123,30 @@ describe('Graph Algorithms', () => {
 
       expect(result.hasCycle).toBe(false);
       expect(result.cycle).toBeUndefined();
+    });
+
+    it('should detect self-loop in directed graph', () => {
+      const graph = new AdjacencyListGraph<string>(true);
+      graph.addVertex('A');
+      graph.addEdge('A', 'A');
+      const result = cycleDetection.execute(graph);
+      expect(result.hasCycle).toBe(true);
+    });
+
+    it('should detect cycle in complex directed graph', () => {
+       // A -> B -> C -> D -> B
+       const graph = new AdjacencyListGraph<string>(true);
+       graph.addVertex('A'); graph.addVertex('B'); graph.addVertex('C'); graph.addVertex('D');
+       graph.addEdge('A', 'B');
+       graph.addEdge('B', 'C');
+       graph.addEdge('C', 'D');
+       graph.addEdge('D', 'B');
+
+       const result = cycleDetection.execute(graph);
+       expect(result.hasCycle).toBe(true);
+       expect(result.cycle).toBeDefined();
+       // Cycle could start at B, C, or D. Length 3.
+       expect(result.cycle?.length).toBeGreaterThanOrEqual(3);
     });
   });
 

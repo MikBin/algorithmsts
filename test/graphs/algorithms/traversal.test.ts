@@ -3,6 +3,7 @@ import { BreadthFirstSearch } from '../../../src/graphs/algorithms/traversal/Bre
 import { DepthFirstSearch } from '../../../src/graphs/algorithms/traversal/DepthFirstSearch';
 import { SampleGraphs } from '../fixtures/SampleGraphs';
 import { GraphTestData } from '../fixtures/GraphTestData';
+import { AdjacencyListGraph } from '../../../src/graphs/structures/AdjacencyListGraph';
 
 describe('Graph Traversal Algorithms', () => {
   describe('Breadth-First Search (BFS)', () => {
@@ -73,6 +74,17 @@ describe('Graph Traversal Algorithms', () => {
       expect(result.levels.get('A')).toBe(0);
       expect(result.levels.get('B')).toBe(1);
       expect(result.levels.get('C')).toBe(2);
+    });
+
+    it('should support legacy execute signature', () => {
+         const graph = SampleGraphs.simpleDirectedGraph;
+         const result = bfs.execute({ graph, startNode: 'A' });
+         expect(result.visited.length).toBe(3);
+    });
+
+    it('should throw in execute if start vertex is undefined (new signature)', () => {
+        const graph = SampleGraphs.simpleDirectedGraph;
+        expect(() => bfs.execute(graph)).toThrow();
     });
   });
 
@@ -151,6 +163,17 @@ describe('Graph Traversal Algorithms', () => {
       expect(result.visited).toContain('C');
       expect(result.visited).toContain('D');
     });
+
+    it('should support legacy execute signature', () => {
+        const graph = SampleGraphs.simpleDirectedGraph;
+        const result = dfs.execute({ graph, startNode: 'A' });
+        expect(result.visited.length).toBe(3);
+   });
+
+   it('should throw in execute if start vertex is undefined (new signature)', () => {
+       const graph = SampleGraphs.simpleDirectedGraph;
+       expect(() => dfs.execute(graph)).toThrow();
+   });
   });
 
   describe('Traversal Algorithm Comparison', () => {
