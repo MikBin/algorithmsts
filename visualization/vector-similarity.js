@@ -75,6 +75,9 @@ const SortableTable = {
 
         // Helper to get sortable value
         const getVal = (v) => {
+           if (v && typeof v === 'object' && 'value' in v) {
+             v = v.value;
+           }
            if (v === null || v === undefined || v === 'N/A') return -Infinity; // Push N/A to bottom or top? let's treat as very small
            if (typeof v === 'string' && !isNaN(parseFloat(v)) && isFinite(v)) return parseFloat(v);
            return v;
@@ -111,12 +114,33 @@ const SortableTable = {
         return s;
     }
 
+    // New prop for cell styling logic?
+    // Alternatively, let's make the calculator pass HTML strings or objects?
+    // But SortableTable renders {{ formatValue(cell) }}.
+
+    // Let's upgrade SortableTable to support custom rendering or style.
+    // We can check if `cell` is an object { value, style, class }.
+    const getCellDisplayValue = (cell) => {
+        if (cell && typeof cell === 'object' && 'value' in cell) {
+            return formatValue(cell.value);
+        }
+        return formatValue(cell);
+    };
+
+    const getCellAttributes = (cell) => {
+         if (cell && typeof cell === 'object' && ('style' in cell || 'class' in cell)) {
+             return { style: cell.style, class: cell.class };
+         }
+         return {};
+    };
+
     return {
       sortColumn,
       sortDirection,
       sortedRows,
       toggleSort,
-      formatValue,
+      getCellDisplayValue,
+      getCellAttributes,
       formatVector
     };
   },
@@ -137,10 +161,163 @@ const SortableTable = {
         </thead>
         <tbody>
           <tr v-for="(row, rIndex) in sortedRows" :key="rIndex">
-            <td v-for="(cell, cIndex) in row" :key="cIndex">{{ formatValue(cell) }}</td>
+            <td v-for="(cell, cIndex) in row" :key="cIndex" v-bind="getCellAttributes(cell)">
+              {{ getCellDisplayValue(cell) }}
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  `
+};
+
+// --- Similarity Calculator Component ---
+
+const SimilarityCalculator = {
+  components: { SortableTable },
+  setup() {
+    const vectorA = ref("1, 2, 3, 4, 5");
+    const vectorB = ref("5, 4, 3, 2, 1");
+    const error = ref(null);
+    const results = ref([]);
+    const headers = ['Function', 'Result'];
+
+    const parseVector = (input) => {
+      const cleaned = input.trim();
+      if (!cleaned) return [];
+      const parts = cleaned.split(/[\s,]+/);
+      const nums = parts.map(p => parseFloat(p));
+      if (nums.some(isNaN)) {
+        throw new Error("Invalid number in vector input");
+      }
+      return nums;
+    };
+
+    const calculate = () => {
+      error.value = null;
+      results.value = [];
+
+      try {
+        const vecA = parseVector(vectorA.value);
+        const vecB = parseVector(vectorB.value);
+
+        if (vecA.length === 0 || vecB.length === 0) {
+           error.value = "Vectors cannot be empty";
+           return;
+        }
+
+        if (vecA.length !== vecB.length) {
+          error.value = `Dimension mismatch: Vector A (${vecA.length}) vs Vector B (${vecB.length})`;
+          return;
+        }
+
+        const similarityLib = window.VectorSimilarity;
+        if (!similarityLib) {
+          error.value = "Vector Similarity library not loaded (window.VectorSimilarity is missing)";
+          return;
+        }
+
+        const computedResults = [];
+
+        for (const [name, func] of Object.entries(similarityLib)) {
+          if (typeof func === 'function' && func.length === 2) {
+            try {
+               const res = func(vecA, vecB);
+
+               // Determine color/style based on metric type
+               let style = {};
+               // Heuristic: if name contains "Similarity" or "Correlation", higher is usually better (Green).
+               // If name contains "Distance" or "Divergence", lower is usually better (Green).
+               // Ranges:
+               // Similarity: [0, 1] typically.
+               // Correlation: [-1, 1].
+
+               const lowerName = name.toLowerCase();
+               const isDistance = lowerName.includes('distance') || lowerName.includes('divergence');
+               const isSimilarity = lowerName.includes('similarity') || lowerName.includes('correlation') || lowerName.includes('coefficient');
+
+               if (typeof res === 'number' && isFinite(res)) {
+                   let color = null;
+                   if (isSimilarity) {
+                       // Map [-1, 1] to color? Or [0, 1]?
+                       // Simple thresholding
+                       if (res >= 0.8) color = '#d4edda'; // Greenish
+                       else if (res >= 0.5) color = '#fff3cd'; // Yellowish
+                       else color = '#f8d7da'; // Reddish
+                   } else if (isDistance) {
+                       // Distance: 0 is best.
+                       // Hard to set upper bound for "bad" without context, but let's assume < 0.5 is "good" for normalized distances,
+                       // but some distances are unbounded.
+                       // Let's just color 0 (identity) distinctly.
+                       if (Math.abs(res) < 0.0001) color = '#d4edda'; // Perfect match
+                   }
+
+                   if (color) {
+                       style = { backgroundColor: color };
+                   }
+               }
+
+               // Pass object to SortableTable
+               computedResults.push([name, { value: res, style }]);
+            } catch (e) {
+               computedResults.push([name, `Error: ${e.message}`]);
+            }
+          }
+        }
+
+        results.value = computedResults;
+
+      } catch (e) {
+        error.value = e.message;
+      }
+    };
+
+    onMounted(() => {
+        if (window.VectorSimilarity) {
+            calculate();
+        } else {
+            setTimeout(() => {
+                if (window.VectorSimilarity) calculate();
+            }, 500);
+        }
+    });
+
+    return {
+      vectorA,
+      vectorB,
+      error,
+      results,
+      headers,
+      calculate
+    };
+  },
+  template: `
+    <div class="calculator-container">
+      <h2>Interactive Similarity Calculator</h2>
+      <div class="input-group">
+        <div class="input-wrapper">
+          <label>Vector A (comma separated):</label>
+          <textarea v-model="vectorA" placeholder="e.g. 1.0, 2.0, 3.0"></textarea>
+        </div>
+        <div class="input-wrapper">
+          <label>Vector B (comma separated):</label>
+          <textarea v-model="vectorB" placeholder="e.g. 0.5, 1.5, 2.5"></textarea>
+        </div>
+      </div>
+
+      <button @click="calculate" class="calc-btn">Calculate Similarities</button>
+
+      <div v-if="error" class="error-msg">
+        {{ error }}
+      </div>
+
+      <div v-if="results.length" style="margin-top: 20px;">
+         <sortable-table
+            :headers="headers"
+            :rows="results"
+            data-testid="calculator-results"
+         ></sortable-table>
+      </div>
     </div>
   `
 };
@@ -150,7 +327,8 @@ const SortableTable = {
 const App = {
   components: {
     ChartComponent,
-    SortableTable
+    SortableTable,
+    SimilarityCalculator
   },
   setup() {
     // --- Data Prep helpers ---

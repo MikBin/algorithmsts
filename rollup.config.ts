@@ -234,4 +234,19 @@ export default defineConfig([
       },
     ],
   },
+  // Vector Similarity module (Standalone UMD for visualization)
+  {
+    input: "src/vector-similarity/index.ts",
+    plugins: [...InjectPlugin],
+    external: ["node:url", "node:path"],
+    output: [
+      {
+        file: "dist/vector-similarity/vector-similarity.umd.js",
+        format: "umd",
+        name: "VectorSimilarity",
+        sourcemap: true,
+        exports: "named",
+      },
+    ],
+  },
 ]);
