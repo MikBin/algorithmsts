@@ -1,5 +1,5 @@
 
-import { matusitaDistance, squaredChordDistance } from './fidelity.ts';
+import { matusitaDistance, squaredChordDistance } from './fidelity';
 
 /**
  * Calculates the normalized Matusita similarity between two vectors.

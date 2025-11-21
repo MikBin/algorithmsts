@@ -6,7 +6,7 @@
  * (using absolute values) to ensure robustness and non-negative results.
  */
 
-import { distanceToSimilarity } from './classic.ts';
+import { distanceToSimilarity } from './classic';
 
 /**
  * Helper to normalize vectors to probability distributions (sum = 1)
