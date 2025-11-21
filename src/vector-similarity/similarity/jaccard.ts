@@ -81,7 +81,7 @@ export function jaccardSimilarityWeighted(a: number[], b: number[]): number {
  * Real-valued Jaccard Similarity for continuous data
  * Measures the similarity between two continuous vectors
  * Range: [0, 1] (1 means identical)
- * Uses the actual real values directly in the Jaccard formula
+ * Uses the absolute values of the real values to handle negative inputs robustly.
  *
  * @param {number[]} a - First real-valued vector
  * @param {number[]} b - Second real-valued vector
@@ -89,26 +89,7 @@ export function jaccardSimilarityWeighted(a: number[], b: number[]): number {
  * @throws {Error} If inputs are not arrays or have mismatched lengths
  */
 export function jaccardSimilarityRealValued(a: number[], b: number[]): number {
-  if (!Array.isArray(a) || !Array.isArray(b)) {
-    throw new Error('Inputs must be arrays');
-  }
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
-  if (a.length === 0) {
-    return 1; // Empty vectors are identical
-  }
-
-  let intersection = 0;
-  let union = 0;
-
-  for (let i = 0; i < a.length; i++) {
-    const valA = a[i];
-    const valB = b[i];
-
-    intersection += Math.min(valA, valB);
-    union += Math.max(valA, valB);
-  }
-
-  return union === 0 ? 1 : intersection / union;
+  // For robustness against negative values, we treat this as a weighted Jaccard
+  // using absolute magnitudes. This ensures the result is always in [0, 1].
+  return jaccardSimilarityWeighted(a, b);
 }

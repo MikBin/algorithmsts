@@ -13,7 +13,7 @@ const testCases = [
     vecA: [1, 2, 3, 4, 5],
     vecB: [1, 2, 3, 4, 5],
     expected: {
-      intersectionSimilarity: 15,
+      intersectionSimilarity: 1, // Normalized: 1
       waveHedgesSimilarity: 1,
       sorensenSimilarity: 1,
       motykaSimilarity: 1,
@@ -25,7 +25,7 @@ const testCases = [
     vecA: [0, 0, 0, 0, 0],
     vecB: [0, 0, 0, 0, 0],
     expected: {
-      intersectionSimilarity: 0,
+      intersectionSimilarity: 1, // Normalized: 1 (identical)
       waveHedgesSimilarity: 1,
       sorensenSimilarity: 1,
       motykaSimilarity: 1,

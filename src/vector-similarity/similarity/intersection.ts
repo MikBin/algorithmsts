@@ -8,14 +8,31 @@ import { distanceToSimilarity } from './classic.ts';
 
 /**
  * Intersection Similarity
- * Measures the sum of the element-wise minimums of two vectors.
- * Range: [0, ∞)
+ * Measures the sum of the element-wise minimums of absolute values of two vectors.
+ * Returns a normalized similarity score in [0, 1] by dividing by the average magnitude sum (Sørensen-Dice normalization).
+ * Range: [0, 1]
  */
 export const intersectionSimilarity = (a: number[], b: number[]): number => {
   if (a.length !== b.length) {
     throw new Error('Vectors must have the same length');
   }
-  return a.reduce((acc, val, i) => acc + Math.min(val, b[i]), 0);
+  let sumMin = 0;
+  let sumA = 0;
+  let sumB = 0;
+
+  for (let i = 0; i < a.length; i++) {
+      const absA = Math.abs(a[i]);
+      const absB = Math.abs(b[i]);
+      sumMin += Math.min(absA, absB);
+      sumA += absA;
+      sumB += absB;
+  }
+
+  const denominator = sumA + sumB;
+  if (denominator === 0) return 1;
+
+  // Normalize using Sørensen-Dice coefficient approach: 2 * intersection / (sumA + sumB)
+  return (2 * sumMin) / denominator;
 };
 
 /**
@@ -28,7 +45,8 @@ export const waveHedgesDistance = (a: number[], b: number[]): number => {
     throw new Error('Vectors must have the same length');
   }
   return a.reduce((acc, val, i) => {
-    const max = Math.max(val, b[i]);
+    // Use absolute values for max to handle negative inputs
+    const max = Math.max(Math.abs(val), Math.abs(b[i]));
     if (max === 0) {
       return acc;
     }
@@ -45,8 +63,9 @@ export const sorensenDistance = (a: number[], b: number[]): number => {
   if (a.length !== b.length) {
     throw new Error('Vectors must have the same length');
   }
-  const sumA = a.reduce((acc, val) => acc + val, 0);
-  const sumB = b.reduce((acc, val) => acc + val, 0);
+  // Use absolute values for sums
+  const sumA = a.reduce((acc, val) => acc + Math.abs(val), 0);
+  const sumB = b.reduce((acc, val) => acc + Math.abs(val), 0);
   const numerator = a.reduce((acc, val, i) => acc + Math.abs(val - b[i]), 0);
   const denominator = sumA + sumB;
   if (denominator === 0) {
@@ -64,8 +83,9 @@ export const motykaSimilarity = (a: number[], b: number[]): number => {
   if (a.length !== b.length) {
     throw new Error('Vectors must have the same length');
   }
-  const sumMin = a.reduce((acc, val, i) => acc + Math.min(val, b[i]), 0);
-  const sumMax = a.reduce((acc, val, i) => acc + Math.max(val, b[i]), 0);
+  // Use absolute values
+  const sumMin = a.reduce((acc, val, i) => acc + Math.min(Math.abs(val), Math.abs(b[i])), 0);
+  const sumMax = a.reduce((acc, val, i) => acc + Math.max(Math.abs(val), Math.abs(b[i])), 0);
   if (sumMax === 0) {
     return 1; // Both vectors are zero vectors, similarity is 1.
   }
@@ -101,19 +121,10 @@ export const motykaDistance = (a: number[], b: number[]): number => {
 
 /**
  * Intersection Similarity (Normalized)
- * A normalized version of intersection similarity.
+ * A normalized version of intersection similarity (alias for intersectionSimilarity).
  * Range: [0, 1]
  */
-export const intersectionSimilarityNormalized = (a: number[], b: number[]): number => {
-    const sumMin = intersectionSimilarity(a, b);
-    const sumA = a.reduce((acc, val) => acc + val, 0);
-    const sumB = b.reduce((acc, val) => acc + val, 0);
-    const denominator = Math.min(sumA, sumB);
-    if (denominator === 0) {
-        return 1;
-    }
-    return sumMin / denominator;
-};
+export const intersectionSimilarityNormalized = intersectionSimilarity;
 
 /**
  * Intersection Distance

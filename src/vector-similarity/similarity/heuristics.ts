@@ -200,9 +200,10 @@ export function chebyshevSimilarity(A: number[], B: number[]): number {
  * d(A,B) = Σ|Ai - Bi| / Σ(Ai + Bi)
  *
  * Returns the Bray-Curtis similarity directly (1 - distance).
+ * Uses absolute values of inputs to ensure robustness for general vectors.
  *
- * @param {number[]} A - First numeric vector (should be non-negative)
- * @param {number[]} B - Second numeric vector (should be non-negative)
+ * @param {number[]} A - First numeric vector
+ * @param {number[]} B - Second numeric vector
  * @returns {number} Similarity score in [0, 1]
  */
 export function brayCurtisSimilarity(A: number[], B: number[]): number {
@@ -222,18 +223,13 @@ export function brayCurtisSimilarity(A: number[], B: number[]): number {
         `Invalid elements at index ${i}: must be finite numbers`
       );
     }
-    if (A[i] < 0 || B[i] < 0) {
-      throw new Error(
-        `Negative values not allowed at index ${i}: Bray-Curtis requires non-negative inputs`
-      );
-    }
-
+    // Use absolute values to handle negative inputs
     sumDiff += Math.abs(A[i] - B[i]);
-    sumTotal += A[i] + B[i];
+    sumTotal += Math.abs(A[i]) + Math.abs(B[i]);
   }
 
   if (sumTotal === 0) {
-    return 1; // Both vectors are all zeros
+    return 1; // Both vectors are zero vectors
   }
 
   // Bray-Curtis similarity = 1 - distance
