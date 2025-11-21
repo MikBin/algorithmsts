@@ -4,7 +4,7 @@
  * All functions take two vectors (arrays) and return a similarity or distance score.
  */
 
-import { distanceToSimilarity } from './classic.ts';
+import { distanceToSimilarity } from './classic';
 
 /**
  * Intersection Similarity
