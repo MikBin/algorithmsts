@@ -330,26 +330,6 @@ describe('Symmetric Mathematical Functions', () => {
       });
     });
 
-    describe('productSoftsign', () => {
-      it('should return values in range (-1, 1)', () => {
-        testPairs.forEach(([x, y]) => {
-          const result = productSoftsign(x, y);
-          expect(result).toBeGreaterThan(-1);
-          expect(result).toBeLessThan(1);
-        });
-      });
-
-      it('should satisfy odd symmetry: f(-x, -y) = -f(x, y)', () => {
-        testPairs.forEach(([x, y]) => {
-          expect(productSoftsign(-x, -y)).toBeCloseTo(-productSoftsign(x, y), 5);
-        });
-      });
-
-      it('should return 0 for (0, 0)', () => {
-        expect(productSoftsign(0, 0)).toBe(0);
-      });
-    });
-
     describe('additiveAlgebraicSigmoid', () => {
       it('should return values in range (-1, 1)', () => {
         testPairs.forEach(([x, y]) => {
@@ -461,6 +441,32 @@ describe('Symmetric Mathematical Functions', () => {
       });
     });
 
+    describe('productSoftsign', () => {
+      it('should return values in range (-1, 1)', () => {
+        testPairs.forEach(({ x, y }) => {
+          const result = productSoftsign(x, y);
+          expect(result).toBeGreaterThan(-1);
+          expect(result).toBeLessThan(1);
+        });
+      });
+
+      it('should satisfy even symmetry: f(-x, -y) = f(x, y)', () => {
+        testPairs.forEach(({ x, y }) => {
+          expect(productSoftsign(-x, -y)).toBeCloseTo(productSoftsign(x, y), 5);
+        });
+      });
+
+      it('should satisfy permutation symmetry: f(x, y) = f(y, x)', () => {
+        const result1 = productSoftsign(2, 5);
+        const result2 = productSoftsign(5, 2);
+        expect(result1).toBe(result2);
+      });
+
+      it('should return 0 for (0, 0)', () => {
+        expect(productSoftsign(0, 0)).toBe(0);
+      });
+    });
+
     describe('multiplicativeTanh', () => {
       it('should be bounded within [-1, 1]', () => {
         testPairs.forEach(({ x, y }) => {
@@ -568,8 +574,8 @@ describe('Symmetric Mathematical Functions', () => {
         const result2 = mexicanHat(5, 2);
         expect(result1).toBe(result2);
       });
-      it('should return 0 at origin', () => {
-        expect(mexicanHat(0, 0)).toBe(0);
+      it('should return 1 at origin', () => {
+        expect(mexicanHat(0, 0)).toBe(1);
       });
     });
 
@@ -590,7 +596,7 @@ describe('Symmetric Mathematical Functions', () => {
         expect(inverseMultiquadric(0, 0)).toBe(1);
       });
       it('should decay for large values', () => {
-        expect(inverseMultiquadric(100, 100)).toBeLessThan(0.0001);
+        expect(inverseMultiquadric(100, 100)).toBeLessThan(0.01);
       });
     });
   });

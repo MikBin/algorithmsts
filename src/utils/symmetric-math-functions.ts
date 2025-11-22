@@ -147,15 +147,6 @@ export const bivariateSigmoid = (x: number, y: number): number => {
 };
 
 /**
- * 6. Product Softsign
- * Multiplicative combination of softsign functions.
- * Range: (-1, 1)
- */
-export const productSoftsign = (x: number, y: number): number => {
-    return (x / (1 + Math.abs(x))) * (y / (1 + Math.abs(y)));
-};
-
-/**
  * 7. Additive Algebraic Sigmoid
  * Sum of two algebraic sigmoids, normalized.
  * Range: (-1, 1)
@@ -218,6 +209,16 @@ export const rationalSaddle = (x: number, y: number): number => {
  */
 export const gaussianRadialBasis = (x: number, y: number): number => {
     return Math.exp(-(x * x + y * y));
+};
+
+/**
+ * Product Softsign
+ * Multiplicative combination of softsign functions.
+ * Range: (-1, 1)
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const productSoftsign = (x: number, y: number): number => {
+    return (x / (1 + Math.abs(x))) * (y / (1 + Math.abs(y)));
 };
 
 /**
