@@ -14,6 +14,7 @@ export {
     jaccardSimilarityRealValued
 } from './similarity/jaccard';
 export * from './similarity/vectorSimilarityMeanStdPower';
+export * from './similarity/vectorSimilarityMeanStdPowerArithmeticMean';
 export * from './similarity/vectorSimilarityMeanStdPenalized';
 export * from './similarity/vectorSimilarityMetricLike';
 export * from './similarity/vectorSimilarityRobust';
