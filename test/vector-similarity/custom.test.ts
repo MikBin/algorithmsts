@@ -4,7 +4,7 @@ import {
 } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPenalized';
 import { vectorSimilarityCorrelation } from '../../src/vector-similarity/similarity/vectorSimilarityCorrelation';
 import { computeVectorSimilarityRobust } from '../../src/vector-similarity/similarity/vectorSimilarityRobust';
-import { computeVectorSimilarityMeanStdPower } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPower';
+import { vectorSimilarityMeanStdPowerArithmeticMean } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPowerArithmeticMean';
 import { computeVectorSimilarityMetricLike } from '../../src/vector-similarity/similarity/vectorSimilarityMetricLike';
 import { computeVectorSimilarityTunable } from '../../src/vector-similarity/similarity/vectorSimilarityTunable';
 import { computeVectorSimilarityVarianceWeighted } from '../../src/vector-similarity/similarity/vectorSimilarityVarianceWeighted';
@@ -18,7 +18,7 @@ const testCases = [
       computeVectorSimilarityMeanStdPenalized: 1,
       vectorSimilarityCorrelation: 1,
       computeVectorSimilarityRobust: 1,
-      computeVectorSimilarityMeanStdPower: 1,
+      vectorSimilarityMeanStdPowerArithmeticMean: 1,
       computeVectorSimilarityMetricLike: 1,
       computeVectorSimilarityTunable: 1,
       computeVectorSimilarityVarianceWeighted: 1,
@@ -32,7 +32,7 @@ const testCases = [
       computeVectorSimilarityMeanStdPenalized: 1,
       vectorSimilarityCorrelation: 1,
       computeVectorSimilarityRobust: 1,
-      computeVectorSimilarityMeanStdPower: 1,
+      vectorSimilarityMeanStdPowerArithmeticMean: 1,
       computeVectorSimilarityMetricLike: 1,
       computeVectorSimilarityTunable: 1,
       computeVectorSimilarityVarianceWeighted: 1,
@@ -44,7 +44,7 @@ const similarityFunctions = {
   computeVectorSimilarityMeanStdPenalized,
   vectorSimilarityCorrelation,
   computeVectorSimilarityRobust,
-  computeVectorSimilarityMeanStdPower,
+  vectorSimilarityMeanStdPowerArithmeticMean,
   computeVectorSimilarityMetricLike,
   computeVectorSimilarityTunable,
   computeVectorSimilarityVarianceWeighted,

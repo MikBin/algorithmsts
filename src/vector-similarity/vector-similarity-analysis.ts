@@ -12,8 +12,7 @@ import { pearsonCorrelationSimilarity, normalizedCosineSimilarity, euclideanSimi
 import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
-import { computeVectorSimilarityMeanStdPower } from './similarity/vectorSimilarityMeanStdPower';
-import { computeVectorSimilarityMeanStdPowerArithmeticMean } from './similarity/vectorSimilarityMeanStdPowerArithmeticMean';
+import { vectorSimilarityMeanStdPowerArithmeticMean } from './similarity/vectorSimilarityMeanStdPowerArithmeticMean';
 import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike';
 import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable';
 import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
@@ -59,8 +58,7 @@ const similarityFunctions: Record<string, (a: number[], b: number[]) => number> 
   computeVectorSimilarityMeanStdPenalized,
   vectorSimilarityCorrelation,
   computeVectorSimilarityRobust,
-  computeVectorSimilarityMeanStdPower,
-  computeVectorSimilarityMeanStdPowerArithmeticMean,
+  vectorSimilarityMeanStdPowerArithmeticMean,
   computeVectorSimilarityMetricLike,
   computeVectorSimilarityTunable,
   computeVectorSimilarityVarianceWeighted,
@@ -372,8 +370,7 @@ const runNonLinearAnalysis = () => {
     'euclideanSimilarity',
     'polynomialKernelSimilarity',
     'rbfKernelSimilarity',
-    'computeVectorSimilarityMeanStdPower',
-    'computeVectorSimilarityMeanStdPowerArithmeticMean'
+    'vectorSimilarityMeanStdPowerArithmeticMean'
   ];
 
   const runAnalysisCase = (service: VectorGenerationService, params: GenerationParams) => {
