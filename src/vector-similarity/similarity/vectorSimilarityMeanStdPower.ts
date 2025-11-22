@@ -57,10 +57,10 @@ function computeVectorSimilarityMeanStdPower(A: number[], B: number[]): number {
     } else {
       const absA = Math.abs(a);
       const absB = Math.abs(b);
-      const maxVal = absA > absB ? absA : absB;
+      const maxVal = Math.max(absA, absB);
       const diff = Math.abs(a - b);
       const denominator = 2 * maxVal;
-      const ratio = denominator !== 0 ? diff / denominator : 0;
+      const ratio = denominator === 0 ? 0 : diff / denominator;
       ci = 1 - ratio;
     }
 
