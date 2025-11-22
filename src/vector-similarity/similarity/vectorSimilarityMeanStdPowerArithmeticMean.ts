@@ -4,7 +4,7 @@
  *
  * Denominator = 0.5 * (|a| + |b|)
  */
-function computeVectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[]): number {
+function vectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[]): number {
   if (!Array.isArray(A)) {
     throw new TypeError("Invalid input: A must be an array.");
   }
@@ -95,4 +95,4 @@ function computeVectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: numbe
   return similarity / 2;
 }
 
-export { computeVectorSimilarityMeanStdPowerArithmeticMean };
+export { vectorSimilarityMeanStdPowerArithmeticMean };

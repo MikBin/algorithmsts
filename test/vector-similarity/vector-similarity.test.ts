@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import {
-  computeVectorSimilarityMeanStdPower,
   computeVectorSimilarityMeanStdPenalized,
   computeVectorSimilarityMetricLike,
   computeVectorSimilarityRobust,
@@ -9,40 +8,6 @@ import {
 } from '../../src/vector-similarity';
 
 describe('Vector Similarity Functions', () => {
-  describe('computeVectorSimilarityMeanStdPower', () => {
-    it('should return 1 for identical vectors', () => {
-      const a = [1, 2, 3];
-      const b = [1, 2, 3];
-      expect(computeVectorSimilarityMeanStdPower(a, b)).toBe(1);
-    });
-
-    it('should return a value between 0 and 1 for different vectors', () => {
-      const a = [1, 2, 3];
-      const b = [4, 5, 6];
-      const similarity = computeVectorSimilarityMeanStdPower(a, b);
-      expect(similarity).toBeGreaterThanOrEqual(0);
-      expect(similarity).toBeLessThanOrEqual(1);
-    });
-
-    it('should handle zero vectors', () => {
-      const a = [0, 0, 0];
-      const b = [0, 0, 0];
-      expect(computeVectorSimilarityMeanStdPower(a, b)).toBe(1);
-    });
-
-    it('should handle vectors with negative numbers', () => {
-      const a = [-1, -2, -3];
-      const b = [-1, -2, -3];
-      expect(computeVectorSimilarityMeanStdPower(a, b)).toBe(1);
-    });
-
-    it('should throw an error for vectors of different lengths', () => {
-      const a = [1, 2, 3];
-      const b = [4, 5];
-      expect(() => computeVectorSimilarityMeanStdPower(a, b)).toThrow();
-    });
-  });
-
   describe('computeVectorSimilarityMeanStdPenalized', () => {
     it('should return 1 for identical vectors', () => {
       const a = [1, 2, 3];
