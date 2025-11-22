@@ -62,11 +62,8 @@ function computeVectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: numbe
       const diff = Math.abs(a - b);
       const denominator = 0.5 * (absA + absB);
       const ratio = denominator === 0 ? 0 : diff / denominator;
-      ci = 1 - ratio;
+      ci = 1 - ratio; //[-1,1]
     }
-
-    if (ci < 0) ci = 0;
-    else if (ci > 1) ci = 1;
 
     C[i] = ci;
   }
@@ -90,10 +87,12 @@ function computeVectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: numbe
     std = Math.sqrt(variance);
   }
 
-  const exponent = 1 + std;
-  const similarity = Math.pow(mean, exponent);
+  const exponent = (1 + std);
 
-  return similarity;
+  const sign = Math.sign(mean);
+  const similarity = 1 + sign * Math.pow(Math.abs(mean), exponent ** sign);
+
+  return similarity / 2;
 }
 
 export { computeVectorSimilarityMeanStdPowerArithmeticMean };

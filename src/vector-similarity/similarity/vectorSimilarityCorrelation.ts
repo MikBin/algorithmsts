@@ -56,7 +56,7 @@ function vectorSimilarityCorrelation(
       const diff = Math.abs(a - b);
       // maxVal will be > 0 here because of the `a === 0 && b === 0` check
       const ratio = diff / maxVal;
-      ci = 1 - ratio;
+      ci = 1 - ratio; // [-1,1]
     }
 
     C[i] = ci;
@@ -86,7 +86,7 @@ function vectorSimilarityCorrelation(
   const sign = Math.sign(mean);
   const similarity = 1 + sign * Math.pow(Math.abs(mean), exponent ** sign);
 
-  return similarity/2;
+  return similarity / 2;
 }
 
 export { vectorSimilarityCorrelation };
