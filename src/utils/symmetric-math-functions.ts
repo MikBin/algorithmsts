@@ -80,6 +80,17 @@ export const gudermannian = (x: number): number => {
     return Math.atan(Math.sinh(x));
 };
 
+/**
+ * 7. Logistic Sigmoid (Shifted)
+ * A smooth S-curve commonly used in machine learning and statistics.
+ * This is the standard logistic function shifted and scaled to range (-1, 1).
+ * Range: (-1, 1)
+ */
+export const logisticSigmoid = (x: number): number => {
+    return -1 + 2 / (1 + Math.exp(-x));
+};
+
+
 
 // ============================================================================
 // SECTION 2: TWO VARIABLE FUNCTIONS
@@ -90,6 +101,7 @@ export const gudermannian = (x: number): number => {
 /**
  * 1. 2D Arctangent
  * A rising wave oriented diagonally.
+ * Range: (-π/2, π/2)
  */
 export const arctan2D = (x: number, y: number): number => {
     return Math.atan(x + y);
@@ -99,6 +111,7 @@ export const arctan2D = (x: number, y: number): number => {
  * 2. Additive Hyperbolic Tangent
  * A smooth plateau stepping up in both X and Y directions.
  * Normalized by 0.5 to keep range strictly within (-1, 1).
+ * Range: (-1, 1)
  */
 export const additiveTanh = (x: number, y: number): number => {
     return 0.5 * (Math.tanh(x) + Math.tanh(y));
@@ -107,6 +120,7 @@ export const additiveTanh = (x: number, y: number): number => {
 /**
  * 3. Sigmoid Surface
  * Extruded diagonal version of the algebraic sigmoid.
+ * Range: (-1, 1)
  */
 export const sigmoidSurface = (x: number, y: number): number => {
     const sum = x + y;
@@ -116,9 +130,40 @@ export const sigmoidSurface = (x: number, y: number): number => {
 /**
  * 4. Normalized Sum Tanh
  * Sharper convergence than arctan2D.
+ * Range: (-1, 1)
  */
 export const normalizedSumTanh = (x: number, y: number): number => {
     return Math.tanh(x + y);
+};
+
+/**
+ * 5. Bivariate Logistic Sigmoid
+ * 2D extension of the logistic sigmoid along the diagonal.
+ * Range: (-1, 1)
+ */
+export const bivariateSigmoid = (x: number, y: number): number => {
+    const sum = x + y;
+    return -1 + 2 / (1 + Math.exp(-sum));
+};
+
+/**
+ * 6. Product Softsign
+ * Multiplicative combination of softsign functions.
+ * Range: (-1, 1)
+ */
+export const productSoftsign = (x: number, y: number): number => {
+    return (x / (1 + Math.abs(x))) * (y / (1 + Math.abs(y)));
+};
+
+/**
+ * 7. Additive Algebraic Sigmoid
+ * Sum of two algebraic sigmoids, normalized.
+ * Range: (-1, 1)
+ */
+export const additiveAlgebraicSigmoid = (x: number, y: number): number => {
+    const sx = x / Math.sqrt(1 + x * x);
+    const sy = y / Math.sqrt(1 + y * y);
+    return 0.5 * (sx + sy);
 };
 
 
@@ -133,6 +178,7 @@ export const normalizedSumTanh = (x: number, y: number): number => {
 /**
  * Diagonal Sine
  * Waves running diagonally.
+ * Range: [-1, 1]
  */
 export const diagonalSine = (x: number, y: number): number => {
     return Math.sin(x + y);
@@ -141,6 +187,7 @@ export const diagonalSine = (x: number, y: number): number => {
 /**
  * Mixed Product Trigonometry
  * Creates a grid of "hills" and "holes".
+ * Range: [-1, 1]
  */
 export const mixedProductTrig = (x: number, y: number): number => {
     return Math.sin(x) * Math.cos(y);
@@ -151,6 +198,7 @@ export const mixedProductTrig = (x: number, y: number): number => {
 /**
  * The Rational Saddle
  * Decays to zero at infinity, has peaks/valleys near origin.
+ * Range: (-1, 1)
  */
 export const rationalSaddle = (x: number, y: number): number => {
     return (x - y) / (1 + x * x + y * y);
@@ -200,4 +248,45 @@ export const cosineProduct = (x: number, y: number): number => {
  */
 export const inverseQuadratic = (x: number, y: number): number => {
     return 1 / (1 + x * x + y * y);
+};
+
+/**
+ * Sine Product (Absolute)
+ * Creates a grid pattern with all positive values.
+ * Range: [0, 1]
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const sineProductAbs = (x: number, y: number): number => {
+    return Math.abs(Math.sin(x) * Math.sin(y));
+};
+
+/**
+ * Cauchy Distribution (Bivariate)
+ * Heavy-tailed distribution, similar to inverse quadratic but with different decay.
+ * Range: (0, 1]
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const cauchyBivariate = (x: number, y: number): number => {
+    return 1 / (1 + x * x + y * y + x * x * y * y);
+};
+
+/**
+ * Mexican Hat (Ricker Wavelet)
+ * Second derivative of Gaussian, used in wavelet analysis.
+ * Range: [-0.5, 1]
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const mexicanHat = (x: number, y: number): number => {
+    const r2 = x * x + y * y;
+    return (1 - r2) * Math.exp(-r2 / 2);
+};
+
+/**
+ * Inverse Multiquadric
+ * Bounded version of multiquadric RBF.
+ * Range: (0, 1]
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const inverseMultiquadric = (x: number, y: number, c: number = 1): number => {
+    return 1 / Math.sqrt(1 + c * c * (x * x + y * y));
 };
