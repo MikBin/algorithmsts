@@ -52,7 +52,7 @@ function vectorSimilarityCorrelation(
     } else {
       const absA = Math.abs(a);
       const absB = Math.abs(b);
-      const maxVal = absA > absB ? absA : absB;
+      const maxVal = Math.max(absA, absB);
       const diff = Math.abs(a - b);
       // maxVal will be > 0 here because of the `a === 0 && b === 0` check
       const ratio = diff / maxVal;
