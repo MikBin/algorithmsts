@@ -552,7 +552,8 @@ const App = {
         const labels = data.map(item => item.label);
         const similarityFunctions = [
             'normalizedCosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
-            'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'
+            'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower',
+            'computeVectorSimilarityMeanStdPowerArithmeticMean'
         ];
         const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
 
@@ -591,9 +592,10 @@ const App = {
         const functionTypes = Object.keys(performanceData);
         const similarityFunctions = [
             'normalizedCosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
-            'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower'
+            'polynomialKernelSimilarity', 'rbfKernelSimilarity', 'computeVectorSimilarityMeanStdPower',
+            'computeVectorSimilarityMeanStdPowerArithmeticMean'
         ];
-        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#7f8c8d'];
 
         const datasets = similarityFunctions.map((funcName, index) => ({
             label: funcName.replace(/([A-Z])/g, ' $1').trim(),
