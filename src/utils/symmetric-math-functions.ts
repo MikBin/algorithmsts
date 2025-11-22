@@ -128,33 +128,7 @@ export const normalizedSumTanh = (x: number, y: number): number => {
 // Condition: f(-x, -y) = -f(x, y)
 // ============================================================================
 
-// --- Subsection A: Polynomials (Unbounded) ---
-
-/**
- * Linear Plane
- * The simplest odd 2D function.
- */
-export const linearPlane = (x: number, y: number, a: number = 1, b: number = 1): number => {
-    return (a * x) + (b * y);
-};
-
-/**
- * The Monkey Saddle
- * Famous for having 3 valleys and 3 ridges.
- */
-export const monkeySaddle = (x: number, y: number): number => {
-    return Math.pow(x, 3) - (3 * x * Math.pow(y, 2));
-};
-
-/**
- * Mixed Odd Degree
- * Example: x^2 * y
- */
-export const mixedOddDegree = (x: number, y: number): number => {
-    return (x * x) * y;
-};
-
-// --- Subsection B: Oscillatory (Bounded, Non-monotone) ---
+// --- Subsection A: Oscillatory (Bounded, Non-monotone) ---
 
 /**
  * Diagonal Sine
@@ -172,7 +146,7 @@ export const mixedProductTrig = (x: number, y: number): number => {
     return Math.sin(x) * Math.cos(y);
 };
 
-// --- Subsection C: Rational (Boundedness varies) ---
+// --- Subsection B: Rational (Boundedness varies) ---
 
 /**
  * The Rational Saddle
@@ -180,4 +154,50 @@ export const mixedProductTrig = (x: number, y: number): number => {
  */
 export const rationalSaddle = (x: number, y: number): number => {
     return (x - y) / (1 + x * x + y * y);
+};
+
+
+// ============================================================================
+// SECTION 4: TWO VARIABLE FUNCTIONS (LIMITED & PERMUTATION SYMMETRIC)
+// Properties: Limited (Bounded), Permutation Symmetric f(a, b) = f(b, a)
+// ============================================================================
+
+/**
+ * Gaussian Radial Basis Function (RBF)
+ * A bell-shaped curve centered at the origin.
+ * Range: (0, 1]
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const gaussianRadialBasis = (x: number, y: number): number => {
+    return Math.exp(-(x * x + y * y));
+};
+
+/**
+ * Multiplicative Hyperbolic Tangent
+ * Product of two sigmoidal shapes.
+ * Range: (-1, 1)
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const multiplicativeTanh = (x: number, y: number): number => {
+    return Math.tanh(x) * Math.tanh(y);
+};
+
+/**
+ * Cosine Product
+ * Egg-crate surface.
+ * Range: [-1, 1]
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const cosineProduct = (x: number, y: number): number => {
+    return Math.cos(x) * Math.cos(y);
+};
+
+/**
+ * Inverse Quadratic
+ * A Lorentzian-like peak centered at the origin.
+ * Range: (0, 1]
+ * Symmetry: Permutation Symmetric f(x, y) = f(y, x)
+ */
+export const inverseQuadratic = (x: number, y: number): number => {
+    return 1 / (1 + x * x + y * y);
 };
