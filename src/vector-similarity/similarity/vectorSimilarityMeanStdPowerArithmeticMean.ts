@@ -4,7 +4,7 @@
  *
  * Denominator = 0.5 * (|a| + |b|)
  */
-function vectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[]): number {
+function vectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[], stdWeight: number = 1): number {
   if (!Array.isArray(A)) {
     throw new TypeError("Invalid input: A must be an array.");
   }
@@ -87,7 +87,7 @@ function vectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[]): n
     std = Math.sqrt(variance);
   }
 
-  const exponent = (1 + std);
+  const exponent = (1 + std * stdWeight);
 
   const sign = Math.sign(mean);
   const similarity = 1 + sign * Math.pow(Math.abs(mean), exponent ** sign);
@@ -95,4 +95,15 @@ function vectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[]): n
   return similarity / 2;
 }
 
-export { vectorSimilarityMeanStdPowerArithmeticMean };
+/**
+ * Compute the vector similarity mean std power arithmetic mean with the standard deviation weight set to 0.
+ *
+ * @param A The first vector.
+ * @param B The second vector.
+ * @returns The similarity between the two vectors.
+ */
+function vectorSimilarityMeanStdPowerArithmeticMeanNoStd(A: number[], B: number[]): number {
+  return vectorSimilarityMeanStdPowerArithmeticMean(A, B, 0);
+}
+
+export { vectorSimilarityMeanStdPowerArithmeticMean, vectorSimilarityMeanStdPowerArithmeticMeanNoStd };

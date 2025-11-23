@@ -25,11 +25,13 @@
  *
  * @param A The first vector.
  * @param B The second vector.
+ * @param stdWeight The weight of the standard deviation in the exponent calculation. Defaults to 1.
  * @returns The similarity between the two vectors.
  */
 function vectorSimilarityCorrelation(
   A: number[],
-  B: number[]
+  B: number[],
+  stdWeight: number = 1
 ): number {
   if (A.length !== B.length) {
     throw new Error('Vectors must be of the same length');
@@ -81,7 +83,7 @@ function vectorSimilarityCorrelation(
     std = Math.sqrt(variance);
   }
 
-  const exponent = (1 + std);
+  const exponent = (1 + std * stdWeight);
 
   const sign = Math.sign(mean);
   const similarity = 1 + sign * Math.pow(Math.abs(mean), exponent ** sign);
@@ -89,4 +91,15 @@ function vectorSimilarityCorrelation(
   return similarity / 2;
 }
 
-export { vectorSimilarityCorrelation };
+/**
+ * Computes the vector similarity correlation with the standard deviation weight set to 0.
+ *
+ * @param A The first vector.
+ * @param B The second vector.
+ * @returns The similarity between the two vectors.
+ */
+function vectorSimilarityCorrelationNoStd(A: number[], B: number[]): number {
+  return vectorSimilarityCorrelation(A, B, 0);
+}
+
+export { vectorSimilarityCorrelation, vectorSimilarityCorrelationNoStd };
