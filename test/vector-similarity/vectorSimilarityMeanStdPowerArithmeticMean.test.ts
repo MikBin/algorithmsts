@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { vectorSimilarityMeanStdPowerArithmeticMean } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPowerArithmeticMean';
+import {
+  vectorSimilarityMeanStdPowerArithmeticMean,
+  vectorSimilarityMeanStdPowerArithmeticMeanNoStd
+} from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPowerArithmeticMean';
 
 describe('vectorSimilarityMeanStdPowerArithmeticMean', () => {
   it('should return 1 for identical vectors', () => {
@@ -100,4 +103,56 @@ describe('vectorSimilarityMeanStdPowerArithmeticMean', () => {
       expect(res).toBeCloseTo(expected, 5);
   });
 
+});
+
+describe('vectorSimilarityMeanStdPowerArithmeticMeanNoStd', () => {
+    it('should return 1 for identical vectors', () => {
+        const a = [1, 2, 3];
+        const b = [1, 2, 3];
+        expect(vectorSimilarityMeanStdPowerArithmeticMeanNoStd(a, b)).toBe(1);
+    });
+
+    it('should return same result as vectorSimilarityMeanStdPowerArithmeticMean with stdWeight=0', () => {
+        const a = [1, 2, 3];
+        const b = [1.1, 2.2, 3.3];
+        expect(vectorSimilarityMeanStdPowerArithmeticMeanNoStd(a, b)).toBeCloseTo(vectorSimilarityMeanStdPowerArithmeticMean(a, b, 0));
+    });
+
+    it('should return different result when std is significant', () => {
+        // Construct vectors with different variations to ensure std is non-zero
+        // Using same strategy as correlation test
+        // i=0: A=10, B=10 -> diff=0 -> C=1
+        // i=1: A=10, B=0 -> diff=10, denom=0.5*(10+0)=5 -> ratio=2 -> C=1-2=-1
+        // C = [1, -1]. Mean=0.
+        // For Mean=0, result is 0.5 regardless of std.
+
+        // Let's adjust to get non-zero mean.
+        // i=0: A=10, B=10 -> C=1
+        // i=1: A=10, B=-5 -> diff=15, denom=0.5*(10+5)=7.5 -> ratio=2 -> C=-1
+        // Still mean 0.
+
+        // i=0: A=10, B=10 -> C=1.
+        // i=1: A=10, B=6 -> diff=4, denom=0.5(10+6)=8 -> ratio=0.5 -> C=0.5.
+        // C = [1, 0.5]. Mean = 0.75.
+        // Variance = ((1-0.75)^2 + (0.5-0.75)^2)/1 = (0.0625 + 0.0625) = 0.125.
+        // Std = sqrt(0.125) ~= 0.3535.
+
+        // Default: exponent = 1 + 0.3535 = 1.3535.
+        // result = (1 + 1 * (0.75)^1.3535) / 2
+        // 0.75^1.3535 ~= 0.677
+        // (1 + 0.677)/2 = 0.8385
+
+        // NoStd: exponent = 1.
+        // result = (1 + 0.75) / 2 = 0.875.
+
+        // Diff = 0.875 - 0.8385 = 0.0365 > 0.005.
+
+        const a = [10, 10];
+        const b = [10, 6];
+
+        const resDefault = vectorSimilarityMeanStdPowerArithmeticMean(a, b);
+        const resNoStd = vectorSimilarityMeanStdPowerArithmeticMeanNoStd(a, b);
+
+        expect(Math.abs(resDefault - resNoStd)).toBeGreaterThan(0.01);
+    });
 });

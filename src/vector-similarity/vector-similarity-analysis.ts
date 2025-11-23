@@ -7,12 +7,12 @@ import { fileURLToPath } from 'url';
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from './similarity/vectorSimilarityMeanStdPenalized';
-import { vectorSimilarityCorrelation } from './similarity/vectorSimilarityCorrelation';
+import { vectorSimilarityCorrelation, vectorSimilarityCorrelationNoStd } from './similarity/vectorSimilarityCorrelation';
 import { pearsonCorrelationSimilarity, normalizedCosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic';
 import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
 import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
 import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
-import { vectorSimilarityMeanStdPowerArithmeticMean } from './similarity/vectorSimilarityMeanStdPowerArithmeticMean';
+import { vectorSimilarityMeanStdPowerArithmeticMean, vectorSimilarityMeanStdPowerArithmeticMeanNoStd } from './similarity/vectorSimilarityMeanStdPowerArithmeticMean';
 import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike';
 import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable';
 import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
@@ -57,8 +57,10 @@ const similarityFunctions: Record<string, (a: number[], b: number[]) => number> 
   jaccardSimilarityRealValued,
   computeVectorSimilarityMeanStdPenalized,
   vectorSimilarityCorrelation,
+  vectorSimilarityCorrelationNoStd,
   computeVectorSimilarityRobust,
   vectorSimilarityMeanStdPowerArithmeticMean,
+  vectorSimilarityMeanStdPowerArithmeticMeanNoStd,
   computeVectorSimilarityMetricLike,
   computeVectorSimilarityTunable,
   computeVectorSimilarityVarianceWeighted,
@@ -370,7 +372,10 @@ const runNonLinearAnalysis = () => {
     'euclideanSimilarity',
     'polynomialKernelSimilarity',
     'rbfKernelSimilarity',
-    'vectorSimilarityMeanStdPowerArithmeticMean'
+    'vectorSimilarityMeanStdPowerArithmeticMean',
+    'vectorSimilarityMeanStdPowerArithmeticMeanNoStd',
+    'vectorSimilarityCorrelation',
+    'vectorSimilarityCorrelationNoStd'
   ];
 
   const runAnalysisCase = (service: VectorGenerationService, params: GenerationParams) => {
