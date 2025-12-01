@@ -351,7 +351,7 @@ export function soergelDistance(a: number[], b: number[]): number {
  * Range: [0, 1] (1 means identical)
  */
 export function soergelSimilarity(a: number[], b: number[]): number {
-  return 1 - soergelDistance(a, b);
+  return Math.max(0, 1 - soergelDistance(a, b));
 }
 
 /**
