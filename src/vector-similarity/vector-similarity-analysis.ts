@@ -22,6 +22,7 @@ import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilari
 import { fidelitySimilarity, hellingerSimilarity } from './similarity/fidelity';
 import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity';
 import { polynomialKernelSimilarity, rbfKernelSimilarity } from './similarity/nonLinear';
+import { itakuraSaitoDistance, vectorSimilarityItakuraSaito } from './similarity/itakura-saito';
 import { VectorGenerationService, GenerationParams, GeneratorType, NoiseType } from './vectorGenerationService';
 
 const similarityFunctions: Record<string, (a: number[], b: number[]) => number> = {
@@ -65,7 +66,9 @@ const similarityFunctions: Record<string, (a: number[], b: number[]) => number> 
   computeVectorSimilarityTunable,
   computeVectorSimilarityVarianceWeighted,
   polynomialKernelSimilarity,
-  rbfKernelSimilarity
+  rbfKernelSimilarity,
+  itakuraSaitoDistance,
+  vectorSimilarityItakuraSaito
 };
 
 

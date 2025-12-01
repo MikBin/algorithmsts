@@ -556,9 +556,10 @@ const App = {
             'vectorSimilarityMeanStdPowerArithmeticMean',
             'vectorSimilarityMeanStdPowerArithmeticMeanNoStd',
             'vectorSimilarityCorrelation',
-            'vectorSimilarityCorrelationNoStd'
+            'vectorSimilarityCorrelationNoStd',
+            'vectorSimilarityItakuraSaito'
         ];
-        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#7f8c8d', '#8e44ad', '#e67e22'];
+        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#7f8c8d', '#8e44ad', '#e67e22', '#34495e'];
 
         const datasets = similarityFunctions.map((funcName, index) => ({
             label: funcName.replace(/([A-Z])/g, ' $1').trim(),
@@ -599,9 +600,10 @@ const App = {
             'vectorSimilarityMeanStdPowerArithmeticMean',
             'vectorSimilarityMeanStdPowerArithmeticMeanNoStd',
             'vectorSimilarityCorrelation',
-            'vectorSimilarityCorrelationNoStd'
+            'vectorSimilarityCorrelationNoStd',
+            'vectorSimilarityItakuraSaito'
         ];
-        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#7f8c8d', '#8e44ad', '#e67e22'];
+        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#7f8c8d', '#8e44ad', '#e67e22', '#34495e'];
 
         const datasets = similarityFunctions.map((funcName, index) => ({
             label: funcName.replace(/([A-Z])/g, ' $1').trim(),

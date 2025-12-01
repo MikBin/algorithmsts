@@ -32,3 +32,4 @@ export {
     chebyshevSimilarity
 } from './similarity/heuristics';
 export * from './similarity/vectorSimilarityCorrelation';
+export * from './similarity/itakura-saito';
