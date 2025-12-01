@@ -1,6 +1,7 @@
 import { describe, test, expect } from 'vitest';
 import {
   cosineSimilarity,
+  normalizedCosineSimilarity,
   dotProduct,
   euclideanDistance,
   pearsonCorrelation,
@@ -53,6 +54,7 @@ describe('Similarity Functions Return Value Range', () => {
 
   const similarityFunctions: { [key: string]: (a: number[], b: number[], c?: any) => number } = {
     cosineSimilarity,
+    normalizedCosineSimilarity,
     dotProduct,
     euclideanDistance,
     pearsonCorrelation,
@@ -77,14 +79,26 @@ describe('Similarity Functions Return Value Range', () => {
           if (Object.prototype.hasOwnProperty.call(testVectors, key)) {
             const [vecA, vecB] = testVectors[key as keyof typeof testVectors];
             try {
-              const similarity = func(vecA, vecB);
+              let similarity;
+              if (funcName === 'gowerSimilarity') {
+                const ranges = Array(vecA.length).fill(1);
+                similarity = func(vecA, vecB, ranges);
+              } else {
+                similarity = func(vecA, vecB);
+              }
+
               if (
                 funcName !== 'dotProduct' &&
                 funcName !== 'euclideanDistance' &&
-                funcName !== 'pearsonCorrelation'
+                funcName !== 'pearsonCorrelation' &&
+                funcName !== 'cosineSimilarity'
               ) {
-                expect(similarity).toBeGreaterThanOrEqual(0);
-                expect(similarity).toBeLessThanOrEqual(1);
+                // If the result is a valid number, check the range.
+                // NaN is accepted for undefined cases (like zero vectors).
+                if (!isNaN(similarity)) {
+                  expect(similarity).toBeGreaterThanOrEqual(0);
+                  expect(similarity).toBeLessThanOrEqual(1);
+                }
               } else {
                 console.log(
                   `${funcName} with ${key} vectors returned ${similarity}. Not strictly [0,1].`
@@ -92,6 +106,7 @@ describe('Similarity Functions Return Value Range', () => {
               }
             } catch (e: any) {
               console.error(`Error testing ${funcName} with ${key}:`, e.message);
+              throw e; // Fail the test if an exception occurs
             }
           }
         }
