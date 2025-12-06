@@ -89,17 +89,40 @@ if (typeof console !== 'undefined' && console.warn) {
   );
 }
 
-// Import existing modules for backward compatibility
-import * as binSearches from './binarySearch/binarySearch'
-import * as segTree from './segmentTree/segmentTree'
-import SkipList from './skipList/skipList'
-import { Trie } from './trie/trie'
-import { SuffixTree } from './suffixTree/index'
-import { ngramSimilarity } from './strings/similarities'
-
 // Import compatibility layer
 import * as compatibility from './compatibility/index';
 import { LegacyAPI } from './compatibility/utils/LegacyAPI';
+import { NgramSimilarity, BinarySearch, BinaryClosestSearch } from './algorithms';
+import { SegmentTreeAdapter } from './compatibility/adapters/SegmentTreeAdapter';
+
+// --- Legacy Wrappers ---
+
+const binarySearchWrapper = <T>(array: T[], value: T, compareFn: (a: T, b: T) => number): number => {
+  if (!array) {
+    throw new Error('Array cannot be null or undefined');
+  }
+  if (!compareFn) {
+    throw new Error('Comparison function cannot be null or undefined');
+  }
+  const algo = new BinarySearch<T>();
+  const result = algo.execute({ array, value, compareFn }).index;
+  return result;
+};
+
+const binaryClosestSearchWrapper = <T>(array: T[], value: T, compareFn: (a: T, b: T) => number): number => {
+  if (!array) {
+    throw new Error('Array cannot be null or undefined');
+  }
+  const algo = new BinaryClosestSearch<T>();
+  return algo.execute({ array, value, compareFn }).index;
+};
+
+const ngramSimilarityWrapper = (str1: string, str2: string, substringLength: number = 2, caseSensitive: boolean = false): number => {
+  const algo = new NgramSimilarity();
+  return algo.execute({ str1, str2, substringLength, caseSensitive }).similarity;
+};
+
+// --- End Legacy Wrappers ---
 
 /**
  * Default export maintaining backward compatibility
@@ -107,18 +130,31 @@ import { LegacyAPI } from './compatibility/utils/LegacyAPI';
  * Use modular imports like `import { BinarySearch } from '@mikbin80/algorithmsts/algorithms'` instead.
  */
 const algorithmsts = LegacyAPI.createLegacyModule({
-  binarySearch: binSearches,
-  segmentTree: segTree,
-  skipList: SkipList,
-  trie: Trie,
-  SuffixTree,
-  ngramSimilarity,
-  // Legacy data structures with deprecation warnings
+  binarySearch: {
+    binarySearch: binarySearchWrapper,
+    binaryClosestSearch: binaryClosestSearchWrapper
+  },
+  segmentTree: compatibility.SegmentTree, // Map namespace to Adapter class? No, legacy was object.
+  // Legacy segmentTree usage: expect(algorithmsts.segmentTree).toBeDefined().
+  // And probably: new algorithmsts.segmentTree.SegmentTree(...) or new algorithmsts.SegmentTree(...)?
+  // Based on "should provide legacy data structure examples", it tests constructors like `new algorithmsts.skipList`.
+  // It also tests `expect(algorithmsts.SegmentTree).toBeDefined()`.
+
+  // Data Structures (Class Constructors)
   LinkedList: compatibility.LinkedList,
   SkipList: compatibility.SkipList,
   SegmentTree: compatibility.SegmentTree,
   Trie: compatibility.Trie,
-  SuffixTreeAdapter: compatibility.SuffixTree
+  SuffixTree: compatibility.SuffixTree,
+  SuffixTreeAdapter: compatibility.SuffixTree,
+
+  // Lowercase keys used in some legacy tests/examples (like new algorithmsts.skipList)
+  skipList: compatibility.SkipList,
+  trie: compatibility.Trie,
+
+  // Functions
+  ngramSimilarity: ngramSimilarityWrapper,
+
 }, '2.0.0');
 export default algorithmsts;
 
