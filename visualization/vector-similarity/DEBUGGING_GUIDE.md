@@ -22,7 +22,7 @@ If you are setting up the project for the first time or have just pulled changes
     # Or any other static server
     ```
 4.  **Access the page:**
-    Navigate to `http://localhost:8000/visualization/vector-similarity.html`.
+    Navigate to `http://localhost:8000/visualization/vector-similarity/index.html`.
 
 ---
 
@@ -34,11 +34,11 @@ If the "Quick Fix" does not resolve the issue, follow this systematic checklist 
 **Symptom:** Browser console shows `404 Not Found` for `vector-similarity.umd.js`.
 
 *   [ ] **Check `dist/` folder:** Ensure the `dist/` directory exists in the project root. If not, run `npm run build`.
-*   [ ] **Check Script Path:** In `visualization/vector-similarity.html`, verify the `<script>` tag:
+*   [ ] **Check Script Path:** In `visualization/vector-similarity/index.html`, verify the `<script>` tag:
     ```html
-    <script src="../dist/vector-similarity/vector-similarity.umd.js"></script>
+    <script src="../../dist/vector-similarity/vector-similarity.umd.js"></script>
     ```
-    *   **Context Matters:** This path (`../dist/...`) assumes the HTML file is accessed from a subdirectory (e.g., `/visualization/`) and the server root is the project root.
+    *   **Context Matters:** This path (`../../dist/...`) assumes the HTML file is accessed from a subdirectory (e.g., `/visualization/vector-similarity/`) and the server root is the project root.
     *   **Test:** Open the Network tab in Developer Tools. Reload. If the request for the `.js` file is red (404), check the Request URL.
         *   *Correct:* `http://localhost:8000/dist/vector-similarity/vector-similarity.umd.js`
         *   *Incorrect (example):* `http://localhost:8000/visualization/dist/...` (Implies path is not relative enough or server root is different).
@@ -87,7 +87,7 @@ If the "Quick Fix" does not resolve the issue, follow this systematic checklist 
 3.  **Defensive Coding:**
     *   Don't assume the library is loaded.
     *   Use a "retry" mechanism or a loading state.
-    *   Example used in `vector-similarity.js`:
+    *   Example used in `main.js`:
         ```javascript
         if (window.VectorSimilarity) {
             calculate();

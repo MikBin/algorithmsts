@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { BinarySearchTree } from '../src/data-structures/binary-search-tree/index.js';
+import { BinarySearchTree } from '../../../src/data-structures/binary-search-tree/index.js';
 
 const tree = new BinarySearchTree();
 
