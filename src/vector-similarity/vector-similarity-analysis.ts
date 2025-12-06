@@ -542,14 +542,14 @@ const main = () => {
   fs.writeFileSync(path.join(outputDir, 'vector-similarity-analysis.json'), JSON.stringify(allResults, null, 2));
   console.log('Test results saved to tmp/vector-similarity-analysis.json');
 
-  const visualizationDir = path.resolve(__dirname, '../../visualization');
+  const visualizationDir = path.resolve(__dirname, '../../visualization/vector-similarity');
   if (!fs.existsSync(visualizationDir)) {
     fs.mkdirSync(visualizationDir, { recursive: true });
   }
 
   const jsContent = `export const analysisResults = ${JSON.stringify(allResults, null, 2)};`;
   fs.writeFileSync(path.join(visualizationDir, 'similarity-data.js'), jsContent);
-  console.log('Visualization data saved to visualization/similarity-data.js');
+  console.log('Visualization data saved to visualization/vector-similarity/similarity-data.js');
 };
 
 main();
