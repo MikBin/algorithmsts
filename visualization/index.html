@@ -1,20 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Binary Search Tree Visualization</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>Binary Search Tree Visualization</h1>
-    <div class="controls">
-      <input type="text" id="node-value" placeholder="Enter a value" />
-      <button id="add-node">Add</button>
-      <button id="remove-node">Remove</button>
-    </div>
-    <div id="tree-container"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithms Visualization</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f6f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .category {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .category h2 {
+            margin-top: 0;
+            color: #3498db;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        .viz-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .viz-list li {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .viz-list li:hover {
+            background-color: #f8f9fa;
+        }
+        .viz-list a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            display: block;
+        }
+        .viz-list a:hover {
+            color: #3498db;
+        }
+        .description {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Algorithms & Data Structures Visualization</h1>
 
-    <script type="module" src="main.js"></script>
-  </body>
+    <div class="category">
+        <h2>Data Structures</h2>
+        <ul class="viz-list">
+            <li>
+                <a href="data-structures/binary-search-tree/index.html">Binary Search Tree</a>
+                <div class="description">Interactive visualization of BST insertion and deletion.</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="category">
+        <h2>Vector Similarity</h2>
+        <ul class="viz-list">
+            <li>
+                <a href="vector-similarity/index.html">Vector Similarity Analysis</a>
+                <div class="description">Comprehensive benchmark and analysis of vector similarity metrics, including noise resilience and geometric properties.</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="category" style="opacity: 0.6;">
+        <h2>Coming Soon</h2>
+        <div class="description">
+            <a href="DEVELOPMENT_PLAN.md">View Development Plan</a> for future visualizations (Sorting, Graphs, String Algorithms, etc.).
+        </div>
+    </div>
+</body>
 </html>
