@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binary Heap Visualization</title>
+    <link rel="stylesheet" href="../../assets/common.css" />
+    <style>
+      /* Local overrides if necessary */
+    </style>
+  </head>
+  <body>
+    <h1>Binary Heap Visualization</h1>
+
+    <div class="controls">
+      <input type="number" id="node-value" placeholder="Enter number" />
+      <button id="add-node">Insert</button>
+      <button id="poll-node">Poll (Extract Min/Max)</button>
+      <button id="random-node">Random</button>
+      <button id="clear-node">Clear</button>
+      <label>
+        <input type="checkbox" id="min-heap-toggle" checked> Min Heap
+      </label>
+    </div>
+
+    <div id="tree-container"></div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
