@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Algorithms Visualization</title>
+    <link rel="stylesheet" href="../../assets/common.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "d3": "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+        }
+    }
+    </script>
+</head>
+<body>
+    <h1>Graph Algorithms Visualization</h1>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="algo-category">Category:</label>
+            <select id="algo-category">
+                <option value="traversal">Traversal</option>
+                <option value="pathfinding">Pathfinding</option>
+                <option value="spanning-tree">Min Spanning Tree</option>
+            </select>
+
+            <label for="algo-select">Algorithm:</label>
+            <select id="algo-select">
+                <!-- Options populated by JS -->
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="graph-type">Graph:</label>
+            <select id="graph-type">
+                <option value="random">Random</option>
+                <option value="grid">Grid (Mesh)</option>
+                <option value="circular">Circular</option>
+            </select>
+            <button id="btn-generate">New Graph</button>
+        </div>
+
+        <div class="control-group">
+            <label for="speed">Speed:</label>
+            <input type="range" id="speed" min="1" max="100" value="50">
+        </div>
+
+        <div class="control-group">
+            <button id="btn-start">Start</button>
+            <button id="btn-pause">Pause</button>
+            <button id="btn-reset">Reset</button>
+        </div>
+    </div>
+
+    <div class="stats">
+        <span id="status-text">Ready</span>
+        <span id="info-text"></span>
+    </div>
+
+    <div id="viz-container"></div>
+
+    <div class="instructions">
+        <h3>Instructions</h3>
+        <p>Select an algorithm and click "Start". You can generate different types of graphs.
+           Drag nodes to rearrange the graph layout (for non-grid graphs).</p>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
