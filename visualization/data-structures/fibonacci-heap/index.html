@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Heap Visualization</title>
+    <link rel="stylesheet" href="../../assets/common.css">
+</head>
+<body>
+    <h1>Fibonacci Heap Visualization</h1>
+
+    <div class="controls">
+        <input type="number" id="node-value" placeholder="Enter number">
+        <button id="add-node">Insert</button>
+        <button id="extract-min">Extract Min</button>
+        <button id="random-node">Random</button>
+        <button id="clear-node">Clear</button>
+    </div>
+
+    <div id="tree-container"></div>
+    <div style="text-align: center; margin-top: 10px; font-size: 0.9em; color: #666;">
+        Note: Roots are shown connected to a virtual root.
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

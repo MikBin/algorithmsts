@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red-Black Tree Visualization</title>
+    <link rel="stylesheet" href="../../assets/common.css">
+    <style>
+        .node.red circle {
+            stroke: #e74c3c;
+            stroke-width: 3px;
+        }
+        .node.black circle {
+            stroke: #2c3e50;
+            stroke-width: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Red-Black Tree Visualization</h1>
+
+    <div class="controls">
+        <input type="number" id="node-value" placeholder="Enter number">
+        <button id="add-node">Insert</button>
+        <button id="remove-node">Remove</button>
+        <button id="random-node">Random</button>
+        <button id="clear-node">Clear</button>
+    </div>
+
+    <div id="tree-container"></div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
