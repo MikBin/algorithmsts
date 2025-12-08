@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithms Visualization</title>
+    <link rel="stylesheet" href="../../assets/common.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "d3": "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+        }
+    }
+    </script>
+</head>
+<body>
+    <h1>Sorting Algorithms Visualization</h1>
+
+    <div class="controls">
+        <label for="algo-select">Algorithm:</label>
+        <select id="algo-select">
+            <option value="quickSort">Quick Sort</option>
+            <option value="mergeSort">Merge Sort</option>
+            <option value="heapSort">Heap Sort</option>
+            <option value="radixSort">Radix Sort</option>
+            <option value="countingSort">Counting Sort</option>
+        </select>
+
+        <label for="array-size">Size:</label>
+        <input type="range" id="array-size" min="5" max="100" value="50">
+        <span id="array-size-display">50</span>
+
+        <label for="speed">Speed:</label>
+        <input type="range" id="speed" min="1" max="100" value="50">
+
+        <button id="btn-generate">Generate New Array</button>
+        <button id="btn-start">Start Sort</button>
+        <button id="btn-pause">Pause</button>
+        <button id="btn-reset">Reset</button>
+    </div>
+
+    <div class="stats">
+        <span>Comparisons: <strong id="comparisons-count">0</strong></span>
+        <span>Swaps: <strong id="swaps-count">0</strong></span>
+        <span id="status-text">Ready</span>
+    </div>
+
+    <div id="viz-container"></div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
