@@ -1,0 +1,17 @@
+#viz-container {
+    height: 500px;
+}
+
+.stats {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.stats span {
+    margin-right: 20px;
+}
+
+#status-text {
+    color: #666;
+    font-style: italic;
+}
