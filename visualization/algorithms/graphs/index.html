@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Algorithms Visualization</title>
+    <link rel="stylesheet" href="../../assets/common.css">
+</head>
+<body>
+    <h1>Graph Algorithms</h1>
+
+    <div class="controls">
+        <div class="graph-controls-group">
+            <label>Algorithm</label>
+            <select id="algorithm-select">
+                <optgroup label="Traversal">
+                    <option value="bfs">Breadth-First Search (BFS)</option>
+                    <option value="dfs">Depth-First Search (DFS)</option>
+                </optgroup>
+                <optgroup label="Pathfinding">
+                    <option value="dijkstra">Dijkstra's Algorithm</option>
+                    <option value="astar">A* Algorithm (Grid)</option>
+                    <!-- <option value="bellman-ford">Bellman-Ford</option> -->
+                </optgroup>
+                <optgroup label="Spanning Tree">
+                    <option value="prim">Prim's MST</option>
+                    <option value="kruskal">Kruskal's MST</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="graph-controls-group">
+            <label>Graph Type</label>
+            <button id="generate-random">Random Graph</button>
+            <button id="generate-grid">Grid Graph</button>
+            <button id="clear-graph">Clear</button>
+        </div>
+
+        <div class="graph-controls-group">
+            <label>Controls</label>
+            <button id="start-btn">Start</button>
+            <button id="step-btn" disabled>Step</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+
+        <div class="graph-controls-group">
+            <label>Status</label>
+            <span id="status-text">Ready</span>
+        </div>
+    </div>
+
+    <div id="graph-container"></div>
+    <div id="log-container" style="margin-top: 10px; padding: 10px; background: #fff; border-radius: 4px; max-height: 150px; overflow-y: auto; font-family: monospace; font-size: 0.9em;">
+        <div>Log output...</div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
