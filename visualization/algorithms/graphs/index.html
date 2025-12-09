@@ -5,53 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graph Algorithms Visualization</title>
     <link rel="stylesheet" href="../../assets/common.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "d3": "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+        }
+    }
+    </script>
 </head>
 <body>
-    <h1>Graph Algorithms</h1>
+    <h1>Graph Algorithms Visualization</h1>
 
     <div class="controls">
-        <div class="graph-controls-group">
-            <label>Algorithm</label>
-            <select id="algorithm-select">
-                <optgroup label="Traversal">
-                    <option value="bfs">Breadth-First Search (BFS)</option>
-                    <option value="dfs">Depth-First Search (DFS)</option>
-                </optgroup>
-                <optgroup label="Pathfinding">
-                    <option value="dijkstra">Dijkstra's Algorithm</option>
-                    <option value="astar">A* Algorithm (Grid)</option>
-                    <!-- <option value="bellman-ford">Bellman-Ford</option> -->
-                </optgroup>
-                <optgroup label="Spanning Tree">
-                    <option value="prim">Prim's MST</option>
-                    <option value="kruskal">Kruskal's MST</option>
-                </optgroup>
+        <div class="control-group">
+            <label for="algo-category">Category:</label>
+            <select id="algo-category">
+                <option value="traversal">Traversal</option>
+                <option value="pathfinding">Pathfinding</option>
+                <option value="spanning-tree">Min Spanning Tree</option>
+            </select>
+
+            <label for="algo-select">Algorithm:</label>
+            <select id="algo-select">
+                <!-- Options populated by JS -->
             </select>
         </div>
 
-        <div class="graph-controls-group">
-            <label>Graph Type</label>
-            <button id="generate-random">Random Graph</button>
-            <button id="generate-grid">Grid Graph</button>
-            <button id="clear-graph">Clear</button>
+        <div class="control-group">
+            <label for="graph-type">Graph:</label>
+            <select id="graph-type">
+                <option value="random">Random</option>
+                <option value="grid">Grid (Mesh)</option>
+                <option value="circular">Circular</option>
+            </select>
+            <button id="btn-generate">New Graph</button>
         </div>
 
-        <div class="graph-controls-group">
-            <label>Controls</label>
-            <button id="start-btn">Start</button>
-            <button id="step-btn" disabled>Step</button>
-            <button id="reset-btn">Reset</button>
+        <div class="control-group">
+            <label for="speed">Speed:</label>
+            <input type="range" id="speed" min="1" max="100" value="50">
         </div>
 
-        <div class="graph-controls-group">
-            <label>Status</label>
-            <span id="status-text">Ready</span>
+        <div class="control-group">
+            <button id="btn-start">Start</button>
+            <button id="btn-pause">Pause</button>
+            <button id="btn-reset">Reset</button>
         </div>
     </div>
 
-    <div id="graph-container"></div>
-    <div id="log-container" style="margin-top: 10px; padding: 10px; background: #fff; border-radius: 4px; max-height: 150px; overflow-y: auto; font-family: monospace; font-size: 0.9em;">
-        <div>Log output...</div>
+    <div class="stats">
+        <span id="status-text">Ready</span>
+        <span id="info-text"></span>
+    </div>
+
+    <div id="viz-container"></div>
+
+    <div class="instructions">
+        <h3>Instructions</h3>
+        <p>Select an algorithm and click "Start". You can generate different types of graphs.
+           Drag nodes to rearrange the graph layout (for non-grid graphs).</p>
     </div>
 
     <script type="module" src="main.js"></script>

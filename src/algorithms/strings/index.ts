@@ -28,3 +28,8 @@ export type {
   LevenshteinDistanceInput,
   LevenshteinDistanceOutput
 } from './similarities';
+export {
+  knuthMorrisPratt,
+  rabinKarp,
+  computeLPSArray
+} from './pattern-matching';

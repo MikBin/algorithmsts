@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern Matching Visualization</title>
+    <link rel="stylesheet" href="../../assets/common.css"> <!-- Assuming common.css might exist or I'll create it if needed -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f6f9;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .controls input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .controls button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .controls button:hover {
+            background-color: #2980b9;
+        }
+        .visualization-area {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        .row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .cell {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 2px;
+            font-family: monospace;
+            background-color: white;
+        }
+        .cell.match {
+            background-color: #a8e6cf;
+            border-color: #2ecc71;
+        }
+        .cell.mismatch {
+            background-color: #ff8b94;
+            border-color: #e74c3c;
+        }
+        .cell.current {
+            background-color: #ffd3b6;
+            border-color: #f39c12;
+        }
+        .label {
+            width: 80px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        .info-panel {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eef2f7;
+            border-radius: 4px;
+        }
+        .array-display {
+            display: flex;
+            margin-top: 10px;
+        }
+        .array-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 2px;
+        }
+        .array-val {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+        .array-idx {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pattern Matching Visualization</h1>
+    <div class="container">
+        <div class="controls">
+            <select id="algorithm-select">
+                <option value="kmp">Knuth-Morris-Pratt (KMP)</option>
+                <option value="rk">Rabin-Karp</option>
+            </select>
+            <input type="text" id="text-input" placeholder="Text" value="ABABDABACDABABCABAB">
+            <input type="text" id="pattern-input" placeholder="Pattern" value="ABABCABAB">
+            <button id="start-btn">Start</button>
+            <button id="next-btn" disabled>Next Step</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+
+        <div id="info-panel" class="info-panel">
+            Select an algorithm and click Start.
+        </div>
+
+        <div id="visualization" class="visualization-area"></div>
+
+        <div id="aux-data" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- Using type="module" to allow imports -->
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

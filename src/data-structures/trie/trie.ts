@@ -233,4 +233,13 @@ export class Trie<T> extends BaseDataStructure<T> {
     }
     return result;
   }
+
+  /**
+   * Returns the root node of the Trie.
+   * Useful for visualization and advanced traversals.
+   * @returns The root node
+   */
+  getRoot(): TrieNode<T> {
+    return this.root;
+  }
 }
