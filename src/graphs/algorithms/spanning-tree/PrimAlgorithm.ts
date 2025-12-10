@@ -104,4 +104,63 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
       found
     };
   }
+
+  /**
+   * Generator for Prim's algorithm, yielding state at each step for visualization
+   * @param graph The weighted undirected graph
+   */
+  public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
+    if (!graph.isWeighted()) {
+      throw new Error('Prim\'s algorithm requires a weighted graph');
+    }
+    if (graph.isDirected()) {
+      throw new Error('Prim\'s algorithm requires an undirected graph');
+    }
+
+    const vertices = graph.getVertices();
+    if (vertices.length === 0) {
+      yield { type: 'finished', visited: new Set(), mst: [], message: 'Empty graph' };
+      return;
+    }
+
+    const priorityQueue: Array<{weight: W, source: T, target: T}> = [];
+    const visited = new Set<T>();
+    const mstEdges: Array<{ source: T; target: T; weight: W }> = [];
+
+    const startVertex = vertices[0];
+    visited.add(startVertex);
+
+    // Initial edges
+    for (const neighbor of graph.getNeighbors(startVertex)) {
+      const weight = graph.getEdgeWeight(startVertex, neighbor);
+      if (weight !== undefined) {
+        priorityQueue.push({ weight, source: startVertex, target: neighbor });
+      }
+    }
+
+    yield { type: 'step', visited: new Set(visited), mst: [...mstEdges], message: `Starting Prim at ${startVertex}` };
+
+    while (visited.size < vertices.length && priorityQueue.length > 0) {
+      priorityQueue.sort((a, b) => (a.weight as unknown as number) - (b.weight as unknown as number));
+      const edge = priorityQueue.shift()!;
+
+      if (visited.has(edge.target)) continue;
+
+      visited.add(edge.target);
+      mstEdges.push(edge);
+
+      yield { type: 'step', visited: new Set(visited), mst: [...mstEdges], message: `Added edge ${edge.source}-${edge.target} (w: ${edge.weight})` };
+
+      for (const neighbor of graph.getNeighbors(edge.target)) {
+        if (!visited.has(neighbor)) {
+           const weight = graph.getEdgeWeight(edge.target, neighbor);
+           if (weight !== undefined) {
+             priorityQueue.push({ weight, source: edge.target, target: neighbor });
+           }
+        }
+      }
+    }
+
+    yield { type: 'finished', visited: new Set(visited), mst: mstEdges, message: 'MST Completed' };
+  }
 }

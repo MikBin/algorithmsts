@@ -1,0 +1,75 @@
+#viz-container {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+.node circle {
+    fill: white;
+    stroke: #333;
+    stroke-width: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.node text {
+    font-size: 12px;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Algorithm States */
+.node circle.visited {
+    fill: #e8f4f8;
+    stroke: var(--primary-color);
+}
+
+.node circle.processing {
+    fill: var(--warning-color);
+    stroke: #d35400;
+    transform: scale(1.2);
+}
+
+.node circle.finished {
+    fill: var(--success-color);
+    stroke: #27ae60;
+}
+
+.node circle.path {
+    fill: var(--success-color);
+    stroke: #27ae60;
+    stroke-width: 3px;
+}
+
+.link-container {
+    cursor: pointer;
+}
+
+.link {
+    stroke: #999;
+    stroke-width: 2px;
+    transition: all 0.3s;
+}
+
+.link.path {
+    stroke: var(--success-color);
+    stroke-width: 4px;
+}
+
+.link.mst {
+    stroke: var(--success-color);
+    stroke-width: 4px;
+}
+
+.link-label {
+    font-size: 10px;
+    fill: #666;
+    text-anchor: middle;
+    background: white; /* Does not work for SVG text, usually need rect */
+    paint-order: stroke;
+    stroke: white;
+    stroke-width: 3px;
+}

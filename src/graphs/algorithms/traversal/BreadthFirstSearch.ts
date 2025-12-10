@@ -80,6 +80,40 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
   }
 
   /**
+   * Generator for BFS traversal, yielding state at each step for visualization
+   * @param graph The graph to traverse
+   * @param startVertex The vertex to start from
+   */
+  public *traverseGenerator(graph: IGraph<T, W>, startVertex: T): Generator<any> {
+     if (!graph.getVertices().includes(startVertex)) {
+       throw new Error(`Start vertex ${startVertex} does not exist in the graph`);
+     }
+
+     const visited = new Set<T>();
+     const queue: T[] = [];
+     visited.add(startVertex);
+     queue.push(startVertex);
+
+     yield { type: 'step', visited: new Set(visited), processing: startVertex, message: `Starting BFS at ${startVertex}` };
+
+     while (queue.length > 0) {
+       const u = queue.shift()!;
+       yield { type: 'step', visited: new Set(visited), processing: u, message: `Visiting ${u}` };
+
+       const neighbors = graph.getNeighbors(u);
+       for (const v of neighbors) {
+         if (!visited.has(v)) {
+           visited.add(v);
+           queue.push(v);
+           yield { type: 'step', visited: new Set(visited), processing: v, message: `Discovered ${v}` };
+         }
+       }
+     }
+
+     yield { type: 'finished', visited: new Set(visited), message: 'BFS Completed' };
+  }
+
+  /**
    * Executes the BFS algorithm (implements IAlgorithm interface)
    * @param graph The graph to traverse
    * @param startVertex The vertex to start from (passed as additional argument)
