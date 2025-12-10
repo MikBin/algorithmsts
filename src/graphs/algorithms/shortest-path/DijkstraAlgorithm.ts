@@ -121,6 +121,88 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
   }
 
   /**
+   * Generator for Dijkstra's algorithm, yielding state at each step for visualization
+   * @param graph The graph to search
+   * @param start The start vertex
+   * @param end The end vertex
+   */
+  public *findShortestPathGenerator(graph: IGraph<T, W>, start: T, end: T): Generator<any> {
+    if (!graph.isWeighted()) {
+      throw new Error('Dijkstra\'s algorithm requires a weighted graph');
+    }
+
+    const vertices = graph.getVertices();
+    if (!vertices.includes(start) || !vertices.includes(end)) {
+      throw new Error('Start or end vertex does not exist in the graph');
+    }
+
+    const distances = new Map<T, W>();
+    const parents = new Map<T, T | null>();
+    const visited = new Set<T>();
+    const priorityQueue: Array<[W, T]> = [];
+
+    for (const vertex of vertices) {
+      distances.set(vertex, Infinity as W);
+      parents.set(vertex, null);
+    }
+    distances.set(start, 0 as W);
+    priorityQueue.push([0 as W, start]);
+
+    while (priorityQueue.length > 0) {
+      priorityQueue.sort((a, b) => a[0] - b[0]);
+      const [currentDistance, currentVertex] = priorityQueue.shift()!;
+
+      if (visited.has(currentVertex)) {
+        continue;
+      }
+
+      visited.add(currentVertex);
+      yield { type: 'step', visited: new Set(visited), processing: currentVertex, distances: new Map(distances), message: `Processing ${currentVertex} (dist: ${currentDistance})` };
+
+      if (currentVertex === end) {
+        break;
+      }
+
+      for (const neighbor of graph.getNeighbors(currentVertex)) {
+        if (visited.has(neighbor)) {
+          continue;
+        }
+
+        const edgeWeight = graph.getEdgeWeight(currentVertex, neighbor);
+        if (edgeWeight === undefined) continue;
+
+        const newDistance = (currentDistance + edgeWeight) as W;
+        const neighborDistance = distances.get(neighbor)!;
+
+        if (newDistance < neighborDistance) {
+          distances.set(neighbor, newDistance);
+          parents.set(neighbor, currentVertex);
+          priorityQueue.push([newDistance, neighbor]);
+          yield { type: 'step', visited: new Set(visited), processing: neighbor, distances: new Map(distances), message: `Updating ${neighbor} dist to ${newDistance}` };
+        }
+      }
+    }
+
+    // Reconstruct path
+    const path: T[] = [];
+    let current: T | null = end;
+    while (current !== null) {
+      path.unshift(current);
+      current = parents.get(current) || null;
+      if (current === null && path[0] !== start) {
+          path.length = 0; // No path found
+          break;
+      }
+    }
+
+    if (path.length > 0 && path[0] === start) {
+        yield { type: 'finished', visited: new Set(visited), path, message: `Path found: ${path.join(' -> ')}` };
+    } else {
+        yield { type: 'finished', visited: new Set(visited), message: 'No path found' };
+    }
+  }
+
+  /**
    * Executes Dijkstra's algorithm (implements IAlgorithm interface)
    * @param graph The graph to search
    * @param start The start vertex

@@ -73,6 +73,40 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
   }
 
   /**
+   * Generator for DFS traversal, yielding state at each step for visualization
+   * @param graph The graph to traverse
+   * @param startVertex The vertex to start from
+   */
+  public *traverseGenerator(graph: IGraph<T, W>, startVertex: T): Generator<any> {
+    if (!graph.getVertices().includes(startVertex)) {
+      throw new Error(`Start vertex ${startVertex} does not exist in the graph`);
+    }
+
+    const visited = new Set<T>();
+    const stack: T[] = [startVertex];
+
+    while (stack.length > 0) {
+      const u = stack.pop()!;
+
+      if (!visited.has(u)) {
+        visited.add(u);
+        yield { type: 'step', visited: new Set(visited), processing: u, message: `Visiting ${u}` };
+
+        const neighbors = graph.getNeighbors(u);
+        // Push in reverse order to visit in natural order (optional, to match recursion order for some structures)
+        for (let i = neighbors.length - 1; i >= 0; i--) {
+          const v = neighbors[i];
+          if (!visited.has(v)) {
+            stack.push(v);
+          }
+        }
+      }
+    }
+
+    yield { type: 'finished', visited: new Set(visited), message: 'DFS Completed' };
+  }
+
+  /**
    * Executes the DFS algorithm (implements IAlgorithm interface)
    * @param graph The graph to traverse
    * @param startVertex The vertex to start from (passed as additional argument)

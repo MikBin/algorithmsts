@@ -135,4 +135,74 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
       found
     };
   }
+
+  /**
+   * Generator for Kruskal's algorithm, yielding state at each step for visualization
+   * @param graph The weighted undirected graph
+   */
+  public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
+    if (!graph.isWeighted()) {
+      throw new Error('Kruskal\'s algorithm requires a weighted graph');
+    }
+    if (graph.isDirected()) {
+      throw new Error('Kruskal\'s algorithm requires an undirected graph');
+    }
+
+    const vertices = graph.getVertices();
+    const rawEdges = graph.getEdges();
+
+    const edgeList: Array<{ source: T; target: T; weight: W }> = [];
+    for (const edge of rawEdges) {
+      if (edge.length === 3) {
+        edgeList.push({ source: edge[0], target: edge[1], weight: edge[2] });
+      }
+    }
+    edgeList.sort((a, b) => (a.weight as unknown as number) - (b.weight as unknown as number));
+
+    const parent = new Map<T, T>();
+    const rank = new Map<T, number>();
+
+    for (const vertex of vertices) {
+      parent.set(vertex, vertex);
+      rank.set(vertex, 0);
+    }
+
+    const find = (vertex: T): T => {
+      if (parent.get(vertex) !== vertex) {
+        parent.set(vertex, find(parent.get(vertex)!));
+      }
+      return parent.get(vertex)!;
+    };
+
+    const union = (x: T, y: T): boolean => {
+      const rootX = find(x);
+      const rootY = find(y);
+
+      if (rootX !== rootY) {
+        if (rank.get(rootX)! < rank.get(rootY)!) {
+          parent.set(rootX, rootY);
+        } else if (rank.get(rootX)! > rank.get(rootY)!) {
+          parent.set(rootY, rootX);
+        } else {
+          parent.set(rootY, rootX);
+          rank.set(rootX, rank.get(rootX)! + 1);
+        }
+        return true;
+      }
+      return false;
+    };
+
+    const mstEdges: Array<{ source: T; target: T; weight: W }> = [];
+
+    for (const edge of edgeList) {
+      yield { type: 'step', visited: new Set(vertices), mst: [...mstEdges], processing: edge, message: `Checking edge ${edge.source}-${edge.target} (w: ${edge.weight})` };
+
+      if (union(edge.source, edge.target)) {
+        mstEdges.push(edge);
+        yield { type: 'step', visited: new Set(vertices), mst: [...mstEdges], message: `Added edge ${edge.source}-${edge.target}` };
+      }
+    }
+
+    yield { type: 'finished', visited: new Set(vertices), mst: mstEdges, message: 'MST Completed' };
+  }
 }
