@@ -35,6 +35,7 @@ export type { CMSHash } from './count-min-sketch';
 export { HyperLogLog } from './hyperloglog';
 export { CuckooFilter } from './cuckoo-filter';
 export { QuotientFilter } from './quotient-filter';
+export { RibbonFilter } from './ribbon-filter';
 
 // Tree-based data structures
 export { AVLTree } from './avl-tree';
