@@ -34,6 +34,8 @@ export { CountMinSketch } from './count-min-sketch';
 export type { CMSHash } from './count-min-sketch';
 export { HyperLogLog } from './hyperloglog';
 export { CuckooFilter } from './cuckoo-filter';
+export { VacuumFilter } from './vacuum-filter';
+export { BinaryFuseFilter } from './binary-fuse-filter';
 export { QuotientFilter } from './quotient-filter';
 export { RibbonFilter } from './ribbon-filter';
 
