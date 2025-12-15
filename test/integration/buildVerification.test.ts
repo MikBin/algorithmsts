@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, beforeAll } from 'vitest';
 import { existsSync, readFileSync } from 'fs';
 import { join, resolve } from 'path';
 import { execSync } from 'child_process';
