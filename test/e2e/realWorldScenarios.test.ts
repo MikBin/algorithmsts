@@ -2,11 +2,13 @@ import { describe, expect, it } from 'vitest';
 import {
   CountingSort,
   BinarySearch,
-  LinkedList,
-  Trie,
   NgramSimilarity,
   SparseTable
-} from '../../src/algorithmsts';
+} from '../../src/algorithms';
+import {
+  LinkedList,
+  Trie
+} from '../../src/data-structures';
 
 /**
  * Real-World Scenarios End-to-End Tests

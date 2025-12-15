@@ -43,37 +43,6 @@ const InjectPlugin =
       ];
 
 export default defineConfig([
-  // Main library bundle
-  {
-    input: "src/algorithmsts.ts",
-    plugins: [...InjectPlugin],
-    external: ["node:url", "node:path"],
-    output: [
-      // commonjs
-      {
-        file: "dist/algorithmsts.cjs.js",
-        format: "cjs",
-        sourcemap: true,
-        exports: "named",
-      },
-      // es module
-      {
-        file: "dist/algorithmsts.esm.js",
-        format: "esm",
-        sourcemap: true,
-        inlineDynamicImports: true,
-        exports: "named",
-      },
-      // umd for browser compatibility
-      {
-        file: "dist/algorithmsts.umd.js",
-        format: "umd",
-        name: "algorithmsts",
-        sourcemap: true,
-        exports: "named",
-      },
-    ],
-  },
   // Core module
   {
     input: "src/core/index.ts",
@@ -188,26 +157,6 @@ export default defineConfig([
       },
       {
         file: "dist/types/index.cjs",
-        format: "commonjs",
-        sourcemap: true,
-        exports: "named",
-      },
-    ],
-  },
-  // Compatibility module
-  {
-    input: "src/compatibility/index.ts",
-    plugins: [...InjectPlugin],
-    external: ["node:url", "node:path"],
-    output: [
-      {
-        file: "dist/compatibility/index.js",
-        format: "esm",
-        sourcemap: true,
-        exports: "named",
-      },
-      {
-        file: "dist/compatibility/index.cjs",
         format: "commonjs",
         sourcemap: true,
         exports: "named",

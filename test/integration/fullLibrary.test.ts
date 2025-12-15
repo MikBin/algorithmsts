@@ -6,18 +6,24 @@ import {
   NgramSimilarity,
   JaroDistance,
   LevenshteinDistance,
-  SparseTable,
+  SparseTable
+} from '../../src/algorithms';
+import {
   LinkedList,
   SkipList,
   SegmentTree,
   Trie,
-  SuffixTree,
+  SuffixTree
+} from '../../src/data-structures';
+import {
   AdjacencyListGraph,
   BreadthFirstSearch,
-  DepthFirstSearch,
+  DepthFirstSearch
+} from '../../src/graphs';
+import {
   PerformanceMonitor,
   Validator
-} from '../../src/algorithmsts';
+} from '../../src/core';
 
 /**
  * Full Library Integration Tests

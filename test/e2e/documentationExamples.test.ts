@@ -6,16 +6,20 @@ import {
   NgramSimilarity,
   JaroDistance,
   LevenshteinDistance,
-  SparseTable,
+  SparseTable
+} from '../../src/algorithms';
+import {
   LinkedList,
   SkipList,
   SegmentTree,
   Trie,
-  SuffixTree,
+  SuffixTree
+} from '../../src/data-structures';
+import {
   AdjacencyListGraph,
   BreadthFirstSearch,
   DepthFirstSearch
-} from '../../src/algorithmsts';
+} from '../../src/graphs';
 
 /**
  * Documentation Examples End-to-End Tests

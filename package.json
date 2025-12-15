@@ -4,16 +4,11 @@
   "description": "",
   "private": false,
   "keywords": [],
-  "main": "dist/algorithmsts.cjs.js",
-  "module": "dist/algorithmsts.esm.js",
-  "typings": "dist/types/algorithmsts.d.ts",
-  "types": "dist/types/algorithmsts.d.ts",
+  "main": "dist/algorithms/index.cjs",
+  "module": "dist/algorithms/index.js",
+  "typings": "dist/types/algorithms/index.d.ts",
+  "types": "dist/types/algorithms/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/types/algorithmsts.d.ts",
-      "import": "./dist/algorithmsts.esm.js",
-      "require": "./dist/algorithmsts.min.cjs"
-    },
     "./core": {
       "types": "./dist/types/core/index.d.ts",
       "import": "./dist/core/index.js",
@@ -43,11 +38,6 @@
       "types": "./dist/types/types/index.d.ts",
       "import": "./dist/types/index.js",
       "require": "./dist/types/index.cjs"
-    },
-    "./compatibility": {
-      "types": "./dist/types/compatibility/index.d.ts",
-      "import": "./dist/compatibility/index.js",
-      "require": "./dist/compatibility/index.cjs"
     },
     "./interfaces": {
       "types": "./dist/types/interfaces.d.ts",
