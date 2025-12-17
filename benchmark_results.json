@@ -1,0 +1,90 @@
+{
+  "fastify": {
+    "hello": {
+      "requestsPerSec": 28427.2,
+      "latencyAverage": 3.04,
+      "throughputAverage": 5002240
+    },
+    "json": {
+      "requestsPerSec": 22112.8,
+      "latencyAverage": 4.1,
+      "throughputAverage": 4157849.6
+    },
+    "param": {
+      "requestsPerSec": 25595.2,
+      "latencyAverage": 3.48,
+      "throughputAverage": 4684390.41
+    },
+    "query": {
+      "requestsPerSec": 28702.4,
+      "latencyAverage": 3.07,
+      "throughputAverage": 5338316.8
+    }
+  },
+  "hyperexpress": {
+    "hello": {
+      "requestsPerSec": 41833.6,
+      "latencyAverage": 2.09,
+      "throughputAverage": 3639910.4
+    },
+    "json": {
+      "requestsPerSec": 41577.6,
+      "latencyAverage": 2.11,
+      "throughputAverage": 5198233.6
+    },
+    "param": {
+      "requestsPerSec": 41552,
+      "latencyAverage": 2.09,
+      "throughputAverage": 4986880
+    },
+    "query": {
+      "requestsPerSec": 40899.2,
+      "latencyAverage": 2.13,
+      "throughputAverage": 5030297.6
+    }
+  },
+  "elysia": {
+    "hello": {
+      "requestsPerSec": 39401.6,
+      "latencyAverage": 2.21,
+      "throughputAverage": 5004083.2
+    },
+    "json": {
+      "requestsPerSec": 42979.2,
+      "latencyAverage": 2.05,
+      "throughputAverage": 5371904
+    },
+    "param": {
+      "requestsPerSec": 41097.6,
+      "latencyAverage": 2.09,
+      "throughputAverage": 4931993.6
+    },
+    "query": {
+      "requestsPerSec": 39932.81,
+      "latencyAverage": 2.14,
+      "throughputAverage": 4910694.41
+    }
+  },
+  "hono": {
+    "hello": {
+      "requestsPerSec": 41564.81,
+      "latencyAverage": 2.11,
+      "throughputAverage": 5277696
+    },
+    "json": {
+      "requestsPerSec": 43689.6,
+      "latencyAverage": 1.99,
+      "throughputAverage": 5460377.6
+    },
+    "param": {
+      "requestsPerSec": 45360,
+      "latencyAverage": 1.86,
+      "throughputAverage": 5443174.4
+    },
+    "query": {
+      "requestsPerSec": 45628.8,
+      "latencyAverage": 1.9,
+      "throughputAverage": 5612748.8
+    }
+  }
+}
