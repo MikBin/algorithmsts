@@ -6,7 +6,9 @@ export {
     gowerSimilarity,
     soergelSimilarity,
     kulczynskiSimilarity,
-    lorentzianSimilarity
+    lorentzianSimilarity,
+    angularDistance,
+    angularSimilarity
 } from './similarity/classic';
 export {
     jaccardSimilarityBinary,
@@ -34,3 +36,5 @@ export {
 export * from './similarity/vectorSimilarityCorrelation';
 export * from './similarity/itakura-saito';
 export * from './similarity/distanceCorrelation';
+export * from './similarity/correlationDistance';
+export * from './similarity/distanceToMeasure';
