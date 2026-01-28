@@ -76,6 +76,8 @@ const buildSegmentTree = <T, U extends BaseSegmentTreeNode>(
   segmentNodeMerger: SegmentTreeNodeMerger<U>
 ): Array<U> => {
   let l: number = sourceArray.length;
+  if (l === 0) return [];
+
   let n: number = Math.ceil(Math.log2(l));
   let L: number = Math.pow(2, n + 1);
   const SEG_TREE_ARRAY: Array<U> = new Array(L);
@@ -115,6 +117,8 @@ const iterativeQueryRange = <U extends BaseSegmentTreeNode>(
   r: number,
   queryMerger: SegmentTreeQueryMerger<U>
 ): U => {
+  if (segmentTree.length === 0) return <U>{ left: -1, right: -1 };
+
   let n = segmentTree.length / 2;
   let left = l;
   let right = r;
@@ -230,6 +234,8 @@ const updateLeafNodeIterative = <T, U extends BaseSegmentTreeNode>(
   segmentNodeLeafUpdater: SegmentTreeLeafNodeUpdater<T, U>,
   segmentNodeMerger: SegmentTreeNodeMerger<U>
 ): void => {
+  if (segmentTree.length === 0) return;
+
   let index: number = segmentTree.length / 2 + updateIndex;
   let aux: number = 0;
 

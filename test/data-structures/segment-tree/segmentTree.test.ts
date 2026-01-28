@@ -121,7 +121,6 @@ const nodeQueryMerger = (leftNode: segmentNode, rightNode: segmentNode) => {
 
 describe('testing segmentTree setup query and update: ', () => {
   let testArr: Array<number> = [3, 45, 6, 7, 8, 23, 1, 2, 55, 6, 7, 85, 34, 6, 12, 66]
-  /**@TODO test edge cases and different lengths */
   const SEGMENT: segmentNode[] = buildSegmentTree(testArr, nodeFactoryFn, nodeMergerFn)
   const SEG_ITER: segmentNode[] = buildSegTreeIterative(testArr, nodeFactoryFn, nodeMergerFn)
   it('builds a segmentTree from a small array:', () => {
@@ -1208,6 +1207,78 @@ describe('testing lazy update range', () => {
     expect(qr.max).toEqual(qres.max)
     expect(qr.sum).toEqual(qres.sum)
     expect(qr.sum).toEqual(segBase.slice(7, 8).reduce(reducer))
+  })
+})
+
+describe('Edge Cases and Different Lengths', () => {
+  it('builds and queries an empty segment tree (Iterative)', () => {
+    const emptyArr: number[] = []
+    const segIter = buildSegTreeIterative(emptyArr, nodeFactoryFn, nodeMergerFn)
+    expect(segIter.length).toEqual(0)
+    const res = iterativeQueryRange(segIter, 0, 0, nodeQueryMerger)
+    expect(res.left).toEqual(-1)
+    expect(res.right).toEqual(-1)
+  })
+
+  it('builds and queries an empty segment tree (Recursive)', () => {
+    const emptyArr: number[] = []
+    const segRec = buildSegmentTree(emptyArr, nodeFactoryFn, nodeMergerFn)
+    expect(segRec.length).toEqual(0)
+    const res = queryRange(segRec, 1, 0, 0, nodeQueryMerger)
+    expect(res.left).toEqual(-1)
+    expect(res.right).toEqual(-1)
+  })
+
+  it('builds and queries a single element segment tree', () => {
+    const arr = [10]
+    const segIter = buildSegTreeIterative(arr, nodeFactoryFn, nodeMergerFn)
+    const segRec = buildSegmentTree(arr, nodeFactoryFn, nodeMergerFn)
+
+    // Iterative array length should be 2*n = 2
+    expect(segIter.length).toEqual(2)
+    // Query full range
+    const resIter = iterativeQueryRange(segIter, 0, 0, nodeQueryMerger)
+    expect(resIter.sum).toEqual(10)
+    expect(resIter.min).toEqual(10)
+    expect(resIter.max).toEqual(10)
+
+    const resRec = queryRange(segRec, 1, 0, 0, nodeQueryMerger)
+    expect(resRec.sum).toEqual(10)
+  })
+
+  it('builds and queries a two element segment tree', () => {
+    const arr = [10, 20]
+    const segIter = buildSegTreeIterative(arr, nodeFactoryFn, nodeMergerFn)
+    const segRec = buildSegmentTree(arr, nodeFactoryFn, nodeMergerFn)
+
+    expect(segIter.length).toEqual(4)
+
+    const resIterFull = iterativeQueryRange(segIter, 0, 1, nodeQueryMerger)
+    expect(resIterFull.sum).toEqual(30)
+    expect(resIterFull.min).toEqual(10)
+    expect(resIterFull.max).toEqual(20)
+
+    const resRecFull = queryRange(segRec, 1, 0, 1, nodeQueryMerger)
+    expect(resRecFull.sum).toEqual(30)
+  })
+
+  it('builds and queries a three element segment tree (Odd length)', () => {
+    const arr = [10, 20, 30]
+    const segIter = buildSegTreeIterative(arr, nodeFactoryFn, nodeMergerFn)
+    const segRec = buildSegmentTree(arr, nodeFactoryFn, nodeMergerFn)
+
+    expect(segIter.length).toEqual(6)
+
+    const resIterFull = iterativeQueryRange(segIter, 0, 2, nodeQueryMerger)
+    expect(resIterFull.sum).toEqual(60)
+    expect(resIterFull.max).toEqual(30)
+
+    const resRecFull = queryRange(segRec, 1, 0, 2, nodeQueryMerger)
+    expect(resRecFull.sum).toEqual(60)
+
+    // Query partial
+    const resIterPart = iterativeQueryRange(segIter, 0, 1, nodeQueryMerger)
+    expect(resIterPart.sum).toEqual(30)
   })
 })
 /**
