@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { AlgorithmComparator } from '../../../src/algorithms/utils/AlgorithmComparator';
 import { IAlgorithm } from '../../../src/core/interfaces/IAlgorithm';
+import { PerformanceMonitor } from '../../../src/core/utils/PerformanceMonitor';
 
 // Mock Algorithm implementation for testing
 class MockAlgorithm implements IAlgorithm<number[], number[]> {
@@ -53,14 +54,21 @@ describe('AlgorithmComparator', () => {
     });
 
     it('should handle ties correctly', () => {
-      const algo1 = new MockAlgorithm('Algo1', 'O(n)', 0);
-      const algo2 = new MockAlgorithm('Algo2', 'O(n)', 0);
-      const input = [5, 2, 8, 1, 9];
+      const measureSpy = vi.spyOn(PerformanceMonitor, 'measureExecutionTime');
+      measureSpy.mockReturnValue(5.0);
 
-      const result = AlgorithmComparator.compareAlgorithms(algo1, algo2, input, 10);
+      try {
+        const algo1 = new MockAlgorithm('Algo1', 'O(n)', 0);
+        const algo2 = new MockAlgorithm('Algo2', 'O(n)', 0);
+        const input = [5, 2, 8, 1, 9];
 
-      expect(result.winner).toBe(0); // Tie
-      expect(Math.abs(result.timeDifference)).toBeLessThan(0.1);
+        const result = AlgorithmComparator.compareAlgorithms(algo1, algo2, input, 10);
+
+        expect(result.winner).toBe(0); // Tie
+        expect(Math.abs(result.timeDifference)).toBeLessThan(0.1);
+      } finally {
+        measureSpy.mockRestore();
+      }
     });
 
     it('should determine target compliance correctly', () => {
