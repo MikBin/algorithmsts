@@ -31,7 +31,7 @@ import {
   finNodeLeafUpdater,
   finNodeMerger,
   finNodeQuery
-} from '../../../src/data-structures/segment-tree/meanVarianceSegmentTree'
+} from '../../../src/examples/data-structures/segment-tree/meanVarianceSegmentTree'
 import { SegmentTree as NewSegmentTree } from '../../../src/data-structures/segment-tree';
 import { SegmentTreeIterator } from '../../../src/data-structures/segment-tree/iterator';
 import { ICollection } from '../../../src/core/interfaces/ICollection';

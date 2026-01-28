@@ -4,9 +4,8 @@ import {
   SegmentTreeNodeMerger,
   SegmentTreeQueryMerger,
   SegmentTreeLeafNodeUpdater
-} from './interfaces';
+} from '../../../data-structures/segment-tree/interfaces';
 
-/**@TODO export in sample folder */
 export interface finSegmentNode extends BaseSegmentTreeNode {
   min: number;
   max: number;
