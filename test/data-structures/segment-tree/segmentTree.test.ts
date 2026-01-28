@@ -137,16 +137,35 @@ describe('testing segmentTree setup query and update: ', () => {
   })
 
   /**@TODO test by comparing iterative and recoursive creation of trees in different cases */
-  it('builds a segmentTree using iterative build:', () => {
-    SEG_ITER.forEach((node, idx) => {
-      if (idx > 0) {
-        expect(node.left).not.toEqual(-1)
-        expect(node.right).not.toEqual(-1)
-        // expect(node.right).toBeGreaterThanOrEqual(node.left);
-        expect(node.min).not.toEqual(Number.MAX_VALUE)
-        expect(node.max).not.toEqual(-Number.MAX_VALUE)
+  it('compares iterative and recursive creation of trees in different cases', () => {
+    const compareTrees = (arr: number[]) => {
+      const recTree = buildSegmentTree(arr, nodeFactoryFn, nodeMergerFn)
+      const iterTree = buildSegTreeIterative(arr, nodeFactoryFn, nodeMergerFn)
+
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = i; j < arr.length; j++) {
+          const recRes = queryRange(recTree, 1, i, j, nodeQueryMerger)
+          const iterRes = iterativeQueryRange(iterTree, i, j, nodeQueryMerger)
+
+          expect(iterRes.min).toEqual(recRes.min)
+          expect(iterRes.max).toEqual(recRes.max)
+          expect(iterRes.sum).toEqual(recRes.sum)
+        }
       }
-    })
+    }
+
+    // Case 1: Existing testArr (length 16, power of 2)
+    compareTrees(testArr)
+
+    // Case 2: Odd length array
+    compareTrees([1, 5, 2, 8, 3])
+
+    // Case 3: Random array
+    const randomArr = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100))
+    compareTrees(randomArr)
+
+    // Case 4: Single element
+    compareTrees([42])
   })
 
   it('queries a range: ', () => {
