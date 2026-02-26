@@ -32,13 +32,10 @@ export { SparseTable } from './range-queries/sparse-table';
 
 // Algorithm utilities
 export {
-  AlgorithmComparator,
   AlgorithmSelector,
   AlgorithmTestUtils
 } from './utils';
 export type {
-  AlgorithmComparisonResult,
-  AlgorithmPerformanceMetrics,
   SelectionCriteria,
   AlgorithmSelectionResult
 } from './utils';

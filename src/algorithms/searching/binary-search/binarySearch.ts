@@ -1,6 +1,6 @@
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../../core/utils/PerformanceMonitor';
+import { PerformanceMonitor, ComplexityAnalyzer } from '../../../performance';
 
 /**
  * Input interface for BinarySearch algorithm
@@ -84,8 +84,8 @@ export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinaryS
     });
 
     // Log performance if it exceeds target
-    if (!PerformanceMonitor.isWithinSearchOperationsTarget(executionTime)) {
-      console.warn(`BinarySearch performance warning: ${executionTime}ms (target: ${PerformanceMonitor.getSearchOperationsTarget()}ms)`);
+    if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
+      console.warn(`BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
     }
 
     return result!;
@@ -186,8 +186,8 @@ export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInp
     });
 
     // Log performance if it exceeds target
-    if (!PerformanceMonitor.isWithinSearchOperationsTarget(executionTime)) {
-      console.warn(`BinaryClosestSearch performance warning: ${executionTime}ms (target: ${PerformanceMonitor.getSearchOperationsTarget()}ms)`);
+    if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
+      console.warn(`BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
     }
 
     return result!;

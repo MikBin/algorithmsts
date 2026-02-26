@@ -8,10 +8,6 @@
  * @module performance
  */
 
-// TODO: Export performance utilities here as they are created
-// Example:
-// export { PerformanceMonitor } from './performance-monitor';
-// export { BenchmarkRunner } from './benchmark-runner';
-// export { ComplexityAnalyzer } from './complexity-analyzer';
-
-export {};
+export { PerformanceMonitor } from './performance-monitor';
+export { BenchmarkRunner, AlgorithmPerformanceMetrics, AlgorithmComparisonResult } from './benchmark-runner';
+export { ComplexityAnalyzer } from './complexity-analyzer';

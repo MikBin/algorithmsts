@@ -466,10 +466,10 @@ const min = sparseTable.query(1, 4); // minimum of [3, 2, 7, 9] = 2
 #### Algorithm Comparison
 
 ```typescript
-import { AlgorithmComparator, AlgorithmSelector } from '@mikbin80/algorithmsts/algorithms';
+import { BenchmarkRunner } from '@mikbin80/algorithmsts/performance';
+import { AlgorithmSelector } from '@mikbin80/algorithmsts/algorithms';
 
-const comparator = new AlgorithmComparator();
-const result = comparator.compare([sort1, sort2, sort3], testData);
+const result = BenchmarkRunner.compareAlgorithms(algo1, algo2, testData);
 
 const selector = new AlgorithmSelector();
 const bestAlgorithm = selector.select(algorithms, criteria, data);
@@ -480,15 +480,12 @@ const bestAlgorithm = selector.select(algorithms, criteria, data);
 ### Performance Monitoring
 
 ```typescript
-import { PerformanceMonitor } from '@mikbin80/algorithmsts/core';
+import { PerformanceMonitor } from '@mikbin80/algorithmsts/performance';
 
-const monitor = new PerformanceMonitor();
-monitor.startOperation('sort');
-// ... perform sorting ...
-monitor.endOperation('sort');
-
-const metrics = monitor.getMetrics();
-console.log(metrics.averageTime);
+const time = PerformanceMonitor.measureExecutionTime(() => {
+  // ... perform operation ...
+});
+console.log(`Execution time: ${time}ms`);
 ```
 
 ### Validation

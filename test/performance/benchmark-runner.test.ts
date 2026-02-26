@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { AlgorithmComparator } from '../../../src/algorithms/utils/AlgorithmComparator';
-import { IAlgorithm } from '../../../src/core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../../src/core/utils/PerformanceMonitor';
+import { BenchmarkRunner } from '../../src/performance/benchmark-runner';
+import { IAlgorithm } from '../../src/core/interfaces/IAlgorithm';
+import { PerformanceMonitor } from '../../src/performance/performance-monitor';
 
 // Mock Algorithm implementation for testing
 class MockAlgorithm implements IAlgorithm<number[], number[]> {
@@ -37,14 +37,14 @@ class MockAlgorithm implements IAlgorithm<number[], number[]> {
   }
 }
 
-describe('AlgorithmComparator', () => {
+describe('BenchmarkRunner', () => {
   describe('compareAlgorithms', () => {
     it('should compare two algorithms and identify the winner', () => {
       const fastAlgo = new MockAlgorithm('FastAlgo', 'O(n)', 0);
       const slowAlgo = new MockAlgorithm('SlowAlgo', 'O(n^2)', 10);
       const input = [5, 2, 8, 1, 9];
 
-      const result = AlgorithmComparator.compareAlgorithms(fastAlgo, slowAlgo, input);
+      const result = BenchmarkRunner.compareAlgorithms(fastAlgo, slowAlgo, input);
 
       expect(result.algorithm1).toBe('FastAlgo');
       expect(result.algorithm2).toBe('SlowAlgo');
@@ -62,7 +62,7 @@ describe('AlgorithmComparator', () => {
         const algo2 = new MockAlgorithm('Algo2', 'O(n)', 0);
         const input = [5, 2, 8, 1, 9];
 
-        const result = AlgorithmComparator.compareAlgorithms(algo1, algo2, input, 10);
+        const result = BenchmarkRunner.compareAlgorithms(algo1, algo2, input, 10);
 
         expect(result.winner).toBe(0); // Tie
         expect(Math.abs(result.timeDifference)).toBeLessThan(0.1);
@@ -75,7 +75,7 @@ describe('AlgorithmComparator', () => {
       const algo = new MockAlgorithm('TargetAlgo', 'O(1)', 0);
       const input = [1, 2, 3];
 
-      const result = AlgorithmComparator.compareAlgorithms(algo, algo, input);
+      const result = BenchmarkRunner.compareAlgorithms(algo, algo, input);
 
       expect(result.metrics1.withinTarget).toBeDefined();
     });
@@ -87,7 +87,7 @@ describe('AlgorithmComparator', () => {
       const inputGenerator = (size: number) => Array(size).fill(0).map(() => Math.random());
       const sizes = [10, 100, 1000];
 
-      const results = AlgorithmComparator.benchmarkAlgorithm(algo, inputGenerator, sizes);
+      const results = BenchmarkRunner.benchmarkAlgorithm(algo, inputGenerator, sizes);
 
       expect(results).toHaveLength(3);
       expect(results[0].size).toBe(10);
@@ -101,13 +101,13 @@ describe('AlgorithmComparator', () => {
     });
   });
 
-  describe('isWithinTarget', () => {
-    // Indirect testing via benchmarkAlgorithm as the method is private
+  describe('Complexity Analysis Integration', () => {
+    // Indirect testing via benchmarkAlgorithm since isWithinTarget delegates to ComplexityAnalyzer
     it('should validate O(1) complexity correctly', () => {
       const algo = new MockAlgorithm('ConstantTime', 'O(1)', 0);
       const inputGenerator = (size: number) => Array(size).fill(0);
 
-      const results = AlgorithmComparator.benchmarkAlgorithm(algo, inputGenerator, [10]);
+      const results = BenchmarkRunner.benchmarkAlgorithm(algo, inputGenerator, [10]);
       expect(results[0].metrics.withinTarget).toBe(true);
     });
 
@@ -115,7 +115,7 @@ describe('AlgorithmComparator', () => {
       const algo = new MockAlgorithm('LogTime', 'O(log n)', 0);
       const inputGenerator = (size: number) => Array(size).fill(0);
 
-      const results = AlgorithmComparator.benchmarkAlgorithm(algo, inputGenerator, [10]);
+      const results = BenchmarkRunner.benchmarkAlgorithm(algo, inputGenerator, [10]);
       expect(results[0].metrics.withinTarget).toBe(true);
     });
 
@@ -123,7 +123,7 @@ describe('AlgorithmComparator', () => {
       const algo = new MockAlgorithm('LinearTime', 'O(n)', 0);
       const inputGenerator = (size: number) => Array(size).fill(0);
 
-      const results = AlgorithmComparator.benchmarkAlgorithm(algo, inputGenerator, [10]);
+      const results = BenchmarkRunner.benchmarkAlgorithm(algo, inputGenerator, [10]);
       expect(results[0].metrics.withinTarget).toBe(true);
     });
   });

@@ -7,13 +7,8 @@
  * @module algorithms/utils
  */
 
-export { AlgorithmComparator } from './AlgorithmComparator';
 export { AlgorithmSelector } from './AlgorithmSelector';
 export { AlgorithmTestUtils } from './AlgorithmTestUtils';
-export type {
-  AlgorithmComparisonResult,
-  AlgorithmPerformanceMetrics
-} from './AlgorithmComparator';
 export type {
   SelectionCriteria,
   AlgorithmSelectionResult
