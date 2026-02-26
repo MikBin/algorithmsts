@@ -8,10 +8,6 @@
  * @module types
  */
 
-// TODO: Export type definitions here as they are created
-// Example:
-// export type { Node } from './node';
-// export type { Edge } from './edge';
-// export type { GraphRepresentation } from './graph-types';
-
-export {};
+export type { Node } from './node';
+export type { Edge } from './edge';
+export type { GraphRepresentation } from './graph-types';
