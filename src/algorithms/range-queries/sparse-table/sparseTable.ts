@@ -1,6 +1,6 @@
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../../core/utils/PerformanceMonitor';
+import { PerformanceMonitor } from '../../../performance';
 
 /**
  * Type for sparse table operations

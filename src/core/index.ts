@@ -12,7 +12,6 @@ export { BaseAlgorithm } from './abstracts/BaseAlgorithm';
 
 // Utility Components
 export { ComparisonUtils } from './utils/ComparisonUtils';
-export { PerformanceMonitor } from './utils/PerformanceMonitor';
 export { ConversionUtils } from './utils/ConversionUtils';
 
 // Validation System

@@ -1,5 +1,5 @@
 import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../core/utils/PerformanceMonitor';
+import { PerformanceMonitor } from '../../performance';
 
 /**
  * Utility functions for algorithm testing

@@ -1,5 +1,6 @@
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../core/utils/PerformanceMonitor';
+import { IAlgorithm } from '../core/interfaces/IAlgorithm';
+import { PerformanceMonitor } from './performance-monitor';
+import { ComplexityAnalyzer } from './complexity-analyzer';
 
 /**
  * Performance metrics for algorithm comparison
@@ -32,9 +33,11 @@ export interface AlgorithmComparisonResult {
 }
 
 /**
- * Utility class for comparing algorithms performance
+ * Benchmark Runner
+ *
+ * Runs benchmarks and compares algorithms.
  */
-export class AlgorithmComparator {
+export class BenchmarkRunner {
   /**
    * Compares the performance of two algorithms on the same input
    * @param algorithm1 First algorithm to compare
@@ -79,11 +82,11 @@ export class AlgorithmComparator {
       algorithm2: algorithm2.getName(),
       metrics1: {
         executionTime: avgTime1,
-        withinTarget: this.isWithinTarget(algorithm1, avgTime1)
+        withinTarget: ComplexityAnalyzer.checkPerformanceTarget(algorithm1, avgTime1)
       },
       metrics2: {
         executionTime: avgTime2,
-        withinTarget: this.isWithinTarget(algorithm2, avgTime2)
+        withinTarget: ComplexityAnalyzer.checkPerformanceTarget(algorithm2, avgTime2)
       },
       winner,
       timeDifference: avgTime2 - avgTime1 // Positive means algorithm1 is faster
@@ -114,33 +117,11 @@ export class AlgorithmComparator {
         size,
         metrics: {
           executionTime,
-          withinTarget: this.isWithinTarget(algorithm, executionTime)
+          withinTarget: ComplexityAnalyzer.checkPerformanceTarget(algorithm, executionTime)
         }
       });
     }
 
     return results;
-  }
-
-  /**
-   * Checks if the execution time is within the target for the algorithm type
-   * @param algorithm Algorithm to check
-   * @param executionTime Measured execution time
-   * @returns true if within target, false otherwise
-   */
-  private static isWithinTarget<TInput, TOutput>(
-    algorithm: IAlgorithm<TInput, TOutput>,
-    executionTime: number
-  ): boolean {
-    const complexity = algorithm.getTimeComplexity();
-
-    if (complexity.includes('O(1)')) {
-      return PerformanceMonitor.isWithinBasicOperationsTarget(executionTime);
-    } else if (complexity.includes('O(log n)')) {
-      return PerformanceMonitor.isWithinSearchOperationsTarget(executionTime);
-    }
-
-    // For other complexities, use a more lenient check
-    return executionTime < 1000; // 1 second as general target
   }
 }
