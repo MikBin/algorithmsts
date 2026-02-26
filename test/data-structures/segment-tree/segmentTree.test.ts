@@ -135,7 +135,18 @@ describe('testing segmentTree setup query and update: ', () => {
     })
   })
 
-  /**@TODO test by comparing iterative and recoursive creation of trees in different cases */
+  it('builds a segmentTree using iterative build:', () => {
+    SEG_ITER.forEach((node, idx) => {
+      if (idx > 0) {
+        expect(node.left).not.toEqual(-1)
+        expect(node.right).not.toEqual(-1)
+        // expect(node.right).toBeGreaterThanOrEqual(node.left);
+        expect(node.min).not.toEqual(Number.MAX_VALUE)
+        expect(node.max).not.toEqual(-Number.MAX_VALUE)
+      }
+    })
+  })
+
   it('compares iterative and recursive creation of trees in different cases', () => {
     const compareTrees = (arr: number[]) => {
       const recTree = buildSegmentTree(arr, nodeFactoryFn, nodeMergerFn)
@@ -165,6 +176,22 @@ describe('testing segmentTree setup query and update: ', () => {
 
     // Case 4: Single element
     compareTrees([42])
+
+    // Case 5: Array with negative numbers
+    compareTrees([-1, -5, -2, -8, -3])
+
+    // Case 6: Array with duplicate numbers
+    compareTrees([1, 2, 2, 3, 3, 3])
+
+    // Case 7: Larger random array
+    const largeRandomArr = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100))
+    compareTrees(largeRandomArr)
+
+    // Case 8: Array with all same numbers
+    compareTrees([5, 5, 5, 5, 5])
+
+    // Case 9: Two element array
+    compareTrees([1, 2])
   })
 
   it('queries a range: ', () => {
