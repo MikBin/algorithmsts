@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Sort Visualization</title>
+    <link rel="stylesheet" href="../../../assets/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Counting Sort Visualization</h1>
+    
+    <div class="controls">
+        <label for="array-size">Array Size:</label>
+        <input type="number" id="array-size" min="5" max="50" value="15">
+        
+        <label for="max-value">Max Value:</label>
+        <input type="number" id="max-value" min="10" max="100" value="20">
+        
+        <label for="speed">Animation Speed (ms):</label>
+        <input type="range" id="speed" min="10" max="2000" value="500">
+        
+        <button id="btn-generate">Generate Random Array</button>
+        <button id="btn-start">Start Sort</button>
+        <button id="btn-pause">Pause</button>
+        <button id="btn-reset">Reset</button>
+    </div>
+    
+    <div class="stats">
+        <span>Status: <strong id="status-text">Ready</strong></span>
+        <span>Phase: <strong id="phase-text">-</strong></span>
+    </div>
+
+    <div id="viz-container">
+        <div id="main-array-container"></div>
+        <div id="count-array-container"></div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
