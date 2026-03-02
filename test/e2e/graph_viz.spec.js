@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('Graph Visualization Loads and Runs', async ({ page }) => {
   // 1. Go to the new graph visualization page
   // Assuming the server is running at root
-  await page.goto('http://localhost:8080/visualization/algorithms/graphs/index.html');
+  await page.goto('http://localhost:8080/algorithms/graphs/index.html');
 
   // 2. Check title
   await expect(page).toHaveTitle(/Graph Algorithms Visualization/);
