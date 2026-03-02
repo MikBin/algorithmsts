@@ -85,12 +85,14 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
     const visited = new Set<T>();
     const stack: T[] = [startVertex];
 
+    yield { type: 'step', visited: new Set(visited), processing: null, stack: [...stack], message: `Starting DFS at ${startVertex}` };
+
     while (stack.length > 0) {
       const u = stack.pop()!;
 
       if (!visited.has(u)) {
         visited.add(u);
-        yield { type: 'step', visited: new Set(visited), processing: u, message: `Visiting ${u}` };
+        yield { type: 'step', visited: new Set(visited), processing: u, stack: [...stack], message: `Visiting ${u}` };
 
         const neighbors = graph.getNeighbors(u);
         // Push in reverse order to visit in natural order (optional, to match recursion order for some structures)
@@ -100,10 +102,11 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
             stack.push(v);
           }
         }
+        yield { type: 'step', visited: new Set(visited), processing: u, stack: [...stack], message: `Pushed unvisited neighbors of ${u}` };
       }
     }
 
-    yield { type: 'finished', visited: new Set(visited), message: 'DFS Completed' };
+    yield { type: 'finished', visited: new Set(visited), stack: [...stack], message: 'DFS Completed' };
   }
 
   /**

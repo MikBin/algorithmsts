@@ -91,26 +91,31 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
 
      const visited = new Set<T>();
      const queue: T[] = [];
+     const levels = new Map<T, number>();
+
      visited.add(startVertex);
      queue.push(startVertex);
+     levels.set(startVertex, 0);
 
-     yield { type: 'step', visited: new Set(visited), processing: startVertex, message: `Starting BFS at ${startVertex}` };
+     yield { type: 'step', visited: new Set(visited), processing: startVertex, queue: [...queue], levels: new Map(levels), message: `Starting BFS at ${startVertex}` };
 
      while (queue.length > 0) {
        const u = queue.shift()!;
-       yield { type: 'step', visited: new Set(visited), processing: u, message: `Visiting ${u}` };
+       const currentLevel = levels.get(u)!;
+       yield { type: 'step', visited: new Set(visited), processing: u, queue: [...queue], levels: new Map(levels), message: `Visiting ${u}` };
 
        const neighbors = graph.getNeighbors(u);
        for (const v of neighbors) {
          if (!visited.has(v)) {
            visited.add(v);
            queue.push(v);
-           yield { type: 'step', visited: new Set(visited), processing: v, message: `Discovered ${v}` };
+           levels.set(v, currentLevel + 1);
+           yield { type: 'step', visited: new Set(visited), processing: v, queue: [...queue], levels: new Map(levels), message: `Discovered ${v}` };
          }
        }
      }
 
-     yield { type: 'finished', visited: new Set(visited), message: 'BFS Completed' };
+     yield { type: 'finished', visited: new Set(visited), queue: [...queue], levels: new Map(levels), message: 'BFS Completed' };
   }
 
   /**
