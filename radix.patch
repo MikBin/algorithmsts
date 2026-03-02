@@ -1,0 +1,444 @@
+diff --git a/visualization/algorithms/sorting/radix-sort/index.html b/visualization/algorithms/sorting/radix-sort/index.html
+new file mode 100644
+index 0000000..9a3153d
+--- /dev/null
++++ b/visualization/algorithms/sorting/radix-sort/index.html
+@@ -0,0 +1,46 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>Radix Sort Visualization</title>
++    <link rel="stylesheet" href="../../../assets/common.css">
++    <link rel="stylesheet" href="style.css">
++    <script type="importmap">
++    {
++        "imports": {
++            "d3": "https://cdn.jsdelivr.net/npm/d3@7/+esm"
++        }
++    }
++    </script>
++</head>
++<body>
++    <h1>Radix Sort Visualization</h1>
++    
++    <div class="controls">
++        <label for="array-size">Array Size:</label>
++        <input type="number" id="array-size" min="5" max="50" value="15">
++        
++        <label for="speed">Animation Speed (ms):</label>
++        <input type="range" id="speed" min="10" max="2000" value="500">
++        
++        <button id="btn-generate">Generate Random Array</button>
++        <button id="btn-start">Start Sort</button>
++        <button id="btn-pause">Pause</button>
++        <button id="btn-reset">Reset</button>
++    </div>
++    
++    <div class="stats">
++        <span>Current Pass (Digit): <strong id="current-pass">-</strong></span>
++        <span>Status: <strong id="status-text">Ready</strong></span>
++    </div>
++
++    <div id="viz-container">
++        <!-- Visualization goes here -->
++        <div id="main-array-container"></div>
++        <div id="buckets-container"></div>
++    </div>
++
++    <script type="module" src="main.js"></script>
++</body>
++</html>
+diff --git a/visualization/algorithms/sorting/radix-sort/main.js b/visualization/algorithms/sorting/radix-sort/main.js
+new file mode 100644
+index 0000000..fc27648
+--- /dev/null
++++ b/visualization/algorithms/sorting/radix-sort/main.js
+@@ -0,0 +1,253 @@
++function* radixSortGenerator(originalArray) {
++    let array = [...originalArray];
++    const max = Math.max(...array);
++    let pass = 1;
++    
++    for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
++        yield { type: 'pass_start', exp, pass, array: [...array] };
++        
++        let buckets = Array.from({length: 10}, () => []);
++        
++        // Distribute to buckets
++        for (let i = 0; i < array.length; i++) {
++            let digit = Math.floor(array[i] / exp) % 10;
++            buckets[digit].push(array[i]);
++            yield { type: 'distribute', index: i, digit, exp, val: array[i], array: [...array], buckets: JSON.parse(JSON.stringify(buckets)) };
++        }
++
++        // Collect from buckets
++        let k = 0;
++        for (let i = 0; i < 10; i++) {
++            while (buckets[i].length > 0) {
++                let val = buckets[i].shift(); // Remove from front of bucket
++                array[k] = val;
++                yield { type: 'collect', index: k, exp, val: val, array: [...array], buckets: JSON.parse(JSON.stringify(buckets)) };
++                k++;
++            }
++        }
++        
++        yield { type: 'pass_end', exp, pass, array: [...array] };
++        pass++;
++    }
++    
++    yield { type: 'done', array: [...array] };
++}
++
++class RadixSortVisualizer {
++    constructor() {
++        this.array = [];
++        this.generator = null;
++        this.isRunning = false;
++        this.isPaused = false;
++        this.timer = null;
++        this.speed = 500;
++        
++        // UI Elements
++        this.mainArrayContainer = document.getElementById('main-array-container');
++        this.bucketsContainer = document.getElementById('buckets-container');
++        this.arraySizeInput = document.getElementById('array-size');
++        this.speedInput = document.getElementById('speed');
++        this.btnGenerate = document.getElementById('btn-generate');
++        this.btnStart = document.getElementById('btn-start');
++        this.btnPause = document.getElementById('btn-pause');
++        this.btnReset = document.getElementById('btn-reset');
++        this.statusText = document.getElementById('status-text');
++        this.currentPassText = document.getElementById('current-pass');
++
++        // Event Listeners
++        this.btnGenerate.addEventListener('click', () => this.generateArray());
++        this.btnStart.addEventListener('click', () => this.start());
++        this.btnPause.addEventListener('click', () => this.togglePause());
++        this.btnReset.addEventListener('click', () => this.reset());
++        this.speedInput.addEventListener('input', (e) => {
++            // Reverse range so right = faster
++            this.speed = 2010 - parseInt(e.target.value);
++        });
++        this.arraySizeInput.addEventListener('change', () => this.generateArray());
++
++        // Init buckets
++        this.initBuckets();
++        this.generateArray();
++    }
++    
++    initBuckets() {
++        this.bucketsContainer.innerHTML = '';
++        for (let i = 0; i < 10; i++) {
++            const bucketDiv = document.createElement('div');
++            bucketDiv.className = 'bucket';
++            bucketDiv.id = `bucket-${i}`;
++            
++            const bucketLabel = document.createElement('div');
++            bucketLabel.className = 'bucket-label';
++            bucketLabel.textContent = i;
++            
++            const bucketItems = document.createElement('div');
++            bucketItems.className = 'bucket-items';
++            bucketItems.id = `bucket-items-${i}`;
++            
++            bucketDiv.appendChild(bucketItems);
++            bucketDiv.appendChild(bucketLabel);
++            this.bucketsContainer.appendChild(bucketDiv);
++        }
++    }
++
++    generateArray() {
++        this.stop();
++        const size = parseInt(this.arraySizeInput.value, 10);
++        this.array = Array.from({length: size}, () => Math.floor(Math.random() * 999) + 1); // 1-999
++        this.renderArray(this.array);
++        this.clearBuckets();
++        this.statusText.textContent = 'Ready';
++        this.currentPassText.textContent = '-';
++        this.btnStart.disabled = false;
++        this.btnPause.disabled = true;
++    }
++
++    renderArray(arr, highlightIndex = -1, exp = 1, isDone = false) {
++        this.mainArrayContainer.innerHTML = '';
++        arr.forEach((val, i) => {
++            const el = document.createElement('div');
++            el.className = 'array-element';
++            if (i === highlightIndex) el.classList.add('highlight');
++            if (isDone) el.classList.add('sorted');
++            
++            // Format number to highlight current digit
++            let strVal = val.toString().padStart(3, '0'); // pad to 3 digits for consistent formatting
++            
++            if (exp > 0 && !isDone) {
++                // Calculate position from right (0 = units, 1 = tens, etc.)
++                let digitPos = Math.floor(Math.log10(exp));
++                // Index from left in padded string
++                let digitIndex = strVal.length - 1 - digitPos;
++                
++                if (digitIndex >= 0 && digitIndex < strVal.length) {
++                    let formatted = strVal.substring(0, digitIndex) + 
++                                    `<span class="digit-highlight">${strVal[digitIndex]}</span>` + 
++                                    strVal.substring(digitIndex + 1);
++                    el.innerHTML = formatted;
++                } else {
++                    el.textContent = val;
++                }
++            } else {
++                el.textContent = val;
++            }
++            
++            this.mainArrayContainer.appendChild(el);
++        });
++    }
++    
++    clearBuckets() {
++        for(let i=0; i<10; i++) {
++            const container = document.getElementById(`bucket-items-${i}`);
++            if(container) container.innerHTML = '';
++        }
++    }
++
++    renderBuckets(buckets) {
++        this.clearBuckets();
++        buckets.forEach((bucket, i) => {
++            const container = document.getElementById(`bucket-items-${i}`);
++            if(!container) return;
++            bucket.forEach(val => {
++                const item = document.createElement('div');
++                item.className = 'bucket-item';
++                item.textContent = val;
++                container.appendChild(item);
++            });
++        });
++    }
++
++    stop() {
++        this.isRunning = false;
++        this.isPaused = false;
++        clearTimeout(this.timer);
++        this.btnPause.textContent = 'Pause';
++    }
++
++    reset() {
++        this.stop();
++        this.generateArray();
++    }
++
++    togglePause() {
++        if (!this.isRunning) return;
++        if (this.isPaused) {
++            this.isPaused = false;
++            this.btnPause.textContent = 'Pause';
++            this.statusText.textContent = 'Sorting...';
++            this.step();
++        } else {
++            this.isPaused = true;
++            this.btnPause.textContent = 'Resume';
++            this.statusText.textContent = 'Paused';
++        }
++    }
++
++    start() {
++        if (this.isRunning && !this.isPaused) return;
++        if (this.isPaused) {
++            this.togglePause();
++            return;
++        }
++
++        this.generator = radixSortGenerator([...this.array]);
++        this.isRunning = true;
++        this.btnStart.disabled = true;
++        this.btnPause.disabled = false;
++        this.statusText.textContent = 'Sorting...';
++        this.step();
++    }
++
++    step() {
++        if (!this.isRunning || this.isPaused) return;
++
++        let res = this.generator.next();
++        
++        if (res.done) {
++             // Shouldn't happen if we handle {type: 'done'} properly, but just in case
++            this.finishSort();
++            return;
++        }
++        
++        const value = res.value;
++
++        if (value.type === 'done') {
++            this.finishSort(value.array);
++            return;
++        }
++
++        if (value.type === 'pass_start') {
++             this.currentPassText.textContent = `${value.pass} (exp: ${value.exp})`;
++             this.renderArray(value.array, -1, value.exp);
++             this.clearBuckets();
++        } else if (value.type === 'distribute') {
++             this.renderArray(value.array, value.index, value.exp);
++             this.renderBuckets(value.buckets);
++        } else if (value.type === 'collect') {
++             this.renderArray(value.array, value.index, value.exp);
++             this.renderBuckets(value.buckets);
++        } else if (value.type === 'pass_end') {
++             this.renderArray(value.array, -1, value.exp);
++             this.clearBuckets();
++             // Update main array to reflect collected state for next pass
++             this.array = [...value.array];
++        }
++
++        this.timer = setTimeout(() => this.step(), this.speed);
++    }
++    
++    finishSort(finalArray) {
++        this.isRunning = false;
++        this.btnStart.disabled = false;
++        this.btnPause.disabled = true;
++        this.statusText.textContent = 'Completed';
++        this.renderArray(finalArray || this.array, -1, 0, true);
++        this.clearBuckets();
++        this.currentPassText.textContent = 'Done';
++    }
++}
++
++// Start
++document.addEventListener('DOMContentLoaded', () => {
++    new RadixSortVisualizer();
++});
+diff --git a/visualization/algorithms/sorting/radix-sort/style.css b/visualization/algorithms/sorting/radix-sort/style.css
+new file mode 100644
+index 0000000..207837d
+--- /dev/null
++++ b/visualization/algorithms/sorting/radix-sort/style.css
+@@ -0,0 +1,112 @@
++body {
++    font-family: sans-serif;
++    margin: 20px;
++}
++
++.controls, .stats {
++    margin-bottom: 20px;
++    padding: 10px;
++    background-color: #f0f0f0;
++    border-radius: 5px;
++}
++
++.controls button, .controls input {
++    margin-right: 10px;
++}
++
++#viz-container {
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++    margin-top: 20px;
++    width: 100%;
++}
++
++#main-array-container {
++    margin-bottom: 40px;
++    display: flex;
++    justify-content: center;
++    flex-wrap: wrap;
++    gap: 10px;
++    min-height: 50px;
++}
++
++.array-element {
++    display: flex;
++    justify-content: center;
++    align-items: center;
++    width: 40px;
++    height: 40px;
++    border: 1px solid #ccc;
++    border-radius: 4px;
++    background-color: #e0e0e0;
++    font-weight: bold;
++    font-size: 14px;
++    transition: all 0.3s ease;
++}
++
++.array-element.highlight {
++    background-color: #ffeb3b;
++    transform: scale(1.1);
++    border-color: #fbc02d;
++}
++
++.array-element.sorted {
++    background-color: #4caf50;
++    color: white;
++    border-color: #388e3c;
++}
++
++#buckets-container {
++    display: flex;
++    justify-content: center;
++    gap: 20px;
++    width: 100%;
++    flex-wrap: wrap;
++}
++
++.bucket {
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++    width: 60px;
++    min-height: 100px;
++    border: 2px solid #2196f3;
++    border-top: none;
++    border-radius: 0 0 5px 5px;
++    padding: 5px;
++    background-color: #f8fcf8;
++}
++
++.bucket-label {
++    margin-top: 5px;
++    font-weight: bold;
++    color: #2196f3;
++}
++
++.bucket-items {
++    display: flex;
++    flex-direction: column-reverse;
++    gap: 5px;
++    width: 100%;
++    min-height: 50px;
++}
++
++.bucket-item {
++    display: flex;
++    justify-content: center;
++    align-items: center;
++    width: 100%;
++    height: 30px;
++    background-color: #bbdefb;
++    border: 1px solid #90caf9;
++    border-radius: 3px;
++    font-size: 12px;
++    transition: all 0.3s ease;
++}
++
++.digit-highlight {
++    color: #e91e63;
++    font-weight: 900;
++    text-decoration: underline;
++}
+diff --git a/visualization/index.html b/visualization/index.html
+index 7fbc025..27aec31 100644
+--- a/visualization/index.html
++++ b/visualization/index.html
+@@ -145,6 +145,10 @@
+     <div class="category">
+         <h2>Algorithms</h2>
+         <ul class="viz-list">
++            <li>
++                <a href="algorithms/sorting/radix-sort/index.html"><span class="tag tag-new">New</span>Radix Sort</a>
++                <div class="description">Step-by-step visualization of Radix Sort using bucket distribution.</div>
++            </li>
+             <li>
+                 <a href="algorithms/graphs/index.html"><span class="tag tag-new">New</span>Graph Algorithms</a>
+                 <div class="description">Pathfinding (Dijkstra, A*), Traversal (BFS, DFS), and Minimum Spanning Trees (Prim).</div>
