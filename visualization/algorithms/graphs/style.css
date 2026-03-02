@@ -59,6 +59,22 @@
     stroke-width: 4px;
 }
 
+.link.negative-cycle {
+    stroke: #e74c3c;
+    stroke-width: 4px;
+}
+
+.node circle.negative-cycle {
+    stroke: #e74c3c;
+    stroke-width: 4px;
+}
+
+.node text.distance-text {
+    font-size: 10px;
+    fill: #e74c3c;
+    font-weight: bold;
+}
+
 .link.mst {
     stroke: var(--success-color);
     stroke-width: 4px;

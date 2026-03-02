@@ -3,6 +3,7 @@ import { AdjacencyListGraph } from '../../../src/graphs/structures/AdjacencyList
 import { BreadthFirstSearch } from '../../../src/graphs/algorithms/traversal/BreadthFirstSearch.ts';
 import { DepthFirstSearch } from '../../../src/graphs/algorithms/traversal/DepthFirstSearch.ts';
 import { DijkstraAlgorithm } from '../../../src/graphs/algorithms/shortest-path/DijkstraAlgorithm.ts';
+import { BellmanFordAlgorithm } from '../../../src/graphs/algorithms/shortest-path/BellmanFordAlgorithm.ts';
 import { PrimAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/PrimAlgorithm.ts';
 import { KruskalAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/KruskalAlgorithm.ts';
 
@@ -40,6 +41,65 @@ function generateRandomGraph(nodeCount = 15, edgeProbability = 0.2, weighted = f
                 links.push({ source: i, target: j, weight });
             }
         }
+    }
+
+    return { nodes, links };
+}
+
+function generateNegativeGraph(nodeCount = 8, edgeProbability = 0.3) {
+    const nodes = Array.from({ length: nodeCount }, (_, i) => ({ id: i }));
+    const links = [];
+
+    // Ensure connectivity
+    for (let i = 0; i < nodeCount - 1; i++) {
+        // mostly positive for spanning tree
+        const weight = Math.random() > 0.2 ? Math.floor(Math.random() * 8) + 1 : Math.floor(Math.random() * -5) - 1;
+        links.push({ source: i, target: i + 1, weight });
+    }
+
+    // Add random edges, including some negative ones
+    for (let i = 0; i < nodeCount; i++) {
+        for (let j = 0; j < nodeCount; j++) {
+            if (i === j) continue;
+            // Prevent trivial 2-cycles
+            if (links.some(l => (l.source === i && l.target === j) || (l.source === j && l.target === i))) {
+                continue;
+            }
+
+            if (Math.random() < edgeProbability) {
+                // ~20% chance of negative weight
+                const weight = Math.random() > 0.2 ? Math.floor(Math.random() * 10) + 1 : Math.floor(Math.random() * -5) - 1;
+                links.push({ source: i, target: j, weight });
+            }
+        }
+    }
+
+    return { nodes, links };
+}
+
+function generateNegativeCycleGraph(nodeCount = 6) {
+    const nodes = Array.from({ length: nodeCount }, (_, i) => ({ id: i }));
+    const links = [];
+
+    // Basic path
+    for (let i = 0; i < nodeCount - 1; i++) {
+        links.push({ source: i, target: i + 1, weight: 2 });
+    }
+
+    // Add a negative cycle: 1 -> 2 -> 3 -> 1
+    // Existing: 1->2 (weight 2), 2->3 (weight 2)
+    // Add 3->1 with weight -5, making cycle sum = 2 + 2 - 5 = -1
+    if (nodeCount >= 4) {
+        // remove existing edge if any
+        const index = links.findIndex(l => l.source === 3 && l.target === 1);
+        if (index > -1) links.splice(index, 1);
+        links.push({ source: 3, target: 1, weight: -6 }); // definite negative cycle
+    }
+
+    // Add some random directed edges
+    links.push({ source: 0, target: 3, weight: 10 });
+    if (nodeCount >= 5) {
+        links.push({ source: 2, target: 4, weight: 5 });
     }
 
     return { nodes, links };
@@ -168,6 +228,11 @@ class GraphVisualizer {
         this.nodes.append('text')
             .text(d => d.id);
 
+        this.nodes.append('text')
+            .attr('class', 'distance-text')
+            .attr('dy', 30)
+            .text('');
+
         this.simulation.nodes(graph.nodes).on('tick', () => this.ticked());
         this.simulation.force('link').links(graph.links);
         this.simulation.alpha(1).restart();
@@ -284,7 +349,23 @@ class GraphVisualizer {
         }
 
         if (state.distances) {
-            // Optional: Show distances?
+            this.nodes.selectAll('.distance-text')
+                .text(d => {
+                    const dist = state.distances.get(d.id);
+                    if (dist === undefined) return '';
+                    return dist === Infinity ? '∞' : dist;
+                });
+        }
+
+        if (state.negativeCycleEdge) {
+            const edge = state.negativeCycleEdge;
+            this.links.selectAll('line')
+                 .filter(d => d.source.id === edge.source && d.target.id === edge.target)
+                 .classed('negative-cycle', true);
+
+            this.nodes.selectAll('circle')
+                .filter(d => d.id === edge.source || d.id === edge.target)
+                .classed('negative-cycle', true);
         }
     }
 }
@@ -336,7 +417,7 @@ class GraphController {
         if (category === 'traversal') {
             options = [{v: 'bfs', t: 'Breadth First Search'}, {v: 'dfs', t: 'Depth First Search'}];
         } else if (category === 'pathfinding') {
-             options = [{v: 'dijkstra', t: 'Dijkstra'}];
+             options = [{v: 'dijkstra', t: 'Dijkstra'}, {v: 'bellman-ford', t: 'Bellman-Ford'}];
         } else if (category === 'spanning-tree') {
              options = [{v: 'prim', t: 'Prim\'s Algorithm'}, {v: 'kruskal', t: 'Kruskal\'s Algorithm'}];
         }
@@ -358,6 +439,10 @@ class GraphController {
             this.graphData = generateRandomGraph(15, 0.2, weighted);
         } else if (type === 'grid') {
             this.graphData = generateGridGraph(5, 5, weighted);
+        } else if (type === 'negative') {
+            this.graphData = generateNegativeGraph(10, 0.3);
+        } else if (type === 'negative-cycle') {
+            this.graphData = generateNegativeCycleGraph(8);
         } else if (type === 'circular') {
              const n = 12;
              const nodes = Array.from({length: n}, (_, i) => ({ id: i }));
@@ -392,8 +477,9 @@ class GraphController {
         const endNode = this.graphData.nodes[this.graphData.nodes.length - 1].id;
 
         // Convert to library graph
-        // Note: Graph is undirected for this visualization generally
-        this.libraryGraph = toLibraryGraph(this.graphData, false, weighted);
+        // Note: Graph is undirected for this visualization generally, except for Bellman-Ford
+        const isDirected = algo === 'bellman-ford';
+        this.libraryGraph = toLibraryGraph(this.graphData, isDirected, weighted);
 
         if (algo === 'bfs') {
             const bfs = new BreadthFirstSearch();
@@ -406,6 +492,10 @@ class GraphController {
         else if (algo === 'dijkstra') {
             const dijkstra = new DijkstraAlgorithm();
             this.generator = dijkstra.findShortestPathGenerator(this.libraryGraph, startNode, endNode);
+        }
+        else if (algo === 'bellman-ford') {
+            const bellmanFord = new BellmanFordAlgorithm();
+            this.generator = bellmanFord.findShortestPathGenerator(this.libraryGraph, startNode, endNode);
         }
         else if (algo === 'prim') {
             const prim = new PrimAlgorithm();
