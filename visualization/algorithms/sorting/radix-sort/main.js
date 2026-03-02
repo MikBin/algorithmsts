@@ -2,12 +2,12 @@ function* radixSortGenerator(originalArray) {
     let array = [...originalArray];
     const max = Math.max(...array);
     let pass = 1;
-    
+
     for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
         yield { type: 'pass_start', exp, pass, array: [...array] };
-        
+
         let buckets = Array.from({length: 10}, () => []);
-        
+
         // Distribute to buckets
         for (let i = 0; i < array.length; i++) {
             let digit = Math.floor(array[i] / exp) % 10;
@@ -25,11 +25,11 @@ function* radixSortGenerator(originalArray) {
                 k++;
             }
         }
-        
+
         yield { type: 'pass_end', exp, pass, array: [...array] };
         pass++;
     }
-    
+
     yield { type: 'done', array: [...array] };
 }
 
@@ -41,7 +41,7 @@ class RadixSortVisualizer {
         this.isPaused = false;
         this.timer = null;
         this.speed = 500;
-        
+
         // UI Elements
         this.mainArrayContainer = document.getElementById('main-array-container');
         this.bucketsContainer = document.getElementById('buckets-container');
@@ -69,22 +69,22 @@ class RadixSortVisualizer {
         this.initBuckets();
         this.generateArray();
     }
-    
+
     initBuckets() {
         this.bucketsContainer.innerHTML = '';
         for (let i = 0; i < 10; i++) {
             const bucketDiv = document.createElement('div');
             bucketDiv.className = 'bucket';
             bucketDiv.id = `bucket-${i}`;
-            
+
             const bucketLabel = document.createElement('div');
             bucketLabel.className = 'bucket-label';
             bucketLabel.textContent = i;
-            
+
             const bucketItems = document.createElement('div');
             bucketItems.className = 'bucket-items';
             bucketItems.id = `bucket-items-${i}`;
-            
+
             bucketDiv.appendChild(bucketItems);
             bucketDiv.appendChild(bucketLabel);
             this.bucketsContainer.appendChild(bucketDiv);
@@ -110,19 +110,19 @@ class RadixSortVisualizer {
             el.className = 'array-element';
             if (i === highlightIndex) el.classList.add('highlight');
             if (isDone) el.classList.add('sorted');
-            
+
             // Format number to highlight current digit
             let strVal = val.toString().padStart(3, '0'); // pad to 3 digits for consistent formatting
-            
+
             if (exp > 0 && !isDone) {
                 // Calculate position from right (0 = units, 1 = tens, etc.)
                 let digitPos = Math.floor(Math.log10(exp));
                 // Index from left in padded string
                 let digitIndex = strVal.length - 1 - digitPos;
-                
+
                 if (digitIndex >= 0 && digitIndex < strVal.length) {
-                    let formatted = strVal.substring(0, digitIndex) + 
-                                    `<span class="digit-highlight">${strVal[digitIndex]}</span>` + 
+                    let formatted = strVal.substring(0, digitIndex) +
+                                    `<span class="digit-highlight">${strVal[digitIndex]}</span>` +
                                     strVal.substring(digitIndex + 1);
                     el.innerHTML = formatted;
                 } else {
@@ -131,11 +131,11 @@ class RadixSortVisualizer {
             } else {
                 el.textContent = val;
             }
-            
+
             this.mainArrayContainer.appendChild(el);
         });
     }
-    
+
     clearBuckets() {
         for(let i=0; i<10; i++) {
             const container = document.getElementById(`bucket-items-${i}`);
@@ -202,13 +202,13 @@ class RadixSortVisualizer {
         if (!this.isRunning || this.isPaused) return;
 
         let res = this.generator.next();
-        
+
         if (res.done) {
              // Shouldn't happen if we handle {type: 'done'} properly, but just in case
             this.finishSort();
             return;
         }
-        
+
         const value = res.value;
 
         if (value.type === 'done') {
@@ -235,7 +235,7 @@ class RadixSortVisualizer {
 
         this.timer = setTimeout(() => this.step(), this.speed);
     }
-    
+
     finishSort(finalArray) {
         this.isRunning = false;
         this.btnStart.disabled = false;
