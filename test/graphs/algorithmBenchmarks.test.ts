@@ -403,7 +403,10 @@ describe('Algorithm Performance Benchmarks', () => {
       expect(dfsTime).toBeLessThan(100);
 
       // Times should be comparable (within 20x of each other)
-      const ratio = Math.max(bfsTime, dfsTime) / Math.min(bfsTime, dfsTime);
+      // Clamp denominator to at least 0.1ms to prevent exploding ratios from V8 cache variance on tiny inputs
+      const safeBfsTime = Math.max(bfsTime, 0.1);
+      const safeDfsTime = Math.max(dfsTime, 0.1);
+      const ratio = Math.max(safeBfsTime, safeDfsTime) / Math.min(safeBfsTime, safeDfsTime);
       expect(ratio).toBeLessThan(20);
     });
 
