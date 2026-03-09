@@ -21,9 +21,11 @@ import {
   DepthFirstSearch
 } from '../../src/graphs';
 import {
-  PerformanceMonitor,
   Validator
 } from '../../src/core';
+import {
+  PerformanceMonitor
+} from '../../src/performance';
 
 /**
  * Full Library Integration Tests

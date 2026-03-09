@@ -24,7 +24,7 @@ export interface RibbonFilterOptions<T> {
 }
 
 export class RibbonFilter<T = string> {
-  private slots: Uint8Array;
+  private slots!: Uint8Array;
   private numSlots: number;
   private hashFn: HashFn;
   private serializer: Serializer<T>;
