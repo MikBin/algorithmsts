@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { Trie } from '../../../../src/data-structures/trie/index.js';
+import { Trie } from '../../../../src/data-structures/trie/index.ts';
 
 const trie = new Trie();
 const container = document.getElementById('tree-container');

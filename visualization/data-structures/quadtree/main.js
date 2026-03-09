@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { Quadtree } from '../../../src/data-structures/quadtree/index.js';
+import { Quadtree } from '../../../src/data-structures/quadtree/index.ts';
 import { SpatialVisualizer } from '../spatial/spatial-visualizer.js';
 
 const width = 600;

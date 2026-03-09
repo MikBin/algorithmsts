@@ -11,7 +11,7 @@
  *   tsx test/scripts/performanceValidation.ts
  */
 
-import { PerformanceMonitor } from '../../src/core/utils/PerformanceMonitor';
+import { PerformanceMonitor } from '../../src/performance/performance-monitor';
 import { PerformanceData } from '../algorithms/fixtures/PerformanceData';
 import { CountingSort } from '../../src/algorithms/sorting';
 import { BinarySearch } from '../../src/algorithms/searching/binary-search';
@@ -281,7 +281,11 @@ class PerformanceValidator {
 }
 
 // Run performance validation if this script is executed directly
-if (require.main === module) {
+import { fileURLToPath } from 'url';
+
+const isMainModule = typeof process !== 'undefined' && process.argv && process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+
+if (isMainModule) {
   const validator = new PerformanceValidator();
 
   validator.validatePerformance().then((report) => {
