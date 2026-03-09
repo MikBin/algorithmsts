@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { KDTree } from '../../../src/data-structures/kd-tree/index.js';
+import { KDTree } from '../../../src/data-structures/kd-tree/index.ts';
 import { SpatialVisualizer } from '../spatial/spatial-visualizer.js';
 
 const width = 600;

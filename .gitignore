@@ -11,7 +11,6 @@ compiled
 .rpt2_cache
 docs
 package-lock.json
-assets
 .tmp
 /tmp
 visualization/similarity-data.js

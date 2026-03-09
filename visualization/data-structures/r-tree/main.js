@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { RTree } from '../../../src/data-structures/r-tree/index.js';
+import { RTree } from '../../../src/data-structures/r-tree/index.ts';
 import { SpatialVisualizer } from '../spatial/spatial-visualizer.js';
 
 const width = 600;
