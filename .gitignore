@@ -12,6 +12,7 @@ compiled
 docs
 package-lock.json
 assets
+!visualization/assets/
 .tmp
 /tmp
 visualization/similarity-data.js
