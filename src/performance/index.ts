@@ -9,5 +9,6 @@
  */
 
 export { PerformanceMonitor } from './performance-monitor';
-export { BenchmarkRunner, AlgorithmPerformanceMetrics, AlgorithmComparisonResult } from './benchmark-runner';
+export { BenchmarkRunner } from './benchmark-runner';
+export type { AlgorithmPerformanceMetrics, AlgorithmComparisonResult } from './benchmark-runner';
 export { ComplexityAnalyzer } from './complexity-analyzer';
