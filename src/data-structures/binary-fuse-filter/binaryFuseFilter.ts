@@ -26,7 +26,7 @@ const defaultSerializer = (item: any): string => {
 export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
   private fingerprints: Uint8Array | Uint16Array | Uint32Array;
   private segmentLength: number;
-  private segmentLengthMask: number;
+  private segmentLengthMask!: number;
   private size_: number;
   private fingerprintSize: number;
   private hashFn: HashFn;

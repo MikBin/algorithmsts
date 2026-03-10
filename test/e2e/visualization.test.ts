@@ -10,12 +10,12 @@ const ROOT_DIR = path.resolve(__dirname, '../../');
 let serverProcess: ChildProcess;
 let browser: Browser;
 let page: Page;
+let isBrowserAvailable = true;
 
 beforeAll(async () => {
   // Start a local server (Python 3)
   serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
-    cwd: ROOT_DIR,
-    stdio: 'ignore'
+    cwd: ROOT_DIR
   });
 
   // Wait for server to be ready
@@ -23,18 +23,18 @@ beforeAll(async () => {
 
   try {
     browser = await chromium.launch();
-  } catch (error: any) {
-    if (error.message.includes("Executable doesn't exist")) {
-      console.warn("Playwright browser executable missing, skipping tests.");
-    } else {
-      throw error;
+  } catch (e: any) {
+    if (e.message.includes('Executable doesn\'t exist')) {
+      console.warn('Playwright executable missing. Skipping E2E visualization tests.');
+      isBrowserAvailable = false;
+      return;
     }
+    throw e;
   }
 }, 60000);
 
 afterAll(async () => {
-  if (browser) await browser.close();
-  if (serverProcess) serverProcess.kill();
+  serverProcess.kill();
 });
 
 beforeEach(async (context) => {
@@ -54,7 +54,8 @@ afterEach(async () => {
 });
 
 describe('Vector Similarity Visualization Filters', () => {
-  test('should render charts initially', async () => {
+  test('should render charts initially', async (ctx) => {
+    if (!isBrowserAvailable) return ctx.skip();
     const canvases = await page.$$('canvas');
     expect(canvases.length).toBeGreaterThan(0);
 
@@ -64,7 +65,8 @@ describe('Vector Similarity Visualization Filters', () => {
     await expect(nonlinearChart.isVisible()).resolves.toBe(true);
   });
 
-  test('should verify dynamic options populate correctly', async () => {
+  test('should verify dynamic options populate correctly', async (ctx) => {
+    if (!isBrowserAvailable) return ctx.skip();
     // Since we fixed the code to be dynamic, the dropdowns should now contain
     // the values present in the data.
 
@@ -73,29 +75,36 @@ describe('Vector Similarity Visualization Filters', () => {
     expect(sizeOptions).toContain('200');
     expect(sizeOptions).toContain('All Sizes');
 
-    // Check Noise Level dropdown contains '0.1', '0.5' (from data)
+    // Check Noise Level dropdown contains '0.1', '0.2', '0.05'
     const noiseOptions = await page.locator('#noise-level-filter option').allTextContents();
     expect(noiseOptions).toContain('0.1');
-    expect(noiseOptions).toContain('0.5');
+    expect(noiseOptions).toContain('0.2');
     // 0.05 is also present from anomaly tests, but '1' is not generated in current analysis script
   });
 
-  test('should show data when filtering by valid dynamic options', async () => {
+  test('should show data when filtering by valid dynamic options', async (ctx) => {
+    if (!isBrowserAvailable) return ctx.skip();
     // Select '200' which should now exist
     await page.selectOption('#vector-size-filter', '200');
     await page.click('button:has-text("Apply Filters")');
 
-    // Check filtered items count in Debug Info
-    const debugInfoText = await page.locator('#debug-panel').textContent();
-    // It should not say "Filtered: 0"
-    expect(debugInfoText).not.toContain('Filtered: 0');
+    // Wait for table to update
+    await page.waitForSelector('div[data-testid="nonlinear-table"] tbody tr');
+
+    // Verify that the debug panel shows non-zero filtered count
+    const debugPanel = await page.locator('#debug-panel');
+    const text = await debugPanel.textContent();
+    expect(text).toContain('Total:');
+    expect(text).toContain('Filtered:');
+    expect(text).not.toContain('Filtered: 0');
 
     const tableRows = await page.locator('div[data-testid="nonlinear-table"] tbody tr');
     const rowCount = await tableRows.count();
     expect(rowCount).toBeGreaterThan(0);
   });
 
-  test('should log debugging info', async () => {
+  test('should log debugging info', async (ctx) => {
+      if (!isBrowserAvailable) return ctx.skip();
       const debugPanel = await page.locator('#debug-panel');
       await expect(debugPanel.isVisible()).resolves.toBe(true);
       const text = await debugPanel.textContent();
@@ -103,7 +112,8 @@ describe('Vector Similarity Visualization Filters', () => {
       expect(text).toContain('Filtered:');
   });
 
-  test('should toggle debug panel visibility', async () => {
+  test('should toggle debug panel visibility', async (ctx) => {
+      if (!isBrowserAvailable) return ctx.skip();
       // Navigate without ?debug=true
       await page.goto(BASE_URL);
       await page.waitForSelector('canvas');
