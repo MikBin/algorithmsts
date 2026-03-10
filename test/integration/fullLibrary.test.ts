@@ -22,6 +22,11 @@ import {
 } from '../../src/graphs';
 import { Validator } from '../../src/core';
 import { PerformanceMonitor } from '../../src/performance';
+>>>>>>> origin/master
+=======
+import { Validator } from '../../src/core';
+import { PerformanceMonitor } from '../../src/performance';
+>>>>>>> origin/master
 
 /**
  * Full Library Integration Tests

@@ -1,0 +1,81 @@
+.playback-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.playback-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.playback-buttons button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.playback-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.playback-buttons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.playback-speed {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.playback-status {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.step-indicator {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.step-description {
+    color: #495057;
+}
+
+/* Visualization node highlights */
+.node.highlighted circle {
+    stroke: #ffc107;
+    stroke-width: 4px;
+    fill: #fff3cd;
+}
+
+.node.processing circle {
+    stroke: #17a2b8;
+    stroke-width: 4px;
+    fill: #d1ecf1;
+}
+
+.node.found circle {
+    stroke: #28a745;
+    stroke-width: 4px;
+    fill: #d4edda;
+}
+
+.link.highlighted {
+    stroke: #ffc107;
+    stroke-width: 4px;
+}

@@ -26,7 +26,10 @@ beforeAll(async () => {
   } catch (e: any) {
     if (e.message.includes('Executable doesn\'t exist')) {
       console.warn('Playwright executable missing. Skipping E2E visualization tests.');
+<<<<<<< HEAD
+=======
       isBrowserAvailable = false;
+>>>>>>> origin/master
       return;
     }
     throw e;
@@ -42,6 +45,30 @@ beforeEach(async (context) => {
       context.skip();
       return;
     }
+>>>>>>> origin/master
+    page = await browser.newPage();
+    await page.goto(baseURL);
+    await page.waitForSelector('canvas')
+    const debugPanel = await page.locator('#debug-panel')
+    // Should be hidden initially
+    await expect(debugPanel.isVisible()).resolves.toBe(false)
+    // Click toggle button
+    await page.click('button', has-text("Debug")})
+    // Should become visible
+    await expect(debugPanel.isVisible()).resolves.toBe(false)
+    // Click toggle button again
+    await page.click('button', has-text("Debug")})
+    // Should be hidden again
+    await expect(debugPanel.isVisible()).resolves.toBe(false)
+  }
+});
+=======
+beforeEach(async (context) => {
+    if (!browser) {
+      context.skip();
+      return;
+    }
+>>>>>>> origin/master
     page = await browser.newPage();
     // Enable debug mode via query param for tests
     await page.goto(`${BASE_URL}?debug=true`);
@@ -54,8 +81,13 @@ afterEach(async () => {
 });
 
 describe('Vector Similarity Visualization Filters', () => {
+<<<<<<< HEAD
+  test('should render charts initially', async (context) => {
+    if (!browser) { context.skip(); return; }
+=======
   test('should render charts initially', async (ctx) => {
     if (!isBrowserAvailable) return ctx.skip();
+>>>>>>> origin/master
     const canvases = await page.$$('canvas');
     expect(canvases.length).toBeGreaterThan(0);
 
@@ -65,8 +97,13 @@ describe('Vector Similarity Visualization Filters', () => {
     await expect(nonlinearChart.isVisible()).resolves.toBe(true);
   });
 
+<<<<<<< HEAD
+  test('should verify dynamic options populate correctly', async (context) => {
+    if (!browser) { context.skip(); return; }
+=======
   test('should verify dynamic options populate correctly', async (ctx) => {
     if (!isBrowserAvailable) return ctx.skip();
+>>>>>>> origin/master
     // Since we fixed the code to be dynamic, the dropdowns should now contain
     // the values present in the data.
 
@@ -82,8 +119,13 @@ describe('Vector Similarity Visualization Filters', () => {
     // 0.05 is also present from anomaly tests, but '1' is not generated in current analysis script
   });
 
+<<<<<<< HEAD
+  test('should show data when filtering by valid dynamic options', async (context) => {
+    if (!browser) { context.skip(); return; }
+=======
   test('should show data when filtering by valid dynamic options', async (ctx) => {
     if (!isBrowserAvailable) return ctx.skip();
+>>>>>>> origin/master
     // Select '200' which should now exist
     await page.selectOption('#vector-size-filter', '200');
     await page.click('button:has-text("Apply Filters")');
@@ -103,8 +145,13 @@ describe('Vector Similarity Visualization Filters', () => {
     expect(rowCount).toBeGreaterThan(0);
   });
 
+<<<<<<< HEAD
+  test('should log debugging info', async (context) => {
+    if (!browser) { context.skip(); return; }
+=======
   test('should log debugging info', async (ctx) => {
       if (!isBrowserAvailable) return ctx.skip();
+>>>>>>> origin/master
       const debugPanel = await page.locator('#debug-panel');
       await expect(debugPanel.isVisible()).resolves.toBe(true);
       const text = await debugPanel.textContent();
@@ -112,8 +159,13 @@ describe('Vector Similarity Visualization Filters', () => {
       expect(text).toContain('Filtered:');
   });
 
+<<<<<<< HEAD
+  test('should toggle debug panel visibility', async (context) => {
+    if (!browser) { context.skip(); return; }
+=======
   test('should toggle debug panel visibility', async (ctx) => {
       if (!isBrowserAvailable) return ctx.skip();
+>>>>>>> origin/master
       // Navigate without ?debug=true
       await page.goto(BASE_URL);
       await page.waitForSelector('canvas');
