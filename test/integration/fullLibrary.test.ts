@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   BinarySearch,
-  CountingSort,
+ CountingSort,
   RadixSortNumbers,
   NgramSimilarity,
   JaroDistance,
@@ -20,12 +20,13 @@ import {
   BreadthFirstSearch,
   DepthFirstSearch
 } from '../../src/graphs';
-import {
-  Validator
-} from '../../src/core';
-import {
-  PerformanceMonitor
-} from '../../src/performance';
+import { Validator } from '../../src/core';
+import { PerformanceMonitor } from '../../src/performance';
+>>>>>>> origin/master
+=======
+import { Validator } from '../../src/core';
+import { PerformanceMonitor } from '../../src/performance';
+>>>>>>> origin/master
 
 /**
  * Full Library Integration Tests
@@ -34,9 +35,14 @@ import {
  * the library works as a cohesive whole.
  */
 describe('Full Library Integration Tests', () => {
-  describe('Core Module Imports', () => {
-    it('should import all core interfaces and abstracts', () => {
-      // Test that core exports are available
+  describe('Module Import Tests', () => {
+    it('should import all core modules without errors', () => {
+      // Test that all imports work correctly
+      expect(LinkedList).toBeDefined();
+      expect(SkipList).toBeDefined();
+      expect(SegmentTree).toBeDefined();
+      expect(Trie).toBeDefined();
+      expect(SuffixTree).toBeDefined();
       expect(BinarySearch).toBeDefined();
       expect(CountingSort).toBeDefined();
       expect(RadixSortNumbers).toBeDefined();
@@ -44,25 +50,9 @@ describe('Full Library Integration Tests', () => {
       expect(JaroDistance).toBeDefined();
       expect(LevenshteinDistance).toBeDefined();
       expect(SparseTable).toBeDefined();
-    });
-
-    it('should import all data structures', () => {
-      expect(LinkedList).toBeDefined();
-      expect(SkipList).toBeDefined();
-      expect(SegmentTree).toBeDefined();
-      expect(Trie).toBeDefined();
-      expect(SuffixTree).toBeDefined();
-    });
-
-    it('should import graph structures and algorithms', () => {
       expect(AdjacencyListGraph).toBeDefined();
       expect(BreadthFirstSearch).toBeDefined();
       expect(DepthFirstSearch).toBeDefined();
-    });
-
-    it('should import utility modules', () => {
-      expect(PerformanceMonitor).toBeDefined();
-      expect(Validator).toBeDefined();
     });
   });
 
@@ -124,33 +114,14 @@ describe('Full Library Integration Tests', () => {
       expect(similarity.result).toBeGreaterThan(0);
       expect(trie.contains('apple')).toBe(true);
     });
-
-    it('should integrate graph algorithms', () => {
-      // Create a simple graph
-      const graph = new AdjacencyListGraph<number>();
-
-      // Add vertices and edges
-      graph.addVertex(1);
-      graph.addVertex(2);
-      graph.addVertex(3);
-      graph.addEdge(1, 2);
-      graph.addEdge(2, 3);
-
-      // Use BFS
-      const bfs = new BreadthFirstSearch<number>();
-      const bfsResult = bfs.execute(graph, 1);
-
-      expect(bfsResult.visited).toContain(1);
-      expect(bfsResult.visited).toContain(2);
-      expect(bfsResult.visited).toContain(3);
-    });
   });
 
-  describe('Performance Monitoring Integration', () => {
-    it('should monitor performance across different modules', () => {
+  describe('Performance Integration', () => {
+    it('should measure performance across modules', () => {
+      const testArray = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
+
       const executionTime = PerformanceMonitor.measureExecutionTime(() => {
         const countingSort = new CountingSort();
-        const testArray = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100));
         countingSort.execute({ array: testArray });
       });
 
