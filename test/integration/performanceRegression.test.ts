@@ -158,8 +158,10 @@ describe('Performance Regression Integration Tests', () => {
       });
 
       // Performance should degrade gracefully (but not exponentially for O(n) algorithm)
-      expect(times[1]).toBeLessThan(times[0] * 20); // 1000 elements shouldn't be 20x slower than 100
-      expect(times[2]).toBeLessThan(times[1] * 20); // 10000 elements shouldn't be 20x slower than 1000
+      // Use Math.max with a base minimum (e.g. 1ms) because timers in CI can be extremely fast (0.1ms)
+      // where noise dominates the ratio.
+      expect(times[1]).toBeLessThan(Math.max(times[0], 1) * 20); // 1000 elements shouldn't be 20x slower than 100
+      expect(times[2]).toBeLessThan(Math.max(times[1], 1) * 20); // 10000 elements shouldn't be 20x slower than 1000
     });
 
     it('should test scalability of search algorithms', () => {

@@ -75,10 +75,10 @@ describe('Vector Similarity Visualization Filters', () => {
     expect(sizeOptions).toContain('200');
     expect(sizeOptions).toContain('All Sizes');
 
-    // Check Noise Level dropdown contains '0.1', '0.2', '0.05'
+    // Check Noise Level dropdown contains '0.1', '0.5', '0.05'
     const noiseOptions = await page.locator('#noise-level-filter option').allTextContents();
     expect(noiseOptions).toContain('0.1');
-    expect(noiseOptions).toContain('0.2');
+    expect(noiseOptions).toContain('0.5');
     // 0.05 is also present from anomaly tests, but '1' is not generated in current analysis script
   });
 
