@@ -22,18 +22,21 @@ const elements = {
 const animationController = new AnimationController();
 const playbackControls = new PlaybackControls('#playback-container', animationController);
 
+// Initialize with initial inputs
+prepareSteps();
+
 elements.loadBtn.addEventListener('click', startVisualization);
 
 elements.algoSelect.addEventListener('change', () => {
-    animationController.clearSteps();
+    prepareSteps();
 });
 
 elements.textInput.addEventListener('input', () => {
-    animationController.clearSteps();
+    prepareSteps();
 });
 
 elements.patternInput.addEventListener('input', () => {
-    animationController.clearSteps();
+    prepareSteps();
 });
 
 const originalReset = animationController.reset.bind(animationController);
@@ -48,21 +51,22 @@ animationController.reset = () => {
     elements.loadBtn.disabled = false;
 };
 
-function startVisualization() {
+function prepareSteps() {
     state.text = elements.textInput.value;
     state.pattern = elements.patternInput.value;
     state.algorithm = elements.algoSelect.value;
 
     if (!state.text || !state.pattern) {
         elements.infoPanel.innerText = 'Please enter both text and pattern.';
+        animationController.clearSteps();
         return;
     }
 
-    elements.loadBtn.disabled = true;
-    elements.textInput.disabled = true;
-    elements.patternInput.disabled = true;
-    elements.algoSelect.disabled = true;
-
+    // Temporarily remove clearSteps since it triggers a recursive reset of buttons if not careful
+    // We already cleared steps in the listener, and doing it here just resets state again
+    // But actually, we only call this when we want to repopulate.
+    // The issue was that clearSteps emits an event that might disable buttons immediately.
+    // However, if we populate steps RIGHT after, it re-emits.
     animationController.clearSteps();
     renderBase();
 
@@ -79,10 +83,26 @@ function startVisualization() {
         animationController.addStep(step.message, () => renderStep(step));
     }
 
-    if (computedSteps.length > 0) {
-        animationController.play();
-    } else {
+    if (computedSteps.length === 0) {
         elements.infoPanel.innerText = 'No steps generated.';
+    }
+
+    // Explicitly update step change so play button is immediately enabled without needing "Load / Compute" to be clicked.
+    animationController._emitStepChange();
+}
+
+function startVisualization() {
+    elements.loadBtn.disabled = true;
+    elements.textInput.disabled = true;
+    elements.patternInput.disabled = true;
+    elements.algoSelect.disabled = true;
+
+    if (animationController.steps.length === 0) {
+        prepareSteps();
+    }
+
+    if (animationController.steps.length > 0) {
+        animationController.play();
     }
 }
 
