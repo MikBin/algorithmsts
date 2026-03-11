@@ -18,18 +18,18 @@ function convertToHierarchy(node, idCounter = { val: 0 }) {
 
   if (node.left) {
     hierarchyNode.children.push(convertToHierarchy(node.left, idCounter));
+    if (!node.right) {
+        // Insert dummy node to push left child to the left side
+        hierarchyNode.children.push({ isDummy: true, id: idCounter.val++ });
+    }
   }
 
   if (node.right) {
       if (!node.left) {
-          // Keep structure consistent (right child on right)
-          // We can't really force D3 tree to skip a slot easily without dummy nodes.
-          // But TreeVisualizer uses generic d3.tree which just centers children.
-          // For now, we just push.
-          hierarchyNode.children.push(convertToHierarchy(node.right, idCounter));
-      } else {
-          hierarchyNode.children.push(convertToHierarchy(node.right, idCounter));
+          // Insert dummy node to push right child to the right side
+          hierarchyNode.children.push({ isDummy: true, id: idCounter.val++ });
       }
+      hierarchyNode.children.push(convertToHierarchy(node.right, idCounter));
   }
 
   return hierarchyNode;

@@ -29,22 +29,25 @@ function convertToHierarchy(node, idCounter = { val: 0 }) {
 
   const hierarchyNode = {
     value: node.value,
-    color: node.color, // 'red' or 'black'
+    color: node.color === 'red' ? '#e74c3c' : '#2c3e50', // Map to actual hex colors for generic visualization
     id: idCounter.val++,
     children: []
   };
 
   if (node.left && node.left.value !== null) {
     hierarchyNode.children.push(convertToHierarchy(node.left, idCounter));
+    if (!node.right || node.right.value === null) {
+        // Insert dummy node to push left child to the left side
+        hierarchyNode.children.push({ isDummy: true, id: idCounter.val++ });
+    }
   }
 
   if (node.right && node.right.value !== null) {
     if ((!node.left || node.left.value === null)) {
-        // dummy?
-        hierarchyNode.children.push(convertToHierarchy(node.right, idCounter));
-    } else {
-        hierarchyNode.children.push(convertToHierarchy(node.right, idCounter));
+        // Insert dummy node to push right child to the right side
+        hierarchyNode.children.push({ isDummy: true, id: idCounter.val++ });
     }
+    hierarchyNode.children.push(convertToHierarchy(node.right, idCounter));
   }
 
   return hierarchyNode;
@@ -60,16 +63,6 @@ function update() {
     const hierarchy = convertToHierarchy(root);
 
     visualizer.update(hierarchy);
-
-    // Post-update style adjustment for colors
-    // Select all nodes and update circle style based on data
-    visualizer.svg.selectAll('g.node circle')
-        .style('stroke', d => {
-            const color = d.data.color;
-            if (color === 'red') return '#e74c3c';
-            return '#2c3e50'; // Black
-        })
-        .style('stroke-width', '3px');
 }
 
 
