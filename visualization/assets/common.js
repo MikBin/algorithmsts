@@ -67,11 +67,12 @@ export class TreeVisualizer {
                 return diagonal({ source: o, target: o });
             })
             .style('fill', 'none')
-            .style('stroke', '#ccc')
+            .style('stroke', d => d.target.data.isDummy ? 'none' : '#ccc')
             .style('stroke-width', '2px');
 
         link.merge(linkEnter).transition(transition)
-            .attr('d', diagonal);
+            .attr('d', diagonal)
+            .style('stroke', d => d.target.data.isDummy ? 'none' : '#ccc');
 
         link.exit().transition(transition)
             .attr('d', d => {
@@ -92,28 +93,53 @@ export class TreeVisualizer {
                 return `translate(${x},${y})`;
             });
 
-        nodeEnter.append('circle')
-            .attr('r', 1e-6)
-            .style('fill', '#fff')
-            .style('stroke', '#3498db')
-            .style('stroke-width', '2px');
+        nodeEnter.each(function(d) {
+            const shape = d.data.shape || 'circle';
+            const el = d3.select(this);
+            if (shape === 'rect' || shape === 'square') {
+                el.append('rect')
+                    .attr('x', -20)
+                    .attr('y', -20)
+                    .attr('width', 1e-6)
+                    .attr('height', 1e-6)
+                    .style('fill', d => d.data.isDummy ? 'none' : '#fff')
+                    .style('stroke', d => d.data.isDummy ? 'none' : '#3498db')
+                    .style('stroke-width', '2px');
+            } else {
+                el.append('circle')
+                    .attr('r', 1e-6)
+                    .style('fill', d => d.data.isDummy ? 'none' : '#fff')
+                    .style('stroke', d => d.data.isDummy ? 'none' : '#3498db')
+                    .style('stroke-width', '2px');
+            }
+        });
 
         nodeEnter.append('text')
             .attr('dy', '.35em')
             .attr('text-anchor', 'middle')
             .style('fill-opacity', 1e-6)
-            .text(d => d.data.value);
+            .text(d => d.data.isDummy ? '' : d.data.value);
 
         const nodeUpdate = node.merge(nodeEnter).transition(transition)
             .attr('transform', d => `translate(${d.x},${d.y})`);
 
         nodeUpdate.select('circle')
-            .attr('r', 20)
-            .style('fill', d => d.data.color || '#fff'); // Support custom colors from data
+            .attr('r', d => d.data.isDummy ? 1e-6 : 20)
+            .style('fill', d => d.data.isDummy ? 'none' : (d.data.color || '#fff'))
+            .style('stroke', d => d.data.isDummy ? 'none' : (d.data.color ? d.data.color : '#3498db'))
+            .style('stroke-width', d => d.data.color ? '3px' : '2px');
+
+        nodeUpdate.select('rect')
+            .attr('width', d => d.data.isDummy ? 1e-6 : 40)
+            .attr('height', d => d.data.isDummy ? 1e-6 : 40)
+            .style('fill', d => d.data.isDummy ? 'none' : (d.data.color || '#fff'))
+            .style('stroke', d => d.data.isDummy ? 'none' : (d.data.color ? d.data.color : '#3498db'))
+            .style('stroke-width', d => d.data.color ? '3px' : '2px');
 
         nodeUpdate.select('text')
-            .text(d => d.data.value)
-            .style('fill-opacity', 1);
+            .text(d => d.data.isDummy ? '' : d.data.value)
+            .style('fill-opacity', d => d.data.isDummy ? 1e-6 : 1)
+            .style('fill', d => (d.data.color && d.data.color !== '#fff' && d.data.color !== 'white') ? '#fff' : '#333');
 
         const nodeExit = node.exit().transition(transition)
             .attr('transform', d => `translate(${d.parent ? d.parent.x : d.x},${d.parent ? d.parent.y : d.y})`)
@@ -121,6 +147,10 @@ export class TreeVisualizer {
 
         nodeExit.select('circle')
             .attr('r', 1e-6);
+
+        nodeExit.select('rect')
+            .attr('width', 1e-6)
+            .attr('height', 1e-6);
 
         nodeExit.select('text')
             .style('fill-opacity', 1e-6);
