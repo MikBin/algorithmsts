@@ -1,4 +1,5 @@
 import { BarChartVisualizer } from '../../assets/common.js';
+import { AnimationController, PlaybackControls } from '../../assets/animation-controller.js';
 
 // --- Algorithm Implementations (Generators) ---
 
@@ -219,50 +220,59 @@ class SortingController {
     constructor() {
         this.visualizer = new BarChartVisualizer('#viz-container');
         this.array = [];
-        this.generator = null;
-        this.isRunning = false;
-        this.isPaused = false;
-        this.timer = null;
-        this.delay = 50;
         this.comparisons = 0;
         this.swaps = 0;
         this.sortedIndices = new Set();
+        this.initialArray = [];
+
+        this.animationController = new AnimationController();
+        this.playbackControls = new PlaybackControls('#playback-container', this.animationController);
 
         // Bind UI
         this.btnGenerate = document.getElementById('btn-generate');
-        this.btnStart = document.getElementById('btn-start');
-        this.btnPause = document.getElementById('btn-pause');
-        this.btnReset = document.getElementById('btn-reset');
         this.algoSelect = document.getElementById('algo-select');
         this.arraySizeInput = document.getElementById('array-size');
-        this.speedInput = document.getElementById('speed');
 
         this.btnGenerate.addEventListener('click', () => this.generateArray());
-        this.btnStart.addEventListener('click', () => this.start());
-        this.btnPause.addEventListener('click', () => this.togglePause());
-        this.btnReset.addEventListener('click', () => this.reset());
         this.arraySizeInput.addEventListener('input', (e) => {
             document.getElementById('array-size-display').textContent = e.target.value;
             this.generateArray();
         });
-        this.speedInput.addEventListener('input', (e) => {
-            // Map 1-100 to 500-1 ms
-            this.delay = 505 - e.target.value * 5;
+
+        this.algoSelect.addEventListener('change', () => {
+            this.animationController.clearSteps();
         });
 
         // Initialize
         this.generateArray();
+
+        // Hook up play event to build steps if needed
+        const originalPlay = this.animationController.play.bind(this.animationController);
+        this.animationController.play = () => {
+            if (this.animationController.steps.length === 0) {
+                this.prepareSteps();
+            }
+            originalPlay();
+        };
+
+        const originalReset = this.animationController.reset.bind(this.animationController);
+        this.animationController.reset = () => {
+            originalReset();
+            this.resetStats();
+            this.array = [...this.initialArray];
+            this.visualizer.update(this.array);
+            document.getElementById('status-text').textContent = 'Ready';
+        };
     }
 
     generateArray() {
-        this.stop();
+        this.animationController.clearSteps();
         const size = parseInt(this.arraySizeInput.value, 10);
         this.array = Array.from({length: size}, () => Math.floor(Math.random() * 100) + 1);
+        this.initialArray = [...this.array];
         this.resetStats();
         this.visualizer.update(this.array);
         document.getElementById('status-text').textContent = 'Ready';
-        this.btnStart.disabled = false;
-        this.btnPause.disabled = true;
     }
 
     resetStats() {
@@ -277,39 +287,7 @@ class SortingController {
         document.getElementById('swaps-count').textContent = this.swaps;
     }
 
-    reset() {
-        this.stop();
-        this.generateArray(); // Or reset to initial state if stored
-    }
-
-    stop() {
-        this.isRunning = false;
-        this.isPaused = false;
-        clearTimeout(this.timer);
-        this.btnPause.textContent = 'Pause';
-    }
-
-    togglePause() {
-        if (!this.isRunning) return;
-
-        if (this.isPaused) {
-            this.isPaused = false;
-            this.btnPause.textContent = 'Pause';
-            this.step();
-        } else {
-            this.isPaused = true;
-            this.btnPause.textContent = 'Resume';
-            document.getElementById('status-text').textContent = 'Paused';
-        }
-    }
-
-    start() {
-        if (this.isRunning && !this.isPaused) return;
-        if (this.isPaused) {
-            this.togglePause();
-            return;
-        }
-
+    prepareSteps() {
         const algo = this.algoSelect.value;
         const strategies = {
             'quickSort': quickSort,
@@ -319,51 +297,65 @@ class SortingController {
             'countingSort': countingSort
         };
 
-        this.generator = strategies[algo](this.array);
-        this.isRunning = true;
-        this.btnStart.disabled = true;
-        this.btnPause.disabled = false;
         document.getElementById('status-text').textContent = 'Sorting...';
 
-        this.step();
-    }
+        // Use a copy of the initial array for generating steps
+        const generatorArray = [...this.initialArray];
+        const generator = strategies[algo](generatorArray);
+        this.animationController.clearSteps();
 
-    step() {
-        if (!this.isRunning || this.isPaused) return;
+        let result = generator.next();
+        while (!result.done) {
+            const value = result.value;
 
-        const { value, done } = this.generator.next();
+            let description = '';
+            if (value.type === 'compare') {
+                description = `Comparing indices ${value.indices.join(', ')}`;
+                this.comparisons++;
+            } else if (value.type === 'swap') {
+                description = `Swapping indices ${value.indices.join(', ')}`;
+                this.swaps++;
+            } else if (value.type === 'sorted') {
+                description = `Sorted indices ${value.indices.join(', ')}`;
+                value.indices.forEach(i => this.sortedIndices.add(i));
+            }
 
-        if (done) {
-            this.isRunning = false;
-            this.btnStart.disabled = false;
-            this.btnPause.disabled = true;
+            // Snapshot the state at this point in the generator execution
+            const snapshotArray = [...value.array];
+            const snapshotIndices = [...value.indices];
+            const snapshotType = value.type;
+            const snapshotComparisons = this.comparisons;
+            const snapshotSwaps = this.swaps;
+            const snapshotSorted = Array.from(this.sortedIndices);
+
+            this.animationController.addStep(description, () => {
+                if (snapshotType === 'compare') {
+                    this.visualizer.update(snapshotArray, {
+                        compare: snapshotIndices,
+                        sorted: snapshotSorted
+                    });
+                } else if (snapshotType === 'swap') {
+                    this.visualizer.update(snapshotArray, {
+                        swap: snapshotIndices,
+                        sorted: snapshotSorted
+                    });
+                } else if (snapshotType === 'sorted') {
+                    this.visualizer.update(snapshotArray, {
+                        sorted: snapshotSorted
+                    });
+                }
+                document.getElementById('comparisons-count').textContent = snapshotComparisons;
+                document.getElementById('swaps-count').textContent = snapshotSwaps;
+            });
+
+            result = generator.next();
+        }
+
+        const finalArray = [...generatorArray];
+        this.animationController.addStep('Completed', () => {
             document.getElementById('status-text').textContent = 'Completed';
-            // Mark all as sorted
-            this.visualizer.update(this.array, { sorted: this.array.map((_, i) => i) });
-            return;
-        }
-
-        if (value.type === 'compare') {
-            this.comparisons++;
-            this.visualizer.update(value.array, {
-                compare: value.indices,
-                sorted: Array.from(this.sortedIndices)
-            });
-        } else if (value.type === 'swap') {
-            this.swaps++;
-            this.visualizer.update(value.array, {
-                swap: value.indices,
-                sorted: Array.from(this.sortedIndices)
-            });
-        } else if (value.type === 'sorted') {
-            value.indices.forEach(i => this.sortedIndices.add(i));
-            this.visualizer.update(value.array, {
-                sorted: Array.from(this.sortedIndices)
-            });
-        }
-
-        this.updateStats();
-        this.timer = setTimeout(() => this.step(), this.delay);
+            this.visualizer.update(finalArray, { sorted: finalArray.map((_, i) => i) });
+        });
     }
 }
 
