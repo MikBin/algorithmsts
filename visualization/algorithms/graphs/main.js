@@ -335,6 +335,11 @@ class GraphController {
             originalReset();
             this.visualizer.updateState({}); // Clear visualization
             document.getElementById('status-text').textContent = 'Ready';
+
+            // Resume force simulation
+            if (this.visualizer && this.visualizer.simulation) {
+                this.visualizer.simulation.alpha(1).restart();
+            }
         };
     }
 
@@ -389,6 +394,11 @@ class GraphController {
     }
 
     prepareSteps() {
+        // Stop force simulation to save CPU cycles during algorithm execution
+        if (this.visualizer && this.visualizer.simulation) {
+            this.visualizer.simulation.stop();
+        }
+
         const algo = this.algoSelect.value;
         const weighted = this.algoCategory.value !== 'traversal';
         const startNode = this.graphData.nodes[0].id;
