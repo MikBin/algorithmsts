@@ -1,45 +1,52 @@
 import { computeLPSArray } from '../../../../src/algorithms/strings/pattern-matching.ts';
+import { AnimationController, PlaybackControls } from '../../../assets/animation-controller.js';
 
 // State management
 let state = {
     text: '',
     pattern: '',
     algorithm: 'kmp',
-    steps: [],
-    currentStep: 0,
     lps: [],
-    isRunning: false
 };
 
 const elements = {
     textInput: document.getElementById('text-input'),
     patternInput: document.getElementById('pattern-input'),
     algoSelect: document.getElementById('algorithm-select'),
-    startBtn: document.getElementById('start-btn'),
-    nextBtn: document.getElementById('next-btn'),
-    resetBtn: document.getElementById('reset-btn'),
+    loadBtn: document.getElementById('load-btn'),
     vizArea: document.getElementById('visualization'),
     infoPanel: document.getElementById('info-panel'),
     auxData: document.getElementById('aux-data')
 };
 
-elements.startBtn.addEventListener('click', startVisualization);
-elements.nextBtn.addEventListener('click', nextStep);
-elements.resetBtn.addEventListener('click', reset);
+const animationController = new AnimationController();
+const playbackControls = new PlaybackControls('#playback-container', animationController);
 
-function reset() {
-    state.isRunning = false;
-    state.steps = [];
-    state.currentStep = 0;
+elements.loadBtn.addEventListener('click', startVisualization);
+
+elements.algoSelect.addEventListener('change', () => {
+    animationController.clearSteps();
+});
+
+elements.textInput.addEventListener('input', () => {
+    animationController.clearSteps();
+});
+
+elements.patternInput.addEventListener('input', () => {
+    animationController.clearSteps();
+});
+
+const originalReset = animationController.reset.bind(animationController);
+animationController.reset = () => {
+    originalReset();
     elements.vizArea.innerHTML = '';
     elements.auxData.innerHTML = '';
-    elements.infoPanel.innerText = 'Select an algorithm and click Start.';
-    elements.startBtn.disabled = false;
-    elements.nextBtn.disabled = true;
+    elements.infoPanel.innerText = 'Select an algorithm and click Load / Compute.';
     elements.textInput.disabled = false;
     elements.patternInput.disabled = false;
     elements.algoSelect.disabled = false;
-}
+    elements.loadBtn.disabled = false;
+};
 
 function startVisualization() {
     state.text = elements.textInput.value;
@@ -51,22 +58,29 @@ function startVisualization() {
         return;
     }
 
-    state.isRunning = true;
-    elements.startBtn.disabled = true;
+    elements.loadBtn.disabled = true;
     elements.textInput.disabled = true;
     elements.patternInput.disabled = true;
     elements.algoSelect.disabled = true;
-    elements.nextBtn.disabled = false;
+
+    animationController.clearSteps();
+    renderBase();
+
+    let computedSteps = [];
 
     if (state.algorithm === 'kmp') {
-        prepareKMP();
+        computedSteps = prepareKMP();
     } else {
-        prepareRabinKarp();
+        computedSteps = prepareRabinKarp();
     }
 
-    renderBase();
-    if (state.steps.length > 0) {
-        renderStep(state.steps[0]);
+    for (let i = 0; i < computedSteps.length; i++) {
+        const step = computedSteps[i];
+        animationController.addStep(step.message, () => renderStep(step));
+    }
+
+    if (computedSteps.length > 0) {
+        animationController.play();
     } else {
         elements.infoPanel.innerText = 'No steps generated.';
     }
@@ -77,14 +91,14 @@ function prepareKMP() {
     renderLPS(state.lps, state.pattern);
 
     // Generate steps
-    state.steps = [];
+    let computedSteps = [];
     let i = 0; // index for text
     let j = 0; // index for pattern
     const text = state.text;
     const pattern = state.pattern;
     const lps = state.lps;
 
-    state.steps.push({
+    computedSteps.push({
         type: 'info',
         message: 'Starting KMP Algorithm. LPS array computed.',
         i: 0,
@@ -92,7 +106,7 @@ function prepareKMP() {
     });
 
     while (i < text.length) {
-        state.steps.push({
+        computedSteps.push({
             type: 'compare',
             message: `Comparing text[${i}] ('${text[i]}') with pattern[${j}] ('${pattern[j]}')`,
             i: i,
@@ -104,7 +118,7 @@ function prepareKMP() {
             j++;
             i++;
             if (j === pattern.length) {
-                state.steps.push({
+                computedSteps.push({
                     type: 'found',
                     message: `Pattern found at index ${i - j}!`,
                     foundIndex: i - j,
@@ -112,7 +126,7 @@ function prepareKMP() {
                     j: j - 1 // visualizing the last match
                 });
                 j = lps[j - 1];
-                state.steps.push({
+                computedSteps.push({
                     type: 'reset',
                     message: `Pattern found. Resetting j to lps[${j}] = ${lps[j]}`,
                     i: i,
@@ -123,7 +137,7 @@ function prepareKMP() {
             if (j !== 0) {
                 const oldJ = j;
                 j = lps[j - 1];
-                state.steps.push({
+                computedSteps.push({
                     type: 'mismatch',
                     message: `Mismatch. j was ${oldJ}, now j = lps[${oldJ-1}] = ${j}`,
                     i: i,
@@ -131,7 +145,7 @@ function prepareKMP() {
                 });
             } else {
                 i++;
-                state.steps.push({
+                computedSteps.push({
                     type: 'mismatch',
                     message: `Mismatch at start of pattern. Incrementing text index.`,
                     i: i,
@@ -141,16 +155,18 @@ function prepareKMP() {
         }
     }
 
-    state.steps.push({
+    computedSteps.push({
         type: 'finish',
         message: 'Search completed.',
         i: i,
         j: j
     });
+
+    return computedSteps;
 }
 
 function prepareRabinKarp() {
-    state.steps = [];
+    let computedSteps = [];
     const text = state.text;
     const pattern = state.pattern;
     const d = 256;
@@ -173,7 +189,7 @@ function prepareRabinKarp() {
         t = (d * t + text.charCodeAt(i)) % q;
     }
 
-    state.steps.push({
+    computedSteps.push({
         type: 'info',
         message: `Initial Hashes: Pattern=${p}, Text Window=${t}`,
         i: 0,
@@ -183,7 +199,7 @@ function prepareRabinKarp() {
     });
 
     for (i = 0; i <= N - M; i++) {
-        state.steps.push({
+        computedSteps.push({
             type: 'check_hash',
             message: `Checking window at ${i}. Hash T=${t}, Hash P=${p}`,
             i: i,
@@ -194,7 +210,7 @@ function prepareRabinKarp() {
         });
 
         if (p === t) {
-            state.steps.push({
+            computedSteps.push({
                 type: 'info',
                 message: `Hashes match! Verifying characters...`,
                 i: i,
@@ -203,7 +219,7 @@ function prepareRabinKarp() {
 
             let match = true;
             for (j = 0; j < M; j++) {
-                state.steps.push({
+                computedSteps.push({
                     type: 'compare',
                     message: `Comparing text[${i+j}] ('${text[i+j]}') with pattern[${j}] ('${pattern[j]}')`,
                     i: i + j,
@@ -218,7 +234,7 @@ function prepareRabinKarp() {
             }
 
             if (match) {
-                 state.steps.push({
+                 computedSteps.push({
                     type: 'found',
                     message: `Pattern found at index ${i}!`,
                     foundIndex: i,
@@ -232,7 +248,7 @@ function prepareRabinKarp() {
             t = (d * (t - text.charCodeAt(i) * h) + text.charCodeAt(i + M)) % q;
             if (t < 0) t = (t + q);
 
-            state.steps.push({
+            computedSteps.push({
                 type: 'slide',
                 message: `Sliding window. New Text Hash=${t}`,
                 i: i + 1,
@@ -243,12 +259,14 @@ function prepareRabinKarp() {
         }
     }
 
-    state.steps.push({
+    computedSteps.push({
         type: 'finish',
         message: 'Search completed.',
         i: N,
         j: 0
     });
+
+    return computedSteps;
 }
 
 function renderBase() {
@@ -306,16 +324,6 @@ function renderLPS(lps, pattern) {
         display.appendChild(item);
     }
     container.appendChild(display);
-}
-
-function nextStep() {
-    if (state.currentStep < state.steps.length - 1) {
-        state.currentStep++;
-        renderStep(state.steps[state.currentStep]);
-    } else {
-        elements.nextBtn.disabled = true;
-        elements.infoPanel.innerText = 'Visualization Finished.';
-    }
 }
 
 function renderStep(step) {

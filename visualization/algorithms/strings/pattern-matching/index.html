@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pattern Matching Visualization</title>
     <link rel="stylesheet" href="../../assets/common.css"> <!-- Assuming common.css might exist or I'll create it if needed -->
+    <link rel="stylesheet" href="../../assets/animation-controller.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -122,10 +123,10 @@
             </select>
             <input type="text" id="text-input" placeholder="Text" value="ABABDABACDABABCABAB">
             <input type="text" id="pattern-input" placeholder="Pattern" value="ABABCABAB">
-            <button id="start-btn">Start</button>
-            <button id="next-btn" disabled>Next Step</button>
-            <button id="reset-btn">Reset</button>
+            <button id="load-btn">Load / Compute</button>
         </div>
+
+        <div id="playback-container"></div>
 
         <div id="info-panel" class="info-panel">
             Select an algorithm and click Start.

@@ -5,6 +5,7 @@ import { DepthFirstSearch } from '../../../src/graphs/algorithms/traversal/Depth
 import { DijkstraAlgorithm } from '../../../src/graphs/algorithms/shortest-path/DijkstraAlgorithm.ts';
 import { PrimAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/PrimAlgorithm.ts';
 import { KruskalAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/KruskalAlgorithm.ts';
+import { AnimationController, PlaybackControls } from '../../assets/animation-controller.js';
 
 // --- Graph Generator ---
 
@@ -297,35 +298,44 @@ class GraphController {
         this.visualizer = new GraphVisualizer('#viz-container');
         this.graphData = null; // D3 data
         this.libraryGraph = null; // Core library structure
-        this.generator = null;
-        this.isRunning = false;
-        this.isPaused = false;
-        this.timer = null;
-        this.delay = 500;
+
+        this.animationController = new AnimationController();
+        this.playbackControls = new PlaybackControls('#playback-container', this.animationController);
 
         // UI
         this.btnGenerate = document.getElementById('btn-generate');
-        this.btnStart = document.getElementById('btn-start');
-        this.btnPause = document.getElementById('btn-pause');
-        this.btnReset = document.getElementById('btn-reset');
-        this.speedInput = document.getElementById('speed');
-
         this.algoCategory = document.getElementById('algo-category');
         this.algoSelect = document.getElementById('algo-select');
         this.graphType = document.getElementById('graph-type');
 
         // Bindings
         this.btnGenerate.addEventListener('click', () => this.generateGraph());
-        this.btnStart.addEventListener('click', () => this.start());
-        this.btnPause.addEventListener('click', () => this.togglePause());
-        this.btnReset.addEventListener('click', () => this.reset());
-        this.speedInput.addEventListener('input', (e) => {
-            this.delay = 1005 - e.target.value * 10;
+        this.algoCategory.addEventListener('change', () => {
+            this.updateAlgoOptions();
+            this.animationController.clearSteps();
         });
-        this.algoCategory.addEventListener('change', () => this.updateAlgoOptions());
+        this.algoSelect.addEventListener('change', () => {
+            this.animationController.clearSteps();
+        });
 
         this.updateAlgoOptions();
         this.generateGraph();
+
+        // Hook up play event to build steps if needed
+        const originalPlay = this.animationController.play.bind(this.animationController);
+        this.animationController.play = () => {
+            if (this.animationController.steps.length === 0) {
+                this.prepareSteps();
+            }
+            originalPlay();
+        };
+
+        const originalReset = this.animationController.reset.bind(this.animationController);
+        this.animationController.reset = () => {
+            originalReset();
+            this.visualizer.updateState({}); // Clear visualization
+            document.getElementById('status-text').textContent = 'Ready';
+        };
     }
 
     updateAlgoOptions() {
@@ -350,7 +360,9 @@ class GraphController {
     }
 
     generateGraph() {
-        this.stop();
+        this.animationController.clearSteps();
+        this.visualizer.updateState({}); // Clear visualization classes
+
         const type = this.graphType.value;
         const weighted = this.algoCategory.value !== 'traversal';
 
@@ -374,18 +386,9 @@ class GraphController {
         this.visualizer.draw(this.graphData);
         document.getElementById('status-text').textContent = 'Ready';
         document.getElementById('info-text').textContent = `Nodes: ${this.graphData.nodes.length}, Edges: ${this.graphData.links.length}`;
-
-        this.btnStart.disabled = false;
-        this.btnPause.disabled = true;
     }
 
-    start() {
-        if (this.isRunning && !this.isPaused) return;
-        if (this.isPaused) {
-            this.togglePause();
-            return;
-        }
-
+    prepareSteps() {
         const algo = this.algoSelect.value;
         const weighted = this.algoCategory.value !== 'traversal';
         const startNode = this.graphData.nodes[0].id;
@@ -395,80 +398,73 @@ class GraphController {
         // Note: Graph is undirected for this visualization generally
         this.libraryGraph = toLibraryGraph(this.graphData, false, weighted);
 
+        let generator = null;
+
         if (algo === 'bfs') {
             const bfs = new BreadthFirstSearch();
-            this.generator = bfs.traverseGenerator(this.libraryGraph, startNode);
+            generator = bfs.traverseGenerator(this.libraryGraph, startNode);
         }
         else if (algo === 'dfs') {
             const dfs = new DepthFirstSearch();
-            this.generator = dfs.traverseGenerator(this.libraryGraph, startNode);
+            generator = dfs.traverseGenerator(this.libraryGraph, startNode);
         }
         else if (algo === 'dijkstra') {
             const dijkstra = new DijkstraAlgorithm();
-            this.generator = dijkstra.findShortestPathGenerator(this.libraryGraph, startNode, endNode);
+            generator = dijkstra.findShortestPathGenerator(this.libraryGraph, startNode, endNode);
         }
         else if (algo === 'prim') {
             const prim = new PrimAlgorithm();
-            this.generator = prim.findMSTGenerator(this.libraryGraph);
+            generator = prim.findMSTGenerator(this.libraryGraph);
         }
         else if (algo === 'kruskal') {
             const kruskal = new KruskalAlgorithm();
-            this.generator = kruskal.findMSTGenerator(this.libraryGraph);
+            generator = kruskal.findMSTGenerator(this.libraryGraph);
         }
 
-        this.isRunning = true;
-        this.btnStart.disabled = true;
-        this.btnPause.disabled = false;
+        this.animationController.clearSteps();
 
-        this.step();
-    }
+        let result = generator.next();
+        while (!result.done) {
+            const value = result.value;
+            // Capture state by cloning to prevent pass-by-reference mutation issues
+            const stateSnapshot = {
+                visited: value.visited ? new Set(value.visited) : null,
+                processing: value.processing,
+                path: value.path ? [...value.path] : null,
+                mst: value.mst ? [...value.mst] : null,
+                distances: value.distances ? new Map(value.distances) : null
+            };
 
-    step() {
-        if (!this.isRunning || this.isPaused) return;
+            const message = value.message || 'Processing...';
 
-        const { value, done } = this.generator.next();
+            this.animationController.addStep(message, () => {
+                document.getElementById('status-text').textContent = message;
+                this.visualizer.updateState(stateSnapshot);
+            });
 
-        if (done) {
-            this.isRunning = false;
-            this.btnStart.disabled = false;
-            this.btnPause.disabled = true;
-            document.getElementById('status-text').textContent = value && value.message ? value.message : 'Completed';
-
-            // If the last step has visualization data, show it
-            if (value) this.visualizer.updateState(value);
-            return;
+            result = generator.next();
         }
 
-        if (value.message) {
-            document.getElementById('status-text').textContent = value.message;
+        // Add final step with final state if it yielded one
+        if (result.value) {
+            const value = result.value;
+            const message = value.message || 'Completed';
+            const stateSnapshot = {
+                visited: value.visited ? new Set(value.visited) : null,
+                processing: value.processing,
+                path: value.path ? [...value.path] : null,
+                mst: value.mst ? [...value.mst] : null,
+                distances: value.distances ? new Map(value.distances) : null
+            };
+            this.animationController.addStep(message, () => {
+                document.getElementById('status-text').textContent = message;
+                this.visualizer.updateState(stateSnapshot);
+            });
+        } else {
+            this.animationController.addStep('Completed', () => {
+                document.getElementById('status-text').textContent = 'Completed';
+            });
         }
-
-        this.visualizer.updateState(value);
-
-        this.timer = setTimeout(() => this.step(), this.delay);
-    }
-
-    stop() {
-        this.isRunning = false;
-        this.isPaused = false;
-        clearTimeout(this.timer);
-        this.btnPause.textContent = 'Pause';
-    }
-
-    togglePause() {
-        if (!this.isRunning) return;
-
-        this.isPaused = !this.isPaused;
-        this.btnPause.textContent = this.isPaused ? 'Resume' : 'Pause';
-
-        if (!this.isPaused) this.step();
-    }
-
-    reset() {
-        this.stop();
-        this.visualizer.updateState({}); // Clear visualization
-        document.getElementById('status-text').textContent = 'Ready';
-        this.btnStart.disabled = false;
     }
 }
 
