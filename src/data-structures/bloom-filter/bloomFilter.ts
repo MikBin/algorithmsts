@@ -3,7 +3,7 @@ import { BitSet } from '../bitset';
 export type HashFn = (str: string, seed: number) => number;
 export type Serializer<T> = (item: T) => string;
 
-const defaultHash: HashFn = (str: string, seed: number) => {
+export const defaultHash: HashFn = (str: string, seed: number) => {
   let h1 = 0x811c9dc5 ^ seed, h2 = 0x01000193 + seed;
   for (let i = 0; i < str.length; i++) {
     const ch = str.charCodeAt(i);
