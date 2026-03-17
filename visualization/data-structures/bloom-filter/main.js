@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { BloomFilter } from '../../../src/data-structures/bloom-filter/index.ts';
+import { BloomFilter, defaultHash } from '../../../src/data-structures/bloom-filter/index.ts';
 
 let m = 50;
 let k = 3;
@@ -128,16 +128,6 @@ function getHashIndices(item) {
 
   // Actually, we can use the exact logic from defaultHash in bloomFilter.ts:
   const str = typeof item === 'string' ? item : JSON.stringify(item);
-
-  const defaultHash = (s, seed) => {
-    let h1 = 0x811c9dc5 ^ seed, h2 = 0x01000193 + seed;
-    for (let i = 0; i < s.length; i++) {
-      const ch = s.charCodeAt(i);
-      h1 = Math.imul(h1 ^ ch, 16777619);
-      h2 = (h2 + ch + (h2 << 1) + (h2 << 4)) >>> 0;
-    }
-    return (h1 ^ (h2 >>> 1)) >>> 0;
-  };
 
   for (let i = 0; i < k; i++) {
     indices.push(defaultHash(str, i) % m);
