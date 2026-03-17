@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { BinarySearchTree } from '../../../src/data-structures/binary-search-tree/index.ts';
-import { TreeVisualizer } from '../../assets/common.js';
+import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 import { AnimationController, PlaybackControls } from '../../assets/animation-controller.js';
 
 const tree = new BinarySearchTree();
@@ -63,8 +63,8 @@ function update(highlightId = null, processingId = null) {
 
 d3.select('#add-node').on('click', () => {
   const value = d3.select('#node-value').property('value');
-  if (value && !isNaN(value)) {
-    const valInt = parseInt(value, 10);
+  const valInt = parseInputInteger(value);
+  if (valInt !== null) {
     animController.clearSteps();
 
     animController.addStep(`Preparing to insert ${valInt}`, () => {
@@ -133,8 +133,8 @@ d3.select('#add-node').on('click', () => {
 
 d3.select('#remove-node').on('click', () => {
   const value = d3.select('#node-value').property('value');
-  if (value && !isNaN(value)) {
-    const valInt = parseInt(value, 10);
+  const valInt = parseInputInteger(value);
+  if (valInt !== null) {
     animController.clearSteps();
 
     animController.addStep(`Preparing to remove ${valInt}`, () => {

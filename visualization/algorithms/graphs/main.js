@@ -131,6 +131,15 @@ class GraphVisualizer {
 
         this.linkGroup = this.g.append('g').attr('class', 'links');
         this.nodeGroup = this.g.append('g').attr('class', 'nodes');
+
+        // Resize listener
+        window.addEventListener('resize', () => {
+            this.width = this.container.clientWidth;
+            this.height = this.container.clientHeight;
+            this.svg.attr('viewBox', [0, 0, this.width, this.height]);
+            this.simulation.force('center', d3.forceCenter(this.width / 2, this.height / 2));
+            this.simulation.alpha(0.3).restart();
+        });
     }
 
     draw(graph) {

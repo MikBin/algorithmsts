@@ -1,7 +1,6 @@
 import * as d3 from 'd3';
 import { BPlusTree } from '../../../src/data-structures/b-plus-tree/bPlusTree.ts';
-import { diagonal } from '../../assets/common.js';
-import { TreeVisualizer } from '../../assets/common.js';
+import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
 let order = 4; // Min t
 // BPlusTree implementation uses 'order' as MAX degree or size?
@@ -172,8 +171,8 @@ function update() {
 }
 
 d3.select('#add-node').on('click', () => {
-    const val = parseInt(d3.select('#node-value').property('value'));
-    if (!isNaN(val)) {
+    const val = parseInputInteger(d3.select('#node-value').property('value'));
+    if (val !== null) {
       // BPlusTree set(k, v)
       tree.set(val, val);
       update();
@@ -197,8 +196,8 @@ d3.select('#clear-node').on('click', () => {
 });
 
 d3.select('#degree-input').on('change', function() {
-    const newOrder = parseInt(this.value);
-    if (newOrder >= 3) {
+    const newOrder = parseInputInteger(this.value, 3, 999999);
+    if (newOrder !== null) {
         order = newOrder;
         tree = new BPlusTree((a, b) => a - b, order);
         update();

@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { FibonacciHeap } from '../../../src/data-structures/fibonacci-heap/fibonacciHeap.ts';
-import { TreeVisualizer } from '../../assets/common.js';
+import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
 const compare = (a, b) => a - b;
 const heap = new FibonacciHeap(compare);
@@ -91,8 +91,8 @@ function update() {
 }
 
 d3.select('#add-node').on('click', () => {
-    const val = parseInt(d3.select('#node-value').property('value'));
-    if (!isNaN(val)) {
+    const val = parseInputInteger(d3.select('#node-value').property('value'));
+    if (val !== null) {
       heap.add(val);
       update();
       d3.select('#node-value').property('value', '');

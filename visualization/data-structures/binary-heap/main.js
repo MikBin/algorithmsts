@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { BinaryHeap } from '../../../src/data-structures/binary-heap/binaryHeap.ts';
-import { TreeVisualizer, arrayToTree } from '../../assets/common.js';
+import { TreeVisualizer, arrayToTree, parseInputInteger } from '../../assets/common.js';
 import { AnimationController, PlaybackControls } from '../../assets/animation-controller.js';
 
 // Setup Heap
@@ -37,8 +37,8 @@ function update(heapStateArray = null, highlightIndices = []) {
 // Controls
 d3.select('#add-node').on('click', () => {
   const input = d3.select('#node-value');
-  const value = parseInt(input.property('value'));
-  if (!isNaN(value)) {
+  const value = parseInputInteger(input.property('value'));
+  if (value !== null) {
     insertWithAnimation(value);
     input.property('value', '');
   }

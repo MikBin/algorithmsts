@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { AVLTree } from '../../../src/data-structures/avl-tree/index.ts';
-import { TreeVisualizer } from '../../assets/common.js';
+import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
 const tree = new AVLTree();
 const visualizer = new TreeVisualizer('#tree-container');
@@ -43,8 +43,8 @@ function update() {
 
 // Bind controls
 d3.select('#add-node').on('click', () => {
-  const val = parseInt(d3.select('#node-value').property('value'));
-  if (!isNaN(val)) {
+  const val = parseInputInteger(d3.select('#node-value').property('value'));
+  if (val !== null) {
     tree.insert(val);
     update();
     d3.select('#node-value').property('value', '');
@@ -52,8 +52,8 @@ d3.select('#add-node').on('click', () => {
 });
 
 d3.select('#remove-node').on('click', () => {
-    const val = parseInt(d3.select('#node-value').property('value'));
-    if (!isNaN(val)) {
+    const val = parseInputInteger(d3.select('#node-value').property('value'));
+    if (val !== null) {
       tree.delete(val);
       update();
       d3.select('#node-value').property('value', '');
