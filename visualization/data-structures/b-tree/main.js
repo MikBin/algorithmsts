@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { BTree } from '../../../src/data-structures/b-tree/index.ts';
-import { TreeVisualizer } from '../../assets/common.js';
+import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
 let order = 2; // Min order
 let tree = new BTree(order);
@@ -247,8 +247,8 @@ function update() {
 }
 
 d3.select('#add-node').on('click', () => {
-    const val = parseInt(d3.select('#node-value').property('value'));
-    if (!isNaN(val)) {
+    const val = parseInputInteger(d3.select('#node-value').property('value'));
+    if (val !== null) {
       tree.insert(val);
       update();
       d3.select('#node-value').property('value', '');
@@ -256,8 +256,8 @@ d3.select('#add-node').on('click', () => {
 });
 
 d3.select('#remove-node').on('click', () => {
-    const val = parseInt(d3.select('#node-value').property('value'));
-    if (!isNaN(val)) {
+    const val = parseInputInteger(d3.select('#node-value').property('value'));
+    if (val !== null) {
       tree.delete(val);
       update();
       d3.select('#node-value').property('value', '');
@@ -276,8 +276,8 @@ d3.select('#clear-node').on('click', () => {
 });
 
 d3.select('#degree-input').on('change', function() {
-    const newOrder = parseInt(this.value);
-    if (newOrder >= 2) {
+    const newOrder = parseInputInteger(this.value, 2, 999999);
+    if (newOrder !== null) {
         order = newOrder;
         tree = new BTree(order);
         update();

@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { RedBlackTree } from '../../../src/data-structures/red-black-tree/index.ts';
-import { TreeVisualizer } from '../../assets/common.js';
+import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
 const tree = new RedBlackTree();
 const visualizer = new TreeVisualizer('#tree-container');
@@ -67,8 +67,8 @@ function update() {
 
 
 d3.select('#add-node').on('click', () => {
-    const val = parseInt(d3.select('#node-value').property('value'));
-    if (!isNaN(val)) {
+    const val = parseInputInteger(d3.select('#node-value').property('value'));
+    if (val !== null) {
       tree.insert(val);
       update();
       d3.select('#node-value').property('value', '');
@@ -76,8 +76,8 @@ d3.select('#add-node').on('click', () => {
 });
 
 d3.select('#remove-node').on('click', () => {
-      const val = parseInt(d3.select('#node-value').property('value'));
-      if (!isNaN(val)) {
+      const val = parseInputInteger(d3.select('#node-value').property('value'));
+      if (val !== null) {
         tree.delete(val); // RBT usually has delete
         update();
         d3.select('#node-value').property('value', '');

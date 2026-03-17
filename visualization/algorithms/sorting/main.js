@@ -8,7 +8,7 @@ function* bubbleSort(array) {
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - i - 1; j++) {
       yield { type: 'compare', indices: [j, j + 1], array: [...array] };
-      if (array[j] > array[j + 1]) {
+      if (array[j].value > array[j + 1].value) {
         [array[j], array[j + 1]] = [array[j + 1], array[j]];
         yield { type: 'swap', indices: [j, j + 1], array: [...array] };
       }
@@ -35,7 +35,7 @@ function* partition(array, low, high) {
 
   for (let j = low; j < high; j++) {
     yield { type: 'compare', indices: [j, high], array: [...array] }; // Compare with pivot
-    if (array[j] < pivot) {
+    if (array[j].value < pivot.value) {
       i++;
       [array[i], array[j]] = [array[j], array[i]];
       yield { type: 'swap', indices: [i, j], array: [...array] };
@@ -72,7 +72,7 @@ function* merge(array, start, mid, end) {
 
         // For visualization, we overwrite the main array as we merge
         // This is slightly different from standard merge sort but shows the effect
-        if (left[i] <= right[j]) {
+        if (left[i].value <= right[j].value) {
             array[k] = left[i];
             yield { type: 'swap', indices: [k], array: [...array] }; // Highlight update
             i++;
@@ -130,14 +130,14 @@ function* heapify(array, n, i) {
 
     if (l < n) {
         yield { type: 'compare', indices: [l, largest], array: [...array] };
-        if (array[l] > array[largest]) {
+        if (array[l].value > array[largest].value) {
             largest = l;
         }
     }
 
     if (r < n) {
         yield { type: 'compare', indices: [r, largest], array: [...array] };
-        if (array[r] > array[largest]) {
+        if (array[r].value > array[largest].value) {
             largest = r;
         }
     }
@@ -151,15 +151,15 @@ function* heapify(array, n, i) {
 
 function* countingSort(array) {
     // For visualization, assume non-negative integers
-    let max = Math.max(...array);
-    let min = Math.min(...array);
+    let max = Math.max(...array.map(d => d.value));
+    let min = Math.min(...array.map(d => d.value));
     let range = max - min + 1;
     let count = new Array(range).fill(0);
-    let output = new Array(array.length).fill(0);
+    let output = new Array(array.length).fill(null);
 
     for (let i = 0; i < array.length; i++) {
         yield { type: 'compare', indices: [i], array: [...array] }; // Visualizing scan
-        count[array[i] - min]++;
+        count[array[i].value - min]++;
     }
 
     for (let i = 1; i < count.length; i++) {
@@ -167,8 +167,8 @@ function* countingSort(array) {
     }
 
     for (let i = array.length - 1; i >= 0; i--) {
-        output[count[array[i] - min] - 1] = array[i];
-        count[array[i] - min]--;
+        output[count[array[i].value - min] - 1] = array[i];
+        count[array[i].value - min]--;
 
         // This is tricky to visualize in-place with a single array view
         // We will just show the overwrite happening
@@ -182,7 +182,7 @@ function* countingSort(array) {
 }
 
 function* radixSort(array) {
-    const max = Math.max(...array);
+    const max = Math.max(...array.map(d => d.value));
 
     for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
         yield* countingSortForRadix(array, exp);
@@ -190,12 +190,12 @@ function* radixSort(array) {
 }
 
 function* countingSortForRadix(array, exp) {
-    let output = new Array(array.length).fill(0);
+    let output = new Array(array.length).fill(null);
     let count = new Array(10).fill(0);
 
     for (let i = 0; i < array.length; i++) {
         yield { type: 'compare', indices: [i], array: [...array] };
-        count[Math.floor(array[i] / exp) % 10]++;
+        count[Math.floor(array[i].value / exp) % 10]++;
     }
 
     for (let i = 1; i < 10; i++) {
@@ -203,8 +203,8 @@ function* countingSortForRadix(array, exp) {
     }
 
     for (let i = array.length - 1; i >= 0; i--) {
-        output[count[Math.floor(array[i] / exp) % 10] - 1] = array[i];
-        count[Math.floor(array[i] / exp) % 10]--;
+        output[count[Math.floor(array[i].value / exp) % 10] - 1] = array[i];
+        count[Math.floor(array[i].value / exp) % 10]--;
     }
 
     for (let i = 0; i < array.length; i++) {
@@ -241,19 +241,11 @@ class SortingController {
 
         this.algoSelect.addEventListener('change', () => {
             this.animationController.clearSteps();
+            this.prepareSteps();
         });
 
         // Initialize
         this.generateArray();
-
-        // Hook up play event to build steps if needed
-        const originalPlay = this.animationController.play.bind(this.animationController);
-        this.animationController.play = () => {
-            if (this.animationController.steps.length === 0) {
-                this.prepareSteps();
-            }
-            originalPlay();
-        };
 
         const originalReset = this.animationController.reset.bind(this.animationController);
         this.animationController.reset = () => {
@@ -268,10 +260,11 @@ class SortingController {
     generateArray() {
         this.animationController.clearSteps();
         const size = parseInt(this.arraySizeInput.value, 10);
-        this.array = Array.from({length: size}, () => Math.floor(Math.random() * 100) + 1);
+        this.array = Array.from({length: size}, (_, i) => ({ id: String(i), value: Math.floor(Math.random() * 100) + 1 }));
         this.initialArray = [...this.array];
         this.resetStats();
         this.visualizer.update(this.array);
+        this.prepareSteps();
         document.getElementById('status-text').textContent = 'Ready';
     }
 

@@ -36,6 +36,14 @@ export class TreeVisualizer {
             .nodeSize([50, 80]); // Adjust node spacing as needed
 
         this.root = null;
+
+        // Resize listener
+        window.addEventListener('resize', () => {
+            const rect = this.container.node().getBoundingClientRect();
+            const newWidth = rect.width || 800;
+            const newHeight = rect.height || 600;
+            this.svg.attr('viewBox', [0, 0, newWidth, newHeight]);
+        });
     }
 
     update(hierarchyData) {
@@ -190,9 +198,36 @@ export class BarChartVisualizer {
             .attr('transform', `translate(0,${this.height})`);
 
         this.yAxis = this.svg.append('g');
+
+        this.data = [];
+        this.state = {};
+
+        // Resize listener
+        window.addEventListener('resize', () => {
+            const rect = this.container.node().getBoundingClientRect();
+            this.width = (rect.width || 800) - this.margin.left - this.margin.right;
+            this.height = (rect.height || 400) - this.margin.top - this.margin.bottom;
+
+            // Update SVG parent
+            d3.select(this.svg.node().parentNode)
+                .attr('width', this.width + this.margin.left + this.margin.right)
+                .attr('height', this.height + this.margin.top + this.margin.bottom);
+
+            this.x.range([0, this.width]);
+            this.y.range([this.height, 0]);
+            this.xAxis.attr('transform', `translate(0,${this.height})`);
+
+            // Redraw if we have data
+            if (this.data && this.data.length > 0) {
+                this.update(this.data, this.state);
+            }
+        });
     }
 
     update(data, state = {}) {
+        this.data = data;
+        this.state = state;
+
         if (!data || data.length === 0) {
             this.svg.selectAll('.bar').remove();
             return;
@@ -202,7 +237,12 @@ export class BarChartVisualizer {
 
         // Update scales
         this.x.domain(data.map((d, i) => i));
-        this.y.domain([0, d3.max(data)]);
+
+        // Handle both primitive numbers and {id, value} objects
+        const getValue = d => (d !== null && typeof d === 'object' && d.value !== undefined) ? d.value : d;
+        const getId = (d, i) => (d !== null && typeof d === 'object' && d.id !== undefined) ? d.id : (d + '-' + i);
+
+        this.y.domain([0, d3.max(data, d => getValue(d))]);
 
         // Update axes
         this.xAxis.transition().duration(200).call(d3.axisBottom(this.x).tickFormat(i => i));
@@ -210,15 +250,14 @@ export class BarChartVisualizer {
 
         // Join data
         const bars = this.svg.selectAll('.bar')
-            .data(data, (d, i) => d + '-' + i); // Tricky: use value + index for identity if needed, or just index
-            // Actually, for sorting, tracking by value is tricky if duplicates exist, better by index or raw value + stable id
-            // Let's use index as we animate in-place
+            .data(data, (d, i) => getId(d, i));
 
         // Update existing bars
-        bars.attr('x', (d, i) => this.x(i))
+        bars.transition().duration(200)
+            .attr('x', (d, i) => this.x(i))
             .attr('width', this.x.bandwidth())
-            .attr('y', d => this.y(d))
-            .attr('height', d => this.height - this.y(d))
+            .attr('y', d => this.y(getValue(d)))
+            .attr('height', d => this.height - this.y(getValue(d)))
             .style('fill', (d, i) => this.getColor(i, compare, swap, sorted));
 
         // Enter new bars
@@ -226,12 +265,12 @@ export class BarChartVisualizer {
             .attr('class', 'bar')
             .attr('x', (d, i) => this.x(i))
             .attr('width', this.x.bandwidth())
-            .attr('y', this.y(0))
+            .attr('y', d => this.y(0))
             .attr('height', 0)
             .style('fill', (d, i) => this.getColor(i, compare, swap, sorted))
             .transition().duration(200)
-            .attr('y', d => this.y(d))
-            .attr('height', d => this.height - this.y(d));
+            .attr('y', d => this.y(getValue(d)))
+            .attr('height', d => this.height - this.y(getValue(d)));
 
         // Remove old bars
         bars.exit()
@@ -242,10 +281,10 @@ export class BarChartVisualizer {
     }
 
     getColor(index, compare, swap, sorted) {
-        if (sorted.includes(index)) return '#2ecc71'; // Green
-        if (swap.includes(index)) return '#e74c3c';   // Red
-        if (compare.includes(index)) return '#f1c40f'; // Yellow
-        return '#3498db';                             // Default Blue
+        if (sorted.includes(index)) return 'var(--color-found)'; // Green
+        if (swap.includes(index)) return 'var(--color-comparing)';   // Red
+        if (compare.includes(index)) return 'var(--color-highlight)'; // Yellow/Highlight
+        return 'var(--color-default)';                             // Default
     }
 }
 
@@ -287,4 +326,13 @@ export function diagonal(d) {
             C ${d.target.x} ${(d.target.y + d.source.y) / 2},
               ${d.source.x} ${(d.target.y + d.source.y) / 2},
               ${d.source.x} ${d.source.y}`;
+}
+
+export function parseInputInteger(value, min = -999999, max = 999999) {
+    const parsed = parseInt(value, 10);
+    if (isNaN(parsed) || parsed < min || parsed > max) {
+        alert(`Please enter a valid integer between ${min} and ${max}.`);
+        return null;
+    }
+    return parsed;
 }
