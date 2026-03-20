@@ -1,389 +1,170 @@
 # AGENTS.md
 
-## Jules Orchestrator Mode
+# Jules MCP Orchestrator Mode
 
-When acting as a Jules orchestrator, you manage Jules as a remote senior developer via the Jules MCP server and coordinate PR workflows via the GitHub MCP server.
+This document describes how to use the jules-mcp server in orchestrator mode where a local agent coordinates work with Jules as a remote coding assistant.
 
-**Important:** Jules is a highly skilled software engineer and architect. You don't need to tell Jules how to write code or structure projects. Just give Jules complex, well-defined tasks and review the results.
+## Overview
 
-**Core principle:** The local agent must not waste context window tokens on active polling. A decoupled background monitor and event watcher handle polling independently and only trigger the local agent when human-level input or a final review is required.
+Jules is an advanced developer agent. Simply specify the task clearly and concisely - no need to provide code snippets or implementation details. Jules will analyze the codebase, plan the work, and execute it independently.
+
+## Orchestrator Workflow
+
+When the local agent needs to delegate work to Jules, follow this sequential workflow:
+
+### 1. Pull Latest Changes
+
+Before creating any new Jules session, always pull the latest changes from the remote to ensure Jules works with up-to-date code:
+
+```
+git pull origin <branch>
+```
+
+### 2. Create Jules Session
+
+Create a new Jules session for the task. Jules is autonomous - describe what needs to be done:
+
+**Required parameters:**
+- `owner`: GitHub repository owner (e.g., "MikBin")
+- `repo`: Repository name (e.g., "jules-mcp")
+- `branch`: Starting branch (e.g., "main")
+- `prompt`: Clear task description
+
+**Optional parameters:**
+- `title`: Session title for identification
+- `requirePlanApproval`: Set to `true` if you want to review before execution
+- `automationMode`: Set to `"AUTO_CREATE_PR"` for automatic PR creation on completion
+
+### 3. Monitor Session
+
+Wait for the session to complete. Check session status periodically using the sleep MCP server to conserve tokens:
+- Use `sleep_mcp` to wait configurable seconds between status checks (recommended: 120 seconds)
+- If state is `AWAITING_PLAN_APPROVAL`, approve the plan
+- If state is `AWAITING_USER_FEEDBACK`, respond using `jules_send_message` to provide clarification or additional instructions
+- If state is `IN_PROGRESS`, continue monitoring (sleep then check again)
+- If state is `COMPLETED` or `FAILED`, proceed to next step
+
+**Note:** The sleep MCP server (`csBeyp0mcp0sleep` / `github.com/Garoth/sleep-mcp`) helps save context window tokens by avoiding active polling. Configure the wait interval based on expected task duration.
+
+**Clarification Handling:** The local orchestrator should be ready to clarify anything Jules requests when stuck. Use `jules_send_message` to provide answers, context, or guidance as needed.
+
+### 4. Extract PR Information
+
+When session completes, extract the PR information from the session outputs to get the PR URL and details.
+
+### 5. Merge PR
+
+Merge the created PR using the GitHub MCP server:
+- Use `merge_pull_request` tool
+- Specify `merge_method` (squash recommended)
+- Include a descriptive commit message
+
+### 6. Delete Branch
+
+Delete the merged branch to keep the repository clean:
+- Use `delete_branch` tool from GitHub MCP
+
+### 7. Pull Changes Locally
+
+Pull the merged changes to keep your local repository in sync:
+```
+git pull origin <branch>
+```
+
+## Sequential Processing
+
+**Important:** Sessions must be processed sequentially. Do not create a new Jules session while another is still active. Always complete the full workflow (create → monitor → approve if needed → extract PR → merge → delete branch → pull) before starting the next session.
+
+## Error Handling
+
+- If session fails, review the error details and create a new session with corrected instructions if needed
+- If PR merge fails, investigate the conflict and resolve before retrying
+- Always clean up branches even on failure to avoid orphan branches
 
 ---
 
-## Available Jules MCP Tools
+## Appendix: Jules MCP Server API Reference
 
-| Tool | Purpose |
-|------|---------|
-| `jules_create_session` | Create a new coding session on a GitHub repo/branch |
+### Session Management
+
+| Tool | Description |
+|------|-------------|
+| `jules_create_session` | Create a new Jules coding session for a GitHub repository |
 | `jules_get_session` | Fetch session metadata, state, and outputs |
-| `jules_list_sessions` | List all sessions with pagination support |
-| `jules_delete_session` | Delete a session |
-| `jules_send_message` | Send instructions or feedback to an active session |
-| `jules_approve_plan` | Approve a pending plan (when `requirePlanApproval: true`) |
-| `jules_list_activities` | List activities for a session (events, plans, messages) |
+| `jules_list_sessions` | List all Jules sessions |
+| `jules_delete_session` | Delete a Jules session |
+| `jules_approve_plan` | Approve the plan for a session awaiting approval |
+| `jules_send_message` | Send a clarification or instruction to a session |
+
+### Monitoring & Activity
+
+| Tool | Description |
+|------|-------------|
+| `jules_list_activities` | List activities for a Jules session |
 | `jules_get_activity` | Get a single activity by ID |
-| `jules_extract_pr_from_session` | Extract PR info from completed session outputs |
-| `jules_list_sources` | List available GitHub repositories (sources) |
-| `jules_get_source` | Get details for a specific source/repository |
-
----
-
-## Creating Sessions
-
-### Required Parameters
-
-| Parameter | Description |
-|-----------|-------------|
-| `owner` | GitHub repository owner (username or organization) |
-| `repo` | GitHub repository name |
-| `branch` | Starting branch name. Use descriptive feature branches (e.g., `feat/counting-sort-viz`) |
-| `prompt` | Clear, detailed task description. Include file paths, expected behavior, and testing requirements |
-
-### Optional Parameters
-
-| Parameter | Description |
-|-----------|-------------|
-| `title` | Session title for easier identification |
-| `requirePlanApproval` | Set to `true` to pause before execution so you can review the plan |
-| `automationMode` | Automation mode. Defaults to `"AUTO_CREATE_PR"` — Jules automatically publishes a PR upon completion |
-
-### Example Session Creation
-
-```json
-{
-  "owner": "MikBin",
-  "repo": "algorithmsts",
-  "branch": "feat/new-algorithm",
-  "prompt": "Implement a counting sort visualization in the visualization/ directory. Follow existing patterns in visualization/algorithms/sorting/. Include step-by-step animation and complexity display.",
-  "title": "Counting Sort Visualization",
-  "automationMode": "AUTO_CREATE_PR"
-}
-```
-
----
-
-## Session States
-
-| State | Description | Action Required |
-|-------|-------------|-----------------|
-| `QUEUED` | Session is in queue | Wait |
-| `PLANNING` | Jules is analyzing the task | Wait |
-| `AWAITING_PLAN_APPROVAL` | Plan ready for review | Review plan, then call `jules_approve_plan` |
-| `AWAITING_USER_FEEDBACK` | Jules needs clarification | Read activities, respond via `jules_send_message` |
-| `IN_PROGRESS` | Jules is actively working | Wait |
-| `COMPLETED` | Work finished | Extract outputs, review and merge PR |
-| `FAILED` | Session encountered an error | Check activities for error details |
-
----
-
-## Monitoring Sessions
-
-### Listing Sessions
-
-Use `jules_list_sessions` with pagination:
-
-```json
-{
-  "pageSize": 10,
-  "pageToken": "optional-token-from-previous-response"
-}
-```
-
-### Getting Session Details
-
-Use `jules_get_session` to fetch metadata, state, and outputs:
-
-```json
-{
-  "session_id": "the-session-id"
-}
-```
-
-### Listing Activities
-
-Monitor progress with `jules_list_activities`:
-
-```json
-{
-  "session_id": "the-session-id",
-  "pageSize": 20,
-  "pageToken": "optional-token"
-}
-```
-
-### Getting Specific Activity
-
-Get detailed info about a single activity:
-
-```json
-{
-  "session_id": "the-session-id",
-  "activity_id": "the-activity-id"
-}
-```
-
----
-
-## Sleep MCP Integration for 120-second Polling
-
-The sleep-mcp server can be used alongside jules-mcp for simple polling workflows:
-
-1. **Create a Jules session** with `jules_create_session`
-2. **Wait 120 seconds** using the `sleep` tool with `milliseconds: 120000`
-3. **Check status** with `jules_get_session` or `jules_list_activities`
-4. **Repeat** until session reaches `COMPLETED`, `FAILED`, or `AWAITING_USER_FEEDBACK`
-
-### Example Workflow
-
-```json
-// Step 1: Create session
-{
-  "owner": "MikBin",
-  "repo": "algorithmsts",
-  "branch": "feat/new-feature",
-  "prompt": "Implement feature X...",
-  "automationMode": "AUTO_CREATE_PR"
-}
-
-// Step 2: Wait 120 seconds
-{
-  "milliseconds": 120000
-}
-
-// Step 3: Check status
-{
-  "session_id": "sessions/abc123"
-}
-
-// Step 4: Repeat steps 2-3 until terminal state
-```
-
-### Alternative: Built-in Monitor Tool
-
-For more robust monitoring, use `jules_monitor_session` which handles polling internally with progress notifications:
-
-```json
-{
-  "session_id": "sessions/abc123",
-  "poll_interval_seconds": 120
-}
-```
-
----
-
-## Monitoring Sessions (Manual)
-
-Use `jules_list_sessions` with pagination:
-
-```json
-{
-  "pageSize": 10,
-  "pageToken": "optional-token-from-previous-response"
-}
-```
-
-### Getting Session Details
-
-Use `jules_get_session` to fetch metadata, state, and outputs:
-
-```json
-{
-  "session_id": "the-session-id"
-}
-```
-
-### Listing Activities
-
-Monitor progress with `jules_list_activities`:
-
-```json
-{
-  "session_id": "the-session-id",
-  "pageSize": 20,
-  "pageToken": "optional-token"
-}
-```
-
-### Getting Specific Activity
-
-Get detailed info about a single activity:
-
-```json
-{
-  "session_id": "the-session-id",
-  "activity_id": "the-activity-id"
-}
-```
-
----
-
-## Working with Sources (Repositories)
-
-### List Available Sources
-
-Use `jules_list_sources` to see connected GitHub repositories:
-
-```json
-{
-  "pageSize": 20,
-  "pageToken": "optional-token"
-}
-```
-
-### Get Source Details
-
-Use `jules_get_source` for details about a specific repository:
-
-```json
-{
-  "source_id": "the-source-id"
-}
-```
-
----
-
-## Publishing PRs from Completed Sessions
-
-### Option 1: Auto-create PR (Recommended)
-
-Set `automationMode: "AUTO_CREATE_PR"` (default) when creating the session. Jules will automatically open a PR when work is complete. The PR URL will appear in session outputs.
-
-### Option 2: Extract PR Info
-
-Use `jules_extract_pr_from_session` to get PR details from a completed session:
-
-```json
-{
-  "session_id": "the-session-id"
-}
-```
-
-### Option 3: Create PR Manually via GitHub MCP
-
-If Jules pushed changes but didn't create a PR, use GitHub MCP:
-
-```json
-{
-  "owner": "MikBin",
-  "repo": "algorithmsts",
-  "title": "feat: description of changes",
-  "head": "feat/branch-name",
-  "base": "main",
-  "body": "Description of changes made by Jules session <id>"
-}
-```
-
----
-
-## Merging PRs
-
-Once a PR is reviewed and approved, merge via GitHub MCP:
-
-```json
-{
-  "owner": "MikBin",
-  "repo": "algorithmsts",
-  "pullNumber": 123,
-  "merge_method": "squash",
-  "commit_title": "feat: add counting sort visualization",
-  "commit_message": "Additional details about the changes"
-}
-```
-
----
-
-## Interacting with Active Sessions
-
-### Sending Messages
-
-When a session is in `AWAITING_USER_FEEDBACK` state, provide guidance:
-
-```json
-{
-  "session_id": "the-session-id",
-  "message": "Please use the existing utility functions in src/utils/ instead of creating new ones. Follow the patterns in src/algorithms/sorting/quick-sort.ts."
-}
-```
-
-### Approving Plans
-
-When a session is in `AWAITING_PLAN_APPROVAL` state:
-
-```json
-{
-  "session_id": "the-session-id"
-}
-```
-
----
-
-## Orchestration Workflow
-
-1. **Plan tasks**: Break work into independent, parallelizable units that can run as separate sessions on separate branches.
-
-2. **Create sessions**: Launch multiple sessions concurrently with `AUTO_CREATE_PR` enabled. Always pass `owner` and `repo` explicitly.
-
-3. **Monitor**: The background monitor polls sessions automatically. Only call `jules_get_session` when you need to check a specific session's result.
-
-4. **Handle feedback**: The event watcher detects `AWAITING_USER_FEEDBACK` / `AWAITING_PLAN_APPROVAL` states. Respond via `jules_send_message` or `jules_approve_plan` when notified.
-
-5. **Review PRs**: Once sessions complete, review PRs via GitHub MCP tools (`pull_request_read` with method `get_files`, `get_diff`, etc.).
-
-6. **Merge**: Merge approved PRs via `merge_pull_request`.
-
-7. **Clean up**: Delete sessions that are no longer needed with `jules_delete_session`:
-
-```json
-{
-  "session_id": "the-session-id"
-}
-```
-
----
-
-## Best Practices
-
-### Parallel Sessions
-Jules can run multiple sessions concurrently on different branches. Use this for independent tasks that don't modify the same files.
-
-### Detailed Prompts
-Jules works best with specific, detailed prompts:
-- Specify exact file paths
-- Reference existing patterns to follow
-- Include testing requirements
-- Mention any constraints or conventions
-
-### Branch Strategy
-- Always use feature branches
-- Never point Jules at `main` directly
-- Use descriptive branch names (e.g., `feat/counting-sort-viz`, `fix/avl-tree-balance`)
-
-### Don't Poll Manually
-Rely on the background monitor and event watcher instead of calling `jules_list_sessions` in a loop. Jules sessions typically take 10-30 minutes.
-
-### Auto-approve Plans
-Set `auto_approve_plans: true` in your configuration if you want the event handler to automatically approve plans without local agent intervention.
-
-### Session Cleanup
-Delete completed or failed sessions when they're no longer needed to keep the session list manageable.
-
----
-
-## Example: Full Workflow
-
-```
-1. Create session with AUTO_CREATE_PR
-   ↓
-2. Monitor for state changes (background process)
-   ↓
-3. If AWAITING_PLAN_APPROVAL → Review and approve
-   ↓
-4. If AWAITING_USER_FEEDBACK → Read activities, send message
-   ↓
-5. When COMPLETED → Extract PR info
-   ↓
-6. Review PR via GitHub MCP
-   ↓
-7. Merge if approved
-   ↓
-8. Delete session
+| `jules_monitor_session` | Poll a session until completion with progress notifications |
+
+### Sources
+
+| Tool | Description |
+|------|-------------|
+| `jules_list_sources` | List available GitHub repositories |
+| `jules_get_source` | Get details for a specific source |
+
+### Pull Requests
+
+| Tool | Description |
+|------|-------------|
+| `jules_extract_pr_from_session` | Extract PR information from completed session outputs |
+
+### Tool Parameters
+
+#### jules_create_session
+- `owner` (string, required): GitHub repository owner
+- `repo` (string, required): GitHub repository name
+- `branch` (string, required): Starting branch name
+- `prompt` (string, required): Task description for Jules
+- `title` (string, optional): Session title
+- `requirePlanApproval` (boolean, optional): Require plan approval before execution
+- `automationMode` (string, optional): Set to `"AUTO_CREATE_PR"` for automatic PR creation
+
+#### jules_get_session
+- `session_id` (string, required): The Jules session ID
+
+#### jules_approve_plan
+- `session_id` (string, required): The Jules session ID
+
+#### jules_send_message
+- `session_id` (string, required): The Jules session ID
+- `message` (string, required): Message text to send
+
+#### jules_monitor_session
+- `session_id` (string, required): The Jules session ID to monitor
+- `poll_interval_seconds` (number, optional): Polling interval in seconds (default: 60, max: 300)
+
+#### jules_extract_pr_from_session
+- `session_id` (string, required): The completed Jules session ID
+
+#### jules_delete_session
+- `session_id` (string, required): The Jules session ID
+
+### Session States
+
+| State | Description |
+|-------|-------------|
+| `IN_PROGRESS` | Session is actively working |
+| `AWAITING_PLAN_APPROVAL` | Plan ready for review and approval |
+| `AWAITING_USER_FEEDBACK` | Session needs input or clarification |
+| `COMPLETED` | Session finished successfully (check outputs for PR) |
+| `FAILED` | Session encountered an error |
+
+### Session Outputs
+
+When a session completes successfully with `automationMode: "AUTO_CREATE_PR"`, the session outputs contain:
+- `changeSet.gitPatch`: The diff/patch of changes made
+- `changeSet.suggestedCommitMessage`: Suggested commit message
+- `pullRequest.url`: The created PR URL
+- `pullRequest.title`: PR title
+- `pullRequest.description`: PR description
+- `pullRequest.baseRef`: Target branch
+- `pullRequest.headRef`: Feature branch created
