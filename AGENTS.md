@@ -110,6 +110,8 @@ Pull the merged changes to keep your local repository in sync:
 ```
 git pull origin <branch>
 ```
+git push origin <branch>
+```
 
 ## Sequential Processing
 
