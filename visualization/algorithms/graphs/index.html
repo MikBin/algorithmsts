@@ -21,26 +21,26 @@
     <div class="controls">
         <div class="control-group">
             <label for="algo-category">Category:</label>
-            <select id="algo-category">
+            <select id="algo-category" aria-label="Algo Category">
                 <option value="traversal">Traversal</option>
                 <option value="pathfinding">Pathfinding</option>
                 <option value="spanning-tree">Min Spanning Tree</option>
             </select>
 
             <label for="algo-select">Algorithm:</label>
-            <select id="algo-select">
+            <select id="algo-select" aria-label="Algo Select">
                 <!-- Options populated by JS -->
             </select>
         </div>
 
         <div class="control-group">
             <label for="graph-type">Graph:</label>
-            <select id="graph-type">
+            <select id="graph-type" aria-label="Graph Type">
                 <option value="random">Random</option>
                 <option value="grid">Grid (Mesh)</option>
                 <option value="circular">Circular</option>
             </select>
-            <button id="btn-generate">New Graph</button>
+            <button id="btn-generate" aria-label="New Graph">New Graph</button>
         </div>
 
     </div>

@@ -124,17 +124,17 @@ export class PlaybackControls {
 
         this.container.innerHTML = `
             <div class="playback-buttons">
-                <button class="btn-play-pause" title="Play">▶ Play</button>
-                <button class="btn-step" title="Step Forward">⏭ Step</button>
-                <button class="btn-reset" title="Reset">⏮ Reset</button>
+                <button class="btn-play-pause" title="Play" aria-label="Play">▶ Play</button>
+                <button class="btn-step" title="Step Forward" aria-label="Step Forward">⏭ Step</button>
+                <button class="btn-reset" title="Reset" aria-label="Reset">⏮ Reset</button>
             </div>
             <div class="playback-speed">
                 <label for="speed-slider">Speed:</label>
-                <input type="range" id="speed-slider" min="100" max="2000" value="500" step="100" dir="rtl">
+                <input type="range" id="speed-slider" min="100" max="2000" value="500" step="100" dir="rtl" aria-label="Playback speed">
             </div>
             <div class="playback-status">
-                <div class="step-indicator">Step: 0 / 0</div>
-                <div class="step-description">Ready</div>
+                <div class="step-indicator" aria-live="polite">Step: 0 / 0</div>
+                <div class="step-description" aria-live="assertive">Ready</div>
             </div>
         `;
 
@@ -173,11 +173,31 @@ export class PlaybackControls {
             if (state.isPlaying) {
                 this.btnPlayPause.textContent = '⏸ Pause';
                 this.btnPlayPause.title = 'Pause';
+                this.btnPlayPause.setAttribute('aria-label', 'Pause');
             } else {
                 this.btnPlayPause.textContent = '▶ Play';
                 this.btnPlayPause.title = 'Play';
+                this.btnPlayPause.setAttribute('aria-label', 'Play');
             }
         };
+
+        // Add keyboard navigation for steps
+        document.addEventListener('keydown', (e) => {
+            const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+            if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') {
+                return;
+            }
+            if (e.code === 'ArrowRight' && !this.btnStep.disabled) {
+                this.controller.step();
+            } else if (e.code === 'Space' && !this.btnPlayPause.disabled) {
+                e.preventDefault();
+                if (this.controller.isPlaying) {
+                    this.controller.pause();
+                } else {
+                    this.controller.play();
+                }
+            }
+        });
 
         this.controller.onStepChange = (status) => {
             this.stepIndicator.textContent = `Step: ${status.index} / ${status.total}`;
