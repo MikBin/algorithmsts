@@ -84,7 +84,7 @@ Wait for the session to complete. Check session status periodically using the sl
 - If state is `IN_PROGRESS`, continue monitoring (sleep then check again)
 - If state is `COMPLETED` or `FAILED`, proceed to next step
 
-**Note:** The sleep MCP server (`csBeyp0mcp0sleep` / `github.com/Garoth/sleep-mcp`) helps save context window tokens by avoiding active polling. Configure the wait interval based on expected task duration.
+**Note:** The sleep MCP server (`csBeyp0mcp0sleep` / `github.com/Garoth/sleep-mcp`) helps save context window tokens by avoiding active polling. Configure the wait interval based on expected task duration. if the sleep MCP server is not working fall back to system command (timeout /t 120 /nobreak).
 
 **Clarification Handling:** The local orchestrator should be ready to clarify anything Jules requests when stuck. Use `jules_send_message` to provide answers, context, or guidance as needed.
 
