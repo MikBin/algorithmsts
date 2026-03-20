@@ -109,7 +109,7 @@ class GraphVisualizer {
         this.width = this.container.clientWidth;
         this.height = this.container.clientHeight;
 
-        this.svg = d3.select(containerId).append('svg')
+        this.svg = d3.select(containerId).append('svg').attr('role', 'img').attr('aria-label', 'Visualization').attr('tabindex', '0')
             .attr('width', '100%')
             .attr('height', '100%')
             .attr('viewBox', [0, 0, this.width, this.height]);

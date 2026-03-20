@@ -117,13 +117,13 @@
     <h1>Pattern Matching Visualization</h1>
     <div class="container">
         <div class="controls">
-            <select id="algorithm-select">
+            <select id="algorithm-select" aria-label="Algorithm Select">
                 <option value="kmp">Knuth-Morris-Pratt (KMP)</option>
                 <option value="rk">Rabin-Karp</option>
             </select>
-            <input type="text" id="text-input" placeholder="Text" value="ABABDABACDABABCABAB">
-            <input type="text" id="pattern-input" placeholder="Pattern" value="ABABCABAB">
-            <button id="load-btn">Load / Compute</button>
+            <input type="text" id="text-input" placeholder="Text" value="ABABDABACDABABCABAB" aria-label="Text">
+            <input type="text" id="pattern-input" placeholder="Pattern" value="ABABCABAB" aria-label="Pattern">
+            <button id="load-btn" aria-label="Load / Compute">Load / Compute</button>
         </div>
 
         <div id="playback-container"></div>
@@ -135,6 +135,8 @@
         <div id="visualization" class="visualization-area"></div>
 
         <div id="aux-data" style="margin-top: 20px;"></div>
+
+        <div id="educational-panel" class="info-panel" style="background-color: #fff3cd; border-left: 4px solid #ffc107; display: none;"></div>
     </div>
 
     <!-- Using type="module" to allow imports -->

@@ -92,25 +92,25 @@
 
         <div class="controls">
           <label for="function-type-filter">Function Type:</label>
-          <select id="function-type-filter" v-model="filters.type">
+          <select id="function-type-filter" v-model="filters.type" aria-label="Function Type Filter">
             <option value="all">All Types</option>
             <option v-for="type in availableTypes" :key="type" :value="type">{{ type }}</option>
           </select>
 
           <label for="vector-size-filter">Vector Size:</label>
-          <select id="vector-size-filter" v-model="filters.size">
+          <select id="vector-size-filter" v-model="filters.size" aria-label="Vector Size Filter">
             <option value="all">All Sizes</option>
             <option v-for="size in availableSizes" :key="size" :value="size.toString()">{{ size }}</option>
           </select>
 
           <label for="noise-level-filter">Noise Level:</label>
-          <select id="noise-level-filter" v-model="filters.noise">
+          <select id="noise-level-filter" v-model="filters.noise" aria-label="Noise Level Filter">
             <option value="all">All Levels</option>
             <option v-for="level in availableNoiseLevels" :key="level" :value="level.toString()">{{ level }}</option>
           </select>
 
-          <button @click="applyFilters">Apply Filters</button>
-          <button @click="toggleDebug" style="margin-left: 10px; opacity: 0.6; font-size: 0.8em;">Debug</button>
+          <button @click="applyFilters" aria-label="Apply Filters">Apply Filters</button>
+          <button @click="toggleDebug" style="margin-left: 10px; opacity: 0.6; font-size: 0.8em;" aria-label="Debug">Debug</button>
         </div>
 
         <!-- Debug Panel (Visible for testing/dev) -->

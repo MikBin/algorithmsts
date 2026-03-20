@@ -16,7 +16,7 @@ let bitWidth = (width - margin.left - margin.right) / m;
 const bitHeight = 40;
 
 const svg = d3.select('#viz-container')
-  .append('svg')
+  .append('svg').attr('role', 'img').attr('aria-label', 'Visualization').attr('tabindex', '0')
   .attr('width', width)
   .attr('height', height);
 
