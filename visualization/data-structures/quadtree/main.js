@@ -16,7 +16,9 @@ let queryRect = null; // {x, y, w, h}
 
 // Render function
 function render() {
-    visualizer.clear();
+    const points = [];
+    const lines = [];
+    const rects = [];
 
     // We need to traverse the tree to draw it.
     // Since Quadtree structure is private, we rely on `toJson` or specific traversal if exposed.
@@ -27,47 +29,66 @@ function render() {
     const root = JSON.parse(tree.toJson());
 
     // Recursive draw
-    drawNode(root);
+    drawNode(root, points, rects);
 
     // Draw query rect if any
     if (queryRect) {
-        visualizer.drawRect(queryRect.x, queryRect.y, queryRect.w, queryRect.h, {
-            stroke: 'green',
-            strokeWidth: 2,
-            fill: 'rgba(0, 255, 0, 0.1)'
+        rects.push({
+            id: 'query-rect',
+            x: queryRect.x, y: queryRect.y, w: queryRect.w, h: queryRect.h,
+            style: {
+                stroke: 'green',
+                strokeWidth: 2,
+                fill: 'rgba(0, 255, 0, 0.1)'
+            }
         });
 
         // Highlight queried points
         const found = tree.query(queryRect.x, queryRect.y, queryRect.w, queryRect.h);
         for (const p of found) {
-            visualizer.drawPoint(p.x, p.y, { fill: 'green', radius: 4 });
+            points.push({
+                id: `found-${p.x}-${p.y}`,
+                x: p.x, y: p.y,
+                style: { fill: 'green', radius: 4 }
+            });
         }
 
         statsDisplay.textContent = `Points in tree: ${countPoints(root)}. Points in query: ${found.length}`;
     } else {
         statsDisplay.textContent = `Points in tree: ${countPoints(root)}`;
     }
+
+    visualizer.update({ points, lines, rects });
 }
 
-function drawNode(node) {
+function drawNode(node, points, rects) {
     if (!node) return;
 
     // Draw boundary
-    visualizer.drawRect(node.x, node.y, node.w, node.h, { stroke: '#ddd' });
+    const rectId = `rect-${node.x}-${node.y}-${node.w}-${node.h}`;
+    rects.push({
+        id: rectId,
+        x: node.x, y: node.y, w: node.w, h: node.h,
+        style: { stroke: '#ddd', fill: 'none' }
+    });
 
     // Draw points
     if (node.points) {
         for (const p of node.points) {
-            visualizer.drawPoint(p.x, p.y, { fill: '#3498db' });
+            points.push({
+                id: `point-${p.x}-${p.y}`,
+                x: p.x, y: p.y,
+                style: { fill: '#3498db' }
+            });
         }
     }
 
     // Recurse
     if (node.nw) {
-        drawNode(node.nw);
-        drawNode(node.ne);
-        drawNode(node.sw);
-        drawNode(node.se);
+        drawNode(node.nw, points, rects);
+        drawNode(node.ne, points, rects);
+        drawNode(node.sw, points, rects);
+        drawNode(node.se, points, rects);
     }
 }
 
@@ -107,14 +128,14 @@ document.getElementById('btn-clear').addEventListener('click', () => {
 });
 
 // Mouse Interaction
-const svgNode = visualizer.svg.node();
+const bgNode = visualizer.bg.node();
 
 let isDragging = false;
 let startX, startY;
 
-d3.select(svgNode).on('mousedown', (event) => {
+d3.select(bgNode).on('mousedown', (event) => {
     if (modeSelect.value === 'query') {
-        const [x, y] = d3.pointer(event);
+        const [x, y] = d3.pointer(event, visualizer.g.node());
         startX = x;
         startY = y;
         isDragging = true;
@@ -123,9 +144,9 @@ d3.select(svgNode).on('mousedown', (event) => {
     }
 });
 
-d3.select(svgNode).on('mousemove', (event) => {
+d3.select(bgNode).on('mousemove', (event) => {
     if (isDragging && modeSelect.value === 'query') {
-        const [x, y] = d3.pointer(event);
+        const [x, y] = d3.pointer(event, visualizer.g.node());
         const minX = Math.min(startX, x);
         const minY = Math.min(startY, y);
         const w = Math.abs(x - startX);
@@ -135,16 +156,16 @@ d3.select(svgNode).on('mousemove', (event) => {
     }
 });
 
-d3.select(svgNode).on('mouseup', (event) => {
+d3.select(bgNode).on('mouseup', (event) => {
     if (isDragging) {
         isDragging = false;
     }
 });
 
-d3.select(svgNode).on('click', (event) => {
+d3.select(bgNode).on('click', (event) => {
     if (modeSelect.value === 'insert' && !isDragging) {
         // Simple click to insert
-        const [x, y] = d3.pointer(event);
+        const [x, y] = d3.pointer(event, visualizer.g.node());
         tree.insert({ x, y });
         render();
     }

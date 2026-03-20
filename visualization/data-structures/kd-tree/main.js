@@ -14,24 +14,43 @@ const modeSelect = document.getElementById('mode-select');
 let nearestQuery = null; // {x, y}
 
 function render() {
-    visualizer.clear();
+    const points = [];
+    const lines = [];
+    const rects = [];
 
     // Draw boundary box
-    visualizer.drawRect(0, 0, width, height, { stroke: '#000' });
+    rects.push({
+        id: 'boundary',
+        x: 0, y: 0, w: width, h: height,
+        style: { stroke: '#000', fill: 'none' }
+    });
 
     const root = JSON.parse(tree.toJson());
 
     // Recursive draw. We need to pass down the bounds to know where to draw the splitting line.
-    drawNode(root, { x: 0, y: 0, w: width, h: height });
+    drawNode(root, { x: 0, y: 0, w: width, h: height }, points, lines);
 
     if (nearestQuery) {
-        visualizer.drawPoint(nearestQuery.x, nearestQuery.y, { fill: 'orange', radius: 5 });
+        points.push({
+            id: 'nearest-query-pt',
+            x: nearestQuery.x, y: nearestQuery.y,
+            style: { fill: 'orange', radius: 5 }
+        });
 
         // Find nearest
         const nearest = tree.nearest([nearestQuery.x, nearestQuery.y]);
         if (nearest) {
-            visualizer.drawLine(nearestQuery.x, nearestQuery.y, nearest.point[0], nearest.point[1], { stroke: 'orange', strokeWidth: 2 });
-            visualizer.drawPoint(nearest.point[0], nearest.point[1], { fill: 'green', radius: 6 }); // Highlight nearest
+            lines.push({
+                id: 'nearest-line',
+                x1: nearestQuery.x, y1: nearestQuery.y,
+                x2: nearest.point[0], y2: nearest.point[1],
+                style: { stroke: 'orange', strokeWidth: 2 }
+            });
+            points.push({
+                id: 'nearest-result-pt',
+                x: nearest.point[0], y: nearest.point[1],
+                style: { fill: 'green', radius: 6 }
+            });
 
             statsDisplay.textContent = `Size: ${tree.size}. Nearest distance: ${nearest.dist.toFixed(2)}`;
         } else {
@@ -40,41 +59,50 @@ function render() {
     } else {
         statsDisplay.textContent = `Size: ${tree.size}`;
     }
+
+    visualizer.update({ points, lines, rects });
 }
 
-function drawNode(node, bounds) {
+function drawNode(node, bounds, points, lines) {
     if (!node) return;
 
     const axis = node.axis; // 0 for x (vertical line), 1 for y (horizontal line)
     const p = node.point;
+    const nodeId = `node-${p[0].toFixed(2)}-${p[1].toFixed(2)}`;
 
     // Draw the point
-    visualizer.drawPoint(p[0], p[1], { fill: '#3498db', radius: 4 });
+    points.push({
+        id: nodeId,
+        x: p[0], y: p[1],
+        style: { fill: '#3498db', radius: 4 }
+    });
 
     // Draw the splitting line clipped to bounds
     if (axis === 0) {
         // Vertical line at p[0]
-        visualizer.drawLine(p[0], bounds.y, p[0], bounds.y + bounds.h, { stroke: '#ccc' });
+        lines.push({
+            id: `line-${nodeId}`,
+            x1: p[0], y1: bounds.y, x2: p[0], y2: bounds.y + bounds.h,
+            style: { stroke: '#ccc' }
+        });
 
         // Recurse left: x < p[0]
-        // Left child bounds: x, y, w = p[0] - x, h
-        drawNode(node.left, { x: bounds.x, y: bounds.y, w: p[0] - bounds.x, h: bounds.h });
-
+        drawNode(node.left, { x: bounds.x, y: bounds.y, w: p[0] - bounds.x, h: bounds.h }, points, lines);
         // Recurse right: x >= p[0]
-        // Right child bounds: p[0], y, w = (x+w) - p[0], h
-        drawNode(node.right, { x: p[0], y: bounds.y, w: (bounds.x + bounds.w) - p[0], h: bounds.h });
+        drawNode(node.right, { x: p[0], y: bounds.y, w: (bounds.x + bounds.w) - p[0], h: bounds.h }, points, lines);
 
     } else {
         // Horizontal line at p[1]
-        visualizer.drawLine(bounds.x, p[1], bounds.x + bounds.w, p[1], { stroke: '#ccc' });
+        lines.push({
+            id: `line-${nodeId}`,
+            x1: bounds.x, y1: p[1], x2: bounds.x + bounds.w, y2: p[1],
+            style: { stroke: '#ccc' }
+        });
 
         // Recurse left (in KDTree left means smaller coordinate): y < p[1]
-        // Bottom/Top depends on coord system. y=0 is top.
-        // Left child (smaller y) is top part visually.
-        drawNode(node.left, { x: bounds.x, y: bounds.y, w: bounds.w, h: p[1] - bounds.y });
-
+        drawNode(node.left, { x: bounds.x, y: bounds.y, w: bounds.w, h: p[1] - bounds.y }, points, lines);
         // Recurse right (larger y) is bottom part.
-        drawNode(node.right, { x: bounds.x, y: p[1], w: bounds.w, h: (bounds.y + bounds.h) - p[1] });
+        drawNode(node.right, { x: bounds.x, y: p[1], w: bounds.w, h: (bounds.y + bounds.h) - p[1] }, points, lines);
     }
 }
 
@@ -100,9 +128,10 @@ document.getElementById('btn-clear').addEventListener('click', () => {
 });
 
 // Interaction
-const svgNode = visualizer.svg.node();
-d3.select(svgNode).on('click', (event) => {
-    const [x, y] = d3.pointer(event);
+const bgNode = visualizer.bg.node();
+d3.select(bgNode).on('click', (event) => {
+    // Get pointer relative to the g element to account for zoom/pan
+    const [x, y] = d3.pointer(event, visualizer.g.node());
     if (modeSelect.value === 'insert') {
         tree.insert([x, y]);
         render();
@@ -112,9 +141,10 @@ d3.select(svgNode).on('click', (event) => {
     }
 });
 
-d3.select(svgNode).on('mousemove', (event) => {
+d3.select(bgNode).on('mousemove', (event) => {
     if (modeSelect.value === 'nearest') {
-        const [x, y] = d3.pointer(event);
+        // Get pointer relative to the g element to account for zoom/pan
+        const [x, y] = d3.pointer(event, visualizer.g.node());
         nearestQuery = { x, y };
         render();
     }
