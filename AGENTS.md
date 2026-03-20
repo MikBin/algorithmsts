@@ -1,5 +1,45 @@
 # AGENTS.md
 
+## Project Overview
+
+**algorithmsts** (`@mikbin80/algorithmsts`) is a comprehensive, production-ready library of classic algorithms and data structures implemented in TypeScript. It is organized into modular entry points: `core`, `data-structures`, `algorithms`, `graphs`, `performance`, `vector-similarity`, `types`, and `interfaces`.
+
+- **Language & Runtime**: TypeScript (strict mode), targeting Node.js ≥ 16. ESM (`"type": "module"`) with CJS compatibility via Rollup.
+- **Build**: Rollup with `rollup.config.ts`.
+- **Test Framework**: Vitest (`vitest run`). Tests live in `test/` mirroring the `src/` structure.
+- **Linting**: ESLint + Prettier via `eslint.config.cjs` and `.eslintrc.json`.
+- **Commits**: Conventional Commits enforced by commitlint + Husky + commitizen (`cz-git`).
+
+## Coding Standards
+
+### Pure Functions
+
+All algorithm and data-structure utility functions **must be pure functions**:
+
+- No mutation of input arguments. Always return new values or copies.
+- No side effects (no I/O, no global/module-level mutable state, no `Date.now()` or `Math.random()` without injection).
+- Deterministic: the same inputs must always produce the same outputs.
+- Class-based data structures (e.g., `LinkedList`, `AdjacencyListGraph`) encapsulate internal state but their public methods must not produce hidden side effects beyond the instance itself.
+
+### Test Coverage
+
+Every change **must** include or update tests to maintain **full test coverage**:
+
+- Every exported function, class, and method must have corresponding unit tests.
+- Tests must cover: normal cases, edge cases (empty inputs, single-element, duplicates), boundary conditions, and error/invalid-input scenarios.
+- Run tests with `npm test` (unit) or `npm run test:prod` (with coverage report).
+- New modules must have a matching test file in `test/<module>/` before being considered complete.
+- Do **not** merge or consider work done if any test is failing or coverage regresses.
+
+### General Rules
+
+- Use TypeScript generics for type-safe, reusable implementations.
+- Prefer `readonly` parameters and `Readonly<T>` types where possible to reinforce immutability.
+- Document time and space complexity in JSDoc for every public algorithm/method.
+- Follow existing code conventions: check neighboring files for patterns, imports, and naming before writing new code.
+
+---
+
 # Jules MCP Orchestrator Mode
 
 This document describes how to use the jules-mcp server in orchestrator mode where a local agent coordinates work with Jules as a remote coding assistant.
