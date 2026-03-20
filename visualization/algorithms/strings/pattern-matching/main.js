@@ -16,7 +16,8 @@ const elements = {
     loadBtn: document.getElementById('load-btn'),
     vizArea: document.getElementById('visualization'),
     infoPanel: document.getElementById('info-panel'),
-    auxData: document.getElementById('aux-data')
+    auxData: document.getElementById('aux-data'),
+    educationalPanel: document.getElementById('educational-panel')
 };
 
 const animationController = new AnimationController();
@@ -44,6 +45,8 @@ animationController.reset = () => {
     originalReset();
     elements.vizArea.innerHTML = '';
     elements.auxData.innerHTML = '';
+    elements.educationalPanel.innerHTML = '';
+    elements.educationalPanel.style.display = 'none';
     elements.infoPanel.innerText = 'Select an algorithm and click Load / Compute.';
     elements.textInput.disabled = false;
     elements.patternInput.disabled = false;
@@ -128,6 +131,7 @@ function prepareKMP() {
     while (i < text.length) {
         computedSteps.push({
             type: 'compare',
+            edu: `We are comparing the current character in the text with the current character in the pattern. If they match, we move both pointers forward. If they mismatch, we use the LPS (Longest Proper Prefix which is also Suffix) array to skip redundant comparisons.`,
             message: `Comparing text[${i}] ('${text[i]}') with pattern[${j}] ('${pattern[j]}')`,
             i: i,
             j: j,
@@ -149,6 +153,7 @@ function prepareKMP() {
                 computedSteps.push({
                     type: 'reset',
                     message: `Pattern found. Resetting j to lps[${j}] = ${lps[j]}`,
+                    edu: `After a complete match, we use the LPS array to find the next possible start position for the pattern, overlapping with the current match if possible.`,
                     i: i,
                     j: j
                 });
@@ -160,6 +165,7 @@ function prepareKMP() {
                 computedSteps.push({
                     type: 'mismatch',
                     message: `Mismatch. j was ${oldJ}, now j = lps[${oldJ-1}] = ${j}`,
+                    edu: `Because we had a mismatch at pattern index ${oldJ}, we know the characters before it matched. The LPS array tells us that the longest proper prefix that is also a suffix up to index ${oldJ-1} has length ${j}. We can safely shift the pattern and resume matching from pattern index ${j} without re-evaluating the known matching characters.`,
                     i: i,
                     j: j
                 });
@@ -168,6 +174,7 @@ function prepareKMP() {
                 computedSteps.push({
                     type: 'mismatch',
                     message: `Mismatch at start of pattern. Incrementing text index.`,
+                    edu: `We had a mismatch at the very first character of the pattern. We cannot use the LPS array to skip, so we simply move the text pointer forward by one.`,
                     i: i,
                     j: j
                 });
@@ -348,6 +355,12 @@ function renderLPS(lps, pattern) {
 
 function renderStep(step) {
     elements.infoPanel.innerText = step.message;
+    if (step.edu) {
+        elements.educationalPanel.innerText = step.edu;
+        elements.educationalPanel.style.display = 'block';
+    } else {
+        elements.educationalPanel.style.display = 'none';
+    }
 
     // Clear previous highlights
     document.querySelectorAll('.cell').forEach(c => c.classList.remove('match', 'mismatch', 'current'));

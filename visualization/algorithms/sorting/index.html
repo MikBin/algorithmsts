@@ -20,7 +20,7 @@
 
     <div class="controls">
         <label for="algo-select">Algorithm:</label>
-        <select id="algo-select">
+        <select id="algo-select" aria-label="Algo Select">
             <option value="quickSort">Quick Sort</option>
             <option value="mergeSort">Merge Sort</option>
             <option value="heapSort">Heap Sort</option>
@@ -29,10 +29,10 @@
         </select>
 
         <label for="array-size">Size:</label>
-        <input type="range" id="array-size" min="5" max="100" value="50">
+        <input type="range" id="array-size" min="5" max="100" value="50" aria-label="Array Size">
         <span id="array-size-display">50</span>
 
-        <button id="btn-generate">Generate New Array</button>
+        <button id="btn-generate" aria-label="Generate New Array">Generate New Array</button>
     </div>
 
     <div id="playback-container"></div>

@@ -7,7 +7,7 @@ const width = container.clientWidth;
 const height = container.clientHeight;
 
 // D3 Setup
-const svg = d3.select('#tree-container').append('svg')
+const svg = d3.select('#tree-container').append('svg').attr('role', 'img').attr('aria-label', 'Visualization').attr('tabindex', '0')
     .attr('width', width)
     .attr('height', height)
     .call(d3.zoom().on('zoom', (event) => {

@@ -8,7 +8,7 @@ export class TreeVisualizer {
         const width = this.container.node().getBoundingClientRect().width || 800;
         const height = this.container.node().getBoundingClientRect().height || 600;
 
-        this.svg = this.container.append('svg')
+        this.svg = this.container.append('svg').attr('role', 'img').attr('aria-label', 'Visualization').attr('tabindex', '0')
             .attr('width', '100%')
             .attr('height', '100%')
             .attr('viewBox', [0, 0, width, height]);
@@ -181,7 +181,7 @@ export class BarChartVisualizer {
         this.width = (rect.width || 800) - this.margin.left - this.margin.right;
         this.height = (rect.height || 400) - this.margin.top - this.margin.bottom;
 
-        this.svg = this.container.append('svg')
+        this.svg = this.container.append('svg').attr('role', 'img').attr('aria-label', 'Visualization').attr('tabindex', '0')
             .attr('width', this.width + this.margin.left + this.margin.right)
             .attr('height', this.height + this.margin.top + this.margin.bottom)
             .append('g')

@@ -10,7 +10,7 @@ export class SpatialVisualizer {
         this.container.selectAll('*').remove();
 
         this.svg = this.container
-            .append('svg')
+            .append('svg').attr('role', 'img').attr('aria-label', 'Visualization').attr('tabindex', '0')
             .attr('width', width)
             .attr('height', height)
             .style('border', '1px solid #ccc')
