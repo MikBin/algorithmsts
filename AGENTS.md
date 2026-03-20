@@ -124,6 +124,99 @@ Get detailed info about a single activity:
 
 ---
 
+## Sleep MCP Integration for 120-second Polling
+
+The sleep-mcp server can be used alongside jules-mcp for simple polling workflows:
+
+1. **Create a Jules session** with `jules_create_session`
+2. **Wait 120 seconds** using the `sleep` tool with `milliseconds: 120000`
+3. **Check status** with `jules_get_session` or `jules_list_activities`
+4. **Repeat** until session reaches `COMPLETED`, `FAILED`, or `AWAITING_USER_FEEDBACK`
+
+### Example Workflow
+
+```json
+// Step 1: Create session
+{
+  "owner": "MikBin",
+  "repo": "algorithmsts",
+  "branch": "feat/new-feature",
+  "prompt": "Implement feature X...",
+  "automationMode": "AUTO_CREATE_PR"
+}
+
+// Step 2: Wait 120 seconds
+{
+  "milliseconds": 120000
+}
+
+// Step 3: Check status
+{
+  "session_id": "sessions/abc123"
+}
+
+// Step 4: Repeat steps 2-3 until terminal state
+```
+
+### Alternative: Built-in Monitor Tool
+
+For more robust monitoring, use `jules_monitor_session` which handles polling internally with progress notifications:
+
+```json
+{
+  "session_id": "sessions/abc123",
+  "poll_interval_seconds": 120
+}
+```
+
+---
+
+## Monitoring Sessions (Manual)
+
+Use `jules_list_sessions` with pagination:
+
+```json
+{
+  "pageSize": 10,
+  "pageToken": "optional-token-from-previous-response"
+}
+```
+
+### Getting Session Details
+
+Use `jules_get_session` to fetch metadata, state, and outputs:
+
+```json
+{
+  "session_id": "the-session-id"
+}
+```
+
+### Listing Activities
+
+Monitor progress with `jules_list_activities`:
+
+```json
+{
+  "session_id": "the-session-id",
+  "pageSize": 20,
+  "pageToken": "optional-token"
+}
+```
+
+### Getting Specific Activity
+
+Get detailed info about a single activity:
+
+```json
+{
+  "session_id": "the-session-id",
+  "activity_id": "the-activity-id"
+}
+```
+
+---
+
 ## Working with Sources (Repositories)
 
 ### List Available Sources
