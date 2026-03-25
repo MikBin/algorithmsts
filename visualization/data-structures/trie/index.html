@@ -10,7 +10,7 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f4f6f9;
+            background-color: var(--color-background-alt);
         }
         .container {
             background: white;
@@ -26,13 +26,13 @@
         }
         .controls input {
             padding: 8px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--color-border);
             border-radius: 4px;
             font-size: 16px;
         }
         .controls button {
             padding: 8px 16px;
-            background-color: #3498db;
+            background-color: var(--color-default);
             color: white;
             border: none;
             border-radius: 4px;
@@ -40,13 +40,13 @@
             font-size: 16px;
         }
         .controls button:hover {
-            background-color: #2980b9;
+            background-color: var(--color-primary-dark);
         }
         .controls button.secondary {
-            background-color: #95a5a6;
+            background-color: var(--color-text-muted);
         }
         .controls button.secondary:hover {
-            background-color: #7f8c8d;
+            background-color: var(--color-text-muted);
         }
         #tree-container {
             width: 100%;
@@ -54,16 +54,16 @@
             border: 1px solid #eee;
             border-radius: 4px;
             overflow: hidden;
-            background: #fff;
+            background: var(--color-background);
         }
         .node circle {
-            fill: #fff;
-            stroke: #3498db;
+            fill: var(--color-background);
+            stroke: var(--color-default);
             stroke-width: 2px;
         }
         .node.terminal circle {
-            fill: #a8e6cf;
-            stroke: #2ecc71;
+            fill: var(--color-success);
+            stroke: var(--color-sorted);
         }
         .node text {
             font: 14px sans-serif;
@@ -72,12 +72,12 @@
         }
         .link {
             fill: none;
-            stroke: #ccc;
+            stroke: var(--color-border);
             stroke-width: 1.5px;
         }
         .link-label {
             font-size: 12px;
-            fill: #666;
+            fill: var(--color-text-muted);
             background: white;
         }
     </style>

@@ -126,6 +126,11 @@ class BTreeVisualizer extends TreeVisualizer {
 
 // Re-import diagonal
 import { diagonal } from '../../assets/common.js';
+
+const _style = getComputedStyle(document.documentElement);
+const COLOR_TEXT_DARK = _style.getPropertyValue('--color-text-dark').trim();
+const COLOR_BACKGROUND = _style.getPropertyValue('--color-background').trim();
+
 BTreeVisualizer.prototype.diagonal = diagonal;
 
 // Also need to patch the link update logic in update() because I overwrote it.
@@ -163,15 +168,15 @@ BTreeVisualizer.prototype.update = function(rootData) {
         nodeEnter.append('rect')
             .attr('rx', 5)
             .attr('ry', 5)
-            .style('fill', '#fff')
-            .style('stroke', '#2c3e50')
+            .style('fill', COLOR_BACKGROUND)
+            .style('stroke', COLOR_TEXT_DARK)
             .style('stroke-width', '2px');
 
         nodeEnter.append('text')
             .attr('dy', '.35em')
             .attr('text-anchor', 'middle')
             .style('font-size', '12px')
-            .style('fill', '#2c3e50');
+            .style('fill', COLOR_TEXT_DARK);
 
         const nodeUpdate = nodeEnter.merge(node);
 

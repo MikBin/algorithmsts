@@ -1,5 +1,12 @@
 import * as d3 from 'd3';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_DEFAULT = _style.getPropertyValue('--color-default').trim();
+const COLOR_TEXT = _style.getPropertyValue('--color-text').trim();
+const COLOR_BORDER = _style.getPropertyValue('--color-border').trim();
+const COLOR_BACKGROUND = _style.getPropertyValue('--color-background').trim();
+
+
 export class TreeVisualizer {
     constructor(selector) {
         this.container = d3.select(selector);
@@ -75,12 +82,12 @@ export class TreeVisualizer {
                 return diagonal({ source: o, target: o });
             })
             .style('fill', 'none')
-            .style('stroke', d => d.target.data.isDummy ? 'none' : '#ccc')
+            .style('stroke', d => d.target.data.isDummy ? 'none' : COLOR_BORDER)
             .style('stroke-width', '2px');
 
         link.merge(linkEnter).transition(transition)
             .attr('d', diagonal)
-            .style('stroke', d => d.target.data.isDummy ? 'none' : '#ccc');
+            .style('stroke', d => d.target.data.isDummy ? 'none' : COLOR_BORDER);
 
         link.exit().transition(transition)
             .attr('d', d => {
@@ -110,14 +117,14 @@ export class TreeVisualizer {
                     .attr('y', -20)
                     .attr('width', 1e-6)
                     .attr('height', 1e-6)
-                    .style('fill', d => d.data.isDummy ? 'none' : '#fff')
-                    .style('stroke', d => d.data.isDummy ? 'none' : '#3498db')
+                    .style('fill', d => d.data.isDummy ? 'none' : COLOR_BACKGROUND)
+                    .style('stroke', d => d.data.isDummy ? 'none' : COLOR_DEFAULT)
                     .style('stroke-width', '2px');
             } else {
                 el.append('circle')
                     .attr('r', 1e-6)
-                    .style('fill', d => d.data.isDummy ? 'none' : '#fff')
-                    .style('stroke', d => d.data.isDummy ? 'none' : '#3498db')
+                    .style('fill', d => d.data.isDummy ? 'none' : COLOR_BACKGROUND)
+                    .style('stroke', d => d.data.isDummy ? 'none' : COLOR_DEFAULT)
                     .style('stroke-width', '2px');
             }
         });
@@ -133,21 +140,21 @@ export class TreeVisualizer {
 
         nodeUpdate.select('circle')
             .attr('r', d => d.data.isDummy ? 1e-6 : 20)
-            .style('fill', d => d.data.isDummy ? 'none' : (d.data.color || '#fff'))
-            .style('stroke', d => d.data.isDummy ? 'none' : (d.data.color ? d.data.color : '#3498db'))
+            .style('fill', d => d.data.isDummy ? 'none' : (d.data.color || COLOR_BACKGROUND))
+            .style('stroke', d => d.data.isDummy ? 'none' : (d.data.color ? d.data.color : COLOR_DEFAULT))
             .style('stroke-width', d => d.data.color ? '3px' : '2px');
 
         nodeUpdate.select('rect')
             .attr('width', d => d.data.isDummy ? 1e-6 : 40)
             .attr('height', d => d.data.isDummy ? 1e-6 : 40)
-            .style('fill', d => d.data.isDummy ? 'none' : (d.data.color || '#fff'))
-            .style('stroke', d => d.data.isDummy ? 'none' : (d.data.color ? d.data.color : '#3498db'))
+            .style('fill', d => d.data.isDummy ? 'none' : (d.data.color || COLOR_BACKGROUND))
+            .style('stroke', d => d.data.isDummy ? 'none' : (d.data.color ? d.data.color : COLOR_DEFAULT))
             .style('stroke-width', d => d.data.color ? '3px' : '2px');
 
         nodeUpdate.select('text')
             .text(d => d.data.isDummy ? '' : d.data.value)
             .style('fill-opacity', d => d.data.isDummy ? 1e-6 : 1)
-            .style('fill', d => (d.data.color && d.data.color !== '#fff' && d.data.color !== 'white') ? '#fff' : '#333');
+            .style('fill', d => (d.data.color && d.data.color !== COLOR_BACKGROUND && d.data.color !== 'white') ? COLOR_BACKGROUND : COLOR_TEXT);
 
         const nodeExit = node.exit().transition(transition)
             .attr('transform', d => `translate(${d.parent ? d.parent.x : d.x},${d.parent ? d.parent.y : d.y})`)

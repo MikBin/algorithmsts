@@ -1,5 +1,11 @@
 import * as d3 from 'd3';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_BORDER_DARK = _style.getPropertyValue('--color-border-dark').trim();
+const COLOR_TEXT = _style.getPropertyValue('--color-text').trim();
+const COLOR_BACKGROUND = _style.getPropertyValue('--color-background').trim();
+
+
 export class SpatialVisualizer {
     constructor(selector, width = 600, height = 600) {
         this.width = width;
@@ -14,7 +20,7 @@ export class SpatialVisualizer {
             .attr('width', width)
             .attr('height', height)
             .style('border', '1px solid #ccc')
-            .style('background', '#fff');
+            .style('background', COLOR_BACKGROUND);
 
         // Background rect to capture click events instead of the svg element itself,
         // allowing d3.zoom on the svg.
@@ -76,7 +82,7 @@ export class SpatialVisualizer {
             .attr('width', 0)
             .attr('height', 0)
             .attr('fill', d => (d.style && d.style.fill) || 'none')
-            .attr('stroke', d => (d.style && d.style.stroke) || '#999')
+            .attr('stroke', d => (d.style && d.style.stroke) || COLOR_BORDER_DARK)
             .attr('stroke-width', d => (d.style && d.style.strokeWidth) || 1)
             .attr('stroke-dasharray', d => (d.style && d.style.strokeDasharray) || null)
             .attr('opacity', 0)
@@ -87,7 +93,7 @@ export class SpatialVisualizer {
             .attr('width', d => d.w)
             .attr('height', d => d.h)
             .attr('fill', d => (d.style && d.style.fill) || 'none')
-            .attr('stroke', d => (d.style && d.style.stroke) || '#999')
+            .attr('stroke', d => (d.style && d.style.stroke) || COLOR_BORDER_DARK)
             .attr('stroke-width', d => (d.style && d.style.strokeWidth) || 1)
             .attr('stroke-dasharray', d => (d.style && d.style.strokeDasharray) || null)
             .attr('opacity', d => (d.style && d.style.opacity !== undefined ? d.style.opacity : 1));
@@ -161,7 +167,7 @@ export class SpatialVisualizer {
             .attr('y', d => d.y)
             .text(d => d.text)
             .attr('font-size', d => (d.style && d.style.fontSize) || '10px')
-            .attr('fill', d => (d.style && d.style.fill) || '#000')
+            .attr('fill', d => (d.style && d.style.fill) || COLOR_TEXT)
             .attr('opacity', 0)
             .merge(textNodes)
             .transition(t)
@@ -169,7 +175,7 @@ export class SpatialVisualizer {
             .attr('y', d => d.y)
             .text(d => d.text)
             .attr('font-size', d => (d.style && d.style.fontSize) || '10px')
-            .attr('fill', d => (d.style && d.style.fill) || '#000')
+            .attr('fill', d => (d.style && d.style.fill) || COLOR_TEXT)
             .attr('opacity', d => (d.style && d.style.opacity !== undefined ? d.style.opacity : 1));
     }
 
@@ -181,7 +187,7 @@ export class SpatialVisualizer {
             .attr('width', w)
             .attr('height', h)
             .attr('fill', style.fill || 'none')
-            .attr('stroke', style.stroke || '#999')
+            .attr('stroke', style.stroke || COLOR_BORDER_DARK)
             .attr('stroke-width', style.strokeWidth || 1)
             .attr('opacity', style.opacity || 1);
     }
@@ -214,6 +220,6 @@ export class SpatialVisualizer {
             .attr('y', y)
             .text(text)
             .attr('font-size', style.fontSize || '10px')
-            .attr('fill', style.fill || '#000');
+            .attr('fill', style.fill || COLOR_TEXT);
     }
 }

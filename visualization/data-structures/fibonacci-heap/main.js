@@ -2,6 +2,10 @@ import * as d3 from 'd3';
 import { FibonacciHeap } from '../../../src/data-structures/fibonacci-heap/fibonacciHeap.ts';
 import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_BORDER = _style.getPropertyValue('--color-border').trim();
+
+
 const compare = (a, b) => a - b;
 const heap = new FibonacciHeap(compare);
 const visualizer = new TreeVisualizer('#tree-container');
@@ -80,7 +84,7 @@ function update() {
              visualizer.svg.selectAll('path.link')
                 .filter(d => d.parent && d.parent.data.id === 'virtual-root')
                 .style('stroke-dasharray', '5,5')
-                .style('stroke', '#ccc');
+                .style('stroke', COLOR_BORDER);
 
         } else {
              visualizer.update(null);

@@ -2,6 +2,15 @@ import * as d3 from 'd3';
 import { RTree } from '../../../src/data-structures/r-tree/index.ts';
 import { SpatialVisualizer } from '../spatial/spatial-visualizer.js';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_SORTED = _style.getPropertyValue('--color-sorted').trim();
+const COLOR_COMPARING = _style.getPropertyValue('--color-comparing').trim();
+const COLOR_ACTIVE = _style.getPropertyValue('--color-active').trim();
+const COLOR_DEFAULT = _style.getPropertyValue('--color-default').trim();
+const COLOR_VISITED = _style.getPropertyValue('--color-visited').trim();
+const COLOR_HIGHLIGHT = _style.getPropertyValue('--color-highlight').trim();
+
+
 const width = 600;
 const height = 600;
 
@@ -63,7 +72,7 @@ function render() {
     visualizer.update({ points, lines, rects });
 }
 
-const colors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db', '#9b59b6'];
+const colors = [COLOR_COMPARING, COLOR_ACTIVE, COLOR_HIGHLIGHT, COLOR_SORTED, COLOR_DEFAULT, COLOR_VISITED];
 
 function drawNode(node, depth, rects) {
     if (!node) return;

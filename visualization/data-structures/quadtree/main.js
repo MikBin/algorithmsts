@@ -2,6 +2,10 @@ import * as d3 from 'd3';
 import { Quadtree } from '../../../src/data-structures/quadtree/index.ts';
 import { SpatialVisualizer } from '../spatial/spatial-visualizer.js';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_DEFAULT = _style.getPropertyValue('--color-default').trim();
+
+
 const width = 600;
 const height = 600;
 
@@ -78,7 +82,7 @@ function drawNode(node, points, rects) {
             points.push({
                 id: `point-${p.x}-${p.y}`,
                 x: p.x, y: p.y,
-                style: { fill: '#3498db' }
+                style: { fill: COLOR_DEFAULT }
             });
         }
     }

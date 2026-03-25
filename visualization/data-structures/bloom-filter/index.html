@@ -8,19 +8,19 @@
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
-        color: #333;
+        color: var(--color-text);
         max-width: 1000px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #f4f6f9;
+        background-color: var(--color-background-alt);
       }
       h1 {
-        color: #2c3e50;
+        color: var(--color-text-dark);
         text-align: center;
         margin-bottom: 20px;
       }
       .controls {
-        background: #fff;
+        background: var(--color-background);
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -32,14 +32,14 @@
       }
       .controls input[type="text"] {
         padding: 8px;
-        border: 1px solid #ccc;
+        border: 1px solid var(--color-border);
         border-radius: 4px;
         flex-grow: 1;
         min-width: 200px;
       }
       .controls button {
         padding: 8px 15px;
-        background-color: #3498db;
+        background-color: var(--color-default);
         color: white;
         border: none;
         border-radius: 4px;
@@ -47,19 +47,19 @@
         transition: background-color 0.2s;
       }
       .controls button:hover {
-        background-color: #2980b9;
+        background-color: var(--color-primary-dark);
       }
       .controls button.clear-btn {
-        background-color: #e74c3c;
+        background-color: var(--color-comparing);
       }
       .controls button.clear-btn:hover {
-        background-color: #c0392b;
+        background-color: var(--color-danger);
       }
       .controls button.check-btn {
-        background-color: #2ecc71;
+        background-color: var(--color-sorted);
       }
       .controls button.check-btn:hover {
-        background-color: #27ae60;
+        background-color: var(--color-sorted-stroke);
       }
       .settings {
         display: flex;
@@ -68,7 +68,7 @@
       }
       .settings label {
         font-size: 0.9em;
-        color: #666;
+        color: var(--color-text-muted);
       }
       .settings input {
         width: 60px;
@@ -76,7 +76,7 @@
       }
 
       .stats {
-        background: #fff;
+        background: var(--color-background);
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -91,11 +91,11 @@
       .stats .value {
         font-size: 1.2em;
         font-weight: bold;
-        color: #2c3e50;
+        color: var(--color-text-dark);
       }
 
       .log-container {
-        background: #fff;
+        background: var(--color-background);
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -121,7 +121,7 @@
       }
 
       #viz-container {
-        background: #fff;
+        background: var(--color-background);
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -129,7 +129,7 @@
       }
 
       .bit-cell {
-        stroke: #ccc;
+        stroke: var(--color-border);
         stroke-width: 1px;
         transition: fill 0.3s;
       }
@@ -143,7 +143,7 @@
       .bit-index {
         font-family: monospace;
         font-size: 10px;
-        fill: #999;
+        fill: var(--color-border-dark);
         text-anchor: middle;
         pointer-events: none;
       }
@@ -202,7 +202,7 @@
     </div>
 
     <div class="log-container" id="log-container">
-      <div style="color: #999; font-style: italic;">Enter an item and click Add or Check to see hash functions in action...</div>
+      <div style="color: var(--color-border-dark); font-style: italic;">Enter an item and click Add or Check to see hash functions in action...</div>
     </div>
 
     <div id="viz-container"></div>
