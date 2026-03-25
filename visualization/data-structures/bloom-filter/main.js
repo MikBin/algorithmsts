@@ -1,6 +1,16 @@
 import * as d3 from 'd3';
 import { BloomFilter, defaultHash } from '../../../src/data-structures/bloom-filter/index.ts';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_SORTED = _style.getPropertyValue('--color-sorted').trim();
+const COLOR_COMPARING = _style.getPropertyValue('--color-comparing').trim();
+const COLOR_DEFAULT = _style.getPropertyValue('--color-default').trim();
+const COLOR_BACKGROUND_ALT = _style.getPropertyValue('--color-background-alt').trim();
+const COLOR_TEXT = _style.getPropertyValue('--color-text').trim();
+const COLOR_BORDER = _style.getPropertyValue('--color-border').trim();
+const COLOR_BACKGROUND = _style.getPropertyValue('--color-background').trim();
+
+
 let m = 50;
 let k = 3;
 let bloomFilter = new BloomFilter(m, k);
@@ -44,7 +54,7 @@ function updateViz() {
     .attr('height', bitHeight)
     .attr('rx', 3)
     .attr('ry', 3)
-    .attr('fill', '#ecf0f1')
+    .attr('fill', COLOR_BACKGROUND_ALT)
     .on('mouseover', (event, d) => {
       if (d.addedBy.length > 0) {
         tooltip.style('opacity', 1)
@@ -60,7 +70,7 @@ function updateViz() {
     .transition(t)
     .attr('x', d => margin.left + d.index * bitWidth)
     .attr('width', bitWidth - 2)
-    .attr('fill', d => d.set ? '#2ecc71' : '#ecf0f1'); // Default filled color
+    .attr('fill', d => d.set ? COLOR_SORTED : COLOR_BACKGROUND_ALT); // Default filled color
 
   cells.exit().remove();
 
@@ -74,12 +84,12 @@ function updateViz() {
     .attr('x', d => margin.left + d.index * bitWidth + (bitWidth - 2) / 2)
     .attr('y', margin.top + bitHeight / 2)
     .text(d => d.set ? '1' : '0')
-    .attr('fill', d => d.set ? '#fff' : '#333')
+    .attr('fill', d => d.set ? COLOR_BACKGROUND : COLOR_TEXT)
     .merge(texts)
     .transition(t)
     .attr('x', d => margin.left + d.index * bitWidth + (bitWidth - 2) / 2)
     .text(d => d.set ? '1' : '0')
-    .attr('fill', d => d.set ? '#fff' : '#333');
+    .attr('fill', d => d.set ? COLOR_BACKGROUND : COLOR_TEXT);
 
   texts.exit().remove();
 
@@ -145,7 +155,7 @@ function logAction(item, indices, action) {
   const entry = logContainer.insert('div', ':first-child')
     .attr('class', 'log-entry');
 
-  const actionColor = action === 'Check' ? '#3498db' : '#2ecc71';
+  const actionColor = action === 'Check' ? COLOR_DEFAULT : COLOR_SORTED;
 
   entry.append('strong')
     .style('color', actionColor)
@@ -163,7 +173,7 @@ function logAction(item, indices, action) {
     entry.append('span')
       .style('margin-left', '10px')
       .style('font-weight', 'bold')
-      .style('color', isPresent ? '#2ecc71' : '#e74c3c')
+      .style('color', isPresent ? COLOR_SORTED : COLOR_COMPARING)
       .text(` Result: ${isPresent ? 'Might contain (True)' : 'Definitely not (False)'}`);
   }
 }
@@ -177,7 +187,7 @@ async function highlightBits(indices, isCheck = false) {
       .filter(d => d.index === idx)
       .transition().duration(200)
       .attr('fill', colors(i))
-      .attr('stroke', '#333')
+      .attr('stroke', COLOR_TEXT)
       .attr('stroke-width', 2);
 
     await new Promise(r => setTimeout(r, 400));
@@ -186,9 +196,9 @@ async function highlightBits(indices, isCheck = false) {
     svg.selectAll('.bit-cell')
       .filter(d => d.index === idx)
       .transition().duration(200)
-      .attr('stroke', '#ccc')
+      .attr('stroke', COLOR_BORDER)
       .attr('stroke-width', 1)
-      .attr('fill', d => d.set ? '#2ecc71' : '#ecf0f1');
+      .attr('fill', d => d.set ? COLOR_SORTED : COLOR_BACKGROUND_ALT);
   }
 }
 

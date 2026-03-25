@@ -2,6 +2,11 @@ import * as d3 from 'd3';
 import { RedBlackTree } from '../../../src/data-structures/red-black-tree/index.ts';
 import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_COMPARING = _style.getPropertyValue('--color-comparing').trim();
+const COLOR_TEXT_DARK = _style.getPropertyValue('--color-text-dark').trim();
+
+
 const tree = new RedBlackTree();
 const visualizer = new TreeVisualizer('#tree-container');
 
@@ -29,7 +34,7 @@ function convertToHierarchy(node, idCounter = { val: 0 }) {
 
   const hierarchyNode = {
     value: node.value,
-    color: node.color === 'red' ? '#e74c3c' : '#2c3e50', // Map to actual hex colors for generic visualization
+    color: node.color === 'red' ? COLOR_COMPARING : COLOR_TEXT_DARK, // Map to actual hex colors for generic visualization
     id: idCounter.val++,
     children: []
   };

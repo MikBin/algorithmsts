@@ -2,6 +2,22 @@
 import { createApp, ref, computed, onMounted, watch, h } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { analysisResults } from './similarity-data.js';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_SORTED = _style.getPropertyValue('--color-sorted').trim();
+const COLOR_COMPARING = _style.getPropertyValue('--color-comparing').trim();
+const COLOR_ACTIVE = _style.getPropertyValue('--color-active').trim();
+const COLOR_DEFAULT = _style.getPropertyValue('--color-default').trim();
+const COLOR_PRIMARY_DARK = _style.getPropertyValue('--color-primary-dark').trim();
+const COLOR_VISITED = _style.getPropertyValue('--color-visited').trim();
+const COLOR_HIGHLIGHT = _style.getPropertyValue('--color-highlight').trim();
+const COLOR_SUCCESS = _style.getPropertyValue('--color-success').trim();
+const COLOR_VISITED_BG = _style.getPropertyValue('--color-visited-bg').trim();
+const COLOR_DANGER = _style.getPropertyValue('--color-danger').trim();
+const COLOR_BACKGROUND_HOVER = _style.getPropertyValue('--color-background-hover').trim();
+const COLOR_TEXT_MUTED = _style.getPropertyValue('--color-text-muted').trim();
+const COLOR_TEXT_DARK = _style.getPropertyValue('--color-text-dark').trim();
+
+
 // --- Helpers ---
 
 const formatNumber = (num) => {
@@ -241,15 +257,15 @@ const SimilarityCalculator = {
                    if (isSimilarity) {
                        // Map [-1, 1] to color? Or [0, 1]?
                        // Simple thresholding
-                       if (res >= 0.8) color = '#d4edda'; // Greenish
-                       else if (res >= 0.5) color = '#fff3cd'; // Yellowish
-                       else color = '#f8d7da'; // Reddish
+                       if (res >= 0.8) color = COLOR_VISITED_BG; // Greenish
+                       else if (res >= 0.5) color = COLOR_BACKGROUND_HOVER; // Yellowish
+                       else color = COLOR_DANGER; // Reddish
                    } else if (isDistance) {
                        // Distance: 0 is best.
                        // Hard to set upper bound for "bad" without context, but let's assume < 0.5 is "good" for normalized distances,
                        // but some distances are unbounded.
                        // Let's just color 0 (identity) distinctly.
-                       if (Math.abs(res) < 0.0001) color = '#d4edda'; // Perfect match
+                       if (Math.abs(res) < 0.0001) color = COLOR_VISITED_BG; // Perfect match
                    }
 
                    if (color) {
@@ -396,7 +412,7 @@ const App = {
 
     const vectorChartData = computed(() => {
         const vectors = analysisResults.comparisonDemo.vectors;
-        const colors = ['#e74c3c', '#3498db', '#2ecc71', '#9b59b6', '#f1c40f'];
+        const colors = [COLOR_COMPARING, COLOR_DEFAULT, COLOR_SORTED, COLOR_VISITED, COLOR_HIGHLIGHT];
         const maxLength = Math.max(...Object.values(vectors).map((v) => v.length));
         const labels = Array.from({ length: maxLength }, (_, i) => i);
 
@@ -431,8 +447,8 @@ const App = {
             datasets: [{
                 label: 'Execution Time (ms)',
                 data: data.map(d => d.avgTime),
-                backgroundColor: '#3498db',
-                borderColor: '#2980b9',
+                backgroundColor: COLOR_DEFAULT,
+                borderColor: COLOR_PRIMARY_DARK,
                 borderWidth: 1
             }]
         };
@@ -559,7 +575,7 @@ const App = {
             'vectorSimilarityCorrelationNoStd',
             'vectorSimilarityItakuraSaito'
         ];
-        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#7f8c8d', '#8e44ad', '#e67e22', '#34495e'];
+        const colors = [COLOR_DEFAULT, COLOR_COMPARING, COLOR_SORTED, COLOR_HIGHLIGHT, COLOR_VISITED, COLOR_SUCCESS, COLOR_TEXT_MUTED, COLOR_VISITED, COLOR_ACTIVE, COLOR_TEXT_DARK];
 
         const datasets = similarityFunctions.map((funcName, index) => ({
             label: funcName.replace(/([A-Z])/g, ' $1').trim(),
@@ -603,7 +619,7 @@ const App = {
             'vectorSimilarityCorrelationNoStd',
             'vectorSimilarityItakuraSaito'
         ];
-        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#7f8c8d', '#8e44ad', '#e67e22', '#34495e'];
+        const colors = [COLOR_DEFAULT, COLOR_COMPARING, COLOR_SORTED, COLOR_HIGHLIGHT, COLOR_VISITED, COLOR_SUCCESS, COLOR_TEXT_MUTED, COLOR_VISITED, COLOR_ACTIVE, COLOR_TEXT_DARK];
 
         const datasets = similarityFunctions.map((funcName, index) => ({
             label: funcName.replace(/([A-Z])/g, ' $1').trim(),

@@ -2,6 +2,13 @@ import * as d3 from 'd3';
 import { BPlusTree } from '../../../src/data-structures/b-plus-tree/bPlusTree.ts';
 import { TreeVisualizer, parseInputInteger } from '../../assets/common.js';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_SORTED_STROKE = _style.getPropertyValue('--color-sorted-stroke').trim();
+const COLOR_TEXT_DARK = _style.getPropertyValue('--color-text-dark').trim();
+const COLOR_VISITED_BG = _style.getPropertyValue('--color-visited-bg').trim();
+const COLOR_BACKGROUND = _style.getPropertyValue('--color-background').trim();
+
+
 let order = 4; // Min t
 // BPlusTree implementation uses 'order' as MAX degree or size?
 // source: `if (node.keys.length <= this.order - 1) return null; // within capacity`
@@ -45,8 +52,8 @@ class BPlusTreeVisualizer extends TreeVisualizer {
         nodeEnter.append('rect')
             .attr('rx', 5)
             .attr('ry', 5)
-            .style('fill', d => d.data.isLeaf ? '#e8f6f3' : '#fff') // Differentiate leaves
-            .style('stroke', '#2c3e50')
+            .style('fill', d => d.data.isLeaf ? COLOR_VISITED_BG : COLOR_BACKGROUND) // Differentiate leaves
+            .style('stroke', COLOR_TEXT_DARK)
             .style('stroke-width', '2px');
 
         // Node Text
@@ -54,7 +61,7 @@ class BPlusTreeVisualizer extends TreeVisualizer {
             .attr('dy', '.35em')
             .attr('text-anchor', 'middle')
             .style('font-size', '12px')
-            .style('fill', '#2c3e50');
+            .style('fill', COLOR_TEXT_DARK);
 
         const nodeUpdate = nodeEnter.merge(node);
 
@@ -67,7 +74,7 @@ class BPlusTreeVisualizer extends TreeVisualizer {
             .attr('height', 20)
             .attr('x', d => -Math.max(30, (d.data.keys.length * 25) + 10) / 2)
             .attr('y', -10)
-            .style('fill', d => d.data.isLeaf ? '#e8f6f3' : '#fff');
+            .style('fill', d => d.data.isLeaf ? COLOR_VISITED_BG : COLOR_BACKGROUND);
 
         nodeUpdate.select('text')
             .text(d => d.data.keys.join('|'));
@@ -127,7 +134,7 @@ class BPlusTreeVisualizer extends TreeVisualizer {
         const leafLinkEnter = leafLink.enter().append('path')
             .attr('class', 'leaf-link')
             .attr('d', d => `M ${d.source.x} ${d.source.y + 10} L ${d.target.x} ${d.target.y + 10}`)
-            .style('stroke', '#27ae60')
+            .style('stroke', COLOR_SORTED_STROKE)
             .style('stroke-dasharray', '4')
             .style('fill', 'none')
             .style('marker-end', 'url(#arrow)'); // Optional arrow

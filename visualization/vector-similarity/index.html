@@ -114,7 +114,7 @@
         </div>
 
         <!-- Debug Panel (Visible for testing/dev) -->
-        <div id="debug-panel" v-if="showDebug && debugInfo" style="margin-top: 10px; padding: 5px; background: #eee; font-size: 0.8em; border: 1px solid #ccc;">
+        <div id="debug-panel" v-if="showDebug && debugInfo" style="margin-top: 10px; padding: 5px; background: #eee; font-size: 0.8em; border: 1px solid var(--color-border);">
             <strong>Debug Info:</strong>
             Total: {{ debugInfo.totalItems }},
             Filtered: {{ debugInfo.filteredItems }},
@@ -129,7 +129,7 @@
           <chart-component v-if="nonlinearPerformanceData" type="bar" :data="nonlinearPerformanceData" :options="nonlinearPerformanceOptions"></chart-component>
         </div>
 
-        <div v-if="nonlinearInsights && nonlinearInsights.length" style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+        <div v-if="nonlinearInsights && nonlinearInsights.length" style="margin-top: 20px; padding: 15px; background-color: var(--color-background); border-radius: 5px;">
           <h3>Key Insights:</h3>
           <ul>
             <li v-for="(insight, i) in nonlinearInsights" :key="i">{{ insight }}</li>

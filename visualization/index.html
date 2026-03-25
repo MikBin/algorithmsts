@@ -8,19 +8,19 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--color-text);
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f4f6f9;
+            background-color: var(--color-background-alt);
         }
         h1 {
-            color: #2c3e50;
+            color: var(--color-text-dark);
             text-align: center;
             margin-bottom: 30px;
         }
         .category {
-            background: #fff;
+            background: var(--color-background);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
@@ -28,8 +28,8 @@
         }
         .category h2 {
             margin-top: 0;
-            color: #3498db;
-            border-bottom: 2px solid #ecf0f1;
+            color: var(--color-default);
+            border-bottom: 2px solid var(--color-background-alt);
             padding-bottom: 10px;
         }
         .viz-list {
@@ -44,20 +44,20 @@
             transition: background-color 0.2s;
         }
         .viz-list li:hover {
-            background-color: #f8f9fa;
+            background-color: var(--color-background);
         }
         .viz-list a {
             text-decoration: none;
-            color: #2c3e50;
+            color: var(--color-text-dark);
             font-weight: 500;
             display: block;
         }
         .viz-list a:hover {
-            color: #3498db;
+            color: var(--color-default);
         }
         .description {
             font-size: 0.9em;
-            color: #666;
+            color: var(--color-text-muted);
             margin-top: 5px;
         }
         .tag {
@@ -68,7 +68,7 @@
             margin-right: 5px;
         }
         .tag-new {
-            background-color: #2ecc71;
+            background-color: var(--color-sorted);
             color: white;
         }
     </style>

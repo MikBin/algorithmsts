@@ -2,6 +2,12 @@ import * as d3 from 'd3';
 import { KDTree } from '../../../src/data-structures/kd-tree/index.ts';
 import { SpatialVisualizer } from '../spatial/spatial-visualizer.js';
 
+const _style = getComputedStyle(document.documentElement);
+const COLOR_DEFAULT = _style.getPropertyValue('--color-default').trim();
+const COLOR_BORDER = _style.getPropertyValue('--color-border').trim();
+const COLOR_TEXT = _style.getPropertyValue('--color-text').trim();
+
+
 const width = 600;
 const height = 600;
 
@@ -22,7 +28,7 @@ function render() {
     rects.push({
         id: 'boundary',
         x: 0, y: 0, w: width, h: height,
-        style: { stroke: '#000', fill: 'none' }
+        style: { stroke: COLOR_TEXT, fill: 'none' }
     });
 
     const root = JSON.parse(tree.toJson());
@@ -74,7 +80,7 @@ function drawNode(node, bounds, points, lines) {
     points.push({
         id: nodeId,
         x: p[0], y: p[1],
-        style: { fill: '#3498db', radius: 4 }
+        style: { fill: COLOR_DEFAULT, radius: 4 }
     });
 
     // Draw the splitting line clipped to bounds
@@ -83,7 +89,7 @@ function drawNode(node, bounds, points, lines) {
         lines.push({
             id: `line-${nodeId}`,
             x1: p[0], y1: bounds.y, x2: p[0], y2: bounds.y + bounds.h,
-            style: { stroke: '#ccc' }
+            style: { stroke: COLOR_BORDER }
         });
 
         // Recurse left: x < p[0]
@@ -96,7 +102,7 @@ function drawNode(node, bounds, points, lines) {
         lines.push({
             id: `line-${nodeId}`,
             x1: bounds.x, y1: p[1], x2: bounds.x + bounds.w, y2: p[1],
-            style: { stroke: '#ccc' }
+            style: { stroke: COLOR_BORDER }
         });
 
         // Recurse left (in KDTree left means smaller coordinate): y < p[1]
