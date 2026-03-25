@@ -1,6 +1,7 @@
 /* eslint-env browser */
-import { createApp, ref, computed, onMounted, watch, h } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { createApp, ref, computed, onMounted, watch, h } from 'vue';
 import { analysisResults } from './similarity-data.js';
+import * as VectorSimilarity from '../../src/vector-similarity/index.ts';
 
 const _style = getComputedStyle(document.documentElement);
 const COLOR_SORTED = _style.getPropertyValue('--color-sorted').trim();
@@ -227,11 +228,7 @@ const SimilarityCalculator = {
           return;
         }
 
-        const similarityLib = window.VectorSimilarity;
-        if (!similarityLib) {
-          error.value = "Vector Similarity library not loaded (window.VectorSimilarity is missing)";
-          return;
-        }
+        const similarityLib = VectorSimilarity;
 
         const computedResults = [];
 
@@ -289,13 +286,7 @@ const SimilarityCalculator = {
     };
 
     onMounted(() => {
-        if (window.VectorSimilarity) {
-            calculate();
-        } else {
-            setTimeout(() => {
-                if (window.VectorSimilarity) calculate();
-            }, 500);
-        }
+        calculate();
     });
 
     return {
