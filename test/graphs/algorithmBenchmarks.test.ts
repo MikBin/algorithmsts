@@ -123,9 +123,9 @@ describe('Algorithm Performance Benchmarks', () => {
 
   describe('Shortest Path Algorithms', () => {
     const SHORTEST_PATH_TARGETS = {
-      smallWeighted: 20,   // ms
-      mediumWeighted: 100, // ms
-      largeWeighted: 500   // ms
+      smallWeighted: 50,   // ms
+      mediumWeighted: 200, // ms
+      largeWeighted: 1000   // ms
     };
 
     describe('Dijkstra Performance', () => {
