@@ -1,3 +1,5 @@
+import { HelpPanel } from './help-panel.js';
+
 export class AnimationController {
     constructor() {
         this.steps = [];
@@ -115,6 +117,11 @@ export class PlaybackControls {
         this.controller = controller;
         this.initUI();
         this.bindEvents();
+
+        // Initialize Help Panel globally when playback controls load
+        if (!document.getElementById('help-modal-title')) {
+            new HelpPanel();
+        }
     }
 
     initUI() {
@@ -184,17 +191,25 @@ export class PlaybackControls {
         // Add keyboard navigation for steps
         document.addEventListener('keydown', (e) => {
             const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-            if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') {
+            const isFocusingInput = activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select';
+
+            // Allow native interactions on inputs unless we specifically want global shortcuts
+            if (isFocusingInput && e.code === 'Space') {
                 return;
             }
-            if (e.code === 'ArrowRight' && !this.btnStep.disabled) {
+
+            if (e.code === 'ArrowRight' && !this.btnStep.disabled && !isFocusingInput) {
                 this.controller.step();
-            } else if (e.code === 'Space' && !this.btnPlayPause.disabled) {
-                e.preventDefault();
-                if (this.controller.isPlaying) {
-                    this.controller.pause();
-                } else {
-                    this.controller.play();
+            } else if (e.code === 'Space' && !this.btnPlayPause.disabled && !isFocusingInput) {
+                // Prevent default scrolling on space if we are playing/pausing via global shortcut
+                // However, if a button is focused, native space triggers a click. We must not double-trigger.
+                if (activeTag !== 'button') {
+                    e.preventDefault();
+                    if (this.controller.isPlaying) {
+                        this.controller.pause();
+                    } else {
+                        this.controller.play();
+                    }
                 }
             }
         });

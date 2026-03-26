@@ -48,6 +48,8 @@ function updateViz() {
   cells.enter()
     .append('rect')
     .attr('class', 'bit-cell')
+    .attr('tabindex', '0')
+    .attr('aria-label', d => `Bit ${d.index}: ${d.value === 1 ? 'Set' : 'Unset'}`)
     .attr('x', d => margin.left + d.index * bitWidth)
     .attr('y', margin.top)
     .attr('width', bitWidth - 2)

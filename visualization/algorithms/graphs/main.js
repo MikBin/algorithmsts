@@ -149,7 +149,9 @@ class GraphVisualizer {
         this.links = this.linkGroup.selectAll('.link-container')
             .data(graph.links)
             .join('g')
-            .attr('class', 'link-container');
+            .attr('class', 'link-container')
+            .attr('tabindex', '0')
+            .attr('aria-label', d => `Edge from node ${d.source.id || d.source} to node ${d.target.id || d.target} with weight ${d.weight || 1}`);
 
         // Remove old lines and text if re-joining
         this.links.selectAll('*').remove();
@@ -168,6 +170,8 @@ class GraphVisualizer {
             .data(graph.nodes)
             .join('g')
             .attr('class', 'node')
+            .attr('tabindex', '0')
+            .attr('aria-label', d => `Node ${d.id}`)
             .call(this.drag(this.simulation));
 
         this.nodes.selectAll('*').remove();
@@ -345,6 +349,9 @@ class GraphController {
             this.visualizer.updateState({}); // Clear visualization
             document.getElementById('status-text').textContent = 'Ready';
 
+            const eduPanel = document.getElementById('educational-panel');
+            if (eduPanel) eduPanel.style.display = 'none';
+
             // Resume force simulation
             if (this.visualizer && this.visualizer.simulation) {
                 this.visualizer.simulation.alpha(1).restart();
@@ -455,10 +462,29 @@ class GraphController {
             };
 
             const message = value.message || 'Processing...';
+            // Graph algorithms can be more dynamic. We can infer educational content based on the algorithm and state.
+            let eduMessage = '';
+            if (algo === 'bfs') {
+                eduMessage = "Breadth-First Search explores the neighbor nodes first, before moving to the next level neighbors.";
+            } else if (algo === 'dfs') {
+                eduMessage = "Depth-First Search explores as far as possible along each branch before backtracking.";
+            } else if (algo === 'dijkstra') {
+                eduMessage = "Dijkstra's Algorithm continuously selects the unvisited node with the lowest distance, calculates the distance to its unvisited neighbors, and updates the neighbor's distance if smaller.";
+            } else if (algo === 'prim') {
+                eduMessage = "Prim's Algorithm grows a minimum spanning tree from a starting vertex by adding the cheapest edge from the tree to an out-of-tree vertex.";
+            } else if (algo === 'kruskal') {
+                eduMessage = "Kruskal's Algorithm finds a minimum spanning forest by adding the cheapest edge that does not create a cycle.";
+            }
 
             this.animationController.addStep(message, () => {
                 document.getElementById('status-text').textContent = message;
                 this.visualizer.updateState(stateSnapshot);
+
+                const eduPanel = document.getElementById('educational-panel');
+                if (eduPanel) {
+                    eduPanel.innerHTML = `<strong>${message}</strong><br/><br/><em>${eduMessage}</em>`;
+                    eduPanel.style.display = 'block';
+                }
             });
 
             result = generator.next();

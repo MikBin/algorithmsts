@@ -24,3 +24,22 @@
     --color-border: #cccccc;
     --color-border-dark: #999999;
 }
+
+/* Global Focus Styles for Accessibility */
+:focus-visible {
+    outline: 3px solid var(--color-active);
+    outline-offset: 2px;
+}
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--color-active);
+    outline-offset: 2px;
+}
+
+svg:focus-visible {
+    outline: 3px solid var(--color-active);
+    outline-offset: 2px;
+}
