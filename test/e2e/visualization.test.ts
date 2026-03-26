@@ -4,8 +4,8 @@ import path from 'path';
 import { chromium, Browser, Page } from 'playwright';
 
 const PORT = 8080;
-const BASE_URL = `http://localhost:${PORT}/visualization/vector-similarity/index.html`;
-const ROOT_DIR = path.resolve(__dirname, '../../');
+const BASE_URL = `http://localhost:${PORT}/vector-similarity/index.html`;
+const ROOT_DIR = path.resolve(__dirname, '../../dist/visualization');
 
 let serverProcess: ChildProcess;
 let browser: Browser;

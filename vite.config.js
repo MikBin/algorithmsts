@@ -11,6 +11,10 @@ export default {
       }
     }
   },
+  server: {
+    port: 5173,
+    open: true
+  },
   resolve: {
     alias: {
       vue: 'vue/dist/vue.esm-bundler.js'

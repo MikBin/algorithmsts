@@ -1,7 +1,8 @@
 /* eslint-env browser */
-import { createApp, ref, computed, onMounted, watch, h } from 'vue';
+import { createApp, ref, computed, onMounted, watch, defineComponent } from 'vue';
+import Chart from 'chart.js/auto';
 import { analysisResults } from './similarity-data.js';
-import * as VectorSimilarity from '../../src/vector-similarity/index.ts';
+import * as VectorSimilarity from '../../src/vector-similarity/index.js';
 
 const _style = getComputedStyle(document.documentElement);
 const COLOR_SORTED = _style.getPropertyValue('--color-sorted').trim();
@@ -30,11 +31,11 @@ const formatNumber = (num) => {
 
 // --- Components ---
 
-const ChartComponent = {
+const ChartComponent = defineComponent({
   props: ['type', 'data', 'options'],
   setup(props) {
-    const canvasRef = ref(null);
-    let chartInstance = null;
+    const canvasRef = ref<HTMLCanvasElement | null>(null);
+    let chartInstance: Chart | null = null;
 
     const renderChart = () => {
       if (chartInstance) {
@@ -44,6 +45,7 @@ const ChartComponent = {
       if (!canvasRef.value || !props.data) return;
 
       const ctx = canvasRef.value.getContext('2d');
+      if (!ctx) return;
       chartInstance = new Chart(ctx, {
         type: props.type,
         data: props.data,
@@ -58,15 +60,15 @@ const ChartComponent = {
     return { canvasRef };
   },
   template: `<canvas ref="canvasRef"></canvas>`
-};
+});
 
-const SortableTable = {
+const SortableTable = defineComponent({
   props: ['title', 'vectors', 'headers', 'rows'],
   setup(props) {
-    const sortColumn = ref(null); // Index of the column being sorted. Null initially.
-    const sortDirection = ref('asc'); // 'asc' or 'desc'
+    const sortColumn = ref<number | null>(null); // Index of the column being sorted. Null initially.
+    const sortDirection = ref<'asc'|'desc'>('asc'); // 'asc' or 'desc'
 
-    const toggleSort = (index) => {
+    const toggleSort = (index: number) => {
       if (sortColumn.value === index) {
         sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
       } else {
@@ -86,12 +88,13 @@ const SortableTable = {
       // We assume rows are arrays of values matching headers
       // e.g., ['Pearson', 0.9]
 
-      rows.sort((rowA, rowB) => {
+      rows.sort((rowA: any, rowB: any) => {
+        if (sortColumn.value === null) return 0;
         const valA = rowA[sortColumn.value];
         const valB = rowB[sortColumn.value];
 
         // Helper to get sortable value
-        const getVal = (v) => {
+        const getVal = (v: any) => {
            if (v && typeof v === 'object' && 'value' in v) {
              v = v.value;
            }
@@ -119,13 +122,13 @@ const SortableTable = {
       return rows;
     });
 
-    const formatValue = (val) => {
+    const formatValue = (val: any) => {
         // If it's a number, format it. If string, leave it.
         if (typeof val === 'number') return formatNumber(val);
         return val;
     };
 
-    const formatVector = (vec) => {
+    const formatVector = (vec: any) => {
         let s = JSON.stringify(vec);
         if (s.length > 100) s = s.substring(0, 100) + '...';
         return s;
@@ -137,14 +140,14 @@ const SortableTable = {
 
     // Let's upgrade SortableTable to support custom rendering or style.
     // We can check if `cell` is an object { value, style, class }.
-    const getCellDisplayValue = (cell) => {
+    const getCellDisplayValue = (cell: any) => {
         if (cell && typeof cell === 'object' && 'value' in cell) {
             return formatValue(cell.value);
         }
         return formatValue(cell);
     };
 
-    const getCellAttributes = (cell) => {
+    const getCellAttributes = (cell: any) => {
          if (cell && typeof cell === 'object' && ('style' in cell || 'class' in cell)) {
              return { style: cell.style, class: cell.class };
          }
@@ -186,20 +189,20 @@ const SortableTable = {
       </table>
     </div>
   `
-};
+});
 
 // --- Similarity Calculator Component ---
 
-const SimilarityCalculator = {
+const SimilarityCalculator = defineComponent({
   components: { SortableTable },
   setup() {
     const vectorA = ref("1, 2, 3, 4, 5");
     const vectorB = ref("5, 4, 3, 2, 1");
-    const error = ref(null);
-    const results = ref([]);
+    const error = ref<string | null>(null);
+    const results = ref<any[]>([]);
     const headers = ['Function', 'Result'];
 
-    const parseVector = (input) => {
+    const parseVector = (input: string) => {
       const cleaned = input.trim();
       if (!cleaned) return [];
       const parts = cleaned.split(/[\s,]+/);
@@ -235,10 +238,10 @@ const SimilarityCalculator = {
         for (const [name, func] of Object.entries(similarityLib)) {
           if (typeof func === 'function' && func.length === 2) {
             try {
-               const res = func(vecA, vecB);
+               const res = (func as any)(vecA, vecB);
 
                // Determine color/style based on metric type
-               let style = {};
+               let style: any = {};
                // Heuristic: if name contains "Similarity" or "Correlation", higher is usually better (Green).
                // If name contains "Distance" or "Divergence", lower is usually better (Green).
                // Ranges:
@@ -250,7 +253,7 @@ const SimilarityCalculator = {
                const isSimilarity = lowerName.includes('similarity') || lowerName.includes('correlation') || lowerName.includes('coefficient');
 
                if (typeof res === 'number' && isFinite(res)) {
-                   let color = null;
+                   let color: string | null = null;
                    if (isSimilarity) {
                        // Map [-1, 1] to color? Or [0, 1]?
                        // Simple thresholding
@@ -272,7 +275,7 @@ const SimilarityCalculator = {
 
                // Pass object to SortableTable
                computedResults.push([name, { value: res, style }]);
-            } catch (e) {
+            } catch (e: any) {
                computedResults.push([name, `Error: ${e.message}`]);
             }
           }
@@ -327,11 +330,11 @@ const SimilarityCalculator = {
       </div>
     </div>
   `
-};
+});
 
 // --- Main App ---
 
-const App = {
+const App = defineComponent({
   components: {
     ChartComponent,
     SortableTable,
@@ -340,41 +343,41 @@ const App = {
   setup() {
     // --- Data Prep helpers ---
 
-    const prepareTableData = (similarities) => {
+    const prepareTableData = (similarities: any) => {
        // Convert object { func: score } to array of arrays [[func, score]]
        return Object.entries(similarities).map(([k, v]) => [k, v]);
     };
 
     // --- Outliers ---
     const outlierTests = computed(() => {
-      return analysisResults.outliersResiliencyTest.map(test => ({
+      return (analysisResults as any).outliersResiliencyTest.map((test: any) => ({
         testCase: test.testCase,
         vectors: Object.keys(test)
            .filter(k => k.startsWith('vec'))
-           .reduce((obj, k) => { obj[k] = test[k]; return obj; }, {}),
+           .reduce((obj: any, k) => { obj[k] = test[k]; return obj; }, {}),
         rows: prepareTableData(test.similarities)
       }));
     });
 
     // --- Stress Tests ---
     const stressTests = computed(() => {
-        return analysisResults.stressTests.map(test => ({
+        return (analysisResults as any).stressTests.map((test: any) => ({
             testCase: test.testCase,
             vectors: Object.keys(test)
                 .filter(k => k.includes('Vec'))
-                .reduce((obj, k) => { obj[k] = test[k]; return obj; }, {}),
+                .reduce((obj: any, k) => { obj[k] = test[k]; return obj; }, {}),
             rows: prepareTableData(test.similarities)
         }));
     });
 
     // --- Comparison ---
     const comparisonTests = computed(() => {
-        const result = {};
-        Object.entries(analysisResults.similarityCompare).forEach(([type, data]) => {
+        const result: any = {};
+        Object.entries((analysisResults as any).similarityCompare).forEach(([type, data]: [string, any]) => {
              result[type] = {
                  vectors: Object.keys(data)
                     .filter(k => k.startsWith('vec'))
-                    .reduce((obj, k) => { obj[k] = data[k]; return obj; }, {}),
+                    .reduce((obj: any, k) => { obj[k] = data[k]; return obj; }, {}),
                  rows: prepareTableData(data.similarities)
              };
         });
@@ -383,13 +386,13 @@ const App = {
 
     // --- Demo Matrix ---
     const demoMatrixData = computed(() => {
-        const comparisons = analysisResults.comparisonDemo.comparisons;
+        const comparisons = (analysisResults as any).comparisonDemo.comparisons;
         const funcs = Object.keys(comparisons).sort();
         const pairs = Object.keys(comparisons[funcs[0]]).sort();
 
         const headers = ['Function', ...pairs];
         const rows = funcs.map(funcName => {
-            const row = [funcName];
+            const row: any[] = [funcName];
             pairs.forEach(pair => {
                 row.push(comparisons[funcName][pair]);
             });
@@ -402,9 +405,9 @@ const App = {
     // --- Charts Data ---
 
     const vectorChartData = computed(() => {
-        const vectors = analysisResults.comparisonDemo.vectors;
+        const vectors = (analysisResults as any).comparisonDemo.vectors;
         const colors = [COLOR_COMPARING, COLOR_DEFAULT, COLOR_SORTED, COLOR_VISITED, COLOR_HIGHLIGHT];
-        const maxLength = Math.max(...Object.values(vectors).map((v) => v.length));
+        const maxLength = Math.max(...Object.values(vectors).map((v: any) => v.length));
         const labels = Array.from({ length: maxLength }, (_, i) => i);
 
         return {
@@ -424,7 +427,7 @@ const App = {
         responsive: true,
         maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}` } } },
+        plugins: { tooltip: { callbacks: { label: (ctx: any) => `${ctx.dataset.label}: ${ctx.raw}` } } },
         scales: {
             x: { title: { display: true, text: 'Index' } },
             y: { title: { display: true, text: 'Value' } }
@@ -432,7 +435,7 @@ const App = {
     };
 
     const benchmarkChartData = computed(() => {
-        const data = [...analysisResults.benchmark].sort((a, b) => a.avgTime - b.avgTime);
+        const data = [...(analysisResults as any).benchmark].sort((a, b) => a.avgTime - b.avgTime);
         return {
             labels: data.map(d => d.name),
             datasets: [{
@@ -479,33 +482,33 @@ const App = {
     };
 
     const nonlinearInsights = computed(() => {
-        return analysisResults.nonLinearAnalysis ? analysisResults.nonLinearAnalysis.insights : [];
+        return (analysisResults as any).nonLinearAnalysis ? (analysisResults as any).nonLinearAnalysis.insights : [];
     });
 
     // Computed options derived from data
     const availableTypes = computed(() => {
-      if (!analysisResults.nonLinearAnalysis) return [];
-      const types = new Set(analysisResults.nonLinearAnalysis.detailedResults.map(item => item.type));
+      if (!(analysisResults as any).nonLinearAnalysis) return [];
+      const types = new Set((analysisResults as any).nonLinearAnalysis.detailedResults.map((item: any) => item.type));
       return Array.from(types).sort();
     });
 
     const availableSizes = computed(() => {
-      if (!analysisResults.nonLinearAnalysis) return [];
-      const sizes = new Set(analysisResults.nonLinearAnalysis.detailedResults.map(item => item.size));
-      return Array.from(sizes).sort((a, b) => a - b);
+      if (!(analysisResults as any).nonLinearAnalysis) return [];
+      const sizes = new Set((analysisResults as any).nonLinearAnalysis.detailedResults.map((item: any) => item.size));
+      return Array.from(sizes).sort((a: any, b: any) => a - b);
     });
 
     const availableNoiseLevels = computed(() => {
-      if (!analysisResults.nonLinearAnalysis) return [];
-      const levels = new Set(analysisResults.nonLinearAnalysis.detailedResults.map(item =>
+      if (!(analysisResults as any).nonLinearAnalysis) return [];
+      const levels = new Set((analysisResults as any).nonLinearAnalysis.detailedResults.map((item: any) =>
         item.noiseSettings && item.noiseSettings.level ? item.noiseSettings.level : null
-      ).filter(l => l !== null));
-      return Array.from(levels).sort((a, b) => a - b);
+      ).filter((l: any) => l !== null));
+      return Array.from(levels).sort((a: any, b: any) => a - b);
     });
 
     const filteredNonlinearData = computed(() => {
-         if (!analysisResults.nonLinearAnalysis) return [];
-         return analysisResults.nonLinearAnalysis.detailedResults.filter(item => {
+         if (!(analysisResults as any).nonLinearAnalysis) return [];
+         return (analysisResults as any).nonLinearAnalysis.detailedResults.filter((item: any) => {
             const typeMatch = filters.value.type === 'all' || item.type === filters.value.type;
             const sizeMatch = filters.value.size === 'all' || item.size.toString() === filters.value.size;
             const noiseMatch = filters.value.noise === 'all' ||
@@ -518,7 +521,7 @@ const App = {
     const debugInfo = computed(() => {
         return {
             filters: filters.value,
-            totalItems: analysisResults.nonLinearAnalysis ? analysisResults.nonLinearAnalysis.detailedResults.length : 0,
+            totalItems: (analysisResults as any).nonLinearAnalysis ? (analysisResults as any).nonLinearAnalysis.detailedResults.length : 0,
             filteredItems: filteredNonlinearData.value.length,
             availableTypes: availableTypes.value,
             availableSizes: availableSizes.value,
@@ -528,12 +531,12 @@ const App = {
 
     // Derived table data for nonlinear analysis (flat structure for sorting)
     const nonlinearTableRows = computed(() => {
-        const rows = [];
-        filteredNonlinearData.value.forEach(item => {
+        const rows: any[] = [];
+        filteredNonlinearData.value.forEach((item: any) => {
             const noiseType = item.noiseSettings ? item.noiseSettings.type : 'N/A';
             const noiseLevel = item.noiseSettings ? item.noiseSettings.level : 'N/A';
 
-            Object.entries(item.metrics).forEach(([metricName, metricData]) => {
+            Object.entries(item.metrics).forEach(([metricName, metricData]: [string, any]) => {
                 rows.push([
                     item.type,
                     item.size,
@@ -556,7 +559,7 @@ const App = {
 
     const nonlinearScoresData = computed(() => {
         const data = filteredNonlinearData.value;
-        const labels = data.map(item => item.label);
+        const labels = data.map((item: any) => item.label);
         const similarityFunctions = [
             'normalizedCosineSimilarity', 'pearsonCorrelationSimilarity', 'euclideanSimilarity',
             'polynomialKernelSimilarity', 'rbfKernelSimilarity',
@@ -570,7 +573,7 @@ const App = {
 
         const datasets = similarityFunctions.map((funcName, index) => ({
             label: funcName.replace(/([A-Z])/g, ' $1').trim(),
-            data: data.map(item => item.metrics[funcName] ? item.metrics[funcName].score : null),
+            data: data.map((item: any) => item.metrics[funcName] ? item.metrics[funcName].score : null),
             backgroundColor: colors[index % colors.length]
         }));
 
@@ -590,11 +593,11 @@ const App = {
     const nonlinearPerformanceData = computed(() => {
         // Group by function type and avg performance
         const data = filteredNonlinearData.value;
-        const performanceData = {};
+        const performanceData: any = {};
 
-        data.forEach(item => {
+        data.forEach((item: any) => {
             if (!performanceData[item.type]) performanceData[item.type] = {};
-            Object.entries(item.metrics).forEach(([func, metrics]) => {
+            Object.entries(item.metrics).forEach(([func, metrics]: [string, any]) => {
                 if (!performanceData[item.type][func]) performanceData[item.type][func] = [];
                 performanceData[item.type][func].push(metrics.timeMs);
             });
@@ -617,7 +620,7 @@ const App = {
             data: functionTypes.map(type => {
                 const times = performanceData[type][funcName];
                 if (!times) return 0;
-                return times.reduce((a, b) => a + b, 0) / times.length;
+                return times.reduce((a: any, b: any) => a + b, 0) / times.length;
             }),
             backgroundColor: colors[index % colors.length]
         }));
@@ -663,6 +666,6 @@ const App = {
         toggleDebug
     };
   }
-};
+});
 
 createApp(App).mount('#app');
