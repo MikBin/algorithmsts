@@ -28,7 +28,7 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   normB = Math.sqrt(normB);
 
   if (normA === 0 && normB === 0) {
-    return NaN; // Both vectors are zero vectors
+    return 0; // Both vectors are zero vectors
   }
   if (normA === 0 || normB === 0) {
     return 0; // One of the vectors is a zero vector
@@ -43,7 +43,7 @@ export function cosineSimilarity(a: number[], b: number[]): number {
  * Range: [0, 1] (1 means identical direction, 0 means opposite direction)
  */
 export function normalizedCosineSimilarity(a: number[], b: number[]): number {
-  return (1 + cosineSimilarity(a, b)) / 2;
+  return Math.max(0, Math.min(1, (1 + cosineSimilarity(a, b)) / 2));
 }
 
 /**
@@ -151,14 +151,14 @@ export function pearsonCorrelation(a: number[], b: number[]): number {
   }
 
   if (denomA === 0 || denomB === 0) {
-    return NaN;
+    return 0;
   }
 
   return numerator / Math.sqrt(denomA * denomB);
 }
 
 export const pearsonCorrelationSimilarity = (a: number[], b: number[]): number => {
-  return (1 + pearsonCorrelation(a, b)) / 2;
+  return Math.max(0, Math.min(1, (1 + pearsonCorrelation(a, b)) / 2));
 }
 /**
  * Dot product
@@ -188,9 +188,10 @@ export function distanceToSimilarity(
 ): number {
   if (maxDistance === null) {
     // Simple inverse transformation
-    return distance === 0 ? 1 : 1 / (1 + distance);
+    const sim = distance === 0 ? 1 : 1 / (1 + distance);
+    return Math.max(0, Math.min(1, sim));
   }
-  return 1 - distance / maxDistance;
+  return Math.max(0, Math.min(1, 1 - distance / maxDistance));
 }
 
 /**
@@ -229,7 +230,7 @@ export function angularDistance(a: number[], b: number[]): number {
  * Range: [0, 1] (1 means identical direction)
  */
 export function angularSimilarity(a: number[], b: number[]): number {
-  return 1 - angularDistance(a, b);
+  return Math.max(0, Math.min(1, 1 - angularDistance(a, b)));
 }
 
 /**
@@ -252,7 +253,7 @@ export function diceCoefficient(a: number[], b: number[]): number {
   }
 
   const denominator = normASq + normBSq;
-  return denominator === 0 ? 1 : (2 * dotProd) / denominator;
+  return denominator === 0 ? 1 : Math.max(0, Math.min(1, (2 * dotProd) / denominator));
 }
 
 /**
@@ -261,7 +262,7 @@ export function diceCoefficient(a: number[], b: number[]): number {
  * Range: [0, 1] (0 means identical)
  */
 export function diceDistance(a: number[], b: number[]): number {
-  return 1 - diceCoefficient(a, b);
+  return Math.max(0, Math.min(1, 1 - diceCoefficient(a, b)));
 }
 
 /**
@@ -320,7 +321,7 @@ export function gowerDistance(a: number[], b: number[], ranges: number[]): numbe
  * Range: [0, 1] (1 means identical)
  */
 export function gowerSimilarity(a: number[], b: number[], ranges: number[]): number {
-  return 1 - gowerDistance(a, b, ranges);
+  return Math.max(0, Math.min(1, 1 - gowerDistance(a, b, ranges)));
 }
 
 /**
@@ -351,7 +352,7 @@ export function soergelDistance(a: number[], b: number[]): number {
  * Range: [0, 1] (1 means identical)
  */
 export function soergelSimilarity(a: number[], b: number[]): number {
-  return Math.max(0, 1 - soergelDistance(a, b));
+  return Math.max(0, Math.min(1, 1 - soergelDistance(a, b)));
 }
 
 /**

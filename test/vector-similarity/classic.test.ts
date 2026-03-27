@@ -129,7 +129,7 @@ describe('Classic Similarity Functions', () => {
     it('should handle constant vectors', () => {
       const a = [1, 1, 1];
       const b = [2, 2, 2];
-      expect(pearsonCorrelation(a, b)).toBeNaN();
+      expect(pearsonCorrelation(a, b)).toBe(0);
     });
 
     it('should throw an error for vectors of different lengths', () => {
@@ -480,8 +480,8 @@ const testCases = [
     vecB: [0, 0, 0, 0, 0],
     ranges: [0, 0, 0, 0, 0],
     expected: {
-      pearsonCorrelationSimilarity: NaN,
-      cosineSimilarity: NaN,
+      pearsonCorrelationSimilarity: 0.5,
+      cosineSimilarity: 0,
       euclideanSimilarity: 1,
       squaredEuclideanSimilarity: 1,
       manhattanSimilarity: 1,
