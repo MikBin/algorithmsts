@@ -513,4 +513,4 @@ class GraphController {
     }
 }
 
-new GraphController();
+window.GraphControllerInstance = new GraphController();
