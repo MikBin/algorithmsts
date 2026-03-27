@@ -77,14 +77,17 @@ Create a new Jules session for the task. Jules is autonomous - describe what nee
 
 ### 3. Monitor Session
 
-Wait for the session to complete. Check session status periodically using the sleep MCP server to conserve tokens:
-- Use `sleep_mcp` to wait configurable seconds between status checks (recommended: 120 seconds)
+Wait for the session to complete. Check session status periodically using the built-in `jules_wait` tool to conserve tokens:
+- Use `jules_wait` to pause for configurable seconds between status checks (recommended: 300 seconds)
+- For periodic polling, use `jules_check_jules` only (compact `Q/C/F/N` response)
 - If state is `AWAITING_PLAN_APPROVAL`, approve the plan
 - If state is `AWAITING_USER_FEEDBACK`, respond using `jules_send_message` to provide clarification or additional instructions
 - If state is `IN_PROGRESS`, continue monitoring (sleep then check again)
 - If state is `COMPLETED` or `FAILED`, proceed to next step
 
-**Note:** The sleep MCP server (`csBeyp0mcp0sleep` / `github.com/Garoth/sleep-mcp`) helps save context window tokens by avoiding active polling. Configure the wait interval based on expected task duration. if the sleep MCP server is not working fall back to system command (timeout /t 120 /nobreak).
+Hard rule: do not use `jules_get_session` for periodic polling. Use it only after an actionable signal (`Q`, `C`, or `F`) when detailed metadata is actually needed.
+
+**Note:** The built-in `jules_wait` tool eliminates the need for a separate sleep MCP server. It pauses execution for a specified number of seconds (max 600), saving context window tokens by avoiding active polling. Configure the wait interval based on expected task duration.
 
 **Clarification Handling:** The local orchestrator should be ready to clarify anything Jules requests when stuck. Use `jules_send_message` to provide answers, context, or guidance as needed.
 
@@ -113,9 +116,26 @@ git pull origin <branch>
 git push origin <branch>
 ```
 
-## Sequential Processing
+## Parallel and Sequential Processing
 
-**Important:** Sessions must be processed sequentially. Do not create a new Jules session while another is still active. Always complete the full workflow (create → monitor → approve if needed → extract PR → merge → delete branch → pull) before starting the next session.
+Sessions can be processed in parallel when tasks meet the following criteria:
+
+**Parallel Processing Allowed:**
+- Tasks targeting **different repositories** (different projects)
+- Tasks within the same repository that are **completely independent** (no shared files, no dependencies between changes)
+
+**Sequential Processing Required:**
+- Multiple sessions targeting the **same repository and branch**
+- Tasks that may touch overlapping files or code paths
+- When there are dependencies between tasks (e.g., one task's output is another task's input)
+
+**Implementation:**
+
+1. For **parallel tasks** (different projects or independent): You may create multiple Jules sessions simultaneously. Monitor each independently and merge their PRs in any order as they complete.
+
+2. For **sequential tasks** (same project): Complete the full workflow (create → monitor → approve if needed → extract PR → merge → delete branch → pull) before starting the next session on that project.
+
+**Tip:** When in doubt, process sequentially. It's safer to wait for one task to complete before starting another on the same project.
 
 ## Error Handling
 
@@ -133,6 +153,7 @@ git push origin <branch>
 |------|-------------|
 | `jules_create_session` | Create a new Jules coding session for a GitHub repository |
 | `jules_get_session` | Fetch session metadata, state, and outputs |
+| `jules_check_jules` | Minimal polling check returning `Q`, `C`, `F`, or `N` |
 | `jules_list_sessions` | List all Jules sessions |
 | `jules_delete_session` | Delete a Jules session |
 | `jules_approve_plan` | Approve the plan for a session awaiting approval |
@@ -145,6 +166,7 @@ git push origin <branch>
 | `jules_list_activities` | List activities for a Jules session |
 | `jules_get_activity` | Get a single activity by ID |
 | `jules_monitor_session` | Poll a session until completion with progress notifications |
+| `jules_wait` | Pause execution for a given number of seconds (max 600) |
 
 ### Sources
 
@@ -173,6 +195,12 @@ git push origin <branch>
 #### jules_get_session
 - `session_id` (string, required): The Jules session ID
 
+#### jules_check_jules
+- `session_id` (string, optional): Check a specific session directly
+- `owner` (string, optional): Repository owner (required if `session_id` is omitted)
+- `repo` (string, optional): Repository name (required if `session_id` is omitted)
+- `branch` (string, optional): Optional branch filter for project-based polling
+
 #### jules_approve_plan
 - `session_id` (string, required): The Jules session ID
 
@@ -189,6 +217,9 @@ git push origin <branch>
 
 #### jules_delete_session
 - `session_id` (string, required): The Jules session ID
+
+#### jules_wait
+- `seconds` (number, required): Duration to wait in seconds (max 600)
 
 ### Session States
 
