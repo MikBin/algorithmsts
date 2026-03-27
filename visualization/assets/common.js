@@ -102,6 +102,8 @@ export class TreeVisualizer {
 
         const nodeEnter = node.enter().append('g')
             .attr('class', 'node')
+            .attr('tabindex', d => d.data.isDummy ? '-1' : '0')
+            .attr('aria-label', d => d.data.isDummy ? '' : `Node with value ${d.data.value}`)
             .attr('transform', d => {
                 const x = d.parent ? (d.parent.x0 !== undefined ? d.parent.x0 : d.parent.x) : d.x;
                 const y = d.parent ? (d.parent.y0 !== undefined ? d.parent.y0 : d.parent.y) : d.y;
@@ -270,6 +272,8 @@ export class BarChartVisualizer {
         // Enter new bars
         bars.enter().append('rect')
             .attr('class', 'bar')
+            .attr('tabindex', '0')
+            .attr('aria-label', d => `Bar with value ${getValue(d)}`)
             .attr('x', (d, i) => this.x(i))
             .attr('width', this.x.bandwidth())
             .attr('y', d => this.y(0))

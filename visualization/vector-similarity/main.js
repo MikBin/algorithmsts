@@ -312,7 +312,7 @@ const SimilarityCalculator = {
         </div>
       </div>
 
-      <button @click="calculate" class="calc-btn">Calculate Similarities</button>
+      <button @click="calculate" class="calc-btn" aria-label="Calculate Similarities">Calculate Similarities</button>
 
       <div v-if="error" class="error-msg">
         {{ error }}

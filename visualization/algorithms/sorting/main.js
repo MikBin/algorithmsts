@@ -254,6 +254,8 @@ class SortingController {
             this.array = [...this.initialArray];
             this.visualizer.update(this.array);
             document.getElementById('status-text').textContent = 'Ready';
+            const eduPanel = document.getElementById('educational-panel');
+            if (eduPanel) eduPanel.style.display = 'none';
         };
     }
 
@@ -302,14 +304,19 @@ class SortingController {
             const value = result.value;
 
             let description = '';
+            let eduMessage = '';
+
             if (value.type === 'compare') {
                 description = `Comparing indices ${value.indices.join(', ')}`;
+                eduMessage = `Comparing elements at index ${value.indices[0]} (value: ${value.array[value.indices[0]].value}) and index ${value.indices[1]} (value: ${value.array[value.indices[1]] ? value.array[value.indices[1]].value : 'none'}).`;
                 this.comparisons++;
             } else if (value.type === 'swap') {
                 description = `Swapping indices ${value.indices.join(', ')}`;
+                eduMessage = value.indices.length > 1 ? `Swapping elements at index ${value.indices[0]} and ${value.indices[1]} to place them in correct order.` : `Updating element at index ${value.indices[0]}.`;
                 this.swaps++;
             } else if (value.type === 'sorted') {
                 description = `Sorted indices ${value.indices.join(', ')}`;
+                eduMessage = `Elements at indices ${value.indices.join(', ')} are now in their final sorted positions.`;
                 value.indices.forEach(i => this.sortedIndices.add(i));
             }
 
@@ -320,6 +327,7 @@ class SortingController {
             const snapshotComparisons = this.comparisons;
             const snapshotSwaps = this.swaps;
             const snapshotSorted = Array.from(this.sortedIndices);
+            const snapshotEdu = eduMessage;
 
             this.animationController.addStep(description, () => {
                 if (snapshotType === 'compare') {
@@ -339,6 +347,12 @@ class SortingController {
                 }
                 document.getElementById('comparisons-count').textContent = snapshotComparisons;
                 document.getElementById('swaps-count').textContent = snapshotSwaps;
+
+                const eduPanel = document.getElementById('educational-panel');
+                if (eduPanel && snapshotEdu) {
+                    eduPanel.textContent = snapshotEdu;
+                    eduPanel.style.display = 'block';
+                }
             });
 
             result = generator.next();

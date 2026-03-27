@@ -75,6 +75,8 @@ function update() {
 
     const nodeEnter = nodes.enter().append('g')
         .attr('class', d => `node ${d.data.isTerminal ? 'terminal' : ''}`)
+        .attr('tabindex', '0')
+        .attr('aria-label', d => d.data.isTerminal ? `End of word node: ${d.data.char || 'root'}` : `Node: ${d.data.char || 'root'}`)
         .attr('transform', d => `translate(${d.x},${d.y})`);
 
     nodeEnter.append('circle')

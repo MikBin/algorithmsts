@@ -77,6 +77,8 @@ export class SpatialVisualizer {
 
         rectNodes.enter()
             .append('rect')
+            .attr('tabindex', '0')
+            .attr('aria-label', d => `Spatial Region at ${d.x}, ${d.y} width ${d.w} height ${d.h}`)
             .attr('x', d => d.x + d.w / 2)
             .attr('y', d => d.y + d.h / 2)
             .attr('width', 0)
@@ -138,6 +140,8 @@ export class SpatialVisualizer {
 
         pointNodes.enter()
             .append('circle')
+            .attr('tabindex', '0')
+            .attr('aria-label', d => `Point at ${d.x}, ${d.y}`)
             .attr('cx', d => d.x)
             .attr('cy', d => d.y)
             .attr('r', 0)
