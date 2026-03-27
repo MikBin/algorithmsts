@@ -1,42 +1,11 @@
 const { test, expect } = require('@playwright/test');
-const { spawn } = require('child_process');
-const path = require('path');
-
-const PORT = 8082;
-let serverProcess;
-
-test.beforeAll(async () => {
-  const serverPath = path.join(__dirname, '../../visualization');
-  console.log('Starting python http.server at', serverPath);
-
-  serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
-    cwd: serverPath,
-    stdio: 'pipe',
-    detached: true
-  });
-
-  await new Promise((resolve) => {
-     serverProcess.stderr.on('data', (data) => {
-         if (data.toString().includes('Serving HTTP on')) {
-             resolve();
-         }
-     });
-     setTimeout(resolve, 2000);
-  });
-});
-
-test.afterAll(() => {
-  if (serverProcess) {
-    try { process.kill(-serverProcess.pid); } catch (e) {}
-  }
-});
 
 test('Sortable tables functionality', async ({ page }) => {
   // Debug: Print console logs from the browser
   page.on('console', msg => console.log(`BROWSER CONSOLE: ${msg.text()}`));
   page.on('pageerror', exception => console.log(`BROWSER ERROR: ${exception}`));
 
-  await page.goto(`http://localhost:${PORT}/vector-similarity.html`);
+  await page.goto(`http://localhost:8080/vector-similarity/index.html`);
 
   // Wait for Vue to mount
   await page.waitForSelector('#app');
@@ -55,7 +24,8 @@ test('Sortable tables functionality', async ({ page }) => {
   const getValuesFromTable = async (tableLocator, colIndex) => {
     const rows = tableLocator.locator('tbody tr');
     const values = [];
-    const count = await rows.count();
+    // Only verify first 50 values to prevent massive delays traversing huge tables in Playwright
+    const count = Math.min(await rows.count(), 50);
     for (let i = 0; i < count; i++) {
       const cell = rows.nth(i).locator('td').nth(colIndex);
       values.push(await cell.innerText());
