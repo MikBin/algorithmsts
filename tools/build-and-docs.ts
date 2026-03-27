@@ -44,7 +44,7 @@ function main() {
   runCommand('npm run build', 'Building library bundles');
 
   // Step 3: Generate API documentation
-  runCommand('npx typedoc --entryPoints src/algorithmsts.ts src/core/index.ts src/data-structures/index.ts src/algorithms/index.ts src/graphs/index.ts src/performance/index.ts src/types/index.ts src/compatibility/index.ts --out docs/api --name "Algorithmsts API Documentation" --includeVersion --excludePrivate --excludeProtected --excludeInternal --hideGenerator --readme README.md --theme default --githubPages --gitRevision main --skipErrorChecking', 'Generating API documentation');
+  runCommand('npm run generate-docs', 'Generating API documentation');
 
   console.log('\n🎉 Build and documentation process completed successfully!');
   console.log('📦 Library bundles are in the dist/ directory');

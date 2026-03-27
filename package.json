@@ -73,7 +73,7 @@
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
     "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production",
     "docs": "npm run generate-docs",
-    "generate-docs": "echo generate-docs",
+    "generate-docs": "typedoc",
     "build:docs": "node tools/build-and-docs.ts",
     "test": "vitest run --no-watch --exclude test/e2e --exclude test/integration",
     "test:e2e": "vitest run test/e2e",

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "src/core/index.ts",
+    "src/data-structures/index.ts",
+    "src/algorithms/index.ts",
+    "src/graphs/index.ts",
+    "src/performance/index.ts",
+    "src/types/index.ts"
+  ],
+  "out": "docs/api",
+  "name": "Algorithmsts API Documentation",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "hideGenerator": true,
+  "readme": "README.md",
+  "theme": "default",
+  "githubPages": true,
+  "gitRevision": "main",
+  "skipErrorChecking": true
+}
