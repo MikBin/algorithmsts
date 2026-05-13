@@ -1,0 +1,296 @@
+# `any` Keyword Usage Report
+
+This report categorizes the usages of the `any` keyword across the project into three categories: easily removable, requires complex changes, and mandatory to keep.
+
+## 1. Easily Removable
+These instances can generally be replaced with `unknown`, `Record<string, unknown>`, updated generic types, or use `@ts-expect-error` in tests.
+
+- `./test/vector-similarity/classic.test.ts`: const similarityFunctions: { [key: string]: (a: number[], b: number[], c?: any) => number } = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/vector-similarity/range-check.test.ts`: const similarityFunctions: { [key: string]: (a: number[], b: number[], c?: any) => number } = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/vector-similarity/range-check.test.ts`: } catch (e: any) {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/vector-similarity/vectorSimilarityMeanStdPowerArithmeticMean.test.ts`: expect(() => vectorSimilarityMeanStdPowerArithmeticMean(null as any, [])).toThrow('Invalid input: A must be an array.');
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/vector-similarity/vectorSimilarityMeanStdPowerArithmeticMean.test.ts`: expect(() => vectorSimilarityMeanStdPowerArithmeticMean([], "invalid" as any)).toThrow('Invalid input: B must be an array.');
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/integration/fullLibrary.test.ts`: countingSort.execute({ array: null as any });
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/integration/fullLibrary.test.ts`: compareFn: null as any
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/integration/fullLibrary.test.ts`: algorithm.execute({} as any);
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmSelector.test.ts`: class MockAlgorithm implements IAlgorithm<any, any> {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmSelector.test.ts`: execute(input: any): any {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmSelector.test.ts`: it('should select any algorithm for small input sizes', () => {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmTestUtils.test.ts`: class MockAlgorithm implements IAlgorithm<any, any> {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmTestUtils.test.ts`: execute(input: any): any {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmTestUtils.test.ts`: } as any;
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmTestUtils.test.ts`: } as any;
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmTestUtils.test.ts`: } as any;
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmTestUtils.test.ts`: if (!(performance as any).memory) {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/algorithms/utils/AlgorithmTestUtils.test.ts`: (performance as any).memory = { usedJSHeapSize: 1000 };
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./test/graphs/structures/adjacencyListGraph.test.ts`: expect(() => (weightedGraph as any).addEdge('A', 'B')).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/graphs/structures/adjacencyListGraph.test.ts`: expect(() => (unweightedGraph as any).addEdge('A', 'B', 5)).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/graphs/structures/adjacencyListGraph.test.ts`: expect(() => graph.addVertex(null as any)).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/graphs/structures/adjacencyListGraph.test.ts`: expect(() => graph.contains(null as any)).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/graphs/structures/adjacencyMatrixGraph.test.ts`: expect(() => (weightedGraph as any).addEdge('A', 'B')).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/graphs/structures/adjacencyMatrixGraph.test.ts`: expect(() => (unweightedGraph as any).addEdge('A', 'B', 5)).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/graphs/structures/adjacencyMatrixGraph.test.ts`: expect(() => graph.addVertex(null as any)).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/graphs/structures/adjacencyMatrixGraph.test.ts`: expect(() => graph.contains(null as any)).toThrow(ArgumentError);
+  - *Reason:* Mocking invalid inputs in tests can be typed as `unknown` or `@ts-expect-error` instead of `as any`.
+- `./test/e2e/visualization.test.ts`: } catch (e: any) {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/data-structures/binary-fuse-filter/binaryFuseFilter.ts`: const defaultSerializer = (item: any): string => {
+  - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
+- `./src/data-structures/bloom-filter/bloomFilter.ts`: const defaultSerializer = (item: any): string => {
+  - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
+- `./src/data-structures/ribbon-filter/ribbonFilter.ts`: const defaultSerializer = (item: any): string => {
+  - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
+- `./src/data-structures/cuckoo-filter/cuckooFilter.ts`: const defaultSerializer = (item: any): string => {
+  - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
+- `./src/data-structures/vacuum-filter/vacuumFilter.ts`: const defaultSerializer = (item: any): string => {
+  - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const testCase1: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const testCase2: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const results: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const results: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const similarities: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const noiseTest: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const scaleTest: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const sparseTest: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const highRangeTest: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const results: any[] = [];
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const caseResult: any = {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const generateInsights = (results: any[]) => {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/vector-similarity/vector-similarity-analysis.ts`: const score = (data as any).score;
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./src/types/node.ts`: metadata?: Record<string, any>;
+  - *Reason:* Can be easily replaced with `Record<string, unknown>` to enforce type safety when reading metadata.
+- `./src/types/edge.ts`: metadata?: Record<string, any>;
+  - *Reason:* Can be easily replaced with `Record<string, unknown>` to enforce type safety when reading metadata.
+- `./tools/gh-pages-publish.ts`: let pkg = JSON.parse(readFileSync("package.json") as any)
+  - *Reason:* Can be easily typed as `unknown` or a specific config interface instead of `any`.
+- `./tools/verifyImplementation.ts`: details?: any;
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./tools/verifyImplementation.ts`: private addResult(name: string, status: 'pass' | 'fail', message: string, details?: any): void {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+- `./tools/verifyImplementation.ts`: private displayResults(summary: any): void {
+  - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.
+
+## 2. Requires Complex Changes
+These instances involve core generic interfaces, complex data structure state, type narrowing workarounds, or cascading dependency updates. Removing `any` here requires significant refactoring and testing.
+
+- `./test/data-structures/fixtures/PerformanceData.ts`: setup: () => any;
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/fixtures/StructureTestData.ts`: empty: any[];
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/fixtures/StructureTestData.ts`: single: any[];
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/fixtures/StructureTestData.ts`: duplicates: any[];
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/fixtures/StructureTestData.ts`: largeNumbers: any[];
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/fixtures/StructureTestData.ts`: negative: any[];
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/fixtures/StructureTestData.ts`: mixed: any[];
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/utils/TestUtils.ts`: static deepEqual(a: any, b: any): boolean {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/utils/TestUtils.ts`: instance: any,
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/utils/TestUtils.ts`: static generateRandomData(type: 'numbers' | 'strings' | 'mixed', count: number): any[] {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/utils/TestUtils.ts`: const result: any[] = [];
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/utils/TestUtils.ts`: static estimateMemoryUsage(obj: any): number {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/data-structures/utils/TestUtils.ts`: function sizeOf(obj: any): number {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: details?: any;
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: private addResult(name: string, status: 'pass' | 'fail', message: string, details?: any): void {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/verifyBuild.ts`: private displayResults(buildInfo: any): void {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/runAllTests.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/runAllTests.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/runAllTests.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/runAllTests.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/runAllTests.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/scripts/runAllTests.ts`: } catch (error: any) {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/algorithms/fixtures/AlgorithmTestData.ts`: public static generatePerformanceBenchmarkData(): Array<{ name: string; size: number; generator: () => any }> {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/algorithms/fixtures/AlgorithmTestData.ts`: public static generateEdgeCaseData(): Array<{ name: string; data: any; description: string }> {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./test/algorithms/utils/AlgorithmTestUtils.ts`: private static deepEqual(a: any, b: any): boolean {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/interfaces.ts`: export interface StringAnyMap extends StringTMap<any> {}
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/interfaces.ts`: export interface NumberAnyMap extends NumberTMap<any> {}
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/data-structures/red-black-tree/redBlackTree.ts`: value: null as any, // Using null as a sentinel value
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/red-black-tree/iterator.ts`: return { value: undefined as any, done: true };
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/avl-tree/iterator.ts`: return { value: undefined as any, done: true };
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/avl-tree/avlTree.ts`: this.compare = compareFunction || ((a: any, b: any) => a - b);
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/data-structures/stack/stack.ts`: contains(element: T): boolean { return this.data.includes(element as any); }
+  - *Reason:* TypeScript's `.includes()` expects the exact type `T`, but custom data structures might accept wider types. Removing this might require TS `// @ts-ignore` or updating signature, which can cascade.
+- `./src/data-structures/dynamic-array/arrayList.ts`: contains(e: T): boolean { return this.toArray().includes(e as any); }
+  - *Reason:* TypeScript's `.includes()` expects the exact type `T`, but custom data structures might accept wider types. Removing this might require TS `// @ts-ignore` or updating signature, which can cascade.
+- `./src/data-structures/dynamic-array/arrayList.ts`: toArray(): T[] { const out: T[] = new Array(this.len) as any; for (let i=0;i<this.len;i++) out[i]=this.data[i] as T; return out; }
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/skip-list/skipList.ts`: const defaultComparisonFn: BinaryComparisonRoutine<any> = (x, y) => {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/data-structures/segment-tree/segmentTree.ts`: result.push((node as any).value);
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/queue/queue.ts`: contains(element: T): boolean { return this.toArray().includes(element as any); }
+  - *Reason:* TypeScript's `.includes()` expects the exact type `T`, but custom data structures might accept wider types. Removing this might require TS `// @ts-ignore` or updating signature, which can cascade.
+- `./src/data-structures/hash-map/hashMap.ts`: const defaultHash: Hasher<any> = (k: any) => {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/data-structures/hash-map/hashMap.ts`: const defaultEq: Equality<any> = (a, b) => a === b;
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/data-structures/hyperloglog/hyperLogLog.ts`: if (rho > this.registers[idx]) this.registers[idx] = rho as any;
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/patricia-trie/patriciaTrie.ts`: else { mid.edges.push({ label: key.slice(lcp.length), child: new Node() }); mid.edges[mid.edges.length-1].child.value = value as any; }
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/patricia-trie/patriciaTrie.ts`: const child = new Node(); child.value = value as any; node.edges.push({ label: key, child });
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/aho-corasick/ahoCorasick.ts`: const replacer = (key: any, value: any) => {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/data-structures/deque/deque.ts`: contains(e: T): boolean { return this.buf.toArray().includes(e as any); }
+  - *Reason:* TypeScript's `.includes()` expects the exact type `T`, but custom data structures might accept wider types. Removing this might require TS `// @ts-ignore` or updating signature, which can cascade.
+- `./src/data-structures/fibonacci-heap/fibonacciHeap.ts`: private consolidate(): void { const A: Array<Node<T> | null> = []; const roots: Node<T>[] = []; if (!this.min) return; let w=this.min; do { roots.push(w!); w=w!.right!; } while(w!==this.min); for (let x of roots){ let d=x.degree; while(A[d]){ let y=A[d]!; if (this.compare(x.value,y.value) > 0) { const tmp=x; (x as any)=y; (y as any)=tmp; } this.link(y,x); A[d]=null; d++; } A[d]=x; } this.min=null; for (const a of A){ if (!a) continue; a.left=a.right=a; this.min=this.mergeLists(this.min,a); } }
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/fibonacci-heap/fibonacciHeap.ts`: const replacer = (key: any, value: any) => {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/data-structures/hash-set/hashSet.ts`: constructor(hasher?: Hasher<T>, equals?: Equality<T>) { this.map = new HashMap<T, true>(hasher as any, equals as any); }
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/data-structures/binary-search-tree/binarySearchTree.ts`: this.compare = compareFunction || ((a: any, b: any) => a - b);
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/core/utils/ConversionUtils.ts`: public static toNumber(value: any): number {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/core/utils/ConversionUtils.ts`: public static toBoolean(value: any): boolean {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/core/patterns/TemplateMethod.ts`: protected abstract prepareData(input: TInput): any;
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/core/patterns/TemplateMethod.ts`: protected abstract processData(data: any): any;
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/core/patterns/TemplateMethod.ts`: protected finalizeResult(result: any): TOutput {
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/core/patterns/AbstractFactory.ts`: createAlgorithm(): IAlgorithm<T[], any>;
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/core/patterns/AbstractFactory.ts`: public createAlgorithm(): IAlgorithm<T[], any> {
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/algorithms/utils/AlgorithmSelector.ts`: algorithms: Array<IAlgorithm<any, any>>,
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/algorithms/utils/AlgorithmSelector.ts`: ): AlgorithmSelectionResult<IAlgorithm<any, any>> {
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/algorithms/utils/AlgorithmSelector.ts`: algorithms: Array<IAlgorithm<any, any>>,
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/algorithms/utils/AlgorithmSelector.ts`: ): AlgorithmSelectionResult<IAlgorithm<any, any>> {
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/algorithms/utils/AlgorithmSelector.ts`: algorithms: Array<IAlgorithm<any, any>>,
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/algorithms/utils/AlgorithmSelector.ts`: ): AlgorithmSelectionResult<IAlgorithm<any, any>> {
+  - *Reason:* Core pattern interfaces and generics. Replacing `any` here requires careful tracing of all implementations to ensure they align with a more specific type or `unknown`.
+- `./src/graphs/algorithms/shortest-path/DijkstraAlgorithm.ts`: public *findShortestPathGenerator(graph: IGraph<T, W>, start: T, end: T): Generator<any> {
+  - *Reason:* Generator return types usually require specific interface definitions for animation states.
+- `./src/graphs/algorithms/matching/HopcroftKarp.ts`: const NIL: any = Symbol('NIL');
+  - *Reason:* Symbols used as sentinel values (like NIL) in typed collections often cause union type complexities (e.g., `T | symbol`). Replacing `any` requires updating all usages.
+- `./src/graphs/algorithms/matching/HopcroftKarp.ts`: if (dist.get(pu as any) === undefined || (dist.get(pu as any)! as number) === Infinity) {
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/matching/HopcroftKarp.ts`: dist.set(pu as any, (dist.get(u)! as number) + 1);
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/matching/HopcroftKarp.ts`: q.push(pu as any);
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/matching/HopcroftKarp.ts`: if ((dist.get(pu as any)! as number) === (dist.get(u)! as number) + 1 && dfs(pu as any)) {
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/traversal/BreadthFirstSearch.ts`: } as unknown as any;
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/traversal/BreadthFirstSearch.ts`: public *traverseGenerator(graph: IGraph<T, W>, startVertex: T): Generator<any> {
+  - *Reason:* Generator return types usually require specific interface definitions for animation states.
+- `./src/graphs/algorithms/traversal/BreadthFirstSearch.ts`: if (typeof (graphOrInput as any).getVertices === 'function') {
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/traversal/DepthFirstSearch.ts`: } as unknown as any;
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/traversal/DepthFirstSearch.ts`: public *traverseGenerator(graph: IGraph<T, W>, startVertex: T): Generator<any> {
+  - *Reason:* Generator return types usually require specific interface definitions for animation states.
+- `./src/graphs/algorithms/traversal/DepthFirstSearch.ts`: if (typeof (graphOrInput as any).getVertices === 'function') {
+  - *Reason:* Casting via `as any` usually masks underlying type incompatibilities that require deeper refactoring to fix properly.
+- `./src/graphs/algorithms/interfaces/IGraphAlgorithm.ts`: execute(graph: IGraph<T, W>, ...args: any[]): R;
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/graphs/algorithms/spanning-tree/PrimAlgorithm.ts`: public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
+  - *Reason:* Generator return types usually require specific interface definitions for animation states.
+- `./src/graphs/algorithms/spanning-tree/KruskalAlgorithm.ts`: public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
+  - *Reason:* Generator return types usually require specific interface definitions for animation states.
+- `./src/types/node.ts`: export interface Node<T = any> {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+- `./src/types/edge.ts`: export interface Edge<T = any> {
+  - *Reason:* Requires investigation to determine if it can be replaced by generics or `unknown`.
+
+## 3. Mandatory to Keep
+These instances are unavoidable due to external APIs, strict adherence to built-in TypeScript interfaces (like `Iterator`), or non-standard environment features (like `performance.memory`).
+
+- `./src/interfaces.ts`: next(value?: any): IteratorResult<T>
+  - *Reason:* These conform to the standard TypeScript `Iterator` and `Generator` interfaces which use `any` for `next()`, `return()`, and `throw()` arguments.
+- `./src/interfaces.ts`: return?(value?: any): IteratorResult<T>
+  - *Reason:* These conform to the standard TypeScript `Iterator` and `Generator` interfaces which use `any` for `next()`, `return()`, and `throw()` arguments.
+- `./src/interfaces.ts`: throw?(e?: any): IteratorResult<T>
+  - *Reason:* These conform to the standard TypeScript `Iterator` and `Generator` interfaces which use `any` for `next()`, `return()`, and `throw()` arguments.
+- `./src/algorithms/utils/AlgorithmTestUtils.ts`: const startMemory = (performance as any).memory?.usedJSHeapSize;
+  - *Reason:* The `performance.memory` API is non-standard (V8 specific) and not included in standard TS DOM lib. Keeping `any` or casting to a custom interface is mandatory.
+- `./src/algorithms/utils/AlgorithmTestUtils.ts`: const endMemory = (performance as any).memory?.usedJSHeapSize;
+  - *Reason:* The `performance.memory` API is non-standard (V8 specific) and not included in standard TS DOM lib. Keeping `any` or casting to a custom interface is mandatory.
