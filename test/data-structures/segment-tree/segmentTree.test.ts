@@ -147,6 +147,12 @@ describe('testing segmentTree setup query and update: ', () => {
     })
   })
 
+  /**
+   * Tests by comparing iterative and recursive creation of trees in different cases.
+   * This ensures consistency between both implementations of Segment Tree construction,
+   * verifying that range queries for sum, min, and max operations yield identical
+   * results regardless of the underlying tree generation method.
+   */
   it('compares iterative and recursive creation of trees in different cases', () => {
     const compareTrees = (arr: number[]) => {
       const recTree = buildSegmentTree(arr, nodeFactoryFn, nodeMergerFn)
