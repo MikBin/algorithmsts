@@ -1174,7 +1174,6 @@ describe('testing segment tree class: ', () => {
     expect(wmv.avg.toFixed(3)).toEqual(res.avg.toFixed(3))
   })
 
-  //@TODO to fix variance computation
   it('have full average correct', () => {
     let wmv = walfordMeanVariance(financialSeries)
     let res = FinSegmentTree.query(0, financialSeries.length - 1)
@@ -1186,6 +1185,66 @@ describe('testing segment tree class: ', () => {
     expect(Math.max(...highs)).toEqual(res.max)
     expect(Math.abs(wmv.avg - res.avg)).toBeLessThan(0.001)
     expect(Math.abs(wmv.sigma - res.sigma)).toBeLessThan(0.001)
+  })
+
+  it('have variance and mean correct for edge case identical items', () => {
+    let sameSeries = []
+    for (let i = 0; i < 5; i++) {
+      sameSeries.push(['date', 0, 10, 10, 10])
+    }
+    let sameTree = new SegmentTree(
+      sameSeries,
+      finNodeFactory,
+      finNodeMerger,
+      finNodeQuery,
+      finNodeLeafUpdater
+    )
+    let wmv = walfordMeanVariance(sameSeries)
+    let res = sameTree.query(0, 4)
+    expect(Math.abs(wmv.avg - res.avg)).toBeLessThan(0.001)
+    expect(Math.abs(wmv.sigma - res.sigma)).toBeLessThan(0.001)
+    expect(res.sigma).toEqual(0)
+    expect(res.avg).toEqual(10)
+  })
+
+  it('have variance and mean correct for edge case linear values', () => {
+    let linearSeries = []
+    for (let i = 0; i < 5; i++) {
+      linearSeries.push(['date', 0, 10, 10, i * 10])
+    }
+    let linearTree = new SegmentTree(
+      linearSeries,
+      finNodeFactory,
+      finNodeMerger,
+      finNodeQuery,
+      finNodeLeafUpdater
+    )
+    let wmv = walfordMeanVariance(linearSeries)
+    let res = linearTree.query(0, 4)
+    expect(Math.abs(wmv.avg - res.avg)).toBeLessThan(0.001)
+    expect(Math.abs(wmv.sigma - res.sigma)).toBeLessThan(0.001)
+    expect(res.avg).toEqual(20)
+    expect(res.sigma).toEqual(200)
+  })
+
+  it('have variance and mean correct for edge case single outlier', () => {
+    let outlierSeries = []
+    for (let i = 0; i < 5; i++) {
+      outlierSeries.push(['date', 0, 10, 10, i === 0 ? 1000 : 0])
+    }
+    let outlierTree = new SegmentTree(
+      outlierSeries,
+      finNodeFactory,
+      finNodeMerger,
+      finNodeQuery,
+      finNodeLeafUpdater
+    )
+    let wmv = walfordMeanVariance(outlierSeries)
+    let res = outlierTree.query(0, 4)
+    expect(Math.abs(wmv.avg - res.avg)).toBeLessThan(0.001)
+    expect(Math.abs(wmv.sigma - res.sigma)).toBeLessThan(0.001)
+    expect(res.avg).toBeCloseTo(200, 3)
+    expect(res.sigma).toBeCloseTo(160000, 3)
   })
 })
 
