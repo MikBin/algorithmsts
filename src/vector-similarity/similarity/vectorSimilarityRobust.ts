@@ -1,6 +1,15 @@
 /**
  * Compute a robust similarity score between two numeric vectors A and B.
  *
+ * Per coordinate, relative error is clipped and softened:
+ * ```
+ * rᵢ = min(|Aᵢ − Bᵢ| / max(|Aᵢ|, |Bᵢ|), clipMax)   (0 if both coordinates are 0)
+ * dᵢ = rᵢ / (rᵢ + k)
+ * D  = (1/n) Σ dᵢ
+ * sim = 1 − D / (clipMax / (clipMax + k))
+ * ```
+ * Defaults: `clipMax = 4`, `k = 1`. Result clamped to [0, 1].
+ *
  * @param A - First numeric vector.
  * @param B - Second numeric vector.
  * @param options - Optional configuration (`clipMax` per-coordinate clamp, `k` softness).

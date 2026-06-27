@@ -1,9 +1,16 @@
 /**
  * Compute a metric-like similarity score between two numeric vectors A and B.
  *
+ * ```
+ * dᵢ = min(|Aᵢ − Bᵢ| / max(|Aᵢ|, |Bᵢ|), 1)   (0 when both coordinates are 0)
+ * D  = (1/n) Σ dᵢ
+ * sim = (exp(−λD) − exp(−λ)) / (1 − exp(−λ))
+ * ```
+ * Default: `lambda = 3` (values ≤ 0 fall back to 3). Result clamped to [0, 1].
+ *
  * @param A - First numeric vector.
  * @param B - Second numeric vector.
- * @param options - Optional configuration (`lambda` steepness; values <= 0 fall back to the default 3).
+ * @param options - Optional configuration (`lambda` steepness).
  * @returns Similarity score in [0, 1].
  * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
  * @throws {RangeError} If `A` and `B` differ in length or are empty.

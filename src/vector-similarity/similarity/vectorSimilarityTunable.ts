@@ -1,6 +1,12 @@
 /**
  * Compute a tunable similarity score between two numeric vectors A and B.
  *
+ * Builds per-coordinate agreement (half-max denominator, clamped to [0, 1]), then:
+ * ```
+ * sim = mean(C)^α
+ * ```
+ * Default: `alpha = 1.5`. Result clamped to [0, 1].
+ *
  * @param A - First numeric vector.
  * @param B - Second numeric vector.
  * @param options - Optional configuration (`alpha` exponent, must be positive).
@@ -8,7 +14,7 @@
  * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
  * @throws {RangeError} If `A` and `B` differ in length or are empty, or `alpha` is invalid.
  *
- * Time complexity: O(n). Space complexity: O(1).
+ * Time complexity: O(n). Space complexity: O(n) (auxiliary C vector).
  */
 
 import { validateVectors } from './internal/validateVectors';

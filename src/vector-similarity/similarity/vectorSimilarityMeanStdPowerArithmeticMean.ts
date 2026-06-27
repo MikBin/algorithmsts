@@ -2,8 +2,20 @@
  * Compute a custom similarity score between two numeric vectors A and B
  * using the mean/std-based exponent formulation with an Arithmetic Mean denominator.
  *
- * Denominator = 0.5 * (|a| + |b|)
+ * Per coordinate:
+ * ```
+ * C[i] = 1 − |Aᵢ − Bᵢ| / (0.5 · (|Aᵢ| + |Bᵢ|))   (1 when both are 0)
+ * mean = avg(C),  std = sampleStd(C)
+ * exponent = 1 + std · stdWeight
+ * raw = 1 + sign(mean) · |mean|^exponent^sign(mean)
+ * sim = raw / 2
+ * ```
+ * `vectorSimilarityMeanStdPowerArithmeticMeanNoStd` sets `stdWeight = 0`.
  *
+ * @param A - First numeric vector.
+ * @param B - Second numeric vector.
+ * @param stdWeight - Weight of std in the exponent (default 1).
+ * @returns Similarity in [0, 1].
  * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
  * @throws {RangeError} If `A` and `B` differ in length or are empty.
  *

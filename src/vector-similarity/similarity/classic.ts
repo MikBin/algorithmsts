@@ -543,7 +543,9 @@ export function canberraDistance(a: number[], b: number[]): number {
 
 /**
  * Lorentzian distance.
+ * Sum of log-compressed coordinate differences: `d = Σ log(1 + |Aᵢ − Bᵢ|)`.
  * Less sensitive to outliers than Euclidean distance.
+ * Note: this is the **log-sum implementation**, not the alternate Lorentzian metric from arXiv:2408.07706 §2.3e.
  * Range: [0, ∞) (0 means identical).
  *
  * @param a - First numeric vector.

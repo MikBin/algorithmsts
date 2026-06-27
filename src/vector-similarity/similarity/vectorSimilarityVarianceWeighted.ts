@@ -1,14 +1,21 @@
 /**
  * Compute a variance-weighted similarity score between two numeric vectors A and B.
  *
+ * Builds per-coordinate agreement C (half-max denominator), then penalizes by normalized std:
+ * ```
+ * sNorm = std(C) / √(n / (4(n − 1)))
+ * sim   = mean(C) · (1 − β · sNorm^γ)
+ * ```
+ * Defaults: `beta = 0.85`, `gamma = 2`. Result clamped to [0, 1].
+ *
  * @param A - First numeric vector.
  * @param B - Second numeric vector.
- * @param options - Optional configuration (`beta` penalty weight clamped to [0,1], `gamma` exponent; values < 1 fall back to 1).
+ * @param options - Optional configuration (`beta` in [0,1], `gamma` ≥ 1).
  * @returns Similarity score in [0, 1].
  * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
  * @throws {RangeError} If `A` and `B` differ in length or are empty.
  *
- * Time complexity: O(n). Space complexity: O(1).
+ * Time complexity: O(n). Space complexity: O(n) (auxiliary C vector).
  */
 
 import { validateVectors } from './internal/validateVectors';

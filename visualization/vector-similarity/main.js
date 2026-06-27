@@ -1,6 +1,7 @@
 /* eslint-env browser */
 import { createApp, ref, computed, onMounted, watch, h } from 'vue';
 import { analysisResults } from './similarity-data.js';
+import { MethodologySection } from './methodology-section.js';
 import * as VectorSimilarity from '../../src/vector-similarity/index.ts';
 
 const _style = getComputedStyle(document.documentElement);
@@ -335,7 +336,8 @@ const App = {
   components: {
     ChartComponent,
     SortableTable,
-    SimilarityCalculator
+    SimilarityCalculator,
+    MethodologySection
   },
   setup() {
     // --- Data Prep helpers ---

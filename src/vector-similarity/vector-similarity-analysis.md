@@ -2,6 +2,9 @@
 
 This document provides an overview of the vector similarity analysis script and explains how to interpret the results.
 
+For function formulas see [SIMILARITY_FUNCTIONS.md](./SIMILARITY_FUNCTIONS.md).  
+For the full export catalog see [IMPLEMENTATION_STATUS.md](./IMPLEMENTATION_STATUS.md).
+
 ## Overview
 
 The `vector-similarity-analysis.ts` script is a comprehensive tool for evaluating and comparing various vector similarity and distance functions. It consolidates several tests and benchmarks into a single script, generating a unified JSON output file named `vector-similarity-analysis.json` in the `tmp/` directory.

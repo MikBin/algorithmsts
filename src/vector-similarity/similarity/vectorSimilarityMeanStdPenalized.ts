@@ -1,6 +1,21 @@
 /**
- * Compute a variance-penalized similarity score between two numeric vectors A and B
- * using the same C[i] definition as the base similarity.
+ * Compute a variance-penalized similarity score between two numeric vectors A and B.
+ *
+ * Builds per-coordinate agreement (half-max denominator, clamped to [0, 1]):
+ * ```
+ * C[i] = 1 − |Aᵢ − Bᵢ| / (2 · max(|Aᵢ|, |Bᵢ|))   (1 when both are 0)
+ * sim  = mean(C) · (1 − α · std(C)^stdPower)
+ * ```
+ * Defaults: `alpha = 0.75`, `stdPower = 1`. Result clamped to [0, 1].
+ *
+ * @param A - First numeric vector.
+ * @param B - Second numeric vector.
+ * @param options - Optional configuration (`alpha`, `stdPower`).
+ * @returns Similarity score between 0 and 1.
+ * @throws {TypeError} If `A` or `B` is not an array, or contains a non-finite element.
+ * @throws {RangeError} If `A` and `B` differ in length or are empty, or `options` are invalid.
+ *
+ * Time complexity: O(n). Space complexity: O(n) (auxiliary C vector).
  */
 
 import { validateVectors } from './internal/validateVectors';
@@ -10,16 +25,6 @@ export interface VectorSimilarityPenalizedOptions {
   stdPower?: number;
 }
 
-/**
- * @param A - First numeric vector.
- * @param B - Second numeric vector.
- * @param options - Optional configuration.
- * @returns Similarity score between 0 and 1.
- * @throws {TypeError} If `A` or `B` is not an array, or contains a non-finite element.
- * @throws {RangeError} If `A` and `B` differ in length or are empty, or `options` are invalid.
- *
- * Time complexity: O(n). Space complexity: O(1).
- */
 function computeVectorSimilarityMeanStdPenalized(
   A: number[],
   B: number[],

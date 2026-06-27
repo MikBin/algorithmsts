@@ -42,7 +42,7 @@ export const intersectionSimilarity = (a: number[], b: number[]): number => {
 
 /**
  * Wave Hedges Distance
- * A distance measure based on the element-wise absolute difference divided by the maximum.
+ * `d = Σ |Aᵢ − Bᵢ| / max(|Aᵢ|, |Bᵢ|)` — terms skipped when max is 0.
  * Range: [0, ∞)
  */
 export const waveHedgesDistance = (a: number[], b: number[]): number => {
@@ -58,8 +58,8 @@ export const waveHedgesDistance = (a: number[], b: number[]): number => {
 };
 
 /**
- * Sørensen-Dice Distance
- * A distance measure that is sensitive to differences in the magnitudes of the vectors.
+ * Sørensen-Dice Distance (Bray–Curtis form)
+ * `d = Σ|Aᵢ − Bᵢ| / (Σ|Aᵢ| + Σ|Bᵢ|)`
  * Range: [0, 1]
  */
 export const sorensenDistance = (a: number[], b: number[]): number => {
@@ -77,7 +77,7 @@ export const sorensenDistance = (a: number[], b: number[]): number => {
 
 /**
  * Motyka Similarity
- * A similarity measure based on the sum of minimums divided by the sum of maximums.
+ * `sim = Σ min(|Aᵢ|,|Bᵢ|) / Σ max(|Aᵢ|,|Bᵢ|)`
  * Range: [0, 1]
  */
 export const motykaSimilarity = (a: number[], b: number[]): number => {

@@ -1,267 +1,654 @@
-# Similarity and Distance Measures Guide
+# Vector Similarity Functions — Library Reference
 
-**For the current implementation status of these functions, please see [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).**
+This document describes **every public function** exported from `@mikbin80/algorithmsts/vector-similarity`, with formulas **as implemented in source code** (not generic textbook variants).
 
-Reference: "A Guide to Similarity Measures" (arXiv:2408.07706v1)
+- Implementation catalog: [IMPLEMENTATION_STATUS.md](./IMPLEMENTATION_STATUS.md)
+- Analysis methodology: [vector-similarity-analysis.md](./vector-similarity-analysis.md)
+- Naming / rename proposal: [NAMING_PROPOSAL.md](./NAMING_PROPOSAL.md)
+- External survey reference: [A Guide to Similarity Measures](https://arxiv.org/abs/2408.07706) (arXiv:2408.07706v1)
 
-## Classification of Similarity Measures
+## Conventions
 
-Measures are organized into the following families:
+### Input validation
 
----
+All pairwise vector functions call `validateVectors(A, B)` unless noted:
 
-## 1. Inner Product Based Measures
+- Both arguments must be finite numeric arrays of equal length
+- Most require non-empty vectors; Jaccard and some correlation helpers allow empty (return `1`)
+- Throws `TypeError` / `RangeError` on invalid input
 
-### 1.1 Inner Product Distance and Similarity
-- **Formula (Similarity)**: `sim_IP(P,Q) = ⟨P,Q⟩`
-- **Formula (Distance)**: `d_IP(P,Q) = ||P-Q||`
-- **Type**: Metric space measure
-- **Use Case**: Measures number of matches/overlap for binary vectors
+### Distance → similarity conversion
 
-### 1.2 Cosine Similarity
-- **Formula**: `sim_Cos(P,Q) = ⟨P,Q⟩ / (||P|| · ||Q||)`
-- **Distance Form**: `d_Cos(P,Q) = 1 - sim_Cos(P,Q)`
-- **Range**: [-1, 1] for similarity
-- **Note**: Not a metric (violates triangle inequality)
-- **Interpretation**: Cosine of angle between vectors
+Many similarities wrap a distance via `distanceToSimilarity(d)`:
 
-### 1.3 Angular Distance
-- **Formula (Distance)**: `d_Ang(P,Q) = arccos(sim_Cos(P,Q)) / π`
-- **Formula (Similarity)**: `sim_Ang(P,Q) = 1 - d_Ang(P,Q)`
-- **Range**: [0, 1]
-- **Type**: Formal metric
-- **Note**: Computationally expensive (arccos)
+```
+sim = 1 / (1 + d)     when maxDistance is null (default)
+sim = 1 - d / max     when maxDistance is provided
+```
 
-### 1.4 Jaccard Coefficient (Jaccard Index/Tanimoto)
-- **Formula (Similarity)**: `sim_Jac(P,Q) = ⟨P,Q⟩ / (||P||² + ||Q||² - ⟨P,Q⟩)`
-- **Formula (Distance)**: `d_Jac(P,Q) = 1 - sim_Jac(P,Q) = ||P-Q||² / (||P||² + ||Q||² - ⟨P,Q⟩)`
-- **Type**: Formal metric
-- **Use Case**: Measure overlap between sample sets
+Used by: `euclideanSimilarity`, `manhattanSimilarity`, `lorentzianSimilarity`, `waveHedgesSimilarity`, entropy similarities, etc.
 
-### 1.5 Dice Coefficient (Sørensen Distance)
-- **Formula (Similarity)**: `sim_Dice(P,Q) = 2⟨P,Q⟩ / (||P||² + ||Q||²)`
-- **Formula (Distance)**: `d_Dice(P,Q) = 1 - sim_Dice(P,Q) = ||P-Q||² / (||P||² + ||Q||²)`
-- **Note**: Not a metric (violates triangle inequality)
-- **Use Case**: Diversity of sample sets
+Chi-square and Itakura–Saito normalized similarities use the same `1 / (1 + d)` mapping directly.
+
+### Signed inputs
+
+| Module | Handling |
+|--------|----------|
+| Entropy | Normalizes `\|x\|` to a probability distribution internally |
+| Chi-square, Itakura–Saito | Uses `\|P[i]\|`, `\|Q[i]\|` per coordinate |
+| Jaccard weighted | Uses `\|a[i]\|`, `\|b[i]\|` as weights |
+| Intersection family | Uses absolute values throughout |
+| Classic Lp | Uses signed differences where applicable |
 
 ---
 
-## 2. The Minkowski Distance Family
+## 1. Classic measures (`similarity/classic.ts`)
 
-### 2.1 L₂ Distance - Euclidean Distance
-- **Formula**: `d_L₂(P,Q) = √(∑ᵢ |Pᵢ - Qᵢ|²)`
-- **Type**: Formal metric
-- **Properties**: Most common distance for numerical attributes
+### Cosine similarity
 
-### 2.2 Squared Euclidean Distance
-- **Formula**: `d_L₂²(P,Q) = ∑ᵢ (Pᵢ - Qᵢ)²`
-- **Note**: Omits square root for computational efficiency
+```
+sim = (A·B) / (‖A‖ · ‖B‖)
+```
 
-### 2.3 L₁ Distance - Manhattan Distance
-- **Formula**: `d_L₁(P,Q) = ∑ᵢ |Pᵢ - Qᵢ|`
-- **Also Known As**: Boxcar, City Block, Rectilinear, Absolute Value distance
-- **Type**: Formal metric
-- **Note**: Not normalized; increases with dimensions
+Range: **[-1, 1]**. Returns `0` if either vector has zero norm.
 
-#### 2.3a Gower Distance
-- **Formula**: `d_Gow(P,Q) = (1/d) ∑ᵢ |Pᵢ - Qᵢ| / |Rᵢ|`
-- **Normalization**: Each difference normalized by range size
-- **Use Case**: Mixed feature types
+### Normalized cosine similarity
 
-#### 2.3b Soergel Distance (Ruzicka Distance)
-- **Formula**: `d_Soer(P,Q) = ∑ᵢ |Pᵢ - Qᵢ| / ∑ᵢ max(Pᵢ, Qᵢ)`
-- **Note**: Identical to Jaccard for binary variables
+```
+sim = (cosine + 1) / 2
+```
 
-#### 2.3c Kulczynski Distance
-- **Formula**: `d_Kul(P,Q) = ∑ᵢ |Pᵢ - Qᵢ| / ∑ᵢ min(Pᵢ, Qᵢ)`
+Range: **[0, 1]**.
 
-#### 2.3d Canberra Distance
-- **Formula**: `d_Can(P,Q) = ∑ᵢ |Pᵢ - Qᵢ| / (|Pᵢ| + |Qᵢ|)`
-- **Property**: Sensitive to small changes near zero
-- **Variant**: Adkins form (divided by n-Z)
+### Euclidean distance
 
-#### 2.3e Lorentzian Distance
-- **Formula**: `√(∑ᵢ₌₁^(d-1) |Pᵢ - Qᵢ|² - |Pₐ - Qₐ|²)`
-- **Note**: Not a formal metric (violates positive definiteness)
+```
+d = √(Σ (Aᵢ − Bᵢ)²)
+```
 
-### 2.4 Lₚ Distance - Minkowski Distance
-- **Formula**: `d_Lₚ(P,Q) = ᵖ√(∑ᵢ |Pᵢ - Qᵢ|ᵖ)`
-- **Note**: Generalizes L₁ (p=1) and L₂ (p=2)
+### Squared Euclidean distance
 
-### 2.5 L∞ Distance - Chebyshev Distance
-- **Formula**: `d_L∞(P,Q) = maxᵢ |Pᵢ - Qᵢ|`
-- **Also Known As**: Lattice, Chessboard, Minmax distance
-- **Note**: Lₚ when p → ∞
+```
+d = Σ (Aᵢ − Bᵢ)²
+```
 
----
+### Manhattan (L₁) distance
 
-## 3. Intersection Similarity Measures and Distances
+```
+d = Σ |Aᵢ − Bᵢ|
+```
 
-### 3.1 Intersection Similarity and Distance
-- **Formula (Similarity)**: `sim_IS(P,Q) = ∑ᵢ min(Pᵢ, Qᵢ)`
-- **Formula (Distance)**: `d_IS(P,Q) = 1 - sim_IS(P,Q) = (1/2)∑ᵢ |Pᵢ - Qᵢ|`
-- **Origin**: Histogram Intersection method
-- **Use Case**: Image histograms, color matching
+### Pearson correlation
 
-### 3.2 Wave Hedges Distance
-- **Formula 1**: `d_WH(P,Q) = ∑ᵢ (1 - min(Pᵢ,Qᵢ)/max(Pᵢ,Qᵢ))`
-- **Formula 2**: `d_WH(P,Q) = ∑ᵢ |Pᵢ - Qᵢ| / max(Pᵢ, Qᵢ)`
-- **Note**: Source history uncertain; still widely used
+```
+r = Σ(Aᵢ − Ā)(Bᵢ − B̄) / √[Σ(Aᵢ − Ā)² · Σ(Bᵢ − B̄)²]
+```
 
-### 3.3 Sørensen Distance (Bray-Curtis, Czekanowski)
-- **Formula (Similarity)**: `sim_Sor(P,Q) = 2∑ᵢ min(Pᵢ,Qᵢ) / ∑ᵢ(Pᵢ + Qᵢ)`
-- **Formula (Distance)**: `d_Sor(P,Q) = 1 - sim_Sor(P,Q) = ∑ᵢ |Pᵢ - Qᵢ| / ∑ᵢ(Pᵢ + Qᵢ)`
-- **Use Case**: Ecology, vegetation analysis
+Returns `1` for constant identical vectors; `0` when either vector is constant and they differ.
 
-#### 3.3a Motyka Similarity
-- **Formula (Similarity)**: `sim_Mot(P,Q) = ∑ᵢ min(Pᵢ,Qᵢ) / ∑ᵢ(Pᵢ + Qᵢ)`
-- **Note**: Half of Sørensen distance
+### Pearson correlation similarity
 
-### 3.4 Kulczynski Similarity
-- **Formula (Similarity)**: `sim_Kul(P,Q) = ∑ᵢ min(Pᵢ,Qᵢ) / ∑ᵢ |Pᵢ - Qᵢ|`
-- **Formula (Distance)**: `d_Kul(P,Q) = 1 / sim_Kul(P,Q)`
-- **Use Case**: Floristic similarity
+```
+sim = (r + 1) / 2
+```
 
-### 3.5 Jaccard (Tanimoto) Index (PDF Form)
-- **Formula (Distance)**: `d_Jac(P,Q) = ∑ᵢ(max(Pᵢ,Qᵢ) - min(Pᵢ,Qᵢ)) / ∑ᵢ max(Pᵢ,Qᵢ)`
-- **Formula (Ruzicka Similarity)**: `sim_Ruz(P,Q) = 1 - d_Jac(P,Q) = ∑ᵢ min(Pᵢ,Qᵢ) / ∑ᵢ max(Pᵢ,Qᵢ)`
+Range: **[0, 1]**.
 
----
+### Dot product
 
-## 4. Entropy Family Measures
+```
+A·B = Σ Aᵢ Bᵢ
+```
 
-### Shannon Entropy (Foundation)
-- **Formula**: `SE(P) = ∑ᵢ Pᵢ ln(Pᵢ)`
-- **Purpose**: Measure diversity and uncertainty
+### Angular distance / similarity
 
-### 4.1 Kullback-Leibler Divergence (Relative Entropy)
-- **Formula**: `d_KL(P,Q) = ∑ᵢ Pᵢ ln(Pᵢ/Qᵢ)`
-- **Note**: Not a metric (asymmetric, violates triangle inequality)
-- **Use Case**: Information gain in machine learning
+```
+d = arccos(clamp(cosine, -1, 1)) / π
+sim = 1 − d
+```
 
-### 4.2 Cross Entropy (CE)
-- **Formula**: `CE(P,Q) = -∑ᵢ Pᵢ ln(Qᵢ) = d_KL(P,Q) - SE(P)`
-- **Use Case**: Loss function in neural networks and logistic regression
+Range: distance **[0, 1]**, similarity **[0, 1]**.
 
-### 4.3 Jeffreys-Divergence (J-Divergence)
-- **Formula**: `d_J(P,Q) = ∑ᵢ Pᵢ ln(Pᵢ/Qᵢ) + ∑ᵢ Qᵢ ln(Qᵢ/Pᵢ) = ∑ᵢ(Pᵢ - Qᵢ) ln(Pᵢ/Qᵢ)`
-- **Property**: Symmetric version of KL divergence
-- **Use Case**: Change detection, radar clutter analysis
+### Dice coefficient / distance
 
-### 4.4 K-Divergence
-- **Purpose**: Based on Kullback-Leibler divergence (details in paper)
+```
+sim = 2·Σ min(|Aᵢ|, |Bᵢ|) / (Σ|Aᵢ| + Σ|Bᵢ|)
+d = 1 − sim
+```
 
-### 4.5 Topsøe Divergence
-- **Purpose**: Entropy family measure (details in paper)
+### Chebyshev (L∞) distance / similarity
 
----
+```
+d = maxᵢ |Aᵢ − Bᵢ|
+sim = 1 / (1 + d)
+```
 
-## 5. χ² (Chi-Square) Family Measures
+### Gower distance / similarity
 
-### 5.1 Pearson χ² Distance
-- **Formula**: `d_χ²(P,Q) = ∑ᵢ (Pᵢ - Qᵢ)² / Qᵢ`
-- **Type**: Not a metric
+Requires a `ranges` array (one positive range per dimension):
 
-### 5.2 Neyman χ² Distance
-- **Formula**: `d_χ²(P,Q) = ∑ᵢ (Pᵢ - Qᵢ)² / Pᵢ`
+```
+d = (1/n) Σ |Aᵢ − Bᵢ| / ranges[i]
+sim = 1 / (1 + d)
+```
 
-### 5.3 Additive Symmetric χ² Distance
-- **Purpose**: Symmetric variant of χ² measures
+The analysis script passes `ranges = [1, 1, …, 1]`.
 
-### 5.4 Spearman Distance
-- **Use Case**: Rank correlation measures
+### Soergel distance / similarity
 
-### 5.5 Squared χ² Distance
-- **Formula**: Based on squared χ² values
+```
+d = Σ|Aᵢ − Bᵢ| / Σ max(|Aᵢ|, |Bᵢ|)
+sim = 1 / (1 + d)
+```
+
+### Kulczynski distance / similarity
+
+```
+d = Σ|Aᵢ − Bᵢ| / Σ min(|Aᵢ|, |Bᵢ|)
+sim = 1 / (1 + d)
+```
+
+### Canberra distance (classic)
+
+```
+d = Σ |Aᵢ − Bᵢ| / (|Aᵢ| + |Bᵢ|)    (skip terms where both are 0)
+```
+
+### Lorentzian distance / similarity
+
+> **Note:** This implementation uses the **log-compression form**, not the paper-specific Lorentzian metric from arXiv:2408.07706 §2.3e.
+
+```
+d = Σ log(1 + |Aᵢ − Bᵢ|)
+sim = 1 / (1 + d)
+```
+
+### Euclidean / Manhattan similarity
+
+Wrap respective distance with `distanceToSimilarity`.
 
 ---
 
-## 6. Fidelity Family (Squared-Chord Family)
+## 2. Jaccard family (`similarity/jaccard.ts`)
 
-### 6.1 Fidelity (Bhattacharyya Coefficient)
-- **Formula**: `sim_Fid(P,Q) = ∑ᵢ √(Pᵢ · Qᵢ)`
-- **Range**: [0, 1]
-- **Use Case**: Pattern recognition, distribution comparison
+### Binary Jaccard
 
-### 6.2 Hellinger Distance
-- **Formula**: `d_Hell(P,Q) = √(1 - ∑ᵢ √(Pᵢ · Qᵢ)) = √(2 · d_χ²_squared)`
-- **Type**: Formal metric
-- **Range**: [0, 1]
+Non-zero → 1, zero → 0 per coordinate:
 
-### 6.3 Matusita Distance
-- **Formula**: Based on Fidelity family
-- **Type**: Formal metric
+```
+sim = |A ∩ B| / |A ∪ B|
+```
 
-### 6.4 Squared-Chord Distance
-- **Formula**: `d_sc(P,Q) = ∑ᵢ (√Pᵢ - √Qᵢ)²`
-- **Type**: Formal metric
+Union size 0 → returns `1`.
 
----
+### Weighted / real-valued Jaccard
 
-## 7. String Similarity Measures
+```
+sim = Σ min(|Aᵢ|, |Bᵢ|) / Σ max(|Aᵢ|, |Bᵢ|)
+```
 
-### 7.1 String Rearrangement Measures
-
-#### 7.1a Hamming Distance
-- **Definition**: Count of positions where corresponding symbols differ
-- **Use Case**: Error detection, binary strings
-- **Note**: Requires equal-length strings
-
-#### 7.1b Levenshtein Distance
-- **Definition**: Minimum edit distance (insertions, deletions, substitutions)
-- **Variants**: Multiple cost models available
-
-#### 7.1c Swap Distance
-- **Definition**: Edit distance allowing character swaps
-- **Related To**: Damerau-Levenshtein
-
-#### 7.1d String Interchange/Parallel-Interchange
-- **Definition**: Rearrangement distances with specific operation costs
-
-### 7.2 String Similarity Measures (N-Grams, Jaro, LCS)
-
-#### 7.2a Longest Common Subsequence (LCS)
-- **Definition**: Length of longest subsequence common to both strings
-- **Use Case**: Sequence comparison
-
-#### 7.2b Jaro Similarity
-- **Formula**: Based on matching characters and transpositions
-- **Range**: [0, 1]
-- **Use Case**: Spelling correction, record linkage
-
-#### 7.2c N-Grams Similarity
-- **Definition**: Similarity based on common n-character substrings
-- **Use Case**: Text analysis, spell checking
+`jaccardSimilarityRealValued` is an alias of `jaccardSimilarityWeighted`.
 
 ---
 
-## 8. Additional Measures Mentioned
+## 3. Heuristics (`similarity/heuristics.ts`)
 
-### Mahalanobis Distance
-- **Purpose**: Multivariate distance considering covariance
-- **Use Case**: Anomaly detection, imbalanced data, one-class classification
-- **Note**: Underutilized in practice despite effectiveness
+### Weighted Minkowski similarity
 
-### SED (Structural Euclidean Distance)
-- **Purpose**: Distance for unordered structures
+```
+d = (Σ wᵢ |Aᵢ − Bᵢ|ᵖ)^(1/p)     defaults: p=2, wᵢ=1
+sim = 1 / (1 + d)
+```
 
-### Clark Distance
-- **Purpose**: Alternative normalization scheme
+Options: `MinkowskiOptions { p?, weights? }`.
+
+### Canberra similarity (heuristic form)
+
+```
+d = (1/n) Σ |Aᵢ − Bᵢ| / (|Aᵢ| + |Bᵢ|)    (skip zero/zero terms)
+sim = 1 / (1 + d)
+```
+
+Differs from `canberraDistance` in classic.ts (raw sum vs normalized + similarity mapping).
+
+### Bray–Curtis similarity
+
+```
+sim = 1 − Σ|Aᵢ − Bᵢ| / Σ(|Aᵢ| + |Bᵢ|)
+```
+
+Equivalent to `1 − sorensenDistance`.
+
+### Harmonic mean similarity
+
+Per-coordinate `sᵢ = 1 − |Aᵢ−Bᵢ| / (|Aᵢ|+|Bᵢ|+ε)`, then harmonic mean of positive `sᵢ`.
+
+### Kendall correlation similarity
+
+Tau-a: `(C − D) / (C + D)` over coordinate pairs, mapped to `[0,1]` via `(1 + τ) / 2`.
+
+Complexity: **O(n²)**.
+
+### Geometric mean similarity
+
+Geometric mean of per-coordinate similarities `1 − |Aᵢ−Bᵢ|/(|Aᵢ|+|Bᵢ|+ε)`.
+
+### Ratio-based similarity
+
+```
+sim = (2 Σ min(|Aᵢ|,|Bᵢ|)) / (Σ|Aᵢ| + Σ|Bᵢ|)
+```
 
 ---
 
-## Summary Table
+## 4. Intersection family (`similarity/intersection.ts`)
 
-| Family | Measures | Count |
-|--------|----------|-------|
-| Inner Product | IP, Cosine, Angular, Jaccard, Dice | 5 |
-| Minkowski | L₂, L₂², L₁, Lₚ, L∞, + 5 variants | 11 |
-| Intersection | IS, Wave Hedges, Sørensen, Kulczynski, Jaccard | 5 |
-| Entropy | KL, CE, J-Divergence, K-Divergence, Topsøe | 5 |
-| χ² | Pearson, Neyman, Add. Sym., Spearman, Squared | 5 |
-| Fidelity | Fidelity, Hellinger, Matusita, Squared-Chord | 4 |
-| String Rearrangement | Hamming, Levenshtein, Swap, Interchange, LCS | 5 |
-| String Similarity | Jaro, N-Grams | 2 |
-| Other | Mahalanobis, SED, Clark | 3 |
+All functions use absolute values.
 
-**Total: 50+ measures and variants**
+### Intersection similarity
+
+```
+sim = 2 Σ min(|Aᵢ|, |Bᵢ|) / (Σ|Aᵢ| + Σ|Bᵢ|)
+```
+
+Sørensen–Dice normalization. `intersectionSimilarityNormalized` is an alias.
+
+### Intersection distance
+
+```
+d = 1 − intersectionSimilarity
+```
+
+### Wave Hedges distance / similarity
+
+```
+d = Σ |Aᵢ − Bᵢ| / max(|Aᵢ|, |Bᵢ|)    (skip when max = 0)
+sim = 1 / (1 + d)
+```
+
+### Sørensen (Bray–Curtis) distance / similarity
+
+```
+d = Σ|Aᵢ − Bᵢ| / (Σ|Aᵢ| + Σ|Bᵢ|)
+sim = 1 − d
+```
+
+### Motyka similarity / distance
+
+```
+sim = Σ min(|Aᵢ|,|Bᵢ|) / Σ max(|Aᵢ|,|Bᵢ|)
+d = 1 − sim
+```
+
+---
+
+## 5. Entropy family (`similarity/entropy.ts`)
+
+Inputs are converted to distributions: `Pᵢ = |xᵢ| / Σ|xⱼ|` (uniform if sum is 0).
+
+### Kullback–Leibler divergence
+
+```
+D_KL(P‖Q) = Σ Pᵢ ln(Pᵢ / Qᵢ)     (nats)
+```
+
+Returns `Infinity` when `Qᵢ = 0` and `Pᵢ > 0`.
+
+### Cross entropy
+
+```
+CE(P,Q) = −Σ Pᵢ ln(Qᵢ)
+```
+
+### Jeffreys divergence
+
+```
+D_J = D_KL(P‖Q) + D_KL(Q‖P)
+```
+
+### K-divergence
+
+```
+D_K(P,Q) = D_KL(P ‖ M),   M = (P + Q) / 2
+```
+
+### Topsøe divergence
+
+```
+D_T(P,Q) = D_KL(P‖M) + D_KL(Q‖M),   M = (P + Q) / 2
+```
+
+### Similarity wrappers
+
+`kullbackLeiblerSimilarity`, `jeffreysSimilarity`, `kSimilarity`, `topsoeSimilarity`, `crossEntropySimilarity` — each applies `distanceToSimilarity` to the corresponding divergence.
+
+---
+
+## 6. Chi-square family
+
+### Raw distances (`similarity/chi-square.ts`)
+
+Uses `p = |P[i]|`, `q = |Q[i]|`:
+
+| Function | Formula |
+|----------|---------|
+| Pearson χ² | `Σ (p−q)² / q` |
+| Neyman χ² | `Σ (p−q)² / p` |
+| Additive symmetric | `Σ (p−q)²(p+q) / (pq)` |
+| Squared χ² | `Σ (p−q)² / (p+q)` |
+
+Returns `Infinity` on invalid zero denominators (except both-zero skip).
+
+### Normalized similarities (`similarity/normalized-chi-square.ts`)
+
+```
+sim = 1 / (1 + distance)
+```
+
+For each chi-square distance variant above.
+
+---
+
+## 7. Fidelity family
+
+### Fidelity (Bhattacharyya coefficient) — `similarity/fidelity.ts`
+
+```
+sim = Σ √(Pᵢ Qᵢ)     (uses |Pᵢ|, |Qᵢ|)
+```
+
+### Hellinger distance / similarity
+
+```
+d = √[0.5 Σ (√Pᵢ − √Qᵢ)²]
+sim = 1 / (1 + d)
+```
+
+### Matusita distance
+
+```
+d = √[Σ (√Pᵢ − √Qᵢ)²]
+```
+
+### Squared chord distance
+
+```
+d = Σ (√Pᵢ − √Qᵢ)²
+```
+
+### Normalized similarities — `similarity/normalized-fidelity.ts`
+
+```
+normalizedMatusitaSimilarity      = 1 / (1 + matusitaDistance)
+normalizedSquaredChordSimilarity  = 1 / (1 + squaredChordDistance)
+```
+
+---
+
+## 8. Kernel similarities (`similarity/nonLinear.ts`)
+
+### Polynomial kernel (normalized)
+
+```
+K(a,b) = (a·b + c)^d
+sim = K(a,b) / √(K(a,a) · K(b,b))
+```
+
+Defaults: `d=2`, `c=1`. Range: **[-1, 1]** (typically [0,1] for non-negative vectors).
+
+### RBF kernel
+
+```
+sim = exp(−γ · ‖a − b‖²)
+```
+
+Default: `γ=0.01`. Range: **(0, 1]**.
+
+---
+
+## 9. Itakura–Saito (`similarity/itakura-saito.ts`)
+
+### Distance
+
+```
+d = Σ [ (p/q) − ln(p/q) − 1 ]     p=|P[i]|, q=|Q[i]|
+```
+
+Skip `p=q=0`; return `Infinity` if exactly one of `p,q` is zero.
+
+### Similarity
+
+```
+sim = 1 / (1 + d)
+```
+
+---
+
+## 10. Correlation measures
+
+### Correlation distance — `correlationDistance.ts`
+
+```
+d = 1 − pearsonCorrelation(A, B)     range [0, 2]
+```
+
+### Distance correlation — `distanceCorrelation.ts`
+
+Measures dependence via double-centered distance matrices (dCor). Range **[0, 1]**; `1` when both vectors are constant and equal, `0` when one is constant.
+
+Algorithm: Euclidean distance matrices → double center → ratio of distance covariances.
+
+---
+
+## 11. Custom robust metrics
+
+These share a per-coordinate agreement vector **C** in most variants.
+
+### Per-coordinate agreement (max-denominator form)
+
+Used by `vectorSimilarityCorrelation`, penalized, tunable, variance-weighted:
+
+```
+C[i] = 1 − |Aᵢ − Bᵢ| / max(|Aᵢ|, |Bᵢ|)     if not both zero
+C[i] = 1                                    if Aᵢ = Bᵢ = 0
+```
+
+Penalized/tunable clamp `C[i]` to [0, 1].
+
+### Per-coordinate agreement (arithmetic-mean form)
+
+Used by `vectorSimilarityMeanStdPowerArithmeticMean`:
+
+```
+C[i] = 1 − |Aᵢ − Bᵢ| / (0.5 · (|Aᵢ| + |Bᵢ|))
+```
+
+### vectorSimilarityCorrelation
+
+1. Build C as above (max-denominator)
+2. `mean = avg(C)`, `std = sampleStd(C)`
+3. `exponent = 1 + std · stdWeight`  (default `stdWeight=1`)
+4. `raw = 1 + sign(mean) · |mean|^exponent^sign(mean)`
+5. `sim = raw / 2`
+
+`vectorSimilarityCorrelationNoStd` sets `stdWeight=0`.
+
+Empty vectors → `1`.
+
+### vectorSimilarityMeanStdPowerArithmeticMean
+
+Same exponent scheme as above but C uses arithmetic-mean denominator.
+
+`vectorSimilarityMeanStdPowerArithmeticMeanNoStd` sets `stdWeight=0`.
+
+### computeVectorSimilarityMeanStdPenalized
+
+C uses half-max denominator: `1 − |A−B| / (2·max(|A|,|B|))`, clamped to [0,1].
+
+```
+sim = mean(C) · (1 − α · std(C)^stdPower)
+```
+
+Defaults: `α=0.75`, `stdPower=1`.
+
+### computeVectorSimilarityTunable
+
+Same C as penalized (half-max), then:
+
+```
+sim = mean(C)^α     default α=1.5
+```
+
+### computeVectorSimilarityRobust
+
+Per coordinate:
+
+```
+rᵢ = min(|Aᵢ−Bᵢ| / max(|Aᵢ|,|Bᵢ|), clipMax)     default clipMax=4
+dᵢ = rᵢ / (rᵢ + k)                               default k=1
+D = avg(dᵢ)
+sim = 1 − D / (clipMax / (clipMax + k))
+```
+
+### computeVectorSimilarityMetricLike
+
+```
+dᵢ = min(|Aᵢ−Bᵢ| / max(|Aᵢ|,|Bᵢ|), 1)
+D = avg(dᵢ)
+sim = (exp(−λD) − exp(−λ)) / (1 − exp(−λ))     default λ=3
+```
+
+### computeVectorSimilarityVarianceWeighted
+
+Same C as tunable (half-max), then:
+
+```
+sNorm = std(C) / √(n / (4(n−1)))
+sim = mean(C) · (1 − β · sNorm^γ)
+```
+
+Defaults: `β=0.85`, `γ=2`.
+
+---
+
+## 12. Distance to measure (`similarity/distanceToMeasure.ts`)
+
+Not a pairwise vector similarity. Computes empirical **Distance-to-Measure** for a query point:
+
+```
+DTM(x) = √[(1/k) Σ_{i=1..k} ‖x − pᵢ‖²]
+```
+
+where `pᵢ` are the k nearest neighbors of `x` in `dataset` (KD-tree).
+
+---
+
+## Quick selection guide
+
+| Need | Consider |
+|------|----------|
+| Fast baseline, embeddings | `normalizedCosineSimilarity` |
+| Scale-invariant trend | `pearsonCorrelationSimilarity` |
+| Outlier-heavy data | `canberraSimilarity`, `computeVectorSimilarityRobust`, `vectorSimilarityCorrelation` |
+| Probability / histogram data | `hellingerSimilarity`, `kullbackLeiblerSimilarity` |
+| Binary presence/absence | `jaccardSimilarityBinary` |
+| Sparse overlap | `intersectionSimilarity`, custom robust metrics |
+| Nonlinear geometry | `polynomialKernelSimilarity` |
+| Hot loop, minimal overhead | `euclideanSimilarity`, `vectorSimilarityMeanStdPowerArithmeticMeanNoStd` |
+
+See the [vector similarity dashboard](../../visualization/vector-similarity/index.html) for empirical comparisons on fixed test vectors.
+
+---
+
+## Appendix: export name index
+
+Every public function export and its primary section:
+
+| Export | Section |
+|--------|---------|
+| `cosineSimilarity` | §1 Cosine similarity |
+| `normalizedCosineSimilarity` | §1 Normalized cosine similarity |
+| `euclideanDistance` | §1 Euclidean distance |
+| `squaredEuclideanDistance` | §1 Squared Euclidean distance |
+| `manhattanDistance` | §1 Manhattan distance |
+| `pearsonCorrelation` | §1 Pearson correlation |
+| `pearsonCorrelationSimilarity` | §1 Pearson correlation similarity |
+| `dotProduct` | §1 Dot product |
+| `distanceToSimilarity` | Conventions |
+| `euclideanSimilarity` | §1 Euclidean similarity |
+| `manhattanSimilarity` | §1 Manhattan similarity |
+| `angularDistance` | §1 Angular distance |
+| `angularSimilarity` | §1 Angular similarity |
+| `diceCoefficient` | §1 Dice coefficient |
+| `diceDistance` | §1 Dice distance |
+| `chebyshevDistance` | §1 Chebyshev distance |
+| `chebyshevSimilarity` | §1 Chebyshev similarity |
+| `gowerDistance` | §1 Gower distance |
+| `gowerSimilarity` | §1 Gower similarity |
+| `soergelDistance` | §1 Soergel distance |
+| `soergelSimilarity` | §1 Soergel similarity |
+| `kulczynskiDistance` | §1 Kulczynski distance |
+| `kulczynskiSimilarity` | §1 Kulczynski similarity |
+| `canberraDistance` | §1 Canberra distance (classic) |
+| `lorentzianDistance` | §1 Lorentzian distance |
+| `lorentzianSimilarity` | §1 Lorentzian similarity |
+| `jaccardSimilarityBinary` | §2 Binary Jaccard |
+| `jaccardSimilarityWeighted` | §2 Weighted Jaccard |
+| `jaccardSimilarityRealValued` | §2 Weighted Jaccard (alias) |
+| `weightedMinkowskiSimilarity` | §3 Weighted Minkowski |
+| `canberraSimilarity` | §3 Canberra similarity (heuristic) |
+| `brayCurtisSimilarity` | §3 Bray–Curtis |
+| `harmonicMeanSimilarity` | §3 Harmonic mean |
+| `kendallCorrelationSimilarity` | §3 Kendall correlation |
+| `geometricMeanSimilarity` | §3 Geometric mean |
+| `ratioBasedSimilarity` | §3 Ratio-based |
+| `intersectionSimilarity` | §4 Intersection similarity |
+| `intersectionSimilarityNormalized` | §4 Intersection similarity (alias) |
+| `intersectionDistance` | §4 Intersection distance |
+| `waveHedgesDistance` | §4 Wave Hedges distance |
+| `waveHedgesSimilarity` | §4 Wave Hedges similarity |
+| `sorensenDistance` | §4 Sørensen distance |
+| `sorensenSimilarity` | §4 Sørensen similarity |
+| `motykaSimilarity` | §4 Motyka similarity |
+| `motykaDistance` | §4 Motyka distance |
+| `kullbackLeiblerDivergence` | §5 KL divergence |
+| `crossEntropy` | §5 Cross entropy |
+| `jeffreysDivergence` | §5 Jeffreys divergence |
+| `kDivergence` | §5 K-divergence |
+| `topsoeDivergence` | §5 Topsøe divergence |
+| `kullbackLeiblerSimilarity` | §5 Similarity wrappers |
+| `jeffreysSimilarity` | §5 Similarity wrappers |
+| `kSimilarity` | §5 Similarity wrappers |
+| `topsoeSimilarity` | §5 Similarity wrappers |
+| `crossEntropySimilarity` | §5 Similarity wrappers |
+| `pearsonChiSquareDistance` | §6 Pearson χ² |
+| `neymanChiSquareDistance` | §6 Neyman χ² |
+| `additiveSymmetricChiSquareDistance` | §6 Additive symmetric |
+| `squaredChiSquareDistance` | §6 Squared χ² |
+| `normalizedPearsonChiSquareSimilarity` | §6 Normalized similarities |
+| `normalizedNeymanChiSquareSimilarity` | §6 Normalized similarities |
+| `normalizedAdditiveSymmetricChiSquareSimilarity` | §6 Normalized similarities |
+| `normalizedSquaredChiSquareSimilarity` | §6 Normalized similarities |
+| `fidelitySimilarity` | §7 Fidelity |
+| `hellingerDistance` | §7 Hellinger distance |
+| `hellingerSimilarity` | §7 Hellinger similarity |
+| `matusitaDistance` | §7 Matusita distance |
+| `squaredChordDistance` | §7 Squared chord distance |
+| `normalizedMatusitaSimilarity` | §7 Normalized fidelity |
+| `normalizedSquaredChordSimilarity` | §7 Normalized fidelity |
+| `polynomialKernelSimilarity` | §8 Polynomial kernel |
+| `rbfKernelSimilarity` | §8 RBF kernel |
+| `itakuraSaitoDistance` | §9 Itakura–Saito distance |
+| `vectorSimilarityItakuraSaito` | §9 Itakura–Saito similarity |
+| `correlationDistance` | §10 Correlation distance |
+| `distanceCorrelation` | §10 Distance correlation |
+| `vectorSimilarityCorrelation` | §11 Custom robust |
+| `vectorSimilarityCorrelationNoStd` | §11 Custom robust |
+| `vectorSimilarityMeanStdPowerArithmeticMean` | §11 Custom robust |
+| `vectorSimilarityMeanStdPowerArithmeticMeanNoStd` | §11 Custom robust |
+| `computeVectorSimilarityMeanStdPenalized` | §11 Custom robust |
+| `computeVectorSimilarityMetricLike` | §11 Custom robust |
+| `computeVectorSimilarityRobust` | §11 Custom robust |
+| `computeVectorSimilarityTunable` | §11 Custom robust |
+| `computeVectorSimilarityVarianceWeighted` | §11 Custom robust |
+| `distanceToMeasure` | §12 Distance to measure |
