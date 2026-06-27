@@ -566,6 +566,9 @@ const App = {
             'vectorSimilarityMeanStdPowerArithmeticMeanNoStd',
             'vectorSimilarityCorrelation',
             'vectorSimilarityCorrelationNoStd',
+            'madPenalizedRelativeAgreementSimilarity',
+            'maxRelativeAgreementMedianMadPowerSimilarity',
+            'maxRelativeAgreementMedianMadPowerSimilarityNoMad',
             'vectorSimilarityItakuraSaito'
         ];
         const colors = [COLOR_DEFAULT, COLOR_COMPARING, COLOR_SORTED, COLOR_HIGHLIGHT, COLOR_VISITED, COLOR_SUCCESS, COLOR_TEXT_MUTED, COLOR_VISITED, COLOR_ACTIVE, COLOR_TEXT_DARK];
@@ -610,6 +613,9 @@ const App = {
             'vectorSimilarityMeanStdPowerArithmeticMeanNoStd',
             'vectorSimilarityCorrelation',
             'vectorSimilarityCorrelationNoStd',
+            'madPenalizedRelativeAgreementSimilarity',
+            'maxRelativeAgreementMedianMadPowerSimilarity',
+            'maxRelativeAgreementMedianMadPowerSimilarityNoMad',
             'vectorSimilarityItakuraSaito'
         ];
         const colors = [COLOR_DEFAULT, COLOR_COMPARING, COLOR_SORTED, COLOR_HIGHLIGHT, COLOR_VISITED, COLOR_SUCCESS, COLOR_TEXT_MUTED, COLOR_VISITED, COLOR_ACTIVE, COLOR_TEXT_DARK];

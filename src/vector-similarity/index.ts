@@ -147,6 +147,12 @@ export { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTun
 export type { VectorSimilarityTunableOptions } from './similarity/vectorSimilarityTunable';
 export { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
 export type { VectorSimilarityVarianceWeightedOptions } from './similarity/vectorSimilarityVarianceWeighted';
+export { madPenalizedRelativeAgreementSimilarity } from './similarity/madPenalizedRelativeAgreementSimilarity';
+export type { MadPenalizedRelativeAgreementOptions } from './similarity/madPenalizedRelativeAgreementSimilarity';
+export {
+    maxRelativeAgreementMedianMadPowerSimilarity,
+    maxRelativeAgreementMedianMadPowerSimilarityNoMad,
+} from './similarity/maxRelativeAgreementMedianMadPowerSimilarity';
 
 // Distance-to-measure
 export { distanceToMeasure } from './similarity/distanceToMeasure';

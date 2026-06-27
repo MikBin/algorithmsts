@@ -67,6 +67,9 @@ const ANALYSIS_FUNCTIONS = [
   'rbfKernelSimilarity',
   'itakuraSaitoDistance',
   'vectorSimilarityItakuraSaito',
+  'madPenalizedRelativeAgreementSimilarity',
+  'maxRelativeAgreementMedianMadPowerSimilarity',
+  'maxRelativeAgreementMedianMadPowerSimilarityNoMad',
 ];
 
 describe('vector similarity documentation', () => {

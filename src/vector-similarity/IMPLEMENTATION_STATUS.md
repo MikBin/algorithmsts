@@ -12,7 +12,7 @@ For proposed export renames and deprecation plan, see [NAMING_PROPOSAL.md](./NAM
 |--------|---------|
 | **Implemented** | Function body exists and is exported |
 | **Tested** | Covered in `test/vector-similarity/` |
-| **Analysis** | Included in `vector-similarity-analysis.ts` benchmark/compare suite (43 similarity fns) |
+| **Analysis** | Included in `vector-similarity-analysis.ts` benchmark/compare suite (46 similarity fns) |
 | **Doc** | Formula documented in `SIMILARITY_FUNCTIONS.md` |
 
 ---
@@ -192,8 +192,11 @@ Types: `MinkowskiOptions`, `MeanSimilarityOptions`
 | `computeVectorSimilarityRobust` | `vectorSimilarityRobust.ts` | yes | yes | yes |
 | `computeVectorSimilarityTunable` | `vectorSimilarityTunable.ts` | yes | yes | yes |
 | `computeVectorSimilarityVarianceWeighted` | `vectorSimilarityVarianceWeighted.ts` | yes | yes | yes |
+| `madPenalizedRelativeAgreementSimilarity` | `madPenalizedRelativeAgreementSimilarity.ts` | yes | yes | yes |
+| `maxRelativeAgreementMedianMadPowerSimilarity` | `maxRelativeAgreementMedianMadPowerSimilarity.ts` | yes | yes | yes |
+| `maxRelativeAgreementMedianMadPowerSimilarityNoMad` | `maxRelativeAgreementMedianMadPowerSimilarity.ts` | yes | yes | yes |
 
-Option types: `VectorSimilarityPenalizedOptions`, `VectorSimilarityMetricLikeOptions`, `VectorSimilarityRobustOptions`, `VectorSimilarityTunableOptions`, `VectorSimilarityVarianceWeightedOptions`
+Option types: `VectorSimilarityPenalizedOptions`, `VectorSimilarityMetricLikeOptions`, `VectorSimilarityRobustOptions`, `VectorSimilarityTunableOptions`, `VectorSimilarityVarianceWeightedOptions`, `MadPenalizedRelativeAgreementOptions`
 
 ---
 
@@ -232,5 +235,5 @@ The following appear in survey literature (e.g. arXiv:2408.07706) but are **not*
 | Correlation | 2 |
 | Custom robust | 9 |
 | Distance-to-measure | 1 |
-| **Total function exports** | **~86** |
-| **Analysis suite (pairwise similarity)** | **43** |
+| **Total function exports** | **~89** |
+| **Analysis suite (pairwise similarity)** | **46** |

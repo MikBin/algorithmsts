@@ -2,6 +2,11 @@ import { describe, it, expect } from 'vitest';
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPenalized';
+import { madPenalizedRelativeAgreementSimilarity } from '../../src/vector-similarity/similarity/madPenalizedRelativeAgreementSimilarity';
+import {
+  maxRelativeAgreementMedianMadPowerSimilarity,
+  maxRelativeAgreementMedianMadPowerSimilarityNoMad,
+} from '../../src/vector-similarity/similarity/maxRelativeAgreementMedianMadPowerSimilarity';
 import { vectorSimilarityCorrelation } from '../../src/vector-similarity/similarity/vectorSimilarityCorrelation';
 import { computeVectorSimilarityRobust } from '../../src/vector-similarity/similarity/vectorSimilarityRobust';
 import { vectorSimilarityMeanStdPowerArithmeticMean } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPowerArithmeticMean';
@@ -22,6 +27,9 @@ const testCases = [
       computeVectorSimilarityMetricLike: 1,
       computeVectorSimilarityTunable: 1,
       computeVectorSimilarityVarianceWeighted: 1,
+      madPenalizedRelativeAgreementSimilarity: 1,
+      maxRelativeAgreementMedianMadPowerSimilarity: 1,
+      maxRelativeAgreementMedianMadPowerSimilarityNoMad: 1,
     },
   },
   {
@@ -36,6 +44,9 @@ const testCases = [
       computeVectorSimilarityMetricLike: 1,
       computeVectorSimilarityTunable: 1,
       computeVectorSimilarityVarianceWeighted: 1,
+      madPenalizedRelativeAgreementSimilarity: 1,
+      maxRelativeAgreementMedianMadPowerSimilarity: 1,
+      maxRelativeAgreementMedianMadPowerSimilarityNoMad: 1,
     },
   },
 ];
@@ -48,6 +59,9 @@ const similarityFunctions = {
   computeVectorSimilarityMetricLike,
   computeVectorSimilarityTunable,
   computeVectorSimilarityVarianceWeighted,
+  madPenalizedRelativeAgreementSimilarity,
+  maxRelativeAgreementMedianMadPowerSimilarity,
+  maxRelativeAgreementMedianMadPowerSimilarityNoMad,
 };
 
 describe('Custom Similarities', () => {

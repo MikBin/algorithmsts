@@ -7,6 +7,11 @@ import { fileURLToPath } from 'url';
 import {
   computeVectorSimilarityMeanStdPenalized,
 } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPenalized';
+import { madPenalizedRelativeAgreementSimilarity } from '../../src/vector-similarity/similarity/madPenalizedRelativeAgreementSimilarity';
+import {
+  maxRelativeAgreementMedianMadPowerSimilarity,
+  maxRelativeAgreementMedianMadPowerSimilarityNoMad,
+} from '../../src/vector-similarity/similarity/maxRelativeAgreementMedianMadPowerSimilarity';
 import { vectorSimilarityCorrelation, vectorSimilarityCorrelationNoStd } from '../../src/vector-similarity/similarity/vectorSimilarityCorrelation';
 import { pearsonCorrelationSimilarity, normalizedCosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity, chebyshevSimilarity } from '../../src/vector-similarity/similarity/classic';
 import { weightedMinkowskiSimilarity, canberraSimilarity } from '../../src/vector-similarity/similarity/heuristics';
@@ -65,6 +70,9 @@ const similarityFunctions: Record<string, (a: number[], b: number[]) => number> 
   computeVectorSimilarityMetricLike,
   computeVectorSimilarityTunable,
   computeVectorSimilarityVarianceWeighted,
+  madPenalizedRelativeAgreementSimilarity,
+  maxRelativeAgreementMedianMadPowerSimilarity,
+  maxRelativeAgreementMedianMadPowerSimilarityNoMad,
   polynomialKernelSimilarity,
   rbfKernelSimilarity,
   itakuraSaitoDistance,
@@ -378,7 +386,10 @@ const runNonLinearAnalysis = () => {
     'vectorSimilarityMeanStdPowerArithmeticMean',
     'vectorSimilarityMeanStdPowerArithmeticMeanNoStd',
     'vectorSimilarityCorrelation',
-    'vectorSimilarityCorrelationNoStd'
+    'vectorSimilarityCorrelationNoStd',
+    'madPenalizedRelativeAgreementSimilarity',
+    'maxRelativeAgreementMedianMadPowerSimilarity',
+    'maxRelativeAgreementMedianMadPowerSimilarityNoMad'
   ];
 
   const runAnalysisCase = (service: VectorGenerationService, params: GenerationParams) => {

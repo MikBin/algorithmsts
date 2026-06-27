@@ -37,13 +37,13 @@ export const methodologySections = [
     id: 'outlier-resiliency',
     title: 'Outlier Resiliency',
     procedure:
-      'Two fixed scenarios, each evaluated across all 43 similarity functions:\n' +
+      'Two fixed scenarios, each evaluated across all 46 similarity functions:\n' +
       '• Short Vectors with a Single Outlier — vecA = [1, 34000, -0.0001], vecB = [1.1, 37800, -0.00015]. The first and third components agree closely; the second differs by ~11% but dominates magnitude.\n' +
       '• Longer Vectors with Multiple Outliers — vecC = [1…10], vecD matches on most entries but replaces index 4 with 50,000 and index 7 with -20,000.',
     rationale:
       'Real-world feature vectors often contain bad sensors, typos, or heavy-tailed dimensions. These hand-crafted cases expose whether a metric follows the bulk of the vector or is hijacked by a few extreme coordinates—critical when choosing metrics for robust search or anomaly-tolerant matching.',
     interpretation:
-      'Correlation-style metrics may stay high when the overall trend is preserved despite outliers. Lp distances and magnitude-weighted measures often collapse toward zero similarity. Compare both test cases: a function that handles a single dominant outlier may still fail when multiple outliers appear.'
+      'Correlation-style metrics may stay high when the overall trend is preserved despite outliers. Lp distances and magnitude-weighted measures often collapse toward zero similarity. Median/MAD robust metrics (`madPenalizedRelativeAgreementSimilarity`, `maxRelativeAgreementMedianMadPowerSimilarity`) resist a few extreme agreement coordinates better than mean/std variants. Compare both test cases: a function that handles a single dominant outlier may still fail when multiple outliers appear.'
   },
   {
     id: 'stress-tests',
@@ -63,7 +63,7 @@ export const methodologySections = [
     id: 'similarity-compare',
     title: 'Similarity Comparison (Binary vs Continuous)',
     procedure:
-      'The same 43 functions are run on two datatype-specific pairs:\n' +
+      'The same 46 functions are run on two datatype-specific pairs:\n' +
       '• Binary — vecA = [1, 1, 0, 1], vecB = [1, 0, 1, 1] (presence/absence style, three of four positions overlap).\n' +
       '• Continuous — vecC = [0.5, 0.8, 0.2, 0.9], vecD = [0.6, 0.7, 0.1, 1.0] (small real-valued differences).',
     rationale:
@@ -89,7 +89,7 @@ export const methodologySections = [
       '1. Functional & geometric diversity — 29 generator types (polynomial, trig, conic, 3-D curves) × sizes {10, 50, 100} × Gaussian noise levels {0.1, 0.5}.\n' +
       '2. Noise robustness — sin, circle, and sphere at size 200 with Gaussian, uniform, or impulsive noise (levels 0.1, 0.5; impulsive probability 0.1).\n' +
       '3. Anomaly resilience — same three types at size 200 with low Gaussian noise (0.05) plus injected peaks, discontinuities, or high-frequency oscillation (intensity 5, probability 0.02).\n' +
-      'For each case, ten representative metrics are scored and timed. Filters on this dashboard subset the detailed results table and bar charts.',
+      'For each case, thirteen representative metrics are scored and timed (including median/MAD robust variants). Filters on this dashboard subset the detailed results table and bar charts.',
     rationale:
       'Real embeddings and time-series features rarely lie on straight lines. Nonlinear ground truth lets kernel and correlation-based measures compete on curves, spirals, and surfaces under realistic noise—closer to scientific and signal-processing use cases than random uniform vectors.',
     interpretation:
@@ -103,7 +103,7 @@ export const generalMethodology = {
     {
       label: 'Function catalog',
       text:
-        'All offline comparisons evaluate the same 43 functions registered in vector-similarity-analysis.ts. The full export list (~86 functions) is in IMPLEMENTATION_STATUS.md.'
+        'All offline comparisons evaluate the same 46 functions registered in vector-similarity-analysis.ts. The full export list (~89 functions) is in IMPLEMENTATION_STATUS.md.'
     },
     {
       label: 'Formula reference',

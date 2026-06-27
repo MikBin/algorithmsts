@@ -529,6 +529,30 @@ sim = mean(C) · (1 − β · sNorm^γ)
 
 Defaults: `β=0.85`, `γ=2`.
 
+### madPenalizedRelativeAgreementSimilarity
+
+Robust analogue of `computeVectorSimilarityMeanStdPenalized`. Same half-max C (clamped), then:
+
+```
+MAD(C) = median(|C[i] − median(C)|)
+sim    = median(C) · (1 − α · MAD(C)^madPower)
+```
+
+Defaults: `α=0.75`, `madPower=1`. Uses quickselect for O(n) average time.
+
+### maxRelativeAgreementMedianMadPowerSimilarity
+
+Robust analogue of `vectorSimilarityCorrelation`. Same max-denominator C, then:
+
+```
+m   = median(C)
+MAD = median(|C[i] − m|)
+exp = 1 + MAD · madWeight     default madWeight=1
+sim = (1 + sign(m) · |m|^exp^sign(m)) / 2
+```
+
+`maxRelativeAgreementMedianMadPowerSimilarityNoMad` sets `madWeight=0`. Empty vectors → `1`.
+
 ---
 
 ## 12. Distance to measure (`similarity/distanceToMeasure.ts`)
@@ -549,7 +573,7 @@ where `pᵢ` are the k nearest neighbors of `x` in `dataset` (KD-tree).
 |------|----------|
 | Fast baseline, embeddings | `normalizedCosineSimilarity` |
 | Scale-invariant trend | `pearsonCorrelationSimilarity` |
-| Outlier-heavy data | `canberraSimilarity`, `computeVectorSimilarityRobust`, `vectorSimilarityCorrelation` |
+| Outlier-heavy data | `canberraSimilarity`, `computeVectorSimilarityRobust`, `vectorSimilarityCorrelation`, `madPenalizedRelativeAgreementSimilarity`, `maxRelativeAgreementMedianMadPowerSimilarity` |
 | Probability / histogram data | `hellingerSimilarity`, `kullbackLeiblerSimilarity` |
 | Binary presence/absence | `jaccardSimilarityBinary` |
 | Sparse overlap | `intersectionSimilarity`, custom robust metrics |
@@ -651,4 +675,7 @@ Every public function export and its primary section:
 | `computeVectorSimilarityRobust` | §11 Custom robust |
 | `computeVectorSimilarityTunable` | §11 Custom robust |
 | `computeVectorSimilarityVarianceWeighted` | §11 Custom robust |
+| `madPenalizedRelativeAgreementSimilarity` | §11 Custom robust |
+| `maxRelativeAgreementMedianMadPowerSimilarity` | §11 Custom robust |
+| `maxRelativeAgreementMedianMadPowerSimilarityNoMad` | §11 Custom robust |
 | `distanceToMeasure` | §12 Distance to measure |
