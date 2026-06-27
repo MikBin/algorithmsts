@@ -34,18 +34,28 @@ export interface GenerationParams {
 }
 
 export class VectorGenerationService {
+  private readonly rng: () => number;
+
+  /**
+   * @param rng Optional random number generator. Defaults to `Math.random`.
+   *            Inject a seeded/controllable generator for deterministic output.
+   */
+  constructor(rng: () => number = Math.random) {
+    this.rng = rng;
+  }
+
   /**
    * Generates a number from a Gaussian distribution using the Box-Muller transform.
    */
   private gaussianNoise(mean: number = 0, stdDev: number = 1): number {
-    const u1 = Math.random();
-    const u2 = Math.random();
+    const u1 = this.rng();
+    const u2 = this.rng();
     const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
     return z0 * stdDev + mean;
   }
 
   private uniformNoise(level: number): number {
-    return (Math.random() - 0.5) * 2 * level;
+    return (this.rng() - 0.5) * 2 * level;
   }
 
   /**
@@ -60,8 +70,8 @@ export class VectorGenerationService {
         case 'uniform':
             return value + this.uniformNoise(settings.level);
         case 'impulsive':
-            if (Math.random() < (settings.probability || 0.05)) {
-                return value + (Math.random() < 0.5 ? -1 : 1) * settings.level;
+            if (this.rng() < (settings.probability || 0.05)) {
+                return value + (this.rng() < 0.5 ? -1 : 1) * settings.level;
             }
             return value;
         default:
@@ -81,7 +91,7 @@ export class VectorGenerationService {
           // Add random peaks
            const numPeaks = Math.max(1, Math.floor(n * (settings.probability || 0.01)));
            for(let i=0; i<numPeaks; i++) {
-               const idx = Math.floor(Math.random() * n);
+               const idx = Math.floor(this.rng() * n);
                result[idx] += settings.intensity;
            }
       } else if (settings.type === 'discontinuity') {

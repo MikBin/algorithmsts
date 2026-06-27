@@ -1,6 +1,6 @@
 {
   "name": "@mikbin80/algorithmsts",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "private": false,
   "keywords": [],
@@ -86,7 +86,7 @@
     "v-pub-tarball": "npm publish --dry-run",
     "release": "release-it",
     "commit": "git-cz",
-    "analyze-similarity": "tsx src/vector-similarity/vector-similarity-analysis.ts"
+    "analyze-similarity": "tsx tools/vector-similarity/vector-similarity-analysis.ts"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

@@ -28,6 +28,42 @@ describe('Chi-Square Family', () => {
         // Q[1] is 0 and P[1] is 0.2. Division by zero implies infinite distance.
         expect(pearsonChiSquareDistance(P, Q)).toBe(Infinity);
     });
+
+    it('should skip the 0/0 case when both observed and expected are zero', () => {
+      // i=0: p=0,q=0 -> skipped; i=1: (1-2)^2/2 = 0.5
+      expect(pearsonChiSquareDistance([0, 1], [0, 2])).toBeCloseTo(0.5, 10);
+    });
+  });
+
+  describe('neymanChiSquareDistance', () => {
+    it('should return Infinity if expected is non-zero but observed is zero', () => {
+      // i=0: p=0,q=2 -> p===0, q!==0 -> Infinity
+      expect(neymanChiSquareDistance([0, 1], [2, 1])).toBe(Infinity);
+    });
+
+    it('should skip the 0/0 case when both observed and expected are zero', () => {
+      // i=0: p=0,q=0 -> skipped; i=1: (1-2)^2/1 = 1
+      expect(neymanChiSquareDistance([0, 1], [0, 2])).toBeCloseTo(1, 10);
+    });
+  });
+
+  describe('additiveSymmetricChiSquareDistance', () => {
+    it('should return Infinity when p*q is zero and p !== q', () => {
+      // i=0: p=0,q=2 -> denominator 0, p!==q -> Infinity
+      expect(additiveSymmetricChiSquareDistance([0, 1], [2, 1])).toBe(Infinity);
+    });
+
+    it('should skip the case when p*q is zero and p === q', () => {
+      // i=0: p=0,q=0 -> denominator 0, p===q -> skipped; i=1: (1-2)^2*(1+2)/(1*2) = 1.5
+      expect(additiveSymmetricChiSquareDistance([0, 1], [0, 2])).toBeCloseTo(1.5, 10);
+    });
+  });
+
+  describe('squaredChiSquareDistance', () => {
+    it('should skip elements where p + q is zero', () => {
+      // i=0: 0+0 -> skipped; i=1: (1-2)^2/(1+2) = 1/3
+      expect(squaredChiSquareDistance([0, 1], [0, 2])).toBeCloseTo(1 / 3, 10);
+    });
   });
 
   // Tests for other distance functions can remain as they are or be expanded...

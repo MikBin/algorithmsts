@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { validateVectors } from './internal/validateVectors';
+
 /**
  * The following function is an adaptation of the VectorSimilarityMeanStdPower
  * The new similarity function works as follows:
@@ -27,19 +29,19 @@
  * @param B The second vector.
  * @param stdWeight The weight of the standard deviation in the exponent calculation. Defaults to 1.
  * @returns The similarity between the two vectors.
+ * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `A` and `B` differ in length.
+ *
+ * Time complexity: O(n). Space complexity: O(n) (the auxiliary C vector).
  */
 function vectorSimilarityCorrelation(
   A: number[],
   B: number[],
   stdWeight: number = 1
 ): number {
-  if (A.length !== B.length) {
-    throw new Error('Vectors must be of the same length');
-  }
-
-  const n = A.length;
+  const n = validateVectors(A, B, { allowEmpty: true });
   if (n === 0) {
-    return 1.0; // Or 0.0, depending on desired behavior for empty vectors
+    return 1.0; // Empty vectors are considered perfectly similar
   }
 
   const C = new Array<number>(n);

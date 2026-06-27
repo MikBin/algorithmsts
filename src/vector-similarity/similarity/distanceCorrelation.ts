@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { validateVectors } from './internal/validateVectors';
+
 /**
  * Computes the Distance Correlation (dCor) between two vectors.
  *
@@ -36,11 +38,7 @@
  *          Returns 0 if only one vector is constant.
  */
 export function distanceCorrelation(A: number[], B: number[]): number {
-  if (A.length !== B.length) {
-    throw new Error('Vectors must have the same length');
-  }
-
-  const n = A.length;
+  const n = validateVectors(A, B, { allowEmpty: true });
   if (n === 0) return 1; // Empty vectors treated as identical/constant
   if (n === 1) return 1; // Single element vectors treated as identical/constant
 
@@ -122,12 +120,6 @@ export function distanceCorrelation(A: number[], B: number[]): number {
 
   const denominatorSq = Math.sqrt(distVarASq * distVarBSq);
 
-  if (denominatorSq === 0) {
-    return 0; // Should be covered by constant check, but safety fallback
-  }
-
   // distCovSq can be slightly negative due to floating point errors, clamp to 0
-  if (distCovSq < 0) distCovSq = 0;
-
-  return Math.sqrt(distCovSq / denominatorSq);
+  return Math.sqrt(Math.max(0, distCovSq) / denominatorSq);
 }

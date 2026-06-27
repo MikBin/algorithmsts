@@ -1,25 +1,33 @@
 /**
- * Classic similarity/distance functions module
- * Provides standard implementations for common vector similarity metrics
- * All functions take two vectors (arrays) and return a similarity/distance score
+ * Classic similarity/distance functions module.
+ * Provides standard implementations for common vector similarity metrics.
+ * All functions take two vectors (arrays) and return a similarity/distance score.
  */
+
+import { validateVectors, validateThirdArray } from './internal/validateVectors';
 
 /**
- * Cosine similarity
- * Measures the cosine of the angle between two vectors
- * Range: [-1, 1] (1 means identical direction, -1 means opposite direction)
+ * Cosine similarity.
+ * Measures the cosine of the angle between two vectors.
+ * Range: [-1, 1] (1 means identical direction, -1 means opposite direction).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The cosine similarity in [-1, 1] (0 when either vector is zero).
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function cosineSimilarity(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
-  let dotProduct = 0;
+  let dot = 0;
   let normA = 0;
   let normB = 0;
 
   for (let i = 0; i < a.length; i++) {
-    dotProduct += a[i] * b[i];
+    dot += a[i] * b[i];
     normA += a[i] * a[i];
     normB += b[i] * b[i];
   }
@@ -27,34 +35,43 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   normA = Math.sqrt(normA);
   normB = Math.sqrt(normB);
 
-  if (normA === 0 && normB === 0) {
-    return 0; // Both vectors are zero vectors
-  }
   if (normA === 0 || normB === 0) {
-    return 0; // One of the vectors is a zero vector
+    return 0; // One (or both) vector is a zero vector
   }
 
-  return dotProduct / (normA * normB);
+  return dot / (normA * normB);
 }
 
 /**
- * Normalized Cosine similarity
- * Converts Cosine similarity to a score in [0, 1]
- * Range: [0, 1] (1 means identical direction, 0 means opposite direction)
+ * Normalized cosine similarity.
+ * Converts cosine similarity to a score in [0, 1].
+ * Range: [0, 1] (1 means identical direction, 0 means opposite direction).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The normalized cosine similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function normalizedCosineSimilarity(a: number[], b: number[]): number {
   return Math.max(0, Math.min(1, (1 + cosineSimilarity(a, b)) / 2));
 }
 
 /**
- * Euclidean distance
- * Measures the straight-line distance between two vectors
- * Range: [0, ∞) (0 means identical)
+ * Euclidean distance.
+ * Measures the straight-line distance between two vectors.
+ * Range: [0, ∞) (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Euclidean distance.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function euclideanDistance(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let sum = 0;
   for (let i = 0; i < a.length; i++) {
@@ -66,14 +83,45 @@ export function euclideanDistance(a: number[], b: number[]): number {
 }
 
 /**
- * Manhattan distance (L1 distance)
- * Measures the sum of absolute differences between vector components
- * Range: [0, ∞) (0 means identical)
+ * Squared Euclidean distance.
+ * Measures the sum of squared differences between two vectors (avoids the sqrt).
+ * Range: [0, ∞) (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The squared Euclidean distance.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
+ */
+export function squaredEuclideanDistance(a: number[], b: number[]): number {
+  validateVectors(a, b);
+
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    const diff = a[i] - b[i];
+    sum += diff * diff;
+  }
+
+  return sum;
+}
+
+/**
+ * Manhattan distance (L1 distance).
+ * Measures the sum of absolute differences between vector components.
+ * Range: [0, ∞) (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Manhattan distance.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function manhattanDistance(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let sum = 0;
   for (let i = 0; i < a.length; i++) {
@@ -84,55 +132,28 @@ export function manhattanDistance(a: number[], b: number[]): number {
 }
 
 /**
- * Jaccard similarity for binary vectors
- * Measures the similarity between two binary sets
- * Range: [0, 1] (1 means identical)
- * Note: For non-binary vectors, treats non-zero values as 1
- */
-export function jaccardSimilarity(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
-
-  let intersection = 0;
-  let union = 0;
-
-  for (let i = 0; i < a.length; i++) {
-    const aBinary = a[i] !== 0 ? 1 : 0;
-    const bBinary = b[i] !== 0 ? 1 : 0;
-
-    intersection += Math.min(aBinary, bBinary);
-    union += Math.max(aBinary, bBinary);
-  }
-
-  return union === 0 ? 1 : intersection / union;
-}
-
-/**
- * Pearson correlation coefficient
- * Measures the linear correlation between two vectors
- * Range: [-1, 1] (1 means perfect positive correlation, -1 means perfect negative correlation)
+ * Pearson correlation coefficient.
+ * Measures the linear correlation between two vectors.
+ * Range: [-1, 1] (1 means perfect positive correlation, -1 means perfect negative).
+ * Returns 0 for empty vectors and for zero-variance (constant) vectors.
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Pearson correlation in [-1, 1].
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function pearsonCorrelation(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
-
-  const n = a.length;
+  const n = validateVectors(a, b, { allowEmpty: true });
   if (n === 0) return 0;
 
   let sumA = 0,
     sumB = 0;
-  let sumASq = 0,
-    sumBSq = 0;
-  let sumAB = 0;
-
   for (let i = 0; i < n; i++) {
     sumA += a[i];
     sumB += b[i];
-    sumASq += a[i] * a[i];
-    sumBSq += b[i] * b[i];
-    sumAB += a[i] * b[i];
   }
 
   const meanA = sumA / n;
@@ -157,18 +178,36 @@ export function pearsonCorrelation(a: number[], b: number[]): number {
   return numerator / Math.sqrt(denomA * denomB);
 }
 
+/**
+ * Pearson correlation similarity.
+ * Maps the Pearson correlation from [-1, 1] to a similarity score in [0, 1].
+ * Range: [0, 1].
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Pearson correlation similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
+ */
 export const pearsonCorrelationSimilarity = (a: number[], b: number[]): number => {
   return Math.max(0, Math.min(1, (1 + pearsonCorrelation(a, b)) / 2));
-}
+};
+
 /**
- * Dot product
- * Measures both the direction and magnitude of the vectors
- * Range: (-∞, ∞)
+ * Dot product.
+ * Measures both the direction and magnitude of the vectors.
+ * Range: (-∞, ∞).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The dot product.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function dotProduct(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let sum = 0;
   for (let i = 0; i < a.length; i++) {
@@ -179,15 +218,20 @@ export function dotProduct(a: number[], b: number[]): number {
 }
 
 /**
- * Convert distance to similarity (for functions that return distances)
- * Higher values indicate more similarity
+ * Convert a distance to a similarity score (for functions that return distances).
+ * Higher values indicate more similarity.
+ *
+ * @param distance - A non-negative distance value.
+ * @param maxDistance - Optional maximum distance for linear normalization.
+ * @returns A similarity score clamped to [0, 1].
+ *
+ * Time complexity: O(1). Space complexity: O(1).
  */
 export function distanceToSimilarity(
   distance: number,
   maxDistance: number | null = null
 ): number {
   if (maxDistance === null) {
-    // Simple inverse transformation
     const sim = distance === 0 ? 1 : 1 / (1 + distance);
     return Math.max(0, Math.min(1, sim));
   }
@@ -195,8 +239,14 @@ export function distanceToSimilarity(
 }
 
 /**
- * Euclidean similarity (converted from distance)
- * Range: [0, 1] (1 means identical)
+ * Euclidean similarity (converted from distance).
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Euclidean similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function euclideanSimilarity(a: number[], b: number[]): number {
   const distance = euclideanDistance(a, b);
@@ -204,8 +254,14 @@ export function euclideanSimilarity(a: number[], b: number[]): number {
 }
 
 /**
- * Manhattan similarity (converted from distance)
- * Range: [0, 1] (1 means identical)
+ * Manhattan similarity (converted from distance).
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Manhattan similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function manhattanSimilarity(a: number[], b: number[]): number {
   const distance = manhattanDistance(a, b);
@@ -213,37 +269,54 @@ export function manhattanSimilarity(a: number[], b: number[]): number {
 }
 
 /**
- * Angular distance
- * Measures the angle between two vectors, normalized to [0, 1]
- * Range: [0, 1] (0 means identical direction)
+ * Angular distance.
+ * Measures the angle between two vectors, normalized to [0, 1].
+ * Range: [0, 1] (0 means identical direction).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The angular distance in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function angularDistance(a: number[], b: number[]): number {
   const sim = cosineSimilarity(a, b);
-  // Clamp sim to the range [-1, 1] to avoid Math.acos domain errors
   const clampedSim = Math.max(-1, Math.min(1, sim));
   return Math.acos(clampedSim) / Math.PI;
 }
 
 /**
- * Angular similarity
- * Converts angular distance to a similarity score
- * Range: [0, 1] (1 means identical direction)
+ * Angular similarity.
+ * Converts angular distance to a similarity score.
+ * Range: [0, 1] (1 means identical direction).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The angular similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function angularSimilarity(a: number[], b: number[]): number {
   return Math.max(0, Math.min(1, 1 - angularDistance(a, b)));
 }
 
 /**
- * Dice coefficient
- * Measures the similarity between two sets, sensitive to the magnitude of the vectors
- * Range: [0, 1] (1 means identical)
+ * Dice coefficient.
+ * Measures the similarity between two sets, sensitive to vector magnitudes.
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Dice coefficient in [0, 1].
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function diceCoefficient(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
-  const dotProd = dotProduct(a, b);
+  const dot = dotProduct(a, b);
   let normASq = 0;
   let normBSq = 0;
 
@@ -253,27 +326,39 @@ export function diceCoefficient(a: number[], b: number[]): number {
   }
 
   const denominator = normASq + normBSq;
-  return denominator === 0 ? 1 : Math.max(0, Math.min(1, (2 * dotProd) / denominator));
+  return denominator === 0 ? 1 : Math.max(0, Math.min(1, (2 * dot) / denominator));
 }
 
 /**
- * Dice distance
- * Converts Dice coefficient to a distance score
- * Range: [0, 1] (0 means identical)
+ * Dice distance.
+ * Converts the Dice coefficient to a distance score.
+ * Range: [0, 1] (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Dice distance in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function diceDistance(a: number[], b: number[]): number {
   return Math.max(0, Math.min(1, 1 - diceCoefficient(a, b)));
 }
 
 /**
- * Chebyshev distance (L∞ distance)
- * Measures the maximum absolute difference between vector components
- * Range: [0, ∞) (0 means identical)
+ * Chebyshev distance (L∞ distance).
+ * Measures the maximum absolute difference between vector components.
+ * Range: [0, ∞) (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Chebyshev distance.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function chebyshevDistance(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let maxDiff = 0;
   for (let i = 0; i < a.length; i++) {
@@ -284,9 +369,15 @@ export function chebyshevDistance(a: number[], b: number[]): number {
 }
 
 /**
- * Chebyshev similarity
- * Converts Chebyshev distance to a similarity score
- * Range: [0, 1] (1 means identical)
+ * Chebyshev similarity.
+ * Converts Chebyshev distance to a similarity score.
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Chebyshev similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function chebyshevSimilarity(a: number[], b: number[]): number {
   const distance = chebyshevDistance(a, b);
@@ -294,52 +385,71 @@ export function chebyshevSimilarity(a: number[], b: number[]): number {
 }
 
 /**
- * Gower distance
- * A distance measure for mixed data types, normalized by the range of each variable
- * Range: [0, 1] (0 means identical)
+ * Gower distance.
+ * A distance measure for mixed data types, normalized by the per-variable range.
+ * Range: [0, 1] (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @param ranges - Per-dimension ranges used for normalization.
+ * @returns The Gower distance in [0, 1].
+ * @throws {TypeError} If any input is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a`, `b` and `ranges` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function gowerDistance(a: number[], b: number[], ranges: number[]): number {
-  if (a.length !== b.length || a.length !== ranges.length) {
-    throw new Error('Vectors and ranges must have the same length');
-  }
+  const n = validateVectors(a, b);
+  validateThirdArray(ranges, 'ranges', n);
 
   let sum = 0;
-  for (let i = 0; i < a.length; i++) {
+  for (let i = 0; i < n; i++) {
     if (ranges[i] > 0) {
-        // Clamp the contribution to 1 to prevent outliers from violating the range [0, 1]
-        const normalizedDiff = Math.abs(a[i] - b[i]) / ranges[i];
-        sum += Math.min(1, normalizedDiff);
+      const normalizedDiff = Math.abs(a[i] - b[i]) / ranges[i];
+      sum += Math.min(1, normalizedDiff);
     }
   }
 
-  return sum / a.length;
+  return sum / n;
 }
 
 /**
- * Gower similarity
- * Converts Gower distance to a similarity score
- * Range: [0, 1] (1 means identical)
+ * Gower similarity.
+ * Converts Gower distance to a similarity score.
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @param ranges - Per-dimension ranges used for normalization.
+ * @returns The Gower similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function gowerSimilarity(a: number[], b: number[], ranges: number[]): number {
   return Math.max(0, Math.min(1, 1 - gowerDistance(a, b, ranges)));
 }
 
 /**
- * Soergel distance
- * A distance measure for sets, equivalent to Jaccard distance for binary vectors
- * Range: [0, 1] (0 means identical)
+ * Soergel distance.
+ * Equivalent to the Jaccard distance for binary vectors.
+ * Range: [0, 1] (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Soergel distance in [0, 1].
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function soergelDistance(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let numerator = 0;
   let denominator = 0;
 
   for (let i = 0; i < a.length; i++) {
     numerator += Math.abs(a[i] - b[i]);
-    // Use absolute values for max to handle negative inputs robustly
     denominator += Math.max(Math.abs(a[i]), Math.abs(b[i]));
   }
 
@@ -347,30 +457,41 @@ export function soergelDistance(a: number[], b: number[]): number {
 }
 
 /**
- * Soergel similarity
- * Converts Soergel distance to a similarity score
- * Range: [0, 1] (1 means identical)
+ * Soergel similarity.
+ * Converts Soergel distance to a similarity score.
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Soergel similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function soergelSimilarity(a: number[], b: number[]): number {
   return Math.max(0, Math.min(1, 1 - soergelDistance(a, b)));
 }
 
 /**
- * Kulczynski distance
- * A distance measure that is sensitive to differences in the magnitudes of the vectors
- * Range: [0, ∞) (0 means identical)
+ * Kulczynski distance.
+ * Sensitive to differences in the magnitudes of the vectors.
+ * Range: [0, ∞) (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Kulczynski distance.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function kulczynskiDistance(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let numerator = 0;
   let denominator = 0;
 
   for (let i = 0; i < a.length; i++) {
     numerator += Math.abs(a[i] - b[i]);
-    // Use absolute values for min to handle negative inputs robustly
     denominator += Math.min(Math.abs(a[i]), Math.abs(b[i]));
   }
 
@@ -378,9 +499,15 @@ export function kulczynskiDistance(a: number[], b: number[]): number {
 }
 
 /**
- * Kulczynski similarity
- * Converts Kulczynski distance to a similarity score
- * Range: [0, 1] (1 means identical)
+ * Kulczynski similarity.
+ * Converts Kulczynski distance to a similarity score.
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Kulczynski similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function kulczynskiSimilarity(a: number[], b: number[]): number {
   const distance = kulczynskiDistance(a, b);
@@ -388,14 +515,20 @@ export function kulczynskiSimilarity(a: number[], b: number[]): number {
 }
 
 /**
- * Canberra distance
- * A weighted version of Manhattan distance, sensitive to small changes near zero
- * Range: [0, ∞) (0 means identical)
+ * Canberra distance.
+ * A weighted Manhattan distance, sensitive to small changes near zero.
+ * Range: [0, ∞) (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Canberra distance.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function canberraDistance(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let sum = 0;
   for (let i = 0; i < a.length; i++) {
@@ -409,24 +542,20 @@ export function canberraDistance(a: number[], b: number[]): number {
 }
 
 /**
- * Canberra similarity
- * Converts Canberra distance to a similarity score
- * Range: [0, 1] (1 means identical)
- */
-export function canberraSimilarity(a: number[], b: number[]): number {
-  const distance = canberraDistance(a, b);
-  return distanceToSimilarity(distance);
-}
-
-/**
- * Lorentzian distance
- * A distance measure that is less sensitive to outliers than Euclidean distance
- * Range: [0, ∞) (0 means identical)
+ * Lorentzian distance.
+ * Less sensitive to outliers than Euclidean distance.
+ * Range: [0, ∞) (0 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Lorentzian distance.
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function lorentzianDistance(a: number[], b: number[]): number {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
 
   let sum = 0;
   for (let i = 0; i < a.length; i++) {
@@ -437,9 +566,15 @@ export function lorentzianDistance(a: number[], b: number[]): number {
 }
 
 /**
- * Lorentzian similarity
- * Converts Lorentzian distance to a similarity score
- * Range: [0, 1] (1 means identical)
+ * Lorentzian similarity.
+ * Converts Lorentzian distance to a similarity score.
+ * Range: [0, 1] (1 means identical).
+ *
+ * @param a - First numeric vector.
+ * @param b - Second numeric vector.
+ * @returns The Lorentzian similarity in [0, 1].
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function lorentzianSimilarity(a: number[], b: number[]): number {
   const distance = lorentzianDistance(a, b);

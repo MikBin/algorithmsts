@@ -4,9 +4,16 @@
  * Note: For these measures to be mathematically sound, the vectors should be normalized
  * to sum to 1. The functions perform internal normalization of input vectors
  * (using absolute values) to ensure robustness and non-negative results.
+ *
+ * Shared contract for every function in this module:
+ * - Time complexity: O(n). Space complexity: O(1).
+ * - @throws {TypeError} if either argument is not an array or contains a non-finite element.
+ * - @throws {RangeError} if the vectors differ in length or are empty.
+ * - Divergences return `Infinity` when a log argument is zero.
  */
 
 import { distanceToSimilarity } from './classic';
+import { validateVectors } from './internal/validateVectors';
 
 /**
  * Helper to normalize vectors to probability distributions (sum = 1)
@@ -31,9 +38,7 @@ function toProbabilityDistribution(v: number[]): number[] {
  * @returns {number} The KL divergence. Returns Infinity if q[i] is 0 for some i where p[i] is not 0.
  */
 export const kullbackLeiblerDivergence = (p: number[], q: number[]): number => {
-  if (p.length !== q.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(p, q);
 
   // Normalize inputs
   const P = toProbabilityDistribution(p);
@@ -65,9 +70,7 @@ export const kullbackLeiblerDivergence = (p: number[], q: number[]): number => {
  * @returns {number} The cross-entropy.
  */
 export const crossEntropy = (p: number[], q: number[]): number => {
-  if (p.length !== q.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(p, q);
 
   const P = toProbabilityDistribution(p);
   const Q = toProbabilityDistribution(q);
@@ -107,9 +110,7 @@ export const jeffreysDivergence = (p: number[], q: number[]): number => {
  * Range: [0, ∞)
  */
 export const kDivergence = (p: number[], q: number[]): number => {
-  if (p.length !== q.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(p, q);
   // Normalize internally by calling kullbackLeiblerDivergence, but we need the mean of distributions
   const P = toProbabilityDistribution(p);
   const Q = toProbabilityDistribution(q);
@@ -128,9 +129,7 @@ export const kDivergence = (p: number[], q: number[]): number => {
  * Range: [0, ∞)
  */
 export const topsoeDivergence = (p: number[], q: number[]): number => {
-  if (p.length !== q.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(p, q);
   const P = toProbabilityDistribution(p);
   const Q = toProbabilityDistribution(q);
   const m = P.map((val, i) => (val + Q[i]) / 2);

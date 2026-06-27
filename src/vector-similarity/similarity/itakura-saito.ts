@@ -1,3 +1,6 @@
+
+import { validateVectors } from './internal/validateVectors';
+
 /**
  * Calculates the Itakura-Saito distance between two vectors.
  * Robust to negative inputs (uses absolute values).
@@ -10,9 +13,7 @@
  * @returns The Itakura-Saito distance.
  */
 export function itakuraSaitoDistance(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error('Vectors must have the same length.');
-  }
+  validateVectors(P, Q);
 
   let sum = 0;
   for (let i = 0; i < P.length; i++) {

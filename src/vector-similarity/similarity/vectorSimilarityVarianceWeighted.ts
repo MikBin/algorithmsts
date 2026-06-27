@@ -1,8 +1,19 @@
 /**
  * Compute a variance-weighted similarity score between two numeric vectors A and B.
+ *
+ * @param A - First numeric vector.
+ * @param B - Second numeric vector.
+ * @param options - Optional configuration (`beta` penalty weight clamped to [0,1], `gamma` exponent; values < 1 fall back to 1).
+ * @returns Similarity score in [0, 1].
+ * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `A` and `B` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 
-interface VectorSimilarityVarianceWeightedOptions {
+import { validateVectors } from './internal/validateVectors';
+
+export interface VectorSimilarityVarianceWeightedOptions {
   beta?: number;
   gamma?: number;
 }
@@ -12,35 +23,7 @@ function computeVectorSimilarityVarianceWeighted(
   B: number[],
   options: VectorSimilarityVarianceWeightedOptions = {}
 ): number {
-  if (!Array.isArray(A)) {
-    throw new TypeError("Invalid input: A must be an array.");
-  }
-  if (!Array.isArray(B)) {
-    throw new TypeError("Invalid input: B must be an array.");
-  }
-
-  const n = A.length;
-  if (n === 0 || B.length === 0) {
-    throw new Error("Invalid input: A and B must be non-empty arrays.");
-  }
-  if (n !== B.length) {
-    throw new Error("Invalid input: A and B must be arrays of the same length.");
-  }
-
-  for (let i = 0; i < n; i++) {
-    const a = A[i];
-    const b = B[i];
-    if (!Number.isFinite(a)) {
-      throw new Error(
-        `Invalid element in A at index ${i}: expected a finite number, received ${String(a)}.`
-      );
-    }
-    if (!Number.isFinite(b)) {
-      throw new Error(
-        `Invalid element in B at index ${i}: expected a finite number, received ${String(b)}.`
-      );
-    }
-  }
+  const n = validateVectors(A, B);
 
   const C: number[] = new Array(n);
   for (let i = 0; i < n; i++) {
@@ -53,15 +36,14 @@ function computeVectorSimilarityVarianceWeighted(
     } else {
       const absA = Math.abs(a);
       const absB = Math.abs(b);
-      const maxVal = absA > absB ? absA : absB;
+      const maxVal = Math.max(absA, absB);
       const diff = Math.abs(a - b);
       const denom = 2 * maxVal;
-      const ratio = denom !== 0 ? diff / denom : 0;
+      const ratio = diff / denom;
       ci = 1 - ratio;
     }
 
-    if (ci < 0) ci = 0;
-    else if (ci > 1) ci = 1;
+    ci = Math.max(0, Math.min(1, ci));
 
     C[i] = ci;
   }
@@ -95,12 +77,8 @@ function computeVectorSimilarityVarianceWeighted(
 
   const penalty = 1 - betaClamped * Math.pow(sNorm, gammaSafe);
   const raw = mean * penalty;
-  const similarity =
-    raw < 0 ? 0 :
-      raw > 1 ? 1 :
-        raw;
 
-  return similarity;
+  return Math.max(0, Math.min(1, raw));
 }
 
 export { computeVectorSimilarityVarianceWeighted };

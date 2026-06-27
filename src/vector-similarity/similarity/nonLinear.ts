@@ -1,31 +1,13 @@
-/**
- * Computes the dot product of two vectors.
- * @param a - The first vector.
- * @param b - The second vector.
- * @returns The dot product.
- */
-function dotProduct(a: number[], b: number[]): number {
-  let sum = 0;
-  for (let i = 0; i < a.length; i++) {
-    sum += a[i] * b[i];
-  }
-  return sum;
-}
+import { dotProduct, squaredEuclideanDistance } from './classic';
 
 /**
- * Computes the squared Euclidean distance between two vectors.
- * @param a - The first vector.
- * @param b - The second vector.
- * @returns The squared Euclidean distance.
+ * Non-linear kernel similarities module.
+ *
+ * Shared contract for every function in this module:
+ * - Time complexity: O(n). Space complexity: O(1).
+ * - @throws {TypeError} if either argument is not an array or contains a non-finite element.
+ * - @throws {RangeError} if the vectors differ in length or are empty.
  */
-function squaredEuclideanDistance(a: number[], b: number[]): number {
-  let sum = 0;
-  for (let i = 0; i < a.length; i++) {
-    const diff = a[i] - b[i];
-    sum += diff * diff;
-  }
-  return sum;
-}
 
 /**
  * Normalized Polynomial Kernel Similarity.

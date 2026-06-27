@@ -1,4 +1,16 @@
 
+import { validateVectors } from './internal/validateVectors';
+
+/**
+ * Fidelity / Hellinger / Matusita / Squared-Chord family module.
+ *
+ * Shared contract for every function in this module:
+ * - Time complexity: O(n). Space complexity: O(1).
+ * - Inputs are internally normalized to probability distributions.
+ * - @throws {TypeError} if either argument is not an array or contains a non-finite element.
+ * - @throws {RangeError} if the vectors differ in length or are empty.
+ */
+
 /**
  * Calculates the Fidelity similarity (Bhattacharyya coefficient) between two vectors.
  * The vectors are internally normalized to probability distributions to ensure robustness.
@@ -7,9 +19,7 @@
  * @returns The Fidelity similarity in [0, 1].
  */
 export function fidelitySimilarity(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error("Vectors must have the same length.");
-  }
+  validateVectors(P, Q);
 
   // Robust normalization helper
   const normalize = (v: number[]) => {
@@ -45,9 +55,7 @@ export function hellingerDistance(P: number[], Q: number[]): number {
  * @returns The Matusita distance.
  */
 export function matusitaDistance(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error("Vectors must have the same length.");
-  }
+  validateVectors(P, Q);
 
   const normalize = (v: number[]) => {
       let sum = 0;
@@ -70,9 +78,7 @@ export function matusitaDistance(P: number[], Q: number[]): number {
  * @returns The Squared-Chord distance.
  */
 export function squaredChordDistance(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error("Vectors must have the same length.");
-  }
+  validateVectors(P, Q);
 
   const normalize = (v: number[]) => {
       let sum = 0;

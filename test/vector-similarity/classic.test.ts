@@ -20,7 +20,6 @@ import {
   kulczynskiDistance,
   kulczynskiSimilarity,
   canberraDistance,
-  canberraSimilarity,
   lorentzianDistance,
   lorentzianSimilarity,
   pearsonCorrelationSimilarity
@@ -63,7 +62,7 @@ describe('Classic Similarity Functions', () => {
     it('should throw an error for vectors of different lengths', () => {
       const a = [1, 2];
       const b = [1, 2, 3];
-      expect(() => cosineSimilarity(a, b)).toThrow('Vectors must have the same length');
+      expect(() => cosineSimilarity(a, b)).toThrow('Invalid input: A and B must be arrays of the same length');
     });
   });
 
@@ -83,7 +82,7 @@ describe('Classic Similarity Functions', () => {
     it('should throw an error for vectors of different lengths', () => {
       const a = [1, 2];
       const b = [1, 2, 3];
-      expect(() => euclideanDistance(a, b)).toThrow('Vectors must have the same length');
+      expect(() => euclideanDistance(a, b)).toThrow('Invalid input: A and B must be arrays of the same length');
     });
   });
 
@@ -103,7 +102,7 @@ describe('Classic Similarity Functions', () => {
     it('should throw an error for vectors of different lengths', () => {
       const a = [1, 2];
       const b = [1, 2, 3];
-      expect(() => manhattanDistance(a, b)).toThrow('Vectors must have the same length');
+      expect(() => manhattanDistance(a, b)).toThrow('Invalid input: A and B must be arrays of the same length');
     });
   });
 
@@ -135,7 +134,7 @@ describe('Classic Similarity Functions', () => {
     it('should throw an error for vectors of different lengths', () => {
       const a = [1, 2];
       const b = [1, 2, 3];
-      expect(() => pearsonCorrelation(a, b)).toThrow('Vectors must have the same length');
+      expect(() => pearsonCorrelation(a, b)).toThrow('Invalid input: A and B must be arrays of the same length');
     });
   });
 
@@ -193,7 +192,7 @@ describe('Classic Similarity Functions', () => {
     it('should throw an error for vectors of different lengths', () => {
       const a = [1, 2];
       const b = [1, 2, 3];
-      expect(() => dotProduct(a, b)).toThrow('Vectors must have the same length');
+      expect(() => dotProduct(a, b)).toThrow('Invalid input: A and B must be arrays of the same length');
     });
   });
 
@@ -401,21 +400,6 @@ describe('Classic Similarity Functions', () => {
     });
   });
 
-  describe('canberraSimilarity', () => {
-    it('should return 1 for identical vectors', () => {
-      const a = [1, 2, 3];
-      const b = [1, 2, 3];
-      expect(canberraSimilarity(a, b)).toBe(1);
-    });
-
-    it('should return a value between 0 and 1 for different vectors', () => {
-      const a = [1, 2, 3];
-      const b = [4, 5, 6];
-      const distance = 3 / 5 + 3 / 7 + 3 / 9;
-      expect(canberraSimilarity(a, b)).toBeCloseTo(1 / (1 + distance));
-    });
-  });
-
   describe('lorentzianDistance', () => {
     it('should return 0 for identical vectors', () => {
       const a = [1, 2, 3];
@@ -467,7 +451,6 @@ const testCases = [
       soergelSimilarity: 1,
       kulczynskiSimilarity: 1,
       lorentzianSimilarity: 1,
-      canberraSimilarity: 1,
       jaccardSimilarityBinary: 1,
       jaccardSimilarityWeighted: 1,
       jaccardSimilarityRealValued: 1,
@@ -489,7 +472,6 @@ const testCases = [
       soergelSimilarity: 1,
       kulczynskiSimilarity: 1,
       lorentzianSimilarity: 1,
-      canberraSimilarity: 1,
       jaccardSimilarityBinary: 1,
       jaccardSimilarityWeighted: 1,
       jaccardSimilarityRealValued: 1,
@@ -508,7 +490,6 @@ const similarityFunctions: { [key: string]: (a: number[], b: number[], c?: any) 
   soergelSimilarity,
   kulczynskiSimilarity,
   lorentzianSimilarity,
-  canberraSimilarity,
   jaccardSimilarityBinary,
   jaccardSimilarityWeighted,
   jaccardSimilarityRealValued,

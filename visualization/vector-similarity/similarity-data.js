@@ -134,217 +134,217 @@ export const analysisResults = {
   "benchmark": [
     {
       "name": "pearsonCorrelationSimilarity",
-      "avgTime": 0.38367890000000004,
+      "avgTime": 0.3763,
       "iterations": 10
     },
     {
       "name": "normalizedCosineSimilarity",
-      "avgTime": 0.2821774,
+      "avgTime": 0.18564,
       "iterations": 10
     },
     {
       "name": "euclideanSimilarity",
-      "avgTime": 0.1407072,
+      "avgTime": 0.10749,
       "iterations": 10
     },
     {
       "name": "manhattanSimilarity",
-      "avgTime": 0.20784429999999998,
+      "avgTime": 0.11595,
       "iterations": 10
     },
     {
       "name": "gowerSimilarity",
-      "avgTime": 0.2382821,
+      "avgTime": 0.20276,
       "iterations": 10
     },
     {
       "name": "soergelSimilarity",
-      "avgTime": 0.20949020000000002,
+      "avgTime": 0.26239,
       "iterations": 10
     },
     {
       "name": "kulczynskiSimilarity",
-      "avgTime": 0.4663448,
+      "avgTime": 0.26007,
       "iterations": 10
     },
     {
       "name": "lorentzianSimilarity",
-      "avgTime": 0.1756704,
+      "avgTime": 0.18424,
       "iterations": 10
     },
     {
       "name": "weightedMinkowskiSimilarity",
-      "avgTime": 0.2061603,
+      "avgTime": 0.51183,
       "iterations": 10
     },
     {
       "name": "canberraSimilarity",
-      "avgTime": 0.25035270000000004,
+      "avgTime": 0.30279,
       "iterations": 10
     },
     {
       "name": "chebyshevSimilarity",
-      "avgTime": 0.15505229999999998,
+      "avgTime": 0.12106,
       "iterations": 10
     },
     {
       "name": "intersectionSimilarity",
-      "avgTime": 0.1366788,
+      "avgTime": 0.20913,
       "iterations": 10
     },
     {
       "name": "waveHedgesSimilarity",
-      "avgTime": 0.1458889,
+      "avgTime": 0.28008,
       "iterations": 10
     },
     {
       "name": "sorensenSimilarity",
-      "avgTime": 0.2457878,
+      "avgTime": 0.30907,
       "iterations": 10
     },
     {
       "name": "motykaSimilarity",
-      "avgTime": 0.27491329999999997,
+      "avgTime": 0.26554,
       "iterations": 10
     },
     {
       "name": "kullbackLeiblerSimilarity",
-      "avgTime": 0.366538,
+      "avgTime": 0.56705,
       "iterations": 10
     },
     {
       "name": "jeffreysSimilarity",
-      "avgTime": 0.4895695,
+      "avgTime": 0.55508,
       "iterations": 10
     },
     {
       "name": "kSimilarity",
-      "avgTime": 0.3284261,
+      "avgTime": 0.65044,
       "iterations": 10
     },
     {
       "name": "topsoeSimilarity",
-      "avgTime": 0.49973059999999997,
+      "avgTime": 0.92123,
       "iterations": 10
     },
     {
       "name": "normalizedPearsonChiSquareSimilarity",
-      "avgTime": 0.17148439999999998,
+      "avgTime": 0.14141,
       "iterations": 10
     },
     {
       "name": "normalizedNeymanChiSquareSimilarity",
-      "avgTime": 0.1428192,
+      "avgTime": 0.11759,
       "iterations": 10
     },
     {
       "name": "normalizedAdditiveSymmetricChiSquareSimilarity",
-      "avgTime": 0.1872726,
+      "avgTime": 0.13323,
       "iterations": 10
     },
     {
       "name": "normalizedSquaredChiSquareSimilarity",
-      "avgTime": 0.1846429,
+      "avgTime": 0.13926,
       "iterations": 10
     },
     {
       "name": "fidelitySimilarity",
-      "avgTime": 0.2544591,
+      "avgTime": 0.5306,
       "iterations": 10
     },
     {
       "name": "hellingerSimilarity",
-      "avgTime": 0.2346311,
+      "avgTime": 0.42143,
       "iterations": 10
     },
     {
       "name": "normalizedMatusitaSimilarity",
-      "avgTime": 0.32935159999999997,
+      "avgTime": 0.60172,
       "iterations": 10
     },
     {
       "name": "normalizedSquaredChordSimilarity",
-      "avgTime": 0.3282198,
+      "avgTime": 0.57306,
       "iterations": 10
     },
     {
       "name": "jaccardSimilarityBinary",
-      "avgTime": 0.1111745,
+      "avgTime": 0.19126,
       "iterations": 10
     },
     {
       "name": "jaccardSimilarityWeighted",
-      "avgTime": 0.1606409,
+      "avgTime": 0.29417,
       "iterations": 10
     },
     {
       "name": "jaccardSimilarityRealValued",
-      "avgTime": 0.1415884,
+      "avgTime": 0.09699,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityMeanStdPenalized",
-      "avgTime": 0.3244754,
+      "avgTime": 0.62231,
       "iterations": 10
     },
     {
       "name": "vectorSimilarityCorrelation",
-      "avgTime": 0.2679907,
+      "avgTime": 0.48368,
       "iterations": 10
     },
     {
       "name": "vectorSimilarityCorrelationNoStd",
-      "avgTime": 0.2280409,
+      "avgTime": 0.06818,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityRobust",
-      "avgTime": 0.28119059999999996,
+      "avgTime": 0.4998,
       "iterations": 10
     },
     {
       "name": "vectorSimilarityMeanStdPowerArithmeticMean",
-      "avgTime": 0.3397888,
+      "avgTime": 0.63055,
       "iterations": 10
     },
     {
       "name": "vectorSimilarityMeanStdPowerArithmeticMeanNoStd",
-      "avgTime": 0.3417185,
+      "avgTime": 0.07029,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityMetricLike",
-      "avgTime": 0.2639187,
+      "avgTime": 0.39537,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityTunable",
-      "avgTime": 0.28451740000000003,
+      "avgTime": 0.46821,
       "iterations": 10
     },
     {
       "name": "computeVectorSimilarityVarianceWeighted",
-      "avgTime": 0.3583282,
+      "avgTime": 0.70798,
       "iterations": 10
     },
     {
       "name": "polynomialKernelSimilarity",
-      "avgTime": 0.1465415,
+      "avgTime": 0.1463,
       "iterations": 10
     },
     {
       "name": "rbfKernelSimilarity",
-      "avgTime": 0.1059914,
+      "avgTime": 0.10265,
       "iterations": 10
     },
     {
       "name": "itakuraSaitoDistance",
-      "avgTime": 0.1586908,
+      "avgTime": 0.19581,
       "iterations": 10
     },
     {
       "name": "vectorSimilarityItakuraSaito",
-      "avgTime": 0.053602800000000006,
+      "avgTime": 0.04849,
       "iterations": 10
     }
   ],
@@ -695,7 +695,7 @@ export const analysisResults = {
       },
       "vectorSimilarityCorrelation": {
         "A_vs_B": 0.9545454545454546,
-        "A_vs_C": 0.8670062419582997,
+        "A_vs_C": 0.8670062419582996,
         "A_vs_D": 0.688774151449793,
         "A_vs_E": 1
       },
@@ -731,7 +731,7 @@ export const analysisResults = {
       },
       "computeVectorSimilarityTunable": {
         "A_vs_B": 0.9325989472402855,
-        "A_vs_C": 0.8580875986751004,
+        "A_vs_C": 0.8580875986751005,
         "A_vs_D": 0.6365720697611543,
         "A_vs_E": 1
       },
@@ -783,61 +783,61 @@ export const analysisResults = {
         10
       ],
       "noisyVec": [
-        0.9647629887496035,
-        2.038227234711246,
-        2.987826569599915,
-        3.953274947842983,
-        5.028686578654104,
-        5.999874803365651,
-        7.020589721314911,
-        7.973033022225504,
-        8.991561041965625,
-        9.996784414692787
+        0.9897249465648248,
+        2.0306720362183452,
+        3.000844718940573,
+        4.009772799427483,
+        4.9515037905869805,
+        5.951723296879955,
+        6.960687281048172,
+        8.00952637825801,
+        9.044979923223122,
+        9.960640638343552
       ],
       "similarities": {
         "pearsonCorrelationSimilarity": 1,
         "normalizedCosineSimilarity": 1,
-        "euclideanSimilarity": 0.9223,
-        "manhattanSimilarity": 0.8194,
-        "gowerSimilarity": 0.978,
-        "soergelSimilarity": 0.996,
-        "kulczynskiSimilarity": 0.996,
-        "lorentzianSimilarity": 0.8217,
-        "weightedMinkowskiSimilarity": 0.9223,
-        "canberraSimilarity": 0.9958,
-        "chebyshevSimilarity": 0.9554,
-        "intersectionSimilarity": 0.998,
-        "waveHedgesSimilarity": 0.9233,
-        "sorensenSimilarity": 0.998,
-        "motykaSimilarity": 0.996,
+        "euclideanSimilarity": 0.9049,
+        "manhattanSimilarity": 0.7803,
+        "gowerSimilarity": 0.9718,
+        "soergelSimilarity": 0.9949,
+        "kulczynskiSimilarity": 0.9949,
+        "lorentzianSimilarity": 0.7836,
+        "weightedMinkowskiSimilarity": 0.9049,
+        "canberraSimilarity": 0.9969,
+        "chebyshevSimilarity": 0.9537,
+        "intersectionSimilarity": 0.9974,
+        "waveHedgesSimilarity": 0.942,
+        "sorensenSimilarity": 0.9974,
+        "motykaSimilarity": 0.9949,
         "kullbackLeiblerSimilarity": 1,
-        "jeffreysSimilarity": 0.9999,
+        "jeffreysSimilarity": 1,
         "kSimilarity": 1,
         "topsoeSimilarity": 1,
-        "normalizedPearsonChiSquareSimilarity": 0.9971,
-        "normalizedNeymanChiSquareSimilarity": 0.9971,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9942,
-        "normalizedSquaredChiSquareSimilarity": 0.9985,
+        "normalizedPearsonChiSquareSimilarity": 0.9979,
+        "normalizedNeymanChiSquareSimilarity": 0.9979,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9959,
+        "normalizedSquaredChiSquareSimilarity": 0.999,
         "fidelitySimilarity": 1,
-        "hellingerSimilarity": 0.9974,
-        "normalizedMatusitaSimilarity": 0.9974,
+        "hellingerSimilarity": 0.9979,
+        "normalizedMatusitaSimilarity": 0.9979,
         "normalizedSquaredChordSimilarity": 1,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.996,
-        "jaccardSimilarityRealValued": 0.996,
-        "computeVectorSimilarityMeanStdPenalized": 0.9917,
-        "vectorSimilarityCorrelation": 0.9958,
-        "vectorSimilarityCorrelationNoStd": 0.9958,
-        "computeVectorSimilarityRobust": 0.9898,
-        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9958,
-        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9958,
-        "computeVectorSimilarityMetricLike": 0.9741,
-        "computeVectorSimilarityTunable": 0.9938,
-        "computeVectorSimilarityVarianceWeighted": 0.9958,
+        "jaccardSimilarityWeighted": 0.9949,
+        "jaccardSimilarityRealValued": 0.9949,
+        "computeVectorSimilarityMeanStdPenalized": 0.9952,
+        "vectorSimilarityCorrelation": 0.9969,
+        "vectorSimilarityCorrelationNoStd": 0.9969,
+        "computeVectorSimilarityRobust": 0.9924,
+        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9969,
+        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9969,
+        "computeVectorSimilarityMetricLike": 0.9807,
+        "computeVectorSimilarityTunable": 0.9954,
+        "computeVectorSimilarityVarianceWeighted": 0.9969,
         "polynomialKernelSimilarity": 1,
         "rbfKernelSimilarity": 0.9999,
-        "itakuraSaitoDistance": 0.0009,
-        "vectorSimilarityItakuraSaito": 0.9991
+        "itakuraSaitoDistance": 0.0003,
+        "vectorSimilarityItakuraSaito": 0.9997
       }
     },
     {
@@ -1067,288 +1067,288 @@ export const analysisResults = {
     "noiseLevels": {
       "1": {
         "noisyVector": [
-          0.8839,
-          2.1064,
-          2.6452,
-          3.5519,
-          4.7375,
-          6.0298,
-          7.4874,
-          7.9358,
-          9.1655,
-          9.8391
+          0.7553,
+          1.5224,
+          3.0396,
+          3.8309,
+          4.5438,
+          6.0118,
+          6.5869,
+          7.6729,
+          9.2841,
+          10.3097
         ],
-        "pearsonCorrelationSimilarity": 0.9982,
-        "normalizedCosineSimilarity": 0.9995,
-        "euclideanSimilarity": 0.5416,
-        "manhattanSimilarity": 0.3129,
-        "gowerSimilarity": 0.7804,
-        "soergelSimilarity": 0.9606,
-        "kulczynskiSimilarity": 0.9606,
-        "lorentzianSimilarity": 0.3438,
-        "weightedMinkowskiSimilarity": 0.5416,
-        "canberraSimilarity": 0.9714,
-        "chebyshevSimilarity": 0.6723,
-        "intersectionSimilarity": 0.9799,
-        "waveHedgesSimilarity": 0.6404,
-        "sorensenSimilarity": 0.9799,
-        "motykaSimilarity": 0.9606,
-        "kullbackLeiblerSimilarity": 0.9985,
-        "jeffreysSimilarity": 0.997,
-        "kSimilarity": 0.9996,
-        "topsoeSimilarity": 0.9993,
-        "normalizedPearsonChiSquareSimilarity": 0.8494,
-        "normalizedNeymanChiSquareSimilarity": 0.8581,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.7448,
-        "normalizedSquaredChiSquareSimilarity": 0.9213,
-        "fidelitySimilarity": 0.9996,
-        "hellingerSimilarity": 0.9806,
-        "normalizedMatusitaSimilarity": 0.9806,
-        "normalizedSquaredChordSimilarity": 0.9996,
+        "pearsonCorrelationSimilarity": 0.9984,
+        "normalizedCosineSimilarity": 0.9994,
+        "euclideanSimilarity": 0.5024,
+        "manhattanSimilarity": 0.2679,
+        "gowerSimilarity": 0.7267,
+        "soergelSimilarity": 0.9509,
+        "kulczynskiSimilarity": 0.9509,
+        "lorentzianSimilarity": 0.2993,
+        "weightedMinkowskiSimilarity": 0.5024,
+        "canberraSimilarity": 0.9584,
+        "chebyshevSimilarity": 0.6768,
+        "intersectionSimilarity": 0.9748,
+        "waveHedgesSimilarity": 0.5579,
+        "sorensenSimilarity": 0.9748,
+        "motykaSimilarity": 0.9509,
+        "kullbackLeiblerSimilarity": 0.9975,
+        "jeffreysSimilarity": 0.9951,
+        "kSimilarity": 0.9994,
+        "topsoeSimilarity": 0.9988,
+        "normalizedPearsonChiSquareSimilarity": 0.7458,
+        "normalizedNeymanChiSquareSimilarity": 0.7815,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.6171,
+        "normalizedSquaredChiSquareSimilarity": 0.8672,
+        "fidelitySimilarity": 0.9994,
+        "hellingerSimilarity": 0.9751,
+        "normalizedMatusitaSimilarity": 0.9751,
+        "normalizedSquaredChordSimilarity": 0.9994,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9606,
-        "jaccardSimilarityRealValued": 0.9606,
-        "computeVectorSimilarityMeanStdPenalized": 0.9553,
-        "vectorSimilarityCorrelation": 0.9707,
-        "vectorSimilarityCorrelationNoStd": 0.9719,
-        "computeVectorSimilarityRobust": 0.9355,
-        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9692,
-        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9706,
-        "computeVectorSimilarityMetricLike": 0.8368,
-        "computeVectorSimilarityTunable": 0.9582,
-        "computeVectorSimilarityVarianceWeighted": 0.9704,
-        "polynomialKernelSimilarity": 0.9981,
-        "rbfKernelSimilarity": 0.9929,
-        "itakuraSaitoDistance": 0.0289,
-        "vectorSimilarityItakuraSaito": 0.9719
+        "jaccardSimilarityWeighted": 0.9509,
+        "jaccardSimilarityRealValued": 0.9509,
+        "computeVectorSimilarityMeanStdPenalized": 0.9283,
+        "vectorSimilarityCorrelation": 0.957,
+        "vectorSimilarityCorrelationNoStd": 0.9604,
+        "computeVectorSimilarityRobust": 0.9147,
+        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9524,
+        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9566,
+        "computeVectorSimilarityMetricLike": 0.7773,
+        "computeVectorSimilarityTunable": 0.9412,
+        "computeVectorSimilarityVarianceWeighted": 0.9545,
+        "polynomialKernelSimilarity": 0.9975,
+        "rbfKernelSimilarity": 0.9902,
+        "itakuraSaitoDistance": 0.0937,
+        "vectorSimilarityItakuraSaito": 0.9144
       },
       "2": {
         "noisyVector": [
-          0.5806,
-          1.0739,
-          2.2371,
-          3.5825,
-          5.049,
-          5.4044,
-          7.1979,
-          8.9758,
-          8.825,
-          9.5995
+          1.689,
+          1.3174,
+          3.6998,
+          3.4798,
+          4.8246,
+          5.8709,
+          6.5731,
+          8.3887,
+          8.1602,
+          10.2528
         ],
-        "pearsonCorrelationSimilarity": 0.995,
-        "normalizedCosineSimilarity": 0.9978,
-        "euclideanSimilarity": 0.354,
-        "manhattanSimilarity": 0.1689,
-        "gowerSimilarity": 0.508,
-        "soergelSimilarity": 0.9125,
-        "kulczynskiSimilarity": 0.9125,
+        "pearsonCorrelationSimilarity": 0.9915,
+        "normalizedCosineSimilarity": 0.9982,
+        "euclideanSimilarity": 0.372,
+        "manhattanSimilarity": 0.1723,
+        "gowerSimilarity": 0.5196,
+        "soergelSimilarity": 0.9158,
+        "kulczynskiSimilarity": 0.9158,
         "lorentzianSimilarity": 0.2085,
-        "weightedMinkowskiSimilarity": 0.354,
-        "canberraSimilarity": 0.9152,
-        "chebyshevSimilarity": 0.5061,
-        "intersectionSimilarity": 0.9542,
-        "waveHedgesSimilarity": 0.3928,
-        "sorensenSimilarity": 0.9542,
-        "motykaSimilarity": 0.9125,
-        "kullbackLeiblerSimilarity": 0.9888,
-        "jeffreysSimilarity": 0.9789,
-        "kSimilarity": 0.9975,
-        "topsoeSimilarity": 0.9947,
-        "normalizedPearsonChiSquareSimilarity": 0.3834,
-        "normalizedNeymanChiSquareSimilarity": 0.4888,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.2737,
-        "normalizedSquaredChiSquareSimilarity": 0.6156,
-        "fidelitySimilarity": 0.9973,
-        "hellingerSimilarity": 0.9482,
-        "normalizedMatusitaSimilarity": 0.9482,
-        "normalizedSquaredChordSimilarity": 0.9973,
+        "weightedMinkowskiSimilarity": 0.372,
+        "canberraSimilarity": 0.9275,
+        "chebyshevSimilarity": 0.5435,
+        "intersectionSimilarity": 0.956,
+        "waveHedgesSimilarity": 0.4255,
+        "sorensenSimilarity": 0.956,
+        "motykaSimilarity": 0.9158,
+        "kullbackLeiblerSimilarity": 0.9911,
+        "jeffreysSimilarity": 0.9821,
+        "kSimilarity": 0.9977,
+        "topsoeSimilarity": 0.9955,
+        "normalizedPearsonChiSquareSimilarity": 0.5019,
+        "normalizedNeymanChiSquareSimilarity": 0.4814,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.3258,
+        "normalizedSquaredChiSquareSimilarity": 0.6677,
+        "fidelitySimilarity": 0.9977,
+        "hellingerSimilarity": 0.9523,
+        "normalizedMatusitaSimilarity": 0.9523,
+        "normalizedSquaredChordSimilarity": 0.9977,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9125,
-        "jaccardSimilarityRealValued": 0.9125,
-        "computeVectorSimilarityMeanStdPenalized": 0.8649,
-        "vectorSimilarityCorrelation": 0.911,
-        "vectorSimilarityCorrelationNoStd": 0.9227,
-        "computeVectorSimilarityRobust": 0.8511,
-        "vectorSimilarityMeanStdPowerArithmeticMean": 0.8896,
-        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9074,
-        "computeVectorSimilarityMetricLike": 0.6095,
-        "computeVectorSimilarityTunable": 0.8863,
-        "computeVectorSimilarityVarianceWeighted": 0.903,
-        "polynomialKernelSimilarity": 0.9914,
-        "rbfKernelSimilarity": 0.9673,
-        "itakuraSaitoDistance": 0.4866,
-        "vectorSimilarityItakuraSaito": 0.6727
+        "jaccardSimilarityWeighted": 0.9158,
+        "jaccardSimilarityRealValued": 0.9158,
+        "computeVectorSimilarityMeanStdPenalized": 0.8844,
+        "vectorSimilarityCorrelation": 0.9239,
+        "vectorSimilarityCorrelationNoStd": 0.9325,
+        "computeVectorSimilarityRobust": 0.8644,
+        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9097,
+        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9219,
+        "computeVectorSimilarityMetricLike": 0.6495,
+        "computeVectorSimilarityTunable": 0.9005,
+        "computeVectorSimilarityVarianceWeighted": 0.919,
+        "polynomialKernelSimilarity": 0.9927,
+        "rbfKernelSimilarity": 0.9719,
+        "itakuraSaitoDistance": 0.2568,
+        "vectorSimilarityItakuraSaito": 0.7956
       },
       "5": {
         "noisyVector": [
-          -1.3062,
-          2.5838,
-          3.6645,
-          1.8219,
-          4.5194,
-          3.5653,
-          5.5931,
-          8.1304,
-          8.3003,
-          7.9568
+          2.8194,
+          0.4563,
+          5.2548,
+          3.0177,
+          4.1463,
+          3.7109,
+          5.1257,
+          6.645,
+          8.5351,
+          8.4062
         ],
-        "pearsonCorrelationSimilarity": 0.9608,
-        "normalizedCosineSimilarity": 0.9875,
-        "euclideanSimilarity": 0.1705,
-        "manhattanSimilarity": 0.0718,
-        "gowerSimilarity": 0.2441,
-        "soergelSimilarity": 0.7719,
-        "kulczynskiSimilarity": 0.7797,
-        "lorentzianSimilarity": 0.1164,
-        "weightedMinkowskiSimilarity": 0.1705,
-        "canberraSimilarity": 0.821,
-        "chebyshevSimilarity": 0.2911,
-        "intersectionSimilarity": 0.8933,
-        "waveHedgesSimilarity": 0.2119,
-        "sorensenSimilarity": 0.8738,
-        "motykaSimilarity": 0.8072,
-        "kullbackLeiblerSimilarity": 0.9697,
-        "jeffreysSimilarity": 0.9428,
-        "kSimilarity": 0.9927,
-        "topsoeSimilarity": 0.9852,
-        "normalizedPearsonChiSquareSimilarity": 0.1519,
-        "normalizedNeymanChiSquareSimilarity": 0.2279,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.1003,
-        "normalizedSquaredChiSquareSimilarity": 0.3269,
-        "fidelitySimilarity": 0.9924,
-        "hellingerSimilarity": 0.9131,
-        "normalizedMatusitaSimilarity": 0.9131,
-        "normalizedSquaredChordSimilarity": 0.9924,
+        "pearsonCorrelationSimilarity": 0.9316,
+        "normalizedCosineSimilarity": 0.9857,
+        "euclideanSimilarity": 0.1644,
+        "manhattanSimilarity": 0.0624,
+        "gowerSimilarity": 0.0699,
+        "soergelSimilarity": 0.7456,
+        "kulczynskiSimilarity": 0.7456,
+        "lorentzianSimilarity": 0.1011,
+        "weightedMinkowskiSimilarity": 0.1644,
+        "canberraSimilarity": 0.8192,
+        "chebyshevSimilarity": 0.304,
+        "intersectionSimilarity": 0.8542,
+        "waveHedgesSimilarity": 0.233,
+        "sorensenSimilarity": 0.8542,
+        "motykaSimilarity": 0.7456,
+        "kullbackLeiblerSimilarity": 0.9368,
+        "jeffreysSimilarity": 0.8775,
+        "kSimilarity": 0.983,
+        "topsoeSimilarity": 0.9676,
+        "normalizedPearsonChiSquareSimilarity": 0.0865,
+        "normalizedNeymanChiSquareSimilarity": 0.1056,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.0499,
+        "normalizedSquaredChiSquareSimilarity": 0.2094,
+        "fidelitySimilarity": 0.9829,
+        "hellingerSimilarity": 0.8693,
+        "normalizedMatusitaSimilarity": 0.8693,
+        "normalizedSquaredChordSimilarity": 0.9829,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.8072,
-        "jaccardSimilarityRealValued": 0.8072,
-        "computeVectorSimilarityMeanStdPenalized": 0.6572,
-        "vectorSimilarityCorrelation": 0.7473,
-        "vectorSimilarityCorrelationNoStd": 0.8141,
-        "computeVectorSimilarityRobust": 0.7337,
-        "vectorSimilarityMeanStdPowerArithmeticMean": 0.701,
-        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.782,
-        "computeVectorSimilarityMetricLike": 0.3816,
-        "computeVectorSimilarityTunable": 0.7345,
-        "computeVectorSimilarityVarianceWeighted": 0.6496,
-        "polynomialKernelSimilarity": 0.9508,
-        "rbfKernelSimilarity": 0.7893,
-        "itakuraSaitoDistance": 0.7172,
-        "vectorSimilarityItakuraSaito": 0.5823
+        "jaccardSimilarityWeighted": 0.7456,
+        "jaccardSimilarityRealValued": 0.7456,
+        "computeVectorSimilarityMeanStdPenalized": 0.7633,
+        "vectorSimilarityCorrelation": 0.806,
+        "vectorSimilarityCorrelationNoStd": 0.8354,
+        "computeVectorSimilarityRobust": 0.7138,
+        "vectorSimilarityMeanStdPowerArithmeticMean": 0.7232,
+        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.7793,
+        "computeVectorSimilarityMetricLike": 0.3396,
+        "computeVectorSimilarityTunable": 0.7635,
+        "computeVectorSimilarityVarianceWeighted": 0.8016,
+        "polynomialKernelSimilarity": 0.9438,
+        "rbfKernelSimilarity": 0.7725,
+        "itakuraSaitoDistance": 2.7168,
+        "vectorSimilarityItakuraSaito": 0.2691
       },
       "0.1": {
         "noisyVector": [
-          0.9969,
-          1.9533,
-          3.045,
-          4.0478,
-          4.9995,
-          5.9901,
-          7.0173,
-          8.0408,
-          8.9715,
-          9.985
+          1.0304,
+          1.9706,
+          2.9532,
+          4.0153,
+          4.9642,
+          5.9828,
+          6.9943,
+          8.0094,
+          8.9629,
+          9.9772
         ],
         "pearsonCorrelationSimilarity": 1,
         "normalizedCosineSimilarity": 1,
-        "euclideanSimilarity": 0.9107,
-        "manhattanSimilarity": 0.7971,
-        "gowerSimilarity": 0.9745,
-        "soergelSimilarity": 0.9954,
-        "kulczynskiSimilarity": 0.9954,
-        "lorentzianSimilarity": 0.8001,
-        "weightedMinkowskiSimilarity": 0.9107,
-        "canberraSimilarity": 0.9966,
-        "chebyshevSimilarity": 0.9544,
+        "euclideanSimilarity": 0.9188,
+        "manhattanSimilarity": 0.8,
+        "gowerSimilarity": 0.975,
+        "soergelSimilarity": 0.9955,
+        "kulczynskiSimilarity": 0.9955,
+        "lorentzianSimilarity": 0.8025,
+        "weightedMinkowskiSimilarity": 0.9188,
+        "canberraSimilarity": 0.9959,
+        "chebyshevSimilarity": 0.9553,
         "intersectionSimilarity": 0.9977,
-        "waveHedgesSimilarity": 0.9372,
+        "waveHedgesSimilarity": 0.9242,
         "sorensenSimilarity": 0.9977,
-        "motykaSimilarity": 0.9954,
+        "motykaSimilarity": 0.9955,
         "kullbackLeiblerSimilarity": 1,
         "jeffreysSimilarity": 1,
         "kSimilarity": 1,
         "topsoeSimilarity": 1,
         "normalizedPearsonChiSquareSimilarity": 0.9973,
         "normalizedNeymanChiSquareSimilarity": 0.9973,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9946,
-        "normalizedSquaredChiSquareSimilarity": 0.9986,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9947,
+        "normalizedSquaredChiSquareSimilarity": 0.9987,
         "fidelitySimilarity": 1,
-        "hellingerSimilarity": 0.9975,
-        "normalizedMatusitaSimilarity": 0.9975,
+        "hellingerSimilarity": 0.9977,
+        "normalizedMatusitaSimilarity": 0.9977,
         "normalizedSquaredChordSimilarity": 1,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9954,
-        "jaccardSimilarityRealValued": 0.9954,
-        "computeVectorSimilarityMeanStdPenalized": 0.9938,
-        "vectorSimilarityCorrelation": 0.9966,
-        "vectorSimilarityCorrelationNoStd": 0.9967,
-        "computeVectorSimilarityRobust": 0.9917,
-        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9966,
-        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9966,
-        "computeVectorSimilarityMetricLike": 0.9791,
-        "computeVectorSimilarityTunable": 0.995,
-        "computeVectorSimilarityVarianceWeighted": 0.9966,
+        "jaccardSimilarityWeighted": 0.9955,
+        "jaccardSimilarityRealValued": 0.9955,
+        "computeVectorSimilarityMeanStdPenalized": 0.9925,
+        "vectorSimilarityCorrelation": 0.9959,
+        "vectorSimilarityCorrelationNoStd": 0.9959,
+        "computeVectorSimilarityRobust": 0.9899,
+        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9958,
+        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9959,
+        "computeVectorSimilarityMetricLike": 0.9744,
+        "computeVectorSimilarityTunable": 0.9939,
+        "computeVectorSimilarityVarianceWeighted": 0.9958,
         "polynomialKernelSimilarity": 1,
         "rbfKernelSimilarity": 0.9999,
-        "itakuraSaitoDistance": 0.0005,
-        "vectorSimilarityItakuraSaito": 0.9995
+        "itakuraSaitoDistance": 0.0007,
+        "vectorSimilarityItakuraSaito": 0.9993
       },
       "0.5": {
         "noisyVector": [
-          0.866,
-          2.1427,
-          3.1315,
-          3.879,
-          5.0319,
-          6.2178,
-          7.1568,
-          8.1438,
-          8.9203,
-          10.0235
+          0.9859,
+          1.8212,
+          3.2011,
+          3.7796,
+          5.1179,
+          6.0666,
+          7.2402,
+          8.1003,
+          9.0934,
+          9.8822
         ],
-        "pearsonCorrelationSimilarity": 0.9996,
+        "pearsonCorrelationSimilarity": 0.9994,
         "normalizedCosineSimilarity": 0.9999,
-        "euclideanSimilarity": 0.7075,
-        "manhattanSimilarity": 0.4582,
-        "gowerSimilarity": 0.8817,
-        "soergelSimilarity": 0.9788,
-        "kulczynskiSimilarity": 0.9788,
-        "lorentzianSimilarity": 0.475,
-        "weightedMinkowskiSimilarity": 0.7075,
-        "canberraSimilarity": 0.9814,
-        "chebyshevSimilarity": 0.8212,
-        "intersectionSimilarity": 0.9893,
-        "waveHedgesSimilarity": 0.7326,
-        "sorensenSimilarity": 0.9893,
-        "motykaSimilarity": 0.9788,
-        "kullbackLeiblerSimilarity": 0.9996,
-        "jeffreysSimilarity": 0.9991,
+        "euclideanSimilarity": 0.6759,
+        "manhattanSimilarity": 0.4254,
+        "gowerSimilarity": 0.865,
+        "soergelSimilarity": 0.9758,
+        "kulczynskiSimilarity": 0.9758,
+        "lorentzianSimilarity": 0.4448,
+        "weightedMinkowskiSimilarity": 0.6759,
+        "canberraSimilarity": 0.9837,
+        "chebyshevSimilarity": 0.8063,
+        "intersectionSimilarity": 0.9878,
+        "waveHedgesSimilarity": 0.7559,
+        "sorensenSimilarity": 0.9878,
+        "motykaSimilarity": 0.9758,
+        "kullbackLeiblerSimilarity": 0.9995,
+        "jeffreysSimilarity": 0.999,
         "kSimilarity": 0.9999,
-        "topsoeSimilarity": 0.9998,
-        "normalizedPearsonChiSquareSimilarity": 0.9487,
-        "normalizedNeymanChiSquareSimilarity": 0.9501,
-        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.9036,
-        "normalizedSquaredChiSquareSimilarity": 0.9741,
+        "topsoeSimilarity": 0.9997,
+        "normalizedPearsonChiSquareSimilarity": 0.945,
+        "normalizedNeymanChiSquareSimilarity": 0.9459,
+        "normalizedAdditiveSymmetricChiSquareSimilarity": 0.8965,
+        "normalizedSquaredChiSquareSimilarity": 0.972,
         "fidelitySimilarity": 0.9999,
-        "hellingerSimilarity": 0.9895,
-        "normalizedMatusitaSimilarity": 0.9895,
+        "hellingerSimilarity": 0.9887,
+        "normalizedMatusitaSimilarity": 0.9887,
         "normalizedSquaredChordSimilarity": 0.9999,
         "jaccardSimilarityBinary": 1,
-        "jaccardSimilarityWeighted": 0.9788,
-        "jaccardSimilarityRealValued": 0.9788,
-        "computeVectorSimilarityMeanStdPenalized": 0.9673,
-        "vectorSimilarityCorrelation": 0.981,
-        "vectorSimilarityCorrelationNoStd": 0.9818,
-        "computeVectorSimilarityRobust": 0.9575,
-        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9802,
-        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.981,
-        "computeVectorSimilarityMetricLike": 0.8908,
-        "computeVectorSimilarityTunable": 0.9728,
-        "computeVectorSimilarityVarianceWeighted": 0.9806,
-        "polynomialKernelSimilarity": 0.9996,
-        "rbfKernelSimilarity": 0.9983,
-        "itakuraSaitoDistance": 0.0157,
-        "vectorSimilarityItakuraSaito": 0.9846
+        "jaccardSimilarityWeighted": 0.9758,
+        "jaccardSimilarityRealValued": 0.9758,
+        "computeVectorSimilarityMeanStdPenalized": 0.9736,
+        "vectorSimilarityCorrelation": 0.9834,
+        "vectorSimilarityCorrelationNoStd": 0.9839,
+        "computeVectorSimilarityRobust": 0.9617,
+        "vectorSimilarityMeanStdPowerArithmeticMean": 0.9829,
+        "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": 0.9834,
+        "computeVectorSimilarityMetricLike": 0.9028,
+        "computeVectorSimilarityTunable": 0.9759,
+        "computeVectorSimilarityVarianceWeighted": 0.9833,
+        "polynomialKernelSimilarity": 0.9995,
+        "rbfKernelSimilarity": 0.9977,
+        "itakuraSaitoDistance": 0.0094,
+        "vectorSimilarityItakuraSaito": 0.9907
       }
     }
   },
@@ -1365,39 +1365,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 1,
-            "timeMs": 0.0898
+            "timeMs": 0.1799
           },
           "pearsonCorrelationSimilarity": {
             "score": 1,
-            "timeMs": 0.1914
+            "timeMs": 0.3914
           },
           "euclideanSimilarity": {
-            "score": 0.5296,
-            "timeMs": 0.0784
+            "score": 0.4824,
+            "timeMs": 0.2432
           },
           "polynomialKernelSimilarity": {
             "score": 1,
-            "timeMs": 0.1286
+            "timeMs": 0.3225
           },
           "rbfKernelSimilarity": {
-            "score": 0.9921,
-            "timeMs": 0.0579
+            "score": 0.9886,
+            "timeMs": 0.1524
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9815,
-            "timeMs": 0.2679
+            "score": 0.9635,
+            "timeMs": 0.5439
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9833,
-            "timeMs": 0.0505
+            "score": 0.9714,
+            "timeMs": 0.1412
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9846,
-            "timeMs": 0.1877
+            "score": 0.9711,
+            "timeMs": 0.4136
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9858,
-            "timeMs": 0.06
+            "score": 0.9764,
+            "timeMs": 0.1735
           }
         }
       },
@@ -1412,39 +1412,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 1,
-            "timeMs": 0.0157
+            "timeMs": 0.027
           },
           "pearsonCorrelationSimilarity": {
             "score": 0.9999,
-            "timeMs": 0.0253
+            "timeMs": 0.0792
           },
           "euclideanSimilarity": {
-            "score": 0.1689,
-            "timeMs": 0.016
+            "score": 0.1595,
+            "timeMs": 0.0272
           },
           "polynomialKernelSimilarity": {
             "score": 0.9999,
-            "timeMs": 0.025
+            "timeMs": 0.0603
           },
           "rbfKernelSimilarity": {
-            "score": 0.7849,
-            "timeMs": 0.007
+            "score": 0.7574,
+            "timeMs": 0.0214
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9105,
-            "timeMs": 0.03
+            "score": 0.8967,
+            "timeMs": 0.0769
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9336,
-            "timeMs": 0.0285
+            "score": 0.9237,
+            "timeMs": 0.0632
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9362,
-            "timeMs": 0.0449
+            "score": 0.9294,
+            "timeMs": 0.0583
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9491,
-            "timeMs": 0.0431
+            "score": 0.9435,
+            "timeMs": 0.0492
           }
         }
       },
@@ -1459,39 +1459,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 1,
-            "timeMs": 0.0152
+            "timeMs": 0.0226
           },
           "pearsonCorrelationSimilarity": {
             "score": 1,
-            "timeMs": 0.0256
+            "timeMs": 0.0269
           },
           "euclideanSimilarity": {
-            "score": 0.576,
-            "timeMs": 0.0062
+            "score": 0.6225,
+            "timeMs": 0.0091
           },
           "polynomialKernelSimilarity": {
             "score": 1,
-            "timeMs": 0.024
+            "timeMs": 0.0352
           },
           "rbfKernelSimilarity": {
-            "score": 0.9946,
-            "timeMs": 0.0066
+            "score": 0.9963,
+            "timeMs": 0.0074
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9553,
-            "timeMs": 0.0258
+            "score": 0.9798,
+            "timeMs": 0.0378
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9651,
-            "timeMs": 0.0254
+            "score": 0.9823,
+            "timeMs": 0.0352
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9719,
-            "timeMs": 0.0205
+            "score": 0.9845,
+            "timeMs": 0.0279
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.976,
-            "timeMs": 0.0214
+            "score": 0.9859,
+            "timeMs": 0.0338
           }
         }
       },
@@ -1506,39 +1506,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 1,
-            "timeMs": 0.0123
+            "timeMs": 0.0217
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0253
+            "score": 1,
+            "timeMs": 0.0413
           },
           "euclideanSimilarity": {
-            "score": 0.2163,
-            "timeMs": 0.006
+            "score": 0.2484,
+            "timeMs": 0.0105
           },
           "polynomialKernelSimilarity": {
             "score": 0.9999,
-            "timeMs": 0.0219
+            "timeMs": 0.0574
           },
           "rbfKernelSimilarity": {
-            "score": 0.877,
-            "timeMs": 0.0062
+            "score": 0.9126,
+            "timeMs": 0.0158
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8493,
-            "timeMs": 0.0287
+            "score": 0.8662,
+            "timeMs": 0.049
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8957,
-            "timeMs": 0.0259
+            "score": 0.9066,
+            "timeMs": 0.0335
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8904,
-            "timeMs": 0.0218
+            "score": 0.9196,
+            "timeMs": 0.0267
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9196,
-            "timeMs": 0.0199
+            "score": 0.9375,
+            "timeMs": 0.0267
           }
         }
       },
@@ -1550,6 +1550,570 @@ export const analysisResults = {
           "level": 0.1
         },
         "label": "quadratic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0053
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0072
+          },
+          "euclideanSimilarity": {
+            "score": 0.8159,
+            "timeMs": 0.0046
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0172
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9995,
+            "timeMs": 0.0039
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9941,
+            "timeMs": 0.0204
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9942,
+            "timeMs": 0.0092
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9942,
+            "timeMs": 0.0075
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9943,
+            "timeMs": 0.0071
+          }
+        }
+      },
+      {
+        "type": "quadratic",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "quadratic [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0059
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0077
+          },
+          "euclideanSimilarity": {
+            "score": 0.3364,
+            "timeMs": 0.0046
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0165
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9618,
+            "timeMs": 0.004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8702,
+            "timeMs": 0.0095
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9033,
+            "timeMs": 0.0089
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9168,
+            "timeMs": 0.0075
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9325,
+            "timeMs": 0.007
+          }
+        }
+      },
+      {
+        "type": "cubic",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cubic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0377
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0876
+          },
+          "euclideanSimilarity": {
+            "score": 0.5319,
+            "timeMs": 0.0148
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.079
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9923,
+            "timeMs": 0.0137
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9539,
+            "timeMs": 0.0615
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9637,
+            "timeMs": 0.0624
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.97,
+            "timeMs": 0.0564
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9746,
+            "timeMs": 0.0611
+          }
+        }
+      },
+      {
+        "type": "cubic",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cubic [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0391
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0332
+          },
+          "euclideanSimilarity": {
+            "score": 0.1691,
+            "timeMs": 0.0126
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0251
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7856,
+            "timeMs": 0.016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8965,
+            "timeMs": 0.0755
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9261,
+            "timeMs": 0.0657
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9364,
+            "timeMs": 0.0458
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9501,
+            "timeMs": 0.0753
+          }
+        }
+      },
+      {
+        "type": "cubic",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cubic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0169
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0213
+          },
+          "euclideanSimilarity": {
+            "score": 0.5964,
+            "timeMs": 0.011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0175
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9954,
+            "timeMs": 0.0077
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9094,
+            "timeMs": 0.0581
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9352,
+            "timeMs": 0.0298
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.94,
+            "timeMs": 0.0232
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9536,
+            "timeMs": 0.0533
+          }
+        }
+      },
+      {
+        "type": "cubic",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cubic [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0155
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0235
+          },
+          "euclideanSimilarity": {
+            "score": 0.2215,
+            "timeMs": 0.009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.013
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8838,
+            "timeMs": 0.0097
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8707,
+            "timeMs": 0.0286
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9096,
+            "timeMs": 0.0284
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9106,
+            "timeMs": 0.0239
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9333,
+            "timeMs": 0.0235
+          }
+        }
+      },
+      {
+        "type": "cubic",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cubic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0041
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0056
+          },
+          "euclideanSimilarity": {
+            "score": 0.7512,
+            "timeMs": 0.0043
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0075
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.0029
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9885,
+            "timeMs": 0.0071
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9892,
+            "timeMs": 0.0088
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9896,
+            "timeMs": 0.0064
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9901,
+            "timeMs": 0.006
+          }
+        }
+      },
+      {
+        "type": "cubic",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cubic [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0043
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0055
+          },
+          "euclideanSimilarity": {
+            "score": 0.4754,
+            "timeMs": 0.0032
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0052
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9879,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9914,
+            "timeMs": 0.0076
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9917,
+            "timeMs": 0.0077
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9918,
+            "timeMs": 0.0068
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9921,
+            "timeMs": 0.0066
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "exponential [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0216
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0351
+          },
+          "euclideanSimilarity": {
+            "score": 0.4903,
+            "timeMs": 0.0121
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0087
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9893,
+            "timeMs": 0.0107
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9922,
+            "timeMs": 0.054
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9924,
+            "timeMs": 0.0479
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9925,
+            "timeMs": 0.0384
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9927,
+            "timeMs": 0.0424
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "exponential [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0216
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0425
+          },
+          "euclideanSimilarity": {
+            "score": 0.1694,
+            "timeMs": 0.0374
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.041
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7863,
+            "timeMs": 0.0107
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9478,
+            "timeMs": 0.5528
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9551,
+            "timeMs": 0.0076
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9575,
+            "timeMs": 0.008
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9622,
+            "timeMs": 0.0069
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "exponential [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0148
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0345
+          },
+          "euclideanSimilarity": {
+            "score": 0.5648,
+            "timeMs": 0.0147
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0119
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9941,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9926,
+            "timeMs": 0.004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9928,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9929,
+            "timeMs": 0.004
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9931,
+            "timeMs": 0.0037
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "exponential [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0104
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0202
+          },
+          "euclideanSimilarity": {
+            "score": 0.233,
+            "timeMs": 0.0054
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0056
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8973,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9584,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9627,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9637,
+            "timeMs": 0.0044
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9668,
+            "timeMs": 0.0038
+          }
+        }
+      },
+      {
+        "type": "exponential",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "exponential [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 1,
@@ -1557,281 +2121,4934 @@ export const analysisResults = {
           },
           "pearsonCorrelationSimilarity": {
             "score": 1,
-            "timeMs": 0.0074
+            "timeMs": 0.1219
           },
           "euclideanSimilarity": {
-            "score": 0.8124,
-            "timeMs": 0.0018
+            "score": 0.8424,
+            "timeMs": 0.0032
           },
           "polynomialKernelSimilarity": {
             "score": 1,
-            "timeMs": 0.0136
+            "timeMs": 0.0084
           },
           "rbfKernelSimilarity": {
-            "score": 0.9995,
-            "timeMs": 0.002
+            "score": 0.9997,
+            "timeMs": 0.0024
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9604,
-            "timeMs": 0.007
+            "score": 0.9952,
+            "timeMs": 0.0027
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9665,
-            "timeMs": 0.0067
+            "score": 0.9952,
+            "timeMs": 0.0018
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9699,
-            "timeMs": 0.0061
+            "score": 0.9952,
+            "timeMs": 0.2439
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9737,
-            "timeMs": 0.003
+            "score": 0.9953,
+            "timeMs": 0.0024
           }
         }
       },
       {
-        "type": "quadratic",
+        "type": "exponential",
         "size": 10,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.5
         },
-        "label": "quadratic [gaussian (lvl=0.5)]",
+        "label": "exponential [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 1,
-            "timeMs": 0.0021
+            "timeMs": 0.003
           },
           "pearsonCorrelationSimilarity": {
             "score": 1,
-            "timeMs": 0.0093
+            "timeMs": 0.003
           },
           "euclideanSimilarity": {
-            "score": 0.4607,
+            "score": 0.5449,
             "timeMs": 0.0014
           },
           "polynomialKernelSimilarity": {
             "score": 1,
-            "timeMs": 0.0106
+            "timeMs": 0.0062
           },
           "rbfKernelSimilarity": {
-            "score": 0.9864,
-            "timeMs": 0.0015
+            "score": 0.9931,
+            "timeMs": 0.0014
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9429,
-            "timeMs": 0.0066
+            "score": 0.9774,
+            "timeMs": 0.0016
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9522,
-            "timeMs": 0.0063
+            "score": 0.9785,
+            "timeMs": 0.001
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9555,
-            "timeMs": 0.0059
+            "score": 0.9786,
+            "timeMs": 0.001
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9612,
-            "timeMs": 0.003
+            "score": 0.9796,
+            "timeMs": 0.0009
           }
         }
       },
       {
-        "type": "cubic",
+        "type": "logarithmic",
         "size": 100,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.1
         },
-        "label": "cubic [gaussian (lvl=0.1)]",
+        "label": "logarithmic [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0252
+            "score": 0.9988,
+            "timeMs": 0.016
           },
           "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0484
+            "score": 0.9964,
+            "timeMs": 0.0298
           },
           "euclideanSimilarity": {
-            "score": 0.495,
-            "timeMs": 0.0175
+            "score": 0.4722,
+            "timeMs": 0.0094
           },
           "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0354
+            "score": 0.9954,
+            "timeMs": 0.0072
           },
           "rbfKernelSimilarity": {
-            "score": 0.9896,
-            "timeMs": 0.0118
+            "score": 0.9876,
+            "timeMs": 0.0129
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9267,
-            "timeMs": 0.0505
+            "score": 0.914,
+            "timeMs": 0.1101
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9461,
-            "timeMs": 0.0461
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9608,
-            "timeMs": 0.0398
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9675,
-            "timeMs": 0.0377
-          }
-        }
-      },
-      {
-        "type": "cubic",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cubic [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.025
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0477
-          },
-          "euclideanSimilarity": {
-            "score": 0.1644,
-            "timeMs": 0.0109
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0297
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7723,
-            "timeMs": 0.0117
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8758,
-            "timeMs": 0.1333
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.912,
-            "timeMs": 0.0476
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9265,
-            "timeMs": 0.0405
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9422,
-            "timeMs": 0.0422
-          }
-        }
-      },
-      {
-        "type": "cubic",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cubic [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0168
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0342
-          },
-          "euclideanSimilarity": {
-            "score": 0.6512,
-            "timeMs": 0.0073
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0236
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9971,
-            "timeMs": 0.0075
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8993,
-            "timeMs": 0.0276
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9298,
-            "timeMs": 0.026
-          },
-          "vectorSimilarityCorrelation": {
             "score": 0.9327,
-            "timeMs": 0.0296
+            "timeMs": 0.0458
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.94,
+            "timeMs": 0.1023
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9493,
-            "timeMs": 0.0205
+            "score": 0.9483,
+            "timeMs": 0.0239
           }
         }
       },
       {
-        "type": "cubic",
+        "type": "logarithmic",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "logarithmic [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9797,
+            "timeMs": 0.0155
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9466,
+            "timeMs": 0.002
+          },
+          "euclideanSimilarity": {
+            "score": 0.173,
+            "timeMs": 0.0138
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9208,
+            "timeMs": 0.0083
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7957,
+            "timeMs": 0.0356
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7298,
+            "timeMs": 0.0427
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7941,
+            "timeMs": 0.0449
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8198,
+            "timeMs": 0.0386
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8503,
+            "timeMs": 0.0335
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "logarithmic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0127
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9981,
+            "timeMs": 0.0017
+          },
+          "euclideanSimilarity": {
+            "score": 0.6208,
+            "timeMs": 0.0315
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9972,
+            "timeMs": 0.01
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9281,
+            "timeMs": 0.0244
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9434,
+            "timeMs": 0.108
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9439,
+            "timeMs": 0.0311
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9529,
+            "timeMs": 0.0199
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
         "size": 50,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.5
         },
-        "label": "cubic [gaussian (lvl=0.5)]",
+        "label": "logarithmic [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0092
+            "score": 0.9758,
+            "timeMs": 0.0386
           },
           "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0133
+            "score": 0.9474,
+            "timeMs": 0.002
           },
           "euclideanSimilarity": {
-            "score": 0.2406,
-            "timeMs": 0.0047
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.017
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9051,
+            "score": 0.2109,
             "timeMs": 0.0054
           },
+          "polynomialKernelSimilarity": {
+            "score": 0.9061,
+            "timeMs": 0.0102
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8693,
+            "timeMs": 0.006
+          },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8526,
-            "timeMs": 0.0176
+            "score": 0.7392,
+            "timeMs": 0.0262
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8989,
-            "timeMs": 0.0159
+            "score": 0.8011,
+            "timeMs": 0.0239
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8952,
-            "timeMs": 0.0137
+            "score": 0.8168,
+            "timeMs": 0.0211
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9241,
-            "timeMs": 0.0135
+            "score": 0.8506,
+            "timeMs": 0.0206
           }
         }
       },
       {
-        "type": "cubic",
+        "type": "logarithmic",
         "size": 10,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.1
         },
-        "label": "cubic [gaussian (lvl=0.1)]",
+        "label": "logarithmic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9998,
+            "timeMs": 0.004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9996,
+            "timeMs": 0.0029
+          },
+          "euclideanSimilarity": {
+            "score": 0.8498,
+            "timeMs": 0.0029
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9991,
+            "timeMs": 0.0079
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0023
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.937,
+            "timeMs": 0.0079
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9487,
+            "timeMs": 0.0065
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9536,
+            "timeMs": 0.0061
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9602,
+            "timeMs": 0.005
+          }
+        }
+      },
+      {
+        "type": "logarithmic",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "logarithmic [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.986,
+            "timeMs": 0.0036
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9748,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.4265,
+            "timeMs": 0.0024
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9464,
+            "timeMs": 0.0052
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9821,
+            "timeMs": 0.002
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8739,
+            "timeMs": 0.0106
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.886,
+            "timeMs": 0.0069
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8914,
+            "timeMs": 0.0056
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9001,
+            "timeMs": 0.0055
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sqrt [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9995,
+            "timeMs": 0.0172
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9956,
+            "timeMs": 0.0022
+          },
+          "euclideanSimilarity": {
+            "score": 0.4967,
+            "timeMs": 0.0087
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.998,
+            "timeMs": 0.0054
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9898,
+            "timeMs": 0.0083
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9752,
+            "timeMs": 0.0467
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9762,
+            "timeMs": 0.0462
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9763,
+            "timeMs": 0.1044
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9772,
+            "timeMs": 0.0357
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sqrt [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9894,
+            "timeMs": 0.039
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9139,
+            "timeMs": 0.0027
+          },
+          "euclideanSimilarity": {
+            "score": 0.1771,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.958,
+            "timeMs": 0.0114
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8059,
+            "timeMs": 0.0079
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8635,
+            "timeMs": 0.9088
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8901,
+            "timeMs": 0.0473
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8878,
+            "timeMs": 0.0395
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.907,
+            "timeMs": 0.0388
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sqrt [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0114
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.994,
+            "timeMs": 0.0206
+          },
+          "euclideanSimilarity": {
+            "score": 0.5433,
+            "timeMs": 0.0017
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9972,
+            "timeMs": 0.0113
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.993,
+            "timeMs": 0.0054
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9532,
+            "timeMs": 0.0246
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.96,
+            "timeMs": 0.0239
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9625,
+            "timeMs": 0.0207
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9662,
+            "timeMs": 0.0201
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sqrt [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9935,
+            "timeMs": 0.0019
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9449,
+            "timeMs": 0.0018
+          },
+          "euclideanSimilarity": {
+            "score": 0.2801,
+            "timeMs": 0.0014
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9742,
+            "timeMs": 0.0054
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.936,
+            "timeMs": 0.0053
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.889,
+            "timeMs": 0.0241
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9055,
+            "timeMs": 0.0261
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9097,
+            "timeMs": 0.0202
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9196,
+            "timeMs": 0.0203
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sqrt [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9995,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9969,
+            "timeMs": 0.0011
+          },
+          "euclideanSimilarity": {
+            "score": 0.7602,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9981,
+            "timeMs": 0.0048
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.999,
+            "timeMs": 0.0022
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9767,
+            "timeMs": 0.0074
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9777,
+            "timeMs": 0.0063
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9777,
+            "timeMs": 0.0056
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9786,
+            "timeMs": 0.0053
+          }
+        }
+      },
+      {
+        "type": "sqrt",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sqrt [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9791,
+            "timeMs": 0.0012
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8774,
+            "timeMs": 0.0011
+          },
+          "euclideanSimilarity": {
+            "score": 0.3282,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9196,
+            "timeMs": 0.0037
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.959,
+            "timeMs": 0.0022
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6998,
+            "timeMs": 0.0064
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7811,
+            "timeMs": 0.0063
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7575,
+            "timeMs": 0.0059
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8195,
+            "timeMs": 0.0057
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sin [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9951,
+            "timeMs": 0.002
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9951,
+            "timeMs": 0.0022
+          },
+          "euclideanSimilarity": {
+            "score": 0.5084,
+            "timeMs": 0.0016
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9808,
+            "timeMs": 0.006
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9907,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8399,
+            "timeMs": 0.0463
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8785,
+            "timeMs": 0.0458
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.884,
+            "timeMs": 0.0381
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.905,
+            "timeMs": 0.0387
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sin [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9138,
+            "timeMs": 0.0021
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9154,
+            "timeMs": 0.0023
+          },
+          "euclideanSimilarity": {
+            "score": 0.1649,
+            "timeMs": 0.0014
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6886,
+            "timeMs": 0.0056
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7738,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5368,
+            "timeMs": 0.043
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6035,
+            "timeMs": 0.0396
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6572,
+            "timeMs": 0.0335
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7225,
+            "timeMs": 0.0331
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sin [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9966,
+            "timeMs": 0.0016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9966,
+            "timeMs": 0.002
+          },
+          "euclideanSimilarity": {
+            "score": 0.6267,
+            "timeMs": 0.0014
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9868,
+            "timeMs": 0.0068
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9965,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8485,
+            "timeMs": 0.0234
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8876,
+            "timeMs": 0.0217
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8854,
+            "timeMs": 0.02
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9094,
+            "timeMs": 0.0187
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sin [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9156,
+            "timeMs": 0.0016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9186,
+            "timeMs": 0.0015
+          },
+          "euclideanSimilarity": {
+            "score": 0.2278,
+            "timeMs": 0.0012
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6991,
+            "timeMs": 0.0051
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8915,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5554,
+            "timeMs": 0.0212
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6336,
+            "timeMs": 0.0224
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6831,
+            "timeMs": 0.0179
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7454,
+            "timeMs": 0.0201
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sin [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9933,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9934,
+            "timeMs": 0.0011
+          },
+          "euclideanSimilarity": {
+            "score": 0.7277,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9776,
+            "timeMs": 0.0041
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9986,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8608,
+            "timeMs": 0.0057
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8796,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8853,
+            "timeMs": 0.0046
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8977,
+            "timeMs": 0.0039
+          }
+        }
+      },
+      {
+        "type": "sin",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sin [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9207,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9242,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.3288,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7234,
+            "timeMs": 0.0035
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9592,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.534,
+            "timeMs": 0.0053
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.597,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6524,
+            "timeMs": 0.0042
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7186,
+            "timeMs": 0.0042
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cos [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9952,
+            "timeMs": 0.0015
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9952,
+            "timeMs": 0.002
+          },
+          "euclideanSimilarity": {
+            "score": 0.4897,
+            "timeMs": 0.0012
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9812,
+            "timeMs": 0.0061
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9892,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8388,
+            "timeMs": 0.0421
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.878,
+            "timeMs": 0.0672
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8814,
+            "timeMs": 0.0307
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9037,
+            "timeMs": 0.0325
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cos [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9354,
+            "timeMs": 0.0018
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9371,
+            "timeMs": 0.002
+          },
+          "euclideanSimilarity": {
+            "score": 0.1766,
+            "timeMs": 0.0013
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7609,
+            "timeMs": 0.0087
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8045,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6049,
+            "timeMs": 0.0377
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6885,
+            "timeMs": 0.0603
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.718,
+            "timeMs": 0.0368
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7756,
+            "timeMs": 0.087
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cos [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9955,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9955,
+            "timeMs": 0.0015
+          },
+          "euclideanSimilarity": {
+            "score": 0.5923,
+            "timeMs": 0.0015
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9826,
+            "timeMs": 0.0075
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9953,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8705,
+            "timeMs": 0.0235
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9008,
+            "timeMs": 0.0228
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9055,
+            "timeMs": 0.0199
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9216,
+            "timeMs": 0.0201
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cos [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9109,
+            "timeMs": 0.0015
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9101,
+            "timeMs": 0.0016
+          },
+          "euclideanSimilarity": {
+            "score": 0.2207,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6836,
+            "timeMs": 0.0059
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8828,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5353,
+            "timeMs": 0.0236
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5998,
+            "timeMs": 0.0228
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6318,
+            "timeMs": 0.0208
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.702,
+            "timeMs": 0.02
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cos [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9987,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.8131,
+            "timeMs": 0.001
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9939,
+            "timeMs": 0.0048
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9995,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8308,
+            "timeMs": 0.0073
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8814,
+            "timeMs": 0.0057
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.904,
+            "timeMs": 0.0059
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.923,
+            "timeMs": 0.0051
+          }
+        }
+      },
+      {
+        "type": "cos",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cos [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9484,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9472,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.4459,
+            "timeMs": 0.0012
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8258,
+            "timeMs": 0.0042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9847,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.549,
+            "timeMs": 0.0061
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6313,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6953,
+            "timeMs": 0.0087
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7586,
+            "timeMs": 0.0047
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "tan [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.002
+          },
+          "euclideanSimilarity": {
+            "score": 0.5026,
+            "timeMs": 0.0013
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0061
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9903,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8566,
+            "timeMs": 0.046
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8953,
+            "timeMs": 0.0418
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8971,
+            "timeMs": 0.066
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.919,
+            "timeMs": 0.0365
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "tan [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0017
+          },
+          "euclideanSimilarity": {
+            "score": 0.1754,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9929,
+            "timeMs": 0.007
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8017,
+            "timeMs": 0.0279
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.604,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6946,
+            "timeMs": 0.0064
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7367,
+            "timeMs": 0.0063
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7936,
+            "timeMs": 0.0062
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "tan [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0018
+          },
+          "euclideanSimilarity": {
+            "score": 0.6111,
+            "timeMs": 0.004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.011
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.996,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8744,
+            "timeMs": 0.0068
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9062,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9135,
+            "timeMs": 0.0041
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9299,
+            "timeMs": 0.0037
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "tan [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9996,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0013
+          },
+          "euclideanSimilarity": {
+            "score": 0.2451,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9985,
+            "timeMs": 0.0053
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9095,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6047,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6956,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7191,
+            "timeMs": 0.0036
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7832,
+            "timeMs": 0.0037
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "tan [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.7532,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0038
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9451,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9512,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.952,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9567,
+            "timeMs": 0.0013
+          }
+        }
+      },
+      {
+        "type": "tan",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "tan [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9991,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9992,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.4616,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0035
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9865,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7948,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8402,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8551,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8796,
+            "timeMs": 0.0013
+          }
+        }
+      },
+      {
+        "type": "csc",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "csc [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0018
+          },
+          "euclideanSimilarity": {
+            "score": 0.4879,
+            "timeMs": 0.001
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.989,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9736,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9749,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.975,
+            "timeMs": 0.006
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9761,
+            "timeMs": 0.0058
+          }
+        }
+      },
+      {
+        "type": "csc",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "csc [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0017
+          },
+          "euclideanSimilarity": {
+            "score": 0.1664,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.0048
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.778,
+            "timeMs": 0.0013
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.813,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8561,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8699,
+            "timeMs": 0.0061
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8912,
+            "timeMs": 0.006
+          }
+        }
+      },
+      {
+        "type": "csc",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "csc [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0013
+          },
+          "euclideanSimilarity": {
+            "score": 0.5488,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9996,
+            "timeMs": 0.0041
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9933,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9687,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9703,
+            "timeMs": 0.003
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9704,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9718,
+            "timeMs": 0.0033
+          }
+        }
+      },
+      {
+        "type": "csc",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "csc [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9986,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9986,
+            "timeMs": 0.0013
+          },
+          "euclideanSimilarity": {
+            "score": 0.2438,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9944,
+            "timeMs": 0.004
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9083,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8714,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8972,
+            "timeMs": 0.003
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8965,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9129,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "csc",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "csc [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0008
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.7424,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9988,
+            "timeMs": 0.0033
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9988,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9732,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9742,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9743,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9752,
+            "timeMs": 0.0011
+          }
+        }
+      },
+      {
+        "type": "csc",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "csc [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.985,
+            "timeMs": 0.0008
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9872,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.3239,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9415,
+            "timeMs": 0.0031
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9574,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.762,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8138,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8333,
+            "timeMs": 0.0013
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8601,
+            "timeMs": 0.0012
+          }
+        }
+      },
+      {
+        "type": "sec",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sec [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.001
+          },
+          "euclideanSimilarity": {
+            "score": 0.4919,
+            "timeMs": 0.0006
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0035
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9894,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9694,
+            "timeMs": 0.003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9708,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9709,
+            "timeMs": 0.0036
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9722,
+            "timeMs": 0.005
+          }
+        }
+      },
+      {
+        "type": "sec",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sec [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.0016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.0017
+          },
+          "euclideanSimilarity": {
+            "score": 0.177,
+            "timeMs": 0.0014
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9933,
+            "timeMs": 0.0078
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8055,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8585,
+            "timeMs": 0.0061
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8837,
+            "timeMs": 0.0055
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8839,
+            "timeMs": 0.0066
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9016,
+            "timeMs": 0.0058
+          }
+        }
+      },
+      {
+        "type": "sec",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sec [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.001
+          },
+          "euclideanSimilarity": {
+            "score": 0.5549,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0055
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9936,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9662,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9679,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9681,
+            "timeMs": 0.0041
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9696,
+            "timeMs": 0.0035
+          }
+        }
+      },
+      {
+        "type": "sec",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sec [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9998,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9998,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.2881,
+            "timeMs": 0.001
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.999,
+            "timeMs": 0.0052
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9408,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9094,
+            "timeMs": 0.0032
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9192,
+            "timeMs": 0.0029
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9213,
+            "timeMs": 0.0032
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9285,
+            "timeMs": 0.0033
+          }
+        }
+      },
+      {
+        "type": "sec",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sec [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.7266,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9996,
+            "timeMs": 0.0038
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9986,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9638,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9665,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9667,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.969,
+            "timeMs": 0.001
+          }
+        }
+      },
+      {
+        "type": "sec",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sec [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9986,
+            "timeMs": 0.0008
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9988,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.4128,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9945,
+            "timeMs": 0.0037
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.98,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8559,
+            "timeMs": 0.0013
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8812,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8873,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9035,
+            "timeMs": 0.0011
+          }
+        }
+      },
+      {
+        "type": "cot",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cot [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0012
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0015
+          },
+          "euclideanSimilarity": {
+            "score": 0.527,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0049
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.992,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8561,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8938,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8958,
+            "timeMs": 0.0065
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9179,
+            "timeMs": 0.0062
+          }
+        }
+      },
+      {
+        "type": "cot",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cot [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0018
+          },
+          "euclideanSimilarity": {
+            "score": 0.172,
+            "timeMs": 0.001
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.0042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7931,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6153,
+            "timeMs": 0.0046
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.712,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7142,
+            "timeMs": 0.005
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.786,
+            "timeMs": 0.0057
+          }
+        }
+      },
+      {
+        "type": "cot",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cot [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0022
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0016
+          },
+          "euclideanSimilarity": {
+            "score": 0.5805,
+            "timeMs": 0.0018
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0459
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9948,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8722,
+            "timeMs": 0.0042
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9028,
+            "timeMs": 0.003
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9033,
+            "timeMs": 0.004
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9219,
+            "timeMs": 0.0035
+          }
+        }
+      },
+      {
+        "type": "cot",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cot [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0017
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0201
+          },
+          "euclideanSimilarity": {
+            "score": 0.2267,
+            "timeMs": 0.0013
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9927,
+            "timeMs": 0.0064
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8902,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6963,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7734,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7919,
+            "timeMs": 0.0036
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.837,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "cot",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cot [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.7061,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9973,
+            "timeMs": 0.0033
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9983,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7468,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.825,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7801,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8468,
+            "timeMs": 0.0012
+          }
+        }
+      },
+      {
+        "type": "cot",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cot [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9943,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9943,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.4066,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9776,
+            "timeMs": 0.0031
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9789,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6068,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7052,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7595,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8107,
+            "timeMs": 0.0012
+          }
+        }
+      },
+      {
+        "type": "asin",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "asin [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9956,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9956,
+            "timeMs": 0.0018
+          },
+          "euclideanSimilarity": {
+            "score": 0.5224,
+            "timeMs": 0.0012
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9829,
+            "timeMs": 0.0055
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9917,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8246,
+            "timeMs": 0.0051
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8681,
+            "timeMs": 0.0051
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8717,
+            "timeMs": 0.0062
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.897,
+            "timeMs": 0.0058
+          }
+        }
+      },
+      {
+        "type": "asin",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "asin [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8894,
+            "timeMs": 0.0012
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8898,
+            "timeMs": 0.0018
+          },
+          "euclideanSimilarity": {
+            "score": 0.157,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6118,
+            "timeMs": 0.0046
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7495,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5045,
+            "timeMs": 0.0051
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5324,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6099,
+            "timeMs": 0.0056
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.6796,
+            "timeMs": 0.0058
+          }
+        }
+      },
+      {
+        "type": "asin",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "asin [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9952,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9952,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.5924,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9816,
+            "timeMs": 0.0037
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9953,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7701,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8331,
+            "timeMs": 0.0029
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8512,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8808,
+            "timeMs": 0.0031
+          }
+        }
+      },
+      {
+        "type": "asin",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "asin [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.927,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9271,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.2391,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7363,
+            "timeMs": 0.0038
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9037,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5183,
+            "timeMs": 0.0031
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5707,
+            "timeMs": 0.003
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6403,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7087,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "asin",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "asin [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9974,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9975,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.788,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.991,
+            "timeMs": 0.003
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8843,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9056,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9107,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9229,
+            "timeMs": 0.001
+          }
+        }
+      },
+      {
+        "type": "asin",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "asin [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9482,
+            "timeMs": 0.0008
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.95,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.3946,
+            "timeMs": 0.0006
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8178,
+            "timeMs": 0.0037
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9767,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6118,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6878,
+            "timeMs": 0.0013
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.735,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7771,
+            "timeMs": 0.0012
+          }
+        }
+      },
+      {
+        "type": "acos",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "acos [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9994,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0018
+          },
+          "euclideanSimilarity": {
+            "score": 0.5428,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9976,
+            "timeMs": 0.0054
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9929,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9712,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9729,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9731,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9745,
+            "timeMs": 0.0052
+          }
+        }
+      },
+      {
+        "type": "acos",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "acos [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9809,
+            "timeMs": 0.0012
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9028,
+            "timeMs": 0.0017
+          },
+          "euclideanSimilarity": {
+            "score": 0.1707,
+            "timeMs": 0.001
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9254,
+            "timeMs": 0.0042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7898,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7857,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8333,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8506,
+            "timeMs": 0.0056
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8739,
+            "timeMs": 0.0053
+          }
+        }
+      },
+      {
+        "type": "acos",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "acos [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9992,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9951,
+            "timeMs": 0.0011
+          },
+          "euclideanSimilarity": {
+            "score": 0.591,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9968,
+            "timeMs": 0.0034
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9952,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9594,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.963,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9636,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9662,
+            "timeMs": 0.003
+          }
+        }
+      },
+      {
+        "type": "acos",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "acos [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9787,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8927,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.2212,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9171,
+            "timeMs": 0.0034
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8835,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7725,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8246,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8373,
+            "timeMs": 0.0029
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8661,
+            "timeMs": 0.003
+          }
+        }
+      },
+      {
+        "type": "acos",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "acos [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9988,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9951,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.719,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9953,
+            "timeMs": 0.0032
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9985,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9242,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9351,
+            "timeMs": 0.0013
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9372,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9445,
+            "timeMs": 0.0015
+          }
+        }
+      },
+      {
+        "type": "acos",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "acos [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.988,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.957,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.4497,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9539,
+            "timeMs": 0.0038
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9851,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7184,
+            "timeMs": 0.0013
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7964,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7783,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8334,
+            "timeMs": 0.0011
+          }
+        }
+      },
+      {
+        "type": "atan",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "atan [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.999,
+            "timeMs": 0.0012
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.999,
+            "timeMs": 0.0017
+          },
+          "euclideanSimilarity": {
+            "score": 0.5501,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.996,
+            "timeMs": 0.004
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9933,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9703,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9717,
+            "timeMs": 0.0045
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9718,
+            "timeMs": 0.0056
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9731,
+            "timeMs": 0.0051
+          }
+        }
+      },
+      {
+        "type": "atan",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "atan [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9668,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9682,
+            "timeMs": 0.0019
+          },
+          "euclideanSimilarity": {
+            "score": 0.169,
+            "timeMs": 0.001
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8725,
+            "timeMs": 0.0044
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7853,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7524,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.811,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8175,
+            "timeMs": 0.0055
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8537,
+            "timeMs": 0.0052
+          }
+        }
+      },
+      {
+        "type": "atan",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "atan [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9987,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9987,
+            "timeMs": 0.001
+          },
+          "euclideanSimilarity": {
+            "score": 0.6059,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9949,
+            "timeMs": 0.0037
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9958,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9641,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.966,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9662,
+            "timeMs": 0.0031
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9678,
+            "timeMs": 0.0031
+          }
+        }
+      },
+      {
+        "type": "atan",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "atan [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9763,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9764,
+            "timeMs": 0.0013
+          },
+          "euclideanSimilarity": {
+            "score": 0.2655,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9087,
+            "timeMs": 0.0045
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9263,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7823,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8379,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8479,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8782,
+            "timeMs": 0.0026
+          }
+        }
+      },
+      {
+        "type": "atan",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "atan [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9989,
+            "timeMs": 0.0005
+          },
+          "euclideanSimilarity": {
+            "score": 0.7423,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9956,
+            "timeMs": 0.003
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9988,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.968,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9693,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9694,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9706,
+            "timeMs": 0.0007
+          }
+        }
+      },
+      {
+        "type": "atan",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "atan [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9791,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9809,
+            "timeMs": 0.0005
+          },
+          "euclideanSimilarity": {
+            "score": 0.4398,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9222,
+            "timeMs": 0.002
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9839,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8177,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8474,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8575,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8761,
+            "timeMs": 0.0007
+          }
+        }
+      },
+      {
+        "type": "sinh",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sinh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0008
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.5097,
+            "timeMs": 0.0006
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0024
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9908,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.983,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9846,
+            "timeMs": 0.0025
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9861,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9871,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "sinh",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sinh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.1629,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.002
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7678,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9293,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9444,
+            "timeMs": 0.0025
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9513,
+            "timeMs": 0.0048
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9587,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "sinh",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sinh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.5794,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0017
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9947,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9792,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9823,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.986,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9873,
+            "timeMs": 0.0017
+          }
+        }
+      },
+      {
+        "type": "sinh",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sinh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0005
+          },
+          "euclideanSimilarity": {
+            "score": 0.2358,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0017
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9003,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.892,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9241,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9315,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9469,
+            "timeMs": 0.0017
+          }
+        }
+      },
+      {
+        "type": "sinh",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sinh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0003
+          },
+          "euclideanSimilarity": {
+            "score": 0.8005,
+            "timeMs": 0.0003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9994,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9959,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.996,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.996,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9961,
+            "timeMs": 0.0006
+          }
+        }
+      },
+      {
+        "type": "sinh",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sinh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0003
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0004
+          },
+          "euclideanSimilarity": {
+            "score": 0.4276,
+            "timeMs": 0.0003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9822,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9582,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9635,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9651,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9688,
+            "timeMs": 0.0006
+          }
+        }
+      },
+      {
+        "type": "cosh",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cosh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.4942,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.002
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9896,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9932,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9934,
+            "timeMs": 0.0025
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9935,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9936,
+            "timeMs": 0.0033
+          }
+        }
+      },
+      {
+        "type": "cosh",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cosh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.1761,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.002
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8033,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9679,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9711,
+            "timeMs": 0.0025
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9722,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9746,
+            "timeMs": 0.0033
+          }
+        }
+      },
+      {
+        "type": "cosh",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cosh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.6254,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0017
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9964,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9941,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9942,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9943,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9944,
+            "timeMs": 0.0018
+          }
+        }
+      },
+      {
+        "type": "cosh",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cosh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0005
+          },
+          "euclideanSimilarity": {
+            "score": 0.204,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0016
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8588,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9666,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9703,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9717,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9742,
+            "timeMs": 0.0017
+          }
+        }
+      },
+      {
+        "type": "cosh",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cosh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0003
+          },
+          "euclideanSimilarity": {
+            "score": 0.8282,
+            "timeMs": 0.0003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9996,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9961,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9962,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9962,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9963,
+            "timeMs": 0.0006
+          }
+        }
+      },
+      {
+        "type": "cosh",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cosh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0004
+          },
+          "euclideanSimilarity": {
+            "score": 0.4941,
+            "timeMs": 0.0003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9896,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9603,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9656,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9676,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9712,
+            "timeMs": 0.0005
+          }
+        }
+      },
+      {
+        "type": "tanh",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "tanh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9979,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9979,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.5326,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9915,
+            "timeMs": 0.002
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9923,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9541,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9576,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9581,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9608,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "tanh",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "tanh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.95,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.95,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.1827,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8118,
+            "timeMs": 0.002
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8187,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6965,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7655,
+            "timeMs": 0.0025
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7918,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8288,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "tanh",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "tanh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9968,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9971,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.5585,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9873,
+            "timeMs": 0.0017
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9938,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9438,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9483,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.949,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9525,
+            "timeMs": 0.0017
+          }
+        }
+      },
+      {
+        "type": "tanh",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "tanh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9367,
+            "timeMs": 0.0005
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9367,
+            "timeMs": 0.0005
+          },
+          "euclideanSimilarity": {
+            "score": 0.1963,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7662,
+            "timeMs": 0.0017
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8456,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6408,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.719,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7519,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7977,
+            "timeMs": 0.0017
+          }
+        }
+      },
+      {
+        "type": "tanh",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "tanh [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9972,
+            "timeMs": 0.0003
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9977,
+            "timeMs": 0.0004
+          },
+          "euclideanSimilarity": {
+            "score": 0.7566,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9899,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.999,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9571,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9606,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9609,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9637,
+            "timeMs": 0.0006
+          }
+        }
+      },
+      {
+        "type": "tanh",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "tanh [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9217,
+            "timeMs": 0.0004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9474,
+            "timeMs": 0.0003
+          },
+          "euclideanSimilarity": {
+            "score": 0.3635,
+            "timeMs": 0.0003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7362,
+            "timeMs": 0.0014
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9698,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6297,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7208,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7606,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.81,
+            "timeMs": 0.0008
+          }
+        }
+      },
+      {
+        "type": "circle",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "circle [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9948,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9948,
+            "timeMs": 0.0016
+          },
+          "euclideanSimilarity": {
+            "score": 0.4095,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9796,
+            "timeMs": 0.0047
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9794,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8479,
+            "timeMs": 0.0052
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8821,
+            "timeMs": 0.0062
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8906,
+            "timeMs": 0.0068
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9082,
+            "timeMs": 0.0067
+          }
+        }
+      },
+      {
+        "type": "circle",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "circle [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9123,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9124,
+            "timeMs": 0.0015
+          },
+          "euclideanSimilarity": {
+            "score": 0.1241,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6822,
+            "timeMs": 0.0032
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6078,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5305,
+            "timeMs": 0.005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5945,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6506,
+            "timeMs": 0.0065
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7183,
+            "timeMs": 0.0065
+          }
+        }
+      },
+      {
+        "type": "circle",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "circle [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.995,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9952,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.5009,
+            "timeMs": 0.0006
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9805,
+            "timeMs": 0.0023
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9901,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8196,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8689,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8738,
+            "timeMs": 0.0036
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9003,
+            "timeMs": 0.0033
+          }
+        }
+      },
+      {
+        "type": "circle",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "circle [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9191,
+            "timeMs": 0.0006
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9191,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.1748,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7066,
+            "timeMs": 0.0021
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8001,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5424,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6164,
+            "timeMs": 0.0027
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6728,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7381,
+            "timeMs": 0.0032
+          }
+        }
+      },
+      {
+        "type": "circle",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "circle [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9966,
+            "timeMs": 0.0004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9966,
+            "timeMs": 0.0004
+          },
+          "euclideanSimilarity": {
+            "score": 0.7289,
+            "timeMs": 0.0003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9875,
+            "timeMs": 0.0016
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9986,
+            "timeMs": 0.0004
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7811,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8478,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8778,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.902,
+            "timeMs": 0.0009
+          }
+        }
+      },
+      {
+        "type": "circle",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "circle [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9004,
+            "timeMs": 0.0004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9025,
+            "timeMs": 0.0004
+          },
+          "euclideanSimilarity": {
+            "score": 0.3232,
+            "timeMs": 0.0003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6681,
+            "timeMs": 0.0015
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9571,
+            "timeMs": 0.0003
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5287,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5946,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6862,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7425,
+            "timeMs": 0.001
+          }
+        }
+      },
+      {
+        "type": "ellipse",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "ellipse [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9954,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9954,
+            "timeMs": 0.0014
+          },
+          "euclideanSimilarity": {
+            "score": 0.4196,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9819,
+            "timeMs": 0.0027
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9811,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8616,
+            "timeMs": 0.0049
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8933,
+            "timeMs": 0.0048
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9027,
+            "timeMs": 0.0072
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9179,
+            "timeMs": 0.0064
+          }
+        }
+      },
+      {
+        "type": "ellipse",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "ellipse [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9119,
+            "timeMs": 0.0023
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.912,
+            "timeMs": 0.0028
+          },
+          "euclideanSimilarity": {
+            "score": 0.1259,
+            "timeMs": 0.0013
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6809,
+            "timeMs": 0.0074
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6175,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5709,
+            "timeMs": 0.0085
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6529,
+            "timeMs": 0.008
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6822,
+            "timeMs": 0.0092
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7489,
+            "timeMs": 0.0104
+          }
+        }
+      },
+      {
+        "type": "ellipse",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "ellipse [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9944,
+            "timeMs": 0.0012
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9944,
+            "timeMs": 0.0013
+          },
+          "euclideanSimilarity": {
+            "score": 0.4835,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9781,
+            "timeMs": 0.0054
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9887,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8069,
+            "timeMs": 0.005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8585,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8631,
+            "timeMs": 0.0055
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.892,
+            "timeMs": 0.0058
+          }
+        }
+      },
+      {
+        "type": "ellipse",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "ellipse [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9127,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9128,
+            "timeMs": 0.0015
+          },
+          "euclideanSimilarity": {
+            "score": 0.1715,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6855,
+            "timeMs": 0.0052
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7919,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5571,
+            "timeMs": 0.0047
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6326,
+            "timeMs": 0.004
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6821,
+            "timeMs": 0.0057
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7431,
+            "timeMs": 0.0054
+          }
+        }
+      },
+      {
+        "type": "ellipse",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "ellipse [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9943,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9945,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.6718,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9793,
+            "timeMs": 0.0042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9976,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.703,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7935,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.823,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8648,
+            "timeMs": 0.0017
+          }
+        }
+      },
+      {
+        "type": "ellipse",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "ellipse [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9635,
+            "timeMs": 0.0008
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9651,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.3733,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8648,
+            "timeMs": 0.0033
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9722,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6177,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7065,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7546,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8004,
+            "timeMs": 0.0014
+          }
+        }
+      },
+      {
+        "type": "spiral_archimedean",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "spiral_archimedean [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0017
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0026
+          },
+          "euclideanSimilarity": {
+            "score": 0.4187,
+            "timeMs": 0.0015
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0056
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9809,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9492,
+            "timeMs": 0.009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9593,
+            "timeMs": 0.0093
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9613,
+            "timeMs": 0.034
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9672,
+            "timeMs": 0.0242
+          }
+        }
+      },
+      {
+        "type": "spiral_archimedean",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "spiral_archimedean [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.998,
+            "timeMs": 0.0029
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.998,
+            "timeMs": 0.0037
+          },
+          "euclideanSimilarity": {
+            "score": 0.1218,
+            "timeMs": 0.0022
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9922,
+            "timeMs": 0.0118
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5944,
+            "timeMs": 0.0022
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8289,
+            "timeMs": 0.0117
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.873,
+            "timeMs": 0.0107
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8795,
+            "timeMs": 0.0144
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9037,
+            "timeMs": 0.014
+          }
+        }
+      },
+      {
+        "type": "spiral_archimedean",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "spiral_archimedean [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0019
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0022
+          },
+          "euclideanSimilarity": {
+            "score": 0.5074,
+            "timeMs": 0.0014
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0065
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9906,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.953,
+            "timeMs": 0.0061
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9629,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9701,
+            "timeMs": 0.0079
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9737,
+            "timeMs": 0.0075
+          }
+        }
+      },
+      {
+        "type": "spiral_archimedean",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "spiral_archimedean [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.998,
+            "timeMs": 0.004
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.998,
+            "timeMs": 0.0031
+          },
+          "euclideanSimilarity": {
+            "score": 0.1606,
+            "timeMs": 0.0021
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.992,
+            "timeMs": 0.0154
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7611,
+            "timeMs": 0.0022
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8271,
+            "timeMs": 0.0084
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8731,
+            "timeMs": 0.0064
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8824,
+            "timeMs": 0.0092
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9057,
+            "timeMs": 0.008
+          }
+        }
+      },
+      {
+        "type": "spiral_archimedean",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "spiral_archimedean [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0016
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9999,
+            "timeMs": 0.0014
+          },
+          "euclideanSimilarity": {
+            "score": 0.6857,
+            "timeMs": 0.0012
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9997,
+            "timeMs": 0.0066
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9979,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8172,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.877,
+            "timeMs": 0.0021
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9106,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9301,
+            "timeMs": 0.0023
+          }
+        }
+      },
+      {
+        "type": "spiral_archimedean",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "spiral_archimedean [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9994,
+            "timeMs": 0.0015
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9995,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.4177,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9975,
+            "timeMs": 0.0052
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9808,
+            "timeMs": 0.0012
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7878,
+            "timeMs": 0.0024
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.854,
+            "timeMs": 0.002
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8856,
+            "timeMs": 0.0024
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9093,
+            "timeMs": 0.0023
+          }
+        }
+      },
+      {
+        "type": "spiral_logarithmic",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "spiral_logarithmic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0025
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0036
+          },
+          "euclideanSimilarity": {
+            "score": 0.4192,
+            "timeMs": 0.0018
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0077
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.981,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9793,
+            "timeMs": 0.011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9828,
+            "timeMs": 0.0105
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9872,
+            "timeMs": 0.0147
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9884,
+            "timeMs": 0.0167
+          }
+        }
+      },
+      {
+        "type": "spiral_logarithmic",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "spiral_logarithmic [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 1,
@@ -1839,7132 +7056,1962 @@ export const analysisResults = {
           },
           "pearsonCorrelationSimilarity": {
             "score": 1,
-            "timeMs": 0.0032
-          },
-          "euclideanSimilarity": {
-            "score": 0.8064,
-            "timeMs": 0.0105
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0054
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9994,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9577,
-            "timeMs": 0.0044
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9648,
-            "timeMs": 0.004
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.969,
-            "timeMs": 0.0034
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9731,
-            "timeMs": 0.0032
-          }
-        }
-      },
-      {
-        "type": "cubic",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cubic [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.002
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.003
-          },
-          "euclideanSimilarity": {
-            "score": 0.353,
-            "timeMs": 0.0015
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0037
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.967,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8386,
-            "timeMs": 0.0039
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8936,
-            "timeMs": 0.0041
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8709,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9109,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "exponential",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "exponential [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.012
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0217
-          },
-          "euclideanSimilarity": {
-            "score": 0.5286,
-            "timeMs": 0.0058
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0164
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9921,
-            "timeMs": 0.0059
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9933,
-            "timeMs": 0.028
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9935,
-            "timeMs": 0.0289
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9935,
-            "timeMs": 0.023
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9936,
-            "timeMs": 0.0232
-          }
-        }
-      },
-      {
-        "type": "exponential",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "exponential [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0122
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0642
-          },
-          "euclideanSimilarity": {
-            "score": 0.1675,
-            "timeMs": 0.007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0199
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7812,
-            "timeMs": 0.0064
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9404,
-            "timeMs": 0.0304
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.951,
-            "timeMs": 0.0298
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9546,
-            "timeMs": 0.0235
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9601,
-            "timeMs": 0.0231
-          }
-        }
-      },
-      {
-        "type": "exponential",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "exponential [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0069
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0126
-          },
-          "euclideanSimilarity": {
-            "score": 0.5846,
-            "timeMs": 0.0034
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0097
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.995,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9915,
-            "timeMs": 0.0146
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9917,
-            "timeMs": 0.0143
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9917,
-            "timeMs": 0.0121
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9919,
-            "timeMs": 0.012
-          }
-        }
-      },
-      {
-        "type": "exponential",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "exponential [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0064
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0113
-          },
-          "euclideanSimilarity": {
-            "score": 0.2175,
-            "timeMs": 0.0034
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0102
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8786,
-            "timeMs": 0.01
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9525,
-            "timeMs": 0.0149
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9576,
-            "timeMs": 0.0151
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9586,
-            "timeMs": 0.0121
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9624,
-            "timeMs": 0.0122
-          }
-        }
-      },
-      {
-        "type": "exponential",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "exponential [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0019
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.7985,
-            "timeMs": 0.0013
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0039
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9994,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9917,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.992,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.992,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9922,
-            "timeMs": 0.0029
-          }
-        }
-      },
-      {
-        "type": "exponential",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "exponential [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0019
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.3633,
-            "timeMs": 0.0012
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9999,
             "timeMs": 0.0035
           },
-          "rbfKernelSimilarity": {
-            "score": 0.9697,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8335,
-            "timeMs": 0.004
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8862,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9132,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9316,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "logarithmic",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "logarithmic [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9991,
-            "timeMs": 0.0129
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9973,
-            "timeMs": 0.0219
-          },
           "euclideanSimilarity": {
-            "score": 0.5072,
-            "timeMs": 0.0059
+            "score": 0.1347,
+            "timeMs": 0.0018
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9964,
-            "timeMs": 0.0176
+            "score": 1,
+            "timeMs": 0.0078
           },
           "rbfKernelSimilarity": {
-            "score": 0.9906,
-            "timeMs": 0.0059
+            "score": 0.6621,
+            "timeMs": 0.0018
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9234,
-            "timeMs": 0.0348
+            "score": 0.9346,
+            "timeMs": 0.0109
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9408,
-            "timeMs": 0.0291
+            "score": 0.95,
+            "timeMs": 0.0106
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9474,
-            "timeMs": 0.0232
+            "score": 0.9593,
+            "timeMs": 0.0141
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9552,
-            "timeMs": 0.0232
+            "score": 0.9656,
+            "timeMs": 0.0141
           }
         }
       },
       {
-        "type": "logarithmic",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "logarithmic [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9807,
-            "timeMs": 0.0143
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9455,
-            "timeMs": 0.0251
-          },
-          "euclideanSimilarity": {
-            "score": 0.1829,
-            "timeMs": 0.0067
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9246,
-            "timeMs": 0.0249
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8191,
-            "timeMs": 0.0065
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7468,
-            "timeMs": 0.0303
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8084,
-            "timeMs": 0.0284
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8315,
-            "timeMs": 0.0234
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.861,
-            "timeMs": 0.023
-          }
-        }
-      },
-      {
-        "type": "logarithmic",
+        "type": "spiral_logarithmic",
         "size": 50,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.1
         },
-        "label": "logarithmic [gaussian (lvl=0.1)]",
+        "label": "spiral_logarithmic [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0071
+            "score": 1,
+            "timeMs": 0.0017
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9979,
-            "timeMs": 0.0122
+            "score": 1,
+            "timeMs": 0.0022
           },
           "euclideanSimilarity": {
-            "score": 0.6138,
-            "timeMs": 0.0036
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9971,
-            "timeMs": 0.0455
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.996,
-            "timeMs": 0.0089
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9655,
-            "timeMs": 0.016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9681,
-            "timeMs": 0.0311
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9685,
-            "timeMs": 0.0321
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9706,
-            "timeMs": 0.0313
-          }
-        }
-      },
-      {
-        "type": "logarithmic",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "logarithmic [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9773,
-            "timeMs": 0.0188
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9359,
-            "timeMs": 0.0322
-          },
-          "euclideanSimilarity": {
-            "score": 0.2189,
-            "timeMs": 0.0082
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.912,
-            "timeMs": 0.0236
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8805,
-            "timeMs": 0.0119
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7634,
-            "timeMs": 0.032
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8226,
-            "timeMs": 0.0298
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8283,
-            "timeMs": 0.0198
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8621,
-            "timeMs": 0.0193
-          }
-        }
-      },
-      {
-        "type": "logarithmic",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "logarithmic [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0058
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9988,
-            "timeMs": 0.0054
-          },
-          "euclideanSimilarity": {
-            "score": 0.7723,
+            "score": 0.5052,
             "timeMs": 0.0014
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9973,
-            "timeMs": 0.0073
+            "score": 1,
+            "timeMs": 0.0059
           },
           "rbfKernelSimilarity": {
-            "score": 0.9991,
-            "timeMs": 0.0012
+            "score": 0.9905,
+            "timeMs": 0.0015
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9699,
-            "timeMs": 0.0066
+            "score": 0.951,
+            "timeMs": 0.0063
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9714,
+            "score": 0.9631,
             "timeMs": 0.0062
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9715,
-            "timeMs": 0.0057
+            "score": 0.9744,
+            "timeMs": 0.011
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9728,
-            "timeMs": 0.0056
+            "score": 0.9783,
+            "timeMs": 0.0116
           }
         }
       },
       {
-        "type": "logarithmic",
+        "type": "spiral_logarithmic",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "spiral_logarithmic [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0024
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0024
+          },
+          "euclideanSimilarity": {
+            "score": 0.1809,
+            "timeMs": 0.0016
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0096
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8147,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9335,
+            "timeMs": 0.0065
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9498,
+            "timeMs": 0.0059
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9596,
+            "timeMs": 0.0077
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.966,
+            "timeMs": 0.0073
+          }
+        }
+      },
+      {
+        "type": "spiral_logarithmic",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "spiral_logarithmic [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 1,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0012
+          },
+          "euclideanSimilarity": {
+            "score": 0.7039,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 1,
+            "timeMs": 0.0049
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8405,
+            "timeMs": 0.0025
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.894,
+            "timeMs": 0.002
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9285,
+            "timeMs": 0.0024
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9443,
+            "timeMs": 0.0023
+          }
+        }
+      },
+      {
+        "type": "spiral_logarithmic",
         "size": 10,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.5
         },
-        "label": "logarithmic [gaussian (lvl=0.5)]",
+        "label": "spiral_logarithmic [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9784,
-            "timeMs": 0.0045
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9621,
-            "timeMs": 0.0056
-          },
-          "euclideanSimilarity": {
-            "score": 0.3488,
+            "score": 1,
             "timeMs": 0.0012
           },
+          "pearsonCorrelationSimilarity": {
+            "score": 1,
+            "timeMs": 0.0011
+          },
+          "euclideanSimilarity": {
+            "score": 0.2737,
+            "timeMs": 0.001
+          },
           "polynomialKernelSimilarity": {
-            "score": 0.9173,
-            "timeMs": 0.0066
+            "score": 1,
+            "timeMs": 0.0047
           },
           "rbfKernelSimilarity": {
-            "score": 0.9657,
+            "score": 0.932,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8096,
+            "timeMs": 0.0023
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8712,
+            "timeMs": 0.002
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9045,
+            "timeMs": 0.0023
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9253,
+            "timeMs": 0.0021
+          }
+        }
+      },
+      {
+        "type": "lemniscate",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "lemniscate [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9888,
+            "timeMs": 0.0023
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9888,
+            "timeMs": 0.0034
+          },
+          "euclideanSimilarity": {
+            "score": 0.4094,
+            "timeMs": 0.0018
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9568,
+            "timeMs": 0.0075
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9794,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7118,
+            "timeMs": 0.011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7848,
+            "timeMs": 0.0109
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8071,
+            "timeMs": 0.0143
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8452,
+            "timeMs": 0.0142
+          }
+        }
+      },
+      {
+        "type": "lemniscate",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "lemniscate [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8349,
+            "timeMs": 0.0021
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8349,
+            "timeMs": 0.0034
+          },
+          "euclideanSimilarity": {
+            "score": 0.1252,
+            "timeMs": 0.0015
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.4549,
+            "timeMs": 0.0073
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6137,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.3872,
+            "timeMs": 0.0109
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.458,
+            "timeMs": 0.0106
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.5679,
+            "timeMs": 0.0139
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.6276,
+            "timeMs": 0.0133
+          }
+        }
+      },
+      {
+        "type": "lemniscate",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "lemniscate [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9896,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9897,
+            "timeMs": 0.0019
+          },
+          "euclideanSimilarity": {
+            "score": 0.5009,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9606,
+            "timeMs": 0.0052
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9901,
             "timeMs": 0.0011
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7489,
-            "timeMs": 0.0045
+            "score": 0.702,
+            "timeMs": 0.006
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8018,
-            "timeMs": 0.0078
+            "score": 0.7813,
+            "timeMs": 0.0054
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8232,
-            "timeMs": 0.0102
+            "score": 0.7987,
+            "timeMs": 0.0075
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8514,
+            "score": 0.8429,
+            "timeMs": 0.0071
+          }
+        }
+      },
+      {
+        "type": "lemniscate",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "lemniscate [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8499,
+            "timeMs": 0.0014
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8556,
+            "timeMs": 0.0019
+          },
+          "euclideanSimilarity": {
+            "score": 0.1744,
+            "timeMs": 0.0011
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.5011,
+            "timeMs": 0.0048
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7993,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5006,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5096,
+            "timeMs": 0.0055
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6035,
+            "timeMs": 0.0078
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.6716,
+            "timeMs": 0.0074
+          }
+        }
+      },
+      {
+        "type": "lemniscate",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "lemniscate [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9905,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9905,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.69,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9683,
+            "timeMs": 0.0038
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.998,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.566,
+            "timeMs": 0.0023
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6634,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6966,
+            "timeMs": 0.0023
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7708,
+            "timeMs": 0.002
+          }
+        }
+      },
+      {
+        "type": "lemniscate",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "lemniscate [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8588,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8573,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.3235,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.5632,
+            "timeMs": 0.0036
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9572,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.4451,
+            "timeMs": 0.0021
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.4885,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6026,
+            "timeMs": 0.0022
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.6653,
+            "timeMs": 0.0021
+          }
+        }
+      },
+      {
+        "type": "rose",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "rose [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9898,
+            "timeMs": 0.002
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9898,
+            "timeMs": 0.0031
+          },
+          "euclideanSimilarity": {
+            "score": 0.4046,
+            "timeMs": 0.0016
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9604,
+            "timeMs": 0.0059
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9786,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6692,
+            "timeMs": 0.0105
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7569,
+            "timeMs": 0.0104
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7639,
+            "timeMs": 0.0146
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8209,
+            "timeMs": 0.0143
+          }
+        }
+      },
+      {
+        "type": "rose",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "rose [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8488,
+            "timeMs": 0.002
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8494,
+            "timeMs": 0.0032
+          },
+          "euclideanSimilarity": {
+            "score": 0.121,
+            "timeMs": 0.0015
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.4915,
+            "timeMs": 0.0117
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.5898,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.4353,
+            "timeMs": 0.0107
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.485,
+            "timeMs": 0.0103
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6048,
+            "timeMs": 0.0141
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.6675,
+            "timeMs": 0.0138
+          }
+        }
+      },
+      {
+        "type": "rose",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "rose [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9907,
+            "timeMs": 0.0031
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9908,
+            "timeMs": 0.004
+          },
+          "euclideanSimilarity": {
+            "score": 0.5007,
+            "timeMs": 0.0026
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9646,
+            "timeMs": 0.0783
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9901,
+            "timeMs": 0.0029
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6795,
+            "timeMs": 0.011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7609,
+            "timeMs": 0.0098
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7864,
+            "timeMs": 0.0134
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.831,
+            "timeMs": 0.0165
+          }
+        }
+      },
+      {
+        "type": "rose",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "rose [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8346,
+            "timeMs": 0.0035
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8346,
+            "timeMs": 0.0077
+          },
+          "euclideanSimilarity": {
+            "score": 0.157,
+            "timeMs": 0.0013
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.4581,
+            "timeMs": 0.0066
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7497,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.3759,
+            "timeMs": 0.0051
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.4538,
+            "timeMs": 0.0046
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.5768,
+            "timeMs": 0.0055
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.638,
+            "timeMs": 0.0055
+          }
+        }
+      },
+      {
+        "type": "rose",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "rose [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9882,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.989,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.6634,
+            "timeMs": 0.0006
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9604,
+            "timeMs": 0.0038
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9974,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5956,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6982,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7196,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7925,
+            "timeMs": 0.0016
+          }
+        }
+      },
+      {
+        "type": "rose",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "rose [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9213,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9214,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.376,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7374,
+            "timeMs": 0.0037
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9728,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5239,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5814,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6862,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7372,
+            "timeMs": 0.0015
+          }
+        }
+      },
+      {
+        "type": "cardioid",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cardioid [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9991,
+            "timeMs": 0.002
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.999,
+            "timeMs": 0.0028
+          },
+          "euclideanSimilarity": {
+            "score": 0.4035,
+            "timeMs": 0.0013
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0054
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9784,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7512,
+            "timeMs": 0.0094
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8241,
+            "timeMs": 0.0088
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8445,
+            "timeMs": 0.01
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.88,
+            "timeMs": 0.0095
+          }
+        }
+      },
+      {
+        "type": "cardioid",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cardioid [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.98,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9782,
+            "timeMs": 0.0015
+          },
+          "euclideanSimilarity": {
+            "score": 0.1243,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9218,
+            "timeMs": 0.0037
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.609,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5469,
+            "timeMs": 0.005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6291,
+            "timeMs": 0.0048
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6812,
+            "timeMs": 0.0066
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7508,
+            "timeMs": 0.0082
+          }
+        }
+      },
+      {
+        "type": "cardioid",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cardioid [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9992,
+            "timeMs": 0.0008
+          },
+          "euclideanSimilarity": {
+            "score": 0.5159,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9971,
+            "timeMs": 0.0051
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9912,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7614,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8319,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8482,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8833,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "cardioid",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cardioid [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9829,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9814,
+            "timeMs": 0.0009
+          },
+          "euclideanSimilarity": {
+            "score": 0.1795,
+            "timeMs": 0.0005
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9331,
+            "timeMs": 0.0021
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.8115,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5459,
+            "timeMs": 0.0028
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6261,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6849,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7517,
+            "timeMs": 0.0034
+          }
+        }
+      },
+      {
+        "type": "cardioid",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "cardioid [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9993,
+            "timeMs": 0.0005
+          },
+          "euclideanSimilarity": {
+            "score": 0.7161,
+            "timeMs": 0.0004
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9971,
+            "timeMs": 0.0016
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9984,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6423,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.747,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8107,
+            "timeMs": 0.0034
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8546,
+            "timeMs": 0.0016
+          }
+        }
+      },
+      {
+        "type": "cardioid",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "cardioid [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9824,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9813,
+            "timeMs": 0.0013
+          },
+          "euclideanSimilarity": {
+            "score": 0.3403,
+            "timeMs": 0.0012
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9322,
+            "timeMs": 0.0053
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9631,
+            "timeMs": 0.0005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5112,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5642,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6483,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7248,
+            "timeMs": 0.0015
+          }
+        }
+      },
+      {
+        "type": "lissajous",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "lissajous [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9939,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9939,
+            "timeMs": 0.0015
+          },
+          "euclideanSimilarity": {
+            "score": 0.3852,
+            "timeMs": 0.0009
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9761,
+            "timeMs": 0.004
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9748,
+            "timeMs": 0.0009
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8112,
+            "timeMs": 0.0053
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8604,
+            "timeMs": 0.005
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8653,
+            "timeMs": 0.0068
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8926,
+            "timeMs": 0.0064
+          }
+        }
+      },
+      {
+        "type": "lissajous",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "lissajous [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.932,
+            "timeMs": 0.0009
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.932,
+            "timeMs": 0.0014
+          },
+          "euclideanSimilarity": {
+            "score": 0.1316,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7478,
+            "timeMs": 0.0034
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6469,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5693,
+            "timeMs": 0.0057
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6445,
+            "timeMs": 0.0083
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6871,
+            "timeMs": 0.0098
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7468,
+            "timeMs": 0.0096
+          }
+        }
+      },
+      {
+        "type": "lissajous",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "lissajous [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9956,
+            "timeMs": 0.0037
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9956,
+            "timeMs": 0.0037
+          },
+          "euclideanSimilarity": {
+            "score": 0.5158,
+            "timeMs": 0.0023
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9827,
+            "timeMs": 0.0131
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9912,
+            "timeMs": 0.0023
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.838,
+            "timeMs": 0.0155
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.877,
+            "timeMs": 0.0315
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8837,
+            "timeMs": 0.0067
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9048,
+            "timeMs": 0.0074
+          }
+        }
+      },
+      {
+        "type": "lissajous",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "lissajous [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9085,
+            "timeMs": 0.001
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9085,
+            "timeMs": 0.0011
+          },
+          "euclideanSimilarity": {
+            "score": 0.158,
+            "timeMs": 0.0008
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6714,
+            "timeMs": 0.0042
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7529,
+            "timeMs": 0.0007
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5416,
+            "timeMs": 0.0031
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6134,
+            "timeMs": 0.0029
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.659,
+            "timeMs": 0.0058
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7275,
+            "timeMs": 0.0069
+          }
+        }
+      },
+      {
+        "type": "lissajous",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "lissajous [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9951,
+            "timeMs": 0.0008
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9953,
+            "timeMs": 0.0006
+          },
+          "euclideanSimilarity": {
+            "score": 0.6933,
+            "timeMs": 0.0006
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9822,
+            "timeMs": 0.0036
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.998,
+            "timeMs": 0.0006
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7898,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8547,
+            "timeMs": 0.001
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8847,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9077,
+            "timeMs": 0.001
+          }
+        }
+      },
+      {
+        "type": "lissajous",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "lissajous [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9697,
+            "timeMs": 0.0007
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9696,
+            "timeMs": 0.0007
+          },
+          "euclideanSimilarity": {
+            "score": 0.3142,
+            "timeMs": 0.0007
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8798,
+            "timeMs": 0.0034
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9535,
+            "timeMs": 0.0011
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6293,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7103,
+            "timeMs": 0.0014
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.764,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8039,
+            "timeMs": 0.0017
+          }
+        }
+      },
+      {
+        "type": "sphere",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sphere [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.993,
+            "timeMs": 0.0047
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.993,
+            "timeMs": 0.0043
+          },
+          "euclideanSimilarity": {
+            "score": 0.3709,
+            "timeMs": 0.0025
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9725,
+            "timeMs": 0.0156
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9716,
+            "timeMs": 0.0024
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.751,
+            "timeMs": 0.0151
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.8186,
+            "timeMs": 0.0134
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8258,
+            "timeMs": 0.016
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8647,
+            "timeMs": 0.0154
+          }
+        }
+      },
+      {
+        "type": "sphere",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sphere [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8726,
+            "timeMs": 0.0034
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8726,
+            "timeMs": 0.0039
+          },
+          "euclideanSimilarity": {
+            "score": 0.1055,
+            "timeMs": 0.0025
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.558,
+            "timeMs": 0.0122
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.4869,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5008,
+            "timeMs": 0.0123
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5111,
+            "timeMs": 0.012
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.5998,
+            "timeMs": 0.0139
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.6669,
+            "timeMs": 0.0128
+          }
+        }
+      },
+      {
+        "type": "sphere",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "sphere [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9925,
+            "timeMs": 0.0254
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9925,
+            "timeMs": 0.0028
+          },
+          "euclideanSimilarity": {
+            "score": 0.4485,
+            "timeMs": 0.0014
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9709,
+            "timeMs": 0.0086
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.985,
+            "timeMs": 0.0017
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.7172,
+            "timeMs": 0.5965
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7933,
+            "timeMs": 0.0086
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8057,
+            "timeMs": 0.0087
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8489,
+            "timeMs": 0.0081
+          }
+        }
+      },
+      {
+        "type": "sphere",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "sphere [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.8942,
+            "timeMs": 0.0031
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.8942,
+            "timeMs": 0.0028
+          },
+          "euclideanSimilarity": {
+            "score": 0.1536,
+            "timeMs": 0.0013
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.6262,
+            "timeMs": 0.0123
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.738,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5063,
+            "timeMs": 0.0078
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5384,
+            "timeMs": 0.0071
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6153,
+            "timeMs": 0.0079
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.6836,
             "timeMs": 0.0072
           }
         }
       },
       {
-        "type": "sqrt",
-        "size": 100,
+        "type": "sphere",
+        "size": 10,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.1
         },
-        "label": "sqrt [gaussian (lvl=0.1)]",
+        "label": "sphere [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9995,
-            "timeMs": 0.0271
+            "score": 0.9923,
+            "timeMs": 0.0011
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9957,
-            "timeMs": 0.7902
+            "score": 0.9928,
+            "timeMs": 0.0012
           },
           "euclideanSimilarity": {
-            "score": 0.5084,
-            "timeMs": 0.0128
+            "score": 0.6411,
+            "timeMs": 0.001
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9982,
-            "timeMs": 0.2005
+            "score": 0.9722,
+            "timeMs": 0.0055
           },
           "rbfKernelSimilarity": {
-            "score": 0.9907,
-            "timeMs": 0.0074
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9772,
-            "timeMs": 0.0312
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9782,
-            "timeMs": 0.0296
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9782,
-            "timeMs": 0.0296
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9791,
-            "timeMs": 0.0265
-          }
-        }
-      },
-      {
-        "type": "sqrt",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sqrt [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9895,
-            "timeMs": 0.0148
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9141,
-            "timeMs": 0.0228
-          },
-          "euclideanSimilarity": {
-            "score": 0.1764,
-            "timeMs": 0.0069
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9587,
-            "timeMs": 0.0233
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8042,
-            "timeMs": 0.0064
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8599,
-            "timeMs": 0.0302
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8848,
-            "timeMs": 0.0282
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8921,
-            "timeMs": 0.3232
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9062,
-            "timeMs": 0.0249
-          }
-        }
-      },
-      {
-        "type": "sqrt",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sqrt [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0336
-          },
-          "pearsonCorrelationSimilarity": {
             "score": 0.9969,
-            "timeMs": 0.0126
-          },
-          "euclideanSimilarity": {
-            "score": 0.6141,
-            "timeMs": 0.0041
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9986,
-            "timeMs": 0.0069
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9961,
-            "timeMs": 0.004
+            "timeMs": 0.0009
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9779,
-            "timeMs": 0.016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9787,
-            "timeMs": 0.0151
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9788,
-            "timeMs": 0.0123
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9796,
-            "timeMs": 0.0182
-          }
-        }
-      },
-      {
-        "type": "sqrt",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sqrt [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9862,
-            "timeMs": 0.0076
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9134,
-            "timeMs": 0.0132
-          },
-          "euclideanSimilarity": {
-            "score": 0.2118,
-            "timeMs": 0.004
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9457,
-            "timeMs": 0.0059
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8706,
-            "timeMs": 0.004
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8011,
-            "timeMs": 0.0159
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.85,
-            "timeMs": 0.0148
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.847,
-            "timeMs": 0.013
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8788,
-            "timeMs": 0.0122
-          }
-        }
-      },
-      {
-        "type": "sqrt",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sqrt [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9996,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9977,
-            "timeMs": 0.0029
-          },
-          "euclideanSimilarity": {
-            "score": 0.7755,
-            "timeMs": 0.0013
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9986,
-            "timeMs": 0.0025
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9992,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9758,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9768,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9768,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9776,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "sqrt",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sqrt [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9831,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8678,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.353,
-            "timeMs": 0.0012
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9348,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.967,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8126,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.846,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.857,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8767,
-            "timeMs": 0.0031
-          }
-        }
-      },
-      {
-        "type": "sin",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sin [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9945,
-            "timeMs": 0.0181
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9945,
-            "timeMs": 0.2616
-          },
-          "euclideanSimilarity": {
-            "score": 0.4941,
-            "timeMs": 0.0073
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9784,
-            "timeMs": 0.0075
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9896,
-            "timeMs": 0.0066
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8312,
-            "timeMs": 0.03
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8722,
-            "timeMs": 0.0284
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8845,
-            "timeMs": 0.0238
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9043,
-            "timeMs": 0.0251
-          }
-        }
-      },
-      {
-        "type": "sin",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sin [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9238,
-            "timeMs": 0.02
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9246,
-            "timeMs": 0.0239
-          },
-          "euclideanSimilarity": {
-            "score": 0.1787,
-            "timeMs": 0.006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.722,
-            "timeMs": 0.0036
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8095,
-            "timeMs": 0.0061
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5492,
-            "timeMs": 0.0289
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6261,
-            "timeMs": 0.0286
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6737,
-            "timeMs": 0.0231
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7406,
-            "timeMs": 0.0229
-          }
-        }
-      },
-      {
-        "type": "sin",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sin [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9966,
-            "timeMs": 0.0067
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9966,
-            "timeMs": 0.0118
-          },
-          "euclideanSimilarity": {
-            "score": 0.6367,
-            "timeMs": 0.0034
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9871,
-            "timeMs": 0.0033
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9967,
-            "timeMs": 0.0034
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8873,
-            "timeMs": 0.0155
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9111,
-            "timeMs": 0.0195
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9101,
-            "timeMs": 0.0121
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.925,
-            "timeMs": 0.0121
-          }
-        }
-      },
-      {
-        "type": "sin",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sin [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8827,
-            "timeMs": 0.0064
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8829,
-            "timeMs": 0.0114
-          },
-          "euclideanSimilarity": {
-            "score": 0.2216,
-            "timeMs": 0.0034
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.599,
-            "timeMs": 0.0029
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8839,
-            "timeMs": 0.0033
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5163,
-            "timeMs": 0.0146
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.573,
-            "timeMs": 0.0146
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6359,
-            "timeMs": 0.0123
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7093,
-            "timeMs": 0.012
-          }
-        }
-      },
-      {
-        "type": "sin",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sin [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9951,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9954,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.733,
-            "timeMs": 0.0012
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.983,
-            "timeMs": 0.0021
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9987,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.912,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9245,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9267,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9352,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "sin",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sin [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9504,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9634,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.4777,
-            "timeMs": 0.0012
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.8373,
-            "timeMs": 0.0021
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9881,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7444,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7914,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8132,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8406,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "cos",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cos [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9949,
-            "timeMs": 0.0127
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9949,
-            "timeMs": 0.0281
-          },
-          "euclideanSimilarity": {
-            "score": 0.4914,
-            "timeMs": 0.007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.98,
-            "timeMs": 0.0057
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9893,
-            "timeMs": 0.0065
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8239,
-            "timeMs": 0.0295
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8689,
-            "timeMs": 0.0283
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8751,
-            "timeMs": 0.0232
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8996,
-            "timeMs": 0.0242
-          }
-        }
-      },
-      {
-        "type": "cos",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cos [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9115,
-            "timeMs": 0.0126
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9173,
-            "timeMs": 0.0226
-          },
-          "euclideanSimilarity": {
-            "score": 0.1669,
-            "timeMs": 0.0061
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.6813,
-            "timeMs": 0.0035
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7794,
-            "timeMs": 0.0059
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5483,
-            "timeMs": 0.0352
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.62,
-            "timeMs": 0.0291
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6782,
-            "timeMs": 0.0237
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7397,
-            "timeMs": 0.0232
-          }
-        }
-      },
-      {
-        "type": "cos",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cos [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9952,
-            "timeMs": 0.0087
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9953,
-            "timeMs": 0.0124
-          },
-          "euclideanSimilarity": {
-            "score": 0.5829,
-            "timeMs": 0.0041
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9816,
-            "timeMs": 0.0071
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9949,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8781,
-            "timeMs": 0.0165
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.902,
-            "timeMs": 0.015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9092,
-            "timeMs": 0.0431
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9221,
-            "timeMs": 0.0127
-          }
-        }
-      },
-      {
-        "type": "cos",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cos [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9317,
-            "timeMs": 0.007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9312,
-            "timeMs": 0.0125
-          },
-          "euclideanSimilarity": {
-            "score": 0.2372,
-            "timeMs": 0.004
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.7515,
-            "timeMs": 0.0049
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9017,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6009,
-            "timeMs": 0.0154
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6793,
-            "timeMs": 0.0146
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7127,
-            "timeMs": 0.0122
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7685,
-            "timeMs": 0.0133
-          }
-        }
-      },
-      {
-        "type": "cos",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cos [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.996,
-            "timeMs": 0.0019
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.996,
-            "timeMs": 0.0029
-          },
-          "euclideanSimilarity": {
-            "score": 0.7723,
-            "timeMs": 0.0013
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9865,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9991,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8545,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8807,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8874,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9031,
-            "timeMs": 0.0032
-          }
-        }
-      },
-      {
-        "type": "cos",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cos [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9426,
-            "timeMs": 0.0019
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9439,
-            "timeMs": 0.003
-          },
-          "euclideanSimilarity": {
-            "score": 0.4561,
-            "timeMs": 0.0012
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.8122,
-            "timeMs": 0.0021
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9859,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6311,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7096,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7605,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8025,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "tan",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "tan [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0132
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0236
-          },
-          "euclideanSimilarity": {
-            "score": 0.5169,
-            "timeMs": 0.0059
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9913,
-            "timeMs": 0.0061
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.857,
-            "timeMs": 0.036
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8925,
-            "timeMs": 0.0283
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9011,
-            "timeMs": 0.0246
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9193,
-            "timeMs": 0.0232
-          }
-        }
-      },
-      {
-        "type": "tan",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "tan [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9978,
-            "timeMs": 0.0122
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9978,
-            "timeMs": 0.022
-          },
-          "euclideanSimilarity": {
-            "score": 0.1593,
-            "timeMs": 0.0059
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9911,
-            "timeMs": 0.0029
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.757,
-            "timeMs": 0.0059
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6111,
-            "timeMs": 0.028
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6994,
-            "timeMs": 0.0275
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7329,
-            "timeMs": 0.0229
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7897,
-            "timeMs": 0.0235
-          }
-        }
-      },
-      {
-        "type": "tan",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "tan [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0064
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0113
-          },
-          "euclideanSimilarity": {
-            "score": 0.5731,
-            "timeMs": 0.0032
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9999,
+            "score": 0.6745,
             "timeMs": 0.0023
           },
-          "rbfKernelSimilarity": {
-            "score": 0.9945,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.851,
-            "timeMs": 0.0145
-          },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8887,
-            "timeMs": 0.0141
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8856,
-            "timeMs": 0.0121
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9094,
-            "timeMs": 0.0118
-          }
-        }
-      },
-      {
-        "type": "tan",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "tan [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9994,
-            "timeMs": 0.0063
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9994,
-            "timeMs": 0.0112
-          },
-          "euclideanSimilarity": {
-            "score": 0.1977,
-            "timeMs": 0.0033
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9975,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8481,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5357,
-            "timeMs": 0.0146
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6099,
-            "timeMs": 0.0145
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6462,
-            "timeMs": 0.012
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.723,
-            "timeMs": 0.044
-          }
-        }
-      },
-      {
-        "type": "tan",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "tan [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0024
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0033
-          },
-          "euclideanSimilarity": {
-            "score": 0.7255,
-            "timeMs": 0.0017
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9996,
-            "timeMs": 0.004
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9986,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.92,
-            "timeMs": 0.0047
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.932,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9344,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9422,
-            "timeMs": 0.0032
-          }
-        }
-      },
-      {
-        "type": "tan",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "tan [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9995,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9995,
-            "timeMs": 0.003
-          },
-          "euclideanSimilarity": {
-            "score": 0.483,
-            "timeMs": 0.0014
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9979,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9886,
-            "timeMs": 0.0014
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6981,
-            "timeMs": 0.0039
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7825,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.748,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8175,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "csc",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "csc [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0125
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0229
-          },
-          "euclideanSimilarity": {
-            "score": 0.5073,
-            "timeMs": 0.006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0029
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9906,
-            "timeMs": 0.006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9746,
-            "timeMs": 0.03
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9757,
-            "timeMs": 0.0594
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9757,
-            "timeMs": 0.0242
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9767,
-            "timeMs": 0.023
-          }
-        }
-      },
-      {
-        "type": "csc",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "csc [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9998,
-            "timeMs": 0.0126
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9998,
-            "timeMs": 0.023
-          },
-          "euclideanSimilarity": {
-            "score": 0.1895,
-            "timeMs": 0.0061
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9992,
-            "timeMs": 0.0035
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8329,
-            "timeMs": 0.0058
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8654,
-            "timeMs": 0.028
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8895,
-            "timeMs": 0.0278
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8955,
-            "timeMs": 0.0233
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9091,
-            "timeMs": 0.024
-          }
-        }
-      },
-      {
-        "type": "csc",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "csc [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0065
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0114
-          },
-          "euclideanSimilarity": {
-            "score": 0.5852,
-            "timeMs": 0.0032
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0024
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.995,
-            "timeMs": 0.0033
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9756,
-            "timeMs": 0.0146
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9767,
-            "timeMs": 0.0145
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9768,
-            "timeMs": 0.0119
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9778,
-            "timeMs": 0.0155
-          }
-        }
-      },
-      {
-        "type": "csc",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "csc [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9978,
-            "timeMs": 0.0065
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9978,
-            "timeMs": 0.0118
-          },
-          "euclideanSimilarity": {
-            "score": 0.2077,
-            "timeMs": 0.0036
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9912,
-            "timeMs": 0.0024
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8646,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8105,
-            "timeMs": 0.0149
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8552,
-            "timeMs": 0.0146
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.871,
-            "timeMs": 0.0123
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8919,
-            "timeMs": 0.0126
-          }
-        }
-      },
-      {
-        "type": "csc",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "csc [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9996,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9996,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.745,
-            "timeMs": 0.0012
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9988,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9623,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.965,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9652,
-            "timeMs": 0.0043
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9675,
-            "timeMs": 0.0475
-          }
-        }
-      },
-      {
-        "type": "csc",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "csc [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9897,
-            "timeMs": 0.0025
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9936,
-            "timeMs": 0.0336
-          },
-          "euclideanSimilarity": {
-            "score": 0.3683,
-            "timeMs": 0.0022
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9599,
-            "timeMs": 0.0051
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.971,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7306,
-            "timeMs": 0.0049
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8083,
-            "timeMs": 0.0039
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8268,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8646,
-            "timeMs": 0.0034
-          }
-        }
-      },
-      {
-        "type": "sec",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sec [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0127
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.023
-          },
-          "euclideanSimilarity": {
-            "score": 0.513,
-            "timeMs": 0.006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0041
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.991,
-            "timeMs": 0.0061
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.973,
-            "timeMs": 0.0291
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9741,
-            "timeMs": 0.0277
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9742,
-            "timeMs": 2.4664
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9753,
-            "timeMs": 0.0253
-          }
-        }
-      },
-      {
-        "type": "sec",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sec [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9978,
-            "timeMs": 0.0144
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9978,
-            "timeMs": 0.0234
-          },
-          "euclideanSimilarity": {
-            "score": 0.1583,
-            "timeMs": 0.0063
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9913,
-            "timeMs": 0.0083
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7537,
-            "timeMs": 0.0061
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7905,
-            "timeMs": 0.0311
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8366,
-            "timeMs": 0.0305
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8538,
-            "timeMs": 0.0238
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8764,
-            "timeMs": 0.0231
-          }
-        }
-      },
-      {
-        "type": "sec",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sec [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0068
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0121
-          },
-          "euclideanSimilarity": {
-            "score": 0.5542,
-            "timeMs": 0.0033
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0031
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9935,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9703,
-            "timeMs": 0.0147
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9719,
-            "timeMs": 0.0144
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.972,
-            "timeMs": 0.0121
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9733,
-            "timeMs": 0.0216
-          }
-        }
-      },
-      {
-        "type": "sec",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sec [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0065
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0119
-          },
-          "euclideanSimilarity": {
-            "score": 0.2764,
-            "timeMs": 0.0032
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9989,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9338,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8808,
-            "timeMs": 0.0157
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8974,
-            "timeMs": 0.0143
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9017,
-            "timeMs": 0.0118
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9129,
-            "timeMs": 0.0119
-          }
-        }
-      },
-      {
-        "type": "sec",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sec [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0033
-          },
-          "euclideanSimilarity": {
-            "score": 0.761,
-            "timeMs": 0.0011
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9998,
-            "timeMs": 0.003
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.999,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9695,
-            "timeMs": 0.004
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9709,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.971,
-            "timeMs": 0.0033
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9723,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "sec",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sec [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.998,
+            "score": 0.7676,
             "timeMs": 0.0019
           },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.998,
-            "timeMs": 0.0029
-          },
-          "euclideanSimilarity": {
-            "score": 0.3504,
-            "timeMs": 0.0011
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9921,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9662,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8604,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8818,
-            "timeMs": 0.0039
-          },
           "vectorSimilarityCorrelation": {
-            "score": 0.8873,
-            "timeMs": 0.0035
+            "score": 0.8178,
+            "timeMs": 0.0024
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9011,
-            "timeMs": 0.0276
+            "score": 0.8566,
+            "timeMs": 0.0019
           }
         }
       },
       {
-        "type": "cot",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cot [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0196
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0231
-          },
-          "euclideanSimilarity": {
-            "score": 0.4889,
-            "timeMs": 0.0057
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.003
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9891,
-            "timeMs": 0.0058
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8634,
-            "timeMs": 0.0282
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8992,
-            "timeMs": 0.0305
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8972,
-            "timeMs": 0.0021
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9195,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "cot",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cot [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0119
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0639
-          },
-          "euclideanSimilarity": {
-            "score": 0.1656,
-            "timeMs": 0.01
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9988,
-            "timeMs": 0.0066
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7758,
-            "timeMs": 0.0061
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6283,
-            "timeMs": 0.0301
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7188,
-            "timeMs": 0.0282
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.745,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8027,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "cot",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cot [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0067
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0133
-          },
-          "euclideanSimilarity": {
-            "score": 0.5719,
-            "timeMs": 0.0032
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9944,
-            "timeMs": 0.0046
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8346,
-            "timeMs": 0.015
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8814,
-            "timeMs": 0.0144
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8923,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9145,
-            "timeMs": 0.001
-          }
-        }
-      },
-      {
-        "type": "cot",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cot [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0064
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0119
-          },
-          "euclideanSimilarity": {
-            "score": 0.2371,
-            "timeMs": 0.0031
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9935,
-            "timeMs": 0.002
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9017,
-            "timeMs": 0.0494
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6406,
-            "timeMs": 0.016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.736,
-            "timeMs": 0.0147
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7459,
-            "timeMs": 0.0013
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8095,
-            "timeMs": 0.001
-          }
-        }
-      },
-      {
-        "type": "cot",
+        "type": "sphere",
         "size": 10,
         "noiseSettings": {
           "type": "gaussian",
-          "level": 0.1
+          "level": 0.5
         },
-        "label": "cot [gaussian (lvl=0.1)]",
+        "label": "sphere [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0026
+            "score": 0.9045,
+            "timeMs": 0.0011
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9998,
-            "timeMs": 0.0032
+            "score": 0.8989,
+            "timeMs": 0.001
           },
           "euclideanSimilarity": {
-            "score": 0.7884,
-            "timeMs": 0.0012
+            "score": 0.271,
+            "timeMs": 0.0009
           },
           "polynomialKernelSimilarity": {
-            "score": 0.999,
+            "score": 0.6697,
             "timeMs": 0.0044
           },
           "rbfKernelSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0012
+            "score": 0.9302,
+            "timeMs": 0.0009
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7002,
-            "timeMs": 0.0042
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7947,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8202,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.867,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "cot",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cot [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9914,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9914,
-            "timeMs": 0.0029
-          },
-          "euclideanSimilarity": {
-            "score": 0.4001,
-            "timeMs": 0.0011
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9665,
-            "timeMs": 0.002
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9778,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7139,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7823,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8122,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8445,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "asin",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "asin [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9942,
-            "timeMs": 0.0127
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9942,
-            "timeMs": 0.0233
-          },
-          "euclideanSimilarity": {
-            "score": 0.4862,
-            "timeMs": 0.0057
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9774,
-            "timeMs": 0.0024
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9889,
-            "timeMs": 0.0057
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7948,
-            "timeMs": 0.0341
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8492,
-            "timeMs": 0.0276
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8615,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8891,
-            "timeMs": 0.0015
-          }
-        }
-      },
-      {
-        "type": "asin",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "asin [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9052,
-            "timeMs": 0.0121
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9052,
-            "timeMs": 0.0222
-          },
-          "euclideanSimilarity": {
-            "score": 0.1744,
-            "timeMs": 0.0057
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.6619,
-            "timeMs": 0.0025
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7993,
-            "timeMs": 0.0056
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5074,
-            "timeMs": 0.028
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5426,
-            "timeMs": 0.0283
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6256,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6936,
-            "timeMs": 0.0016
-          }
-        }
-      },
-      {
-        "type": "asin",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "asin [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9941,
-            "timeMs": 0.0063
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9941,
-            "timeMs": 0.0114
-          },
-          "euclideanSimilarity": {
-            "score": 0.5521,
-            "timeMs": 0.0031
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9772,
+            "score": 0.5115,
             "timeMs": 0.0021
           },
-          "rbfKernelSimilarity": {
-            "score": 0.9934,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7816,
-            "timeMs": 0.0145
-          },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8346,
-            "timeMs": 0.0143
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8515,
-            "timeMs": 0.0014
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.877,
-            "timeMs": 0.001
-          }
-        }
-      },
-      {
-        "type": "asin",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "asin [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9317,
-            "timeMs": 0.0065
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9376,
-            "timeMs": 0.0193
-          },
-          "euclideanSimilarity": {
-            "score": 0.2456,
-            "timeMs": 0.0036
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.752,
-            "timeMs": 0.0061
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9099,
-            "timeMs": 0.0033
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.534,
-            "timeMs": 0.016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5997,
-            "timeMs": 0.0145
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6564,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7217,
-            "timeMs": 0.001
-          }
-        }
-      },
-      {
-        "type": "asin",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "asin [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9975,
+            "score": 0.5547,
             "timeMs": 0.002
           },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9978,
-            "timeMs": 0.003
-          },
-          "euclideanSimilarity": {
-            "score": 0.7967,
-            "timeMs": 0.0012
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9914,
-            "timeMs": 0.0025
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8594,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8871,
-            "timeMs": 0.0036
-          },
           "vectorSimilarityCorrelation": {
-            "score": 0.8942,
-            "timeMs": 0.0007
+            "score": 0.6442,
+            "timeMs": 0.0023
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9109,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "asin",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "asin [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8849,
+            "score": 0.707,
             "timeMs": 0.0019
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.888,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.3295,
-            "timeMs": 0.0011
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.629,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9594,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5039,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5364,
-            "timeMs": 0.0035
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.579,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6622,
-            "timeMs": 0.0005
           }
         }
       },
       {
-        "type": "acos",
+        "type": "toroid",
         "size": 100,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.1
         },
-        "label": "acos [gaussian (lvl=0.1)]",
+        "label": "toroid [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 0.9992,
-            "timeMs": 0.0125
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9952,
-            "timeMs": 0.041
-          },
-          "euclideanSimilarity": {
-            "score": 0.5054,
-            "timeMs": 0.0058
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9969,
-            "timeMs": 0.0028
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9905,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.963,
-            "timeMs": 0.0283
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9655,
-            "timeMs": 0.0358
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9658,
-            "timeMs": 0.0019
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9678,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "acos",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "acos [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9821,
-            "timeMs": 0.0126
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9151,
-            "timeMs": 0.022
-          },
-          "euclideanSimilarity": {
-            "score": 0.1669,
-            "timeMs": 0.0057
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9298,
             "timeMs": 0.0027
           },
-          "rbfKernelSimilarity": {
-            "score": 0.7794,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7759,
-            "timeMs": 0.3406
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8254,
-            "timeMs": 0.0298
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.833,
-            "timeMs": 0.0019
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8621,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "acos",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "acos [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0069
-          },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9955,
-            "timeMs": 0.0118
+            "score": 0.9993,
+            "timeMs": 0.0035
           },
           "euclideanSimilarity": {
-            "score": 0.6,
-            "timeMs": 0.0034
+            "score": 0.3652,
+            "timeMs": 0.0019
           },
           "polynomialKernelSimilarity": {
             "score": 0.997,
-            "timeMs": 0.0055
+            "timeMs": 0.0068
           },
           "rbfKernelSimilarity": {
-            "score": 0.9956,
-            "timeMs": 0.001
+            "score": 0.9702,
+            "timeMs": 0.0019
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9686,
-            "timeMs": 0.015
+            "score": 0.8975,
+            "timeMs": 0.0325
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9714,
-            "timeMs": 0.0651
+            "score": 0.9214,
+            "timeMs": 0.0264
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9721,
-            "timeMs": 0.0022
+            "score": 0.9275,
+            "timeMs": 0.0332
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.974,
-            "timeMs": 0.0015
+            "score": 0.9394,
+            "timeMs": 0.0319
           }
         }
       },
       {
-        "type": "acos",
-        "size": 50,
+        "type": "toroid",
+        "size": 100,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.5
         },
-        "label": "acos [gaussian (lvl=0.5)]",
+        "label": "toroid [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9822,
-            "timeMs": 0.007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9201,
-            "timeMs": 0.0125
-          },
-          "euclideanSimilarity": {
-            "score": 0.2333,
-            "timeMs": 0.0035
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9304,
-            "timeMs": 0.005
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8976,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7245,
-            "timeMs": 0.0149
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7967,
-            "timeMs": 0.0144
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8095,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8493,
-            "timeMs": 0.0009
-          }
-        }
-      },
-      {
-        "type": "acos",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "acos [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9991,
-            "timeMs": 0.0018
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.996,
-            "timeMs": 0.0029
-          },
-          "euclideanSimilarity": {
-            "score": 0.751,
-            "timeMs": 0.0011
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9966,
-            "timeMs": 0.002
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9989,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9678,
+            "score": 0.9815,
             "timeMs": 0.0038
           },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9698,
-            "timeMs": 0.0035
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9699,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9715,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "acos",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "acos [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9867,
-            "timeMs": 0.0017
-          },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9378,
-            "timeMs": 0.0049
+            "score": 0.9815,
+            "timeMs": 0.005
           },
           "euclideanSimilarity": {
-            "score": 0.4338,
-            "timeMs": 0.0011
+            "score": 0.1018,
+            "timeMs": 0.0026
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9491,
-            "timeMs": 0.002
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9831,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7221,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8029,
-            "timeMs": 0.0035
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7938,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.847,
-            "timeMs": 0.0005
-          }
-        }
-      },
-      {
-        "type": "atan",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "atan [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9985,
+            "score": 0.9273,
             "timeMs": 0.0124
           },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9985,
-            "timeMs": 0.1049
-          },
-          "euclideanSimilarity": {
-            "score": 0.4998,
-            "timeMs": 0.0062
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9941,
-            "timeMs": 0.006
-          },
           "rbfKernelSimilarity": {
-            "score": 0.99,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.962,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9644,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9647,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9668,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "atan",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "atan [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9694,
-            "timeMs": 0.0123
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9696,
-            "timeMs": 0.0232
-          },
-          "euclideanSimilarity": {
-            "score": 0.1741,
-            "timeMs": 0.0058
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.8819,
+            "score": 0.4592,
             "timeMs": 0.0027
           },
-          "rbfKernelSimilarity": {
-            "score": 0.7985,
-            "timeMs": 0.0007
-          },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.754,
-            "timeMs": 0.0017
+            "score": 0.6445,
+            "timeMs": 0.0163
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8099,
-            "timeMs": 0.0015
+            "score": 0.7306,
+            "timeMs": 0.0158
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8194,
-            "timeMs": 0.0019
+            "score": 0.7565,
+            "timeMs": 0.0213
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8522,
-            "timeMs": 0.0016
+            "score": 0.8089,
+            "timeMs": 0.021
           }
         }
       },
       {
-        "type": "atan",
+        "type": "toroid",
         "size": 50,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.1
         },
-        "label": "atan [gaussian (lvl=0.1)]",
+        "label": "toroid [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9988,
-            "timeMs": 0.0066
+            "score": 0.9994,
+            "timeMs": 0.0015
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9988,
-            "timeMs": 0.0129
-          },
-          "euclideanSimilarity": {
-            "score": 0.6091,
-            "timeMs": 0.0031
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9951,
-            "timeMs": 0.0021
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9959,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9404,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9528,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9515,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9594,
-            "timeMs": 0.0009
-          }
-        }
-      },
-      {
-        "type": "atan",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "atan [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9561,
-            "timeMs": 0.0081
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9578,
-            "timeMs": 0.0113
-          },
-          "euclideanSimilarity": {
-            "score": 0.1982,
-            "timeMs": 0.0031
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.8339,
+            "score": 0.9994,
             "timeMs": 0.0022
           },
-          "rbfKernelSimilarity": {
-            "score": 0.8491,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6771,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7513,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7688,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8142,
-            "timeMs": 0.0009
-          }
-        }
-      },
-      {
-        "type": "atan",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "atan [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9977,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9981,
-            "timeMs": 0.0028
-          },
           "euclideanSimilarity": {
-            "score": 0.714,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9912,
-            "timeMs": 0.0019
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9569,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9593,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9596,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9617,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "atan",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "atan [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9787,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9795,
-            "timeMs": 0.0027
-          },
-          "euclideanSimilarity": {
-            "score": 0.4156,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9201,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9804,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8302,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8552,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8637,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8804,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "sinh",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sinh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.012
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0241
-          },
-          "euclideanSimilarity": {
-            "score": 0.5011,
-            "timeMs": 0.0056
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9901,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9736,
+            "score": 0.4664,
             "timeMs": 0.0016
           },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9782,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9829,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9848,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "sinh",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sinh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0116
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0225
-          },
-          "euclideanSimilarity": {
-            "score": 0.1751,
-            "timeMs": 0.0056
-          },
           "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8009,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9176,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9378,
-            "timeMs": 0.0014
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9455,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.955,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "sinh",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sinh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0077
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0124
-          },
-          "euclideanSimilarity": {
-            "score": 0.5839,
-            "timeMs": 0.0034
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0046
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9949,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9851,
-            "timeMs": 0.0013
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9862,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9869,
-            "timeMs": 0.0013
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9878,
-            "timeMs": 0.0012
-          }
-        }
-      },
-      {
-        "type": "sinh",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sinh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0066
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0117
-          },
-          "euclideanSimilarity": {
-            "score": 0.223,
-            "timeMs": 0.0031
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8857,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.911,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9327,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9382,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9497,
-            "timeMs": 0.0011
-          }
-        }
-      },
-      {
-        "type": "sinh",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sinh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0027
-          },
-          "euclideanSimilarity": {
-            "score": 0.7516,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9989,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9906,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.991,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.991,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9913,
-            "timeMs": 0.0005
-          }
-        }
-      },
-      {
-        "type": "sinh",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sinh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0027
-          },
-          "euclideanSimilarity": {
-            "score": 0.3483,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0017
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9656,
-            "timeMs": 0.0004
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9504,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9581,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9611,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.966,
-            "timeMs": 0.0005
-          }
-        }
-      },
-      {
-        "type": "cosh",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cosh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0121
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.026
-          },
-          "euclideanSimilarity": {
-            "score": 0.4856,
-            "timeMs": 0.0057
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0027
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9888,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9935,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9936,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9937,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9939,
-            "timeMs": 0.0016
-          }
-        }
-      },
-      {
-        "type": "cosh",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cosh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0122
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0739
-          },
-          "euclideanSimilarity": {
-            "score": 0.1673,
-            "timeMs": 0.0062
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0046
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7804,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9649,
-            "timeMs": 0.0021
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9689,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9704,
-            "timeMs": 0.0019
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9732,
-            "timeMs": 0.0016
-          }
-        }
-      },
-      {
-        "type": "cosh",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cosh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0065
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0117
-          },
-          "euclideanSimilarity": {
-            "score": 0.6033,
-            "timeMs": 0.0032
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9957,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9939,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9941,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9941,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9943,
-            "timeMs": 0.0009
-          }
-        }
-      },
-      {
-        "type": "cosh",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cosh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0065
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0112
-          },
-          "euclideanSimilarity": {
-            "score": 0.2141,
-            "timeMs": 0.0031
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0021
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8739,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9606,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9667,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9702,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9734,
-            "timeMs": 0.001
-          }
-        }
-      },
-      {
-        "type": "cosh",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cosh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0027
-          },
-          "euclideanSimilarity": {
-            "score": 0.7449,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0031
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9988,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9958,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9959,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9959,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.996,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "cosh",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cosh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0027
-          },
-          "euclideanSimilarity": {
-            "score": 0.4217,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9814,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9775,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.979,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9793,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9806,
-            "timeMs": 0.0005
-          }
-        }
-      },
-      {
-        "type": "tanh",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "tanh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9972,
-            "timeMs": 0.0119
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9972,
-            "timeMs": 0.0226
-          },
-          "euclideanSimilarity": {
-            "score": 0.499,
-            "timeMs": 0.0058
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.989,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.99,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9412,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9482,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9497,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.954,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "tanh",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "tanh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9331,
-            "timeMs": 0.0117
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9333,
-            "timeMs": 0.022
-          },
-          "euclideanSimilarity": {
-            "score": 0.1523,
-            "timeMs": 0.0057
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.7523,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7336,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6636,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7394,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.773,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8146,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "tanh",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "tanh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
             "score": 0.9974,
             "timeMs": 0.0062
           },
+          "rbfKernelSimilarity": {
+            "score": 0.987,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.8859,
+            "timeMs": 0.008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.9154,
+            "timeMs": 0.0071
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.9288,
+            "timeMs": 0.0104
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9406,
+            "timeMs": 0.0097
+          }
+        }
+      },
+      {
+        "type": "toroid",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "toroid [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9831,
+            "timeMs": 0.0016
+          },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9975,
-            "timeMs": 0.012
-          },
-          "euclideanSimilarity": {
-            "score": 0.594,
-            "timeMs": 0.0031
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.99,
+            "score": 0.9831,
             "timeMs": 0.0021
           },
-          "rbfKernelSimilarity": {
-            "score": 0.9953,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9539,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9571,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9575,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9601,
-            "timeMs": 0.0011
-          }
-        }
-      },
-      {
-        "type": "tanh",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "tanh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9403,
-            "timeMs": 0.0131
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9403,
-            "timeMs": 0.013
-          },
           "euclideanSimilarity": {
-            "score": 0.2115,
-            "timeMs": 0.0035
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.779,
-            "timeMs": 0.0046
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8702,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6767,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7524,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.781,
-            "timeMs": 0.0013
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8223,
-            "timeMs": 0.0011
-          }
-        }
-      },
-      {
-        "type": "tanh",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "tanh [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9977,
-            "timeMs": 0.0019
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9977,
-            "timeMs": 0.0029
-          },
-          "euclideanSimilarity": {
-            "score": 0.7712,
-            "timeMs": 0.0011
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9917,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9991,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9551,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9584,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9586,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9613,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "tanh",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "tanh [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9718,
-            "timeMs": 0.0017
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9777,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.4683,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.8989,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9872,
-            "timeMs": 0.0004
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.805,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8283,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8429,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8577,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "circle",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "circle [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9955,
-            "timeMs": 0.0251
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9955,
-            "timeMs": 0.0449
-          },
-          "euclideanSimilarity": {
-            "score": 0.4232,
-            "timeMs": 0.0108
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9823,
-            "timeMs": 0.0056
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9816,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8376,
-            "timeMs": 0.0028
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8773,
-            "timeMs": 0.0027
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8842,
-            "timeMs": 0.0034
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9055,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "circle",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "circle [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9053,
-            "timeMs": 0.0244
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9054,
-            "timeMs": 0.0445
-          },
-          "euclideanSimilarity": {
-            "score": 0.1208,
-            "timeMs": 0.0107
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.6592,
-            "timeMs": 0.0031
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.5887,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5332,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5958,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6694,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7276,
-            "timeMs": 0.0029
-          }
-        }
-      },
-      {
-        "type": "circle",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "circle [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9958,
-            "timeMs": 0.0118
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9958,
-            "timeMs": 0.4456
-          },
-          "euclideanSimilarity": {
-            "score": 0.5208,
-            "timeMs": 0.0071
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9834,
-            "timeMs": 0.0071
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9916,
-            "timeMs": 0.0013
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.821,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8707,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8752,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.902,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "circle",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "circle [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9209,
-            "timeMs": 0.0123
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9245,
-            "timeMs": 0.0223
-          },
-          "euclideanSimilarity": {
-            "score": 0.177,
-            "timeMs": 0.0075
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.7125,
-            "timeMs": 0.0034
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8055,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5738,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.653,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6877,
-            "timeMs": 0.0019
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7514,
-            "timeMs": 0.0016
-          }
-        }
-      },
-      {
-        "type": "circle",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "circle [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9963,
-            "timeMs": 0.0031
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.997,
-            "timeMs": 0.0053
-          },
-          "euclideanSimilarity": {
-            "score": 0.7222,
-            "timeMs": 0.0449
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9867,
-            "timeMs": 0.0045
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9985,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7363,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8154,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8526,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8834,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "circle",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "circle [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8866,
-            "timeMs": 0.0033
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8922,
-            "timeMs": 0.0069
-          },
-          "euclideanSimilarity": {
-            "score": 0.2805,
-            "timeMs": 0.0017
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.621,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9363,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.4547,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4929,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6068,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.673,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "ellipse",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "ellipse [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9944,
-            "timeMs": 0.0238
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9944,
+            "score": 0.1409,
             "timeMs": 0.0014
           },
-          "euclideanSimilarity": {
-            "score": 0.398,
-            "timeMs": 0.0111
-          },
           "polynomialKernelSimilarity": {
-            "score": 0.9779,
-            "timeMs": 0.0034
+            "score": 0.9335,
+            "timeMs": 0.0058
           },
           "rbfKernelSimilarity": {
-            "score": 0.9774,
-            "timeMs": 0.0008
+            "score": 0.6896,
+            "timeMs": 0.0017
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8191,
-            "timeMs": 0.0028
+            "score": 0.6632,
+            "timeMs": 0.0055
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8651,
-            "timeMs": 0.0025
+            "score": 0.7471,
+            "timeMs": 0.0044
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8711,
-            "timeMs": 0.003
+            "score": 0.7703,
+            "timeMs": 0.0076
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8966,
-            "timeMs": 0.0029
+            "score": 0.8193,
+            "timeMs": 0.0088
           }
         }
       },
       {
-        "type": "ellipse",
-        "size": 100,
+        "type": "toroid",
+        "size": 10,
         "noiseSettings": {
           "type": "gaussian",
-          "level": 0.5
+          "level": 0.1
         },
-        "label": "ellipse [gaussian (lvl=0.5)]",
+        "label": "toroid [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9003,
-            "timeMs": 0.0235
+            "score": 0.999,
+            "timeMs": 0.0012
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9003,
+            "score": 0.999,
             "timeMs": 0.0012
           },
           "euclideanSimilarity": {
-            "score": 0.1228,
-            "timeMs": 0.0108
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.6434,
-            "timeMs": 0.0027
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.6005,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5396,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6094,
-            "timeMs": 0.0027
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.666,
-            "timeMs": 0.0029
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7307,
-            "timeMs": 0.0029
-          }
-        }
-      },
-      {
-        "type": "ellipse",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "ellipse [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9951,
-            "timeMs": 0.012
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9952,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.4985,
-            "timeMs": 0.0065
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.981,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9899,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8251,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8689,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8792,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9011,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "ellipse",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "ellipse [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9302,
-            "timeMs": 0.012
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9302,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.1785,
-            "timeMs": 0.0055
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.7434,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8092,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.566,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6402,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6849,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7452,
-            "timeMs": 0.0016
-          }
-        }
-      },
-      {
-        "type": "ellipse",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "ellipse [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9928,
-            "timeMs": 0.0042
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.993,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.6493,
-            "timeMs": 0.0015
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9739,
-            "timeMs": 0.0019
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9971,
-            "timeMs": 0.0004
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6947,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7863,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8221,
-            "timeMs": 0.0019
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8627,
-            "timeMs": 0.0011
-          }
-        }
-      },
-      {
-        "type": "ellipse",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "ellipse [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9345,
-            "timeMs": 0.0539
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9349,
+            "score": 0.5928,
             "timeMs": 0.001
           },
-          "euclideanSimilarity": {
-            "score": 0.3096,
-            "timeMs": 0.0019
-          },
           "polynomialKernelSimilarity": {
-            "score": 0.7657,
+            "score": 0.9961,
             "timeMs": 0.0054
           },
           "rbfKernelSimilarity": {
-            "score": 0.9515,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5356,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6112,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6695,
+            "score": 0.9953,
             "timeMs": 0.0009
           },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.738,
-            "timeMs": 0.0008
-          }
-        }
-      },
-      {
-        "type": "spiral_archimedean",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "spiral_archimedean [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0241
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.4306,
-            "timeMs": 0.0107
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0031
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9827,
-            "timeMs": 0.0008
-          },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9426,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9558,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9608,
-            "timeMs": 0.003
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9672,
-            "timeMs": 0.0028
-          }
-        }
-      },
-      {
-        "type": "spiral_archimedean",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "spiral_archimedean [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9981,
-            "timeMs": 0.0243
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9981,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.1226,
-            "timeMs": 0.0108
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9923,
-            "timeMs": 0.003
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.599,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8531,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8889,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.901,
-            "timeMs": 0.003
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9175,
-            "timeMs": 0.0029
-          }
-        }
-      },
-      {
-        "type": "spiral_archimedean",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "spiral_archimedean [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0195
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0009
-          },
-          "euclideanSimilarity": {
-            "score": 0.4978,
-            "timeMs": 0.0057
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9899,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9501,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9609,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9689,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9729,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "spiral_archimedean",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "spiral_archimedean [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9983,
-            "timeMs": 0.012
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9983,
-            "timeMs": 0.0008
-          },
-          "euclideanSimilarity": {
-            "score": 0.1736,
-            "timeMs": 0.0056
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9933,
+            "score": 0.7391,
             "timeMs": 0.0022
           },
-          "rbfKernelSimilarity": {
-            "score": 0.7973,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8344,
-            "timeMs": 0.0016
-          },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8775,
-            "timeMs": 0.0015
+            "score": 0.8213,
+            "timeMs": 0.002
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8924,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9114,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "spiral_archimedean",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "spiral_archimedean [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9999,
+            "score": 0.8633,
             "timeMs": 0.0028
           },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9999,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.6865,
-            "timeMs": 0.0015
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9997,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9979,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8222,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8803,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9132,
-            "timeMs": 0.0008
-          },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9319,
-            "timeMs": 0.0007
+            "score": 0.8933,
+            "timeMs": 0.0019
           }
         }
       },
       {
-        "type": "spiral_archimedean",
+        "type": "toroid",
         "size": 10,
         "noiseSettings": {
           "type": "gaussian",
           "level": 0.5
         },
-        "label": "spiral_archimedean [gaussian (lvl=0.5)]",
+        "label": "toroid [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9846,
+            "timeMs": 0.0011
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9843,
+            "timeMs": 0.001
+          },
+          "euclideanSimilarity": {
+            "score": 0.2714,
+            "timeMs": 0.001
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9398,
+            "timeMs": 0.0049
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9305,
+            "timeMs": 0.0008
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5902,
+            "timeMs": 0.0022
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6863,
+            "timeMs": 0.0021
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.747,
+            "timeMs": 0.0023
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8008,
+            "timeMs": 0.0022
+          }
+        }
+      },
+      {
+        "type": "helix",
+        "size": 100,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "helix [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 0.9983,
-            "timeMs": 0.0029
+            "timeMs": 0.0023
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0005
+            "score": 0.9979,
+            "timeMs": 0.0051
           },
           "euclideanSimilarity": {
-            "score": 0.3128,
-            "timeMs": 0.0006
+            "score": 0.376,
+            "timeMs": 0.0035
           },
           "polynomialKernelSimilarity": {
             "score": 0.9932,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9529,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7686,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8386,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8704,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8967,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "spiral_logarithmic",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "spiral_logarithmic [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0249
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.001
-          },
-          "euclideanSimilarity": {
-            "score": 0.4198,
-            "timeMs": 0.0008
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0028
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9811,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9784,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9821,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9869,
-            "timeMs": 0.003
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9882,
-            "timeMs": 0.0028
-          }
-        }
-      },
-      {
-        "type": "spiral_logarithmic",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "spiral_logarithmic [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0233
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.001
-          },
-          "euclideanSimilarity": {
-            "score": 0.1298,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0027
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.6381,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9297,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9469,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9536,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9619,
-            "timeMs": 0.0029
-          }
-        }
-      },
-      {
-        "type": "spiral_logarithmic",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "spiral_logarithmic [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0118
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.5139,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9911,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.966,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9733,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9815,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9838,
-            "timeMs": 0.0016
-          }
-        }
-      },
-      {
-        "type": "spiral_logarithmic",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "spiral_logarithmic [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0118
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.1653,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.775,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9125,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9355,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9502,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9586,
-            "timeMs": 0.0018
-          }
-        }
-      },
-      {
-        "type": "spiral_logarithmic",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "spiral_logarithmic [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0028
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.6847,
-            "timeMs": 0.0004
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9979,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8453,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8975,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9326,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9476,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "spiral_logarithmic",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "spiral_logarithmic [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 1,
-            "timeMs": 0.0065
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 1,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.3261,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 1,
-            "timeMs": 0.0046
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9582,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7585,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8388,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.884,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9117,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "lemniscate",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "lemniscate [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9903,
-            "timeMs": 0.0241
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9903,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.4276,
-            "timeMs": 0.0008
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9624,
-            "timeMs": 0.003
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9822,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7135,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7895,
-            "timeMs": 0.0027
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7953,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8419,
-            "timeMs": 0.0029
-          }
-        }
-      },
-      {
-        "type": "lemniscate",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "lemniscate [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8264,
-            "timeMs": 0.0236
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8264,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.1214,
-            "timeMs": 0.0008
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.4323,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.5924,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.404,
-            "timeMs": 0.0027
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4707,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5688,
-            "timeMs": 0.0027
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6341,
-            "timeMs": 0.0025
-          }
-        }
-      },
-      {
-        "type": "lemniscate",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "lemniscate [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9868,
-            "timeMs": 0.0134
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9869,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.4846,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9504,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9888,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7058,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7778,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7996,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8386,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "lemniscate",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "lemniscate [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8491,
-            "timeMs": 0.0196
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8493,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.1718,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.4985,
-            "timeMs": 0.0024
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7926,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.434,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4835,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5923,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.655,
-            "timeMs": 0.0015
-          }
-        }
-      },
-      {
-        "type": "lemniscate",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "lemniscate [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9831,
-            "timeMs": 0.0028
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9835,
-            "timeMs": 0.0004
-          },
-          "euclideanSimilarity": {
-            "score": 0.6405,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9452,
-            "timeMs": 0.033
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9969,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6312,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7159,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7697,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8108,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "lemniscate",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "lemniscate [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8485,
-            "timeMs": 0.0006
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8483,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.3499,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.5514,
-            "timeMs": 0.0023
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9661,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.4298,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4851,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5826,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6527,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "rose",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "rose [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9922,
-            "timeMs": 0.0008
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9922,
-            "timeMs": 0.001
-          },
-          "euclideanSimilarity": {
-            "score": 0.4392,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9696,
-            "timeMs": 0.0027
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9838,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.701,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.782,
-            "timeMs": 0.0024
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7963,
-            "timeMs": 0.0031
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8433,
-            "timeMs": 0.0029
-          }
-        }
-      },
-      {
-        "type": "rose",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "rose [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8658,
-            "timeMs": 0.0008
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8659,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.1268,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.5399,
-            "timeMs": 0.0027
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.6222,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.4339,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4846,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5803,
-            "timeMs": 0.0029
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6469,
-            "timeMs": 0.0027
-          }
-        }
-      },
-      {
-        "type": "rose",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "rose [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9888,
-            "timeMs": 0.0006
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.989,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.4727,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9571,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9876,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6542,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.746,
-            "timeMs": 0.0014
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7577,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8155,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "rose",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "rose [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8501,
-            "timeMs": 0.0006
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8509,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.1664,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.5004,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7781,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.4042,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4713,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5873,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6514,
-            "timeMs": 0.0016
-          }
-        }
-      },
-      {
-        "type": "rose",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "rose [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9939,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9944,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.7328,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9795,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9987,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6956,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7794,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8199,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8558,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "rose",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "rose [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8899,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8895,
-            "timeMs": 0.0004
-          },
-          "euclideanSimilarity": {
-            "score": 0.3489,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.6478,
-            "timeMs": 0.0017
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9658,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.54,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6111,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6977,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7513,
-            "timeMs": 0.0006
-          }
-        }
-      },
-      {
-        "type": "cardioid",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cardioid [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9992,
-            "timeMs": 0.0007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9991,
-            "timeMs": 0.001
-          },
-          "euclideanSimilarity": {
-            "score": 0.4145,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9967,
-            "timeMs": 0.0027
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9802,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7419,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8184,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8435,
-            "timeMs": 0.0029
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8794,
-            "timeMs": 0.0026
-          }
-        }
-      },
-      {
-        "type": "cardioid",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cardioid [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.983,
-            "timeMs": 0.0016
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9817,
-            "timeMs": 0.0012
-          },
-          "euclideanSimilarity": {
-            "score": 0.1346,
-            "timeMs": 0.0009
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9334,
-            "timeMs": 0.0053
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.6613,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5472,
-            "timeMs": 0.0028
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6306,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6863,
-            "timeMs": 0.0032
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7554,
-            "timeMs": 0.0028
-          }
-        }
-      },
-      {
-        "type": "cardioid",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cardioid [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9991,
-            "timeMs": 0.0006
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.999,
-            "timeMs": 0.0008
-          },
-          "euclideanSimilarity": {
-            "score": 0.4892,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9964,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9892,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.716,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8031,
-            "timeMs": 0.0015
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8296,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8715,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "cardioid",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cardioid [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9832,
-            "timeMs": 0.0006
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9817,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.1777,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9341,
-            "timeMs": 0.0022
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.8072,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5613,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6505,
-            "timeMs": 0.0014
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7049,
-            "timeMs": 0.0021
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7696,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "cardioid",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "cardioid [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.999,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.999,
-            "timeMs": 0.0006
-          },
-          "euclideanSimilarity": {
-            "score": 0.678,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.996,
-            "timeMs": 0.0019
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9977,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6526,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7569,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8189,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8609,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "cardioid",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "cardioid [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.985,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9863,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.3252,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9417,
-            "timeMs": 0.0018
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9578,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5537,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6358,
-            "timeMs": 0.0006
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.724,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7739,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "lissajous",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "lissajous [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9955,
-            "timeMs": 0.0008
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9955,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.4248,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9822,
-            "timeMs": 0.0027
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9818,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8446,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8828,
-            "timeMs": 0.0024
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.888,
-            "timeMs": 0.0029
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9088,
-            "timeMs": 0.0028
-          }
-        }
-      },
-      {
-        "type": "lissajous",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "lissajous [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9099,
-            "timeMs": 0.0007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9101,
-            "timeMs": 0.0011
-          },
-          "euclideanSimilarity": {
-            "score": 0.1229,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.674,
-            "timeMs": 0.0028
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.6007,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5376,
-            "timeMs": 0.0027
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.604,
-            "timeMs": 0.363
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.665,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7274,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "lissajous",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "lissajous [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9945,
-            "timeMs": 0.001
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9945,
-            "timeMs": 0.0009
-          },
-          "euclideanSimilarity": {
-            "score": 0.4776,
-            "timeMs": 0.0009
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9787,
-            "timeMs": 0.0058
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9881,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8307,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.872,
-            "timeMs": 0.0016
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8827,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9031,
-            "timeMs": 0.0017
-          }
-        }
-      },
-      {
-        "type": "lissajous",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "lissajous [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8727,
-            "timeMs": 0.0006
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8767,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.1541,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.5621,
-            "timeMs": 0.0024
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7399,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5139,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5612,
-            "timeMs": 0.0014
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.631,
-            "timeMs": 0.0018
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6993,
-            "timeMs": 0.0018
-          }
-        }
-      },
-      {
-        "type": "lissajous",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "lissajous [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.997,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9974,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.7384,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9889,
-            "timeMs": 0.0019
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9987,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7812,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.848,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8783,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9026,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "lissajous",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "lissajous [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9252,
-            "timeMs": 0.0845
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9257,
-            "timeMs": 0.0007
-          },
-          "euclideanSimilarity": {
-            "score": 0.3552,
-            "timeMs": 0.0008
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.7445,
-            "timeMs": 0.004
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9676,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5828,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6665,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7388,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7836,
-            "timeMs": 0.0008
-          }
-        }
-      },
-      {
-        "type": "sphere",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sphere [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9928,
-            "timeMs": 0.0009
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.993,
-            "timeMs": 0.0014
-          },
-          "euclideanSimilarity": {
-            "score": 0.3641,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9719,
-            "timeMs": 0.0034
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.97,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7502,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.817,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8331,
-            "timeMs": 0.0043
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8676,
-            "timeMs": 0.0041
-          }
-        }
-      },
-      {
-        "type": "sphere",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sphere [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8784,
-            "timeMs": 0.0009
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8785,
-            "timeMs": 0.0014
-          },
-          "euclideanSimilarity": {
-            "score": 0.1035,
-            "timeMs": 0.0009
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.5753,
-            "timeMs": 0.0032
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.4721,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5003,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5071,
-            "timeMs": 0.0035
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5996,
-            "timeMs": 0.0041
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6674,
-            "timeMs": 0.0038
-          }
-        }
-      },
-      {
-        "type": "sphere",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sphere [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9916,
-            "timeMs": 0.0007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9917,
-            "timeMs": 0.0009
-          },
-          "euclideanSimilarity": {
-            "score": 0.427,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9672,
-            "timeMs": 0.0025
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9822,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7036,
-            "timeMs": 0.0095
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7817,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7975,
-            "timeMs": 0.0022
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8421,
-            "timeMs": 0.0022
-          }
-        }
-      },
-      {
-        "type": "sphere",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sphere [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8909,
-            "timeMs": 0.0007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8918,
-            "timeMs": 0.0009
-          },
-          "euclideanSimilarity": {
-            "score": 0.1516,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.6161,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7311,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5009,
-            "timeMs": 0.0021
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.513,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5994,
-            "timeMs": 0.0023
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6679,
-            "timeMs": 0.0022
-          }
-        }
-      },
-      {
-        "type": "sphere",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "sphere [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9909,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9906,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.6041,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9666,
-            "timeMs": 0.0021
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9957,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6505,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7427,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7955,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.836,
-            "timeMs": 0.0008
-          }
-        }
-      },
-      {
-        "type": "sphere",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "sphere [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.8489,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.8382,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.2566,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.5162,
-            "timeMs": 0.002
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9195,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.4191,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4784,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.5725,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6403,
-            "timeMs": 0.0008
-          }
-        }
-      },
-      {
-        "type": "toroid",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "toroid [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0009
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0014
-          },
-          "euclideanSimilarity": {
-            "score": 0.3697,
-            "timeMs": 0.0009
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9971,
-            "timeMs": 0.0031
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9713,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8988,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9225,
-            "timeMs": 0.0036
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9256,
-            "timeMs": 0.0042
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9386,
-            "timeMs": 0.0041
-          }
-        }
-      },
-      {
-        "type": "toroid",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "toroid [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.983,
-            "timeMs": 0.0016
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9831,
-            "timeMs": 0.0015
-          },
-          "euclideanSimilarity": {
-            "score": 0.1078,
-            "timeMs": 0.0011
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9333,
-            "timeMs": 0.0053
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.5044,
-            "timeMs": 0.0012
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6605,
-            "timeMs": 0.0038
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7446,
-            "timeMs": 0.0035
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7676,
-            "timeMs": 0.0044
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8174,
-            "timeMs": 0.0042
-          }
-        }
-      },
-      {
-        "type": "toroid",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "toroid [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9992,
-            "timeMs": 0.0007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9992,
-            "timeMs": 0.0009
-          },
-          "euclideanSimilarity": {
-            "score": 0.4383,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9968,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9837,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8876,
-            "timeMs": 0.0021
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9159,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.9274,
-            "timeMs": 0.0024
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9392,
-            "timeMs": 0.0021
-          }
-        }
-      },
-      {
-        "type": "toroid",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "toroid [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9817,
-            "timeMs": 0.0007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9817,
-            "timeMs": 0.0028
-          },
-          "euclideanSimilarity": {
-            "score": 0.139,
-            "timeMs": 0.0013
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9285,
             "timeMs": 0.0064
           },
           "rbfKernelSimilarity": {
-            "score": 0.6814,
-            "timeMs": 0.0015
+            "score": 0.9728,
+            "timeMs": 0.0016
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6681,
-            "timeMs": 0.0035
+            "score": 0.852,
+            "timeMs": 0.013
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7488,
-            "timeMs": 0.0033
+            "score": 0.89,
+            "timeMs": 0.013
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.7733,
-            "timeMs": 0.0036
+            "score": 0.8992,
+            "timeMs": 0.0155
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8203,
-            "timeMs": 0.003
-          }
-        }
-      },
-      {
-        "type": "toroid",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "toroid [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9995,
-            "timeMs": 0.0009
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9996,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.6902,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9981,
-            "timeMs": 0.0026
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.998,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7547,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8341,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8763,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.904,
-            "timeMs": 0.0007
-          }
-        }
-      },
-      {
-        "type": "toroid",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "toroid [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9809,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9805,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.2551,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9258,
-            "timeMs": 0.0019
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9183,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5789,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6726,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7507,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8004,
-            "timeMs": 0.0007
+            "score": 0.918,
+            "timeMs": 0.0145
           }
         }
       },
@@ -8973,280 +9020,233 @@ export const analysisResults = {
         "size": 100,
         "noiseSettings": {
           "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "helix [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9557,
+            "timeMs": 0.0024
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9454,
+            "timeMs": 0.0031
+          },
+          "euclideanSimilarity": {
+            "score": 0.1028,
+            "timeMs": 0.0015
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.831,
+            "timeMs": 0.0067
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.4665,
+            "timeMs": 0.0019
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5705,
+            "timeMs": 0.0146
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6548,
+            "timeMs": 0.0124
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6965,
+            "timeMs": 0.0139
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7601,
+            "timeMs": 0.0142
+          }
+        }
+      },
+      {
+        "type": "helix",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
           "level": 0.1
         },
         "label": "helix [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9983,
-            "timeMs": 0.0009
+            "score": 0.9982,
+            "timeMs": 0.0018
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9979,
-            "timeMs": 0.0013
+            "score": 0.9978,
+            "timeMs": 0.0023
           },
           "euclideanSimilarity": {
-            "score": 0.3761,
-            "timeMs": 0.0009
+            "score": 0.4538,
+            "timeMs": 0.0012
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9932,
-            "timeMs": 0.0031
+            "score": 0.9929,
+            "timeMs": 0.005
           },
           "rbfKernelSimilarity": {
-            "score": 0.9729,
-            "timeMs": 0.0009
+            "score": 0.9856,
+            "timeMs": 0.0012
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8629,
-            "timeMs": 0.0036
+            "score": 0.8518,
+            "timeMs": 0.0073
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8976,
-            "timeMs": 0.0035
+            "score": 0.8911,
+            "timeMs": 0.0078
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.905,
+            "score": 0.902,
+            "timeMs": 0.0084
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.9203,
+            "timeMs": 0.0082
+          }
+        }
+      },
+      {
+        "type": "helix",
+        "size": 50,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "helix [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9607,
+            "timeMs": 0.0013
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9539,
+            "timeMs": 0.0023
+          },
+          "euclideanSimilarity": {
+            "score": 0.137,
+            "timeMs": 0.0028
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8495,
+            "timeMs": 0.011
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6724,
+            "timeMs": 0.0035
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5719,
+            "timeMs": 0.0156
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.6523,
+            "timeMs": 0.015
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.7002,
+            "timeMs": 0.0171
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.7587,
+            "timeMs": 0.0169
+          }
+        }
+      },
+      {
+        "type": "helix",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.1
+        },
+        "label": "helix [gaussian (lvl=0.1)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9978,
+            "timeMs": 0.0026
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9973,
+            "timeMs": 0.0023
+          },
+          "euclideanSimilarity": {
+            "score": 0.6209,
+            "timeMs": 0.0016
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9913,
+            "timeMs": 0.0104
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0018
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.6777,
+            "timeMs": 0.005
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.7735,
+            "timeMs": 0.0041
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.8256,
+            "timeMs": 0.0055
+          },
+          "vectorSimilarityCorrelationNoStd": {
+            "score": 0.8635,
+            "timeMs": 0.0048
+          }
+        }
+      },
+      {
+        "type": "helix",
+        "size": 10,
+        "noiseSettings": {
+          "type": "gaussian",
+          "level": 0.5
+        },
+        "label": "helix [gaussian (lvl=0.5)]",
+        "metrics": {
+          "normalizedCosineSimilarity": {
+            "score": 0.9558,
+            "timeMs": 0.0017
+          },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9484,
+            "timeMs": 0.0024
+          },
+          "euclideanSimilarity": {
+            "score": 0.272,
+            "timeMs": 0.0015
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.835,
+            "timeMs": 0.0079
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9309,
+            "timeMs": 0.0016
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5214,
+            "timeMs": 0.0046
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.5799,
+            "timeMs": 0.0043
+          },
+          "vectorSimilarityCorrelation": {
+            "score": 0.6612,
             "timeMs": 0.0042
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9224,
-            "timeMs": 0.0041
-          }
-        }
-      },
-      {
-        "type": "helix",
-        "size": 100,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "helix [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9603,
-            "timeMs": 0.001
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.952,
-            "timeMs": 0.0014
-          },
-          "euclideanSimilarity": {
-            "score": 0.1038,
-            "timeMs": 0.0009
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.8477,
-            "timeMs": 0.003
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.4748,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5769,
-            "timeMs": 0.0037
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6616,
-            "timeMs": 0.0034
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6959,
-            "timeMs": 0.0043
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7603,
-            "timeMs": 0.004
-          }
-        }
-      },
-      {
-        "type": "helix",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "helix [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9983,
-            "timeMs": 0.0007
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9979,
-            "timeMs": 0.0009
-          },
-          "euclideanSimilarity": {
-            "score": 0.4609,
-            "timeMs": 0.0007
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9933,
-            "timeMs": 0.0091
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9864,
-            "timeMs": 0.0433
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8441,
-            "timeMs": 0.0026
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8851,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.89,
-            "timeMs": 0.0025
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.912,
-            "timeMs": 0.0023
-          }
-        }
-      },
-      {
-        "type": "helix",
-        "size": 50,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "helix [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9649,
-            "timeMs": 0.0009
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9591,
-            "timeMs": 0.001
-          },
-          "euclideanSimilarity": {
-            "score": 0.149,
-            "timeMs": 0.0008
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.865,
-            "timeMs": 0.0043
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7217,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5932,
-            "timeMs": 0.0021
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6807,
-            "timeMs": 0.002
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.7186,
-            "timeMs": 0.0023
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7784,
-            "timeMs": 0.0022
-          }
-        }
-      },
-      {
-        "type": "helix",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.1
-        },
-        "label": "helix [gaussian (lvl=0.1)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9987,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.6697,
-            "timeMs": 0.0006
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9948,
-            "timeMs": 0.0021
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9976,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7088,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.802,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.8535,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8872,
-            "timeMs": 0.0008
-          }
-        }
-      },
-      {
-        "type": "helix",
-        "size": 10,
-        "noiseSettings": {
-          "type": "gaussian",
-          "level": 0.5
-        },
-        "label": "helix [gaussian (lvl=0.5)]",
-        "metrics": {
-          "normalizedCosineSimilarity": {
-            "score": 0.9606,
-            "timeMs": 0.0005
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9499,
-            "timeMs": 0.0005
-          },
-          "euclideanSimilarity": {
-            "score": 0.2843,
-            "timeMs": 0.0005
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.8521,
-            "timeMs": 0.0019
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9386,
-            "timeMs": 0.0005
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5177,
-            "timeMs": 0.0008
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5718,
-            "timeMs": 0.0007
-          },
-          "vectorSimilarityCorrelation": {
-            "score": 0.6713,
-            "timeMs": 0.0009
-          },
-          "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7294,
-            "timeMs": 0.0008
+            "score": 0.7251,
+            "timeMs": 0.0045
           }
         }
       },
@@ -9261,40 +9261,40 @@ export const analysisResults = {
         "label": "sin [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.995,
-            "timeMs": 0.0013
+            "score": 0.9946,
+            "timeMs": 0.004
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.995,
-            "timeMs": 0.0012
+            "score": 0.9946,
+            "timeMs": 0.0042
           },
           "euclideanSimilarity": {
-            "score": 0.4154,
-            "timeMs": 0.0008
+            "score": 0.4079,
+            "timeMs": 0.0024
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9802,
-            "timeMs": 0.0049
+            "score": 0.9788,
+            "timeMs": 0.0132
           },
           "rbfKernelSimilarity": {
-            "score": 0.9804,
-            "timeMs": 0.001
+            "score": 0.9792,
+            "timeMs": 0.0024
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.828,
-            "timeMs": 0.0028
+            "score": 0.8252,
+            "timeMs": 0.0126
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8718,
-            "timeMs": 0.0025
+            "score": 0.8696,
+            "timeMs": 0.0187
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8738,
-            "timeMs": 0.0032
+            "score": 0.8689,
+            "timeMs": 0.0186
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8991,
-            "timeMs": 0.003
+            "score": 0.8963,
+            "timeMs": 0.0144
           }
         }
       },
@@ -9309,40 +9309,40 @@ export const analysisResults = {
         "label": "sin [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9307,
-            "timeMs": 0.0014
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.931,
-            "timeMs": 0.0012
-          },
-          "euclideanSimilarity": {
-            "score": 0.1282,
-            "timeMs": 0.0009
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.7433,
-            "timeMs": 0.0057
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.6296,
-            "timeMs": 0.0011
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5745,
-            "timeMs": 0.0028
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6499,
+            "score": 0.9211,
             "timeMs": 0.0025
           },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9212,
+            "timeMs": 0.0032
+          },
+          "euclideanSimilarity": {
+            "score": 0.125,
+            "timeMs": 0.0019
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.7109,
+            "timeMs": 0.0104
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.6126,
+            "timeMs": 0.0015
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.5441,
+            "timeMs": 0.0127
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
+            "score": 0.614,
+            "timeMs": 0.043
+          },
           "vectorSimilarityCorrelation": {
-            "score": 0.7037,
-            "timeMs": 0.003
+            "score": 0.6603,
+            "timeMs": 0.0096
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7572,
-            "timeMs": 0.0029
+            "score": 0.7266,
+            "timeMs": 0.0094
           }
         }
       },
@@ -9358,39 +9358,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 0.9983,
-            "timeMs": 0.001
+            "timeMs": 0.0033
           },
           "pearsonCorrelationSimilarity": {
             "score": 0.9983,
-            "timeMs": 0.0011
+            "timeMs": 0.003
           },
           "euclideanSimilarity": {
-            "score": 0.5559,
-            "timeMs": 0.0008
+            "score": 0.555,
+            "timeMs": 0.0015
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9934,
-            "timeMs": 0.0039
+            "score": 0.9933,
+            "timeMs": 0.0341
           },
           "rbfKernelSimilarity": {
             "score": 0.9936,
-            "timeMs": 0.0009
+            "timeMs": 0.0024
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8957,
-            "timeMs": 0.0028
+            "score": 0.875,
+            "timeMs": 0.0116
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9167,
-            "timeMs": 0.0026
+            "score": 0.9054,
+            "timeMs": 0.0097
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9229,
-            "timeMs": 0.004
+            "score": 0.9108,
+            "timeMs": 0.012
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9337,
-            "timeMs": 0.0029
+            "score": 0.9269,
+            "timeMs": 0.015
           }
         }
       },
@@ -9405,40 +9405,40 @@ export const analysisResults = {
         "label": "sin [uniform (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9582,
-            "timeMs": 0.0008
+            "score": 0.9652,
+            "timeMs": 0.0021
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9584,
-            "timeMs": 0.0011
+            "score": 0.9653,
+            "timeMs": 0.0028
           },
           "euclideanSimilarity": {
-            "score": 0.1898,
-            "timeMs": 0.0007
+            "score": 0.1995,
+            "timeMs": 0.0019
           },
           "polynomialKernelSimilarity": {
-            "score": 0.8411,
-            "timeMs": 0.0028
+            "score": 0.8667,
+            "timeMs": 0.0068
           },
           "rbfKernelSimilarity": {
-            "score": 0.8335,
-            "timeMs": 0.0008
+            "score": 0.8513,
+            "timeMs": 0.0016
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6102,
-            "timeMs": 0.0027
+            "score": 0.6191,
+            "timeMs": 0.0099
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6926,
-            "timeMs": 0.0024
+            "score": 0.704,
+            "timeMs": 0.0089
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.72,
-            "timeMs": 0.003
+            "score": 0.725,
+            "timeMs": 0.0227
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7764,
-            "timeMs": 0.0028
+            "score": 0.7833,
+            "timeMs": 0.0113
           }
         }
       },
@@ -9454,39 +9454,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 0.9996,
-            "timeMs": 0.0009
+            "timeMs": 0.0045
           },
           "pearsonCorrelationSimilarity": {
             "score": 0.9996,
-            "timeMs": 0.0011
+            "timeMs": 0.0059
           },
           "euclideanSimilarity": {
             "score": 0.7081,
-            "timeMs": 0.0007
+            "timeMs": 0.0035
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9982,
-            "timeMs": 0.003
+            "score": 0.9983,
+            "timeMs": 0.0168
           },
           "rbfKernelSimilarity": {
             "score": 0.9983,
-            "timeMs": 0.0008
+            "timeMs": 0.0036
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9835,
-            "timeMs": 0.0027
+            "score": 0.9788,
+            "timeMs": 0.0259
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9857,
-            "timeMs": 0.0026
+            "score": 0.9822,
+            "timeMs": 0.0786
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9871,
-            "timeMs": 0.0023
+            "score": 0.9865,
+            "timeMs": 0.0256
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9884,
-            "timeMs": 0.0024
+            "score": 0.9878,
+            "timeMs": 0.0216
           }
         }
       },
@@ -9502,39 +9502,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 0.9901,
-            "timeMs": 0.0008
+            "timeMs": 0.0049
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9903,
-            "timeMs": 0.001
+            "score": 0.9901,
+            "timeMs": 0.0065
           },
           "euclideanSimilarity": {
             "score": 0.3405,
-            "timeMs": 0.0007
+            "timeMs": 0.0033
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9613,
-            "timeMs": 0.0027
+            "score": 0.9612,
+            "timeMs": 0.0156
           },
           "rbfKernelSimilarity": {
             "score": 0.9632,
-            "timeMs": 0.0008
+            "timeMs": 0.0036
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9397,
-            "timeMs": 0.0026
+            "score": 0.9477,
+            "timeMs": 0.0227
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9548,
-            "timeMs": 0.0026
+            "score": 0.9599,
+            "timeMs": 0.0245
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9665,
-            "timeMs": 0.0022
+            "score": 0.9687,
+            "timeMs": 0.021
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9722,
-            "timeMs": 0.0024
+            "score": 0.9738,
+            "timeMs": 0.0209
           }
         }
       },
@@ -9550,39 +9550,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 0.9955,
-            "timeMs": 0.0013
+            "timeMs": 0.0073
           },
           "pearsonCorrelationSimilarity": {
             "score": 0.9955,
-            "timeMs": 0.0016
+            "timeMs": 0.012
           },
           "euclideanSimilarity": {
-            "score": 0.3401,
-            "timeMs": 0.001
+            "score": 0.3429,
+            "timeMs": 0.0042
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9821,
-            "timeMs": 0.004
+            "score": 0.982,
+            "timeMs": 0.0215
           },
           "rbfKernelSimilarity": {
-            "score": 0.9631,
-            "timeMs": 0.001
+            "score": 0.9639,
+            "timeMs": 0.0055
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.849,
-            "timeMs": 0.0047
+            "score": 0.8492,
+            "timeMs": 0.04
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.885,
-            "timeMs": 0.0045
+            "score": 0.8858,
+            "timeMs": 0.0515
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8865,
-            "timeMs": 0.0055
+            "score": 0.8923,
+            "timeMs": 0.0465
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.908,
-            "timeMs": 0.0055
+            "score": 0.9115,
+            "timeMs": 0.0476
           }
         }
       },
@@ -9597,40 +9597,40 @@ export const analysisResults = {
         "label": "circle [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9137,
-            "timeMs": 0.001
+            "score": 0.9126,
+            "timeMs": 0.0031
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9137,
-            "timeMs": 0.0016
+            "score": 0.9127,
+            "timeMs": 0.0338
           },
           "euclideanSimilarity": {
-            "score": 0.0951,
-            "timeMs": 0.0011
+            "score": 0.0931,
+            "timeMs": 0.0022
           },
           "polynomialKernelSimilarity": {
-            "score": 0.6855,
-            "timeMs": 0.0039
+            "score": 0.682,
+            "timeMs": 0.0102
           },
           "rbfKernelSimilarity": {
-            "score": 0.4043,
-            "timeMs": 0.0011
+            "score": 0.3868,
+            "timeMs": 0.0025
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5604,
-            "timeMs": 0.0048
+            "score": 0.5558,
+            "timeMs": 0.0195
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6368,
-            "timeMs": 0.0046
+            "score": 0.6317,
+            "timeMs": 0.0209
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.6826,
-            "timeMs": 0.0054
+            "score": 0.6833,
+            "timeMs": 0.0254
           },
           "vectorSimilarityCorrelationNoStd": {
             "score": 0.7449,
-            "timeMs": 0.0056
+            "timeMs": 0.0562
           }
         }
       },
@@ -9645,40 +9645,40 @@ export const analysisResults = {
         "label": "circle [uniform (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0016
+            "score": 0.9982,
+            "timeMs": 0.0033
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9984,
-            "timeMs": 0.0017
+            "score": 0.9982,
+            "timeMs": 0.0044
           },
           "euclideanSimilarity": {
-            "score": 0.4641,
-            "timeMs": 0.0012
+            "score": 0.4551,
+            "timeMs": 0.0022
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9935,
-            "timeMs": 0.0056
+            "score": 0.9929,
+            "timeMs": 0.01
           },
           "rbfKernelSimilarity": {
-            "score": 0.9868,
-            "timeMs": 0.0013
+            "score": 0.9858,
+            "timeMs": 0.0022
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9019,
-            "timeMs": 0.005
+            "score": 0.8886,
+            "timeMs": 0.0317
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9221,
-            "timeMs": 0.0047
+            "score": 0.9132,
+            "timeMs": 0.0189
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9271,
-            "timeMs": 0.0056
+            "score": 0.9138,
+            "timeMs": 0.0216
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9376,
-            "timeMs": 0.0052
+            "score": 0.9288,
+            "timeMs": 0.0217
           }
         }
       },
@@ -9693,40 +9693,40 @@ export const analysisResults = {
         "label": "circle [uniform (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9654,
-            "timeMs": 0.0011
-          },
-          "pearsonCorrelationSimilarity": {
-            "score": 0.9655,
-            "timeMs": 0.0017
-          },
-          "euclideanSimilarity": {
-            "score": 0.1489,
-            "timeMs": 0.001
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.867,
-            "timeMs": 0.0042
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.7213,
-            "timeMs": 0.001
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.6295,
+            "score": 0.9621,
             "timeMs": 0.0049
           },
+          "pearsonCorrelationSimilarity": {
+            "score": 0.9622,
+            "timeMs": 0.0066
+          },
+          "euclideanSimilarity": {
+            "score": 0.1463,
+            "timeMs": 0.003
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.8548,
+            "timeMs": 0.0157
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.7115,
+            "timeMs": 0.0033
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.64,
+            "timeMs": 0.0204
+          },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.7122,
-            "timeMs": 0.0045
+            "score": 0.7199,
+            "timeMs": 0.0193
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.7341,
-            "timeMs": 0.0055
+            "score": 0.7466,
+            "timeMs": 0.0227
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7895,
-            "timeMs": 0.0053
+            "score": 0.7963,
+            "timeMs": 0.0254
           }
         }
       },
@@ -9742,39 +9742,39 @@ export const analysisResults = {
         "metrics": {
           "normalizedCosineSimilarity": {
             "score": 0.9995,
-            "timeMs": 0.0021
+            "timeMs": 0.0037
           },
           "pearsonCorrelationSimilarity": {
             "score": 0.9995,
-            "timeMs": 0.0018
-          },
-          "euclideanSimilarity": {
-            "score": 0.6186,
-            "timeMs": 0.0013
-          },
-          "polynomialKernelSimilarity": {
-            "score": 0.9981,
-            "timeMs": 0.0076
-          },
-          "rbfKernelSimilarity": {
-            "score": 0.9962,
-            "timeMs": 0.0017
-          },
-          "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9855,
             "timeMs": 0.0053
           },
+          "euclideanSimilarity": {
+            "score": 0.6218,
+            "timeMs": 0.0024
+          },
+          "polynomialKernelSimilarity": {
+            "score": 0.9982,
+            "timeMs": 0.0097
+          },
+          "rbfKernelSimilarity": {
+            "score": 0.9963,
+            "timeMs": 0.0026
+          },
+          "vectorSimilarityMeanStdPowerArithmeticMean": {
+            "score": 0.9766,
+            "timeMs": 0.019
+          },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9872,
-            "timeMs": 0.0046
+            "score": 0.9807,
+            "timeMs": 0.0195
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9892,
-            "timeMs": 0.0043
+            "score": 0.9849,
+            "timeMs": 0.021
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.99,
-            "timeMs": 0.004
+            "score": 0.9866,
+            "timeMs": 0.0214
           }
         }
       },
@@ -9789,40 +9789,40 @@ export const analysisResults = {
         "label": "circle [impulsive (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9906,
-            "timeMs": 0.0011
+            "score": 0.9877,
+            "timeMs": 0.0034
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9907,
-            "timeMs": 0.0017
+            "score": 0.9877,
+            "timeMs": 0.0064
           },
           "euclideanSimilarity": {
-            "score": 0.2643,
-            "timeMs": 0.0011
+            "score": 0.2358,
+            "timeMs": 0.003
           },
           "polynomialKernelSimilarity": {
-            "score": 0.963,
-            "timeMs": 0.0041
+            "score": 0.9514,
+            "timeMs": 0.0098
           },
           "rbfKernelSimilarity": {
-            "score": 0.9254,
-            "timeMs": 0.0011
+            "score": 0.9003,
+            "timeMs": 0.0031
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9383,
-            "timeMs": 0.0047
+            "score": 0.9326,
+            "timeMs": 0.0204
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9541,
-            "timeMs": 0.0047
+            "score": 0.949,
+            "timeMs": 0.019
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9591,
-            "timeMs": 0.0039
+            "score": 0.9544,
+            "timeMs": 0.0206
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9674,
-            "timeMs": 0.0038
+            "score": 0.9633,
+            "timeMs": 0.02
           }
         }
       },
@@ -9837,40 +9837,40 @@ export const analysisResults = {
         "label": "sphere [gaussian (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9925,
-            "timeMs": 0.0792
+            "score": 0.9917,
+            "timeMs": 0.0045
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9925,
-            "timeMs": 0.0027
+            "score": 0.9917,
+            "timeMs": 0.0072
           },
           "euclideanSimilarity": {
-            "score": 0.2879,
-            "timeMs": 0.0016
+            "score": 0.2788,
+            "timeMs": 0.0027
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9704,
-            "timeMs": 0.0082
+            "score": 0.9674,
+            "timeMs": 0.0129
           },
           "rbfKernelSimilarity": {
-            "score": 0.9407,
-            "timeMs": 0.0018
+            "score": 0.9353,
+            "timeMs": 0.0036
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.7487,
-            "timeMs": 0.0071
+            "score": 0.7233,
+            "timeMs": 0.0307
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8156,
-            "timeMs": 0.0067
+            "score": 0.7988,
+            "timeMs": 0.0275
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.83,
-            "timeMs": 0.008
+            "score": 0.8124,
+            "timeMs": 0.0353
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8655,
-            "timeMs": 0.0079
+            "score": 0.8545,
+            "timeMs": 0.0336
           }
         }
       },
@@ -9885,40 +9885,40 @@ export const analysisResults = {
         "label": "sphere [gaussian (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.8803,
-            "timeMs": 0.0027
+            "score": 0.8672,
+            "timeMs": 0.0046
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.8804,
-            "timeMs": 0.0025
+            "score": 0.8674,
+            "timeMs": 0.007
           },
           "euclideanSimilarity": {
-            "score": 0.0757,
-            "timeMs": 0.0016
+            "score": 0.0737,
+            "timeMs": 0.0027
           },
           "polynomialKernelSimilarity": {
-            "score": 0.5797,
-            "timeMs": 0.0093
+            "score": 0.5407,
+            "timeMs": 0.0129
           },
           "rbfKernelSimilarity": {
-            "score": 0.2251,
-            "timeMs": 0.002
+            "score": 0.2059,
+            "timeMs": 0.0033
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5014,
-            "timeMs": 0.0071
+            "score": 0.5015,
+            "timeMs": 0.0291
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5154,
-            "timeMs": 0.0068
+            "score": 0.5165,
+            "timeMs": 0.0298
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.6109,
-            "timeMs": 0.0078
+            "score": 0.6088,
+            "timeMs": 0.0743
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6758,
-            "timeMs": 0.0074
+            "score": 0.6753,
+            "timeMs": 0.0312
           }
         }
       },
@@ -9933,40 +9933,40 @@ export const analysisResults = {
         "label": "sphere [uniform (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9975,
-            "timeMs": 0.0024
+            "score": 0.9976,
+            "timeMs": 0.0042
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9975,
-            "timeMs": 0.0024
+            "score": 0.9976,
+            "timeMs": 0.0068
           },
           "euclideanSimilarity": {
-            "score": 0.4148,
-            "timeMs": 0.0017
+            "score": 0.417,
+            "timeMs": 0.0027
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9901,
-            "timeMs": 0.0084
+            "score": 0.9905,
+            "timeMs": 0.0123
           },
           "rbfKernelSimilarity": {
-            "score": 0.9803,
-            "timeMs": 0.0018
+            "score": 0.9806,
+            "timeMs": 0.0035
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8094,
-            "timeMs": 0.0069
+            "score": 0.8011,
+            "timeMs": 0.0243
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8598,
-            "timeMs": 0.0067
+            "score": 0.8549,
+            "timeMs": 0.0235
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8712,
-            "timeMs": 0.0082
+            "score": 0.8615,
+            "timeMs": 0.0336
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.8964,
-            "timeMs": 0.0081
+            "score": 0.8909,
+            "timeMs": 0.0349
           }
         }
       },
@@ -9981,40 +9981,40 @@ export const analysisResults = {
         "label": "sphere [uniform (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9479,
-            "timeMs": 0.0025
+            "score": 0.95,
+            "timeMs": 0.0043
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9479,
-            "timeMs": 0.0024
+            "score": 0.95,
+            "timeMs": 0.0066
           },
           "euclideanSimilarity": {
-            "score": 0.1232,
-            "timeMs": 0.0017
+            "score": 0.1259,
+            "timeMs": 0.0038
           },
           "polynomialKernelSimilarity": {
-            "score": 0.8033,
-            "timeMs": 0.0092
+            "score": 0.8109,
+            "timeMs": 0.0165
           },
           "rbfKernelSimilarity": {
-            "score": 0.6027,
-            "timeMs": 0.0018
+            "score": 0.6174,
+            "timeMs": 0.0031
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5402,
-            "timeMs": 0.0073
+            "score": 0.5459,
+            "timeMs": 0.0405
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.6102,
-            "timeMs": 0.0067
+            "score": 0.6181,
+            "timeMs": 0.0348
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.6616,
-            "timeMs": 0.008
+            "score": 0.6715,
+            "timeMs": 0.0448
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7277,
-            "timeMs": 0.0078
+            "score": 0.735,
+            "timeMs": 0.0372
           }
         }
       },
@@ -10029,40 +10029,40 @@ export const analysisResults = {
         "label": "sphere [impulsive (lvl=0.1)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0014
+            "score": 0.9992,
+            "timeMs": 0.0042
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.9993,
-            "timeMs": 0.0024
+            "score": 0.9992,
+            "timeMs": 0.0063
           },
           "euclideanSimilarity": {
-            "score": 0.5677,
-            "timeMs": 0.0014
+            "score": 0.5615,
+            "timeMs": 0.0029
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9971,
-            "timeMs": 0.0054
+            "score": 0.997,
+            "timeMs": 0.0118
           },
           "rbfKernelSimilarity": {
-            "score": 0.9942,
-            "timeMs": 0.0014
+            "score": 0.9939,
+            "timeMs": 0.0033
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9695,
-            "timeMs": 0.0068
+            "score": 0.9733,
+            "timeMs": 0.0282
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9753,
-            "timeMs": 0.0066
+            "score": 0.9779,
+            "timeMs": 0.0256
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9786,
-            "timeMs": 0.0075
+            "score": 0.9825,
+            "timeMs": 0.0295
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9816,
-            "timeMs": 0.0055
+            "score": 0.9845,
+            "timeMs": 0.0537
           }
         }
       },
@@ -10077,40 +10077,40 @@ export const analysisResults = {
         "label": "sphere [impulsive (lvl=0.5)]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.98,
-            "timeMs": 0.0014
+            "score": 0.9867,
+            "timeMs": 0.0041
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.98,
-            "timeMs": 0.0023
+            "score": 0.9867,
+            "timeMs": 0.0066
           },
           "euclideanSimilarity": {
-            "score": 0.1952,
-            "timeMs": 0.0014
+            "score": 0.2297,
+            "timeMs": 0.003
           },
           "polynomialKernelSimilarity": {
-            "score": 0.9218,
-            "timeMs": 0.0049
+            "score": 0.9477,
+            "timeMs": 0.012
           },
           "rbfKernelSimilarity": {
-            "score": 0.8437,
-            "timeMs": 0.0015
+            "score": 0.8936,
+            "timeMs": 0.0029
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.9007,
-            "timeMs": 0.0067
+            "score": 0.9452,
+            "timeMs": 0.03
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9292,
-            "timeMs": 0.0065
+            "score": 0.9584,
+            "timeMs": 0.0185
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9379,
-            "timeMs": 0.006
+            "score": 0.9637,
+            "timeMs": 0.017
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9518,
-            "timeMs": 0.0057
+            "score": 0.9705,
+            "timeMs": 0.0243
           }
         }
       },
@@ -10129,40 +10129,40 @@ export const analysisResults = {
         "label": "sin [gaussian (lvl=0.05) + peak]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.8368,
-            "timeMs": 0.0019
+            "score": 0.8668,
+            "timeMs": 0.0024
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.8388,
-            "timeMs": 0.0013
+            "score": 0.8686,
+            "timeMs": 0.0041
           },
           "euclideanSimilarity": {
-            "score": 0.09,
-            "timeMs": 0.001
+            "score": 0.0906,
+            "timeMs": 0.002
           },
           "polynomialKernelSimilarity": {
-            "score": 0.4567,
-            "timeMs": 0.006
+            "score": 0.5404,
+            "timeMs": 0.011
           },
           "rbfKernelSimilarity": {
-            "score": 0.3597,
-            "timeMs": 0.0011
+            "score": 0.3648,
+            "timeMs": 0.0025
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8815,
-            "timeMs": 0.0028
+            "score": 0.9012,
+            "timeMs": 0.0114
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9118,
-            "timeMs": 0.0026
+            "score": 0.9237,
+            "timeMs": 0.01
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9172,
-            "timeMs": 0.0031
+            "score": 0.9331,
+            "timeMs": 0.0114
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9328,
-            "timeMs": 0.0029
+            "score": 0.9429,
+            "timeMs": 0.0112
           }
         }
       },
@@ -10181,40 +10181,40 @@ export const analysisResults = {
         "label": "sin [gaussian (lvl=0.05) + discontinuity]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.6799,
-            "timeMs": 0.0008
+            "score": 0.6796,
+            "timeMs": 0.0021
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.7428,
-            "timeMs": 0.0011
+            "score": 0.7425,
+            "timeMs": 0.003
           },
           "euclideanSimilarity": {
             "score": 0.0196,
-            "timeMs": 0.0007
+            "timeMs": 0.0017
           },
           "polynomialKernelSimilarity": {
-            "score": 0.1295,
-            "timeMs": 0.0033
+            "score": 0.129,
+            "timeMs": 0.0073
           },
           "rbfKernelSimilarity": {
             "score": 0,
-            "timeMs": 0.0009
+            "timeMs": 0.0019
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.5019,
-            "timeMs": 0.0026
+            "score": 0.5017,
+            "timeMs": 0.0101
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.5243,
-            "timeMs": 0.0025
+            "score": 0.5232,
+            "timeMs": 0.009
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.6569,
-            "timeMs": 0.0026
+            "score": 0.6521,
+            "timeMs": 0.013
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7264,
-            "timeMs": 0.0023
+            "score": 0.7232,
+            "timeMs": 0.0106
           }
         }
       },
@@ -10233,40 +10233,40 @@ export const analysisResults = {
         "label": "sin [gaussian (lvl=0.05) + high_freq_oscillation]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.5865,
-            "timeMs": 0.0009
+            "score": 0.585,
+            "timeMs": 0.003
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.5865,
-            "timeMs": 0.0011
+            "score": 0.585,
+            "timeMs": 0.0033
           },
           "euclideanSimilarity": {
             "score": 0.0196,
-            "timeMs": 0.0008
+            "timeMs": 0.0019
           },
           "polynomialKernelSimilarity": {
-            "score": 0.0303,
-            "timeMs": 0.0032
+            "score": 0.0293,
+            "timeMs": 0.0115
           },
           "rbfKernelSimilarity": {
             "score": 0,
-            "timeMs": 0.0008
+            "timeMs": 0.0019
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.1305,
-            "timeMs": 0.0026
+            "score": 0.1312,
+            "timeMs": 0.004
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.1795,
-            "timeMs": 0.0025
+            "score": 0.1801,
+            "timeMs": 0.0032
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.4905,
-            "timeMs": 0.0023
+            "score": 0.4934,
+            "timeMs": 0.0105
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.4974,
-            "timeMs": 0.002
+            "score": 0.4984,
+            "timeMs": 0.011
           }
         }
       },
@@ -10285,40 +10285,40 @@ export const analysisResults = {
         "label": "circle [gaussian (lvl=0.05) + peak]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.8534,
-            "timeMs": 0.0014
+            "score": 0.8364,
+            "timeMs": 0.0029
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.8551,
-            "timeMs": 0.0016
+            "score": 0.8376,
+            "timeMs": 0.0045
           },
           "euclideanSimilarity": {
-            "score": 0.0656,
-            "timeMs": 0.0011
+            "score": 0.0594,
+            "timeMs": 0.0022
           },
           "polynomialKernelSimilarity": {
-            "score": 0.5008,
-            "timeMs": 0.005
+            "score": 0.4537,
+            "timeMs": 0.0086
           },
           "rbfKernelSimilarity": {
-            "score": 0.1317,
-            "timeMs": 0.0012
+            "score": 0.0813,
+            "timeMs": 0.0019
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8804,
-            "timeMs": 0.0505
+            "score": 0.8809,
+            "timeMs": 0.0051
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.9103,
-            "timeMs": 0.0052
+            "score": 0.9113,
+            "timeMs": 0.008
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.9152,
-            "timeMs": 0.006
+            "score": 0.9189,
+            "timeMs": 0.0219
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.9311,
-            "timeMs": 0.0055
+            "score": 0.9337,
+            "timeMs": 0.0208
           }
         }
       },
@@ -10337,40 +10337,40 @@ export const analysisResults = {
         "label": "circle [gaussian (lvl=0.05) + discontinuity]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.4403,
-            "timeMs": 0.0012
+            "score": 0.4402,
+            "timeMs": 0.0026
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.4094,
-            "timeMs": 0.0017
+            "score": 0.4088,
+            "timeMs": 0.003
           },
           "euclideanSimilarity": {
-            "score": 0.0139,
-            "timeMs": 0.0013
+            "score": 0.014,
+            "timeMs": 0.0015
           },
           "polynomialKernelSimilarity": {
-            "score": 0.0139,
-            "timeMs": 0.006
+            "score": 0.014,
+            "timeMs": 0.0083
           },
           "rbfKernelSimilarity": {
             "score": 0,
-            "timeMs": 0.0014
+            "timeMs": 0.0015
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.4075,
-            "timeMs": 0.0048
+            "score": 0.4236,
+            "timeMs": 0.0035
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4802,
-            "timeMs": 0.0045
+            "score": 0.4863,
+            "timeMs": 0.0033
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.6178,
-            "timeMs": 0.0044
+            "score": 0.6219,
+            "timeMs": 0.0125
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.6931,
-            "timeMs": 0.0045
+            "score": 0.6972,
+            "timeMs": 0.0118
           }
         }
       },
@@ -10389,40 +10389,40 @@ export const analysisResults = {
         "label": "circle [gaussian (lvl=0.05) + high_freq_oscillation]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.5956,
-            "timeMs": 0.0016
+            "score": 0.5955,
+            "timeMs": 0.0017
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.5956,
-            "timeMs": 0.0018
+            "score": 0.5955,
+            "timeMs": 0.006
           },
           "euclideanSimilarity": {
-            "score": 0.014,
+            "score": 0.0139,
             "timeMs": 0.0012
           },
           "polynomialKernelSimilarity": {
-            "score": 0.0367,
-            "timeMs": 0.0066
+            "score": 0.0366,
+            "timeMs": 0.0047
           },
           "rbfKernelSimilarity": {
             "score": 0,
-            "timeMs": 0.0015
+            "timeMs": 0.0013
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.1333,
-            "timeMs": 0.0051
+            "score": 0.1338,
+            "timeMs": 0.0034
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.1833,
-            "timeMs": 0.0048
+            "score": 0.1837,
+            "timeMs": 0.0033
           },
           "vectorSimilarityCorrelation": {
             "score": 0.4895,
-            "timeMs": 0.0041
+            "timeMs": 0.0163
           },
           "vectorSimilarityCorrelationNoStd": {
             "score": 0.4971,
-            "timeMs": 0.0035
+            "timeMs": 0.0113
           }
         }
       },
@@ -10441,40 +10441,40 @@ export const analysisResults = {
         "label": "sphere [gaussian (lvl=0.05) + peak]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.8235,
-            "timeMs": 0.0014
+            "score": 0.824,
+            "timeMs": 0.0056
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.825,
-            "timeMs": 0.0023
+            "score": 0.8257,
+            "timeMs": 0.0728
           },
           "euclideanSimilarity": {
-            "score": 0.0506,
-            "timeMs": 0.0014
+            "score": 0.0545,
+            "timeMs": 0.0029
           },
           "polynomialKernelSimilarity": {
-            "score": 0.4196,
-            "timeMs": 0.0051
+            "score": 0.421,
+            "timeMs": 0.0102
           },
           "rbfKernelSimilarity": {
-            "score": 0.0296,
-            "timeMs": 0.0015
+            "score": 0.0493,
+            "timeMs": 0.0024
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.8073,
-            "timeMs": 0.0067
+            "score": 0.8062,
+            "timeMs": 0.0071
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.8604,
-            "timeMs": 0.0067
+            "score": 0.8609,
+            "timeMs": 0.0072
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.8732,
-            "timeMs": 0.0095
+            "score": 0.8713,
+            "timeMs": 0.0092
           },
           "vectorSimilarityCorrelationNoStd": {
             "score": 0.8993,
-            "timeMs": 0.0079
+            "timeMs": 0.0089
           }
         }
       },
@@ -10493,40 +10493,40 @@ export const analysisResults = {
         "label": "sphere [gaussian (lvl=0.05) + discontinuity]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.5828,
-            "timeMs": 0.0014
+            "score": 0.5829,
+            "timeMs": 0.0042
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.6142,
-            "timeMs": 0.0023
+            "score": 0.6143,
+            "timeMs": 0.0066
           },
           "euclideanSimilarity": {
             "score": 0.0114,
-            "timeMs": 0.0014
+            "timeMs": 0.0028
           },
           "polynomialKernelSimilarity": {
-            "score": 0.0275,
-            "timeMs": 0.0051
+            "score": 0.0276,
+            "timeMs": 0.011
           },
           "rbfKernelSimilarity": {
             "score": 0,
-            "timeMs": 0.0014
+            "timeMs": 0.003
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.4005,
-            "timeMs": 0.0068
+            "score": 0.4168,
+            "timeMs": 0.0073
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.4759,
-            "timeMs": 0.0067
+            "score": 0.4827,
+            "timeMs": 0.0064
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.6312,
-            "timeMs": 0.0063
+            "score": 0.6335,
+            "timeMs": 0.0058
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.7015,
-            "timeMs": 0.0065
+            "score": 0.7039,
+            "timeMs": 0.0056
           }
         }
       },
@@ -10545,40 +10545,40 @@ export const analysisResults = {
         "label": "sphere [gaussian (lvl=0.05) + high_freq_oscillation]",
         "metrics": {
           "normalizedCosineSimilarity": {
-            "score": 0.5791,
-            "timeMs": 0.0013
+            "score": 0.5799,
+            "timeMs": 0.0023
           },
           "pearsonCorrelationSimilarity": {
-            "score": 0.5792,
-            "timeMs": 0.0022
+            "score": 0.5799,
+            "timeMs": 0.0068
           },
           "euclideanSimilarity": {
             "score": 0.0114,
-            "timeMs": 0.0013
+            "timeMs": 0.0017
           },
           "polynomialKernelSimilarity": {
-            "score": 0.0252,
-            "timeMs": 0.0048
+            "score": 0.0257,
+            "timeMs": 0.0066
           },
           "rbfKernelSimilarity": {
             "score": 0,
-            "timeMs": 0.0014
+            "timeMs": 0.0019
           },
           "vectorSimilarityMeanStdPowerArithmeticMean": {
-            "score": 0.1108,
-            "timeMs": 0.0079
+            "score": 0.1115,
+            "timeMs": 0.0048
           },
           "vectorSimilarityMeanStdPowerArithmeticMeanNoStd": {
-            "score": 0.1517,
-            "timeMs": 0.0066
+            "score": 0.1525,
+            "timeMs": 0.0061
           },
           "vectorSimilarityCorrelation": {
-            "score": 0.5001,
-            "timeMs": 0.0052
+            "score": 0.5004,
+            "timeMs": 0.0048
           },
           "vectorSimilarityCorrelationNoStd": {
-            "score": 0.5009,
-            "timeMs": 0.005
+            "score": 0.5019,
+            "timeMs": 0.0048
           }
         }
       }

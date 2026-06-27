@@ -4,24 +4,24 @@
  * All functions take two vectors (arrays) and return a similarity score in [0, 1]
  */
 
+import { validateVectors } from './internal/validateVectors';
+
 /**
  * Standard Jaccard Similarity for binary/categorical data
  * Measures the similarity between two binary sets
  * Range: [0, 1] (1 means identical)
  * Treats non-zero values as presence (1), zero as absence (0)
  *
- * @param {number[]} a - First binary vector
- * @param {number[]} b - Second binary vector
- * @returns {number} Jaccard similarity score
- * @throws {Error} If inputs are not arrays or have mismatched lengths
+ * @param a - First binary vector
+ * @param b - Second binary vector
+ * @returns Jaccard similarity score in [0, 1]
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function jaccardSimilarityBinary(a: number[], b: number[]): number {
-  if (!Array.isArray(a) || !Array.isArray(b)) {
-    throw new Error('Inputs must be arrays');
-  }
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b, { allowEmpty: true });
   if (a.length === 0) {
     return 1; // Empty sets are identical
   }
@@ -46,18 +46,16 @@ export function jaccardSimilarityBinary(a: number[], b: number[]): number {
  * Range: [0, 1] (1 means identical)
  * Uses the actual numeric values as weights
  *
- * @param {number[]} a - First weighted vector
- * @param {number[]} b - Second weighted vector
- * @returns {number} Weighted Jaccard similarity score
- * @throws {Error} If inputs are not arrays or have mismatched lengths
+ * @param a - First weighted vector
+ * @param b - Second weighted vector
+ * @returns Weighted Jaccard similarity score in [0, 1]
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 export function jaccardSimilarityWeighted(a: number[], b: number[]): number {
-  if (!Array.isArray(a) || !Array.isArray(b)) {
-    throw new Error('Inputs must be arrays');
-  }
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b, { allowEmpty: true });
   if (a.length === 0) {
     return 1; // Empty sets are identical
   }
@@ -83,13 +81,13 @@ export function jaccardSimilarityWeighted(a: number[], b: number[]): number {
  * Range: [0, 1] (1 means identical)
  * Uses the absolute values of the real values to handle negative inputs robustly.
  *
- * @param {number[]} a - First real-valued vector
- * @param {number[]} b - Second real-valued vector
- * @returns {number} Real-valued Jaccard similarity score
- * @throws {Error} If inputs are not arrays or have mismatched lengths
+ * This is an alias of {@link jaccardSimilarityWeighted}; the weighted variant
+ * is the mathematically equivalent form for real-valued (magnitude-based) inputs.
+ *
+ * @param a - First real-valued vector
+ * @param b - Second real-valued vector
+ * @returns Real-valued Jaccard similarity score in [0, 1]
+ * @throws {TypeError} If `a` or `b` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `a` and `b` differ in length.
  */
-export function jaccardSimilarityRealValued(a: number[], b: number[]): number {
-  // For robustness against negative values, we treat this as a weighted Jaccard
-  // using absolute magnitudes. This ensures the result is always in [0, 1].
-  return jaccardSimilarityWeighted(a, b);
-}
+export const jaccardSimilarityRealValued = jaccardSimilarityWeighted;

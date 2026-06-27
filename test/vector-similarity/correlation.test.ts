@@ -33,7 +33,7 @@ describe('vectorSimilarityCorrelation', () => {
     const a = [1, 2];
     const b = [1, 2, 3];
     expect(() => vectorSimilarityCorrelation(a, b)).toThrow(
-      'Vectors must be of the same length',
+      'Invalid input: A and B must be arrays of the same length',
     );
   });
 

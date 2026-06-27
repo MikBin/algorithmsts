@@ -1,4 +1,17 @@
 
+import { validateVectors } from './internal/validateVectors';
+
+/**
+ * Chi-square distance family module.
+ *
+ * Shared contract for every function in this module:
+ * - Time complexity: O(n). Space complexity: O(1).
+ * - Inputs use absolute values for robustness against negatives.
+ * - @throws {TypeError} if either argument is not an array or contains a non-finite element.
+ * - @throws {RangeError} if the vectors differ in length or are empty.
+ * - Returns `Infinity` when a required denominator is zero and the numerator is not.
+ */
+
 /**
  * Calculates the Pearson Chi-Square distance between two vectors.
  * Robust to negative inputs (uses absolute values).
@@ -8,9 +21,7 @@
  * @returns The Pearson Chi-Square distance.
  */
 export function pearsonChiSquareDistance(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error("Vectors must have the same length.");
-  }
+  validateVectors(P, Q);
 
   let sum = 0;
   for (let i = 0; i < P.length; i++) {
@@ -35,9 +46,7 @@ export function pearsonChiSquareDistance(P: number[], Q: number[]): number {
  * @returns The Neyman Chi-Square distance.
  */
 export function neymanChiSquareDistance(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error("Vectors must have the same length.");
-  }
+  validateVectors(P, Q);
 
   let sum = 0;
   for (let i = 0; i < P.length; i++) {
@@ -62,9 +71,7 @@ export function neymanChiSquareDistance(P: number[], Q: number[]): number {
  * @returns The Additive Symmetric Chi-Square distance.
  */
 export function additiveSymmetricChiSquareDistance(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error("Vectors must have the same length.");
-  }
+  validateVectors(P, Q);
 
   let sum = 0;
   for (let i = 0; i < P.length; i++) {
@@ -91,9 +98,7 @@ export function additiveSymmetricChiSquareDistance(P: number[], Q: number[]): nu
  * @returns The Squared Chi-Square distance.
  */
 export function squaredChiSquareDistance(P: number[], Q: number[]): number {
-  if (P.length !== Q.length) {
-    throw new Error('Vectors must have the same length.');
-  }
+  validateVectors(P, Q);
 
   let sum = 0;
   for (let i = 0; i < P.length; i++) {

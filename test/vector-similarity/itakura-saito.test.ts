@@ -52,6 +52,6 @@ describe('Itakura-Saito Distance', () => {
   });
 
   it('should throw error for unequal lengths', () => {
-    expect(() => itakuraSaitoDistance([1], [1, 2])).toThrow('Vectors must have the same length.');
+    expect(() => itakuraSaitoDistance([1], [1, 2])).toThrow('Invalid input: A and B must be arrays of the same length');
   });
 });

@@ -1,10 +1,17 @@
 /**
- * Intersection similarity measures module
+ * Intersection similarity measures module.
  * Provides implementations for intersection-based similarity and distance metrics.
  * All functions take two vectors (arrays) and return a similarity or distance score.
+ *
+ * Shared contract for every function in this module:
+ * - Time complexity: O(n). Space complexity: O(1).
+ * - @throws {TypeError} if either argument is not an array or contains a non-finite element.
+ * - @throws {RangeError} if the vectors differ in length or are empty.
+ *   (Functions that delegate to another in this module inherit its validation.)
  */
 
 import { distanceToSimilarity } from './classic';
+import { validateVectors } from './internal/validateVectors';
 
 /**
  * Intersection Similarity
@@ -13,9 +20,7 @@ import { distanceToSimilarity } from './classic';
  * Range: [0, 1]
  */
 export const intersectionSimilarity = (a: number[], b: number[]): number => {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
   let sumMin = 0;
   let sumA = 0;
   let sumB = 0;
@@ -41,9 +46,7 @@ export const intersectionSimilarity = (a: number[], b: number[]): number => {
  * Range: [0, ∞)
  */
 export const waveHedgesDistance = (a: number[], b: number[]): number => {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
   return a.reduce((acc, val, i) => {
     // Use absolute values for max to handle negative inputs
     const max = Math.max(Math.abs(val), Math.abs(b[i]));
@@ -60,9 +63,7 @@ export const waveHedgesDistance = (a: number[], b: number[]): number => {
  * Range: [0, 1]
  */
 export const sorensenDistance = (a: number[], b: number[]): number => {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
   // Use absolute values for sums
   const sumA = a.reduce((acc, val) => acc + Math.abs(val), 0);
   const sumB = b.reduce((acc, val) => acc + Math.abs(val), 0);
@@ -80,9 +81,7 @@ export const sorensenDistance = (a: number[], b: number[]): number => {
  * Range: [0, 1]
  */
 export const motykaSimilarity = (a: number[], b: number[]): number => {
-  if (a.length !== b.length) {
-    throw new Error('Vectors must have the same length');
-  }
+  validateVectors(a, b);
   // Use absolute values
   const sumMin = a.reduce((acc, val, i) => acc + Math.min(Math.abs(val), Math.abs(b[i])), 0);
   const sumMax = a.reduce((acc, val, i) => acc + Math.max(Math.abs(val), Math.abs(b[i])), 0);

@@ -3,50 +3,17 @@
  * using the mean/std-based exponent formulation with an Arithmetic Mean denominator.
  *
  * Denominator = 0.5 * (|a| + |b|)
+ *
+ * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `A` and `B` differ in length or are empty.
+ *
+ * Time complexity: O(n). Space complexity: O(n) (the auxiliary C vector).
  */
+
+import { validateVectors } from './internal/validateVectors';
+
 function vectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[], stdWeight: number = 1): number {
-  if (!Array.isArray(A)) {
-    throw new TypeError("Invalid input: A must be an array.");
-  }
-  if (!Array.isArray(B)) {
-    throw new TypeError("Invalid input: B must be an array.");
-  }
-
-  const lengthA = A.length;
-  const lengthB = B.length;
-
-  if (lengthA === 0 || lengthB === 0) {
-    throw new Error("Invalid input: A and B must be non-empty arrays.");
-  }
-
-  if (lengthA !== lengthB) {
-    throw new Error(
-      "Invalid input: A and B must be arrays of the same length."
-    );
-  }
-
-  const n = lengthA;
-
-  for (let i = 0; i < n; i++) {
-    const a = A[i];
-    const b = B[i];
-
-    if (!Number.isFinite(a)) {
-      throw new Error(
-        `Invalid element in A at index ${i}: expected a finite number, received ${String(
-          a
-        )}.`
-      );
-    }
-
-    if (!Number.isFinite(b)) {
-      throw new Error(
-        `Invalid element in B at index ${i}: expected a finite number, received ${String(
-          b
-        )}.`
-      );
-    }
-  }
+  const n = validateVectors(A, B);
 
   const C: number[] = new Array(n);
   for (let i = 0; i < n; i++) {
@@ -61,7 +28,7 @@ function vectorSimilarityMeanStdPowerArithmeticMean(A: number[], B: number[], st
       const absB = Math.abs(b);
       const diff = Math.abs(a - b);
       const denominator = 0.5 * (absA + absB);
-      const ratio = denominator === 0 ? 0 : diff / denominator;
+      const ratio = diff / denominator;
       ci = 1 - ratio; //[-1,1]
     }
 

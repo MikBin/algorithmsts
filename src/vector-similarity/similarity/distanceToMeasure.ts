@@ -16,42 +16,31 @@ import { KDTree } from '../../data-structures';
  * @throws Error if inputs are invalid (mismatched dimensions, invalid k, empty data)
  */
 export function distanceToMeasure(point: number[], dataset: number[][], k: number): number {
-  if (!point || point.length === 0) {
-    throw new Error('Point cannot be empty');
+  if (!Array.isArray(point) || point.length === 0) {
+    throw new RangeError('Point cannot be empty');
   }
-  if (!dataset || dataset.length === 0) {
-    throw new Error('Dataset cannot be empty');
+  if (!Array.isArray(dataset) || dataset.length === 0) {
+    throw new RangeError('Dataset cannot be empty');
   }
-  if (k <= 0) {
-    throw new Error('k must be positive');
+  if (!Number.isFinite(k) || k <= 0) {
+    throw new RangeError('k must be positive');
   }
   if (k > dataset.length) {
-    throw new Error(`k (${k}) cannot be larger than dataset size (${dataset.length})`);
+    throw new RangeError(`k (${k}) cannot be larger than dataset size (${dataset.length})`);
   }
 
   const dimensions = point.length;
-  // Initialize KDTree
-  // Note: For a single query, this is inefficient (O(N log N) build).
-  // However, this signature allows DTM calculation without managing a persistent tree.
   const tree = new KDTree(dimensions);
 
   for (let i = 0; i < dataset.length; i++) {
     const p = dataset[i];
-    if (p.length !== dimensions) {
-      throw new Error(`Dataset point at index ${i} has dimension ${p.length}, expected ${dimensions}`);
+    if (!Array.isArray(p) || p.length !== dimensions) {
+      throw new RangeError(`Dataset point at index ${i} has dimension ${Array.isArray(p) ? p.length : 'N/A'}, expected ${dimensions}`);
     }
     tree.insert(p);
   }
 
-  // Get k nearest neighbors
-  // KDTree.kNearest returns { point: Point, dist: number }[]
-  // where dist is the Euclidean distance
   const nearest = tree.kNearest(point, k);
-
-  if (nearest.length !== k) {
-    // This strictly shouldn't happen if k <= dataset.length and tree works correctly
-    throw new Error(`KDTree returned fewer neighbors (${nearest.length}) than requested (${k})`);
-  }
 
   let sumSqDist = 0;
   for (const neighbor of nearest) {

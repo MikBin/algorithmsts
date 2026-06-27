@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   cosineSimilarity,
   normalizedCosineSimilarity,
@@ -6,111 +6,108 @@ import {
   euclideanDistance,
   pearsonCorrelation,
   pearsonCorrelationSimilarity,
-  canberraSimilarity,
   chebyshevSimilarity,
-  gowerSimilarity,
   kulczynskiSimilarity,
   lorentzianSimilarity,
   soergelSimilarity,
+  euclideanSimilarity,
+  manhattanSimilarity,
+  diceCoefficient,
+  angularSimilarity,
 } from '../../src/vector-similarity/similarity/classic';
-import { 
+import {
   jaccardSimilarityBinary,
   jaccardSimilarityWeighted,
   jaccardSimilarityRealValued,
- } from '../../src/vector-similarity/similarity/jaccard';
-import { weightedMinkowskiSimilarity } from '../../src/vector-similarity/similarity/heuristics';
+} from '../../src/vector-similarity/similarity/jaccard';
+import { weightedMinkowskiSimilarity, canberraSimilarity } from '../../src/vector-similarity/similarity/heuristics';
 
-describe('Similarity Functions Return Value Range', () => {
-  const testVectors = {
-    identical: [
-      [1, 2, 3],
-      [1, 2, 3],
-    ],
-    different: [
-      [1, 2, 3],
-      [4, 5, 6],
-    ],
-    random1: [
-      [0.1, 0.5, 0.9],
-      [0.2, 0.6, 0.8],
-    ],
-    random2: [
-      [0.8, 0.2, 0.4],
-      [0.3, 0.7, 0.5],
-    ],
-    zeroVector: [
-      [0, 0, 0],
-      [1, 2, 3],
-    ],
-    allZeros: [
-      [0, 0, 0],
-      [0, 0, 0],
-    ],
-    opposite: [
-      [1, -2, 3],
-      [-1, 2, -3],
-    ],
-  };
+// Each function is mapped to the contract for its documented output range.
+// - 'unit'    -> [0, 1] similarity score
+// - 'signed'  -> [-1, 1] correlation coefficient
+// - 'nonneg'  -> [0, Infinity) raw distance
+// - 'exact'   -> a specific computed value (dotProduct), asserted separately
+type Range = 'unit' | 'signed' | 'nonneg';
 
-  const similarityFunctions: { [key: string]: (a: number[], b: number[], c?: any) => number } = {
-    cosineSimilarity,
-    normalizedCosineSimilarity,
-    dotProduct,
-    euclideanDistance,
-    pearsonCorrelation,
-    pearsonCorrelationSimilarity,
-    canberraSimilarity,
-    chebyshevSimilarity,
-    gowerSimilarity,
-    kulczynskiSimilarity,
-    lorentzianSimilarity,
-    soergelSimilarity,
-    jaccardSimilarityBinary,
-    jaccardSimilarityWeighted,
-    jaccardSimilarityRealValued,
-    weightedMinkowskiSimilarity,
-  };
+const rangeZeroOne: Array<[string, (a: number[], b: number[]) => number]> = [
+  ['normalizedCosineSimilarity', normalizedCosineSimilarity],
+  ['pearsonCorrelationSimilarity', pearsonCorrelationSimilarity],
+  ['euclideanSimilarity', euclideanSimilarity],
+  ['manhattanSimilarity', manhattanSimilarity],
+  ['chebyshevSimilarity', chebyshevSimilarity],
+  ['kulczynskiSimilarity', kulczynskiSimilarity],
+  ['lorentzianSimilarity', lorentzianSimilarity],
+  ['soergelSimilarity', soergelSimilarity],
+  ['diceCoefficient', diceCoefficient],
+  ['angularSimilarity', angularSimilarity],
+  ['canberraSimilarity', canberraSimilarity],
+  ['weightedMinkowskiSimilarity', weightedMinkowskiSimilarity],
+  ['jaccardSimilarityBinary', jaccardSimilarityBinary],
+  ['jaccardSimilarityWeighted', jaccardSimilarityWeighted],
+  ['jaccardSimilarityRealValued', jaccardSimilarityRealValued],
+];
 
-  for (const funcName in similarityFunctions) {
-    if (Object.prototype.hasOwnProperty.call(similarityFunctions, funcName)) {
-      const func = similarityFunctions[funcName as keyof typeof similarityFunctions];
-      test(`${funcName} should return a value between 0 and 1`, () => {
-        for (const key in testVectors) {
-          if (Object.prototype.hasOwnProperty.call(testVectors, key)) {
-            const [vecA, vecB] = testVectors[key as keyof typeof testVectors];
-            try {
-              let similarity;
-              if (funcName === 'gowerSimilarity') {
-                const ranges = Array(vecA.length).fill(1);
-                similarity = func(vecA, vecB, ranges);
-              } else {
-                similarity = func(vecA, vecB);
-              }
+const rangeSigned: Array<[string, (a: number[], b: number[]) => number]> = [
+  ['cosineSimilarity', cosineSimilarity],
+  ['pearsonCorrelation', pearsonCorrelation],
+];
 
-              if (
-                funcName !== 'dotProduct' &&
-                funcName !== 'euclideanDistance' &&
-                funcName !== 'pearsonCorrelation' &&
-                funcName !== 'cosineSimilarity'
-              ) {
-                // If the result is a valid number, check the range.
-                // NaN is accepted for undefined cases (like zero vectors).
-                if (!isNaN(similarity)) {
-                  expect(similarity).toBeGreaterThanOrEqual(0);
-                  expect(similarity).toBeLessThanOrEqual(1);
-                }
-              } else {
-                console.log(
-                  `${funcName} with ${key} vectors returned ${similarity}. Not strictly [0,1].`
-                );
-              }
-            } catch (e: any) {
-              console.error(`Error testing ${funcName} with ${key}:`, e.message);
-              throw e; // Fail the test if an exception occurs
-            }
-          }
-        }
-      });
-    }
+const rangeNonNeg: Array<[string, (a: number[], b: number[]) => number]> = [
+  ['euclideanDistance', euclideanDistance],
+];
+
+const fixtures: Array<[string, number[], number[]]> = [
+  ['identical', [1, 2, 3], [1, 2, 3]],
+  ['different', [1, 2, 3], [4, 5, 6]],
+  ['orthogonal', [1, 0], [0, 1]],
+  ['opposite', [1, 2, 3], [-1, -2, -3]],
+  ['zero-vs-nonzero', [0, 0, 0], [1, 2, 3]],
+  ['all-zeros', [0, 0, 0], [0, 0, 0]],
+];
+
+function checkRange(value: number, range: Range) {
+  expect(Number.isFinite(value)).toBe(true);
+  if (range === 'unit') {
+    expect(value).toBeGreaterThanOrEqual(0);
+    expect(value).toBeLessThanOrEqual(1);
+  } else if (range === 'signed') {
+    expect(value).toBeGreaterThanOrEqual(-1);
+    expect(value).toBeLessThanOrEqual(1);
+  } else {
+    expect(value).toBeGreaterThanOrEqual(0);
   }
+}
+
+describe('Documented output ranges per function', () => {
+  describe.each(rangeZeroOne)('%s in [0, 1]', (_name, fn) => {
+    it.each(fixtures)('respects the range for %s vectors', (_label, a, b) => {
+      checkRange(fn(a, b), 'unit');
+    });
+  });
+
+  describe.each(rangeSigned)('%s in [-1, 1]', (_name, fn) => {
+    it.each(fixtures)('respects the range for %s vectors', (_label, a, b) => {
+      // cosine/pearson are undefined for the all-zeros fixture; allow 0 there.
+      const value = fn(a, b);
+      if (Number.isFinite(value)) checkRange(value, 'signed');
+    });
+  });
+
+  describe.each(rangeNonNeg)('%s in [0, Infinity)', (_name, fn) => {
+    it.each(fixtures)('respects the range for %s vectors', (_label, a, b) => {
+      checkRange(fn(a, b), 'nonneg');
+    });
+  });
+
+  describe('dotProduct (exact, unbounded)', () => {
+    it('matches the hand-computed value', () => {
+      expect(dotProduct([1, 2, 3], [4, 5, 6])).toBe(32);
+    });
+    it('is 0 for orthogonal vectors', () => {
+      expect(dotProduct([1, 0], [0, 1])).toBe(0);
+    });
+    it('is negative for opposite vectors', () => {
+      expect(dotProduct([1, 2, 3], [-1, -2, -3])).toBe(-14);
+    });
+  });
 });

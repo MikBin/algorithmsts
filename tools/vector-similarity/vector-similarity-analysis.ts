@@ -6,23 +6,23 @@ import { fileURLToPath } from 'url';
 
 import {
   computeVectorSimilarityMeanStdPenalized,
-} from './similarity/vectorSimilarityMeanStdPenalized';
-import { vectorSimilarityCorrelation, vectorSimilarityCorrelationNoStd } from './similarity/vectorSimilarityCorrelation';
-import { pearsonCorrelationSimilarity, normalizedCosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity } from './similarity/classic';
-import { weightedMinkowskiSimilarity, canberraSimilarity, chebyshevSimilarity } from './similarity/heuristics';
-import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from './similarity/jaccard';
-import { computeVectorSimilarityRobust } from './similarity/vectorSimilarityRobust';
-import { vectorSimilarityMeanStdPowerArithmeticMean, vectorSimilarityMeanStdPowerArithmeticMeanNoStd } from './similarity/vectorSimilarityMeanStdPowerArithmeticMean';
-import { computeVectorSimilarityMetricLike } from './similarity/vectorSimilarityMetricLike';
-import { computeVectorSimilarityTunable } from './similarity/vectorSimilarityTunable';
-import { computeVectorSimilarityVarianceWeighted } from './similarity/vectorSimilarityVarianceWeighted';
-import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from './similarity/intersection';
-import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from './similarity/entropy';
-import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from './similarity/normalized-chi-square';
-import { fidelitySimilarity, hellingerSimilarity } from './similarity/fidelity';
-import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from './similarity/normalized-fidelity';
-import { polynomialKernelSimilarity, rbfKernelSimilarity } from './similarity/nonLinear';
-import { itakuraSaitoDistance, vectorSimilarityItakuraSaito } from './similarity/itakura-saito';
+} from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPenalized';
+import { vectorSimilarityCorrelation, vectorSimilarityCorrelationNoStd } from '../../src/vector-similarity/similarity/vectorSimilarityCorrelation';
+import { pearsonCorrelationSimilarity, normalizedCosineSimilarity, euclideanSimilarity, manhattanSimilarity, gowerSimilarity, soergelSimilarity, kulczynskiSimilarity, lorentzianSimilarity, chebyshevSimilarity } from '../../src/vector-similarity/similarity/classic';
+import { weightedMinkowskiSimilarity, canberraSimilarity } from '../../src/vector-similarity/similarity/heuristics';
+import { jaccardSimilarityBinary, jaccardSimilarityWeighted, jaccardSimilarityRealValued } from '../../src/vector-similarity/similarity/jaccard';
+import { computeVectorSimilarityRobust } from '../../src/vector-similarity/similarity/vectorSimilarityRobust';
+import { vectorSimilarityMeanStdPowerArithmeticMean, vectorSimilarityMeanStdPowerArithmeticMeanNoStd } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPowerArithmeticMean';
+import { computeVectorSimilarityMetricLike } from '../../src/vector-similarity/similarity/vectorSimilarityMetricLike';
+import { computeVectorSimilarityTunable } from '../../src/vector-similarity/similarity/vectorSimilarityTunable';
+import { computeVectorSimilarityVarianceWeighted } from '../../src/vector-similarity/similarity/vectorSimilarityVarianceWeighted';
+import { intersectionSimilarity, waveHedgesSimilarity, sorensenSimilarity, motykaSimilarity } from '../../src/vector-similarity/similarity/intersection';
+import { kullbackLeiblerSimilarity, jeffreysSimilarity, kSimilarity, topsoeSimilarity } from '../../src/vector-similarity/similarity/entropy';
+import { normalizedPearsonChiSquareSimilarity, normalizedNeymanChiSquareSimilarity, normalizedAdditiveSymmetricChiSquareSimilarity, normalizedSquaredChiSquareSimilarity } from '../../src/vector-similarity/similarity/normalized-chi-square';
+import { fidelitySimilarity, hellingerSimilarity } from '../../src/vector-similarity/similarity/fidelity';
+import { normalizedMatusitaSimilarity, normalizedSquaredChordSimilarity } from '../../src/vector-similarity/similarity/normalized-fidelity';
+import { polynomialKernelSimilarity, rbfKernelSimilarity } from '../../src/vector-similarity/similarity/nonLinear';
+import { itakuraSaitoDistance, vectorSimilarityItakuraSaito } from '../../src/vector-similarity/similarity/itakura-saito';
 import { VectorGenerationService, GenerationParams, GeneratorType, NoiseType } from './vectorGenerationService';
 
 const similarityFunctions: Record<string, (a: number[], b: number[]) => number> = {

@@ -73,7 +73,7 @@ describe('distanceCorrelation', () => {
   it('should throw error for different lengths', () => {
     const a = [1, 2];
     const b = [1, 2, 3];
-    expect(() => distanceCorrelation(a, b)).toThrow('Vectors must have the same length');
+    expect(() => distanceCorrelation(a, b)).toThrow('Invalid input: A and B must be arrays of the same length');
   });
 
   it('should return 1 for empty vectors', () => {

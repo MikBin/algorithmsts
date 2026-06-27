@@ -1,8 +1,19 @@
 /**
  * Compute a robust similarity score between two numeric vectors A and B.
+ *
+ * @param A - First numeric vector.
+ * @param B - Second numeric vector.
+ * @param options - Optional configuration (`clipMax` per-coordinate clamp, `k` softness).
+ * @returns Similarity score in [0, 1].
+ * @throws {TypeError} If `A` or `B` is not an array or contains a non-finite element.
+ * @throws {RangeError} If `A` and `B` differ in length or are empty, or `clipMax`/`k` are invalid.
+ *
+ * Time complexity: O(n). Space complexity: O(1).
  */
 
-interface VectorSimilarityRobustOptions {
+import { validateVectors } from './internal/validateVectors';
+
+export interface VectorSimilarityRobustOptions {
   clipMax?: number;
   k?: number;
 }
@@ -12,36 +23,7 @@ function computeVectorSimilarityRobust(
   B: number[],
   options: VectorSimilarityRobustOptions = {}
 ): number {
-  if (!Array.isArray(A)) {
-    throw new TypeError("Invalid input: A must be an array.");
-  }
-  if (!Array.isArray(B)) {
-    throw new TypeError("Invalid input: B must be an array.");
-  }
-
-  const n = A.length;
-  if (n === 0 || B.length === 0) {
-    throw new Error("Invalid input: A and B must be non-empty arrays.");
-  }
-  if (n !== B.length) {
-    throw new Error("Invalid input: A and B must be arrays of the same length.");
-  }
-
-  for (let i = 0; i < n; i++) {
-    const a = A[i];
-    const b = B[i];
-
-    if (!Number.isFinite(a)) {
-      throw new Error(
-        `Invalid element in A at index ${i}: expected a finite number, received ${String(a)}.`
-      );
-    }
-    if (!Number.isFinite(b)) {
-      throw new Error(
-        `Invalid element in B at index ${i}: expected a finite number, received ${String(b)}.`
-      );
-    }
-  }
+  const n = validateVectors(A, B);
 
   const { clipMax = 4, k = 1 } = options;
 
@@ -81,13 +63,10 @@ function computeVectorSimilarityRobust(
 
   const dMax = clipMax / (clipMax + k);
 
-  const ratio = dMax > 0 ? D / dMax : 0;
-  let similarity = 1 - ratio;
+  const ratio = D / dMax;
+  const similarity = 1 - ratio;
 
-  if (similarity < 0) similarity = 0;
-  else if (similarity > 1) similarity = 1;
-
-  return similarity;
+  return Math.max(0, Math.min(1, similarity));
 }
 
 export { computeVectorSimilarityRobust };
