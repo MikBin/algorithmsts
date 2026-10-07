@@ -103,6 +103,15 @@ describe('normalizedDimensionRelativeManhattanSimilarity', () => {
     ).toThrow(RangeError);
   });
 
+  it('throws TypeError for invalid epsilon option type', () => {
+    expect(() =>
+      normalizedDimensionRelativeManhattanSimilarity([1, 2], [1, 2], {
+        // @ts-expect-error test invalid option type
+        epsilon: 'invalid',
+      })
+    ).toThrow(TypeError);
+  });
+
   it('throws RangeError for invalid array epsilon option', () => {
     expect(() =>
       normalizedDimensionRelativeManhattanSimilarity([1, 2], [1, 2], {
