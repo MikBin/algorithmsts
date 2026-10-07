@@ -553,6 +553,16 @@ sim = (1 + sign(m) · |m|^exp^sign(m)) / 2
 
 `maxRelativeAgreementMedianMadPowerSimilarityNoMad` sets `madWeight=0`. Empty vectors → `1`.
 
+### normalizedDimensionRelativeManhattanSimilarity
+
+Normalized Dimension-Relative Manhattan Distance similarity.
+
+```
+S = max(0, 1 - (1 / |D|) * sum_{d in D} (|L_d - T_d| / max(|T_d|, eps_d)))
+```
+
+Default `eps_d` = `max(1e-9, 1e-5 * max_i |T_i|)`. Accepts custom scalar or per-dimension array `epsilon`. Score clamped to [0, 1].
+
 ---
 
 ## 12. Distance to measure (`similarity/distanceToMeasure.ts`)
@@ -678,4 +688,5 @@ Every public function export and its primary section:
 | `madPenalizedRelativeAgreementSimilarity` | §11 Custom robust |
 | `maxRelativeAgreementMedianMadPowerSimilarity` | §11 Custom robust |
 | `maxRelativeAgreementMedianMadPowerSimilarityNoMad` | §11 Custom robust |
+| `normalizedDimensionRelativeManhattanSimilarity` | §11 Custom robust |
 | `distanceToMeasure` | §12 Distance to measure |

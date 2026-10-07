@@ -195,8 +195,9 @@ Types: `MinkowskiOptions`, `MeanSimilarityOptions`
 | `madPenalizedRelativeAgreementSimilarity` | `madPenalizedRelativeAgreementSimilarity.ts` | yes | yes | yes |
 | `maxRelativeAgreementMedianMadPowerSimilarity` | `maxRelativeAgreementMedianMadPowerSimilarity.ts` | yes | yes | yes |
 | `maxRelativeAgreementMedianMadPowerSimilarityNoMad` | `maxRelativeAgreementMedianMadPowerSimilarity.ts` | yes | yes | yes |
+| `normalizedDimensionRelativeManhattanSimilarity` | `normalizedDimensionRelativeManhattanSimilarity.ts` | yes | yes | yes |
 
-Option types: `VectorSimilarityPenalizedOptions`, `VectorSimilarityMetricLikeOptions`, `VectorSimilarityRobustOptions`, `VectorSimilarityTunableOptions`, `VectorSimilarityVarianceWeightedOptions`, `MadPenalizedRelativeAgreementOptions`
+Option types: `VectorSimilarityPenalizedOptions`, `VectorSimilarityMetricLikeOptions`, `VectorSimilarityRobustOptions`, `VectorSimilarityTunableOptions`, `VectorSimilarityVarianceWeightedOptions`, `MadPenalizedRelativeAgreementOptions`, `NormalizedDimensionRelativeManhattanOptions`
 
 ---
 

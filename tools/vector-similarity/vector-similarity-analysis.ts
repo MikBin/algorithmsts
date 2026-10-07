@@ -8,6 +8,7 @@ import {
   computeVectorSimilarityMeanStdPenalized,
 } from '../../src/vector-similarity/similarity/vectorSimilarityMeanStdPenalized';
 import { madPenalizedRelativeAgreementSimilarity } from '../../src/vector-similarity/similarity/madPenalizedRelativeAgreementSimilarity';
+import { normalizedDimensionRelativeManhattanSimilarity } from '../../src/vector-similarity/similarity/normalizedDimensionRelativeManhattanSimilarity';
 import {
   maxRelativeAgreementMedianMadPowerSimilarity,
   maxRelativeAgreementMedianMadPowerSimilarityNoMad,
@@ -73,6 +74,7 @@ const similarityFunctions: Record<string, (a: number[], b: number[]) => number> 
   madPenalizedRelativeAgreementSimilarity,
   maxRelativeAgreementMedianMadPowerSimilarity,
   maxRelativeAgreementMedianMadPowerSimilarityNoMad,
+  normalizedDimensionRelativeManhattanSimilarity,
   polynomialKernelSimilarity,
   rbfKernelSimilarity,
   itakuraSaitoDistance,

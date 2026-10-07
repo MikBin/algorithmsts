@@ -153,6 +153,8 @@ export {
     maxRelativeAgreementMedianMadPowerSimilarity,
     maxRelativeAgreementMedianMadPowerSimilarityNoMad,
 } from './similarity/maxRelativeAgreementMedianMadPowerSimilarity';
+export { normalizedDimensionRelativeManhattanSimilarity } from './similarity/normalizedDimensionRelativeManhattanSimilarity';
+export type { NormalizedDimensionRelativeManhattanOptions } from './similarity/normalizedDimensionRelativeManhattanSimilarity';
 
 // Distance-to-measure
 export { distanceToMeasure } from './similarity/distanceToMeasure';
