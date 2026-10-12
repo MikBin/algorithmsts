@@ -105,9 +105,14 @@ describe('AlgorithmTestUtils', () => {
         { name: 'Slow Case', input: [], maxExpectedTime: 1 } // unreasonably tight limit
       ];
 
+      // Temporarily mock console.error to avoid test output pollution
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
       const results = AlgorithmTestUtils.runPerformanceRegressionTests(slowAlgo, testCases);
 
       expect(results[0].passed).toBe(false);
+
+      consoleSpy.mockRestore();
     });
   });
 
