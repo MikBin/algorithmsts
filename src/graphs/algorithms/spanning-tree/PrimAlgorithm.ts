@@ -1,3 +1,4 @@
+import { PriorityQueue } from '../../../data-structures/priority-queue';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 import { ISpanningTreeResult } from './KruskalAlgorithm';
@@ -46,7 +47,7 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
     }
 
     // Priority queue: [weight, fromVertex, toVertex]
-    const priorityQueue: Array<[W, T, T]> = [];
+    const priorityQueue = new PriorityQueue<[W, T, T]>((a, b) => (b[0] as unknown as number) - (a[0] as unknown as number));
     const inMST = new Set<T>();
     const minEdge = new Map<T, { weight: W; from: T }>();
     const mstEdges: Array<{ from: T; to: T; weight: W }> = [];
@@ -59,17 +60,15 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
     for (const neighbor of graph.getNeighbors(startVertex)) {
       const weight = graph.getEdgeWeight(startVertex, neighbor);
       if (weight !== undefined) {
-        priorityQueue.push([weight, startVertex, neighbor]);
+        priorityQueue.enqueue([weight, startVertex, neighbor]);
         minEdge.set(neighbor, { weight, from: startVertex });
       }
     }
 
     let totalWeight = 0 as W;
 
-    while (priorityQueue.length > 0 && inMST.size < vertices.length) {
-      // Sort priority queue by weight (simple implementation)
-      priorityQueue.sort((a, b) => a[0] - b[0]);
-      const [weight, from, to] = priorityQueue.shift()!;
+    while (!priorityQueue.isEmpty() && inMST.size < vertices.length) {
+      const [weight, from, to] = priorityQueue.dequeue()!;
 
       if (inMST.has(to)) {
         continue; // Already in MST
@@ -88,7 +87,7 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
             const existingEdge = minEdge.get(neighbor);
             if (!existingEdge || edgeWeight < existingEdge.weight) {
               minEdge.set(neighbor, { weight: edgeWeight, from: to });
-              priorityQueue.push([edgeWeight, to, neighbor]);
+              priorityQueue.enqueue([edgeWeight, to, neighbor]);
             }
           }
         }
@@ -123,7 +122,7 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
       return;
     }
 
-    const priorityQueue: Array<{weight: W, source: T, target: T}> = [];
+    const priorityQueue = new PriorityQueue<{weight: W, source: T, target: T}>((a, b) => (b.weight as unknown as number) - (a.weight as unknown as number));
     const visited = new Set<T>();
     const mstEdges: Array<{ source: T; target: T; weight: W }> = [];
 
@@ -134,15 +133,14 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
     for (const neighbor of graph.getNeighbors(startVertex)) {
       const weight = graph.getEdgeWeight(startVertex, neighbor);
       if (weight !== undefined) {
-        priorityQueue.push({ weight, source: startVertex, target: neighbor });
+        priorityQueue.enqueue({ weight, source: startVertex, target: neighbor });
       }
     }
 
     yield { type: 'step', visited: new Set(visited), mst: [...mstEdges], message: `Starting Prim at ${startVertex}` };
 
-    while (visited.size < vertices.length && priorityQueue.length > 0) {
-      priorityQueue.sort((a, b) => (a.weight as unknown as number) - (b.weight as unknown as number));
-      const edge = priorityQueue.shift()!;
+    while (visited.size < vertices.length && !priorityQueue.isEmpty()) {
+      const edge = priorityQueue.dequeue()!;
 
       if (visited.has(edge.target)) continue;
 
@@ -155,7 +153,7 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
         if (!visited.has(neighbor)) {
            const weight = graph.getEdgeWeight(edge.target, neighbor);
            if (weight !== undefined) {
-             priorityQueue.push({ weight, source: edge.target, target: neighbor });
+             priorityQueue.enqueue({ weight, source: edge.target, target: neighbor });
            }
         }
       }

@@ -61,55 +61,58 @@ export class CycleDetection<T, W = number> extends BaseAlgorithm<IGraph<T, W>, I
     const visited = new Set<T>();
     const visiting = new Set<T>(); // Currently being visited (in recursion stack)
     const parent = new Map<T, T | null>(); // Track parent to avoid going back
-    const recursionStack = new Set<T>(); // Track current recursion stack
 
-    const dfs = (vertex: T): ICycleDetectionResult<T> | null => {
-      if (visited.has(vertex)) {
-        return null;
-      }
+    for (const startVertex of vertices) {
+      if (visited.has(startVertex)) continue;
 
-      visited.add(vertex);
-      visiting.add(vertex);
-      recursionStack.add(vertex);
+      // Iterative DFS stack
+      // We push tuples of: [vertex, parentVertex, isBacktrackMode]
+      const stack: [T, T | null, boolean][] = [[startVertex, null, false]];
 
-      for (const neighbor of graph.getNeighbors(vertex)) {
-        if (!visited.has(neighbor)) {
-          parent.set(neighbor, vertex);
-          const result = dfs(neighbor);
-          if (result) return result;
-        } else if (visiting.has(neighbor)) {
-          // Found a cycle - reconstruct it from neighbor to current vertex
-          const cycle: T[] = [];
+      while (stack.length > 0) {
+        const [vertex, p, isBacktrack] = stack.pop()!;
 
-          // Start from the current vertex and work backwards to neighbor
-          let current = vertex;
-          cycle.push(current);
-
-          // Build cycle path by going back through parents
-          while (current !== neighbor && current !== null && current !== undefined) {
-            const parentVertex = parent.get(current);
-            if (parentVertex !== null && parentVertex !== undefined) {
-              current = parentVertex;
-              cycle.unshift(current);
-            } else {
-              break;
-            }
-          }
-          cycle.unshift(neighbor);
-
-          return { hasCycle: true, cycle };
+        if (isBacktrack) {
+          visiting.delete(vertex);
+          continue;
         }
-      }
 
-      visiting.delete(vertex);
-      recursionStack.delete(vertex);
-      return null;
-    };
+        if (visited.has(vertex)) continue;
 
-    for (const vertex of vertices) {
-      if (!visited.has(vertex)) {
-        const result = dfs(vertex);
-        if (result) return result;
+        visited.add(vertex);
+        visiting.add(vertex);
+        parent.set(vertex, p);
+
+        // Put backtrack marker
+        stack.push([vertex, p, true]);
+
+        const neighbors = graph.getNeighbors(vertex);
+        // Process in reverse to maintain left-to-right DFS order (optional but standard)
+        for (let i = neighbors.length - 1; i >= 0; i--) {
+          const neighbor = neighbors[i];
+
+          if (!visited.has(neighbor)) {
+            stack.push([neighbor, vertex, false]);
+          } else if (visiting.has(neighbor)) {
+            // Cycle detected
+            const cycle: T[] = [];
+            let current: T | null = vertex;
+
+            // Reconstruct cycle backwards
+            while (current !== null && current !== neighbor) {
+              cycle.push(current);
+              current = parent.get(current) ?? null;
+            }
+            cycle.push(neighbor);
+
+            // Re-add the start of the cycle (which is the current vertex) to complete it if desired by convention.
+            // The existing code unshifts twice causing duplicates.
+            // A well formed cycle usually looks like A-B-C-A, or just the sequence A-B-C.
+            // Let's reverse it to get forward order.
+            cycle.reverse();
+            return { hasCycle: true, cycle };
+          }
+        }
       }
     }
 
@@ -123,43 +126,45 @@ export class CycleDetection<T, W = number> extends BaseAlgorithm<IGraph<T, W>, I
     const visited = new Set<T>();
     const parent = new Map<T, T | null>();
 
-    const dfs = (vertex: T, currentParent: T | null): ICycleDetectionResult<T> | null => {
-      visited.add(vertex);
-      parent.set(vertex, currentParent);
+    for (const startVertex of vertices) {
+      if (visited.has(startVertex)) continue;
 
-      for (const neighbor of graph.getNeighbors(vertex)) {
-        if (!visited.has(neighbor)) {
-          const result = dfs(neighbor, vertex);
-          if (result) return result;
-        } else if (neighbor !== currentParent) {
-          // Cycle found (back edge to non-parent)
-          // Reconstruct cycle using DFS path to avoid infinite loops
-          const cycle: T[] = [];
-          let current = vertex;
-          cycle.unshift(current); // Add to front to build in reverse order
+      const stack: [T, T | null][] = [[startVertex, null]];
 
-          while (current !== null && current !== neighbor) {
-            current = parent.get(current)!;
-            if (current !== null) {
-              cycle.unshift(current);
+      while (stack.length > 0) {
+        const [vertex, p] = stack.pop()!;
+
+        if (visited.has(vertex)) continue;
+
+        visited.add(vertex);
+        parent.set(vertex, p);
+
+        const neighbors = graph.getNeighbors(vertex);
+        for (let i = neighbors.length - 1; i >= 0; i--) {
+          const neighbor = neighbors[i];
+
+          if (!visited.has(neighbor)) {
+            stack.push([neighbor, vertex]);
+          } else if (neighbor !== p) {
+            // Cycle detected
+            const cycle: T[] = [];
+            let current: T | null = vertex;
+
+            while (current !== null && current !== neighbor) {
+              cycle.push(current);
+              current = parent.get(current) ?? null;
             }
+            cycle.push(neighbor);
+
+            cycle.reverse();
+            return { hasCycle: true, cycle };
           }
-
-          cycle.push(neighbor); // Close the cycle
-          return { hasCycle: true, cycle };
         }
-      }
-
-      return null;
-    };
-
-    for (const vertex of vertices) {
-      if (!visited.has(vertex)) {
-        const result = dfs(vertex, null);
-        if (result) return result;
       }
     }
 
     return { hasCycle: false };
   }
+
+
 }
