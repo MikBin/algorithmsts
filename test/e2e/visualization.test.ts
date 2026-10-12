@@ -13,13 +13,21 @@ let page: Page;
 let isBrowserAvailable = true;
 
 beforeAll(async () => {
-  // Start a local server (Python 3)
-  serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
-    cwd: ROOT_DIR
-  });
-
-  // Wait for server to be ready
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  // Start a local server
+  try {
+    serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
+      cwd: ROOT_DIR
+    });
+    serverProcess.on('error', (err: any) => {
+      console.warn('Could not spawn python3 server:', err.message);
+      isBrowserAvailable = false; // Disable tests since server failed
+    });
+    // Wait for server to be ready
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  } catch (e) {
+    console.warn('Failed to start python3 server', e);
+    isBrowserAvailable = false;
+  }
 
   try {
     browser = await chromium.launch();
@@ -34,7 +42,9 @@ beforeAll(async () => {
 }, 60000);
 
 afterAll(async () => {
-  serverProcess.kill();
+  if (serverProcess) {
+    serverProcess.kill();
+  }
 });
 
 beforeEach(async (context) => {
