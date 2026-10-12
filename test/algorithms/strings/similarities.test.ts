@@ -3,6 +3,7 @@ import {
   NgramSimilarity,
   SplitByUpperCase,
   JaroDistance,
+  JaroWinklerDistance,
   LevenshteinDistance,
   SorensenDiceCoefficient,
   TrigramSimilarity,
@@ -11,6 +12,7 @@ import {
 describe("testing string similarities: ", () => {
   const ngramSimilarity = new NgramSimilarity();
   const jaroDistance = new JaroDistance();
+  const jaroWinklerDistance = new JaroWinklerDistance();
   const levenshteinDistance = new LevenshteinDistance();
   const sorensenDiceCoefficient = new SorensenDiceCoefficient();
   const trigramSimilarity = new TrigramSimilarity();
@@ -24,6 +26,18 @@ describe("testing string similarities: ", () => {
   it("returns jaro distance:", () => {
     const result = jaroDistance.execute({ str1: "martha", str2: "marhta" });
     expect(result.distance).toBeCloseTo(0.9444444444444444);
+  });
+
+  it("returns jaro distance for single-character cases", () => {
+    expect(jaroDistance.execute({ str1: "a", str2: "a" }).distance).toEqual(1);
+    expect(jaroDistance.execute({ str1: "a", str2: "b" }).distance).toEqual(0);
+  });
+
+  it("returns jaro winkler distance for edge cases", () => {
+    expect(jaroWinklerDistance.execute({ str1: "a", str2: "a" }).distance).toEqual(1);
+    expect(jaroWinklerDistance.execute({ str1: "a", str2: "b" }).distance).toEqual(0);
+    expect(jaroWinklerDistance.execute({ str1: "", str2: "a" }).distance).toEqual(0);
+    expect(jaroWinklerDistance.execute({ str1: "", str2: "" }).distance).toEqual(1);
   });
 
   it("returns LevenshteinDistance:", () => {
@@ -40,6 +54,12 @@ describe("testing string similarities: ", () => {
   it("LevenshteinDistance of completely different string", () => {
     const result = levenshteinDistance.execute({ str1: "robotech", str2: "saluti e baci" });
     expect(result.distance).toBeCloseTo(0.230);
+  });
+
+  it("LevenshteinDistance handles empty string edge cases", () => {
+    expect(levenshteinDistance.execute({ str1: "", str2: "abc" }).distance).toEqual(0);
+    expect(levenshteinDistance.execute({ str1: "abc", str2: "" }).distance).toEqual(0);
+    expect(levenshteinDistance.execute({ str1: "", str2: "" }).distance).toEqual(1);
   });
 
   it("calculates Sørensen-Dice coefficient correctly", () => {
