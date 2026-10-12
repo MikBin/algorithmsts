@@ -40,7 +40,7 @@ export class AhoCorasick {
     let node: ACNode = this.root;
     for (let i=0;i<text.length;i++) {
       const ch = text[i];
-      while (node && !node.children.has(ch)) node = node.fail ?? this.root;
+      while (node !== this.root && !node.children.has(ch)) node = node.fail ?? this.root;
       node = node.children.get(ch) ?? this.root;
       for (const idx of node.output) {
         const pat = this.patterns[idx];
