@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { RStarTree } from '../../../src/data-structures';
+import { RStarTree } from '../../../src/data-structures/r-star-tree/rStarTree';
 
 describe('RStarTree reinsertion', () => {
   it('reinsert heuristic maintains search correctness', () => {
