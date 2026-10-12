@@ -52,6 +52,52 @@ describe('BinaryClosestSearch', () => {
     expect(result.index).toEqual(-1);
   });
 
+  it('should work correctly with a sign-only comparator and distanceFn', () => {
+    const result1 = binaryClosestSearch.execute({
+      array: sortedArray,
+      value: 21,
+      compareFn: (a, b) => Math.sign(a - b),
+      distanceFn: (a, b) => Math.abs(a - b)
+    });
+    expect(result1.index).toEqual(1); // Closest to 20
+
+    const result2 = binaryClosestSearch.execute({
+      array: sortedArray,
+      value: 29,
+      compareFn: (a, b) => Math.sign(a - b),
+      distanceFn: (a, b) => Math.abs(a - b)
+    });
+    expect(result2.index).toEqual(2); // Closest to 30
+  });
+
+  it('should correctly fallback if sign-only comparator is used without distanceFn (legacy behavior)', () => {
+    // If distanceFn is omitted, distance is calculated as Math.abs(compareFn(a, b))
+    // With sign-only, this is always 1, resulting in a tie, which falls back to the tie breaker.
+    // The tie breaker favors the larger index when value > array[left]
+    const result1 = binaryClosestSearch.execute({
+      array: sortedArray,
+      value: 21,
+      compareFn: (a, b) => Math.sign(a - b)
+    });
+    expect(result1.index).toEqual(2); // 30 (incorrectly chosen due to missing distanceFn, testing legacy fallback)
+  });
+
+  it('should support string arrays with localeCompare and custom string distance', () => {
+    const stringArray = ["apple", "banana", "cherry", "date", "elderberry"];
+    const stringSearch = new BinaryClosestSearch<string>();
+
+    // A rudimentary string distance function based on char codes of first characters
+    const stringDistance = (a: string, b: string) => Math.abs(a.charCodeAt(0) - b.charCodeAt(0));
+
+    const result = stringSearch.execute({
+      array: stringArray,
+      value: "cat", // starts with 'c', closest to "cherry"
+      compareFn: (a, b) => a.localeCompare(b),
+      distanceFn: stringDistance
+    });
+    expect(result.index).toEqual(2); // "cherry"
+  });
+
   it('should handle a single-element array', () => {
     const result = binaryClosestSearch.execute({ array: [30], value: 25, compareFn: compareNumbers });
     expect(result.index).toEqual(0);
