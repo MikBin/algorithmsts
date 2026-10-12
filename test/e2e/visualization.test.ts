@@ -13,13 +13,14 @@ let page: Page;
 let isBrowserAvailable = true;
 
 beforeAll(async () => {
-  // Start a local server (python3 with python fallback for Windows)
+  // Start a local server (platform-aware python with fallback)
+  const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
   try {
-    serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
+    serverProcess = spawn(pythonCmd, ['-m', 'http.server', PORT.toString()], {
       cwd: ROOT_DIR
     });
     serverProcess.on('error', (err: any) => {
-      if (err.code === 'ENOENT') {
+      if (err.code === 'ENOENT' && pythonCmd !== 'python') {
         serverProcess = spawn('python', ['-m', 'http.server', PORT.toString()], {
           cwd: ROOT_DIR
         });
@@ -28,7 +29,7 @@ beforeAll(async () => {
           isBrowserAvailable = false;
         });
       } else {
-        console.warn('Could not spawn python3 server:', err.message);
+        console.warn('Could not spawn server:', err.message);
         isBrowserAvailable = false;
       }
     });

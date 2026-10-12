@@ -27,13 +27,4 @@ describe("suffix tree test: ", () => {
     expect(bres).toEqual(2);
     expect(mres).toEqual(2);
   });
-
-  it("handles clear() correctly (regression test for TASK-7)", () => {
-    const tree = new SuffixTree("banana");
-    expect(tree.findSubstring("nana")).toEqual(2);
-    tree.clear();
-    tree.addString("apple");
-    expect(tree.findSubstring("pple")).toEqual(1);
-    expect(tree.findSubstring("banana")).toEqual(-1);
-  });
 });

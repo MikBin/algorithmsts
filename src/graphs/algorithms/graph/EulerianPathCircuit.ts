@@ -42,7 +42,6 @@ export class EulerianPathCircuit<T, W = number> extends BaseAlgorithm<IGraph<T, 
       if (!start && d > 0) start = v;
     }
 
-    if (graph.getEdgeCount() === 0) return { type: 'circuit', path: [] };
     if (start === null) return { type: 'circuit', path: [] };
 
     let type: IEulerianResult<T>["type"] = 'circuit';
@@ -86,12 +85,7 @@ export class EulerianPathCircuit<T, W = number> extends BaseAlgorithm<IGraph<T, 
       }
     }
 
-    const resPath = path.reverse();
-    if (resPath.length - 1 !== graph.getEdgeCount()) {
-      return { type: 'none', path: [] };
-    }
-
-    return { type, path: resPath };
+    return { type, path: path.reverse() };
   }
 
   private forDirected(graph: IGraph<T, W>): IEulerianResult<T> {
@@ -117,7 +111,6 @@ export class EulerianPathCircuit<T, W = number> extends BaseAlgorithm<IGraph<T, 
       else if (i - o === 1) end = v;
       else if (i !== o) return { type: 'none', path: [] };
     }
-    if (graph.getEdgeCount() === 0) return { type: 'circuit', path: [] };
     if (!start) start = vertices.find(v => outDeg.get(v)! > 0) ?? vertices[0];
 
     // Build adjacency list copy iterator style
@@ -138,10 +131,6 @@ export class EulerianPathCircuit<T, W = number> extends BaseAlgorithm<IGraph<T, 
       }
     }
     const resPath = path.reverse();
-
-    if (resPath.length - 1 !== graph.getEdgeCount()) {
-      return { type: 'none', path: [] };
-    }
 
     const type: IEulerianResult<T>["type"] = end ? 'trail' : 'circuit';
     return { type, path: resPath };
