@@ -10,6 +10,8 @@ class RStarNode {
   constructor(leaf: boolean){ this.leaf = leaf; }
 }
 
+type RStarEntry = { rect: Rect; child?: RStarNode; data?: unknown };
+
 export class RStarTree {
   private root = new RStarNode(true);
   private minEntries: number;
@@ -17,7 +19,29 @@ export class RStarTree {
     this.minEntries = Math.max(1, Math.floor(this.maxEntries * 0.4));
   }
 
-  insert(rect: Rect, data?: unknown): void { const split = this._insert(this.root, rect, data); if (split) { const newRoot = new RStarNode(false); newRoot.entries.push({ rect: this.computeMBR(this.root), child: this.root }, { rect: this.computeMBR(split), child: split }); this.root = newRoot; } }
+  private getHeight(node: RStarNode): number {
+    let height = 1;
+    let curr = node;
+    while (!curr.leaf && curr.entries.length > 0 && curr.entries[0].child) {
+      height++;
+      curr = curr.entries[0].child;
+    }
+    return height;
+  }
+
+  insert(rect: Rect, data?: unknown): void {
+    const entry: RStarEntry = { rect, data };
+    const treeHeight = this.getHeight(this.root);
+    const split = this._insert(this.root, entry, treeHeight, 1, new Set());
+    if (split) {
+      const newRoot = new RStarNode(false);
+      newRoot.entries.push(
+        { rect: this.computeMBR(this.root), child: this.root },
+        { rect: this.computeMBR(split), child: split }
+      );
+      this.root = newRoot;
+    }
+  }
 
   private chooseSubtree(node: RStarNode, rect: Rect): number {
     // R*-Tree heuristic: choose minimal overlap increase, then area increase
@@ -37,21 +61,42 @@ export class RStarTree {
     return best;
   }
 
-  private _insert(node: RStarNode, rect: Rect, data?: unknown): RStarNode | null {
-    if (node.leaf) {
-      node.entries.push({ rect, data });
-      if (node.entries.length > this.maxEntries) return this.splitNode(node);
+  private _insert(node: RStarNode, entry: RStarEntry, nodeLevel: number, targetLevel: number, reinsertedLevels: Set<number>): RStarNode | null {
+    if (nodeLevel === targetLevel) {
+      node.entries.push(entry);
+      if (node.entries.length > this.maxEntries) {
+        if (this.reinsertFraction > 0 && node !== this.root && !reinsertedLevels.has(nodeLevel)) {
+          reinsertedLevels.add(nodeLevel);
+          this.reinsert(node, nodeLevel, reinsertedLevels);
+          if (node.entries.length > this.maxEntries) return this.splitNode(node);
+          return null;
+        } else {
+          return this.splitNode(node);
+        }
+      }
       this.refreshMBR(node); return null;
     }
-    const idx = this.chooseSubtree(node, rect);
+
+    const idx = this.chooseSubtree(node, entry.rect);
     const child = node.entries[idx].child!;
-    const split = this._insert(child, rect, data);
-    node.entries[idx].rect = this.computeMBR(child);
-    if (split){ node.entries.push({ rect: this.computeMBR(split), child: split }); }
-    if (node.entries.length>this.maxEntries) {
-      if (this.reinsertFraction > 0 && node !== this.root) {
-        this.reinsert(node);
-        if (node.entries.length>this.maxEntries) return this.splitNode(node);
+    const split = this._insert(child, entry, nodeLevel - 1, targetLevel, reinsertedLevels);
+
+    // During _insert or split, node.entries could have been mutated
+    // Re-find the child node to update its mbr
+    const childEntry = node.entries.find(e => e.child === child);
+    if (childEntry) {
+      childEntry.rect = this.computeMBR(child);
+    }
+
+    if (split) {
+      node.entries.push({ rect: this.computeMBR(split), child: split });
+    }
+
+    if (node.entries.length > this.maxEntries) {
+      if (this.reinsertFraction > 0 && node !== this.root && !reinsertedLevels.has(nodeLevel)) {
+        reinsertedLevels.add(nodeLevel);
+        this.reinsert(node, nodeLevel, reinsertedLevels);
+        if (node.entries.length > this.maxEntries) return this.splitNode(node);
       } else {
         return this.splitNode(node);
       }
@@ -81,11 +126,28 @@ export class RStarTree {
   private computeMBR(nodeOrRect: RStarNode | Rect, ephemeral = false): Rect { if ('leaf' in nodeOrRect){ const node = nodeOrRect as RStarNode; let r = node.entries[0]?.rect; if (!r) return { x:0,y:0,w:0,h:0 }; for (let i=1;i<node.entries.length;i++) r = union(r!, node.entries[i].rect); if (!ephemeral) node.mbr = r!; return r!; } return nodeOrRect as Rect; }
   private refreshMBR(n: RStarNode){ n.mbr = this.computeMBR(n); }
   remove(rect: Rect, data?: unknown): boolean {
-    const removed = this._remove(this.root, rect, data);
-    if (this.root.entries.length===1 && this.root.entries[0].child) this.root = this.root.entries[0].child;
+    const orphans: { entry: RStarEntry; level: number }[] = [];
+    const removed = this._remove(this.root, rect, data, this.getHeight(this.root), orphans);
+    if (this.root.entries.length === 1 && this.root.entries[0].child) {
+      this.root = this.root.entries[0].child;
+    }
+    // Reinsert orphaned entries top-level
+    for (const { entry, level } of orphans) {
+      const treeHeight = this.getHeight(this.root);
+      const split = this._insert(this.root, entry, treeHeight, level, new Set());
+      if (split) {
+        const newRoot = new RStarNode(false);
+        newRoot.entries.push(
+          { rect: this.computeMBR(this.root), child: this.root },
+          { rect: this.computeMBR(split), child: split }
+        );
+        this.root = newRoot;
+      }
+    }
     return removed;
   }
-  private _remove(node: RStarNode, rect: Rect, data?: unknown): boolean {
+
+  private _remove(node: RStarNode, rect: Rect, data: unknown, nodeLevel: number, orphans: { entry: RStarEntry; level: number }[]): boolean {
     if (node.leaf){
       const before = node.entries.length;
       node.entries = node.entries.filter(e=>!(e.rect.x===rect.x && e.rect.y===rect.y && e.rect.w===rect.w && e.rect.h===rect.h && (data===undefined || e.data===data)));
@@ -97,25 +159,15 @@ export class RStarTree {
     for (let i=0;i<node.entries.length;i++){
       const e = node.entries[i];
       if (this.intersects(e.rect, rect)) {
-        if (this._remove(e.child!, rect, data)) {
+        if (this._remove(e.child!, rect, data, nodeLevel - 1, orphans)) {
           removed = true;
           e.rect = this.computeMBR(e.child!);
           // underflow handling: reinsert entries of underflowed child
           if (e.child!.entries.length < this.minEntries) {
             const orphan = e.child!;
-            // remove child from parent
             node.entries.splice(i,1); i--;
-            // reinsert orphan entries from root
             for (const en of orphan.entries) {
-              if (orphan.leaf) this.insert(en.rect, en.data);
-              else {
-                const split = this._insert(this.root, en.rect, undefined);
-                if (split) {
-                  const newRoot = new RStarNode(false);
-                  newRoot.entries.push({ rect: this.computeMBR(this.root), child: this.root }, { rect: this.computeMBR(split), child: split });
-                  this.root = newRoot;
-                }
-              }
+              orphans.push({ entry: en, level: nodeLevel - 1 });
             }
           }
         }
@@ -123,7 +175,8 @@ export class RStarTree {
     }
     this.refreshMBR(node); return removed;
   }
-  private reinsert(node: RStarNode): void {
+
+  private reinsert(node: RStarNode, nodeLevel: number, reinsertedLevels: Set<number>): void {
     // remove a fraction of entries farthest from MBR center and reinsert from root
     if (node.entries.length===0) return;
     const c = { x: node.mbr!.x + node.mbr!.w/2, y: node.mbr!.y + node.mbr!.h/2, w: 0, h: 0 } as Rect;
@@ -136,16 +189,12 @@ export class RStarTree {
     node.entries = node.entries.filter((_,i)=>!idxSet.has(i));
     this.refreshMBR(node);
     for (const e of toRe) {
-      if (e.child) {
-        // reinsert subtree by walking down from root using its MBR
-        const split = this._insert(this.root, e.rect, undefined);
-        if (split) {
-          const newRoot = new RStarNode(false);
-          newRoot.entries.push({ rect: this.computeMBR(this.root), child: this.root }, { rect: this.computeMBR(split), child: split });
-          this.root = newRoot;
-        }
-      } else {
-        this.insert(e.rect, e.data);
+      const treeHeight = this.getHeight(this.root);
+      const split = this._insert(this.root, e, treeHeight, nodeLevel, reinsertedLevels);
+      if (split) {
+        const newRoot = new RStarNode(false);
+        newRoot.entries.push({ rect: this.computeMBR(this.root), child: this.root }, { rect: this.computeMBR(split), child: split });
+        this.root = newRoot;
       }
     }
   }

@@ -3,11 +3,15 @@ import { AVLTreeIterator } from './iterator';
 
 export class AVLTree<T> implements Iterable<T> {
   root: AVLNode<T> | null = null;
-  size: number = 0;
+  _size: number = 0;
   compare: (a: T, b: T) => number;
 
   constructor(compareFunction?: (a: T, b: T) => number) {
-    this.compare = compareFunction || ((a: any, b: any) => a - b);
+    this.compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+  }
+
+  get size(): number {
+    return this._size;
   }
 
   private _getHeight(node: AVLNode<T> | null): number {
@@ -64,7 +68,7 @@ export class AVLTree<T> implements Iterable<T> {
 
   private _insert(node: AVLNode<T> | null, value: T, parent: AVLNode<T> | null): AVLNode<T> {
     if (!node) {
-      this.size++;
+      this._size++;
       return { value, left: null, right: null, parent, height: 1 };
     }
 
@@ -103,9 +107,9 @@ export class AVLTree<T> implements Iterable<T> {
   }
 
   delete(value: T): boolean {
-    const initialSize = this.size;
+    const initialSize = this._size;
     this.root = this._delete(this.root, value);
-    return this.size < initialSize;
+    return this._size < initialSize;
   }
 
   private _delete(node: AVLNode<T> | null, value: T): AVLNode<T> | null {
@@ -119,7 +123,7 @@ export class AVLTree<T> implements Iterable<T> {
       node.right = this._delete(node.right, value);
     } else {
       if (!node.left || !node.right) {
-        this.size--;
+        this._size--;
         let temp = node.left || node.right;
         if(temp) {
             temp.parent = node.parent;
@@ -250,20 +254,23 @@ export class AVLTree<T> implements Iterable<T> {
   }
 
   isEmpty(): boolean {
-    return this.size === 0;
+    return this._size === 0;
   }
 
+  /**
+   * @deprecated Use `.size` instead.
+   */
   getSize(): number {
-    return this.size;
+    return this._size;
   }
 
   getHeight(): number {
-    return this._getHeight(this.root);
+    return this._getHeight(this.root) - 1;
   }
 
   clear(): void {
     this.root = null;
-    this.size = 0;
+    this._size = 0;
   }
 
   isBalanced(): boolean {

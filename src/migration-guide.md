@@ -23,6 +23,8 @@ All modules are now properly exported with both ESM and CommonJS support, enabli
 ### 3. Backward Compatibility
 
 Legacy imports are maintained but deprecated. Migration is recommended for optimal performance.
+Additionally, the legacy `interfaces` module is now type-only and no longer exports any core runtime code.
+Shadowed ES2015 built-in iterators (`IteratorResult`, `Iterator`, `Iterable`, `Collection`) and dead legacy map types (e.g., `StringTMap`) have been completely removed.
 
 ## Migration Steps
 
@@ -54,6 +56,7 @@ const list = new LinkedList();
 ```typescript
 import { ICollection, IDataStructure } from '@mikbin80/algorithmsts';
 ```
+*Note: Legacy `interfaces` module is now type-only.*
 
 #### After (Modern)
 ```typescript

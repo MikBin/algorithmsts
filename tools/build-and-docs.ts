@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env tsx
 
 /**
  * Build and Documentation Script
@@ -7,9 +7,9 @@
  * in the correct order for deployment.
  */
 
-const { execSync } = require('child_process');
-const { existsSync, mkdirSync } = require('fs');
-const { join } = require('path');
+import { execSync } from 'child_process';
+import { existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 
 function runCommand(command: string, description: string) {
   console.log(`🔧 ${description}...`);

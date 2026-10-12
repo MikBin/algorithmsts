@@ -1,9 +1,8 @@
 {
   "name": "@mikbin80/algorithmsts",
   "version": "0.1.0",
-  "description": "",
+  "description": "TypeScript implementation of standard algorithms and data structures",
   "private": false,
-  "keywords": [],
   "main": "dist/algorithms/index.cjs",
   "module": "dist/algorithms/index.js",
   "typings": "dist/types/algorithms/index.d.ts",
@@ -68,13 +67,19 @@
       "path": "node_modules/cz-git"
     }
   },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "scripts": {
     "lint": "eslint src/",
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
     "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production && tsc",
     "docs": "npm run generate-docs",
     "generate-docs": "typedoc",
-    "build:docs": "node tools/build-and-docs.ts",
+    "build:docs": "tsx tools/build-and-docs.ts",
     "test": "vitest run --no-watch --exclude test/e2e --exclude test/integration",
     "pretest:e2e": "npm run build && npx vite build",
     "test:e2e": "vitest run test/e2e && npx playwright test",
@@ -128,5 +133,13 @@
     "vite": "^5.4.21",
     "vitest": "^2.1.9",
     "vue": "^3.5.31"
-  }
+  },
+  "keywords": [
+    "algorithm",
+    "data-structure",
+    "typescript",
+    "sorting",
+    "graph",
+    "tree"
+  ]
 }

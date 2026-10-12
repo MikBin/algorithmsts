@@ -10,7 +10,7 @@ export class LeftistHeap<T> {
   clear(): void { this.root=null; this._size=0; }
   private mergeChildren(n: Node<T>): Node<T> | null { return this.meld(n.left, n.right); }
   private meld(a: Node<T> | null, b: Node<T> | null): Node<T> | null {
-    if (!a) return b; if (!b) return a; if (this.compare(a.value,b.value) < 0) [a,b]=[b,a];
+    if (!a) return b; if (!b) return a; if (this.compare(a.value,b.value) > 0) [a,b]=[b,a];
     a.right = this.meld(a.right, b);
     if ((a.left?.npl ?? 0) < (a.right?.npl ?? 0)) [a.left, a.right] = [a.right, a.left];
     a.npl = ((a.right?.npl ?? -1) + 1);
