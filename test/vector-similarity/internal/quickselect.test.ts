@@ -32,19 +32,12 @@ describe('quickselectNth', () => {
     expect(quickselectNth([5, 5, 5, 5], 2)).toBe(5);
   });
 
-  it('handles median of three branch coverage', () => {
-    // We need to trigger the various conditions inside medianOfThreeIndex:
-    // a < b, b < c  => [1, 2, 3] (a=1, b=2, c=3) -> mid
+  it('covers all medianOfThreeIndex branches', () => {
     expect(quickselectNth([1, 2, 3], 1)).toBe(2);
-    // a < b, b >= c, a < c => [1, 3, 2] (a=1, b=3, c=2) -> right
     expect(quickselectNth([1, 3, 2], 1)).toBe(2);
-    // a < b, b >= c, a >= c => [2, 3, 1] (a=2, b=3, c=1) -> left
     expect(quickselectNth([2, 3, 1], 1)).toBe(2);
-    // a >= b, a < c => [2, 1, 3] (a=2, b=1, c=3) -> left
     expect(quickselectNth([2, 1, 3], 1)).toBe(2);
-    // a >= b, a >= c, b < c => [3, 1, 2] (a=3, b=1, c=2) -> right
     expect(quickselectNth([3, 1, 2], 1)).toBe(2);
-    // a >= b, a >= c, b >= c => [3, 2, 1] (a=3, b=2, c=1) -> mid
     expect(quickselectNth([3, 2, 1], 1)).toBe(2);
   });
 });
