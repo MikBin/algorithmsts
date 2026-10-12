@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { SparseTable } from "../../../../src/algorithms/range-queries/sparse-table";
+import { ArgumentError } from "../../../../src/core/validation/ArgumentError";
 
 describe("SparseTable", () => {
   describe("Sum queries", () => {
@@ -30,7 +31,7 @@ describe("SparseTable", () => {
 
     beforeEach(() => {
       sparseTable = new SparseTable();
-      sparseTable.execute({ array: arr, operation: Math.max });
+      sparseTable.execute({ array: arr, operation: Math.max, idempotent: true });
     });
 
     it("should correctly answer range max queries", () => {
@@ -47,10 +48,9 @@ describe("SparseTable", () => {
   });
 
   describe("Edge cases", () => {
-    it("should handle an empty array", () => {
+    it("should throw ArgumentError for empty array", () => {
       const sparseTable = new SparseTable<number>();
-      sparseTable.execute({ array: [], operation: (a: number, b: number) => Math.min(a, b) });
-      expect(sparseTable.size).toBe(0);
+      expect(() => sparseTable.execute({ array: [], operation: Math.min })).toThrow(ArgumentError);
     });
 
     it("should handle an array with one element", () => {
@@ -58,6 +58,26 @@ describe("SparseTable", () => {
       sparseTable.execute({ array: [5], operation: (a: number, b: number) => Math.min(a, b) });
       expect(sparseTable.size).toBe(1);
       expect(sparseTable.query(0, 0)).toBe(5);
+    });
+  });
+
+  describe("String accumulation", () => {
+    it("should correctly handle non-idempotent operations like string concatenation", () => {
+      const sparseTable = new SparseTable<string>();
+      sparseTable.execute({ array: ["a", "b", "c", "d"], operation: (a, b) => a + b });
+      expect(sparseTable.query(0, 2)).toBe("abc");
+      expect(sparseTable.query(1, 3)).toBe("bcd");
+      expect(sparseTable.query(0, 3)).toBe("abcd");
+    });
+  });
+
+  describe("Re-execution", () => {
+    it("should not accumulate stale rows on re-execution", () => {
+      const sparseTable = new SparseTable<number>();
+      sparseTable.execute({ array: [1, 2, 3], operation: Math.min });
+      const size1 = (sparseTable as any).table.length;
+      sparseTable.execute({ array: [1, 2, 3], operation: Math.min });
+      expect((sparseTable as any).table.length).toBe(size1);
     });
   });
 });
