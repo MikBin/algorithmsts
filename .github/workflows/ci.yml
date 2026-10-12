@@ -17,5 +17,6 @@ jobs:
         with:
           node-version: '20.x'
       - run: npm install
+      - run: npm run pretest:e2e
       - run: npx playwright install
       - run: npm run test:prod
