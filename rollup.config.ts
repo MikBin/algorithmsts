@@ -24,6 +24,7 @@ const InjectPlugin =
           compilerOptions: {
             declaration: false,
             emitDeclarationOnly: false,
+            outDir: "dist",
           },
         }),
       ]
@@ -38,6 +39,7 @@ const InjectPlugin =
           compilerOptions: {
             declaration: false,
             emitDeclarationOnly: false,
+            outDir: "dist",
           },
         }),
       ];
@@ -189,6 +191,18 @@ export default defineConfig([
     plugins: [...InjectPlugin],
     external: ["node:url", "node:path"],
     output: [
+      {
+        file: "dist/vector-similarity/index.js",
+        format: "esm",
+        sourcemap: true,
+        exports: "named",
+      },
+      {
+        file: "dist/vector-similarity/index.cjs",
+        format: "commonjs",
+        sourcemap: true,
+        exports: "named",
+      },
       {
         file: "dist/vector-similarity/vector-similarity.umd.js",
         format: "umd",
