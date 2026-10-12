@@ -1,7 +1,7 @@
-import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
-import { IGraph } from "../../interfaces/IGraph";
-import { IPathfindingAlgorithm, IPathResult } from "../interfaces/IPathfindingAlgorithm";
-import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { ArgumentError } from '../../../core/validation/ArgumentError';
+import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
+import { IGraph } from '../../interfaces/IGraph';
+import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAlgorithm';
 
 /**
  * A* Algorithm implementation for finding shortest paths with heuristics
@@ -16,10 +16,9 @@ import { ArgumentError } from "../../../core/validation/ArgumentError";
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (must be numeric)
  */
-export class AStarAlgorithm<T, W extends number = number>
-  extends BaseAlgorithm<IGraph<T, W>, IPathResult<T, W>>
-  implements IPathfindingAlgorithm<T, W>
-{
+export class AStarAlgorithm<T, W extends number = number> extends BaseAlgorithm<IGraph<T, W>, IPathResult<T, W>>
+  implements IPathfindingAlgorithm<T, W> {
+
   private heuristic: (from: T, to: T) => W;
 
   /**
@@ -27,7 +26,7 @@ export class AStarAlgorithm<T, W extends number = number>
    * @param heuristic The heuristic function h(n) estimating cost from n to goal
    */
   constructor(heuristic: (from: T, to: T) => W) {
-    super("A* Algorithm", "O(b^d)", "O(V)");
+    super('A* Algorithm', 'O(b^d)', 'O(V)');
     this.heuristic = heuristic;
   }
 
@@ -41,12 +40,12 @@ export class AStarAlgorithm<T, W extends number = number>
    */
   public findShortestPath(graph: IGraph<T, W>, start: T, end: T): IPathResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new ArgumentError("A* algorithm requires a weighted graph", "graph");
+      throw new ArgumentError('A* algorithm requires a weighted graph', 'graph');
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new ArgumentError("Start or end vertex does not exist in the graph", "vertex");
+      throw new ArgumentError('Start or end vertex does not exist in the graph', 'vertex');
     }
 
     // Initialize data structures
@@ -89,7 +88,7 @@ export class AStarAlgorithm<T, W extends number = number>
           distance: gScore.get(end)!,
           found: true,
           distances: gScore,
-          parents,
+          parents
         };
       }
 
@@ -136,7 +135,7 @@ export class AStarAlgorithm<T, W extends number = number>
       distance: Infinity as W,
       found: false,
       distances: gScore,
-      parents,
+      parents
     };
   }
 
@@ -149,10 +148,7 @@ export class AStarAlgorithm<T, W extends number = number>
    */
   public execute(graph: IGraph<T, W>, start?: T, end?: T): IPathResult<T, W> {
     if (start === undefined || end === undefined) {
-      throw new ArgumentError(
-        "Start and end vertices must be provided for A* algorithm",
-        "start/end",
-      );
+      throw new ArgumentError('Start and end vertices must be provided for A* algorithm', 'start/end');
     }
     return this.findShortestPath(graph, start, end);
   }
