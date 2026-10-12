@@ -1,18 +1,36 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { Trie } from '../../../src/data-structures/trie';
-import { TrieIterator } from '../../../src/data-structures/trie/iterator';
-import { ICollection } from '../../../src/core/interfaces/ICollection';
-import { IDataStructure } from '../../../src/core/interfaces/IDataStructure';
-import { IIterator } from '../../../src/core/interfaces/IIterator';
+import { ArgumentError } from '../../../src/core/validation/ArgumentError';
 
 describe('trie basics functionalities: ', () => {
-  const words: Array<string> = ['abc', 'abdec', 'decga', 'abcd']
-  const myTrieA: Trie<string> = new Trie()
-  const myTrieB: Trie<string> = new Trie()
-  words.forEach((w, i) => {
-    myTrieB.add(w, w)
-  })
+  let myTrieA: Trie<string>;
+
+  beforeAll(() => {
+    myTrieA = new Trie();
+  });
+
   it('works', () => {
-    expect(true).toBeTruthy()
-  })
-})
+    expect(true).toBeTruthy();
+  });
+
+  it('remove(prefix) returns false, no size change', () => {
+    myTrieA.add('abc', 'abc');
+    const sizeBefore = myTrieA.size;
+    const result = myTrieA.remove('ab');
+
+    expect(result).toBe(false);
+    expect(myTrieA.size).toBe(sizeBefore);
+  });
+
+  it('get() returns undefined for removed keys, consistent with hasKey', () => {
+    myTrieA.add('test', 'test-value');
+    myTrieA.remove('test');
+
+    expect(myTrieA.hasKey('test')).toBe(false);
+    expect(myTrieA.get('test')).toBeUndefined();
+  });
+
+  it('add(\'\') throws ArgumentError', () => {
+    expect(() => myTrieA.add('', 'empty')).toThrow(ArgumentError);
+  });
+});
