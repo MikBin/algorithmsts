@@ -31,6 +31,31 @@ describe('quickselectNth', () => {
   it('handles duplicates', () => {
     expect(quickselectNth([5, 5, 5, 5], 2)).toBe(5);
   });
+
+  it('handles already sorted', () => {
+    expect(quickselectNth([1, 2, 3, 4, 5], 2)).toBe(3);
+  });
+
+  it('handles reverse sorted', () => {
+    expect(quickselectNth([5, 4, 3, 2, 1], 2)).toBe(3);
+  });
+
+  it('handles custom cases to cover branches in medianOfThreeIndex', () => {
+    // We want to trigger `if (a < c) return left;`
+    // This happens when a >= b AND a < c
+    // E.g., [left=10, mid=5, right=20] -> a=10, b=5, c=20
+    // 10 >= 5 (True: a < b is false).
+    // 10 < 20 (True). Returns left.
+    expect(quickselectNth([10, 5, 20], 1)).toBe(10);
+
+    // We also want to trigger `a < b` and `a < c ? right : left` where a is not < c (so it returns left)
+    // a < b, a >= c. E.g. [left=10, mid=20, right=5]
+    // a=10, b=20, c=5.
+    // 10 < 20 (True)
+    // b < c (20 < 5: False)
+    // a < c (10 < 5: False) -> returns left
+    expect(quickselectNth([10, 20, 5], 1)).toBe(10);
+  });
 });
 
 describe('median', () => {
