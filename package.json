@@ -71,7 +71,7 @@
   "scripts": {
     "lint": "eslint src/",
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
-    "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production",
+    "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production && tsc",
     "docs": "npm run generate-docs",
     "generate-docs": "typedoc",
     "build:docs": "node tools/build-and-docs.ts",
@@ -86,7 +86,8 @@
     "v-pub-tarball": "npm publish --dry-run",
     "release": "release-it",
     "commit": "git-cz",
-    "analyze-similarity": "tsx tools/vector-similarity/vector-similarity-analysis.ts"
+    "analyze-similarity": "tsx tools/vector-similarity/vector-similarity-analysis.ts",
+    "test:packaging": "node tools/test-exports.cjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

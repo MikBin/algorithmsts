@@ -1,6 +1,7 @@
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
 import { PerformanceMonitor } from '../../../performance';
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 
 /**
  * Type for sparse table operations
@@ -15,6 +16,8 @@ export interface SparseTableConstructorInput<T> {
   array: T[];
   /** The operation to use for range queries (e.g., Math.min, Math.max) */
   operation: SparseTableOperation<T>;
+  /** Optional flag indicating if the operation is idempotent */
+  idempotent?: boolean;
 }
 
 /**
@@ -58,14 +61,16 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
   private maxLog: number = 0;
   private n = 0;
   private operation!: SparseTableOperation<T>;
+  private isIdempotent: boolean = false;
 
   /**
    * Creates a new SparseTable instance
    */
-  constructor(values?: T[], operation?: SparseTableOperation<T>) {
+  constructor(values?: T[], operation?: SparseTableOperation<T>, idempotent?: boolean) {
     super('SparseTable', 'O(N log N)', 'O(N log N)');
     if (values && operation) {
       this.operation = operation;
+      this.isIdempotent = idempotent ?? false;
       this.initializeTable(values);
     }
   }
@@ -79,8 +84,9 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
     let result: SparseTableQueryOutput<T>;
 
     const executionTime = PerformanceMonitor.measureExecutionTime(() => {
-      const { array, operation } = input;
+      const { array, operation, idempotent } = input;
       this.operation = operation;
+      this.isIdempotent = idempotent ?? false;
       this.initializeTable(array);
       // Return a dummy result since construction doesn't have a meaningful output
       result = { result: array[0] };
@@ -105,9 +111,7 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
 
     // For operations like sum where overlapping ranges cause double-counting,
     // use an iterative approach with non-overlapping ranges
-    // We detect sum operations by testing if operation(a, 0) === a for simple values
-    const testResult = this.operation(5 as T, 0 as T);
-    if (testResult === 5) {
+    if (!this.isIdempotent) {
       return this.queryIterative(left, right);
     }
 
@@ -170,6 +174,11 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
    * @param arr The input array
    */
   private initializeTable(arr: T[]): void {
+    if (arr.length === 0) {
+      throw new ArgumentError("Array cannot be empty", "arr");
+    }
+
+    this.table = [];
     const n = (this.n = arr.length);
     const maxLog = (this.maxLog = Math.floor(Math.log2(n)));
 

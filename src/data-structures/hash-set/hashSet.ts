@@ -7,7 +7,7 @@ export class HashSet<T> {
   add(v: T): void { this.map.set(v, true); }
   has(v: T): boolean { return this.map.has(v); }
   delete(v: T): boolean { return this.map.delete(v); }
-  clear(): void { this.map = new HashMap<T, true>(); }
+  clear(): void { this.map.clear(); }
   values(): T[] { return this.map.keys(); }
   toArray(): T[] { return this.values(); }
 
