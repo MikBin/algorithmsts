@@ -36,6 +36,8 @@ export class BellmanFordAlgorithm<T, W extends number = number>
 
     const edges = graph.getEdges();
 
+    const isDirected = graph.isDirected();
+
     // Relax edges |V|-1 times
     for (let i = 0; i < vertices.length - 1; i++) {
       let updated = false;
@@ -43,12 +45,25 @@ export class BellmanFordAlgorithm<T, W extends number = number>
         const [u, v] = e as [T, T];
         const w = graph.getEdgeWeight(u, v);
         if (w === undefined) continue;
-        const du = distances.get(u)!;
-        const dv = distances.get(v)!;
+
+        let du = distances.get(u)!;
+        let dv = distances.get(v)!;
+
         if (du + (w as number) < (dv as number)) {
           distances.set(v, (du + (w as number)) as W);
           parents.set(v, u);
           updated = true;
+        }
+
+        if (!isDirected) {
+          // Re-fetch in case it was updated
+          du = distances.get(u)!;
+          dv = distances.get(v)!;
+          if (dv + (w as number) < (du as number)) {
+            distances.set(u, (dv + (w as number)) as W);
+            parents.set(u, v);
+            updated = true;
+          }
         }
       }
       if (!updated) break;
@@ -59,9 +74,15 @@ export class BellmanFordAlgorithm<T, W extends number = number>
       const [u, v] = e as [T, T];
       const w = graph.getEdgeWeight(u, v);
       if (w === undefined) continue;
+
       const du = distances.get(u)!;
       const dv = distances.get(v)!;
+
       if (du + (w as number) < (dv as number)) {
+        throw new Error('Negative weight cycle detected');
+      }
+
+      if (!isDirected && dv + (w as number) < (du as number)) {
         throw new Error('Negative weight cycle detected');
       }
     }
