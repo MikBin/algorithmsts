@@ -7,9 +7,14 @@ export default {
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'visualization/index.html'),
-        'vector-similarity': resolve(__dirname, 'visualization/vector-similarity/index.html')
+        'vector-similarity': resolve(__dirname, 'visualization/vector-similarity/index.html'),
+        'graph-viz': resolve(__dirname, 'visualization/algorithms/graphs/index.html')
       }
     }
+  },
+  preview: {
+    port: 8080,
+    strictPort: true
   },
   resolve: {
     alias: {

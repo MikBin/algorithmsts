@@ -5,7 +5,7 @@ test('Sortable tables functionality', async ({ page }) => {
   page.on('console', msg => console.log(`BROWSER CONSOLE: ${msg.text()}`));
   page.on('pageerror', exception => console.log(`BROWSER ERROR: ${exception}`));
 
-  await page.goto(`http://localhost:8080/vector-similarity/index.html`);
+  await page.goto(`/vector-similarity/index.html`);
 
   // Wait for Vue to mount
   await page.waitForSelector('#app');
