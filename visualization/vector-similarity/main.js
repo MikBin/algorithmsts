@@ -1,3 +1,5 @@
+import Chart from 'chart.js/auto';
+window.Chart = Chart;
 /* eslint-env browser */
 import { createApp, ref, computed, onMounted, watch, h } from 'vue';
 import { analysisResults } from './similarity-data.js';

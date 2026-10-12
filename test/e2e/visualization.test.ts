@@ -1,51 +1,29 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import { spawn, ChildProcess } from 'child_process';
 import path from 'path';
+import { spawn, ChildProcess } from 'child_process';
 import { chromium, Browser, Page } from 'playwright';
 
 const PORT = 8080;
-const BASE_URL = `http://localhost:${PORT}/vector-similarity/index.html`;
-const ROOT_DIR = path.resolve(__dirname, '../../dist/visualization');
+const BASE_URL = `/vector-similarity/index.html`;
+const ROOT_DIR = path.resolve(__dirname, '../../');
 
 let serverProcess: ChildProcess;
 let browser: Browser;
 let page: Page;
-let isBrowserAvailable = true;
 
 beforeAll(async () => {
-  // Start a local server (python3 with python fallback for Windows)
-  try {
-    serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
-      cwd: ROOT_DIR
-    });
-    serverProcess.on('error', (err: any) => {
-      if (err.code === 'ENOENT') {
-        serverProcess = spawn('python', ['-m', 'http.server', PORT.toString()], {
-          cwd: ROOT_DIR
-        });
-        serverProcess.on('error', (err2: any) => {
-          console.warn('Could not start python server:', err2.message);
-          isBrowserAvailable = false;
-        });
-      } else {
-        console.warn('Could not spawn python3 server:', err.message);
-        isBrowserAvailable = false;
-      }
-    });
-    // Wait for server to be ready
-    await new Promise(resolve => setTimeout(resolve, 2000));
-  } catch (e) {
-    console.warn('Failed to start python server', e);
-    isBrowserAvailable = false;
-  }
+  // We need to serve dist/visualization using vite preview
+  serverProcess = spawn('npx', ['vite', 'preview', '--outDir', 'dist/visualization', '--port', PORT.toString(), '--strictPort'], {
+    cwd: ROOT_DIR
+  });
+
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
   try {
     browser = await chromium.launch();
   } catch (e: any) {
     if (e.message.includes('Executable doesn\'t exist')) {
-      console.warn('Playwright executable missing. Skipping E2E visualization tests.');
-      isBrowserAvailable = false;
-      return;
+      throw e; // Fail loudly
     }
     throw e;
   }
@@ -57,16 +35,15 @@ afterAll(async () => {
   }
 });
 
-beforeEach(async (context) => {
-    if (!browser) {
-      context.skip();
-      return;
-    }
+beforeEach(async () => {
     page = await browser.newPage();
-    // Enable debug mode via query param for tests
-    await page.goto(`${BASE_URL}?debug=true`);
-    // Wait for data to load (chart render)
-    await page.waitForSelector('canvas', { timeout: 30000 });
+    const url = `http://localhost:${PORT}${BASE_URL}?debug=true`;
+    console.log('Navigating to', url);
+    const response = await page.goto(url);
+    if (response?.status() !== 200) {
+      throw new Error(`Navigation returned status ${response?.status()}`);
+    }
+    await page.waitForSelector('canvas', { timeout: 10000 });
 }, 60000);
 
 afterEach(async () => {
@@ -74,44 +51,30 @@ afterEach(async () => {
 });
 
 describe('Vector Similarity Visualization Filters', () => {
-  test('should render charts initially', async (ctx) => {
-    if (!isBrowserAvailable) return ctx.skip();
+  test('should render charts initially', async () => {
     const canvases = await page.$$('canvas');
     expect(canvases.length).toBeGreaterThan(0);
 
-    // Verify nonlinear chart is visible.
-    // We target .chart-container canvas because <chart-component> tag is replaced.
     const nonlinearChart = await page.locator('.chart-container canvas').last();
     await expect(nonlinearChart.isVisible()).resolves.toBe(true);
   });
 
-  test('should verify dynamic options populate correctly', async (ctx) => {
-    if (!isBrowserAvailable) return ctx.skip();
-    // Since we fixed the code to be dynamic, the dropdowns should now contain
-    // the values present in the data.
-
-    // Check Size dropdown contains '200' (which is in the data)
+  test('should verify dynamic options populate correctly', async () => {
     const sizeOptions = await page.locator('#vector-size-filter option').allTextContents();
     expect(sizeOptions).toContain('200');
     expect(sizeOptions).toContain('All Sizes');
 
-    // Check Noise Level dropdown contains '0.1', '0.5', '0.05'
     const noiseOptions = await page.locator('#noise-level-filter option').allTextContents();
     expect(noiseOptions).toContain('0.1');
     expect(noiseOptions).toContain('0.5');
-    // 0.05 is also present from anomaly tests, but '1' is not generated in current analysis script
   });
 
-  test('should show data when filtering by valid dynamic options', async (ctx) => {
-    if (!isBrowserAvailable) return ctx.skip();
-    // Select '200' which should now exist
+  test('should show data when filtering by valid dynamic options', async () => {
     await page.selectOption('#vector-size-filter', '200');
     await page.click('button:has-text("Apply Filters")');
 
-    // Wait for table to update
-    await page.waitForSelector('div[data-testid="nonlinear-table"] tbody tr');
+    await page.waitForSelector('div[data-testid="nonlinear-table"] tbody tr', { timeout: 10000 });
 
-    // Verify that the debug panel shows non-zero filtered count
     const debugPanel = await page.locator('#debug-panel');
     const text = await debugPanel.textContent();
     expect(text).toContain('Total:');
@@ -123,8 +86,7 @@ describe('Vector Similarity Visualization Filters', () => {
     expect(rowCount).toBeGreaterThan(0);
   });
 
-  test('should log debugging info', async (ctx) => {
-      if (!isBrowserAvailable) return ctx.skip();
+  test('should log debugging info', async () => {
       const debugPanel = await page.locator('#debug-panel');
       await expect(debugPanel.isVisible()).resolves.toBe(true);
       const text = await debugPanel.textContent();
@@ -132,24 +94,17 @@ describe('Vector Similarity Visualization Filters', () => {
       expect(text).toContain('Filtered:');
   });
 
-  test('should toggle debug panel visibility', async (ctx) => {
-      if (!isBrowserAvailable) return ctx.skip();
-      // Navigate without ?debug=true
-      await page.goto(BASE_URL);
-      await page.waitForSelector('canvas');
+  test('should toggle debug panel visibility', async () => {
+      await page.goto(`http://localhost:${PORT}${BASE_URL}`);
+      await page.waitForSelector('canvas', { timeout: 10000 });
 
       const debugPanel = await page.locator('#debug-panel');
-      // Should be hidden initially
       await expect(debugPanel.isVisible()).resolves.toBe(false);
 
-      // Click toggle button
       await page.click('button:has-text("Debug")');
-      // Should become visible
       await expect(debugPanel.isVisible()).resolves.toBe(true);
 
-      // Click toggle button again
       await page.click('button:has-text("Debug")');
-      // Should be hidden again
       await expect(debugPanel.isVisible()).resolves.toBe(false);
   });
 });
