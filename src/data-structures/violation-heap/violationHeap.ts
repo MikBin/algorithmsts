@@ -2,7 +2,14 @@ export class ViolationHeap<T> {
   private root: Node<T> | null = null;
   private _size = 0;
   constructor(private compare: (a: T, b: T) => number) {}
+
+  get size(): number { return this._size; }
+
+  /**
+   * @deprecated Use `.size` instead.
+   */
   size(): number { return this._size; }
+
   isEmpty(): boolean { return this._size === 0; }
   peek(): T | null { return this.root ? this.root.value : null; }
   add(x: T): void { const n = new Node(x); this.root = this.meld(this.root, n); this._size++; }

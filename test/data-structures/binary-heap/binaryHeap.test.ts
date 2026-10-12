@@ -3,8 +3,8 @@ import { BinaryHeap } from '../../../src/data-structures/binary-heap';
 import { Comparator } from '../../../src/data-structures/binary-heap/interfaces';
 
 describe('BinaryHeap', () => {
-  const maxComparator: Comparator<number> = (a, b) => a - b;
-  const minComparator: Comparator<number> = (a, b) => b - a;
+  const maxComparator: Comparator<number> = (a, b) => b - a;
+  const minComparator: Comparator<number> = (a, b) => a - b;
 
   describe('Max-Heap', () => {
     it('should create an empty heap', () => {

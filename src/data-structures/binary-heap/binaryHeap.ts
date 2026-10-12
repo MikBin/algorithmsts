@@ -19,25 +19,25 @@ export class BinaryHeap<T> {
   _bubbleDown(index: number) {
     const leftIndex = 2 * index + 1;
     const rightIndex = 2 * index + 2;
-    let largest = index;
+    let smallest = index;
 
     if (
       leftIndex < this.size &&
-      this._comparator(this._heap[leftIndex], this._heap[largest]) > 0
+      this._comparator(this._heap[leftIndex], this._heap[smallest]) < 0
     ) {
-      largest = leftIndex;
+      smallest = leftIndex;
     }
 
     if (
       rightIndex < this.size &&
-      this._comparator(this._heap[rightIndex], this._heap[largest]) > 0
+      this._comparator(this._heap[rightIndex], this._heap[smallest]) < 0
     ) {
-      largest = rightIndex;
+      smallest = rightIndex;
     }
 
-    if (largest !== index) {
-      this._swap(index, largest);
-      this._bubbleDown(largest);
+    if (smallest !== index) {
+      this._swap(index, smallest);
+      this._bubbleDown(smallest);
     }
   }
 
@@ -68,7 +68,7 @@ export class BinaryHeap<T> {
 
     while (
       currentIndex > 0 &&
-      this._comparator(this._heap[currentIndex], this._heap[parentIndex]) > 0
+      this._comparator(this._heap[currentIndex], this._heap[parentIndex]) < 0
     ) {
       this._swap(currentIndex, parentIndex);
       currentIndex = parentIndex;
