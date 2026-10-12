@@ -15,8 +15,8 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "downlevelIteration": true,
-    "outDir": "./dist",
-    "rootDir": ".",
+    "outDir": "./dist/types",
+    "rootDir": "./src",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },

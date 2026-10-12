@@ -13,20 +13,30 @@ let page: Page;
 let isBrowserAvailable = true;
 
 beforeAll(async () => {
-  // Start a local server (Python 3)
+  // Start a local server (python3 with python fallback for Windows)
   try {
     serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
       cwd: ROOT_DIR
     });
-    // Add error handler so ENOENT doesn't crash the test runner
-    serverProcess.on('error', (err) => {
-      console.warn('Failed to start python3 server:', err);
+    serverProcess.on('error', (err: any) => {
+      if (err.code === 'ENOENT') {
+        serverProcess = spawn('python', ['-m', 'http.server', PORT.toString()], {
+          cwd: ROOT_DIR
+        });
+        serverProcess.on('error', (err2: any) => {
+          console.warn('Could not start python server:', err2.message);
+          isBrowserAvailable = false;
+        });
+      } else {
+        console.warn('Could not spawn python3 server:', err.message);
+        isBrowserAvailable = false;
+      }
     });
-
     // Wait for server to be ready
     await new Promise(resolve => setTimeout(resolve, 2000));
-  } catch (err) {
-    console.warn('Failed to spawn python3 server:', err);
+  } catch (e) {
+    console.warn('Failed to start python server', e);
+    isBrowserAvailable = false;
   }
 
   try {
