@@ -443,6 +443,5 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
     this.stringsList = [];
     this.separators = [];
     this._size = 0;
-    this.algorithm = new UkkonenAlgorithm<T>(this);
   }
 }

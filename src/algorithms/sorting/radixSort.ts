@@ -2,7 +2,6 @@ import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
 import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
 import { PerformanceMonitor } from '../../performance';
 import { digitCount, getNthDigit } from '../../utils/number';
-import { ArgumentError } from '../../core/validation/ArgumentError';
 
 /**
  * Input interface for RadixSortNumbers algorithm
@@ -185,9 +184,6 @@ export class RadixSortStrings extends BaseAlgorithm<RadixSortStringsInput, Radix
             // Place strings in buckets based on their character code at the current position.
             // Add 1 to the charCode to avoid conflict with the bucket for shorter strings.
             const charCode = str.charCodeAt(position);
-            if (charCode > 255) {
-              throw new ArgumentError('RadixSortStrings only supports ASCII characters (code unit <= 255).', 'array');
-            }
             buckets[charCode + 1].push(str);
           }
         }

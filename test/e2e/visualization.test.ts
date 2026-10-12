@@ -13,29 +13,21 @@ let page: Page;
 let isBrowserAvailable = true;
 
 beforeAll(async () => {
-  try {
-    // Attempt to spawn python3, fallback to python
-    serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
-      cwd: ROOT_DIR
-    });
+  // Start a local server (Python 3)
+  const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+  serverProcess = spawn(pythonCmd, ['-m', 'http.server', PORT.toString()], {
+    cwd: ROOT_DIR
+  }).on('error', (err: any) => {
+    if (err.code === 'ENOENT') {
+      console.warn(`${pythonCmd} not found, falling back to python`);
+      serverProcess = spawn('python', ['-m', 'http.server', PORT.toString()], {
+        cwd: ROOT_DIR
+      });
+    }
+  });
 
-    serverProcess.on('error', (err: any) => {
-      if (err.code === 'ENOENT') {
-        serverProcess = spawn('python', ['-m', 'http.server', PORT.toString()], {
-          cwd: ROOT_DIR
-        });
-
-        serverProcess.on('error', (err2: any) => {
-          console.warn('Could not start python server:', err2.message);
-        });
-      }
-    });
-
-    // Wait for server to be ready
-    await new Promise(resolve => setTimeout(resolve, 2000));
-  } catch(e) {
-    console.warn('Error launching python server:', e);
-  }
+  // Wait for server to be ready
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
   try {
     browser = await chromium.launch();

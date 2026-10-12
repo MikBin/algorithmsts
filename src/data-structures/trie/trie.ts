@@ -1,6 +1,5 @@
 import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
 import { IIterator } from '../../core/interfaces/IIterator';
-import { ArgumentError } from '../../core/validation/ArgumentError';
 import { TrieIterator } from './iterator';
 
 /**
@@ -83,13 +82,9 @@ export class Trie<T> extends BaseDataStructure<T> {
    * Adds a key-value pair to the trie
    * @param key The key to add
    * @param value The value to associate with the key
-   * @throws ArgumentError if the key is empty
    * @complexity O(m) where m is the length of the key
    */
   add(key: string, value: T): void {
-    if (key.length === 0) {
-      throw new ArgumentError('Key cannot be empty', 'key');
-    }
     this.addRecursive(key, value, 0, this.root);
   }
 
@@ -173,12 +168,12 @@ export class Trie<T> extends BaseDataStructure<T> {
   /**
    * Gets the value associated with a key
    * @param key The key to search for
-   * @returns The value if found, undefined otherwise
+   * @returns The value if found, null otherwise
    * @complexity O(m) where m is the length of the key
    */
-  get(key: string): T | undefined {
+  get(key: string): T | null {
     const node: TrieNode<T> | null = this.getNode(key);
-    return (node && node.terminal) ? (node.value as T) : undefined;
+    return node ? node.value : null;
   }
 
   /**
@@ -200,9 +195,8 @@ export class Trie<T> extends BaseDataStructure<T> {
    */
   remove(key: string): boolean {
     const node = this.getNode(key);
-    if (node && node.terminal) {
+    if (node) {
       node.terminal = false;
-      node.value = null;
       this._size--;
       return true;
     }
