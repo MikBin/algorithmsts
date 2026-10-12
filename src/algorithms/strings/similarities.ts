@@ -1,6 +1,7 @@
-import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../performance';
+import { Validator } from "../../core/validation/Validator";
+import { BaseAlgorithm } from "../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../performance";
 
 /**
  * Input interface for NgramSimilarity algorithm
@@ -38,12 +39,15 @@ export interface NgramSimilarityOutput {
  * @template TInput The input type for the algorithm
  * @template TOutput The output type for the algorithm
  */
-export class NgramSimilarity extends BaseAlgorithm<NgramSimilarityInput, NgramSimilarityOutput> implements IAlgorithm<NgramSimilarityInput, NgramSimilarityOutput> {
+export class NgramSimilarity
+  extends BaseAlgorithm<NgramSimilarityInput, NgramSimilarityOutput>
+  implements IAlgorithm<NgramSimilarityInput, NgramSimilarityOutput>
+{
   /**
    * Creates a new NgramSimilarity instance
    */
   constructor() {
-    super('NgramSimilarity', 'O(m + n)', 'O(min(m, n))');
+    super("NgramSimilarity", "O(m + n)", "O(min(m, n))");
   }
 
   /**
@@ -54,7 +58,7 @@ export class NgramSimilarity extends BaseAlgorithm<NgramSimilarityInput, NgramSi
   public execute(input: NgramSimilarityInput): NgramSimilarityOutput {
     let result: NgramSimilarityOutput;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    PerformanceMonitor.measureExecutionTime(() => {
       const { str1, str2, substringLength = 2, caseSensitive = false } = input;
 
       let s1 = str1;
@@ -96,11 +100,6 @@ export class NgramSimilarity extends BaseAlgorithm<NgramSimilarityInput, NgramSi
       result = { similarity, result: similarity };
     });
 
-    // Log performance warning for long strings
-    if (executionTime > 50) { // Arbitrary threshold for string similarity
-      console.warn(`NgramSimilarity performance warning: ${executionTime}ms for strings of length ${input.str1?.length || 0} and ${input.str2?.length || 0}`);
-    }
-
     return result!;
   }
 }
@@ -114,12 +113,15 @@ export class NgramSimilarity extends BaseAlgorithm<NgramSimilarityInput, NgramSi
  * **Time Complexity:** O(m + n) where m and n are the lengths of the input strings
  * **Space Complexity:** O(min(m, n)) - space for the map of bigrams
  */
-export class SorensenDiceCoefficient extends BaseAlgorithm<NgramSimilarityInput, NgramSimilarityOutput> implements IAlgorithm<NgramSimilarityInput, NgramSimilarityOutput> {
+export class SorensenDiceCoefficient
+  extends BaseAlgorithm<NgramSimilarityInput, NgramSimilarityOutput>
+  implements IAlgorithm<NgramSimilarityInput, NgramSimilarityOutput>
+{
   /**
    * Creates a new SorensenDiceCoefficient instance
    */
   constructor() {
-    super('SorensenDiceCoefficient', 'O(m + n)', 'O(min(m, n))');
+    super("SorensenDiceCoefficient", "O(m + n)", "O(min(m, n))");
   }
 
   /**
@@ -144,12 +146,15 @@ export class SorensenDiceCoefficient extends BaseAlgorithm<NgramSimilarityInput,
  * **Time Complexity:** O(m + n) where m and n are the lengths of the input strings
  * **Space Complexity:** O(min(m, n)) - space for the map of trigrams
  */
-export class TrigramSimilarity extends BaseAlgorithm<NgramSimilarityInput, NgramSimilarityOutput> implements IAlgorithm<NgramSimilarityInput, NgramSimilarityOutput> {
+export class TrigramSimilarity
+  extends BaseAlgorithm<NgramSimilarityInput, NgramSimilarityOutput>
+  implements IAlgorithm<NgramSimilarityInput, NgramSimilarityOutput>
+{
   /**
    * Creates a new TrigramSimilarity instance
    */
   constructor() {
-    super('TrigramSimilarity', 'O(m + n)', 'O(min(m, n))');
+    super("TrigramSimilarity", "O(m + n)", "O(min(m, n))");
   }
 
   /**
@@ -189,12 +194,15 @@ export interface SplitByUpperCaseOutput {
  * **Time Complexity:** O(n) where n is the length of the input string
  * **Space Complexity:** O(n) - space for the output array
  */
-export class SplitByUpperCase extends BaseAlgorithm<SplitByUpperCaseInput, SplitByUpperCaseOutput> implements IAlgorithm<SplitByUpperCaseInput, SplitByUpperCaseOutput> {
+export class SplitByUpperCase
+  extends BaseAlgorithm<SplitByUpperCaseInput, SplitByUpperCaseOutput>
+  implements IAlgorithm<SplitByUpperCaseInput, SplitByUpperCaseOutput>
+{
   /**
    * Creates a new SplitByUpperCase instance
    */
   constructor() {
-    super('SplitByUpperCase', 'O(n)', 'O(n)');
+    super("SplitByUpperCase", "O(n)", "O(n)");
   }
 
   /**
@@ -205,14 +213,14 @@ export class SplitByUpperCase extends BaseAlgorithm<SplitByUpperCaseInput, Split
   public execute(input: SplitByUpperCaseInput): SplitByUpperCaseOutput {
     let result: SplitByUpperCaseOutput;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    PerformanceMonitor.measureExecutionTime(() => {
       const { str } = input;
       const parts: string[] = [];
-      let currentPart = '';
+      let currentPart = "";
 
       for (let i = 0; i < str.length; i++) {
         const char = str[i];
-        const isUpperCase = char >= 'A' && char <= 'Z';
+        const isUpperCase = char >= "A" && char <= "Z";
 
         if (isUpperCase && currentPart.length > 0) {
           parts.push(currentPart);
@@ -228,11 +236,6 @@ export class SplitByUpperCase extends BaseAlgorithm<SplitByUpperCaseInput, Split
 
       result = { parts };
     });
-
-    // Log performance warning for very long strings
-    if (executionTime > 10) { // O(n) should be very fast
-      console.warn(`SplitByUpperCase performance warning: ${executionTime}ms for string of length ${input.str?.length || 0}`);
-    }
 
     return result!;
   }
@@ -267,12 +270,15 @@ export interface JaroDistanceOutput {
  * **Time Complexity:** O(m * n) where m and n are the lengths of the input strings
  * **Space Complexity:** O(min(m, n)) - space for character position tracking
  */
-export class JaroDistance extends BaseAlgorithm<JaroDistanceInput, JaroDistanceOutput> implements IAlgorithm<JaroDistanceInput, JaroDistanceOutput> {
+export class JaroDistance
+  extends BaseAlgorithm<JaroDistanceInput, JaroDistanceOutput>
+  implements IAlgorithm<JaroDistanceInput, JaroDistanceOutput>
+{
   /**
    * Creates a new JaroDistance instance
    */
   constructor() {
-    super('JaroDistance', 'O(m * n)', 'O(min(m, n))');
+    super("JaroDistance", "O(m * n)", "O(min(m, n))");
   }
 
   /**
@@ -283,8 +289,10 @@ export class JaroDistance extends BaseAlgorithm<JaroDistanceInput, JaroDistanceO
   public execute(input: JaroDistanceInput): JaroDistanceOutput {
     let result: JaroDistanceOutput;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    PerformanceMonitor.measureExecutionTime(() => {
       const { str1, str2 } = input;
+      Validator.notNull(str1, "str1");
+      Validator.notNull(str2, "str2");
       const len1 = str1.length;
       const len2 = str2.length;
 
@@ -346,16 +354,16 @@ export class JaroDistance extends BaseAlgorithm<JaroDistanceInput, JaroDistanceO
 
       transpositions /= 2;
 
-      const jaroDistance = matchingChars === 0 ? 0 :
-        (matchingChars / len1 + matchingChars / len2 + (matchingChars - transpositions) / matchingChars) / 3;
+      const jaroDistance =
+        matchingChars === 0
+          ? 0
+          : (matchingChars / len1 +
+              matchingChars / len2 +
+              (matchingChars - transpositions) / matchingChars) /
+            3;
 
       result = { distance: jaroDistance, result: jaroDistance };
     });
-
-    // Log performance warning for long strings
-    if (executionTime > 50) { // O(m*n) can be slow for long strings
-      console.warn(`JaroDistance performance warning: ${executionTime}ms for strings of length ${input.str1?.length || 0} and ${input.str2?.length || 0}`);
-    }
 
     return result!;
   }
@@ -388,12 +396,15 @@ export interface JaroWinklerDistanceOutput {
  * **Time Complexity:** O(m * n) where m and n are the lengths of the input strings
  * **Space Complexity:** O(min(m, n)) - space for character position tracking
  */
-export class JaroWinklerDistance extends BaseAlgorithm<JaroWinklerDistanceInput, JaroWinklerDistanceOutput> implements IAlgorithm<JaroWinklerDistanceInput, JaroWinklerDistanceOutput> {
+export class JaroWinklerDistance
+  extends BaseAlgorithm<JaroWinklerDistanceInput, JaroWinklerDistanceOutput>
+  implements IAlgorithm<JaroWinklerDistanceInput, JaroWinklerDistanceOutput>
+{
   /**
    * Creates a new JaroWinklerDistance instance
    */
   constructor() {
-    super('JaroWinklerDistance', 'O(m * n)', 'O(min(m, n))');
+    super("JaroWinklerDistance", "O(m * n)", "O(min(m, n))");
   }
 
   /**
@@ -404,7 +415,7 @@ export class JaroWinklerDistance extends BaseAlgorithm<JaroWinklerDistanceInput,
   public execute(input: JaroWinklerDistanceInput): JaroWinklerDistanceOutput {
     let result: JaroWinklerDistanceOutput;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    PerformanceMonitor.measureExecutionTime(() => {
       const { str1, str2, scalingFactor = 0.1, maxPrefixLength = 4 } = input;
 
       // Calculate Jaro distance first
@@ -422,15 +433,10 @@ export class JaroWinklerDistance extends BaseAlgorithm<JaroWinklerDistanceInput,
       }
 
       // Apply Winkler modification
-      const winklerDistance = jaroDist + (prefixLength * scalingFactor * (1 - jaroDist));
+      const winklerDistance = jaroDist + prefixLength * scalingFactor * (1 - jaroDist);
 
       result = { distance: winklerDistance };
     });
-
-    // Log performance warning for long strings
-    if (executionTime > 50) { // Similar to Jaro distance
-      console.warn(`JaroWinklerDistance performance warning: ${executionTime}ms for strings of length ${input.str1?.length || 0} and ${input.str2?.length || 0}`);
-    }
 
     return result!;
   }
@@ -465,12 +471,15 @@ export interface LevenshteinDistanceOutput {
  * **Time Complexity:** O(m * n) where m and n are the lengths of the input strings
  * **Space Complexity:** O(min(m, n)) - space for the dynamic programming table
  */
-export class LevenshteinDistance extends BaseAlgorithm<LevenshteinDistanceInput, LevenshteinDistanceOutput> implements IAlgorithm<LevenshteinDistanceInput, LevenshteinDistanceOutput> {
+export class LevenshteinDistance
+  extends BaseAlgorithm<LevenshteinDistanceInput, LevenshteinDistanceOutput>
+  implements IAlgorithm<LevenshteinDistanceInput, LevenshteinDistanceOutput>
+{
   /**
    * Creates a new LevenshteinDistance instance
    */
   constructor() {
-    super('LevenshteinDistance', 'O(m * n)', 'O(min(m, n))');
+    super("LevenshteinDistance", "O(m * n)", "O(min(m, n))");
   }
 
   /**
@@ -481,8 +490,10 @@ export class LevenshteinDistance extends BaseAlgorithm<LevenshteinDistanceInput,
   public execute(input: LevenshteinDistanceInput): LevenshteinDistanceOutput {
     let result: LevenshteinDistanceOutput;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    PerformanceMonitor.measureExecutionTime(() => {
       const { str1, str2 } = input;
+      Validator.notNull(str1, "str1");
+      Validator.notNull(str2, "str2");
       const len1 = str1.length;
       const len2 = str2.length;
 
@@ -513,9 +524,9 @@ export class LevenshteinDistance extends BaseAlgorithm<LevenshteinDistanceInput,
             currRow[j] = prevRow[j - 1];
           } else {
             currRow[j] = Math.min(
-              prevRow[j] + 1,     // deletion
+              prevRow[j] + 1, // deletion
               currRow[j - 1] + 1, // insertion
-              prevRow[j - 1] + 1  // substitution
+              prevRow[j - 1] + 1, // substitution
             );
           }
         }
@@ -526,15 +537,10 @@ export class LevenshteinDistance extends BaseAlgorithm<LevenshteinDistanceInput,
 
       const editDistance = prevRow[len2];
       const maxLength = Math.max(len1, len2);
-      const normalizedDistance = maxLength === 0 ? 0 : 1 - (editDistance / maxLength);
+      const normalizedDistance = maxLength === 0 ? 0 : 1 - editDistance / maxLength;
 
       result = { distance: normalizedDistance, result: normalizedDistance };
     });
-
-    // Log performance warning for long strings
-    if (executionTime > 100) { // O(m*n) can be expensive
-      console.warn(`LevenshteinDistance performance warning: ${executionTime}ms for strings of length ${input.str1?.length || 0} and ${input.str2?.length || 0}`);
-    }
 
     return result!;
   }
