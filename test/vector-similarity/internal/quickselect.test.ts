@@ -31,6 +31,21 @@ describe('quickselectNth', () => {
   it('handles duplicates', () => {
     expect(quickselectNth([5, 5, 5, 5], 2)).toBe(5);
   });
+
+  it('covers all medianOfThreeIndex branches', () => {
+    // a < b, b < c => mid (1, 2, 3)
+    expect(quickselectNth([1, 2, 3], 1)).toBe(2);
+    // a < b, b >= c, a < c => right (1, 3, 2)
+    expect(quickselectNth([1, 3, 2], 1)).toBe(2);
+    // a < b, b >= c, a >= c => left (2, 3, 1)
+    expect(quickselectNth([2, 3, 1], 1)).toBe(2);
+    // a >= b, a < c => left (2, 1, 3)
+    expect(quickselectNth([2, 1, 3], 1)).toBe(2);
+    // a >= b, a >= c, b < c => right (3, 1, 2)
+    expect(quickselectNth([3, 1, 2], 1)).toBe(2);
+    // a >= b, a >= c, b >= c => mid (3, 2, 1)
+    expect(quickselectNth([3, 2, 1], 1)).toBe(2);
+  });
 });
 
 describe('median', () => {
