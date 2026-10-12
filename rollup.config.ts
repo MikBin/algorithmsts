@@ -1,3 +1,4 @@
+import del from "rollup-plugin-delete";
 import { defineConfig } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
@@ -48,7 +49,7 @@ export default defineConfig([
   // Core module
   {
     input: "src/core/index.ts",
-    plugins: [...InjectPlugin],
+    plugins: [del({ targets: "dist/*" }), ...InjectPlugin],
     external: ["node:url", "node:path"],
     output: [
       {
