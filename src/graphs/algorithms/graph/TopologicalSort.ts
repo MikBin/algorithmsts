@@ -87,7 +87,7 @@ export class TopologicalSort<T, W = number> extends BaseAlgorithm<IGraph<T, W>, 
       path.pop();
       if (!visited.has(vertex)) {
         visited.add(vertex);
-        order.unshift(vertex); // Add to front for correct order
+        order.push(vertex);
       }
     };
 
@@ -107,7 +107,7 @@ export class TopologicalSort<T, W = number> extends BaseAlgorithm<IGraph<T, W>, 
     }
 
     return {
-      order,
+      order: order.reverse(),
       isDAG: true
     };
   }
