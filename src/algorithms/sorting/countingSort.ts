@@ -1,6 +1,7 @@
 import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
 import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
 import { PerformanceMonitor } from '../../performance';
+import { ArgumentError } from '../../core/validation/ArgumentError';
 
 /**
  * Input interface for CountingSort algorithm
@@ -57,15 +58,21 @@ export class CountingSort extends BaseAlgorithm<CountingSortInput, CountingSortO
         return;
       }
 
-      // Find min and max values to handle negative numbers
+      // Find min and max values to handle negative numbers, and validate integer input
       let min = array[0];
       let max = array[0];
 
-      for (let i = 1; i < array.length; i++) {
-        if (array[i] < min) {
-          min = array[i];
-        } else if (array[i] > max) {
-          max = array[i];
+      for (let i = 0; i < array.length; i++) {
+        if (!Number.isInteger(array[i])) {
+          throw new ArgumentError('CountingSort only supports integer values.', 'array');
+        }
+
+        if (i > 0) {
+          if (array[i] < min) {
+            min = array[i];
+          } else if (array[i] > max) {
+            max = array[i];
+          }
         }
       }
 

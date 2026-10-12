@@ -131,6 +131,7 @@ function medianOfThreeIndex(arr: number[], left: number, right: number): number 
     if (b < c) return mid;
     return a < c ? right : left;
   }
+  // a >= b
   if (a < c) return left;
   return b < c ? right : mid;
 }
