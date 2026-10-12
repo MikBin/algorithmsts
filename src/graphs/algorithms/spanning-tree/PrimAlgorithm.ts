@@ -1,7 +1,8 @@
-import { PriorityQueue } from '../../../data-structures/priority-queue';
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import { ISpanningTreeResult } from './KruskalAlgorithm';
+import { PriorityQueue } from "../../../data-structures/priority-queue";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { ISpanningTreeResult } from "./KruskalAlgorithm";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 
 /**
  * Prim's Algorithm implementation for finding Minimum Spanning Trees
@@ -17,13 +18,15 @@ import { ISpanningTreeResult } from './KruskalAlgorithm';
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (must be numeric and comparable)
  */
-export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<IGraph<T, W>, ISpanningTreeResult<T, W>> {
-
+export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ISpanningTreeResult<T, W>
+> {
   /**
    * Creates a new Prim's algorithm instance
    */
   constructor() {
-    super('Prim\'s Algorithm', 'O((V + E) log V)', 'O(V)');
+    super("Prim's Algorithm", "O((V + E) log V)", "O(V)");
   }
 
   /**
@@ -34,11 +37,11 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
    */
   public execute(graph: IGraph<T, W>): ISpanningTreeResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error('Prim\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Prim's algorithm requires a weighted graph", "graph");
     }
 
     if (graph.isDirected()) {
-      throw new Error('Prim\'s algorithm requires an undirected graph');
+      throw new ArgumentError("Prim's algorithm requires an undirected graph", "graph");
     }
 
     const vertices = graph.getVertices();
@@ -47,7 +50,9 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
     }
 
     // Priority queue: [weight, fromVertex, toVertex]
-    const priorityQueue = new PriorityQueue<[W, T, T]>((a, b) => (b[0] as unknown as number) - (a[0] as unknown as number));
+    const priorityQueue = new PriorityQueue<[W, T, T]>(
+      (a, b) => (b[0] as unknown as number) - (a[0] as unknown as number),
+    );
     const inMST = new Set<T>();
     const minEdge = new Map<T, { weight: W; from: T }>();
     const mstEdges: Array<{ from: T; to: T; weight: W }> = [];
@@ -100,7 +105,7 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
     return {
       edges: mstEdges,
       totalWeight,
-      found
+      found,
     };
   }
 
@@ -110,19 +115,21 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
    */
   public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
     if (!graph.isWeighted()) {
-      throw new Error('Prim\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Prim's algorithm requires a weighted graph", "graph");
     }
     if (graph.isDirected()) {
-      throw new Error('Prim\'s algorithm requires an undirected graph');
+      throw new ArgumentError("Prim's algorithm requires an undirected graph", "graph");
     }
 
     const vertices = graph.getVertices();
     if (vertices.length === 0) {
-      yield { type: 'finished', visited: new Set(), mst: [], message: 'Empty graph' };
+      yield { type: "finished", visited: new Set(), mst: [], message: "Empty graph" };
       return;
     }
 
-    const priorityQueue = new PriorityQueue<{weight: W, source: T, target: T}>((a, b) => (b.weight as unknown as number) - (a.weight as unknown as number));
+    const priorityQueue = new PriorityQueue<{ weight: W; source: T; target: T }>(
+      (a, b) => (b.weight as unknown as number) - (a.weight as unknown as number),
+    );
     const visited = new Set<T>();
     const mstEdges: Array<{ source: T; target: T; weight: W }> = [];
 
@@ -137,7 +144,12 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
       }
     }
 
-    yield { type: 'step', visited: new Set(visited), mst: [...mstEdges], message: `Starting Prim at ${startVertex}` };
+    yield {
+      type: "step",
+      visited: new Set(visited),
+      mst: [...mstEdges],
+      message: `Starting Prim at ${startVertex}`,
+    };
 
     while (visited.size < vertices.length && !priorityQueue.isEmpty()) {
       const edge = priorityQueue.dequeue()!;
@@ -147,18 +159,23 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<I
       visited.add(edge.target);
       mstEdges.push(edge);
 
-      yield { type: 'step', visited: new Set(visited), mst: [...mstEdges], message: `Added edge ${edge.source}-${edge.target} (w: ${edge.weight})` };
+      yield {
+        type: "step",
+        visited: new Set(visited),
+        mst: [...mstEdges],
+        message: `Added edge ${edge.source}-${edge.target} (w: ${edge.weight})`,
+      };
 
       for (const neighbor of graph.getNeighbors(edge.target)) {
         if (!visited.has(neighbor)) {
-           const weight = graph.getEdgeWeight(edge.target, neighbor);
-           if (weight !== undefined) {
-             priorityQueue.enqueue({ weight, source: edge.target, target: neighbor });
-           }
+          const weight = graph.getEdgeWeight(edge.target, neighbor);
+          if (weight !== undefined) {
+            priorityQueue.enqueue({ weight, source: edge.target, target: neighbor });
+          }
         }
       }
     }
 
-    yield { type: 'finished', visited: new Set(visited), mst: mstEdges, message: 'MST Completed' };
+    yield { type: "finished", visited: new Set(visited), mst: mstEdges, message: "MST Completed" };
   }
 }

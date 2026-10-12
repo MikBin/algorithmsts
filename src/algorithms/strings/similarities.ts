@@ -60,6 +60,8 @@ export class NgramSimilarity
 
     PerformanceMonitor.measureExecutionTime(() => {
       const { str1, str2, substringLength = 2, caseSensitive = false } = input;
+      Validator.notNull(str1, "str1");
+      Validator.notNull(str2, "str2");
 
       let s1 = str1;
       let s2 = str2;
@@ -293,6 +295,7 @@ export class JaroDistance
       const { str1, str2 } = input;
       Validator.notNull(str1, "str1");
       Validator.notNull(str2, "str2");
+
       const len1 = str1.length;
       const len2 = str2.length;
 
@@ -417,6 +420,8 @@ export class JaroWinklerDistance
 
     PerformanceMonitor.measureExecutionTime(() => {
       const { str1, str2, scalingFactor = 0.1, maxPrefixLength = 4 } = input;
+      Validator.notNull(str1, "str1");
+      Validator.notNull(str2, "str2");
 
       // Calculate Jaro distance first
       const jaroAlgo = new JaroDistance();
@@ -494,6 +499,7 @@ export class LevenshteinDistance
       const { str1, str2 } = input;
       Validator.notNull(str1, "str1");
       Validator.notNull(str2, "str2");
+
       const len1 = str1.length;
       const len2 = str2.length;
 

@@ -1,5 +1,5 @@
 
-import { IGraph } from './IGraph';
+import { IGraph } from './interfaces/IGraph';
 
 export const bfs = <T>(graph: IGraph<T>, startNode: T): T[] => {
   const visited: Set<T> = new Set();

@@ -1,5 +1,6 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 
 /**
  * Interface for topological sort results
@@ -35,13 +36,15 @@ export interface ITopologicalSortResult<T> {
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (default: number)
  */
-export class TopologicalSort<T, W = number> extends BaseAlgorithm<IGraph<T, W>, ITopologicalSortResult<T>> {
-
+export class TopologicalSort<T, W = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ITopologicalSortResult<T>
+> {
   /**
    * Creates a new TopologicalSort instance
    */
   constructor() {
-    super('Topological Sort', 'O(V + E)', 'O(V)');
+    super("Topological Sort", "O(V + E)", "O(V)");
   }
 
   /**
@@ -52,7 +55,7 @@ export class TopologicalSort<T, W = number> extends BaseAlgorithm<IGraph<T, W>, 
    */
   public execute(graph: IGraph<T, W>): ITopologicalSortResult<T> {
     if (!graph.isDirected()) {
-      throw new Error('Topological sort requires a directed graph');
+      throw new ArgumentError("Topological sort requires a directed graph", "graph");
     }
 
     const vertices = graph.getVertices();
@@ -102,13 +105,13 @@ export class TopologicalSort<T, W = number> extends BaseAlgorithm<IGraph<T, W>, 
       return {
         order: [],
         isDAG: false,
-        cycle
+        cycle,
       };
     }
 
     return {
       order: order.reverse(),
-      isDAG: true
+      isDAG: true,
     };
   }
 }

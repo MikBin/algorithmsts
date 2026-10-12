@@ -1,5 +1,7 @@
-import { IDataStructure } from '../interfaces/IDataStructure';
-import { IAlgorithm } from '../interfaces/IAlgorithm';
+import { ArgumentError } from "../validation/ArgumentError";
+import { DataStructureError } from "../validation/DataStructureError";
+import { IDataStructure } from "../interfaces/IDataStructure";
+import { IAlgorithm } from "../interfaces/IAlgorithm";
 
 /**
  * Abstract Factory pattern implementation for Algorithmsts library
@@ -46,13 +48,13 @@ export class ListFactory<T> implements IAbstractFactory<T> {
   public createDataStructure(): IDataStructure<T> {
     // This would typically create a concrete data structure like LinkedList
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete data structure implementation needed');
+    throw new DataStructureError("Concrete data structure implementation needed");
   }
 
   public createAlgorithm(): IAlgorithm<T[], T[]> {
     // This would typically create a sorting algorithm
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete algorithm implementation needed');
+    throw new DataStructureError("Concrete algorithm implementation needed");
   }
 }
 
@@ -76,13 +78,13 @@ export class TreeFactory<T> implements IAbstractFactory<T> {
   public createDataStructure(): IDataStructure<T> {
     // This would typically create a concrete data structure like BinarySearchTree
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete data structure implementation needed');
+    throw new DataStructureError("Concrete data structure implementation needed");
   }
 
   public createAlgorithm(): IAlgorithm<T[], any> {
     // This would typically create a search algorithm like BinarySearch
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete algorithm implementation needed');
+    throw new DataStructureError("Concrete algorithm implementation needed");
   }
 }
 
@@ -101,14 +103,14 @@ export class FactoryCreator {
    * const treeFactory = FactoryCreator.createFactory<string>('tree');
    * ```
    */
-  public static createFactory<T>(type: 'list' | 'tree'): IAbstractFactory<T> {
+  public static createFactory<T>(type: "list" | "tree"): IAbstractFactory<T> {
     switch (type) {
-      case 'list':
+      case "list":
         return new ListFactory<T>();
-      case 'tree':
+      case "tree":
         return new TreeFactory<T>();
       default:
-        throw new Error(`Unknown factory type: ${type}`);
+        throw new ArgumentError(`Unknown factory type: ${type}`, "type");
     }
   }
 }

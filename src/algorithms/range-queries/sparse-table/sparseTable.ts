@@ -1,7 +1,8 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../../performance';
-import { ArgumentError } from '../../../core/validation/ArgumentError';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../../performance";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { Validator } from "../../../core/validation/Validator";
 
 /**
  * Type for sparse table operations
@@ -55,7 +56,10 @@ export interface SparseTableQueryOutput<T> {
  *
  * @template T The type of elements in the array
  */
-export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>, SparseTableQueryOutput<T>> implements IAlgorithm<SparseTableConstructorInput<T>, SparseTableQueryOutput<T>> {
+export class SparseTable<T>
+  extends BaseAlgorithm<SparseTableConstructorInput<T>, SparseTableQueryOutput<T>>
+  implements IAlgorithm<SparseTableConstructorInput<T>, SparseTableQueryOutput<T>>
+{
   private table: T[][] = [];
   private log2: number[] = [];
   private maxLog: number = 0;
@@ -67,7 +71,7 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
    * Creates a new SparseTable instance
    */
   constructor(values?: T[], operation?: SparseTableOperation<T>, idempotent?: boolean) {
-    super('SparseTable', 'O(N log N)', 'O(N log N)');
+    super("SparseTable", "O(N log N)", "O(N log N)");
     if (values && operation) {
       this.operation = operation;
       this.isIdempotent = idempotent ?? false;
@@ -83,19 +87,16 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
   public execute(input: SparseTableConstructorInput<T>): SparseTableQueryOutput<T> {
     let result: SparseTableQueryOutput<T>;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    PerformanceMonitor.measureExecutionTime(() => {
       const { array, operation, idempotent } = input;
+      Validator.notNull(array, "array");
+      Validator.notNull(operation, "operation");
       this.operation = operation;
       this.isIdempotent = idempotent ?? false;
       this.initializeTable(array);
       // Return a dummy result since construction doesn't have a meaningful output
       result = { result: array[0] };
     });
-
-    // Log performance warning for large arrays (O(N log N) construction)
-    if (executionTime > 100) {
-      console.warn(`SparseTable construction performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
-    }
 
     return result!;
   }
@@ -141,7 +142,8 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
   public queryIterative(left: number, right: number): T {
     let partial: T | null = null;
     for (let p = this.log2[right - left + 1]; left <= right; p = this.log2[right - left + 1]) {
-      partial = partial !== null ? this.operation(partial, this.table[p][left]) : this.table[p][left];
+      partial =
+        partial !== null ? this.operation(partial, this.table[p][left]) : this.table[p][left];
       left += 1 << p;
     }
     return partial as T;
@@ -217,7 +219,10 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
     // Build higher levels by combining smaller ranges
     for (let i = 1; i <= this.maxLog; i++) {
       for (let j = 0; j + (1 << i) <= n; j++) {
-        this.table[i][j] = this.operation(this.table[i - 1][j], this.table[i - 1][j + (1 << (i - 1))]);
+        this.table[i][j] = this.operation(
+          this.table[i - 1][j],
+          this.table[i - 1][j + (1 << (i - 1))],
+        );
       }
     }
   }

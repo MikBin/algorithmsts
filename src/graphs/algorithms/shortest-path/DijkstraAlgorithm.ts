@@ -1,7 +1,8 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAlgorithm';
-import { PriorityQueue } from '../../../data-structures/priority-queue';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { IPathfindingAlgorithm, IPathResult } from "../interfaces/IPathfindingAlgorithm";
+import { PriorityQueue } from "../../../data-structures/priority-queue";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 
 /**
  * Dijkstra's Algorithm implementation for finding shortest paths in weighted graphs
@@ -16,14 +17,15 @@ import { PriorityQueue } from '../../../data-structures/priority-queue';
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (must be numeric)
  */
-export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorithm<IGraph<T, W>, IPathResult<T, W>>
-  implements IPathfindingAlgorithm<T, W> {
-
+export class DijkstraAlgorithm<T, W extends number = number>
+  extends BaseAlgorithm<IGraph<T, W>, IPathResult<T, W>>
+  implements IPathfindingAlgorithm<T, W>
+{
   /**
    * Creates a new Dijkstra's algorithm instance
    */
   constructor() {
-    super('Dijkstra\'s Algorithm', 'O((V + E) log V)', 'O(V)');
+    super("Dijkstra's Algorithm", "O((V + E) log V)", "O(V)");
   }
 
   /**
@@ -36,12 +38,12 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
    */
   public findShortestPath(graph: IGraph<T, W>, start: T, end: T): IPathResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error('Dijkstra\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Dijkstra's algorithm requires a weighted graph", "graph");
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error('Start or end vertex does not exist in the graph');
+      throw new ArgumentError("Start or end vertex does not exist in the graph", "vertex");
     }
 
     // Initialize distances and parents
@@ -115,7 +117,7 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
       distance: distances.get(end)!,
       found,
       distances,
-      parents
+      parents,
     };
   }
 
@@ -127,12 +129,12 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
    */
   public *findShortestPathGenerator(graph: IGraph<T, W>, start: T, end: T): Generator<any> {
     if (!graph.isWeighted()) {
-      throw new Error('Dijkstra\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Dijkstra's algorithm requires a weighted graph", "graph");
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error('Start or end vertex does not exist in the graph');
+      throw new ArgumentError("Start or end vertex does not exist in the graph", "vertex");
     }
 
     const distances = new Map<T, W>();
@@ -155,7 +157,13 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
       }
 
       visited.add(currentVertex);
-      yield { type: 'step', visited: new Set(visited), processing: currentVertex, distances: new Map(distances), message: `Processing ${currentVertex} (dist: ${currentDistance})` };
+      yield {
+        type: "step",
+        visited: new Set(visited),
+        processing: currentVertex,
+        distances: new Map(distances),
+        message: `Processing ${currentVertex} (dist: ${currentDistance})`,
+      };
 
       if (currentVertex === end) {
         break;
@@ -176,7 +184,13 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
           distances.set(neighbor, newDistance);
           parents.set(neighbor, currentVertex);
           priorityQueue.enqueue([newDistance, neighbor]);
-          yield { type: 'step', visited: new Set(visited), processing: neighbor, distances: new Map(distances), message: `Updating ${neighbor} dist to ${newDistance}` };
+          yield {
+            type: "step",
+            visited: new Set(visited),
+            processing: neighbor,
+            distances: new Map(distances),
+            message: `Updating ${neighbor} dist to ${newDistance}`,
+          };
         }
       }
     }
@@ -188,15 +202,20 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
       path.unshift(current);
       current = parents.get(current) || null;
       if (current === null && path[0] !== start) {
-          path.length = 0; // No path found
-          break;
+        path.length = 0; // No path found
+        break;
       }
     }
 
     if (path.length > 0 && path[0] === start) {
-        yield { type: 'finished', visited: new Set(visited), path, message: `Path found: ${path.join(' -> ')}` };
+      yield {
+        type: "finished",
+        visited: new Set(visited),
+        path,
+        message: `Path found: ${path.join(" -> ")}`,
+      };
     } else {
-        yield { type: 'finished', visited: new Set(visited), message: 'No path found' };
+      yield { type: "finished", visited: new Set(visited), message: "No path found" };
     }
   }
 
@@ -209,7 +228,10 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
    */
   public execute(graph: IGraph<T, W>, start?: T, end?: T): IPathResult<T, W> {
     if (start === undefined || end === undefined) {
-      throw new Error('Start and end vertices must be provided for Dijkstra\'s algorithm');
+      throw new ArgumentError(
+        "Start and end vertices must be provided for Dijkstra's algorithm",
+        "start/end",
+      );
     }
     return this.findShortestPath(graph, start, end);
   }

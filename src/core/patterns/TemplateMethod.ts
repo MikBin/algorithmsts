@@ -1,4 +1,6 @@
-import { BaseAlgorithm } from '../abstracts/BaseAlgorithm';
+import { BaseAlgorithm } from "../abstracts/BaseAlgorithm";
+import { Validator } from "../validation/Validator";
+import { ArgumentError } from "../validation/ArgumentError";
 
 /**
  * Template Method pattern implementation for Algorithmsts library
@@ -33,7 +35,12 @@ import { BaseAlgorithm } from '../abstracts/BaseAlgorithm';
  * const result = algo.execute([1, 2, 3, -1]); // 3 (average of positive numbers)
  * ```
  */
-export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<TInput, TOutput> {
+export abstract class AlgorithmTemplate<
+  TInput,
+  TOutput,
+  TPrepared = any,
+  TProcessed = any,
+> extends BaseAlgorithm<TInput, TOutput> {
   /**
    * Template method that defines the algorithm structure
    * @param input The input data
@@ -64,7 +71,7 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
    * @protected
    * @abstract
    */
-  protected abstract prepareData(input: TInput): any;
+  protected abstract prepareData(input: TInput): TPrepared;
 
   /**
    * Processes the prepared data
@@ -73,7 +80,7 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
    * @protected
    * @abstract
    */
-  protected abstract processData(data: any): any;
+  protected abstract processData(data: TPrepared): TProcessed;
 
   /**
    * Finalizes the result
@@ -81,8 +88,8 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
    * @returns Final result
    * @protected
    */
-  protected finalizeResult(result: any): TOutput {
-    return result as TOutput;
+  protected finalizeResult(result: TProcessed): TOutput {
+    return result as unknown as TOutput;
   }
 
   /**
@@ -103,7 +110,7 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
  * const sorted = sorter.execute([3, 1, 2]); // [1, 2, 3]
  * ```
  */
-export class SortingAlgorithm extends AlgorithmTemplate<number[], number[]> {
+export class SortingAlgorithm extends AlgorithmTemplate<number[], number[], number[], number[]> {
   protected prepareData(input: number[]): number[] {
     // Create a copy to avoid mutating original array
     return [...input];
@@ -124,8 +131,16 @@ export class SortingAlgorithm extends AlgorithmTemplate<number[], number[]> {
  * const result = searcher.execute({ array: [1, 2, 3, 4, 5], target: 3 }); // 2
  * ```
  */
-export class SearchAlgorithm extends AlgorithmTemplate<{ array: number[]; target: number }, number> {
-  protected prepareData(input: { array: number[]; target: number }): { sortedArray: number[]; target: number } {
+export class SearchAlgorithm extends AlgorithmTemplate<
+  { array: number[]; target: number },
+  number,
+  { sortedArray: number[]; target: number },
+  number
+> {
+  protected prepareData(input: { array: number[]; target: number }): {
+    sortedArray: number[];
+    target: number;
+  } {
     // Ensure array is sorted for binary search
     const sortedArray = [...input.array].sort((a, b) => a - b);
     return { sortedArray, target: input.target };
@@ -151,10 +166,10 @@ export class SearchAlgorithm extends AlgorithmTemplate<{ array: number[]; target
 
   protected validateInput(input: { array: number[]; target: number }): void {
     if (!Array.isArray(input.array)) {
-      throw new Error('Input must contain an array property');
+      throw new ArgumentError("Input must contain an array property", "input.array");
     }
-    if (typeof input.target !== 'number') {
-      throw new Error('Input must contain a numeric target property');
+    if (typeof input.target !== "number") {
+      throw new ArgumentError("Input must contain a numeric target property", "input.target");
     }
   }
 }
@@ -168,10 +183,15 @@ export class SearchAlgorithm extends AlgorithmTemplate<{ array: number[]; target
  * const stats = processor.execute([1, 2, 3, 4, 5]); // { sum: 15, average: 3, count: 5 }
  * ```
  */
-export class DataProcessingAlgorithm extends AlgorithmTemplate<number[], { sum: number; average: number; count: number }> {
+export class DataProcessingAlgorithm extends AlgorithmTemplate<
+  number[],
+  { sum: number; average: number; count: number },
+  number[],
+  { sum: number; average: number; count: number }
+> {
   protected prepareData(input: number[]): number[] {
     // Filter out non-numeric values
-    return input.filter(x => typeof x === 'number' && !isNaN(x));
+    return input.filter((x) => typeof x === "number" && !isNaN(x));
   }
 
   protected processData(data: number[]): { sum: number; average: number; count: number } {
@@ -183,7 +203,7 @@ export class DataProcessingAlgorithm extends AlgorithmTemplate<number[], { sum: 
 
   protected validateInput(input: number[]): void {
     if (!Array.isArray(input)) {
-      throw new Error('Input must be an array');
+      throw new ArgumentError("Input must be an array", "input");
     }
   }
 }

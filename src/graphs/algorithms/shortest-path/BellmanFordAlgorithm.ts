@@ -1,6 +1,8 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAlgorithm';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { IPathfindingAlgorithm, IPathResult } from "../interfaces/IPathfindingAlgorithm";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { DataStructureError } from "../../../core/validation/DataStructureError";
 
 /**
  * Bellman-Ford algorithm for single-source shortest paths with negative edges
@@ -10,19 +12,20 @@ import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAl
  */
 export class BellmanFordAlgorithm<T, W extends number = number>
   extends BaseAlgorithm<IGraph<T, W>, IPathResult<T, W>>
-  implements IPathfindingAlgorithm<T, W> {
+  implements IPathfindingAlgorithm<T, W>
+{
   constructor() {
-    super('Bellman-Ford Algorithm', 'O(V * E)', 'O(V)');
+    super("Bellman-Ford Algorithm", "O(V * E)", "O(V)");
   }
 
   public findShortestPath(graph: IGraph<T, W>, start: T, end: T): IPathResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error("Bellman-Ford requires a weighted graph");
+      throw new ArgumentError("Bellman-Ford requires a weighted graph", "graph");
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error('Start or end vertex does not exist in the graph');
+      throw new ArgumentError("Start or end vertex does not exist in the graph", "vertex");
     }
 
     const distances = new Map<T, W>();
@@ -79,11 +82,11 @@ export class BellmanFordAlgorithm<T, W extends number = number>
       const dv = distances.get(v)!;
 
       if (du + (w as number) < (dv as number)) {
-        throw new Error('Negative weight cycle detected');
+        throw new DataStructureError("Negative weight cycle detected");
       }
 
       if (!isDirected && dv + (w as number) < (du as number)) {
-        throw new Error('Negative weight cycle detected');
+        throw new DataStructureError("Negative weight cycle detected");
       }
     }
 
@@ -107,7 +110,10 @@ export class BellmanFordAlgorithm<T, W extends number = number>
 
   public execute(graph: IGraph<T, W>, start?: T, end?: T): IPathResult<T, W> {
     if (start === undefined || end === undefined) {
-      throw new Error('Start and end vertices must be provided for Bellman-Ford');
+      throw new ArgumentError(
+        "Start and end vertices must be provided for Bellman-Ford",
+        "start/end",
+      );
     }
     return this.findShortestPath(graph, start, end);
   }

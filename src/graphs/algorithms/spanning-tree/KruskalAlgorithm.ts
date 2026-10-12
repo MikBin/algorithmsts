@@ -1,5 +1,6 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 
 /**
  * Interface for spanning tree algorithm results
@@ -36,13 +37,15 @@ export interface ISpanningTreeResult<T, W = number> {
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (must be numeric and comparable)
  */
-export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorithm<IGraph<T, W>, ISpanningTreeResult<T, W>> {
-
+export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ISpanningTreeResult<T, W>
+> {
   /**
    * Creates a new Kruskal's algorithm instance
    */
   constructor() {
-    super('Kruskal\'s Algorithm', 'O(E log E)', 'O(V + E)');
+    super("Kruskal's Algorithm", "O(E log E)", "O(V + E)");
   }
 
   /**
@@ -53,11 +56,11 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
    */
   public execute(graph: IGraph<T, W>): ISpanningTreeResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error('Kruskal\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Kruskal's algorithm requires a weighted graph", "graph");
     }
 
     if (graph.isDirected()) {
-      throw new Error('Kruskal\'s algorithm requires an undirected graph');
+      throw new ArgumentError("Kruskal's algorithm requires an undirected graph", "graph");
     }
 
     const vertices = graph.getVertices();
@@ -69,7 +72,7 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
       if (edge.length === 3) {
         edgeList.push({ from: edge[0], to: edge[1], weight: edge[2] });
       } else {
-        throw new Error('All edges must have weights for MST algorithms');
+        throw new ArgumentError("All edges must have weights for MST algorithms", "graph");
       }
     }
 
@@ -132,7 +135,7 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
     return {
       edges: mstEdges,
       totalWeight,
-      found
+      found,
     };
   }
 
@@ -142,10 +145,10 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
    */
   public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
     if (!graph.isWeighted()) {
-      throw new Error('Kruskal\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Kruskal's algorithm requires a weighted graph", "graph");
     }
     if (graph.isDirected()) {
-      throw new Error('Kruskal\'s algorithm requires an undirected graph');
+      throw new ArgumentError("Kruskal's algorithm requires an undirected graph", "graph");
     }
 
     const vertices = graph.getVertices();
@@ -195,14 +198,25 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
     const mstEdges: Array<{ source: T; target: T; weight: W }> = [];
 
     for (const edge of edgeList) {
-      yield { type: 'step', visited: new Set(vertices), mst: [...mstEdges], processing: edge, message: `Checking edge ${edge.source}-${edge.target} (w: ${edge.weight})` };
+      yield {
+        type: "step",
+        visited: new Set(vertices),
+        mst: [...mstEdges],
+        processing: edge,
+        message: `Checking edge ${edge.source}-${edge.target} (w: ${edge.weight})`,
+      };
 
       if (union(edge.source, edge.target)) {
         mstEdges.push(edge);
-        yield { type: 'step', visited: new Set(vertices), mst: [...mstEdges], message: `Added edge ${edge.source}-${edge.target}` };
+        yield {
+          type: "step",
+          visited: new Set(vertices),
+          mst: [...mstEdges],
+          message: `Added edge ${edge.source}-${edge.target}`,
+        };
       }
     }
 
-    yield { type: 'finished', visited: new Set(vertices), mst: mstEdges, message: 'MST Completed' };
+    yield { type: "finished", visited: new Set(vertices), mst: mstEdges, message: "MST Completed" };
   }
 }

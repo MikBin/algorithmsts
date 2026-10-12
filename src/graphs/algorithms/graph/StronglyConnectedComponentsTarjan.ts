@@ -1,5 +1,6 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 
 export interface ISCCResult<T> {
   components: T[][];
@@ -10,15 +11,17 @@ export interface ISCCResult<T> {
  * Tarjan's algorithm for Strongly Connected Components
  * Time: O(V + E)
  */
-export class StronglyConnectedComponentsTarjan<T, W = number>
-  extends BaseAlgorithm<IGraph<T, W>, ISCCResult<T>> {
+export class StronglyConnectedComponentsTarjan<T, W = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ISCCResult<T>
+> {
   constructor() {
-    super("Tarjan's SCC", 'O(V + E)', 'O(V)');
+    super("Tarjan's SCC", "O(V + E)", "O(V)");
   }
 
   public execute(graph: IGraph<T, W>): ISCCResult<T> {
     if (!graph.isDirected()) {
-      throw new Error('SCC requires a directed graph');
+      throw new ArgumentError("SCC requires a directed graph", "graph");
     }
 
     const vertices = graph.getVertices();

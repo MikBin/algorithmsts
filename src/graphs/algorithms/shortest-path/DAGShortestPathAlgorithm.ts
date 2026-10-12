@@ -1,7 +1,9 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAlgorithm';
-import { TopologicalSort } from '../graph/TopologicalSort';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { IPathfindingAlgorithm, IPathResult } from "../interfaces/IPathfindingAlgorithm";
+import { TopologicalSort } from "../graph/TopologicalSort";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { DataStructureError } from "../../../core/validation/DataStructureError";
 
 /**
  * Shortest path in DAG using topological order; allows negative weights if acyclic.
@@ -9,25 +11,26 @@ import { TopologicalSort } from '../graph/TopologicalSort';
  */
 export class DAGShortestPathAlgorithm<T, W extends number = number>
   extends BaseAlgorithm<IGraph<T, W>, IPathResult<T, W>>
-  implements IPathfindingAlgorithm<T, W> {
+  implements IPathfindingAlgorithm<T, W>
+{
   constructor() {
-    super('DAG Shortest Path', 'O(V + E)', 'O(V)');
+    super("DAG Shortest Path", "O(V + E)", "O(V)");
   }
 
   public findShortestPath(graph: IGraph<T, W>, start: T, end: T): IPathResult<T, W> {
     if (!graph.isDirected()) {
-      throw new Error('DAG shortest path requires a directed graph');
+      throw new ArgumentError("DAG shortest path requires a directed graph", "graph");
     }
 
     const topo = new TopologicalSort<T, W>().execute(graph);
     if (!topo.isDAG) {
-      throw new Error('Graph is not a DAG');
+      throw new DataStructureError("Graph is not a DAG");
     }
 
     const order = topo.order;
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error('Start or end vertex does not exist in the graph');
+      throw new ArgumentError("Start or end vertex does not exist in the graph", "vertex");
     }
 
     const dist = new Map<T, W>();
@@ -70,7 +73,10 @@ export class DAGShortestPathAlgorithm<T, W extends number = number>
 
   public execute(graph: IGraph<T, W>, start?: T, end?: T): IPathResult<T, W> {
     if (start === undefined || end === undefined) {
-      throw new Error('Start and end vertices must be provided for DAG shortest path');
+      throw new ArgumentError(
+        "Start and end vertices must be provided for DAG shortest path",
+        "start/end",
+      );
     }
     return this.findShortestPath(graph, start, end);
   }

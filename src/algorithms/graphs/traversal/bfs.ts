@@ -1,7 +1,8 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../../performance';
-import { IGraph } from '../../../graphs/interfaces/IGraph';
+import { Validator } from "../../../core/validation/Validator";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../../performance";
+import { IGraph } from "../../../graphs/interfaces/IGraph";
 
 /**
  * Input interface for BreadthFirstSearch algorithm
@@ -34,12 +35,15 @@ export interface BreadthFirstSearchOutput<T> {
  *
  * @template T The type of nodes in the graph
  */
-export class BreadthFirstSearch<T> extends BaseAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>> implements IAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>> {
+export class BreadthFirstSearch<T>
+  extends BaseAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>>
+  implements IAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>>
+{
   /**
    * Creates a new BreadthFirstSearch instance
    */
   constructor() {
-    super('BreadthFirstSearch', 'O(V + E)', 'O(V)');
+    super("BreadthFirstSearch", "O(V + E)", "O(V)");
   }
 
   /**
@@ -52,6 +56,8 @@ export class BreadthFirstSearch<T> extends BaseAlgorithm<BreadthFirstSearchInput
 
     const executionTime = PerformanceMonitor.measureExecutionTime(() => {
       const { graph, startNode } = input;
+      Validator.notNull(graph, "graph");
+      Validator.notNull(startNode, "startNode");
       const visited = new Set<T>();
       const queue: T[] = [];
       const traversalOrder: T[] = [];
@@ -77,7 +83,9 @@ export class BreadthFirstSearch<T> extends BaseAlgorithm<BreadthFirstSearchInput
 
     // Log performance warning for large graphs (O(V + E))
     if (executionTime > 50) {
-      console.warn(`BreadthFirstSearch performance warning: ${executionTime}ms`);
+      PerformanceMonitor.getLogger()?.warn(
+        `BreadthFirstSearch performance warning: ${executionTime}ms`,
+      );
     }
 
     return result!;

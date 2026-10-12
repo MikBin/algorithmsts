@@ -1,5 +1,6 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 
 export interface IFloydWarshallResult<T, W extends number = number> {
   distances: Map<T, Map<T, W>>;
@@ -12,15 +13,17 @@ export interface IFloydWarshallResult<T, W extends number = number> {
  * Floyd–Warshall all-pairs shortest paths
  * Time: O(V^3), Space: O(V^2)
  */
-export class FloydWarshallAlgorithm<T, W extends number = number>
-  extends BaseAlgorithm<IGraph<T, W>, IFloydWarshallResult<T, W>> {
+export class FloydWarshallAlgorithm<T, W extends number = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  IFloydWarshallResult<T, W>
+> {
   constructor() {
-    super('Floyd–Warshall Algorithm', 'O(V^3)', 'O(V^2)');
+    super("Floyd–Warshall Algorithm", "O(V^3)", "O(V^2)");
   }
 
   public execute(graph: IGraph<T, W>): IFloydWarshallResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error('Floyd–Warshall requires a weighted graph');
+      throw new ArgumentError("Floyd–Warshall requires a weighted graph", "graph");
     }
 
     const verts = graph.getVertices();
@@ -36,19 +39,19 @@ export class FloydWarshallAlgorithm<T, W extends number = number>
         let nextNode: T | null = null;
 
         if (i === j) {
-            weight = 0 as W;
-            nextNode = j;
-            // If there is a self-loop with negative weight, we should take it into account
-            // to detect negative cycles immediately or during relaxation.
-            // However, standard FW usually inits d[i][i]=0.
-            // If we have a negative self-loop, relaxation k=i will update d[i][i].
-            // Wait, d[i][i] = min(0, w(i,i)).
-             if (graph.hasEdge(i, j)) {
-                const w = graph.getEdgeWeight(i, j)!;
-                if ((w as number) < 0) {
-                    weight = w;
-                }
+          weight = 0 as W;
+          nextNode = j;
+          // If there is a self-loop with negative weight, we should take it into account
+          // to detect negative cycles immediately or during relaxation.
+          // However, standard FW usually inits d[i][i]=0.
+          // If we have a negative self-loop, relaxation k=i will update d[i][i].
+          // Wait, d[i][i] = min(0, w(i,i)).
+          if (graph.hasEdge(i, j)) {
+            const w = graph.getEdgeWeight(i, j)!;
+            if ((w as number) < 0) {
+              weight = w;
             }
+          }
         } else if (graph.hasEdge(i, j)) {
           weight = graph.getEdgeWeight(i, j)!;
           nextNode = j;
@@ -98,8 +101,8 @@ export class FloydWarshallAlgorithm<T, W extends number = number>
         if (cur == null) return [];
         path.push(cur);
         if (path.length > verts.length + 1) {
-            // Prevent infinite loop in path reconstruction if cycle exists
-             return [];
+          // Prevent infinite loop in path reconstruction if cycle exists
+          return [];
         }
       }
       return path;
