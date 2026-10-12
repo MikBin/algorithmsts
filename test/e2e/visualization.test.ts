@@ -13,13 +13,31 @@ let page: Page;
 let isBrowserAvailable = true;
 
 beforeAll(async () => {
-  // Start a local server (Python 3)
-  serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
-    cwd: ROOT_DIR
-  });
-
-  // Wait for server to be ready
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  // Start a local server (python3 with python fallback for Windows)
+  try {
+    serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
+      cwd: ROOT_DIR
+    });
+    serverProcess.on('error', (err: any) => {
+      if (err.code === 'ENOENT') {
+        serverProcess = spawn('python', ['-m', 'http.server', PORT.toString()], {
+          cwd: ROOT_DIR
+        });
+        serverProcess.on('error', (err2: any) => {
+          console.warn('Could not start python server:', err2.message);
+          isBrowserAvailable = false;
+        });
+      } else {
+        console.warn('Could not spawn python3 server:', err.message);
+        isBrowserAvailable = false;
+      }
+    });
+    // Wait for server to be ready
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  } catch (e) {
+    console.warn('Failed to start python server', e);
+    isBrowserAvailable = false;
+  }
 
   try {
     browser = await chromium.launch();
@@ -34,7 +52,9 @@ beforeAll(async () => {
 }, 60000);
 
 afterAll(async () => {
-  serverProcess.kill();
+  if (serverProcess) {
+    serverProcess.kill();
+  }
 });
 
 beforeEach(async (context) => {

@@ -102,6 +102,8 @@ export interface BinaryClosestSearchInput<T> {
   value: T;
   /** Comparison function that returns negative if value < element, 0 if equal, positive if value > element */
   compareFn: (value: T, element: T) => number;
+  /** Optional distance function. Required for correct closest-element semantics if compareFn only returns sign */
+  distanceFn?: (value: T, element: T) => number;
 }
 
 /**
@@ -139,7 +141,7 @@ export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInp
     let result: BinaryClosestSearchOutput;
 
     const executionTime = PerformanceMonitor.measureExecutionTime(() => {
-      const { array, value, compareFn } = input;
+      const { array, value, compareFn, distanceFn } = input;
 
       const length = array?.length ?? 0;
       if (length === 0) {
@@ -168,20 +170,28 @@ export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInp
 
       // After the loop, the closest element is either at `left` or `right`.
       // We compare the distances to find the winner.
-      const leftValueComparison = compareFn(value, array[left]);
-      const rightValueComparison = compareFn(value, array[right]);
+      let leftDistance: number;
+      let rightDistance: number;
 
-      const absLeftValueComparison = Math.abs(leftValueComparison);
-      const absRightValueComparison = Math.abs(rightValueComparison);
+      if (distanceFn) {
+        leftDistance = distanceFn(value, array[left]);
+        rightDistance = distanceFn(value, array[right]);
+      } else {
+        // Fallback: use compareFn as a proxy for distance (legacy behavior).
+        // If compareFn only returns sign (e.g. localeCompare or Math.sign), distance is always 1 for both sides.
+        leftDistance = Math.abs(compareFn(value, array[left]));
+        rightDistance = Math.abs(compareFn(value, array[right]));
+      }
 
-      if (absLeftValueComparison === absRightValueComparison) {
+      if (leftDistance === rightDistance) {
+        const leftValueComparison = compareFn(value, array[left]);
         // In case of a tie in distance, the comparison function's sign can decide.
         // For example, if we prefer the lower index on a tie, the comparison function for `value` vs `array[left]` should have a smaller magnitude.
         // The original logic here seems to prefer the element that is greater than or equal to the value in a tie.
         result = { index: leftValueComparison < 0 ? left : right };
       } else {
         // Return the index of the element with the smaller distance
-        result = { index: absLeftValueComparison < absRightValueComparison ? left : right };
+        result = { index: leftDistance < rightDistance ? left : right };
       }
     });
 
