@@ -297,7 +297,7 @@ export class JaroDistance extends BaseAlgorithm<JaroDistanceInput, JaroDistanceO
         return;
       }
 
-      const maxDist = Math.floor(Math.max(len1, len2) / 2) - 1;
+      const maxDist = Math.max(0, Math.floor(Math.max(len1, len2) / 2) - 1);
       const charsAndPositions: { [key: string]: number[] } = {};
       let matchingChars = 0;
       let transpositions = 0;
@@ -487,11 +487,11 @@ export class LevenshteinDistance extends BaseAlgorithm<LevenshteinDistanceInput,
       const len2 = str2.length;
 
       if (len1 === 0) {
-        result = { distance: len2 === 0 ? 0 : 1, result: len2 === 0 ? 0 : 1 };
+        result = { distance: len2 === 0 ? 1 : 0, result: len2 === 0 ? 1 : 0 };
         return;
       }
       if (len2 === 0) {
-        result = { distance: 1, result: 1 };
+        result = { distance: 0, result: 0 };
         return;
       }
 
