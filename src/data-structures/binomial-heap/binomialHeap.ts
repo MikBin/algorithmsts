@@ -31,7 +31,7 @@ export class BinomialHeap<T> {
       switch (count) {
         case 0: break;
         case 1: this.trees[i] = a || b || carry; carry = null; break;
-        case 2: carry = this.meld(a || b!, carry || (a && b ? null : null) || (a && !b ? b : a)!); this.trees[i] = null; break;
+        case 2: if (a && b) carry = this.meld(a, b); else if (a && carry) carry = this.meld(a, carry); else carry = this.meld(b!, carry!); this.trees[i] = null; break;
         case 3: this.trees[i] = carry!; carry = this.meld(a!, b!); break;
       }
     }
