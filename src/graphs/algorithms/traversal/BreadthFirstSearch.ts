@@ -10,7 +10,7 @@ import { ITraversalAlgorithm, ITraversalResult } from '../interfaces/ITraversalA
  * shortest paths in unweighted graphs and for exploring graph structure.
  *
  * Time Complexity: O(V + E) where V is vertices and E is edges
- * Space Complexity: O(V) for the queue and visited set
+ * Space Complexity: O(V^2) for paths materialization
  *
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (default: number)
@@ -22,7 +22,7 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
    * Creates a new BFS instance
    */
   constructor() {
-    super('Breadth-First Search', 'O(V + E)', 'O(V)');
+    super('Breadth-First Search', 'O(V + E)', 'O(V^2)');
   }
 
   /**

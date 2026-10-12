@@ -20,6 +20,7 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
     if (!left || !right) {
       throw new Error('Left and right partitions must be provided');
     }
+    const rightSet = new Set(right);
     if (graph.isDirected()) {
       // We treat edges as undirected across partitions for matching
     }
@@ -49,7 +50,7 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
         const u = q.shift()!;
         if (dist.get(u)! < (dist.get(NIL)! as number)) {
           for (const v of graph.getNeighbors(u as T)) {
-            if (!right.includes(v)) continue;
+            if (!rightSet.has(v)) continue;
             const pu = pairV.get(v)!;
             if (dist.get(pu as any) === undefined || (dist.get(pu as any)! as number) === Infinity) {
               dist.set(pu as any, (dist.get(u)! as number) + 1);
@@ -64,7 +65,7 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
     const dfs = (u: T | typeof NIL): boolean => {
       if (u === NIL) return true;
       for (const v of graph.getNeighbors(u)) {
-        if (!right.includes(v)) continue;
+        if (!rightSet.has(v)) continue;
         const pu = pairV.get(v)!;
         if ((dist.get(pu as any)! as number) === (dist.get(u)! as number) + 1 && dfs(pu as any)) {
           pairV.set(v, u);
