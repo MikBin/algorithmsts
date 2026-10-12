@@ -11,7 +11,7 @@ import { inOrderTraversal } from './iterator';
  */
 export class BinarySearchTree<T> {
   root: BSTNode<T> | null = null;
-  size: number = 0;
+  _size: number = 0;
   compare: (a: T, b: T) => number;
 
   /**
@@ -19,7 +19,11 @@ export class BinarySearchTree<T> {
    * If not provided, a default one will be used.
    */
   constructor(compareFunction?: (a: T, b: T) => number) {
-    this.compare = compareFunction || ((a: any, b: any) => a - b);
+    this.compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+  }
+
+  get size(): number {
+    return this._size;
   }
 
   /**
@@ -32,7 +36,7 @@ export class BinarySearchTree<T> {
 
     if (this.root === null) {
       this.root = newNode;
-      this.size++;
+      this._size++;
       return newNode;
     }
 
@@ -44,7 +48,7 @@ export class BinarySearchTree<T> {
         if (currentNode.left === null) {
           currentNode.left = newNode;
           newNode.parent = currentNode;
-          this.size++;
+          this._size++;
           return newNode;
         }
         currentNode = currentNode.left;
@@ -52,7 +56,7 @@ export class BinarySearchTree<T> {
         if (currentNode.right === null) {
           currentNode.right = newNode;
           newNode.parent = currentNode;
-          this.size++;
+          this._size++;
           return newNode;
         }
         currentNode = currentNode.right;
@@ -78,7 +82,7 @@ export class BinarySearchTree<T> {
     }
 
     this.deleteNode(nodeToDelete);
-    this.size--;
+    this._size--;
     return true;
   }
 
@@ -272,9 +276,10 @@ export class BinarySearchTree<T> {
   /**
    * @notice Gets the number of nodes in the BST.
    * @returns The number of nodes.
+   * @deprecated Use `.size` instead.
    */
   getSize(): number {
-    return this.size;
+    return this._size;
   }
 
   /**
@@ -299,7 +304,7 @@ export class BinarySearchTree<T> {
    */
   clear(): void {
     this.root = null;
-    this.size = 0;
+    this._size = 0;
   }
 
   [Symbol.iterator](): Generator<T, void, unknown> {

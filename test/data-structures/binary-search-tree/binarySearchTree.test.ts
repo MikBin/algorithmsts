@@ -17,6 +17,7 @@ describe('BinarySearchTree', () => {
     bst.insert(10);
     bst.insert(5);
     bst.insert(10);
+    expect(bst.size).toBe(2);
     expect(bst.getSize()).toBe(2);
   });
 
@@ -73,9 +74,9 @@ describe('BinarySearchTree', () => {
     bst.insert(10);
     bst.insert(5);
     bst.insert(15);
-    expect(bst.getSize()).toBe(3);
+    expect(bst.size).toBe(3);
     bst.remove(5);
-    expect(bst.getSize()).toBe(2);
+    expect(bst.size).toBe(2);
   });
 
   it('should check if it is empty', () => {
@@ -91,7 +92,15 @@ describe('BinarySearchTree', () => {
     bst.insert(5);
     bst.clear();
     expect(bst.isEmpty()).toBe(true);
-    expect(bst.getSize()).toBe(0);
+    expect(bst.size).toBe(0);
+  });
+
+  it('should handle string comparison safely with default comparator', () => {
+    const bst = new BinarySearchTree<string>();
+    bst.insert('banana');
+    bst.insert('apple');
+    bst.insert('cherry');
+    expect(bst.traversalInOrder()).toEqual(['apple', 'banana', 'cherry']);
   });
 
   it('should find the minimum and maximum values', () => {

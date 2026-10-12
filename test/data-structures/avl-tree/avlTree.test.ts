@@ -13,6 +13,7 @@ describe('AVLTree', () => {
 
     expect(tree.isBalanced()).toBe(true);
     expect(tree.traversalInOrder()).toEqual([10, 20, 25, 30, 40, 50]);
+    expect(tree.size).toBe(6);
     expect(tree.getSize()).toBe(6);
   });
 
@@ -46,12 +47,12 @@ describe('AVLTree', () => {
     tree.delete(40);
     expect(tree.isBalanced()).toBe(true);
     expect(tree.traversalInOrder()).toEqual([10, 20, 25, 30, 50]);
-    expect(tree.getSize()).toBe(5);
+    expect(tree.size).toBe(5);
 
     tree.delete(10);
     expect(tree.isBalanced()).toBe(true);
     expect(tree.traversalInOrder()).toEqual([20, 25, 30, 50]);
-    expect(tree.getSize()).toBe(4);
+    expect(tree.size).toBe(4);
   });
 
   it('should search for values', () => {
@@ -99,8 +100,25 @@ describe('AVLTree', () => {
     tree.insert(10);
     tree.insert(20);
     tree.clear();
-    expect(tree.getSize()).toBe(0);
+    expect(tree.size).toBe(0);
     expect(tree.root).toBe(null);
+  });
+
+  it('should return correct height for empty tree and single node', () => {
+    const tree = new AVLTree<number>();
+    expect(tree.getHeight()).toBe(-1);
+    tree.insert(10);
+    expect(tree.getHeight()).toBe(0);
+    tree.insert(20);
+    expect(tree.getHeight()).toBe(1);
+  });
+
+  it('should handle string comparison safely with default comparator', () => {
+    const tree = new AVLTree<string>();
+    tree.insert('banana');
+    tree.insert('apple');
+    tree.insert('cherry');
+    expect(tree.traversalInOrder()).toEqual(['apple', 'banana', 'cherry']);
   });
 
   it('should handle custom comparators', () => {
