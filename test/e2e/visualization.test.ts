@@ -14,12 +14,20 @@ let isBrowserAvailable = true;
 
 beforeAll(async () => {
   // Start a local server (Python 3)
-  serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
-    cwd: ROOT_DIR
-  });
+  try {
+    serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
+      cwd: ROOT_DIR
+    });
+    // Add error handler so ENOENT doesn't crash the test runner
+    serverProcess.on('error', (err) => {
+      console.warn('Failed to start python3 server:', err);
+    });
 
-  // Wait for server to be ready
-  await new Promise(resolve => setTimeout(resolve, 2000));
+    // Wait for server to be ready
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  } catch (err) {
+    console.warn('Failed to spawn python3 server:', err);
+  }
 
   try {
     browser = await chromium.launch();
@@ -34,7 +42,9 @@ beforeAll(async () => {
 }, 60000);
 
 afterAll(async () => {
-  serverProcess.kill();
+  if (serverProcess) {
+    serverProcess.kill();
+  }
 });
 
 beforeEach(async (context) => {
