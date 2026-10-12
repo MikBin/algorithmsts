@@ -79,7 +79,7 @@
     "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production && tsc",
     "docs": "npm run generate-docs",
     "generate-docs": "typedoc",
-    "build:docs": "node tools/build-and-docs.ts",
+    "build:docs": "tsx tools/build-and-docs.ts",
     "test": "vitest run --no-watch --exclude test/e2e --exclude test/integration",
     "pretest:e2e": "npm run build && npx vite build",
     "test:e2e": "vitest run test/e2e && npx playwright test",
