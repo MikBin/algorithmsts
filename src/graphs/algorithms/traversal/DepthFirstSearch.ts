@@ -10,7 +10,7 @@ import { ITraversalAlgorithm, ITraversalResult } from '../interfaces/ITraversalA
  * cycle detection, and exploring graph connectivity.
  *
  * Time Complexity: O(V + E) where V is vertices and E is edges
- * Space Complexity: O(V) for the recursion stack and visited set
+ * Space Complexity: O(V^2) for paths materialization
  *
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (default: number)
@@ -22,7 +22,7 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
    * Creates a new DFS instance
    */
   constructor() {
-    super('Depth-First Search', 'O(V + E)', 'O(V)');
+    super('Depth-First Search', 'O(V + E)', 'O(V^2)');
   }
 
   /**

@@ -9,7 +9,6 @@ dist
 compiled
 .awcache
 .rpt2_cache
-docs
 package-lock.json
 assets
 !visualization/assets/

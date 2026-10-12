@@ -74,9 +74,11 @@ export class EdmondsKarpMaxFlow<T, W extends number = number>
       while (q.length) {
         const u = q.shift()!;
         if (u === sink) break;
-        for (const v of vertices) {
+        const uResidual = residual.get(u);
+        if (!uResidual) continue;
+        for (const [v, res] of uResidual.entries()) {
           if (visited.has(v)) continue;
-          if (getResidual(u, v) > 0) {
+          if (res > 0) {
             visited.add(v);
             parent.set(v, u);
             q.push(v);

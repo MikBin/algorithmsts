@@ -1,6 +1,7 @@
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAlgorithm';
+import { PriorityQueue } from '../../../data-structures/priority-queue';
 
 /**
  * Dijkstra's Algorithm implementation for finding shortest paths in weighted graphs
@@ -49,7 +50,7 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
     const visited = new Set<T>();
 
     // Priority queue: [distance, vertex]
-    const priorityQueue: Array<[W, T]> = [];
+    const priorityQueue = new PriorityQueue<[W, T]>((a, b) => b[0] - a[0]);
 
     // Initialize all distances to infinity except start
     for (const vertex of vertices) {
@@ -59,12 +60,10 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
     distances.set(start, 0 as W);
 
     // Add start vertex to priority queue
-    priorityQueue.push([0 as W, start]);
+    priorityQueue.enqueue([0 as W, start]);
 
-    while (priorityQueue.length > 0) {
-      // Sort priority queue by distance (simple implementation)
-      priorityQueue.sort((a, b) => a[0] - b[0]);
-      const [currentDistance, currentVertex] = priorityQueue.shift()!;
+    while (!priorityQueue.isEmpty()) {
+      const [currentDistance, currentVertex] = priorityQueue.dequeue()!;
 
       if (visited.has(currentVertex)) {
         continue;
@@ -94,7 +93,7 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
         if (newDistance < neighborDistance) {
           distances.set(neighbor, newDistance);
           parents.set(neighbor, currentVertex);
-          priorityQueue.push([newDistance, neighbor]);
+          priorityQueue.enqueue([newDistance, neighbor]);
         }
       }
     }
@@ -139,18 +138,17 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
     const distances = new Map<T, W>();
     const parents = new Map<T, T | null>();
     const visited = new Set<T>();
-    const priorityQueue: Array<[W, T]> = [];
+    const priorityQueue = new PriorityQueue<[W, T]>((a, b) => b[0] - a[0]);
 
     for (const vertex of vertices) {
       distances.set(vertex, Infinity as W);
       parents.set(vertex, null);
     }
     distances.set(start, 0 as W);
-    priorityQueue.push([0 as W, start]);
+    priorityQueue.enqueue([0 as W, start]);
 
-    while (priorityQueue.length > 0) {
-      priorityQueue.sort((a, b) => a[0] - b[0]);
-      const [currentDistance, currentVertex] = priorityQueue.shift()!;
+    while (!priorityQueue.isEmpty()) {
+      const [currentDistance, currentVertex] = priorityQueue.dequeue()!;
 
       if (visited.has(currentVertex)) {
         continue;
@@ -177,7 +175,7 @@ export class DijkstraAlgorithm<T, W extends number = number> extends BaseAlgorit
         if (newDistance < neighborDistance) {
           distances.set(neighbor, newDistance);
           parents.set(neighbor, currentVertex);
-          priorityQueue.push([newDistance, neighbor]);
+          priorityQueue.enqueue([newDistance, neighbor]);
           yield { type: 'step', visited: new Set(visited), processing: neighbor, distances: new Map(distances), message: `Updating ${neighbor} dist to ${newDistance}` };
         }
       }
