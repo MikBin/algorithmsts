@@ -68,6 +68,12 @@
       "path": "node_modules/cz-git"
     }
   },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "scripts": {
     "lint": "eslint src/",
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
