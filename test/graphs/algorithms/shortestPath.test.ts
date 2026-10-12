@@ -242,6 +242,24 @@ describe('Shortest Path Algorithms', () => {
       expect(() => bellmanFord.findShortestPath(graph, 'A', 'C')).toThrow(/requires a weighted graph/);
     });
 
+    it('should handle undirected graphs in reverse direction (non-root sources)', () => {
+      const graph = SampleGraphs.weightedGraph;
+      const result = bellmanFord.findShortestPath(graph, 'D', 'A');
+
+      expect(result.found).toBe(true);
+      expect(result.distance).toBe(5);
+      expect(result.path).toEqual(['D', 'C', 'A']);
+    });
+
+    it('should detect negative weight edges in undirected graphs as cycles', () => {
+      const graph = new AdjacencyListGraph<string>(false, true); // undirected, weighted
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addEdge('A', 'B', -1);
+
+      expect(() => bellmanFord.findShortestPath(graph, 'A', 'B')).toThrow(/Negative weight cycle detected/);
+    });
+
     it('should throw error for non-existent vertices', () => {
         const graph = SampleGraphs.weightedGraph;
         expect(() => bellmanFord.findShortestPath(graph, 'A', 'Z')).toThrow();
