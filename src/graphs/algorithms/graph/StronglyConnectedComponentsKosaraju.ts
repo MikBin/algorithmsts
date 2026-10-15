@@ -1,19 +1,21 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import type { ISCCResult } from './StronglyConnectedComponentsTarjan';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import type { ISCCResult } from "./StronglyConnectedComponentsTarjan";
 
 /**
  * Kosaraju's algorithm for Strongly Connected Components
  * Time: O(V + E)
  */
-export class StronglyConnectedComponentsKosaraju<T, W = number>
-  extends BaseAlgorithm<IGraph<T, W>, ISCCResult<T>> {
+export class StronglyConnectedComponentsKosaraju<T, W = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ISCCResult<T>
+> {
   constructor() {
-    super("Kosaraju's SCC", 'O(V + E)', 'O(V + E)');
+    super("Kosaraju's SCC", "O(V + E)", "O(V + E)");
   }
 
   public execute(graph: IGraph<T, W>): ISCCResult<T> {
-    if (!graph.isDirected()) throw new Error('SCC requires a directed graph');
+    if (!graph.isDirected()) throw new Error("SCC requires a directed graph");
 
     const vertices = graph.getVertices();
     const visited = new Set<T>();

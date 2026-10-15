@@ -1,5 +1,5 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
 
 export interface IBiconnectedComponentsResult<T> {
   components: Array<Array<[T, T]>>; // list of edge lists
@@ -9,15 +9,17 @@ export interface IBiconnectedComponentsResult<T> {
  * Biconnected components in an undirected graph via DFS and edge stack.
  * Time: O(V + E)
  */
-export class BiconnectedComponents<T, W = number>
-  extends BaseAlgorithm<IGraph<T, W>, IBiconnectedComponentsResult<T>> {
+export class BiconnectedComponents<T, W = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  IBiconnectedComponentsResult<T>
+> {
   constructor() {
-    super('Biconnected Components', 'O(V + E)', 'O(V + E)');
+    super("Biconnected Components", "O(V + E)", "O(V + E)");
   }
 
   public execute(graph: IGraph<T, W>): IBiconnectedComponentsResult<T> {
     if (graph.isDirected()) {
-      throw new Error('Biconnected components require an undirected graph');
+      throw new Error("Biconnected components require an undirected graph");
     }
 
     const vertices = graph.getVertices();
@@ -43,8 +45,10 @@ export class BiconnectedComponents<T, W = number>
           low.set(u, Math.min(low.get(u)!, low.get(v)!));
 
           // If u is an articulation point, pop edges until (u, v)
-          if ((parent.get(u) ?? null) === null && childCount > 1 ||
-              (parent.get(u) ?? null) !== null && low.get(v)! >= disc.get(u)!) {
+          if (
+            ((parent.get(u) ?? null) === null && childCount > 1) ||
+            ((parent.get(u) ?? null) !== null && low.get(v)! >= disc.get(u)!)
+          ) {
             const comp: Array<[T, T]> = [];
             while (stack.length) {
               const e = stack.pop()!;
@@ -53,7 +57,7 @@ export class BiconnectedComponents<T, W = number>
             }
             components.push(comp);
           }
-        } else if (v !== parent.get(u) && (disc.get(v)! < disc.get(u)!)) {
+        } else if (v !== parent.get(u) && disc.get(v)! < disc.get(u)!) {
           // Back edge
           stack.push([u, v]);
           low.set(u, Math.min(low.get(u)!, disc.get(v)!));

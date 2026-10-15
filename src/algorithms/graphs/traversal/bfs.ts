@@ -1,7 +1,7 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../../performance';
-import { IGraph } from '../../../graphs/interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../../performance";
+import { IGraph } from "../../../graphs/interfaces/IGraph";
 
 /**
  * Input interface for BreadthFirstSearch algorithm
@@ -34,12 +34,15 @@ export interface BreadthFirstSearchOutput<T> {
  *
  * @template T The type of nodes in the graph
  */
-export class BreadthFirstSearch<T> extends BaseAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>> implements IAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>> {
+export class BreadthFirstSearch<T>
+  extends BaseAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>>
+  implements IAlgorithm<BreadthFirstSearchInput<T>, BreadthFirstSearchOutput<T>>
+{
   /**
    * Creates a new BreadthFirstSearch instance
    */
   constructor() {
-    super('BreadthFirstSearch', 'O(V + E)', 'O(V)');
+    super("BreadthFirstSearch", "O(V + E)", "O(V)");
   }
 
   /**

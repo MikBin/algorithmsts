@@ -1,5 +1,5 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
 
 export interface IMatchingResult<T> {
   matching: Map<T, T>;
@@ -13,19 +13,19 @@ export interface IMatchingResult<T> {
  */
 export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMatchingResult<T>> {
   constructor() {
-    super('Hopcroft–Karp Bipartite Matching', 'O(E * sqrt(V))', 'O(V)');
+    super("Hopcroft–Karp Bipartite Matching", "O(E * sqrt(V))", "O(V)");
   }
 
   public execute(graph: IGraph<T, W>, left?: T[], right?: T[]): IMatchingResult<T> {
     if (!left || !right) {
-      throw new Error('Left and right partitions must be provided');
+      throw new Error("Left and right partitions must be provided");
     }
     const rightSet = new Set(right);
     if (graph.isDirected()) {
       // We treat edges as undirected across partitions for matching
     }
 
-    const NIL: any = Symbol('NIL');
+    const NIL: any = Symbol("NIL");
 
     const pairU = new Map<T, T | typeof NIL>();
     const pairV = new Map<T, T | typeof NIL>();
@@ -52,7 +52,10 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
           for (const v of graph.getNeighbors(u as T)) {
             if (!rightSet.has(v)) continue;
             const pu = pairV.get(v)!;
-            if (dist.get(pu as any) === undefined || (dist.get(pu as any)! as number) === Infinity) {
+            if (
+              dist.get(pu as any) === undefined ||
+              (dist.get(pu as any)! as number) === Infinity
+            ) {
               dist.set(pu as any, (dist.get(u)! as number) + 1);
               q.push(pu as any);
             }

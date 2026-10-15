@@ -1,6 +1,6 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor, ComplexityAnalyzer } from '../../../performance';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor, ComplexityAnalyzer } from "../../../performance";
 
 /**
  * Input interface for BinarySearch algorithm
@@ -34,12 +34,15 @@ export interface BinarySearchOutput {
  *
  * @template T The type of elements in the array
  */
-export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinarySearchOutput> implements IAlgorithm<BinarySearchInput<T>, BinarySearchOutput> {
+export class BinarySearch<T>
+  extends BaseAlgorithm<BinarySearchInput<T>, BinarySearchOutput>
+  implements IAlgorithm<BinarySearchInput<T>, BinarySearchOutput>
+{
   /**
    * Creates a new BinarySearch instance
    */
   constructor() {
-    super('BinarySearch', 'O(log n)', 'O(1)');
+    super("BinarySearch", "O(log n)", "O(1)");
   }
 
   /**
@@ -85,7 +88,9 @@ export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinaryS
 
     // Log performance if it exceeds target
     if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      console.warn(`BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
+      console.warn(
+        `BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`,
+      );
     }
 
     return result!;
@@ -124,12 +129,15 @@ export interface BinaryClosestSearchOutput {
  *
  * @template T The type of elements in the array
  */
-export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput> implements IAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput> {
+export class BinaryClosestSearch<T>
+  extends BaseAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput>
+  implements IAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput>
+{
   /**
    * Creates a new BinaryClosestSearch instance
    */
   constructor() {
-    super('BinaryClosestSearch', 'O(log n)', 'O(1)');
+    super("BinaryClosestSearch", "O(log n)", "O(1)");
   }
 
   /**
@@ -197,7 +205,9 @@ export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInp
 
     // Log performance if it exceeds target
     if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      console.warn(`BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
+      console.warn(
+        `BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`,
+      );
     }
 
     return result!;

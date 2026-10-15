@@ -1,8 +1,8 @@
-import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../performance';
-import { digitCount, getNthDigit } from '../../utils/number';
-import { ArgumentError } from '../../core/validation/ArgumentError';
+import { BaseAlgorithm } from "../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../performance";
+import { digitCount, getNthDigit } from "../../utils/number";
+import { ArgumentError } from "../../core/validation/ArgumentError";
 
 /**
  * Input interface for RadixSortNumbers algorithm
@@ -34,12 +34,15 @@ export interface RadixSortNumbersOutput {
  * Radix sort is efficient for sorting numbers with a fixed number of digits or
  * when the range of values is known.
  */
-export class RadixSortNumbers extends BaseAlgorithm<RadixSortNumbersInput, RadixSortNumbersOutput> implements IAlgorithm<RadixSortNumbersInput, RadixSortNumbersOutput> {
+export class RadixSortNumbers
+  extends BaseAlgorithm<RadixSortNumbersInput, RadixSortNumbersOutput>
+  implements IAlgorithm<RadixSortNumbersInput, RadixSortNumbersOutput>
+{
   /**
    * Creates a new RadixSortNumbers instance
    */
   constructor() {
-    super('RadixSortNumbers', 'O(n * d)', 'O(n + k)');
+    super("RadixSortNumbers", "O(n * d)", "O(n + k)");
   }
 
   /**
@@ -59,8 +62,8 @@ export class RadixSortNumbers extends BaseAlgorithm<RadixSortNumbersInput, Radix
       }
 
       // Separate positive and negative numbers
-      const negatives = array.filter(n => n < 0);
-      const positives = array.filter(n => n >= 0);
+      const negatives = array.filter((n) => n < 0);
+      const positives = array.filter((n) => n >= 0);
 
       const sort = (arrayToSort: number[]): number[] => {
         if (arrayToSort.length === 0) {
@@ -91,19 +94,25 @@ export class RadixSortNumbers extends BaseAlgorithm<RadixSortNumbersInput, Radix
       };
 
       // Sort negatives (convert to positive, sort, then convert back and reverse)
-      const sortedNegatives = sort(negatives.map(n => Math.abs(n)))
-        .map(n => -n)
+      const sortedNegatives = sort(negatives.map((n) => Math.abs(n)))
+        .map((n) => -n)
         .reverse();
 
       // Sort positives
       const sortedPositives = sort(positives);
 
-      result = { sortedArray: [...sortedNegatives, ...sortedPositives], result: [...sortedNegatives, ...sortedPositives] };
+      result = {
+        sortedArray: [...sortedNegatives, ...sortedPositives],
+        result: [...sortedNegatives, ...sortedPositives],
+      };
     });
 
     // Log performance warning for large arrays
-    if (executionTime > 100) { // Arbitrary threshold for radix sort
-      console.warn(`RadixSortNumbers performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+    if (executionTime > 100) {
+      // Arbitrary threshold for radix sort
+      console.warn(
+        `RadixSortNumbers performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`,
+      );
     }
 
     return result!;
@@ -139,12 +148,15 @@ export interface RadixSortStringsOutput {
  * This implementation uses 257 buckets: 1 for strings shorter than the current position,
  * and 256 for ASCII characters.
  */
-export class RadixSortStrings extends BaseAlgorithm<RadixSortStringsInput, RadixSortStringsOutput> implements IAlgorithm<RadixSortStringsInput, RadixSortStringsOutput> {
+export class RadixSortStrings
+  extends BaseAlgorithm<RadixSortStringsInput, RadixSortStringsOutput>
+  implements IAlgorithm<RadixSortStringsInput, RadixSortStringsOutput>
+{
   /**
    * Creates a new RadixSortStrings instance
    */
   constructor() {
-    super('RadixSortStrings', 'O(n * m)', 'O(n + k)');
+    super("RadixSortStrings", "O(n * m)", "O(n + k)");
   }
 
   /**
@@ -186,7 +198,10 @@ export class RadixSortStrings extends BaseAlgorithm<RadixSortStringsInput, Radix
             // Add 1 to the charCode to avoid conflict with the bucket for shorter strings.
             const charCode = str.charCodeAt(position);
             if (charCode > 255) {
-              throw new ArgumentError('RadixSortStrings only supports ASCII characters (code unit <= 255).', 'array');
+              throw new ArgumentError(
+                "RadixSortStrings only supports ASCII characters (code unit <= 255).",
+                "array",
+              );
             }
             buckets[charCode + 1].push(str);
           }
@@ -200,8 +215,11 @@ export class RadixSortStrings extends BaseAlgorithm<RadixSortStringsInput, Radix
     });
 
     // Log performance warning for large arrays
-    if (executionTime > 100) { // Arbitrary threshold for radix sort
-      console.warn(`RadixSortStrings performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+    if (executionTime > 100) {
+      // Arbitrary threshold for radix sort
+      console.warn(
+        `RadixSortStrings performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`,
+      );
     }
 
     return result!;

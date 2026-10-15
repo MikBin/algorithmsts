@@ -1,7 +1,7 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../../performance';
-import { IGraph } from '../../../graphs/interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../../performance";
+import { IGraph } from "../../../graphs/interfaces/IGraph";
 
 /**
  * Input interface for DepthFirstSearch algorithm
@@ -34,12 +34,15 @@ export interface DepthFirstSearchOutput<T> {
  *
  * @template T The type of nodes in the graph
  */
-export class DepthFirstSearch<T> extends BaseAlgorithm<DepthFirstSearchInput<T>, DepthFirstSearchOutput<T>> implements IAlgorithm<DepthFirstSearchInput<T>, DepthFirstSearchOutput<T>> {
+export class DepthFirstSearch<T>
+  extends BaseAlgorithm<DepthFirstSearchInput<T>, DepthFirstSearchOutput<T>>
+  implements IAlgorithm<DepthFirstSearchInput<T>, DepthFirstSearchOutput<T>>
+{
   /**
    * Creates a new DepthFirstSearch instance
    */
   constructor() {
-    super('DepthFirstSearch', 'O(V + E)', 'O(V)');
+    super("DepthFirstSearch", "O(V + E)", "O(V)");
   }
 
   /**

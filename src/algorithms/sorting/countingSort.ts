@@ -1,7 +1,7 @@
-import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../performance';
-import { ArgumentError } from '../../core/validation/ArgumentError';
+import { BaseAlgorithm } from "../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../performance";
+import { ArgumentError } from "../../core/validation/ArgumentError";
 
 /**
  * Input interface for CountingSort algorithm
@@ -33,12 +33,15 @@ export interface CountingSortOutput {
  * Counting sort is efficient when the range of input values (k) is not significantly
  * larger than the number of elements (n).
  */
-export class CountingSort extends BaseAlgorithm<CountingSortInput, CountingSortOutput> implements IAlgorithm<CountingSortInput, CountingSortOutput> {
+export class CountingSort
+  extends BaseAlgorithm<CountingSortInput, CountingSortOutput>
+  implements IAlgorithm<CountingSortInput, CountingSortOutput>
+{
   /**
    * Creates a new CountingSort instance
    */
   constructor() {
-    super('CountingSort', 'O(n + k)', 'O(n + k)');
+    super("CountingSort", "O(n + k)", "O(n + k)");
   }
 
   /**
@@ -64,7 +67,7 @@ export class CountingSort extends BaseAlgorithm<CountingSortInput, CountingSortO
 
       for (let i = 0; i < array.length; i++) {
         if (!Number.isInteger(array[i])) {
-          throw new ArgumentError('CountingSort only supports integer values.', 'array');
+          throw new ArgumentError("CountingSort only supports integer values.", "array");
         }
 
         if (i > 0) {
@@ -100,8 +103,11 @@ export class CountingSort extends BaseAlgorithm<CountingSortInput, CountingSortO
     });
 
     // Log performance warning for large arrays (O(n+k) should be fast, but warn if slow)
-    if (executionTime > 100) { // Arbitrary threshold for counting sort
-      console.warn(`CountingSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+    if (executionTime > 100) {
+      // Arbitrary threshold for counting sort
+      console.warn(
+        `CountingSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`,
+      );
     }
 
     return result!;

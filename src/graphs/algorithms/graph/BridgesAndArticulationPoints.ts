@@ -1,5 +1,5 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
 
 export interface IBridgesArticulationResult<T> {
   bridges: Array<[T, T]>;
@@ -10,15 +10,17 @@ export interface IBridgesArticulationResult<T> {
  * Finds bridges and articulation points in an undirected graph using DFS low-link values.
  * Time: O(V + E)
  */
-export class BridgesAndArticulationPoints<T, W = number>
-  extends BaseAlgorithm<IGraph<T, W>, IBridgesArticulationResult<T>> {
+export class BridgesAndArticulationPoints<T, W = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  IBridgesArticulationResult<T>
+> {
   constructor() {
-    super('Bridges & Articulation Points', 'O(V + E)', 'O(V)');
+    super("Bridges & Articulation Points", "O(V + E)", "O(V)");
   }
 
   public execute(graph: IGraph<T, W>): IBridgesArticulationResult<T> {
     if (graph.isDirected()) {
-      throw new Error('Bridges/articulation points are defined for undirected graphs');
+      throw new Error("Bridges/articulation points are defined for undirected graphs");
     }
 
     const n = graph.getVertices();

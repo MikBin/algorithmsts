@@ -1,15 +1,17 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import type { ISpanningTreeResult } from './KruskalAlgorithm';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import type { ISpanningTreeResult } from "./KruskalAlgorithm";
 
 /**
  * Borůvka's algorithm for Minimum Spanning Tree on undirected weighted graphs.
  * Time: O(E log V)
  */
-export class BoruvkaAlgorithm<T, W extends number = number>
-  extends BaseAlgorithm<IGraph<T, W>, ISpanningTreeResult<T, W>> {
+export class BoruvkaAlgorithm<T, W extends number = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ISpanningTreeResult<T, W>
+> {
   constructor() {
-    super('Borůvka\'s Algorithm', 'O(E log V)', 'O(V + E)');
+    super("Borůvka's Algorithm", "O(E log V)", "O(V + E)");
   }
 
   public execute(graph: IGraph<T, W>): ISpanningTreeResult<T, W> {
@@ -23,7 +25,7 @@ export class BoruvkaAlgorithm<T, W extends number = number>
     // Prepare edges list with weights
     const edgeList: Array<{ from: T; to: T; weight: W }> = [];
     for (const e of edges) {
-      if (e.length !== 3) throw new Error('All edges must have weights for MST algorithms');
+      if (e.length !== 3) throw new Error("All edges must have weights for MST algorithms");
       const [u, v, w] = e as [T, T, W];
       edgeList.push({ from: u, to: v, weight: w });
     }
