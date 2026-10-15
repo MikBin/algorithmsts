@@ -2,6 +2,7 @@ type Edge = { label: string; child: Node };
 class Node {
   edges: Edge[] = [];
   value?: unknown;
+  hasValue: boolean = false;
 }
 
 export class PatriciaTrie<V = unknown> {
@@ -25,23 +26,41 @@ export class PatriciaTrie<V = unknown> {
         const restLabel = e.label.slice(lcp.length);
         const oldChild = e.child;
         const mid = new Node();
-        e.label = lcp; e.child = mid;
+        e.label = lcp;
+        e.child = mid;
         mid.edges.push({ label: restLabel, child: oldChild });
-        if (key.length === lcp.length) { mid.value = value; }
-        else { mid.edges.push({ label: key.slice(lcp.length), child: new Node() }); mid.edges[mid.edges.length-1].child.value = value as any; }
+        if (key.length === lcp.length) {
+          mid.value = value;
+          mid.hasValue = true;
+        } else {
+          const childNode = new Node();
+          childNode.value = value as any;
+          childNode.hasValue = true;
+          mid.edges.push({ label: key.slice(lcp.length), child: childNode });
+        }
         return;
       }
     }
-    if (key.length === 0) { node.value = value; return; }
-    const child = new Node(); child.value = value as any; node.edges.push({ label: key, child });
+    if (key.length === 0) {
+      node.value = value;
+      node.hasValue = true;
+      return;
+    }
+    const child = new Node();
+    child.value = value as any;
+    child.hasValue = true;
+    node.edges.push({ label: key, child });
   }
 
   get(key: string): V | undefined {
     const n = this._findNode(this.root, key);
-    return (n && n.value !== undefined) ? (n.value as V) : undefined;
+    return n && n.hasValue ? (n.value as V) : undefined;
   }
 
-  has(key: string): boolean { return this.get(key) !== undefined; }
+  has(key: string): boolean {
+    const n = this._findNode(this.root, key);
+    return n !== null && n.hasValue;
+  }
 
   private _findNode(node: Node, key: string): Node | null {
     if (key.length === 0) return node;
@@ -54,7 +73,11 @@ export class PatriciaTrie<V = unknown> {
     return null;
   }
 
-  private longestCommonPrefix(a: string, b: string): string { let i=0; while (i<a.length && i<b.length && a[i]===b[i]) i++; return a.slice(0,i); }
+  private longestCommonPrefix(a: string, b: string): string {
+    let i = 0;
+    while (i < a.length && i < b.length && a[i] === b[i]) i++;
+    return a.slice(0, i);
+  }
 
   toJson(): string {
     return JSON.stringify(this.root);

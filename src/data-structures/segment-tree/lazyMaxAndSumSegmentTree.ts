@@ -3,10 +3,9 @@ import {
   SegmentTreeNodeFactory,
   SegmentTreeNodeMerger,
   SegmentTreeQueryMerger,
-  SegmentTreeLeafNodeUpdater,
   SegmentTreeRangeNodeUpdater,
-  SegmentTreeRangeNodePropagator
-} from './interfaces';
+  SegmentTreeRangeNodePropagator,
+} from "./interfaces";
 
 export interface segmentLazy extends BaseSegmentTreeNode {
   sum: number;
@@ -14,13 +13,17 @@ export interface segmentLazy extends BaseSegmentTreeNode {
   rangeAddedValue: number;
 }
 
-export const nodeFactoryFnL: SegmentTreeNodeFactory<number, segmentLazy> = (val: number, l: number, r: number): segmentLazy => {
+export const nodeFactoryFnL: SegmentTreeNodeFactory<number, segmentLazy> = (
+  val: number,
+  l: number,
+  r: number,
+): segmentLazy => {
   let node: segmentLazy = {
     left: l,
     right: r,
     sum: 0,
     max: 0,
-    rangeAddedValue: 0
+    rangeAddedValue: 0,
   };
 
   if (r - l == 0) {
@@ -45,7 +48,7 @@ export const singleLazyNodeUpdate = (Node: segmentLazy): number => {
 export const nodeMergerFnL: SegmentTreeNodeMerger<segmentLazy> = (
   parent: segmentLazy,
   leftNode: segmentLazy,
-  rightNode: segmentLazy
+  rightNode: segmentLazy,
 ): segmentLazy => {
   singleLazyNodeUpdate(leftNode);
   singleLazyNodeUpdate(rightNode);
@@ -61,7 +64,7 @@ export const nodeSegLazyRangeUpdater: SegmentTreeRangeNodeUpdater<number, segmen
   t: number,
   node: segmentLazy,
   leftChild?: segmentLazy,
-  rightChild?: segmentLazy
+  rightChild?: segmentLazy,
 ): void => {
   if (node.rangeAddedValue > 0) {
     t += node.rangeAddedValue;
@@ -78,7 +81,7 @@ export const nodeSegLazyRangeUpdater: SegmentTreeRangeNodeUpdater<number, segmen
 export const lazyValuePropagator: SegmentTreeRangeNodePropagator<segmentLazy> = (
   node: segmentLazy,
   leftChild: segmentLazy,
-  rightChild: segmentLazy
+  rightChild: segmentLazy,
 ): void => {
   if (node.rangeAddedValue > 0) {
     let t = node.rangeAddedValue;
@@ -90,10 +93,14 @@ export const lazyValuePropagator: SegmentTreeRangeNodePropagator<segmentLazy> = 
   }
 };
 
+/**
+ * Merges two nodes during a query operation.
+ * Applies lazy evaluation on read to ensure nodes reflect deferred updates before answering queries.
+ */
 export const nodeQueryMergerL: SegmentTreeQueryMerger<segmentLazy> = (
   leftNode: segmentLazy,
   rightNode: segmentLazy,
-  segmentTree?: Array<segmentLazy>
+  _segmentTree?: Array<segmentLazy>,
 ): segmentLazy => {
   if (leftNode.left == -1) return rightNode;
   if (rightNode.left == -1) return leftNode;
@@ -103,7 +110,7 @@ export const nodeQueryMergerL: SegmentTreeQueryMerger<segmentLazy> = (
     right: rightNode.right,
     sum: 0,
     rangeAddedValue: 0,
-    max: 0
+    max: 0,
   };
   /**propagation/update */
   singleLazyNodeUpdate(leftNode);

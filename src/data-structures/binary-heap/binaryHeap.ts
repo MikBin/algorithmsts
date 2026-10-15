@@ -1,4 +1,4 @@
-import { type Comparator } from './interfaces';
+import { type Comparator } from "./interfaces";
 
 export class BinaryHeap<T> {
   private _heap: T[];
@@ -100,10 +100,14 @@ export class BinaryHeap<T> {
     return new BinaryHeap([...this._heap], this._comparator);
   }
 
-  merge(other: BinaryHeap<T>): BinaryHeap<T> {
-    const newHeap = this.clone();
-    other._heap.forEach((value) => newHeap.add(value));
-    return newHeap;
+  /**
+   * Merges another heap into this one. This operation is destructive:
+   * it mutates this heap and clears the other heap.
+   * @param other - The heap to merge into this one.
+   */
+  merge(other: BinaryHeap<T>): void {
+    other._heap.forEach((value) => this.add(value));
+    other.clear();
   }
 
   replace(value: T): T | null {

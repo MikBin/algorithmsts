@@ -12,7 +12,7 @@ const defaultHash: HashFn = (str: string, seed: number) => {
 };
 
 const defaultSerializer = (item: any): string => {
-  if (typeof item === 'string') return item;
+  if (typeof item === "string") return item;
   return JSON.stringify(item);
 };
 
@@ -20,6 +20,7 @@ export interface CuckooFilterOptions<T> {
   hashFn?: HashFn;
   serializer?: Serializer<T>;
   maxKicks?: number;
+  rng?: () => number;
 }
 
 export class CuckooFilter<T = string> {
@@ -31,13 +32,18 @@ export class CuckooFilter<T = string> {
   private hashFn: HashFn;
   private serializer: Serializer<T>;
   private maxKicks: number;
+  private rng: () => number;
 
   /**
    * @param capacity Estimated number of items to store.
    * @param bucketSize Number of items per bucket (usually 4).
    * @param options Configuration options.
    */
-  constructor(capacity: number = 1024, private bucketSize: number = 4, options: CuckooFilterOptions<T> = {}) {
+  constructor(
+    capacity: number = 1024,
+    private bucketSize: number = 4,
+    options: CuckooFilterOptions<T> = {},
+  ) {
     // Determine bucket count: capacity / bucketSize, rounded up to power of 2 for efficient masking?
     // Power of 2 is nice for modulo, but not strictly required if we use modulo.
     // However, standard Cuckoo Filters often use power of 2 for the 'alternate index' XOR trick to work easily?
@@ -54,13 +60,14 @@ export class CuckooFilter<T = string> {
     this.hashFn = options.hashFn || defaultHash;
     this.serializer = options.serializer || defaultSerializer;
     this.maxKicks = options.maxKicks || 500;
+    this.rng = options.rng || Math.random;
   }
 
   // 16-bit fingerprint. 0 is reserved for 'empty'.
   private fp(s: string): number {
     const h = this.hashFn(s, 0);
     // range [1, 65535]
-    let f = (h & 0xffff);
+    let f = h & 0xffff;
     if (f === 0) f = 1;
     return f;
   }
@@ -88,13 +95,13 @@ export class CuckooFilter<T = string> {
     }
 
     // Kick-out process
-    let i = Math.random() < 0.5 ? i1 : i2;
+    let i = this.rng() < 0.5 ? i1 : i2;
     let curF = f;
 
     for (let k = 0; k < this.maxKicks; k++) {
       // Swap curF with a random element in bucket i
       const offset = i * this.bucketSize;
-      const randSlot = Math.floor(Math.random() * this.bucketSize);
+      const randSlot = Math.floor(this.rng() * this.bucketSize);
 
       const oldF = this.buckets[offset + randSlot];
       this.buckets[offset + randSlot] = curF;
@@ -175,7 +182,7 @@ export class CuckooFilter<T = string> {
       bucketCount: this.bucketCount,
       bucketSize: this.bucketSize,
       size: this._size,
-      buckets: Array.from(this.buckets) // Convert TypedArray to normal array for JSON
+      buckets: Array.from(this.buckets), // Convert TypedArray to normal array for JSON
     });
   }
 }

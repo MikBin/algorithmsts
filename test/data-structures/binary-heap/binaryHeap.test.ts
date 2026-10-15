@@ -1,26 +1,26 @@
-import { describe, it, expect } from 'vitest';
-import { BinaryHeap } from '../../../src/data-structures/binary-heap';
-import { Comparator } from '../../../src/data-structures/binary-heap/interfaces';
+import { describe, it, expect } from "vitest";
+import { BinaryHeap } from "../../../src/data-structures/binary-heap";
+import { Comparator } from "../../../src/data-structures/binary-heap/interfaces";
 
-describe('BinaryHeap', () => {
+describe("BinaryHeap", () => {
   const maxComparator: Comparator<number> = (a, b) => b - a;
   const minComparator: Comparator<number> = (a, b) => a - b;
 
-  describe('Max-Heap', () => {
-    it('should create an empty heap', () => {
+  describe("Max-Heap", () => {
+    it("should create an empty heap", () => {
       const heap = new BinaryHeap<number>([], maxComparator);
       expect(heap.isEmpty()).toBe(true);
       expect(heap.size).toBe(0);
       expect(heap.peek()).toBeNull();
     });
 
-    it('should create a heap from an array', () => {
+    it("should create a heap from an array", () => {
       const heap = new BinaryHeap([3, 1, 4, 1, 5, 9, 2, 6], maxComparator);
       expect(heap.peek()).toBe(9);
       expect(heap.size).toBe(8);
     });
 
-    it('should add items to the heap', () => {
+    it("should add items to the heap", () => {
       const heap = new BinaryHeap<number>([], maxComparator);
       heap.add(5);
       expect(heap.peek()).toBe(5);
@@ -30,7 +30,7 @@ describe('BinaryHeap', () => {
       expect(heap.peek()).toBe(10);
     });
 
-    it('should poll items from the heap in descending order', () => {
+    it("should poll items from the heap in descending order", () => {
       const heap = new BinaryHeap([3, 1, 4, 1, 5, 9, 2, 6], maxComparator);
       const sorted: number[] = [];
       while (!heap.isEmpty()) {
@@ -40,21 +40,21 @@ describe('BinaryHeap', () => {
     });
   });
 
-  describe('Min-Heap', () => {
-    it('should create an empty heap', () => {
+  describe("Min-Heap", () => {
+    it("should create an empty heap", () => {
       const heap = new BinaryHeap<number>([], minComparator);
       expect(heap.isEmpty()).toBe(true);
       expect(heap.size).toBe(0);
       expect(heap.peek()).toBeNull();
     });
 
-    it('should create a heap from an array', () => {
+    it("should create a heap from an array", () => {
       const heap = new BinaryHeap([3, 1, 4, 1, 5, 9, 2, 6], minComparator);
       expect(heap.peek()).toBe(1);
       expect(heap.size).toBe(8);
     });
 
-    it('should add items to the heap', () => {
+    it("should add items to the heap", () => {
       const heap = new BinaryHeap<number>([], minComparator);
       heap.add(5);
       expect(heap.peek()).toBe(5);
@@ -64,7 +64,7 @@ describe('BinaryHeap', () => {
       expect(heap.peek()).toBe(2);
     });
 
-    it('should poll items from the heap in ascending order', () => {
+    it("should poll items from the heap in ascending order", () => {
       const heap = new BinaryHeap([3, 1, 4, 1, 5, 9, 2, 6], minComparator);
       const sorted: number[] = [];
       while (!heap.isEmpty()) {
@@ -74,15 +74,15 @@ describe('BinaryHeap', () => {
     });
   });
 
-  describe('Utility Methods', () => {
-    it('should clear the heap', () => {
+  describe("Utility Methods", () => {
+    it("should clear the heap", () => {
       const heap = new BinaryHeap([1, 2, 3], maxComparator);
       heap.clear();
       expect(heap.isEmpty()).toBe(true);
       expect(heap.size).toBe(0);
     });
 
-    it('should clone the heap', () => {
+    it("should clone the heap", () => {
       const heap = new BinaryHeap([1, 2, 3], maxComparator);
       const clone = heap.clone();
       expect(clone.size).toBe(3);
@@ -90,18 +90,19 @@ describe('BinaryHeap', () => {
       expect(heap.size).toBe(3);
     });
 
-    it('should merge two heaps', () => {
+    it("should merge two heaps", () => {
       const heap1 = new BinaryHeap([1, 5], maxComparator);
       const heap2 = new BinaryHeap([2, 6], maxComparator);
-      const merged = heap1.merge(heap2);
-      expect(merged.size).toBe(4);
-      expect(merged.poll()).toBe(6);
-      expect(merged.poll()).toBe(5);
-      expect(merged.poll()).toBe(2);
-      expect(merged.poll()).toBe(1);
+      heap1.merge(heap2);
+      expect(heap1.size).toBe(4);
+      expect(heap2.size).toBe(0);
+      expect(heap1.poll()).toBe(6);
+      expect(heap1.poll()).toBe(5);
+      expect(heap1.poll()).toBe(2);
+      expect(heap1.poll()).toBe(1);
     });
 
-    it('should replace the root element', () => {
+    it("should replace the root element", () => {
       const heap = new BinaryHeap([1, 5, 3], maxComparator);
       const replaced = heap.replace(10);
       expect(replaced).toBe(5);
@@ -109,7 +110,7 @@ describe('BinaryHeap', () => {
       expect(heap.size).toBe(3);
     });
 
-    it('should handle replacing on an empty heap', () => {
+    it("should handle replacing on an empty heap", () => {
       const heap = new BinaryHeap<number>([], maxComparator);
       const replaced = heap.replace(10);
       expect(replaced).toBeNull();
@@ -118,8 +119,8 @@ describe('BinaryHeap', () => {
     });
   });
 
-  describe('Iterator', () => {
-    it('should iterate over the heap', () => {
+  describe("Iterator", () => {
+    it("should iterate over the heap", () => {
       const heap = new BinaryHeap([5, 3, 8, 1, 4], maxComparator);
       const values = [...heap];
       expect(values).toEqual([8, 4, 5, 1, 3]);
