@@ -12,9 +12,8 @@ let browser: Browser;
 let page: Page;
 
 beforeAll(async () => {
-  // We need to serve dist/visualization using vite preview
-  serverProcess = spawn('npx', ['vite', 'preview', '--outDir', 'dist/visualization', '--port', PORT.toString(), '--strictPort'], {
-    cwd: ROOT_DIR
+  serverProcess = spawn('python3', ['-m', 'http.server', PORT.toString()], {
+    cwd: path.resolve(ROOT_DIR, 'dist/visualization')
   });
 
   await new Promise(resolve => setTimeout(resolve, 2000));

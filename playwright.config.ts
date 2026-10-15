@@ -66,7 +66,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npx vite preview --outDir dist/visualization --port 8080 --strictPort',
+    command: 'python3 -m http.server 8080 --directory dist/visualization',
     port: 8080,
     reuseExistingServer: true,
     timeout: 120 * 1000,
