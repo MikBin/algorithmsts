@@ -6,14 +6,19 @@ type LevelNode<T> = {
   down: LevelNode<T> | null;
 };
 
-function randomLevel(p=0.5, max=32){ let lvl=1; while(Math.random()<p && lvl<max) lvl++; return lvl; }
-
 export class IntervalSkipList<T> {
   private heads: (LevelNode<T> | null)[] = [null];
+  private rng: () => number;
+
+  constructor(rng: () => number = Math.random) {
+    this.rng = rng;
+  }
+
+  private randomLevel(p=0.5, max=32){ let lvl=1; while(this.rng()<p && lvl<max) lvl++; return lvl; }
 
   add(start: number, end: number, value: T): void {
     if (end < start) [start, end] = [end, start];
-    const lvl = randomLevel();
+    const lvl = this.randomLevel();
     let down: LevelNode<T> | null = null;
     for (let i = 0; i < lvl; i++) {
       const node: LevelNode<T> = { start, end, value, next: null, down };

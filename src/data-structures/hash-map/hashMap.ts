@@ -32,12 +32,12 @@ export class HashMap<K, V> {
     b.push([key, value]); this._size++;
   }
   get(key: K): V | undefined { const b = this.buckets[this.index(key)]; for (const [k, v] of b) if (this.equals(k, key)) return v; return undefined; }
-  has(key: K): boolean { return this.get(key) !== undefined; }
+  has(key: K): boolean { const b = this.buckets[this.index(key)]; for (const [k] of b) if (this.equals(k, key)) return true; return false; }
   delete(key: K): boolean { const i = this.index(key); const b = this.buckets[i]; for (let j=0;j<b.length;j++){ if (this.equals(b[j][0], key)) { b.splice(j,1); this._size--; return true; } } return false; }
   clear(): void { this.buckets = new Array(16).fill(null).map(() => []); this._size = 0; }
   keys(): K[] { const out: K[] = []; for (const b of this.buckets) for (const [k] of b) out.push(k); return out; }
   values(): V[] { const out: V[] = []; for (const b of this.buckets) for (const [,v] of b) out.push(v); return out; }
-  entries(): [K, V][] { const out: [K, V][] = []; for (const b of this.buckets) for (const e of b) out.push(e); return out; }
+  entries(): [K, V][] { const out: [K, V][] = []; for (const b of this.buckets) for (const [k, v] of b) out.push([k, v]); return out; }
   forEach(fn: (value: V, key: K) => void): void { for (const [k,v] of this.entries()) fn(v,k); }
   toJson(): string {
     return JSON.stringify(this.buckets);

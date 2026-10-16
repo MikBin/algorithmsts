@@ -22,6 +22,7 @@ export class BinomialHeap<T> {
     return minTree.value;
   }
   clear(): void { this.trees = []; this._size = 0; }
+  /** Merges another heap into this one destructively (empties the other heap). */
   merge(other: BinomialHeap<T>): void {
     let carry: Node<T> | null = null;
     const maxLen = Math.max(this.trees.length, other.trees.length) + 1;

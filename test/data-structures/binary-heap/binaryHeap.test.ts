@@ -93,12 +93,14 @@ describe('BinaryHeap', () => {
     it('should merge two heaps', () => {
       const heap1 = new BinaryHeap([1, 5], maxComparator);
       const heap2 = new BinaryHeap([2, 6], maxComparator);
-      const merged = heap1.merge(heap2);
-      expect(merged.size).toBe(4);
-      expect(merged.poll()).toBe(6);
-      expect(merged.poll()).toBe(5);
-      expect(merged.poll()).toBe(2);
-      expect(merged.poll()).toBe(1);
+      heap1.merge(heap2);
+      expect(heap1.size).toBe(4);
+      expect(heap1.poll()).toBe(6);
+      expect(heap1.poll()).toBe(5);
+      expect(heap1.poll()).toBe(2);
+      expect(heap1.poll()).toBe(1);
+      expect(heap2.isEmpty()).toBe(true);
+      expect(heap2.size).toBe(0);
     });
 
     it('should replace the root element', () => {

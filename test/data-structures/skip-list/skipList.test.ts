@@ -6,6 +6,20 @@ import { IDataStructure } from '../../../src/core/interfaces/IDataStructure';
 import { IIterator } from '../../../src/core/interfaces/IIterator';
 
 describe('SkipList', () => {
+  it('should use injected rng for deterministic levels', () => {
+    // A deterministic rng that always returns 0.99 will always cause randomLevel to stop at 1.
+    const deterministicSkipList = new SkipList<number>(10, -Infinity, undefined, () => 0.99);
+    deterministicSkipList.add(1);
+    expect(deterministicSkipList.size).toBe(1);
+    expect(deterministicSkipList.contains(1)).toBe(true);
+
+    // With rng always < 0.5, it will hit the maxLevel (10)
+    const deepSkipList = new SkipList<number>(10, -Infinity, undefined, () => 0.4);
+    deepSkipList.add(2);
+    expect(deepSkipList.size).toBe(1);
+    expect(deepSkipList.contains(2)).toBe(true);
+  });
+
   it('should insert and find values', () => {
     const skipList = new SkipList<number>(10, -Infinity);
     skipList.add(1);

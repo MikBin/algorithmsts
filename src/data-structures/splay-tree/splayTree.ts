@@ -51,6 +51,10 @@ export class SplayTree<T> extends BaseDataStructure<T> {
     this.root = n; this._size++;
   }
 
+  /**
+   * Checks if the tree contains the specified key.
+   * Note: This operation splays the accessed node (or the nearest node if not found) to the root.
+   */
   contains(key: T): boolean { this.root = this.splay(this.root, key); return !!this.root && this.compare(this.root.key, key) === 0; }
 
   remove(key: T): boolean {

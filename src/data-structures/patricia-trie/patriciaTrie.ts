@@ -38,10 +38,13 @@ export class PatriciaTrie<V = unknown> {
 
   get(key: string): V | undefined {
     const n = this._findNode(this.root, key);
-    return (n && n.value !== undefined) ? (n.value as V) : undefined;
+    return (n && n.hasOwnProperty('value')) ? (n.value as V) : undefined;
   }
 
-  has(key: string): boolean { return this.get(key) !== undefined; }
+  has(key: string): boolean {
+    const n = this._findNode(this.root, key);
+    return !!(n && n.hasOwnProperty('value'));
+  }
 
   private _findNode(node: Node, key: string): Node | null {
     if (key.length === 0) return node;
