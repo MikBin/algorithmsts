@@ -1,7 +1,8 @@
 ---
 id: TASK-29
 title: Clean repository litter and add build clean step
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -22,8 +23,8 @@ Root-level strays to delete or relocate into docs/: test_dummy.js (d3 scratch), 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Listed stray files deleted or relocated under docs/
-- [ ] #2 npm run build starts from a clean dist/ (rollup-plugin-delete or clean script)
-- [ ] #3 Empty test barrels and dead test/scripts removed
-- [ ] #4 package.json description and keywords filled
+- [x] #1 Listed stray files deleted or relocated under docs/
+- [x] #2 npm run build starts from a clean dist/ (rollup-plugin-delete or clean script)
+- [x] #3 Empty test barrels and dead test/scripts removed
+- [x] #4 package.json description and keywords filled
 <!-- AC:END -->

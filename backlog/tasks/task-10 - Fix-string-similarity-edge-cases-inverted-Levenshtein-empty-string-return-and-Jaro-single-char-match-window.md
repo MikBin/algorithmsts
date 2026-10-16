@@ -3,7 +3,8 @@ id: TASK-10
 title: >-
   Fix string similarity edge cases: inverted Levenshtein empty-string return and
   Jaro single-char match window
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -24,7 +25,7 @@ algorithms/strings/similarities.ts: (1) lines 489-496: main path returns similar
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Levenshtein similarity with one empty string returns 0, both empty returns 1
-- [ ] #2 JaroDistance('a','a') returns 1; window clamped with Math.max(0, ...)
-- [ ] #3 JaroWinkler tests cover single-character and empty-string cases
+- [x] #1 Levenshtein similarity with one empty string returns 0, both empty returns 1
+- [x] #2 JaroDistance('a','a') returns 1; window clamped with Math.max(0, ...)
+- [x] #3 JaroWinkler tests cover single-character and empty-string cases
 <!-- AC:END -->

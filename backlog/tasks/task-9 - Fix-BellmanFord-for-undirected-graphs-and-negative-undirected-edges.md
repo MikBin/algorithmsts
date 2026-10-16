@@ -1,7 +1,8 @@
 ---
 id: TASK-9
 title: Fix BellmanFord for undirected graphs and negative undirected edges
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -22,8 +23,8 @@ graphs/algorithms/shortest-path/BellmanFordAlgorithm.ts:37-55: relaxes graph.get
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Either relax both directions for undirected graphs or throw ArgumentError for undirected input - decide and document
-- [ ] #2 Undirected fixture query D to A returns correct finite distance
-- [ ] #3 Negative undirected edge is detected as negative cycle (or rejected as invalid input)
-- [ ] #4 Tests cover undirected graphs from non-root source vertices
+- [x] #1 Either relax both directions for undirected graphs or throw ArgumentError for undirected input - decide and document
+- [x] #2 Undirected fixture query D to A returns correct finite distance
+- [x] #3 Negative undirected edge is detected as negative cycle (or rejected as invalid input)
+- [x] #4 Tests cover undirected graphs from non-root source vertices
 <!-- AC:END -->

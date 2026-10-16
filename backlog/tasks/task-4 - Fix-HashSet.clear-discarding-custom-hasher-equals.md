@@ -1,7 +1,8 @@
 ---
 id: TASK-4
 title: Fix HashSet.clear() discarding custom hasher/equals
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:35'
 labels:
@@ -22,6 +23,6 @@ hash-set/hashSet.ts:10: clear() rebuilds the backing map as new HashMap<T, true>
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 clear() preserves the configured hasher/equals
-- [ ] #2 Test: construct with custom hasher, add, clear, re-add, has() finds elements
+- [x] #1 clear() preserves the configured hasher/equals
+- [x] #2 Test: construct with custom hasher, add, clear, re-add, has() finds elements
 <!-- AC:END -->

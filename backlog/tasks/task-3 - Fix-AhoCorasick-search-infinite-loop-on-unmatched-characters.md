@@ -1,7 +1,8 @@
 ---
 id: TASK-3
 title: Fix AhoCorasick search infinite loop on unmatched characters
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:35'
 labels:
@@ -22,7 +23,7 @@ aho-corasick/ahoCorasick.ts:43: while (node && !node.children.has(ch)) node = no
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 search() terminates on arbitrary text containing characters absent from all patterns
-- [ ] #2 Match positions still correct for texts with matches
-- [ ] #3 Regression test with unmatched characters added
+- [x] #1 search() terminates on arbitrary text containing characters absent from all patterns
+- [x] #2 Match positions still correct for texts with matches
+- [x] #3 Regression test with unmatched characters added
 <!-- AC:END -->

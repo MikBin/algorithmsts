@@ -1,7 +1,8 @@
 ---
 id: TASK-13
 title: Fix BinaryClosestSearch distance semantics for sign-only comparators
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -22,7 +23,7 @@ algorithms/searching/binary-search/binarySearch.ts:174-184: BinaryClosestSearch 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Works correctly with a sign-only comparator (-1/0/1)
-- [ ] #2 Documented comparator contract matches implementation
-- [ ] #3 Tests include localeCompare and sign-only comparators
+- [x] #1 Works correctly with a sign-only comparator (-1/0/1)
+- [x] #2 Documented comparator contract matches implementation
+- [x] #3 Tests include localeCompare and sign-only comparators
 <!-- AC:END -->

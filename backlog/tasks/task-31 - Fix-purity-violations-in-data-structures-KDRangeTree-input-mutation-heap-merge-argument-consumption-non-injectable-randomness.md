@@ -3,7 +3,8 @@ id: TASK-31
 title: >-
   Fix purity violations in data structures: KDRangeTree input mutation, heap
   merge argument consumption, non-injectable randomness
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -24,8 +25,8 @@ Purity mandate violations in data structures (review section 2a): (1) kdRangeTre
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 KDRangeTree does not mutate the input array; test asserts caller array unchanged
-- [ ] #2 Heap merge convention decided, implemented, and documented
-- [ ] #3 All randomness injectable (constructor-provided rng) in SkipList/CuckooFilter/VacuumFilter/IntervalSkipList
-- [ ] #4 has() correct when values are undefined; tests added
+- [x] #1 KDRangeTree does not mutate the input array; test asserts caller array unchanged
+- [x] #2 Heap merge convention decided, implemented, and documented
+- [x] #3 All randomness injectable (constructor-provided rng) in SkipList/CuckooFilter/VacuumFilter/IntervalSkipList
+- [x] #4 has() correct when values are undefined; tests added
 <!-- AC:END -->

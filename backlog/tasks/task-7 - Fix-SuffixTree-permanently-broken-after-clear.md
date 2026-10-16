@@ -1,7 +1,8 @@
 ---
 id: TASK-7
 title: Fix SuffixTree permanently broken after clear()
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:36'
 labels:
@@ -22,6 +23,6 @@ suffix-tree/suffixTree.ts:62-68 and 440-446: clear() replaces this.root, but Ukk
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 clear() followed by addString + findSubstring works correctly
-- [ ] #2 Regression test: build, clear, rebuild, search round-trip
+- [x] #1 clear() followed by addString + findSubstring works correctly
+- [x] #2 Regression test: build, clear, rebuild, search round-trip
 <!-- AC:END -->

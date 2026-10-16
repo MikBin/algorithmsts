@@ -3,7 +3,8 @@ id: TASK-32
 title: >-
   Fix e2e pipeline: single server strategy, readiness checks, no python3,
   vendored chart.js
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -24,10 +25,10 @@ test:e2e is fragile and silently green: pretest:e2e builds a production bundle t
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 One server strategy: Playwright serves the built bundle via vite preview with readiness url and strictPort
-- [ ] #2 baseURL configured; specs use relative URLs
-- [ ] #3 No python3 dependency; Node-based static server for any vitest e2e serving
-- [ ] #4 chart.js served locally, no CDN dependency in tests
-- [ ] #5 Missing browser install fails the run instead of skipping
-- [ ] #6 npm run test:e2e green locally end to end
+- [x] #1 One server strategy: Playwright serves the built bundle via vite preview with readiness url and strictPort
+- [x] #2 baseURL configured; specs use relative URLs
+- [x] #3 No python3 dependency; Node-based static server for any vitest e2e serving
+- [x] #4 chart.js served locally, no CDN dependency in tests
+- [x] #5 Missing browser install fails the run instead of skipping
+- [x] #6 npm run test:e2e green locally end to end
 <!-- AC:END -->

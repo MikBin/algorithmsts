@@ -3,7 +3,8 @@ id: TASK-27
 title: >-
   Resolve legacy API layer before 1.0: dual IGraph, interfaces runtime
   re-export, iterator shadowing
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -24,8 +25,8 @@ src/interfaces.ts (deprecated, package at 0.1.0 so breaking changes allowed): (1
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Exactly one IGraph type remains in the public API
-- [ ] #2 ./interfaces is type-only (or removed) and no longer ships core runtime
-- [ ] #3 Shadowed iterator type declarations removed
-- [ ] #4 migration-guide.md reflects the final decision
+- [x] #1 Exactly one IGraph type remains in the public API
+- [x] #2 ./interfaces is type-only (or removed) and no longer ships core runtime
+- [x] #3 Shadowed iterator type declarations removed
+- [x] #4 migration-guide.md reflects the final decision
 <!-- AC:END -->

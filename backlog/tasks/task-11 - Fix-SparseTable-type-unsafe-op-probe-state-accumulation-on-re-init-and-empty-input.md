@@ -3,7 +3,8 @@ id: TASK-11
 title: >-
   Fix SparseTable type-unsafe op probe, state accumulation on re-init, and empty
   input
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -24,8 +25,8 @@ algorithms/range-queries/sparse-table/sparseTable.ts: (1) lines 109-111: query()
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 No type-unsafe probe of the operation function
-- [ ] #2 Sum on non-number T (e.g. objects with comparator) returns correct results via the non-overlapping path
-- [ ] #3 Re-running execute does not accumulate table rows
-- [ ] #4 Empty array throws ArgumentError with clear message
+- [x] #1 No type-unsafe probe of the operation function
+- [x] #2 Sum on non-number T (e.g. objects with comparator) returns correct results via the non-overlapping path
+- [x] #3 Re-running execute does not accumulate table rows
+- [x] #4 Empty array throws ArgumentError with clear message
 <!-- AC:END -->

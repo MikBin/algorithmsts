@@ -20,3 +20,4 @@ server_log*.txt
 vite_log.txt
 test-results/
 playwright-report/
+docs/api/

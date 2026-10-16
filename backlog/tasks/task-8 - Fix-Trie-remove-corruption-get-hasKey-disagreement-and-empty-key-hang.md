@@ -1,7 +1,8 @@
 ---
 id: TASK-8
 title: 'Fix Trie remove corruption, get/hasKey disagreement, and empty-key hang'
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:36'
 labels:
@@ -22,8 +23,8 @@ trie/trie.ts three bugs: (1) remove() at 196-204 finds the node via getNode with
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 remove(prefix-of-existing-key) returns false and does not change size
-- [ ] #2 get() returns undefined for removed keys, consistent with hasKey
-- [ ] #3 add('') terminates: either stores a value at root or throws ArgumentError, documented
-- [ ] #4 Tests for all three cases
+- [x] #1 remove(prefix-of-existing-key) returns false and does not change size
+- [x] #2 get() returns undefined for removed keys, consistent with hasKey
+- [x] #3 add('') terminates: either stores a value at root or throws ArgumentError, documented
+- [x] #4 Tests for all three cases
 <!-- AC:END -->

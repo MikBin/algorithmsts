@@ -31,5 +31,8 @@ ordinal: 20000
 - [ ] #2 package-lock.json committed and CI uses npm ci
 - [ ] #3 Packaging smoke test job resolves every exports entry (import/require/types)
 - [ ] #4 CI branch triggers and typedoc gitRevision aligned
-- [ ] #5 Actions pinned to specific versions
+- [x] #5 Actions pinned to specific versions
 <!-- AC:END -->
+
+## Progress Notes
+2026-10-16: Partially addressed by PR #152 (9f4e22a): ci.yml now uses actions/checkout@v5 + actions/setup-node@v5, Node 22.x, adds an `npx tsc --noEmit` step before `npm run test:prod`, and test:prod excludes e2e/integration paths (AC5 done). Remaining: lint job (needs TASK-16), build job (`npm run build`), packaging smoke job (tools/test-exports.cjs), npm ci + committed package-lock.json, branch/gitRevision alignment (TASK-22 AC4).

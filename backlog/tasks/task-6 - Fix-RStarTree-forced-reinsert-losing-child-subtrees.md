@@ -1,7 +1,8 @@
 ---
 id: TASK-6
 title: Fix RStarTree forced reinsert losing child subtrees
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:36'
 labels:
@@ -22,7 +23,7 @@ r-star-tree/rStarTree.ts:112,141: underflow/forced-reinsert reinserts orphaned i
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Reinserted internal entries preserve child pointers; all entries remain searchable after remove-heavy workloads
-- [ ] #2 No mutation of node.entries while iterating it
-- [ ] #3 Tests: insert many rects, remove half, verify every remaining entry found
+- [x] #1 Reinserted internal entries preserve child pointers; all entries remain searchable after remove-heavy workloads
+- [x] #2 No mutation of node.entries while iterating it
+- [x] #3 Tests: insert many rects, remove half, verify every remaining entry found
 <!-- AC:END -->

@@ -1,7 +1,8 @@
 ---
 id: TASK-25
 title: Align complexity claims with implementations across graph algorithms
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:38'
 labels:
@@ -22,8 +23,8 @@ JSDoc claims describe heap-based textbook algorithms while code re-sorts/scans: 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Dijkstra/Prim use the library BinaryHeap/PriorityQueue (or JSDoc corrected to true complexity)
-- [ ] #2 EdmondsKarp, HopcroftKarp, TopologicalSort complexities match code (or code optimized to match)
-- [ ] #3 HopcroftKarp uses Set for right-side matching
-- [ ] #4 CycleDetection directed cycle output well-formed and tested
+- [x] #1 Dijkstra/Prim use the library BinaryHeap/PriorityQueue (or JSDoc corrected to true complexity)
+- [x] #2 EdmondsKarp, HopcroftKarp, TopologicalSort complexities match code (or code optimized to match)
+- [x] #3 HopcroftKarp uses Set for right-side matching
+- [x] #4 CycleDetection directed cycle output well-formed and tested
 <!-- AC:END -->

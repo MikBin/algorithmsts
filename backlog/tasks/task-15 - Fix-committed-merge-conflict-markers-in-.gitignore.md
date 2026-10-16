@@ -1,7 +1,8 @@
 ---
 id: TASK-15
 title: Fix committed merge-conflict markers in .gitignore
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -22,7 +23,7 @@ ordinal: 15000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 No conflict markers remain in .gitignore
-- [ ] #2 Intended rules preserved (assets ignored, visualization/assets not)
-- [ ] #3 git check-ignore sanity check passes for representative paths
+- [x] #1 No conflict markers remain in .gitignore
+- [x] #2 Intended rules preserved (assets ignored, visualization/assets not)
+- [x] #3 git check-ignore sanity check passes for representative paths
 <!-- AC:END -->

@@ -1,7 +1,8 @@
 ---
 id: TASK-12
 title: Fix EulerianPathCircuit missing connectivity check
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -22,7 +23,7 @@ graphs/algorithms/graph/EulerianPathCircuit.ts:29-50 (undirected) and 91-136 (di
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Disconnected graph with valid degrees does not report a circuit/path
-- [ ] #2 Connectivity check added for both directed and undirected variants
-- [ ] #3 Tests: two disjoint triangles, isolated-vertex cases
+- [x] #1 Disconnected graph with valid degrees does not report a circuit/path
+- [x] #2 Connectivity check added for both directed and undirected variants
+- [x] #3 Tests: two disjoint triangles, isolated-vertex cases
 <!-- AC:END -->

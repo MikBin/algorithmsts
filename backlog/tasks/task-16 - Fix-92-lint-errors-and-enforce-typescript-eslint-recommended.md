@@ -28,3 +28,6 @@ npm run lint currently fails with 92 errors (unused vars, no-undef on performanc
 - [ ] #4 ecmaVersion and parserOptions aligned with tsconfig (ES2020)
 - [ ] #5 Lint script extended to test/ and tools/ (or scoped deliberately and documented)
 <!-- AC:END -->
+
+## Progress Notes
+2026-10-16: Not started. Notes from the campaign: `src/data-structures/patricia-trie/patriciaTrie.ts:43,47` uses `hasOwnProperty` which `js.configs.recommended` (`no-prototype-builtins`) will flag - prefer `Object.hasOwn`. Also lint is still absent from CI (see TASK-20).

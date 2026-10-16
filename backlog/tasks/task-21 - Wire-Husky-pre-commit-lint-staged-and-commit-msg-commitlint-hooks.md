@@ -1,7 +1,8 @@
 ---
 id: TASK-21
 title: Wire Husky pre-commit (lint-staged) and commit-msg (commitlint) hooks
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:38'
 labels:
@@ -22,9 +23,9 @@ AGENTS.md claims commitlint + Husky + commitizen enforcement but .husky/ contain
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 .husky/pre-commit runs lint-staged successfully
-- [ ] #2 .husky/commit-msg runs commitlint successfully
-- [ ] #3 commitlint.config.cjs exists and extends @commitlint/config-conventional
-- [ ] #4 lint-staged configured for staged TS files
-- [ ] #5 Hooks verified end-to-end with a test commit
+- [x] #1 .husky/pre-commit runs lint-staged successfully
+- [x] #2 .husky/commit-msg runs commitlint successfully
+- [x] #3 commitlint.config.cjs exists and extends @commitlint/config-conventional
+- [x] #4 lint-staged configured for staged TS files
+- [x] #5 Hooks verified end-to-end with a test commit
 <!-- AC:END -->

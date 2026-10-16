@@ -3,7 +3,8 @@ id: TASK-24
 title: >-
   Unify data-structure API contracts: heap polarity, duplicate policy, not-found
   convention, size accessor
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:38'
 labels:
@@ -24,9 +25,9 @@ Library-wide contract inconsistencies (review sections 2-3): comparator polarity
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Contracts doc added to docs/ covering comparator polarity, duplicates, not-found, size, height
-- [ ] #2 All heaps share one default polarity or ship explicit Min/Max variants
-- [ ] #3 get size() everywhere; missing sizes added
-- [ ] #4 Shared default comparator that works for strings; BST/AVL adopt it
-- [ ] #5 Behavior changes documented in CHANGELOG
+- [x] #1 Contracts doc added to docs/ covering comparator polarity, duplicates, not-found, size, height
+- [x] #2 All heaps share one default polarity or ship explicit Min/Max variants
+- [x] #3 get size() everywhere; missing sizes added
+- [x] #4 Shared default comparator that works for strings; BST/AVL adopt it
+- [x] #5 Behavior changes documented in CHANGELOG
 <!-- AC:END -->

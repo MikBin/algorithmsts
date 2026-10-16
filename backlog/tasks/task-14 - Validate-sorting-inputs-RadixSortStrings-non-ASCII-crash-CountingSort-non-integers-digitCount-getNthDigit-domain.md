@@ -3,7 +3,8 @@ id: TASK-14
 title: >-
   Validate sorting inputs: RadixSortStrings non-ASCII crash, CountingSort
   non-integers, digitCount/getNthDigit domain
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -24,8 +25,8 @@ algorithms/sorting: (1) radixSort.ts:186-187 RadixSortStrings throws TypeError o
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 RadixSortStrings throws ArgumentError for code units > 255 (or gains Unicode support - pick one)
-- [ ] #2 CountingSort validates integers or documents/floors explicitly
-- [ ] #3 digitCount/getNthDigit documented, validated, and unit-tested in test/utils/
-- [ ] #4 No raw TypeError/RangeError escapes the public API for these sorts
+- [x] #1 RadixSortStrings throws ArgumentError for code units > 255 (or gains Unicode support - pick one)
+- [x] #2 CountingSort validates integers or documents/floors explicitly
+- [x] #3 digitCount/getNthDigit documented, validated, and unit-tested in test/utils/
+- [x] #4 No raw TypeError/RangeError escapes the public API for these sorts
 <!-- AC:END -->

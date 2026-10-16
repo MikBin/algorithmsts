@@ -1,7 +1,8 @@
 ---
 id: TASK-5
 title: Fix RangeTree2D query returning duplicate results
-status: To Do
+status: Done
+completed_date: '2026-10-16 10:50'
 assignee: []
 created_date: '2026-10-12 10:36'
 labels:
@@ -22,7 +23,7 @@ range-tree/rangeTree2D.ts:27-35: query() calls collectByY(n.byY) at every node o
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 query() returns each point exactly once
-- [ ] #2 Results match a brute-force filter on randomized point fixtures
-- [ ] #3 Complexity O(log^2 n + k) claim documented and holds
+- [x] #1 query() returns each point exactly once
+- [x] #2 Results match a brute-force filter on randomized point fixtures
+- [x] #3 Complexity O(log^2 n + k) claim documented and holds
 <!-- AC:END -->
