@@ -63,6 +63,24 @@ describe('CuckooFilter', () => {
     expect(userCf.mightContain(u1)).toBe(false);
   });
 
+  it('should use injected rng for deterministic kick paths', () => {
+    let callCount = 0;
+    const cf = new CuckooFilter<string>(100, 4, {
+      rng: () => {
+        callCount++;
+        return 0.99; // Always choose the right side or max index
+      }
+    });
+
+    // Cause some kicks
+    for (let i = 0; i < 200; i++) {
+      cf.add(`test-${i}`);
+    }
+
+    expect(callCount).toBeGreaterThan(0);
+    expect(cf.size()).toBeGreaterThan(0);
+  });
+
   it('should handle high load factor', () => {
     // Fill it up significantly
     const capacity = 500;

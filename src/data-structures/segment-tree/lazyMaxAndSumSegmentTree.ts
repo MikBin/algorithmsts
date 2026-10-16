@@ -90,6 +90,9 @@ export const lazyValuePropagator: SegmentTreeRangeNodePropagator<segmentLazy> = 
   }
 };
 
+/**
+ * Note: When querying, nodes are lazily updated on read (lazy-on-read).
+ */
 export const nodeQueryMergerL: SegmentTreeQueryMerger<segmentLazy> = (
   leftNode: segmentLazy,
   rightNode: segmentLazy,

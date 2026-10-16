@@ -22,6 +22,23 @@ describe('VacuumFilter', () => {
     expect(filter.delete('test')).toBe(false); // Already deleted
   });
 
+  it('should use injected rng for deterministic kick paths', () => {
+    let callCount = 0;
+    const filter = new VacuumFilter<string>(100, 16, {
+      rng: () => {
+        callCount++;
+        return 0.99;
+      }
+    });
+
+    for (let i = 0; i < 200; i++) {
+      filter.add(`item-${i}`);
+    }
+
+    expect(callCount).toBeGreaterThan(0);
+    expect(filter.size()).toBeGreaterThan(0);
+  });
+
   it('should handle serialization', () => {
     const filter = new VacuumFilter<string>(100, 16);
     filter.add('A');

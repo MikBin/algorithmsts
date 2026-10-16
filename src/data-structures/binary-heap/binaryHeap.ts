@@ -100,10 +100,10 @@ export class BinaryHeap<T> {
     return new BinaryHeap([...this._heap], this._comparator);
   }
 
-  merge(other: BinaryHeap<T>): BinaryHeap<T> {
-    const newHeap = this.clone();
-    other._heap.forEach((value) => newHeap.add(value));
-    return newHeap;
+  merge(other: BinaryHeap<T>): void {
+    if (other === this) return;
+    other._heap.forEach((value) => this.add(value));
+    other.clear();
   }
 
   replace(value: T): T | null {

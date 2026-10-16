@@ -13,7 +13,7 @@ export class KDRangeTree {
   private root: KDNode | null = null;
   private k = 0;
   constructor(points: Point[] = []) {
-    if (points.length) { this.k = points[0].length; this.root = this.build(points, 0); }
+    if (points.length) { this.k = points[0].length; this.root = this.build([...points], 0); }
   }
 
   private build(points: Point[], depth: number): KDNode | null {

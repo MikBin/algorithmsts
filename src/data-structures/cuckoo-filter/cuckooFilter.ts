@@ -20,6 +20,7 @@ export interface CuckooFilterOptions<T> {
   hashFn?: HashFn;
   serializer?: Serializer<T>;
   maxKicks?: number;
+  rng?: () => number;
 }
 
 export class CuckooFilter<T = string> {
@@ -31,6 +32,7 @@ export class CuckooFilter<T = string> {
   private hashFn: HashFn;
   private serializer: Serializer<T>;
   private maxKicks: number;
+  private rng: () => number;
 
   /**
    * @param capacity Estimated number of items to store.
@@ -54,6 +56,7 @@ export class CuckooFilter<T = string> {
     this.hashFn = options.hashFn || defaultHash;
     this.serializer = options.serializer || defaultSerializer;
     this.maxKicks = options.maxKicks || 500;
+    this.rng = options.rng || Math.random;
   }
 
   // 16-bit fingerprint. 0 is reserved for 'empty'.
@@ -88,13 +91,13 @@ export class CuckooFilter<T = string> {
     }
 
     // Kick-out process
-    let i = Math.random() < 0.5 ? i1 : i2;
+    let i = this.rng() < 0.5 ? i1 : i2;
     let curF = f;
 
     for (let k = 0; k < this.maxKicks; k++) {
       // Swap curF with a random element in bucket i
       const offset = i * this.bucketSize;
-      const randSlot = Math.floor(Math.random() * this.bucketSize);
+      const randSlot = Math.floor(this.rng() * this.bucketSize);
 
       const oldF = this.buckets[offset + randSlot];
       this.buckets[offset + randSlot] = curF;

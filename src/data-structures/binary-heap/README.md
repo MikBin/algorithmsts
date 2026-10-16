@@ -33,5 +33,5 @@ const heap = new BinaryHeap([3, 1, 4, 1, 5, 9, 2, 6], minComparator);
 - `size`: Returns the number of elements in the heap.
 - `clear()`: Removes all elements from the heap.
 - `clone(): BinaryHeap<T>`: Creates a new heap with the same elements.
-- `merge(other: BinaryHeap<T>): BinaryHeap<T>`: Merges two heaps into a new heap.
+- `merge(other: BinaryHeap<T>): void`: Destructively merges two heaps into the current heap, adding elements from the other heap and clearing it.
 - `replace(value: T): T | null`: Replaces the root element with a new value and returns the old root.

@@ -5,28 +5,6 @@ import { SkipListIterator } from './iterator';
 
 /**
  * @internal
- * Determines whether to advance to the next level in a skip list.
- * @param P - The probability of returning true.
- * @returns A boolean indicating whether to advance.
- */
-const flipCoin = (P: number = 0.5): boolean => Math.random() < P;
-
-/**
- * @internal
- * Generates a random level for a new node in the skip list.
- * @param maxLevel - The maximum level allowed in the skip list.
- * @returns A random level for the new node.
- */
-const getLevel = (maxLevel: number): number => {
-  let level: number = 1;
-  while (flipCoin() && level < maxLevel) {
-    level++;
-  }
-  return level;
-};
-
-/**
- * @internal
  * The default comparison function for skip list values.
  * @param x - The first value.
  * @param y - The second value.
@@ -47,21 +25,25 @@ export class SkipList<T> extends BaseDataStructure<T> {
   private updateNodes: SkipNode<T>[];
   private maxLevel: number;
   private comparisonFn: BinaryComparisonRoutine<T>;
+  private rng: () => number;
 
   /**
    * Creates a new SkipList
    * @param maxLevel The maximum level of the skip list
    * @param dummyRootVal The value for the dummy root node
    * @param comparisonFn The function to use to compare values
+   * @param rng Random number generator to use
    */
   constructor(
     maxLevel: number,
     dummyRootVal: T,
     comparisonFn: BinaryComparisonRoutine<T> = defaultComparisonFn,
+    rng: () => number = Math.random
   ) {
     super();
     this.maxLevel = maxLevel;
     this.comparisonFn = comparisonFn;
+    this.rng = rng;
     this.head = {
       pointers: Array<SkipNode<T>>(this.maxLevel + 1),
       value: dummyRootVal,
@@ -104,7 +86,10 @@ export class SkipList<T> extends BaseDataStructure<T> {
       currentNode.count++;
     } else {
       // Otherwise, create a new node and insert it
-      const newLevel = getLevel(this.maxLevel);
+      let newLevel = 1;
+      while (this.rng() < 0.5 && newLevel < this.maxLevel) {
+        newLevel++;
+      }
       const newNode: SkipNode<T> = {
         pointers: Array<SkipNode<T>>(newLevel + 1),
         value: val,

@@ -4,6 +4,7 @@ export interface VacuumFilterOptions<T> {
   hashFn?: HashFn;
   serializer?: Serializer<T>;
   maxKicks?: number;
+  rng?: () => number;
 }
 
 const defaultHash: HashFn = (str: string, seed: number) => {
@@ -38,6 +39,7 @@ export class VacuumFilter<T = string> implements IProbabilisticFilter<T> {
   private maxKicks: number;
   private fingerprintSize: number;
   private bucketSize = 4; // Standard 4 slots per bucket
+  private rng: () => number;
 
   constructor(
     capacity: number = 1024,
@@ -65,6 +67,7 @@ export class VacuumFilter<T = string> implements IProbabilisticFilter<T> {
     this.hashFn = options.hashFn || defaultHash;
     this.serializer = options.serializer || defaultSerializer;
     this.maxKicks = options.maxKicks || 500;
+    this.rng = options.rng || Math.random;
   }
 
   private fp(s: string): number {
@@ -112,12 +115,12 @@ export class VacuumFilter<T = string> implements IProbabilisticFilter<T> {
     // but random walk is the standard baseline.
     // I will implement random walk for now as it's O(1) mostly.
 
-    let i = Math.random() < 0.5 ? i1 : i2;
+    let i = this.rng() < 0.5 ? i1 : i2;
     let curF = f;
 
     for (let k = 0; k < this.maxKicks; k++) {
       const offset = i * this.bucketSize;
-      const randSlot = Math.floor(Math.random() * this.bucketSize);
+      const randSlot = Math.floor(this.rng() * this.bucketSize);
 
       const oldF = this.buckets[offset + randSlot];
       this.buckets[offset + randSlot] = curF;

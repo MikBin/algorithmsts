@@ -6,6 +6,7 @@ export class FibonacciHeap<T> {
   isEmpty(): boolean { return this._size===0; }
   peek(): T | null { return this.min?this.min.value:null; }
   add(x: T): void { const n = new Node(x); this.min = this.mergeLists(this.min, n); this._size++; }
+  /** Merges another heap into this one destructively (empties the other heap). */
   merge(other: FibonacciHeap<T>): void { this.min = this.mergeLists(this.min, other.min); this._size += other._size; other.min = null; other._size = 0; }
   poll(): T | null {
     const z = this.min; if (!z) return null; if (z.child){ let c: Node<T> = z.child; const start = c; do { const next: Node<T> = c.right!; this.min = this.mergeLists(this.min, c); c.parent=null; c=next; } while(c!==start); }
