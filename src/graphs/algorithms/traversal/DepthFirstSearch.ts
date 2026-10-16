@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 import { ITraversalAlgorithm, ITraversalResult } from '../interfaces/ITraversalAlgorithm';
@@ -34,7 +35,7 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
    */
   public traverse(graph: IGraph<T, W>, startVertex: T): ITraversalResult<T> {
     if (!graph.getVertices().includes(startVertex)) {
-      throw new Error(`Start vertex ${startVertex} does not exist in the graph`);
+      throw new ArgumentError(`Start vertex ${startVertex} does not exist in the graph`);
     }
 
     const visited = new Set<T>();
@@ -79,7 +80,7 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
    */
   public *traverseGenerator(graph: IGraph<T, W>, startVertex: T): Generator<any> {
     if (!graph.getVertices().includes(startVertex)) {
-      throw new Error(`Start vertex ${startVertex} does not exist in the graph`);
+      throw new ArgumentError(`Start vertex ${startVertex} does not exist in the graph`);
     }
 
     const visited = new Set<T>();
@@ -116,7 +117,7 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
     if (typeof (graphOrInput as any).getVertices === 'function') {
       const graph = graphOrInput as IGraph<T, W>;
       if (maybeStart === undefined) {
-        throw new Error('Start vertex must be provided for DFS traversal');
+        throw new ArgumentError('Start vertex must be provided for DFS traversal');
       }
       return this.traverse(graph, maybeStart);
     }

@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 
@@ -19,15 +20,15 @@ export class EdmondsKarpMaxFlow<T, W extends number = number>
 
   public execute(graph: IGraph<T, W>, source?: T, sink?: T): IMaxFlowResult<T, W> {
     if (!graph.isDirected() || !graph.isWeighted()) {
-      throw new Error('Max flow requires a directed weighted graph');
+      throw new ArgumentError('Max flow requires a directed weighted graph');
     }
     if (source === undefined || sink === undefined) {
-      throw new Error('Source and sink must be provided for max flow');
+      throw new ArgumentError('Source and sink must be provided for max flow');
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(source) || !vertices.includes(sink)) {
-      throw new Error('Source or sink not in graph');
+      throw new ArgumentError('Source or sink not in graph');
     }
 
     // Build capacity and residual graphs

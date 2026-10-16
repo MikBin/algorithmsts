@@ -1,3 +1,4 @@
+import { ArgumentError } from '../validation/ArgumentError';
 import { BaseAlgorithm } from '../abstracts/BaseAlgorithm';
 
 /**
@@ -151,10 +152,10 @@ export class SearchAlgorithm extends AlgorithmTemplate<{ array: number[]; target
 
   protected validateInput(input: { array: number[]; target: number }): void {
     if (!Array.isArray(input.array)) {
-      throw new Error('Input must contain an array property');
+      throw new ArgumentError('Input must contain an array property');
     }
     if (typeof input.target !== 'number') {
-      throw new Error('Input must contain a numeric target property');
+      throw new ArgumentError('Input must contain a numeric target property');
     }
   }
 }
@@ -183,7 +184,7 @@ export class DataProcessingAlgorithm extends AlgorithmTemplate<number[], { sum: 
 
   protected validateInput(input: number[]): void {
     if (!Array.isArray(input)) {
-      throw new Error('Input must be an array');
+      throw new ArgumentError('Input must be an array');
     }
   }
 }

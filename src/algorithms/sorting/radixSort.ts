@@ -103,7 +103,7 @@ export class RadixSortNumbers extends BaseAlgorithm<RadixSortNumbersInput, Radix
 
     // Log performance warning for large arrays
     if (executionTime > 100) { // Arbitrary threshold for radix sort
-      console.warn(`RadixSortNumbers performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+      PerformanceMonitor.getLogger()?.warn(`RadixSortNumbers performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
     }
 
     return result!;
@@ -201,7 +201,7 @@ export class RadixSortStrings extends BaseAlgorithm<RadixSortStringsInput, Radix
 
     // Log performance warning for large arrays
     if (executionTime > 100) { // Arbitrary threshold for radix sort
-      console.warn(`RadixSortStrings performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+      PerformanceMonitor.getLogger()?.warn(`RadixSortStrings performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
     }
 
     return result!;

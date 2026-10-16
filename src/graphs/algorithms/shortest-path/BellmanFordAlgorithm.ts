@@ -1,3 +1,5 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
+import { DataStructureError } from '../../../core/validation/DataStructureError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAlgorithm';
@@ -17,12 +19,12 @@ export class BellmanFordAlgorithm<T, W extends number = number>
 
   public findShortestPath(graph: IGraph<T, W>, start: T, end: T): IPathResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error("Bellman-Ford requires a weighted graph");
+      throw new ArgumentError("Bellman-Ford requires a weighted graph");
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error('Start or end vertex does not exist in the graph');
+      throw new ArgumentError('Start or end vertex does not exist in the graph');
     }
 
     const distances = new Map<T, W>();
@@ -79,11 +81,11 @@ export class BellmanFordAlgorithm<T, W extends number = number>
       const dv = distances.get(v)!;
 
       if (du + (w as number) < (dv as number)) {
-        throw new Error('Negative weight cycle detected');
+        throw new DataStructureError('Negative weight cycle detected');
       }
 
       if (!isDirected && dv + (w as number) < (du as number)) {
-        throw new Error('Negative weight cycle detected');
+        throw new DataStructureError('Negative weight cycle detected');
       }
     }
 
@@ -107,7 +109,7 @@ export class BellmanFordAlgorithm<T, W extends number = number>
 
   public execute(graph: IGraph<T, W>, start?: T, end?: T): IPathResult<T, W> {
     if (start === undefined || end === undefined) {
-      throw new Error('Start and end vertices must be provided for Bellman-Ford');
+      throw new ArgumentError('Start and end vertices must be provided for Bellman-Ford');
     }
     return this.findShortestPath(graph, start, end);
   }

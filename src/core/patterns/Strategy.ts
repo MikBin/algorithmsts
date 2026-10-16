@@ -34,6 +34,8 @@ export interface IStrategy<TInput, TOutput> {
  * const sortedAgain = context.executeStrategy([3, 1, 2]); // [1, 2, 3]
  * ```
  */
+import { ArgumentError } from '../validation/ArgumentError';
+
 export class StrategyContext<TInput, TOutput> {
   private strategy?: IStrategy<TInput, TOutput>;
 
@@ -49,11 +51,11 @@ export class StrategyContext<TInput, TOutput> {
    * Executes the current strategy with the given input
    * @param input The input data
    * @returns The output result
-   * @throws Error if no strategy is set
+   * @throws ArgumentError if no strategy is set
    */
   public executeStrategy(input: TInput): TOutput {
     if (!this.strategy) {
-      throw new Error('No strategy set');
+      throw new ArgumentError('No strategy set');
     }
     return this.strategy.execute(input);
   }
@@ -62,7 +64,7 @@ export class StrategyContext<TInput, TOutput> {
 /**
  * Sorting strategy interface
  */
-export interface ISortingStrategy<T> extends IStrategy<T[], T[]> {}
+export interface ISortingStrategy<T extends number | string> extends IStrategy<T[], T[]> {}
 
 /**
  * Bubble sort strategy implementation
@@ -73,7 +75,7 @@ export interface ISortingStrategy<T> extends IStrategy<T[], T[]> {}
  * const sorted = sorter.execute([3, 1, 2]); // [1, 2, 3]
  * ```
  */
-export class BubbleSortStrategy<T> extends BaseAlgorithm<T[], T[]> implements ISortingStrategy<T> {
+export class BubbleSortStrategy<T extends number | string> extends BaseAlgorithm<T[], T[]> implements ISortingStrategy<T> {
   constructor() {
     super('Bubble Sort', 'O(n²)', 'O(1)');
   }
@@ -101,7 +103,7 @@ export class BubbleSortStrategy<T> extends BaseAlgorithm<T[], T[]> implements IS
  * const sorted = sorter.execute([3, 1, 2]); // [1, 2, 3]
  * ```
  */
-export class QuickSortStrategy<T> extends BaseAlgorithm<T[], T[]> implements ISortingStrategy<T> {
+export class QuickSortStrategy<T extends number | string> extends BaseAlgorithm<T[], T[]> implements ISortingStrategy<T> {
   constructor() {
     super('Quick Sort', 'O(n log n)', 'O(log n)');
   }

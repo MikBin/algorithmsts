@@ -74,7 +74,7 @@ export class DepthFirstSearch<T> extends BaseAlgorithm<DepthFirstSearchInput<T>,
 
     // Log performance warning for large graphs (O(V + E))
     if (executionTime > 50) {
-      console.warn(`DepthFirstSearch performance warning: ${executionTime}ms`);
+      PerformanceMonitor.getLogger()?.warn(`DepthFirstSearch performance warning: ${executionTime}ms`);
     }
 
     return result!;

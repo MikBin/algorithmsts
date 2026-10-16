@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 
@@ -20,7 +21,7 @@ export class FloydWarshallAlgorithm<T, W extends number = number>
 
   public execute(graph: IGraph<T, W>): IFloydWarshallResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error('Floyd–Warshall requires a weighted graph');
+      throw new ArgumentError('Floyd–Warshall requires a weighted graph');
     }
 
     const verts = graph.getVertices();

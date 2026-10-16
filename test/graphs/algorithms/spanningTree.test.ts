@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../src/core/validation/ArgumentError';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { KruskalAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/KruskalAlgorithm';
 import { PrimAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/PrimAlgorithm';
@@ -50,12 +51,12 @@ describe('Spanning Tree Algorithms', () => {
 
     it('should throw error for directed graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
-      expect(() => kruskal.execute(graph)).toThrow();
+      expect(() => kruskal.execute(graph)).toThrow(ArgumentError);
     });
 
     it('should throw error for unweighted graph', () => {
       const graph = SampleGraphs.unweightedSimpleUndirectedGraph;
-      expect(() => kruskal.execute(graph)).toThrow();
+      expect(() => kruskal.execute(graph)).toThrow(ArgumentError);
     });
 
     it('should handle disconnected graphs', () => {
@@ -84,7 +85,7 @@ describe('Spanning Tree Algorithms', () => {
 
     it('should throw if edges lack weights in weighted graph', () => {
         const badGraph = new BadGraph();
-        expect(() => kruskal.execute(badGraph)).toThrow(/All edges must have weights/);
+        expect(() => kruskal.execute(badGraph)).toThrow(ArgumentError);
     });
   });
 
@@ -112,12 +113,12 @@ describe('Spanning Tree Algorithms', () => {
 
     it('should throw error for directed graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
-      expect(() => prim.execute(graph)).toThrow();
+      expect(() => prim.execute(graph)).toThrow(ArgumentError);
     });
 
     it('should throw error for unweighted graph', () => {
       const graph = SampleGraphs.unweightedSimpleUndirectedGraph;
-      expect(() => prim.execute(graph)).toThrow();
+      expect(() => prim.execute(graph)).toThrow(ArgumentError);
     });
 
     it('should handle disconnected graphs', () => {
@@ -296,8 +297,8 @@ describe('Spanning Tree Algorithms', () => {
       const prim = new PrimAlgorithm<number>();
 
       // These will likely throw due to unweighted nature, but test the interface
-      expect(() => kruskal.execute(mediumGraph)).toThrow();
-      expect(() => prim.execute(mediumGraph)).toThrow();
+      expect(() => kruskal.execute(mediumGraph)).toThrow(ArgumentError);
+      expect(() => prim.execute(mediumGraph)).toThrow(ArgumentError);
     });
   });
 

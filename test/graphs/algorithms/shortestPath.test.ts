@@ -1,3 +1,5 @@
+import { ArgumentError } from '../../../src/core/validation/ArgumentError';
+import { DataStructureError } from '../../../src/core/validation/DataStructureError';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { DijkstraAlgorithm } from '../../../src/graphs/algorithms/shortest-path/DijkstraAlgorithm';
 import { AStarAlgorithm } from '../../../src/graphs/algorithms/shortest-path/AStarAlgorithm';
@@ -69,13 +71,13 @@ describe('Shortest Path Algorithms', () => {
 
     it('should throw error for unweighted graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
-      expect(() => dijkstra.findShortestPath(graph, 'A', 'C')).toThrow(/requires a weighted graph/);
+      expect(() => dijkstra.findShortestPath(graph, 'A', 'C')).toThrow(ArgumentError);
     });
 
     it('should throw error for non-existent vertices', () => {
       const graph = SampleGraphs.weightedGraph;
-      expect(() => dijkstra.findShortestPath(graph, 'A', 'Z')).toThrow();
-      expect(() => dijkstra.findShortestPath(graph, 'Z', 'D')).toThrow();
+      expect(() => dijkstra.findShortestPath(graph, 'A', 'Z')).toThrow(ArgumentError);
+      expect(() => dijkstra.findShortestPath(graph, 'Z', 'D')).toThrow(ArgumentError);
     });
 
     it('should work with execute method', () => {
@@ -97,7 +99,7 @@ describe('Shortest Path Algorithms', () => {
 
     it('should throw if start/end are undefined in execute', () => {
       const graph = SampleGraphs.weightedGraph;
-      expect(() => dijkstra.execute(graph)).toThrow();
+      expect(() => dijkstra.execute(graph)).toThrow(ArgumentError);
     });
   });
 
@@ -130,13 +132,13 @@ describe('Shortest Path Algorithms', () => {
 
     it('should throw error for unweighted graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
-      expect(() => aStar.findShortestPath(graph, 'A', 'C')).toThrow(/requires a weighted graph/);
+      expect(() => aStar.findShortestPath(graph, 'A', 'C')).toThrow(ArgumentError);
     });
 
     it('should throw error for non-existent vertices', () => {
       const graph = SampleGraphs.weightedGraph;
-      expect(() => aStar.findShortestPath(graph, 'A', 'Z')).toThrow();
-      expect(() => aStar.findShortestPath(graph, 'Z', 'D')).toThrow();
+      expect(() => aStar.findShortestPath(graph, 'A', 'Z')).toThrow(ArgumentError);
+      expect(() => aStar.findShortestPath(graph, 'Z', 'D')).toThrow(ArgumentError);
     });
 
     it('should work with execute method', () => {
@@ -181,7 +183,7 @@ describe('Shortest Path Algorithms', () => {
 
     it('should throw if execute called without start/end', () => {
         const graph = SampleGraphs.weightedGraph;
-        expect(() => aStar.execute(graph)).toThrow();
+        expect(() => aStar.execute(graph)).toThrow(ArgumentError);
     });
 
     it('should handle undefined edge weights gracefully (skip them)', () => {
@@ -234,12 +236,12 @@ describe('Shortest Path Algorithms', () => {
       graph.addEdge('B', 'C', -1);
       graph.addEdge('C', 'A', -1); // Cycle A->B->C->A sum is -1
 
-      expect(() => bellmanFord.findShortestPath(graph, 'A', 'C')).toThrow(/Negative weight cycle detected/);
+      expect(() => bellmanFord.findShortestPath(graph, 'A', 'C')).toThrow(DataStructureError);
     });
 
     it('should throw error for unweighted graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
-      expect(() => bellmanFord.findShortestPath(graph, 'A', 'C')).toThrow(/requires a weighted graph/);
+      expect(() => bellmanFord.findShortestPath(graph, 'A', 'C')).toThrow(ArgumentError);
     });
 
     it('should handle undirected graphs in reverse direction (non-root sources)', () => {
@@ -257,12 +259,12 @@ describe('Shortest Path Algorithms', () => {
       graph.addVertex('B');
       graph.addEdge('A', 'B', -1);
 
-      expect(() => bellmanFord.findShortestPath(graph, 'A', 'B')).toThrow(/Negative weight cycle detected/);
+      expect(() => bellmanFord.findShortestPath(graph, 'A', 'B')).toThrow(DataStructureError);
     });
 
     it('should throw error for non-existent vertices', () => {
         const graph = SampleGraphs.weightedGraph;
-        expect(() => bellmanFord.findShortestPath(graph, 'A', 'Z')).toThrow();
+        expect(() => bellmanFord.findShortestPath(graph, 'A', 'Z')).toThrow(ArgumentError);
     });
 
     it('should handle unreachable vertices', () => {
@@ -280,7 +282,7 @@ describe('Shortest Path Algorithms', () => {
 
     it('should throw if execute called without start/end', () => {
         const graph = SampleGraphs.weightedGraph;
-        expect(() => bellmanFord.execute(graph)).toThrow();
+        expect(() => bellmanFord.execute(graph)).toThrow(ArgumentError);
     });
 
     it('should handle undefined edge weights gracefully (skip them)', () => {
@@ -359,7 +361,7 @@ describe('Shortest Path Algorithms', () => {
 
     it('should throw for unweighted graph', () => {
         const graph = SampleGraphs.simpleDirectedGraph;
-        expect(() => floydWarshall.execute(graph)).toThrow(/requires a weighted graph/);
+        expect(() => floydWarshall.execute(graph)).toThrow(ArgumentError);
     });
   });
 

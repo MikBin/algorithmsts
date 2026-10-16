@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 
@@ -52,7 +53,7 @@ export class TopologicalSort<T, W = number> extends BaseAlgorithm<IGraph<T, W>, 
    */
   public execute(graph: IGraph<T, W>): ITopologicalSortResult<T> {
     if (!graph.isDirected()) {
-      throw new Error('Topological sort requires a directed graph');
+      throw new ArgumentError('Topological sort requires a directed graph');
     }
 
     const vertices = graph.getVertices();

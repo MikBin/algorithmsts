@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 
@@ -53,11 +54,11 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
    */
   public execute(graph: IGraph<T, W>): ISpanningTreeResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error('Kruskal\'s algorithm requires a weighted graph');
+      throw new ArgumentError('Kruskal\'s algorithm requires a weighted graph');
     }
 
     if (graph.isDirected()) {
-      throw new Error('Kruskal\'s algorithm requires an undirected graph');
+      throw new ArgumentError('Kruskal\'s algorithm requires an undirected graph');
     }
 
     const vertices = graph.getVertices();
@@ -69,7 +70,7 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
       if (edge.length === 3) {
         edgeList.push({ from: edge[0], to: edge[1], weight: edge[2] });
       } else {
-        throw new Error('All edges must have weights for MST algorithms');
+        throw new ArgumentError('All edges must have weights for MST algorithms');
       }
     }
 
@@ -142,10 +143,10 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
    */
   public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
     if (!graph.isWeighted()) {
-      throw new Error('Kruskal\'s algorithm requires a weighted graph');
+      throw new ArgumentError('Kruskal\'s algorithm requires a weighted graph');
     }
     if (graph.isDirected()) {
-      throw new Error('Kruskal\'s algorithm requires an undirected graph');
+      throw new ArgumentError('Kruskal\'s algorithm requires an undirected graph');
     }
 
     const vertices = graph.getVertices();
