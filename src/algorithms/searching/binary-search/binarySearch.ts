@@ -85,7 +85,7 @@ export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinaryS
 
     // Log performance if it exceeds target
     if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      console.warn(`BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
+      PerformanceMonitor.getLogger()?.warn(`BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
     }
 
     return result!;
@@ -197,7 +197,7 @@ export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInp
 
     // Log performance if it exceeds target
     if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      console.warn(`BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
+      PerformanceMonitor.getLogger()?.warn(`BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
     }
 
     return result!;

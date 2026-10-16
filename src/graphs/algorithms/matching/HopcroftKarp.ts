@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 
@@ -18,7 +19,7 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
 
   public execute(graph: IGraph<T, W>, left?: T[], right?: T[]): IMatchingResult<T> {
     if (!left || !right) {
-      throw new Error('Left and right partitions must be provided');
+      throw new ArgumentError('Left and right partitions must be provided');
     }
     const rightSet = new Set(right);
     if (graph.isDirected()) {

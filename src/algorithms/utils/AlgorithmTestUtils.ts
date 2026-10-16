@@ -103,7 +103,7 @@ export class AlgorithmTestUtils {
       });
 
       if (!passed) {
-        console.warn(`Performance regression in ${testCase.name}: ${executionTime}ms (expected <= ${testCase.maxExpectedTime}ms)`);
+        PerformanceMonitor.getLogger()?.warn(`Performance regression in ${testCase.name}: ${executionTime}ms (expected <= ${testCase.maxExpectedTime}ms)`);
       }
     }
 

@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../src/core/validation/ArgumentError';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { TopologicalSort } from '../../../src/graphs/algorithms/graph/TopologicalSort';
 import { CycleDetection } from '../../../src/graphs/algorithms/graph/CycleDetection';
@@ -45,7 +46,7 @@ describe('Graph Algorithms', () => {
 
     it('should throw error for undirected graphs', () => {
       const graph = SampleGraphs.simpleUndirectedGraph;
-      expect(() => topologicalSort.execute(graph)).toThrow();
+      expect(() => topologicalSort.execute(graph)).toThrow(ArgumentError);
     });
 
     it('should handle single vertex graph', () => {

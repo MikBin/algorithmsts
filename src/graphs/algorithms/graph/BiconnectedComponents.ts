@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 
@@ -17,7 +18,7 @@ export class BiconnectedComponents<T, W = number>
 
   public execute(graph: IGraph<T, W>): IBiconnectedComponentsResult<T> {
     if (graph.isDirected()) {
-      throw new Error('Biconnected components require an undirected graph');
+      throw new ArgumentError('Biconnected components require an undirected graph');
     }
 
     const vertices = graph.getVertices();

@@ -1,3 +1,4 @@
+import { ArgumentError } from '../validation/ArgumentError';
 import { IDataStructure } from '../interfaces/IDataStructure';
 import { IAlgorithm } from '../interfaces/IAlgorithm';
 
@@ -46,13 +47,13 @@ export class ListFactory<T> implements IAbstractFactory<T> {
   public createDataStructure(): IDataStructure<T> {
     // This would typically create a concrete data structure like LinkedList
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete data structure implementation needed');
+    throw new ArgumentError('Concrete data structure implementation needed');
   }
 
   public createAlgorithm(): IAlgorithm<T[], T[]> {
     // This would typically create a sorting algorithm
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete algorithm implementation needed');
+    throw new ArgumentError('Concrete algorithm implementation needed');
   }
 }
 
@@ -76,13 +77,13 @@ export class TreeFactory<T> implements IAbstractFactory<T> {
   public createDataStructure(): IDataStructure<T> {
     // This would typically create a concrete data structure like BinarySearchTree
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete data structure implementation needed');
+    throw new ArgumentError('Concrete data structure implementation needed');
   }
 
   public createAlgorithm(): IAlgorithm<T[], any> {
     // This would typically create a search algorithm like BinarySearch
     // For now, returning a placeholder - concrete implementations would be imported
-    throw new Error('Concrete algorithm implementation needed');
+    throw new ArgumentError('Concrete algorithm implementation needed');
   }
 }
 
@@ -108,7 +109,7 @@ export class FactoryCreator {
       case 'tree':
         return new TreeFactory<T>();
       default:
-        throw new Error(`Unknown factory type: ${type}`);
+        throw new ArgumentError(`Unknown factory type: ${type}`);
     }
   }
 }

@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../src/core/validation/ArgumentError';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { BreadthFirstSearch } from '../../../src/graphs/algorithms/traversal/BreadthFirstSearch';
 import { DepthFirstSearch } from '../../../src/graphs/algorithms/traversal/DepthFirstSearch';
@@ -55,7 +56,7 @@ describe('Graph Traversal Algorithms', () => {
 
     it('should throw error for non-existent start vertex', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
-      expect(() => bfs.traverse(graph, 'Z')).toThrow();
+      expect(() => bfs.traverse(graph, 'Z')).toThrow(ArgumentError);
     });
 
     it('should work with execute method', () => {
@@ -84,7 +85,7 @@ describe('Graph Traversal Algorithms', () => {
 
     it('should throw in execute if start vertex is undefined (new signature)', () => {
         const graph = SampleGraphs.simpleDirectedGraph;
-        expect(() => bfs.execute(graph)).toThrow();
+        expect(() => bfs.execute(graph)).toThrow(ArgumentError);
     });
   });
 
@@ -133,7 +134,7 @@ describe('Graph Traversal Algorithms', () => {
 
     it('should throw error for non-existent start vertex', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
-      expect(() => dfs.traverse(graph, 'Z')).toThrow();
+      expect(() => dfs.traverse(graph, 'Z')).toThrow(ArgumentError);
     });
 
     it('should work with execute method', () => {
@@ -172,7 +173,7 @@ describe('Graph Traversal Algorithms', () => {
 
    it('should throw in execute if start vertex is undefined (new signature)', () => {
        const graph = SampleGraphs.simpleDirectedGraph;
-       expect(() => dfs.execute(graph)).toThrow();
+       expect(() => dfs.execute(graph)).toThrow(ArgumentError);
    });
   });
 
@@ -218,8 +219,8 @@ describe('Graph Traversal Algorithms', () => {
       const bfs = new BreadthFirstSearch<string>();
       const dfs = new DepthFirstSearch<string>();
 
-      expect(() => bfs.traverse(graph, 'A')).toThrow();
-      expect(() => dfs.traverse(graph, 'A')).toThrow();
+      expect(() => bfs.traverse(graph, 'A')).toThrow(ArgumentError);
+      expect(() => dfs.traverse(graph, 'A')).toThrow(ArgumentError);
     });
 
     it('should handle graphs with isolated vertices', () => {

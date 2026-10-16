@@ -94,7 +94,7 @@ export class SparseTable<T> extends BaseAlgorithm<SparseTableConstructorInput<T>
 
     // Log performance warning for large arrays (O(N log N) construction)
     if (executionTime > 100) {
-      console.warn(`SparseTable construction performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+      PerformanceMonitor.getLogger()?.warn(`SparseTable construction performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
     }
 
     return result!;

@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 
@@ -18,7 +19,7 @@ export class BridgesAndArticulationPoints<T, W = number>
 
   public execute(graph: IGraph<T, W>): IBridgesArticulationResult<T> {
     if (graph.isDirected()) {
-      throw new Error('Bridges/articulation points are defined for undirected graphs');
+      throw new ArgumentError('Bridges/articulation points are defined for undirected graphs');
     }
 
     const n = graph.getVertices();

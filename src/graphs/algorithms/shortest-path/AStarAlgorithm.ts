@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 import { IPathfindingAlgorithm, IPathResult } from '../interfaces/IPathfindingAlgorithm';
@@ -39,12 +40,12 @@ export class AStarAlgorithm<T, W extends number = number> extends BaseAlgorithm<
    */
   public findShortestPath(graph: IGraph<T, W>, start: T, end: T): IPathResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error('A* algorithm requires a weighted graph');
+      throw new ArgumentError('A* algorithm requires a weighted graph');
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error('Start or end vertex does not exist in the graph');
+      throw new ArgumentError('Start or end vertex does not exist in the graph');
     }
 
     // Initialize data structures
@@ -147,7 +148,7 @@ export class AStarAlgorithm<T, W extends number = number> extends BaseAlgorithm<
    */
   public execute(graph: IGraph<T, W>, start?: T, end?: T): IPathResult<T, W> {
     if (start === undefined || end === undefined) {
-      throw new Error('Start and end vertices must be provided for A* algorithm');
+      throw new ArgumentError('Start and end vertices must be provided for A* algorithm');
     }
     return this.findShortestPath(graph, start, end);
   }

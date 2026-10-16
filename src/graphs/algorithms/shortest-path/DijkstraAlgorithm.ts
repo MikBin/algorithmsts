@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
 import { IGraph } from "../../interfaces/IGraph";
 import { IPathfindingAlgorithm, IPathResult } from "../interfaces/IPathfindingAlgorithm";
@@ -37,12 +38,12 @@ export class DijkstraAlgorithm<T, W extends number = number>
    */
   public findShortestPath(graph: IGraph<T, W>, start: T, end: T): IPathResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new Error("Dijkstra's algorithm requires a weighted graph");
+      throw new ArgumentError("Dijkstra's algorithm requires a weighted graph");
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error("Start or end vertex does not exist in the graph");
+      throw new ArgumentError("Start or end vertex does not exist in the graph");
     }
 
     // Initialize distances and parents
@@ -128,12 +129,12 @@ export class DijkstraAlgorithm<T, W extends number = number>
    */
   public *findShortestPathGenerator(graph: IGraph<T, W>, start: T, end: T): Generator<any> {
     if (!graph.isWeighted()) {
-      throw new Error("Dijkstra's algorithm requires a weighted graph");
+      throw new ArgumentError("Dijkstra's algorithm requires a weighted graph");
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(start) || !vertices.includes(end)) {
-      throw new Error("Start or end vertex does not exist in the graph");
+      throw new ArgumentError("Start or end vertex does not exist in the graph");
     }
 
     const distances = new Map<T, W>();
@@ -227,7 +228,7 @@ export class DijkstraAlgorithm<T, W extends number = number>
    */
   public execute(graph: IGraph<T, W>, start?: T, end?: T): IPathResult<T, W> {
     if (start === undefined || end === undefined) {
-      throw new Error("Start and end vertices must be provided for Dijkstra's algorithm");
+      throw new ArgumentError("Start and end vertices must be provided for Dijkstra's algorithm");
     }
     return this.findShortestPath(graph, start, end);
   }

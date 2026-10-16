@@ -1,3 +1,4 @@
+import { ArgumentError } from '../../../core/validation/ArgumentError';
 import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
 import { IGraph } from '../../interfaces/IGraph';
 import type { ISpanningTreeResult } from './KruskalAlgorithm';
@@ -14,7 +15,7 @@ export class BoruvkaAlgorithm<T, W extends number = number>
 
   public execute(graph: IGraph<T, W>): ISpanningTreeResult<T, W> {
     if (!graph.isWeighted() || graph.isDirected()) {
-      throw new Error("Borůvka's algorithm requires an undirected weighted graph");
+      throw new ArgumentError("Borůvka's algorithm requires an undirected weighted graph");
     }
 
     const vertices = graph.getVertices();
@@ -23,7 +24,7 @@ export class BoruvkaAlgorithm<T, W extends number = number>
     // Prepare edges list with weights
     const edgeList: Array<{ from: T; to: T; weight: W }> = [];
     for (const e of edges) {
-      if (e.length !== 3) throw new Error('All edges must have weights for MST algorithms');
+      if (e.length !== 3) throw new ArgumentError('All edges must have weights for MST algorithms');
       const [u, v, w] = e as [T, T, W];
       edgeList.push({ from: u, to: v, weight: w });
     }

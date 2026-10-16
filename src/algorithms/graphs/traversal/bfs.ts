@@ -77,7 +77,7 @@ export class BreadthFirstSearch<T> extends BaseAlgorithm<BreadthFirstSearchInput
 
     // Log performance warning for large graphs (O(V + E))
     if (executionTime > 50) {
-      console.warn(`BreadthFirstSearch performance warning: ${executionTime}ms`);
+      PerformanceMonitor.getLogger()?.warn(`BreadthFirstSearch performance warning: ${executionTime}ms`);
     }
 
     return result!;

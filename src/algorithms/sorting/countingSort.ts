@@ -101,7 +101,7 @@ export class CountingSort extends BaseAlgorithm<CountingSortInput, CountingSortO
 
     // Log performance warning for large arrays (O(n+k) should be fast, but warn if slow)
     if (executionTime > 100) { // Arbitrary threshold for counting sort
-      console.warn(`CountingSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+      PerformanceMonitor.getLogger()?.warn(`CountingSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
     }
 
     return result!;
