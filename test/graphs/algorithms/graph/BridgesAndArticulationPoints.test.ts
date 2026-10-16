@@ -88,7 +88,6 @@ describe('BridgesAndArticulationPoints', () => {
 
   describe('AdjacencyMatrixGraph', () => {
     it('should find 2 bridges and 1 articulation point in a simple undirected path matrix graph', () => {
-      const graph = SampleGraphs.weightedGraphMatrix;
       // Let's create an unweighted version of A-B-C for testing
       const matrixGraph = new AdjacencyMatrixGraph<string>(false, false);
       matrixGraph.addVertex('A');
