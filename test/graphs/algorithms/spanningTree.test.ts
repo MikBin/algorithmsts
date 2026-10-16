@@ -1,73 +1,45 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { KruskalAlgorithm } from "../../../src/graphs/algorithms/spanning-tree/KruskalAlgorithm";
-import { PrimAlgorithm } from "../../../src/graphs/algorithms/spanning-tree/PrimAlgorithm";
-import { SampleGraphs } from "../fixtures/SampleGraphs";
-import { GraphTestData } from "../fixtures/GraphTestData";
-import { AdjacencyMatrixGraph } from "../../../src/graphs/structures/AdjacencyMatrixGraph";
-import { IGraph } from "../../../src/graphs/interfaces/IGraph";
+import { describe, it, expect, beforeEach } from 'vitest';
+import { KruskalAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/KruskalAlgorithm';
+import { PrimAlgorithm } from '../../../src/graphs/algorithms/spanning-tree/PrimAlgorithm';
+import { SampleGraphs } from '../fixtures/SampleGraphs';
+import { GraphTestData } from '../fixtures/GraphTestData';
+import { AdjacencyMatrixGraph } from '../../../src/graphs/structures/AdjacencyMatrixGraph';
+import { IGraph } from '../../../src/graphs/interfaces/IGraph';
 
 // Mock graph for testing edge cases
 class BadGraph implements IGraph<string, number> {
-  addVertex(v: string): void {}
-  addEdge(u: string, v: string, w?: number): void {}
-  getVertices(): string[] {
-    return ["A", "B"];
-  }
-  getEdges(): [string, string, number?][] {
-    // Return edge without weight even though isWeighted is true
-    return [["A", "B"]];
-  }
-  getNeighbors(v: string): string[] {
-    return [];
-  }
-  hasEdge(u: string, v: string): boolean {
-    return true;
-  }
-  getEdgeWeight(u: string, v: string): number | undefined {
-    return undefined;
-  }
-  isDirected(): boolean {
-    return false;
-  }
-  isWeighted(): boolean {
-    return true;
-  }
-  getVertexCount(): number {
-    return 2;
-  }
-  getEdgeCount(): number {
-    return 1;
-  }
-  clear(): void {}
-  removeVertex(v: string): boolean {
-    return true;
-  }
-  removeEdge(u: string, v: string): boolean {
-    return true;
-  }
-  outDegree(v: string): number {
-    return 0;
-  }
-  inDegree(v: string): number {
-    return 0;
-  }
-  transpose(): IGraph<string, number> {
-    return this;
-  }
-  clone(): IGraph<string, number> {
-    return this;
-  }
+    addVertex(v: string): void {}
+    addEdge(u: string, v: string, w?: number): void {}
+    getVertices(): string[] { return ['A', 'B']; }
+    getEdges(): [string, string, number?][] {
+        // Return edge without weight even though isWeighted is true
+        return [['A', 'B']];
+    }
+    getNeighbors(v: string): string[] { return []; }
+    hasEdge(u: string, v: string): boolean { return true; }
+    getEdgeWeight(u: string, v: string): number | undefined { return undefined; }
+    isDirected(): boolean { return false; }
+    isWeighted(): boolean { return true; }
+    getVertexCount(): number { return 2; }
+    getEdgeCount(): number { return 1; }
+    clear(): void {}
+    removeVertex(v: string): boolean { return true; }
+    removeEdge(u: string, v: string): boolean { return true; }
+    outDegree(v: string): number { return 0; }
+    inDegree(v: string): number { return 0; }
+    transpose(): IGraph<string, number> { return this; }
+    clone(): IGraph<string, number> { return this; }
 }
 
-describe("Spanning Tree Algorithms", () => {
-  describe("Kruskal's Algorithm", () => {
+describe('Spanning Tree Algorithms', () => {
+  describe('Kruskal\'s Algorithm', () => {
     let kruskal: KruskalAlgorithm<string>;
 
     beforeEach(() => {
       kruskal = new KruskalAlgorithm<string>();
     });
 
-    it("should find MST for connected undirected graph", () => {
+    it('should find MST for connected undirected graph', () => {
       const graph = SampleGraphs.completeGraphK4;
       const result = kruskal.execute(graph);
 
@@ -76,31 +48,31 @@ describe("Spanning Tree Algorithms", () => {
       expect(result.totalWeight).toBeGreaterThan(0);
     });
 
-    it("should throw error for directed graph", () => {
+    it('should throw error for directed graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
       expect(() => kruskal.execute(graph)).toThrow();
     });
 
-    it("should throw error for unweighted graph", () => {
+    it('should throw error for unweighted graph', () => {
       const graph = SampleGraphs.unweightedSimpleUndirectedGraph;
       expect(() => kruskal.execute(graph)).toThrow();
     });
 
-    it("should handle disconnected graphs", () => {
+    it('should handle disconnected graphs', () => {
       const graph = SampleGraphs.disconnectedGraph;
       const result = kruskal.execute(graph);
 
       expect(result.found).toBe(false);
     });
 
-    it("should produce valid spanning tree", () => {
+    it('should produce valid spanning tree', () => {
       const graph = SampleGraphs.completeGraphK4;
       const result = kruskal.execute(graph);
 
       if (result.found) {
         // Check that all vertices are connected
         const verticesInTree = new Set<string>();
-        result.edges.forEach((edge) => {
+        result.edges.forEach(edge => {
           verticesInTree.add(edge.from);
           verticesInTree.add(edge.to);
         });
@@ -110,20 +82,20 @@ describe("Spanning Tree Algorithms", () => {
       }
     });
 
-    it("should throw if edges lack weights in weighted graph", () => {
-      const badGraph = new BadGraph();
-      expect(() => kruskal.execute(badGraph)).toThrow(/All edges must have weights/);
+    it('should throw if edges lack weights in weighted graph', () => {
+        const badGraph = new BadGraph();
+        expect(() => kruskal.execute(badGraph)).toThrow(/All edges must have weights/);
     });
   });
 
-  describe("Prim's Algorithm", () => {
+  describe('Prim\'s Algorithm', () => {
     let prim: PrimAlgorithm<string>;
 
     beforeEach(() => {
       prim = new PrimAlgorithm<string>();
     });
 
-    it("should find MST for connected undirected graph", () => {
+    it('should find MST for connected undirected graph', () => {
       const graph = SampleGraphs.completeGraphK4;
       const result = prim.execute(graph);
 
@@ -132,33 +104,31 @@ describe("Spanning Tree Algorithms", () => {
       expect(result.totalWeight).toBeGreaterThan(0);
     });
 
-    it("should return minimal total weight (9) for SampleGraphs.weightedGraph", () => {
-      const graph = SampleGraphs.weightedGraph;
-      const result = prim.execute(graph);
-
+    it('should compute exact MST weight for SampleGraphs.weightedGraph', () => {
+      const result = prim.execute(SampleGraphs.weightedGraph);
       expect(result.found).toBe(true);
       expect(result.totalWeight).toBe(9);
     });
 
-    it("should throw error for directed graph", () => {
+    it('should throw error for directed graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
       expect(() => prim.execute(graph)).toThrow();
     });
 
-    it("should throw error for unweighted graph", () => {
+    it('should throw error for unweighted graph', () => {
       const graph = SampleGraphs.unweightedSimpleUndirectedGraph;
       expect(() => prim.execute(graph)).toThrow();
     });
 
-    it("should handle disconnected graphs", () => {
+    it('should handle disconnected graphs', () => {
       // Create a weighted disconnected graph
       const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
-      graph.addVertex("A");
-      graph.addVertex("B");
-      graph.addVertex("C");
-      graph.addVertex("D");
-      graph.addEdge("A", "B", 1);
-      graph.addEdge("C", "D", 2);
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addVertex('C');
+      graph.addVertex('D');
+      graph.addEdge('A', 'B', 1);
+      graph.addEdge('C', 'D', 2);
 
       const result = prim.execute(graph);
 
@@ -166,14 +136,14 @@ describe("Spanning Tree Algorithms", () => {
       expect(result.edges.length).toBeLessThan(graph.getVertexCount() - 1);
     });
 
-    it("should produce valid spanning tree", () => {
+    it('should produce valid spanning tree', () => {
       const graph = SampleGraphs.completeGraphK4;
       const result = prim.execute(graph);
 
       if (result.found) {
         // Check that all vertices are connected
         const verticesInTree = new Set<string>();
-        result.edges.forEach((edge) => {
+        result.edges.forEach(edge => {
           verticesInTree.add(edge.from);
           verticesInTree.add(edge.to);
         });
@@ -183,7 +153,7 @@ describe("Spanning Tree Algorithms", () => {
       }
     });
 
-    it("should handle empty graph", () => {
+    it('should handle empty graph', () => {
       // Create a weighted empty graph
       const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
 
@@ -194,7 +164,7 @@ describe("Spanning Tree Algorithms", () => {
       expect(result.totalWeight).toBe(0);
     });
 
-    it("should handle empty adjacency list graph", () => {
+    it('should handle empty adjacency list graph', () => {
       const graph = SampleGraphs.emptyGraph;
       // SampleGraphs.emptyGraph is directed, we need undirected weighted
       const undirGraph = new AdjacencyMatrixGraph<string>(false, true);
@@ -204,8 +174,8 @@ describe("Spanning Tree Algorithms", () => {
     });
   });
 
-  describe("Algorithm Comparison", () => {
-    it("should produce valid MSTs for both algorithms", () => {
+  describe('Algorithm Comparison', () => {
+    it('should produce valid MSTs for both algorithms', () => {
       const graph = SampleGraphs.completeGraphK4;
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
@@ -224,12 +194,12 @@ describe("Spanning Tree Algorithms", () => {
       const kruskalVertices = new Set<string>();
       const primVertices = new Set<string>();
 
-      kruskalResult.edges.forEach((edge) => {
+      kruskalResult.edges.forEach(edge => {
         kruskalVertices.add(edge.from);
         kruskalVertices.add(edge.to);
       });
 
-      primResult.edges.forEach((edge) => {
+      primResult.edges.forEach(edge => {
         primVertices.add(edge.from);
         primVertices.add(edge.to);
       });
@@ -238,7 +208,7 @@ describe("Spanning Tree Algorithms", () => {
       expect(primVertices.size).toBe(4);
     });
 
-    it("should handle weighted graph matrix implementation", () => {
+    it('should handle weighted graph matrix implementation', () => {
       const graph = SampleGraphs.weightedGraphMatrix;
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
@@ -254,11 +224,11 @@ describe("Spanning Tree Algorithms", () => {
     });
   });
 
-  describe("Edge Cases", () => {
-    it("should handle single vertex graph", () => {
+  describe('Edge Cases', () => {
+    it('should handle single vertex graph', () => {
       // Create a single vertex weighted graph
       const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
-      graph.addVertex("A");
+      graph.addVertex('A');
 
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
@@ -274,12 +244,12 @@ describe("Spanning Tree Algorithms", () => {
       expect(primResult.totalWeight).toBe(0);
     });
 
-    it("should handle two vertex graph", () => {
+    it('should handle two vertex graph', () => {
       // Create a simple two-vertex weighted graph
       const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
-      graph.addVertex("A");
-      graph.addVertex("B");
-      graph.addEdge("A", "B", 5);
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addEdge('A', 'B', 5);
 
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
@@ -293,18 +263,18 @@ describe("Spanning Tree Algorithms", () => {
       expect(primResult.edges.length).toBe(1);
     });
 
-    it("should handle tree structures", () => {
+    it('should handle tree structures', () => {
       // Create a tree structure that's already weighted
       const graph = new AdjacencyMatrixGraph<string>(false, true); // undirected, weighted
-      graph.addVertex("A");
-      graph.addVertex("B");
-      graph.addVertex("C");
-      graph.addVertex("D");
-      graph.addVertex("E");
-      graph.addEdge("A", "B", 1);
-      graph.addEdge("A", "C", 2);
-      graph.addEdge("B", "D", 3);
-      graph.addEdge("B", "E", 4);
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addVertex('C');
+      graph.addVertex('D');
+      graph.addVertex('E');
+      graph.addEdge('A', 'B', 1);
+      graph.addEdge('A', 'C', 2);
+      graph.addEdge('B', 'D', 3);
+      graph.addEdge('B', 'E', 4);
 
       const kruskal = new KruskalAlgorithm<string>();
       const prim = new PrimAlgorithm<string>();
@@ -319,9 +289,9 @@ describe("Spanning Tree Algorithms", () => {
     });
   });
 
-  describe("Performance Tests", () => {
-    it("should handle medium-sized graphs", () => {
-      const mediumGraph = GraphTestData.createMediumGraph("adjacencyList");
+  describe('Performance Tests', () => {
+    it('should handle medium-sized graphs', () => {
+      const mediumGraph = GraphTestData.createMediumGraph('adjacencyList');
       const kruskal = new KruskalAlgorithm<number>();
       const prim = new PrimAlgorithm<number>();
 
@@ -331,8 +301,8 @@ describe("Spanning Tree Algorithms", () => {
     });
   });
 
-  describe("MST Properties", () => {
-    it("should ensure no cycles in MST", () => {
+  describe('MST Properties', () => {
+    it('should ensure no cycles in MST', () => {
       const graph = SampleGraphs.completeGraphK4;
       const kruskal = new KruskalAlgorithm<string>();
       const result = kruskal.execute(graph);
@@ -344,7 +314,7 @@ describe("Spanning Tree Algorithms", () => {
         // Check for cycles by ensuring it's a tree (connected and acyclic)
         // This is a simplified check - in practice, we'd do a full cycle detection
         const vertexDegrees = new Map<string, number>();
-        result.edges.forEach((edge) => {
+        result.edges.forEach(edge => {
           vertexDegrees.set(edge.from, (vertexDegrees.get(edge.from) || 0) + 1);
           vertexDegrees.set(edge.to, (vertexDegrees.get(edge.to) || 0) + 1);
         });
@@ -355,7 +325,7 @@ describe("Spanning Tree Algorithms", () => {
       }
     });
 
-    it("should ensure connectivity in MST", () => {
+    it('should ensure connectivity in MST', () => {
       const graph = SampleGraphs.completeGraphK4;
       const prim = new PrimAlgorithm<string>();
       const result = prim.execute(graph);
@@ -363,7 +333,7 @@ describe("Spanning Tree Algorithms", () => {
       if (result.found) {
         // Check that all vertices are included
         const verticesInTree = new Set<string>();
-        result.edges.forEach((edge) => {
+        result.edges.forEach(edge => {
           verticesInTree.add(edge.from);
           verticesInTree.add(edge.to);
         });
