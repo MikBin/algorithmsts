@@ -104,6 +104,12 @@ describe('Spanning Tree Algorithms', () => {
       expect(result.totalWeight).toBeGreaterThan(0);
     });
 
+    it('should compute exact MST weight for SampleGraphs.weightedGraph', () => {
+      const result = prim.execute(SampleGraphs.weightedGraph);
+      expect(result.found).toBe(true);
+      expect(result.totalWeight).toBe(9);
+    });
+
     it('should throw error for directed graph', () => {
       const graph = SampleGraphs.simpleDirectedGraph;
       expect(() => prim.execute(graph)).toThrow();
