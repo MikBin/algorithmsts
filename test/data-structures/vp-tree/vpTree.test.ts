@@ -2,33 +2,31 @@ import { describe, it, expect } from 'vitest';
 import { VPTree } from '../../../src/data-structures/vp-tree/vpTree';
 
 describe('VPTree', () => {
-  it('handles empty cases', () => {
+
+    it('handles empty cases', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const ds = new VPTree<number>((a, b) => Math.abs(a - b));
-    expect(ds).toBeDefined();
-
-  });
-
-  it('handles single elements', () => {
+      ds.build([]);
+      expect(ds.rangeQuery(10, 5).length).toBe(0);
+    });
+    it('handles single elements', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const ds = new VPTree<number>((a, b) => Math.abs(a - b));
-    ds.build([5, 10]);
-    expect(ds).toBeDefined();
-
-  });
-
-  it('handles duplicates and multiple items', () => {
+      ds.build([5]);
+      expect(ds.rangeQuery(5, 2)).toEqual([5]);
+    });
+    it('handles duplicates and multiple items', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const ds = new VPTree<number>((a, b) => Math.abs(a - b));
-    ds.build([5, 10, 15]);;
-    expect(ds).toBeDefined();
-  });
-
-  it('throws on invalid input', () => {
+      ds.build([10, 5, 20, 5]);
+      const res = ds.rangeQuery(5, 2);
+      expect(res.length).toBe(2);
+      expect(res[0]).toBe(5);
+    });
+    it('throws on invalid input', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const ds = new VPTree<number>((a, b) => Math.abs(a - b));
+      expect(() => ds.build(null as any)).toThrow();
+    });
 
-    try {
-      ds.build(null as any);
-    } catch (e) {
-      expect(e).toBeDefined();
-    }
-
-  });
 });

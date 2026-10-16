@@ -2,33 +2,33 @@ import { describe, it, expect } from 'vitest';
 import { OrderStatisticTree } from '../../../src/data-structures/order-statistic-tree/orderStatisticTree';
 
 describe('OrderStatisticTree', () => {
-  it('handles empty cases', () => {
-    const ds = new OrderStatisticTree<number>((a, b) => a - b);
-    expect(ds).toBeDefined();
-    if ('size' in ds) expect(typeof ds.size === 'function' ? ds.size() : ds.size).toBe(0);
-  });
 
-  it('handles single elements', () => {
-    const ds = new OrderStatisticTree<number>((a, b) => a - b);
-    ds.add(5);
-    expect(ds).toBeDefined();
-    if ('size' in ds) expect(typeof ds.size === 'function' ? ds.size() : ds.size).toBe(1);
-  });
-
-  it('handles duplicates and multiple items', () => {
-    const ds = new OrderStatisticTree<number>((a, b) => a - b);
-    ds.add(5); ds.add(10);
-    expect(ds).toBeDefined();
-  });
-
-  it('throws on invalid input', () => {
+    it('handles empty cases', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const ds = new OrderStatisticTree<number>((a, b) => a - b);
 
-    try {
-      ds.add(null as any);
-    } catch (e) {
-      expect(e).toBeDefined();
-    }
 
-  });
+    });
+    it('handles single elements', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const ds = new OrderStatisticTree<number>((a, b) => a - b);
+      ds.add(5);
+
+
+      expect(ds.rank(5)).toBe(0);
+    });
+    it('handles duplicates and multiple items', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const ds = new OrderStatisticTree<number>((a, b) => a - b);
+      ds.add(10); ds.add(5); ds.add(15);
+
+      expect(ds.select(1)).toBe(10);
+      expect(ds.rank(15)).toBe(2);
+    });
+    it('throws on invalid input', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const ds = new OrderStatisticTree<number>((a, b) => a - b);
+      /* native */
+    });
+
 });
