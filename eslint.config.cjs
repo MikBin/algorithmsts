@@ -39,7 +39,10 @@ module.exports = [
             'pnpm-lock.yaml',
             '.DS_Store',
             'vitest.config.ts',
-            '**/*.md'
+            '**/*.md',
+            'docs/',
+            'visualization/',
+            'tools/'
         ]
     }
 ];
