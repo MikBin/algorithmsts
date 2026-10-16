@@ -6,7 +6,9 @@
     "src/algorithms/index.ts",
     "src/graphs/index.ts",
     "src/performance/index.ts",
-    "src/types/index.ts"
+    "src/types/index.ts",
+    "src/interfaces.ts",
+    "src/vector-similarity/index.ts"
   ],
   "out": "docs/api",
   "name": "Algorithmsts API Documentation",
@@ -18,6 +20,6 @@
   "readme": "README.md",
   "theme": "default",
   "githubPages": true,
-  "gitRevision": "main",
+  "gitRevision": "master",
   "skipErrorChecking": true
 }

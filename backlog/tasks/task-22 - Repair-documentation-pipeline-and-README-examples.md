@@ -1,7 +1,7 @@
 ---
 id: TASK-22
 title: Repair documentation pipeline and README examples
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-12 10:38'
 labels:
@@ -23,11 +23,12 @@ README.md documents APIs that do not exist: BinarySearch.search/closestSearch, C
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
 - [x] #1 All README algorithm examples use the real .execute() API and run green
-- [ ] #2 documentationExamples tests un-skipped and fixed (no ReferenceError)
+- [x] #2 documentationExamples tests un-skipped and fixed (no ReferenceError)
 - [x] #3 npm run build:docs executes successfully
-- [ ] #4 typedoc includes all 8 entry points; gitRevision matches the CI branch
-- [ ] #5 docs publish path decided and documented (or gh-pages tooling removed)
+- [x] #4 typedoc includes all 8 entry points; gitRevision matches the CI branch
+- [x] #5 docs publish path decided and documented (or gh-pages tooling removed)
 <!-- AC:END -->
 
 ## Progress Notes
 2026-10-16: PR #143 (484c4a9) repaired the pipeline and README examples (AC1) and build:docs now runs via tsx (AC3); the ReferenceError in documentationExamples.test.ts is fixed. Residual: one `it.skip` remains at test/e2e/documentationExamples.test.ts:300 (AC2); typedoc.json still pins `gitRevision: "main"` while CI runs on master (AC4); docs publish path (docs/ untracked) not yet decided (AC5).
+Fixed the residual `it.skip` at test/e2e/documentationExamples.test.ts:300 (AC2), added missing entry points to typedoc.json and corrected the gitRevision to "master" (AC4), and removed the broken gh-pages-publish.ts script while documenting the local docs pipeline in docs/README.md (AC5).

@@ -297,7 +297,7 @@ describe('String Similarity Examples', () => {
   });
 
   describe('Integration Examples', () => {
-    it.skip('should demonstrate algorithm and data structure integration', () => {
+    it('should demonstrate algorithm and data structure integration', () => {
       // Create data using a data structure
       const list = new LinkedList<number>();
       [64, 34, 25, 12, 22, 11, 90].forEach(num => list.add(num));
@@ -315,7 +315,7 @@ describe('String Similarity Examples', () => {
         compareFn: (a, b) => a - b
       });
 
-      expect(searchResult.result).toBe(2); // 25 is at index 2 in sorted array
+      expect(searchResult.result).toBe(3); // 25 is at index 3 in sorted array
     });
 
     it('should demonstrate string processing workflow', () => {
