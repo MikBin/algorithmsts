@@ -4,20 +4,17 @@ import { SuffixAutomaton } from "../../../src/data-structures/suffix-automaton/s
 describe("SuffixAutomaton", () => {
   it("handles empty cases", () => {
     const ds = new SuffixAutomaton();
-    expect(ds).toBeDefined();
     ds.build("");
     expect(ds.contains("a")).toBe(false);
   });
   it("handles single elements", () => {
     const ds = new SuffixAutomaton();
-    expect(ds).toBeDefined();
     ds.build("test");
     expect(ds.contains("es")).toBe(true);
     expect(ds.contains("x")).toBe(false);
   });
   it("handles duplicates and multiple items", () => {
     const ds = new SuffixAutomaton();
-    expect(ds).toBeDefined();
     ds.build("banana");
     expect(ds.contains("ana")).toBe(true);
     expect(ds.contains("ban")).toBe(true);

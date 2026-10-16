@@ -4,19 +4,16 @@ import { SuffixArray } from "../../../src/data-structures/suffix-array/suffixArr
 describe("SuffixArray", () => {
   it("handles empty cases", () => {
     const ds = new SuffixArray();
-    expect(ds).toBeDefined();
     ds.build("");
     expect(ds.search("a")).toEqual([]);
   });
   it("handles single elements", () => {
     const ds = new SuffixArray();
-    expect(ds).toBeDefined();
     ds.build("test");
     expect(ds.search("e")).toEqual([1]);
   });
   it("handles duplicates and multiple items", () => {
     const ds = new SuffixArray();
-    expect(ds).toBeDefined();
     ds.build("banana");
     const res = ds.search("ana");
     expect(res.length).toBe(2);

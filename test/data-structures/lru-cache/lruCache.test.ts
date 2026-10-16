@@ -4,20 +4,16 @@ import { LRUCache } from "../../../src/data-structures/lru-cache/lruCache";
 describe("LRUCache", () => {
   it("handles empty cases", () => {
     const ds = new LRUCache<number, string>(5);
-    ds as any;
-
     expect((ds as any).get(1)).toBeUndefined();
   });
   it("handles single elements", () => {
     const ds = new LRUCache<number, string>(5);
-    ds as any;
     ds.set(1, "a");
 
     expect((ds as any).get(1)).toBe("a");
   });
   it("handles duplicates and multiple items", () => {
     const ds = new LRUCache<number, string>(2);
-    ds as any;
     ds.set(1, "a");
     ds.set(2, "b");
     ds.get(1); // 1 is now more recently used
@@ -29,8 +25,5 @@ describe("LRUCache", () => {
   });
   it("throws on invalid input", () => {
     expect(() => new LRUCache<number, string>(0)).toThrow(Error);
-
-    const ds = new LRUCache<number, string>(5);
-    ds as any;
   });
 });

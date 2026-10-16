@@ -4,18 +4,15 @@ import { HyperLogLog } from "../../../src/data-structures/hyperloglog/hyperLogLo
 describe("HyperLogLog", () => {
   it("handles empty cases", () => {
     const ds = new HyperLogLog(10);
-    ds as any;
     expect(ds.count()).toBe(0);
   });
   it("handles single elements", () => {
     const ds = new HyperLogLog(10);
-    ds as any;
     ds.add("test");
     expect(ds.count()).toBeGreaterThanOrEqual(1);
   });
   it("handles duplicates and multiple items", () => {
     const ds = new HyperLogLog(10);
-    ds as any;
     ds.add("test");
     ds.add("test");
     ds.add("other");
@@ -23,8 +20,5 @@ describe("HyperLogLog", () => {
   });
   it("throws on invalid input", () => {
     expect(() => new HyperLogLog(3)).toThrow(Error);
-
-    const ds = new HyperLogLog(10);
-    ds as any;
   });
 });

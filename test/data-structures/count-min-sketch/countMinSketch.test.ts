@@ -4,18 +4,15 @@ import { CountMinSketch } from "../../../src/data-structures/count-min-sketch/co
 describe("CountMinSketch", () => {
   it("handles empty cases", () => {
     const ds = new CountMinSketch(100, 10);
-    ds as any;
     expect(ds.estimate("test")).toBe(0);
   });
   it("handles single elements", () => {
     const ds = new CountMinSketch(100, 10);
-    ds as any;
     ds.add("test");
     expect(ds.estimate("test")).toBeGreaterThanOrEqual(1);
   });
   it("handles duplicates and multiple items", () => {
     const ds = new CountMinSketch(100, 10);
-    ds as any;
     ds.add("test", 5);
     ds.add("other", 2);
     expect(ds.estimate("test")).toBeGreaterThanOrEqual(5);
@@ -24,8 +21,5 @@ describe("CountMinSketch", () => {
   it("throws on invalid input", () => {
     expect(() => new CountMinSketch(0, 10)).toThrow(Error);
     expect(() => new CountMinSketch(100, 0)).toThrow(Error);
-
-    const ds = new CountMinSketch(100, 10);
-    ds as any;
   });
 });
