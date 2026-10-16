@@ -24,7 +24,4 @@ describe("SplayTree", () => {
     expect(ds.contains(20)).toBe(true);
     expect(ds.toArray()).toEqual([5, 10, 20]);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });

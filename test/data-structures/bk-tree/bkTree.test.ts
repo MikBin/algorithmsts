@@ -18,7 +18,4 @@ describe("BKTree", () => {
     ds.add("abc");
     expect(ds.query("abcd", 1).length).toBe(3);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });

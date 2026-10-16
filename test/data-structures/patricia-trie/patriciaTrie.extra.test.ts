@@ -4,14 +4,12 @@ import { PatriciaTrie } from "../../../src/data-structures/patricia-trie/patrici
 describe("PatriciaTrie Extra", () => {
   it("handles empty cases", () => {
     const ds = new PatriciaTrie<number>();
-    ds as any;
 
     expect(ds.has("test")).toBe(false);
   });
 
   it("handles duplicates and updates", () => {
     const ds = new PatriciaTrie<number>();
-    ds as any;
     ds.set("test", 1);
     ds.set("test", 2);
 

@@ -4,29 +4,25 @@ import { CircularBuffer } from "../../../src/data-structures/circular-buffer/cir
 describe("CircularBuffer", () => {
   it("handles empty cases", () => {
     const ds = new CircularBuffer<number>(5);
-    ds as any;
     expect(ds.size).toBe(0);
     expect(ds.popFront()).toBeNull();
   });
   it("handles single elements", () => {
     const ds = new CircularBuffer<number>(5);
-    ds as any;
     ds.pushBack(5);
     expect(ds.size).toBe(1);
     expect(ds.popFront()).toBe(5);
   });
   it("handles duplicates and multiple items", () => {
     const ds = new CircularBuffer<number>(5);
-    ds as any;
     ds.pushBack(5);
     ds.pushBack(5);
     ds.pushBack(10);
     expect(ds.size).toBe(3);
     expect(ds.toArray()).toEqual([5, 5, 10]);
   });
-  it("throws on invalid input", () => {
+  it("throws on invalid arguments", () => {
     const ds = new CircularBuffer<number>(2);
-    ds as any;
     ds.pushBack(1);
     ds.pushBack(2);
     expect(() => ds.pushBack(3)).toThrow(Error); // 'Buffer full'

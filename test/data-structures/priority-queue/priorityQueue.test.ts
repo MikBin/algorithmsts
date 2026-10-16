@@ -24,7 +24,4 @@ describe("PriorityQueue", () => {
     expect(ds.dequeue()).toBe(5);
     expect(ds.dequeue()).toBe(10);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });
