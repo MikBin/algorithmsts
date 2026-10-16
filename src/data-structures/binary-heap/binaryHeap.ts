@@ -101,6 +101,7 @@ export class BinaryHeap<T> {
   }
 
   merge(other: BinaryHeap<T>): void {
+    if (other === this) return;
     other._heap.forEach((value) => this.add(value));
     other.clear();
   }

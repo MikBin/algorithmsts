@@ -7,15 +7,25 @@ import { IIterator } from '../../../src/core/interfaces/IIterator';
 
 describe('SkipList', () => {
   it('should use injected rng for deterministic levels', () => {
+    let callCount = 0;
     // A deterministic rng that always returns 0.99 will always cause randomLevel to stop at 1.
-    const deterministicSkipList = new SkipList<number>(10, -Infinity, undefined, () => 0.99);
+    const deterministicSkipList = new SkipList<number>(10, -Infinity, undefined, () => {
+      callCount++;
+      return 0.99;
+    });
     deterministicSkipList.add(1);
+    expect(callCount).toBeGreaterThan(0);
     expect(deterministicSkipList.size).toBe(1);
     expect(deterministicSkipList.contains(1)).toBe(true);
 
+    let deepCallCount = 0;
     // With rng always < 0.5, it will hit the maxLevel (10)
-    const deepSkipList = new SkipList<number>(10, -Infinity, undefined, () => 0.4);
+    const deepSkipList = new SkipList<number>(10, -Infinity, undefined, () => {
+      deepCallCount++;
+      return 0.4;
+    });
     deepSkipList.add(2);
+    expect(deepCallCount).toBeGreaterThan(0);
     expect(deepSkipList.size).toBe(1);
     expect(deepSkipList.contains(2)).toBe(true);
   });

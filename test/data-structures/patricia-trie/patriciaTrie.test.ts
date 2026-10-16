@@ -15,4 +15,18 @@ describe('PatriciaTrie', () => {
     expect(trie.get('world')).toBeUndefined();
     expect(trie.get('missing')).toBeUndefined();
   });
+
+  it('should correctly handle empty string and split nodes without presence leak', () => {
+    const trie = new PatriciaTrie<number>();
+
+    // empty trie has('') should be false
+    expect(trie.has('')).toBe(false);
+
+    // Cause a split node without assigning value to the split node
+    trie.set('abcd', 1);
+    trie.set('abef', 2);
+
+    // The node 'ab' now exists internally but has no assigned value
+    expect(trie.has('ab')).toBe(false);
+  });
 });

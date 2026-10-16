@@ -1,7 +1,7 @@
 type Edge = { label: string; child: Node };
 class Node {
   edges: Edge[] = [];
-  value?: unknown;
+  declare value?: unknown;
 }
 
 export class PatriciaTrie<V = unknown> {

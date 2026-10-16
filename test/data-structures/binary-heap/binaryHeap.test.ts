@@ -103,6 +103,15 @@ describe('BinaryHeap', () => {
       expect(heap2.size).toBe(0);
     });
 
+    it('should handle self-merge safely without emptying itself', () => {
+      const heap = new BinaryHeap([1, 5, 2], maxComparator);
+      heap.merge(heap);
+      expect(heap.size).toBe(3);
+      expect(heap.poll()).toBe(5);
+      expect(heap.poll()).toBe(2);
+      expect(heap.poll()).toBe(1);
+    });
+
     it('should replace the root element', () => {
       const heap = new BinaryHeap([1, 5, 3], maxComparator);
       const replaced = heap.replace(10);
