@@ -22,23 +22,6 @@ describe('EdmondsKarpMaxFlow', () => {
     expect(() => algorithm.execute(undirected, 'A', 'B')).toThrow(ArgumentError);
   });
 
-  describe('AdjacencyMatrixGraph', () => {
-    it('should compute max flow correctly for a matrix graph', () => {
-      const graph = new AdjacencyMatrixGraph<string>(true, true);
-      ['S', 'A', 'B', 'T'].forEach(v => graph.addVertex(v));
-      graph.addEdge('S', 'A', 10);
-      graph.addEdge('S', 'B', 5);
-      graph.addEdge('A', 'B', 15);
-      graph.addEdge('A', 'T', 10);
-      graph.addEdge('B', 'T', 10);
-
-      const result = algorithm.execute(graph, 'S', 'T');
-      expect(result.maxFlow).toBe(15);
-      expect(result.flow.get('S')?.get('A')).toBe(10);
-    });
-  });
-});
-
   it('should throw ArgumentError if source or sink not provided', () => {
     const graph = new AdjacencyListGraph<string>(true, true);
     expect(() => algorithm.execute(graph, undefined as unknown as string, undefined as unknown as string)).toThrow(ArgumentError);
@@ -93,5 +76,21 @@ describe('EdmondsKarpMaxFlow', () => {
 
     const result = algorithm.execute(graph, 'S', 'T');
     expect(result.maxFlow).toBe(10);
+  });
+
+  describe('AdjacencyMatrixGraph', () => {
+    it('should compute max flow correctly for a matrix graph', () => {
+      const graph = new AdjacencyMatrixGraph<string>(true, true);
+      ['S', 'A', 'B', 'T'].forEach(v => graph.addVertex(v));
+      graph.addEdge('S', 'A', 10);
+      graph.addEdge('S', 'B', 5);
+      graph.addEdge('A', 'B', 15);
+      graph.addEdge('A', 'T', 10);
+      graph.addEdge('B', 'T', 10);
+
+      const result = algorithm.execute(graph, 'S', 'T');
+      expect(result.maxFlow).toBe(15);
+      expect(result.flow.get('S')?.get('A')).toBe(10);
+    });
   });
 });

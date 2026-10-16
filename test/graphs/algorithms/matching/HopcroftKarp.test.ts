@@ -13,22 +13,6 @@ describe('HopcroftKarp', () => {
     expect(() => algorithm.execute(graph, [], undefined as unknown as string[])).toThrow(ArgumentError);
   });
 
-  describe('AdjacencyMatrixGraph', () => {
-    it('should find maximum matching in a bipartite matrix graph', () => {
-      const graph = new AdjacencyMatrixGraph<string>(false);
-      ['u1', 'u2', 'v1'].forEach(v => graph.addVertex(v));
-      graph.addEdge('u1', 'v1');
-      graph.addEdge('u2', 'v1');
-
-      const left = ['u1', 'u2'];
-      const right = ['v1'];
-
-      const result = algorithm.execute(graph, left, right);
-      expect(result.size).toBe(1);
-    });
-  });
-});
-
   it('should find maximum matching in a bipartite graph', () => {
     const graph = new AdjacencyListGraph<string>(false);
     // U = {u1, u2, u3}, V = {v1, v2, v3}
@@ -89,5 +73,20 @@ describe('HopcroftKarp', () => {
     const result = algorithm.execute(graph, [], []);
     expect(result.size).toBe(0);
     expect(result.matching.size).toBe(0);
+  });
+
+  describe('AdjacencyMatrixGraph', () => {
+    it('should find maximum matching in a bipartite matrix graph', () => {
+      const graph = new AdjacencyMatrixGraph<string>(false);
+      ['u1', 'u2', 'v1'].forEach(v => graph.addVertex(v));
+      graph.addEdge('u1', 'v1');
+      graph.addEdge('u2', 'v1');
+
+      const left = ['u1', 'u2'];
+      const right = ['v1'];
+
+      const result = algorithm.execute(graph, left, right);
+      expect(result.size).toBe(1);
+    });
   });
 });

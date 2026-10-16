@@ -13,22 +13,6 @@ describe('DAGShortestPathAlgorithm', () => {
     expect(() => algorithm.findShortestPath(graph, 'A', 'C')).toThrow(ArgumentError);
   });
 
-  describe('AdjacencyMatrixGraph', () => {
-    it('should find shortest path correctly in a DAG matrix graph', () => {
-      const graph = new AdjacencyMatrixGraph<string>(true, true);
-      ['A', 'B', 'C'].forEach(v => graph.addVertex(v));
-      graph.addEdge('A', 'B', 3);
-      graph.addEdge('B', 'C', 2);
-      graph.addEdge('A', 'C', 6);
-
-      const result = algorithm.findShortestPath(graph, 'A', 'C');
-      expect(result.found).toBe(true);
-      expect(result.distance).toBe(5);
-      expect(result.path).toEqual(['A', 'B', 'C']);
-    });
-  });
-});
-
   it('should throw ArgumentError for non-DAGs (graphs with cycles)', () => {
     const graph = SampleGraphs.cyclicGraph;
     expect(() => algorithm.findShortestPath(graph, 'A', 'C')).toThrow(ArgumentError);
@@ -51,16 +35,10 @@ describe('DAGShortestPathAlgorithm', () => {
     graph.addEdge('C', 'E', 2);
     graph.addEdge('D', 'E', 1);
 
-    // Path A to E:
-    // A->B (3)
-    // B->C (2) => dist(C)=5
-    // C->E (2) => dist(E)=7
-    // Alternatively: C->D (1) => dist(D)=6, D->E(1) => dist(E)=7
-    // Both give cost 7. Wait, C->E is cost 2. Path: A->B->C->E.
     const result = algorithm.findShortestPath(graph, 'A', 'E');
     expect(result.found).toBe(true);
     expect(result.distance).toBe(7);
-    expect(result.path).toEqual(['A', 'B', 'C', 'E']); // A-B-C-E is shorter than A-B-C-D-E in hops, same cost
+    expect(result.path).toEqual(['A', 'B', 'C', 'E']);
   });
 
   it('should allow negative weights', () => {
@@ -89,5 +67,20 @@ describe('DAGShortestPathAlgorithm', () => {
   it('should handle missing arguments via execute correctly', () => {
     const graph = SampleGraphs.dagGraph;
     expect(() => algorithm.execute(graph, undefined as unknown as string, undefined as unknown as string)).toThrow(ArgumentError);
+  });
+
+  describe('AdjacencyMatrixGraph', () => {
+    it('should find shortest path correctly in a DAG matrix graph', () => {
+      const graph = new AdjacencyMatrixGraph<string>(true, true);
+      ['A', 'B', 'C'].forEach(v => graph.addVertex(v));
+      graph.addEdge('A', 'B', 3);
+      graph.addEdge('B', 'C', 2);
+      graph.addEdge('A', 'C', 6);
+
+      const result = algorithm.findShortestPath(graph, 'A', 'C');
+      expect(result.found).toBe(true);
+      expect(result.distance).toBe(5);
+      expect(result.path).toEqual(['A', 'B', 'C']);
+    });
   });
 });

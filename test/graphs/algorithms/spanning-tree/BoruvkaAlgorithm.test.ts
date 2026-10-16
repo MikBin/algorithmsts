@@ -16,6 +16,40 @@ describe('BoruvkaAlgorithm', () => {
     expect(() => algorithm.execute(directed)).toThrow(ArgumentError);
   });
 
+  it('should find the Minimum Spanning Tree for a connected weighted graph', () => {
+    const graph = SampleGraphs.weightedGraph;
+
+    const result = algorithm.execute(graph);
+    expect(result.found).toBe(true);
+    expect(result.totalWeight).toBe(9);
+    expect(result.edges.length).toBe(3);
+  });
+
+  it('should handle a graph with a single vertex', () => {
+    const graph = new AdjacencyListGraph<string>(false, true);
+    graph.addVertex('A');
+    const result = algorithm.execute(graph);
+    expect(result.found).toBe(true);
+    expect(result.totalWeight).toBe(0);
+    expect(result.edges.length).toBe(0);
+  });
+
+  it('should handle an empty graph', () => {
+    const graph = new AdjacencyListGraph<string>(false, true);
+    const result = algorithm.execute(graph);
+    expect(result.found).toBe(false);
+    expect(result.totalWeight).toBe(0);
+    expect(result.edges.length).toBe(0);
+  });
+
+  it('should return found=false for disconnected graph', () => {
+    const graph = SampleGraphs.disconnectedGraph;
+    const result = algorithm.execute(graph);
+    expect(result.found).toBe(false);
+    expect(result.edges.length).toBe(2);
+    expect(result.totalWeight).toBe(2);
+  });
+
   describe('AdjacencyMatrixGraph', () => {
     it('should find the Minimum Spanning Tree for a connected weighted matrix graph', () => {
       const graph = new AdjacencyMatrixGraph<string>(false, true);
@@ -29,46 +63,5 @@ describe('BoruvkaAlgorithm', () => {
       expect(result.totalWeight).toBe(6);
       expect(result.edges.length).toBe(2);
     });
-  });
-});
-
-  it('should find the Minimum Spanning Tree for a connected weighted graph', () => {
-    // Standard connected weighted undirected graph
-    const graph = SampleGraphs.weightedGraph;
-    // Nodes A, B, C, D
-    // A-B (4), A-C (2), B-C (5), B-D (10), C-D (3)
-    // MST: A-C (2), C-D (3), A-B (4) -> total 9
-
-    const result = algorithm.execute(graph);
-    expect(result.found).toBe(true);
-    expect(result.totalWeight).toBe(9);
-    expect(result.edges.length).toBe(3);
-  });
-
-  it('should handle a graph with a single vertex', () => {
-    const graph = new AdjacencyListGraph<string>(false, true);
-    graph.addVertex('A');
-    const result = algorithm.execute(graph);
-    expect(result.found).toBe(true); // 0 edges, V-1 = 0
-    expect(result.totalWeight).toBe(0);
-    expect(result.edges.length).toBe(0);
-  });
-
-  it('should handle an empty graph', () => {
-    const graph = new AdjacencyListGraph<string>(false, true);
-    const result = algorithm.execute(graph);
-    // V=0, edges needed = -1? Wait, V-1 = -1. mstEdges.length = 0.
-    // found will be 0 === -1 (false)
-    expect(result.found).toBe(false);
-    expect(result.totalWeight).toBe(0);
-    expect(result.edges.length).toBe(0);
-  });
-
-  it('should return found=false for disconnected graph', () => {
-    const graph = SampleGraphs.disconnectedGraph; // A-B(1), C-D(1)
-    const result = algorithm.execute(graph);
-    expect(result.found).toBe(false);
-    expect(result.edges.length).toBe(2); // Can span local components
-    expect(result.totalWeight).toBe(2);
   });
 });
