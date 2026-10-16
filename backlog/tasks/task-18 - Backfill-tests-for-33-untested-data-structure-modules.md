@@ -29,4 +29,4 @@ Roughly 33 of 74 exported data structures have zero test references anywhere in 
 <!-- AC:END -->
 
 ## Progress Notes
-- Added real, concrete assertion test files for the 33 data structure modules, covering normal, edge (empty/single/duplicate), and exact invalid-input/error-throwing cases. Includes extra test files for d-ary-heap, hash-map, leftist-heap, patricia-trie, binomial-heap, aho-corasick, and hash-set. Reverted modifications to original base test files. Validated thoroughly with vitest and eslint.
+- Added real, concrete assertion test files for the 33 data structure modules, covering normal, edge (empty/single/duplicate), and exact invalid-input/error-throwing cases (where implementations actually throw). Includes extra test files for d-ary-heap, hash-map, leftist-heap, patricia-trie, binomial-heap, aho-corasick, and hash-set. Reverted modifications to original base test files. Validated thoroughly with vitest and eslint.
