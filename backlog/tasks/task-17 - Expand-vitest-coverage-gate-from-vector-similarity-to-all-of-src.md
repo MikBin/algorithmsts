@@ -1,7 +1,7 @@
 ---
 id: TASK-17
 title: Expand vitest coverage gate from vector-similarity to all of src/
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-10-12 10:38'
 updated_date: '2026-10-12 10:41'
@@ -25,8 +25,18 @@ vitest.config.ts:11-17 scopes coverage.include to src/vector-similarity/** only 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 coverage.include covers src/**
-- [ ] #2 Initial thresholds set from measured baseline and documented in config
-- [ ] #3 Only one coverage provider remains in devDependencies
-- [ ] #4 Stale comment removed; CI enforces the gate
+- [x] #1 coverage.include covers src/**
+- [x] #2 Initial thresholds set from measured baseline and documented in config
+- [x] #3 Only one coverage provider remains in devDependencies
+- [x] #4 Stale comment removed; CI enforces the gate
 <!-- AC:END -->
+
+## Progress Notes
+- Measured baseline coverage for `src/**`:
+  - Lines: 86.28% -> Floor threshold set to 86
+  - Statements: 83.93% -> Floor threshold set to 83
+  - Branches: 76.17% -> Floor threshold set to 76
+  - Functions: 79.93% -> Floor threshold set to 79
+- Updated vitest.config.ts with the new thresholds and broadened include.
+- Removed `@vitest/coverage-istanbul` from `devDependencies`.
+- Updated package-lock.json using npm@10.
