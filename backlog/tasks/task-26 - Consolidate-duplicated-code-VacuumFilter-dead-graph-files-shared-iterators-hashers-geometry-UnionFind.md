@@ -6,6 +6,7 @@ title: >-
 status: Done
 assignee: []
 created_date: '2026-10-12 10:39'
+updated_date: '2026-10-17'
 labels:
   - data-structures graphs refactor
 dependencies: []
@@ -27,7 +28,7 @@ VacuumFilter is ~95% identical to CuckooFilter (only hash seeds differ) - parame
 - [x] #1 VacuumFilter removed or implemented as parameterized CuckooFilter
 - [x] #2 src/graphs/bfs.ts, dfs.ts, and legacy IGraph.ts deleted
 - [x] #3 Shared ArrayIterator and in-order iterator in src/core; duplicates removed
-- [ ] #4 Single shared defaultHash/serializer module used by all probabilistic structures (deliberately deferred: inline hashers are semantically divergent; needs behavior changes — future work) Single shared defaultHash/serializer module used by all probabilistic structures
+- [ ] #4 Single shared defaultHash/serializer module used by all probabilistic structures (deliberately deferred: inline hashers are semantically divergent; needs behavior changes — future work)
 - [x] #5 Kruskal/Boruvka use the UnionFind class; one BFS/DFS class pair remains public
 <!-- AC:END -->
 
