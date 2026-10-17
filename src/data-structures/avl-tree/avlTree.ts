@@ -6,18 +6,37 @@ export class AVLTree<T> implements Iterable<T> {
   _size: number = 0;
   private _compare: (a: T, b: T) => number;
 
+  /**
+   * Creates a new AVLTree.
+   * @param compareFunction - Optional custom comparison function
+   */
   constructor(compareFunction?: (a: T, b: T) => number) {
     this._compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
   }
 
+  /**
+   * Gets the root of the tree.
+   * @returns The root node or null
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get root(): AVLNode<T> | null {
     return this._root;
   }
 
+  /**
+   * Gets the compare function.
+   * @returns The compare function
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get compare(): (a: T, b: T) => number {
     return this._compare;
   }
 
+  /**
+   * Gets the number of nodes in the tree.
+   * @returns The size of the tree
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get size(): number {
     return this._size;
   }
@@ -69,6 +88,12 @@ export class AVLTree<T> implements Iterable<T> {
     return y;
   }
 
+  /**
+   * Inserts a value into the tree.
+   * @param value - The value to insert
+   * @returns The (possibly new) root node
+   * @complexity Time: O(log n) | Space: O(log n) (recursion depth)
+   */
   insert(value: T): AVLNode<T> {
     this._root = this._insert(this._root, value, null);
     return this._root!;
@@ -114,6 +139,12 @@ export class AVLTree<T> implements Iterable<T> {
     return node;
   }
 
+  /**
+   * Deletes a value from the tree.
+   * @param value - The value to delete
+   * @returns True if deleted, false if not found
+   * @complexity Time: O(log n) | Space: O(log n) (recursion depth)
+   */
   delete(value: T): boolean {
     const initialSize = this._size;
     this._root = this._delete(this._root, value);
@@ -174,6 +205,12 @@ export class AVLTree<T> implements Iterable<T> {
     return node;
   }
 
+  /**
+   * Searches for a value in the tree.
+   * @param value - The value to search for
+   * @returns The node if found, null otherwise
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   search(value: T): AVLNode<T> | null {
     let current = this._root;
     while (current) {
@@ -192,11 +229,21 @@ export class AVLTree<T> implements Iterable<T> {
     return node;
   }
 
+  /**
+   * Finds the minimum value in the tree.
+   * @returns The node with minimum value or null
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   findMin(): AVLNode<T> | null {
     if (!this._root) return null;
     return this._findMin(this._root);
   }
 
+  /**
+   * Finds the maximum value in the tree.
+   * @returns The node with maximum value or null
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   findMax(): AVLNode<T> | null {
     if (!this._root) return null;
     let node = this._root;
@@ -206,6 +253,11 @@ export class AVLTree<T> implements Iterable<T> {
     return node;
   }
 
+  /**
+   * Performs an in-order traversal.
+   * @returns An array of values in in-order
+   * @complexity Time: O(n) | Space: O(n)
+   */
   traversalInOrder(): T[] {
     const result: T[] = [];
     this._traversalInOrder(this._root, result);
@@ -220,6 +272,11 @@ export class AVLTree<T> implements Iterable<T> {
     }
   }
 
+  /**
+   * Performs a pre-order traversal.
+   * @returns An array of values in pre-order
+   * @complexity Time: O(n) | Space: O(n)
+   */
   traversalPreOrder(): T[] {
     const result: T[] = [];
     this._traversalPreOrder(this._root, result);
@@ -234,6 +291,11 @@ export class AVLTree<T> implements Iterable<T> {
     }
   }
 
+  /**
+   * Performs a post-order traversal.
+   * @returns An array of values in post-order
+   * @complexity Time: O(n) | Space: O(n)
+   */
   traversalPostOrder(): T[] {
     const result: T[] = [];
     this._traversalPostOrder(this._root, result);
@@ -248,6 +310,11 @@ export class AVLTree<T> implements Iterable<T> {
     }
   }
 
+  /**
+   * Performs a level-order traversal.
+   * @returns An array of values in level-order
+   * @complexity Time: O(n) | Space: O(n)
+   */
   traversalLevelOrder(): T[] {
     const result: T[] = [];
     if (!this._root) return result;
@@ -261,19 +328,38 @@ export class AVLTree<T> implements Iterable<T> {
     return result;
   }
 
+  /**
+   * Checks if the tree is empty.
+   * @returns True if empty, false otherwise
+   * @complexity Time: O(1) | Space: O(1)
+   */
   isEmpty(): boolean {
     return this._size === 0;
   }
 
+  /**
+   * Gets the height of the tree.
+   * @returns The height of the tree
+   * @complexity Time: O(1) | Space: O(1)
+   */
   getHeight(): number {
     return this._getHeight(this._root) - 1;
   }
 
+  /**
+   * Clears the tree.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void {
     this._root = null;
     this._size = 0;
   }
 
+  /**
+   * Checks if the tree is balanced.
+   * @returns True if balanced, false otherwise
+   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
+   */
   isBalanced(): boolean {
     return this._isBalanced(this._root);
   }
@@ -285,6 +371,12 @@ export class AVLTree<T> implements Iterable<T> {
     return this._isBalanced(node.left) && this._isBalanced(node.right);
   }
 
+  /**
+   * Gets the balance factor of a node.
+   * @param node - The node to evaluate
+   * @returns The balance factor
+   * @complexity Time: O(1) | Space: O(1)
+   */
   getBalanceFactor(node: AVLNode<T>): number {
     return this._getBalanceFactor(node);
   }
@@ -293,6 +385,11 @@ export class AVLTree<T> implements Iterable<T> {
     return new AVLTreeIterator(this._root);
   }
 
+  /**
+   * Serializes the tree to JSON.
+   * @returns A JSON string
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toJson(): string {
     return JSON.stringify(this._root, (key, value) => {
       if (key === 'parent') {

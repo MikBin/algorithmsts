@@ -15,11 +15,22 @@ class BPlusNode<K, V> {
 
 export class BPlusTree<K, V> {
   private root: BPlusNode<K, V>;
+  /**
+   * Creates a new BPlusTree.
+   * @param compare - Custom comparison function
+   * @param order - Maximum keys per node
+   */
   constructor(private compare: KeyComparator<K>, private order = 4) {
     if (order < 3) throw new Error('order must be >= 3');
     this.root = new BPlusNode<K, V>(true);
   }
 
+  /**
+   * Gets the value associated with a key.
+   * @param key - The key to search for
+   * @returns The associated value or undefined
+   * @complexity Time: O(log_B N) | Space: O(1)
+   */
   get(key: K): V | undefined {
     let node = this.root;
     while (!node.isLeaf) {
@@ -32,6 +43,12 @@ export class BPlusTree<K, V> {
     return undefined;
   }
 
+  /**
+   * Sets a value for a key.
+   * @param key - The key to insert or update
+   * @param value - The value to associate with the key
+   * @complexity Time: O(log_B N) | Space: O(log_B N) (recursion depth)
+   */
   set(key: K, value: V): void {
     const split = this._insert(this.root, key, value);
     if (split) {
@@ -43,6 +60,11 @@ export class BPlusTree<K, V> {
     }
   }
 
+  /**
+   * Gets all key-value pairs in order.
+   * @returns An array of key-value pairs
+   * @complexity Time: O(N) | Space: O(N)
+   */
   toArray(): Array<{ key: K; value: V }> {
     // iterate leaves
     let n: BPlusNode<K, V> | null = this.root;
@@ -97,6 +119,11 @@ export class BPlusTree<K, V> {
     }
   }
 
+  /**
+   * Serializes the tree to JSON.
+   * @returns A JSON string
+   * @complexity Time: O(N) | Space: O(N)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }

@@ -10,6 +10,11 @@ export class AhoCorasick {
   private root: ACNode = createNode();
   private patterns: string[] = [];
 
+  /**
+   * Adds a pattern to the trie.
+   * @param pattern - The pattern to add
+   * @complexity Time: O(m) (pattern length m) | Space: O(m)
+   */
   add(pattern: string): void {
     let node = this.root;
     for (const ch of pattern) {
@@ -20,6 +25,10 @@ export class AhoCorasick {
     this.patterns.push(pattern);
   }
 
+  /**
+   * Builds the failure and dictionary links.
+   * @complexity Time: amortized O(S) for failure links + O(Σ|output|) for dictionary-link propagation | Space: O(S + Σ|output|)
+   */
   build(): void {
     const queue: ACNode[] = [];
     for (const [,child] of this.root.children) { child.fail = this.root; queue.push(child); }
@@ -35,6 +44,12 @@ export class AhoCorasick {
     }
   }
 
+  /**
+   * Searches for patterns in the given text.
+   * @param text - The text to search in
+   * @returns An array of matches
+   * @complexity Time: O(n + z) where n is text length, z is number of matches | Space: O(z)
+   */
   search(text: string): Array<{ index: number; pattern: string; position: number }> {
     const res: Array<{ index: number; pattern: string; position: number }> = [];
     let node: ACNode = this.root;
@@ -50,8 +65,17 @@ export class AhoCorasick {
     return res;
   }
 
+  /**
+   * Clears the tree.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void { this.root = createNode(); this.patterns = []; }
 
+  /**
+   * Serializes the structure to JSON.
+   * @returns A JSON string
+   * @complexity Time: O(N) where N is the number of nodes | Space: O(N)
+   */
   toJson(): string {
     const replacer = (key: any, value: any) => {
       if (key === 'fail') {

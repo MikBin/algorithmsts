@@ -13,6 +13,10 @@ class AANode<T> {
 
 export class AATree<T> extends BaseDataStructure<T> {
   private root: AANode<T> | null = null;
+  /**
+   * Creates a new AATree.
+   * @param compare Comparison function used to order keys
+   */
   constructor(private compare: (a: T, b: T) => number) {
     super();
   }
@@ -40,6 +44,11 @@ export class AATree<T> extends BaseDataStructure<T> {
     return node;
   }
 
+  /**
+   * Adds a key to the tree.
+   * @param key - The key to add
+   * @complexity Time: O(log n) | Space: O(log n)
+   */
   add(key: T): void {
     this.root = this._insert(this.root, key);
     this._size++;
@@ -56,6 +65,12 @@ export class AATree<T> extends BaseDataStructure<T> {
     return node;
   }
 
+  /**
+   * Checks if the tree contains a key.
+   * @param key - The key to check
+   * @returns True if the key exists, false otherwise
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   contains(key: T): boolean {
     let cur = this.root;
     while (cur) {
@@ -66,6 +81,12 @@ export class AATree<T> extends BaseDataStructure<T> {
     return false;
   }
 
+  /**
+   * Removes a key from the tree.
+   * @param key - The key to remove
+   * @returns True if removed, false if not found
+   * @complexity Time: O(log n) | Space: O(log n) (recursion depth)
+   */
   remove(key: T): boolean {
     const [nr, removed] = this._remove(this.root, key);
     this.root = nr;
@@ -109,19 +130,41 @@ export class AATree<T> extends BaseDataStructure<T> {
     return [node, removed];
   }
 
+  /**
+   * Clears the tree.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void {
     this.root = null;
     this._size = 0;
   }
+
+  /**
+   * Gets an iterator for the tree.
+   * @returns An InOrderIterator
+   * @complexity Time: O(1) | Space: O(1)
+   */
   iterator(): IIterator<T> {
     return new InOrderIterator(this.root);
   }
+
+  /**
+   * Converts the tree to an array.
+   * @returns An array of keys in order
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toArray(): T[] {
     const out: T[] = [];
     const it = this.iterator();
     while (it.hasNext()) out.push(it.next());
     return out;
   }
+
+  /**
+   * Serializes the tree to JSON.
+   * @returns A JSON string representation
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }
