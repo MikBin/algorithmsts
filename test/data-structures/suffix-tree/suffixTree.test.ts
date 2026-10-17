@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { SuffixTree } from "../../../src/data-structures/suffix-tree";
-import { SuffixTreeIterator } from "../../../src/data-structures/suffix-tree/iterator";
-import { ICollection } from "../../../src/core/interfaces/ICollection";
-import { IDataStructure } from "../../../src/core/interfaces/IDataStructure";
-import { IIterator } from "../../../src/core/interfaces/IIterator";
 
 describe("suffix tree test: ", () => {
   const bananaTree = new SuffixTree("banana");

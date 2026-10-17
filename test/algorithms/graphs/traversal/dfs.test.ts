@@ -1,13 +1,12 @@
-
-import { DepthFirstSearch } from '../../../../src/algorithms/graphs/traversal';
-import { AdjacencyListGraph } from '../../../../src/graphs/structures/AdjacencyListGraph';
-import { describe, it, expect } from 'vitest';
+import { DepthFirstSearch } from "../../../../src/algorithms/graphs/traversal";
+import { AdjacencyListGraph } from "../../../../src/graphs/structures/AdjacencyListGraph";
+import { describe, it, expect } from "vitest";
 
 // Re-export for use in tests
-const TestAdjacencyListGraph = AdjacencyListGraph;
+const _TestAdjacencyListGraph = AdjacencyListGraph;
 
-describe('DepthFirstSearch', () => {
-  it('should traverse the graph in DFS order', () => {
+describe("DepthFirstSearch", () => {
+  it("should traverse the graph in DFS order", () => {
     const graph = new AdjacencyListGraph<number>();
     graph.addVertex(1);
     graph.addVertex(2);
@@ -25,7 +24,7 @@ describe('DepthFirstSearch', () => {
     expect(result.traversalOrder).toEqual([1, 2, 4, 3, 5]);
   });
 
-  it('should handle a disconnected graph', () => {
+  it("should handle a disconnected graph", () => {
     const graph = new AdjacencyListGraph<number>();
     graph.addVertex(1);
     graph.addVertex(2);
@@ -38,7 +37,7 @@ describe('DepthFirstSearch', () => {
     expect(result.traversalOrder).toEqual([1, 2]);
   });
 
-  it('should handle a graph with a single node', () => {
+  it("should handle a graph with a single node", () => {
     const graph = new AdjacencyListGraph<number>();
     graph.addVertex(1);
 
@@ -47,7 +46,7 @@ describe('DepthFirstSearch', () => {
     expect(result.traversalOrder).toEqual([1]);
   });
 
-  it('should handle object nodes correctly', () => {
+  it("should handle object nodes correctly", () => {
     const graph = new AdjacencyListGraph<{ id: number }>();
     const node1 = { id: 1 };
     const node2 = { id: 2 };

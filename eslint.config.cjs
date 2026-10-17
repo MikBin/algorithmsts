@@ -45,7 +45,7 @@ module.exports = [
         }
     },
     {
-        files: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
+        files: ['src/**/*.test.ts', 'src/**/*.spec.ts', 'test/**/*.test.ts', 'test/**/*.spec.ts'],
         languageOptions: {
             globals: {
                 describe: 'readonly',
@@ -73,8 +73,7 @@ module.exports = [
             'vitest.config.ts',
             '**/*.md',
             'docs/',
-            'visualization/',
-            'tools/'
+            'visualization/'
         ]
     }
 ];

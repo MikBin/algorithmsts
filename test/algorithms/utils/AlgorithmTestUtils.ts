@@ -1,6 +1,7 @@
-import { IAlgorithm } from '../../../src/core/interfaces/IAlgorithm';
-import { AlgorithmTestUtils as CoreAlgorithmTestUtils } from '../../../src/algorithms/utils/AlgorithmTestUtils';
-import { PerformanceData } from '../fixtures/PerformanceData';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { IAlgorithm } from "../../../src/core/interfaces/IAlgorithm";
+import { AlgorithmTestUtils as CoreAlgorithmTestUtils } from "../../../src/algorithms/utils/AlgorithmTestUtils";
+import { PerformanceData } from "../fixtures/PerformanceData";
 
 /**
  * Extended test utilities for algorithm testing
@@ -16,7 +17,7 @@ export class AlgorithmTestUtils {
       input: TInput;
       expectedOutput?: TOutput;
       validateOutput?: (output: TOutput) => boolean;
-    }>
+    }>,
   ): Array<{
     testName: string;
     passed: boolean;
@@ -49,7 +50,7 @@ export class AlgorithmTestUtils {
           // Custom validation
           passed = testCase.validateOutput(output);
           if (!passed) {
-            error = 'Custom validation failed';
+            error = "Custom validation failed";
           }
         }
 
@@ -57,14 +58,14 @@ export class AlgorithmTestUtils {
           testName: testCase.name,
           passed,
           executionTime,
-          error
+          error,
         });
       } catch (err) {
         results.push({
           testName: testCase.name,
           passed: false,
           executionTime: 0,
-          error: err instanceof Error ? err.message : 'Unknown error'
+          error: err instanceof Error ? err.message : "Unknown error",
         });
       }
     }
@@ -81,7 +82,7 @@ export class AlgorithmTestUtils {
       name: string;
       input: TInput;
       iterations: number;
-    }>
+    }>,
   ): Array<{
     benchmarkName: string;
     averageTime: number;
@@ -121,10 +122,7 @@ export class AlgorithmTestUtils {
       const minTime = Math.min(...times);
       const maxTime = Math.max(...times);
 
-      const validation = PerformanceData.validatePerformance(
-        algorithm.getName(),
-        averageTime
-      );
+      const validation = PerformanceData.validatePerformance(algorithm.getName(), averageTime);
 
       results.push({
         benchmarkName: benchmark.name,
@@ -132,7 +130,7 @@ export class AlgorithmTestUtils {
         minTime,
         maxTime,
         iterations: benchmark.iterations,
-        performanceValidation: validation
+        performanceValidation: validation,
       });
     }
 
@@ -143,7 +141,7 @@ export class AlgorithmTestUtils {
    * Tests algorithm interface compliance
    */
   public static testInterfaceCompliance<TInput, TOutput>(
-    algorithm: IAlgorithm<TInput, TOutput>
+    algorithm: IAlgorithm<TInput, TOutput>,
   ): {
     compliant: boolean;
     issues: string[];
@@ -159,15 +157,15 @@ export class AlgorithmTestUtils {
       getName: false,
       getTimeComplexity: false,
       getSpaceComplexity: false,
-      execute: false
+      execute: false,
     };
 
     // Test getName
     try {
       const name = algorithm.getName();
-      methodTests.getName = typeof name === 'string' && name.length > 0;
+      methodTests.getName = typeof name === "string" && name.length > 0;
       if (!methodTests.getName) {
-        issues.push('getName() must return a non-empty string');
+        issues.push("getName() must return a non-empty string");
       }
     } catch (error) {
       issues.push(`getName() threw error: ${error}`);
@@ -176,9 +174,9 @@ export class AlgorithmTestUtils {
     // Test getTimeComplexity
     try {
       const complexity = algorithm.getTimeComplexity();
-      methodTests.getTimeComplexity = typeof complexity === 'string' && complexity.length > 0;
+      methodTests.getTimeComplexity = typeof complexity === "string" && complexity.length > 0;
       if (!methodTests.getTimeComplexity) {
-        issues.push('getTimeComplexity() must return a non-empty string');
+        issues.push("getTimeComplexity() must return a non-empty string");
       }
     } catch (error) {
       issues.push(`getTimeComplexity() threw error: ${error}`);
@@ -187,9 +185,9 @@ export class AlgorithmTestUtils {
     // Test getSpaceComplexity
     try {
       const complexity = algorithm.getSpaceComplexity();
-      methodTests.getSpaceComplexity = typeof complexity === 'string' && complexity.length > 0;
+      methodTests.getSpaceComplexity = typeof complexity === "string" && complexity.length > 0;
       if (!methodTests.getSpaceComplexity) {
-        issues.push('getSpaceComplexity() must return a non-empty string');
+        issues.push("getSpaceComplexity() must return a non-empty string");
       }
     } catch (error) {
       issues.push(`getSpaceComplexity() threw error: ${error}`);
@@ -197,10 +195,10 @@ export class AlgorithmTestUtils {
 
     // Test execute (we can't test with actual input without knowing the type)
     try {
-      const hasExecute = typeof algorithm.execute === 'function';
+      const hasExecute = typeof algorithm.execute === "function";
       methodTests.execute = hasExecute;
       if (!hasExecute) {
-        issues.push('execute method must be a function');
+        issues.push("execute method must be a function");
       }
     } catch (error) {
       issues.push(`execute method check failed: ${error}`);
@@ -209,7 +207,7 @@ export class AlgorithmTestUtils {
     return {
       compliant: issues.length === 0,
       issues,
-      methodTests
+      methodTests,
     };
   }
 
@@ -229,7 +227,7 @@ export class AlgorithmTestUtils {
       return true;
     }
 
-    if (typeof a === 'object' && typeof b === 'object') {
+    if (typeof a === "object" && typeof b === "object") {
       const keysA = Object.keys(a);
       const keysB = Object.keys(b);
 
