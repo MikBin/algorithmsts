@@ -23,6 +23,12 @@ export interface CuckooFilterOptions<T> {
   rng?: () => number;
 }
 
+/**
+ * @title Cuckoo Filter
+ * @notice A probabilistic data structure used to test whether an element is a member of a set.
+ * @dev Like a Bloom filter, but supports dynamic deletion of elements and generally has better lookup performance and space efficiency.
+ * @template T The type of elements stored in the filter.
+ */
 export class CuckooFilter<T = string> {
   // Using a flat array to store fingerprints.
   // buckets are virtual: bucket i occupies indices [i*bucketSize, (i+1)*bucketSize - 1]
@@ -35,9 +41,11 @@ export class CuckooFilter<T = string> {
   private rng: () => number;
 
   /**
-   * @param capacity Estimated number of items to store.
+   * @notice Constructs a new Cuckoo Filter.
+   * @param capacity Estimated number of items to store. Internally rounds up to a power of 2 for buckets.
    * @param bucketSize Number of items per bucket (usually 4).
    * @param options Configuration options.
+   * @complexity Time: O(capacity) | Space: O(capacity)
    */
   constructor(capacity: number = 1024, private bucketSize: number = 4, options: CuckooFilterOptions<T> = {}) {
     // Determine bucket count: capacity / bucketSize, rounded up to power of 2 for efficient masking?
@@ -79,6 +87,12 @@ export class CuckooFilter<T = string> {
     return (i ^ h) & (this.bucketCount - 1);
   }
 
+  /**
+   * @notice Adds an item to the filter.
+   * @param item The item to insert.
+   * @returns `true` if the item was successfully added, `false` if the filter is full (max kicks reached).
+   * @complexity Time: O(1) expected, O(maxKicks) worst case | Space: O(1)
+   */
   add(item: T): boolean {
     const s = this.serializer(item);
     const f = this.fp(s);
@@ -126,6 +140,12 @@ export class CuckooFilter<T = string> {
     return false;
   }
 
+  /**
+   * @notice Checks if an item might be in the filter.
+   * @param item The item to query.
+   * @returns `true` if the item might be in the set, `false` if it is definitely not.
+   * @complexity Time: O(bucketSize) | Space: O(1)
+   */
   mightContain(item: T): boolean {
     const s = this.serializer(item);
     const f = this.fp(s);
@@ -142,6 +162,13 @@ export class CuckooFilter<T = string> {
     return false;
   }
 
+  /**
+   * @notice Removes an item from the filter.
+   * @dev Deletion is safe as long as the item was actually added before. Deleting non-existent items may corrupt the filter.
+   * @param item The item to remove.
+   * @returns `true` if an occurrence of the item's fingerprint was found and deleted, `false` otherwise.
+   * @complexity Time: O(bucketSize) | Space: O(1)
+   */
   delete(item: T): boolean {
     const s = this.serializer(item);
     const f = this.fp(s);
@@ -169,10 +196,20 @@ export class CuckooFilter<T = string> {
     return false;
   }
 
+  /**
+   * @notice Gets the number of elements currently in the filter.
+   * @returns The number of elements.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   size(): number {
     return this._size;
   }
 
+  /**
+   * @notice Serializes the filter to a JSON string.
+   * @returns A JSON representation of the filter.
+   * @complexity Time: O(n) | Space: O(n) where n is the capacity of the underlying typed array.
+   */
   toJson(): string {
     return JSON.stringify({
       bucketCount: this.bucketCount,
