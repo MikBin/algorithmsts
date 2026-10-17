@@ -10,6 +10,11 @@ class BStarNode<K, V> {
 
 export class BStarTree<K, V> {
   private root: BStarNode<K, V>;
+  /**
+   * Creates a new BStarTree.
+   * @param compare - Custom comparison function
+   * @param order - Maximum keys per node
+   */
   constructor(private compare: Comparator<K>, private order = 6) {
     if (order < 4) throw new Error('order must be >= 4');
     this.root = new BStarNode<K, V>(true);
@@ -36,7 +41,7 @@ export class BStarTree<K, V> {
    * Sets a value for a key.
    * @param key - The key to insert or update
    * @param value - The value to associate with the key
-   * @complexity Time: O(log_B N) | Space: O(1)
+   * @complexity Time: O(log_B N) | Space: O(log_B N) (recursion depth)
    */
   set(key: K, value: V): void {
     const split = this.insertNonFull(this.root, key, value);

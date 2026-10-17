@@ -40,11 +40,11 @@ export class AATree<T> extends BaseDataStructure<T> {
     return node;
   }
 
+
   /**
-   * TODO: Add description for add
-   * @param key - TODO
-   * @returns TODO
-   * @complexity Time: TODO | Space: TODO
+   * Adds a key to the tree.
+   * @param key - The key to add
+   * @complexity Time: O(log n) | Space: O(log n)
    */
   add(key: T): void {
     this.root = this._insert(this.root, key);
@@ -62,6 +62,7 @@ export class AATree<T> extends BaseDataStructure<T> {
     return node;
   }
 
+
   /**
    * Checks if the tree contains a key.
    * @param key - The key to check
@@ -78,11 +79,12 @@ export class AATree<T> extends BaseDataStructure<T> {
     return false;
   }
 
+
   /**
    * Removes a key from the tree.
    * @param key - The key to remove
    * @returns True if removed, false if not found
-   * @complexity Time: O(log n) | Space: O(1)
+   * @complexity Time: O(log n) | Space: O(log n) (recursion depth)
    */
   remove(key: T): boolean {
     const [nr, removed] = this._remove(this.root, key);
@@ -127,6 +129,7 @@ export class AATree<T> extends BaseDataStructure<T> {
     return [node, removed];
   }
 
+
   /**
    * Clears the tree.
    * @complexity Time: O(1) | Space: O(1)
@@ -135,6 +138,7 @@ export class AATree<T> extends BaseDataStructure<T> {
     this.root = null;
     this._size = 0;
   }
+
   /**
    * Gets an iterator for the tree.
    * @returns An InOrderIterator
@@ -143,6 +147,7 @@ export class AATree<T> extends BaseDataStructure<T> {
   iterator(): IIterator<T> {
     return new InOrderIterator(this.root);
   }
+
   /**
    * Converts the tree to an array.
    * @returns An array of keys in order
@@ -154,6 +159,7 @@ export class AATree<T> extends BaseDataStructure<T> {
     while (it.hasNext()) out.push(it.next());
     return out;
   }
+
   /**
    * Serializes the tree to JSON.
    * @returns A JSON string representation

@@ -6,6 +6,10 @@ export class AVLTree<T> implements Iterable<T> {
   _size: number = 0;
   private _compare: (a: T, b: T) => number;
 
+  /**
+   * Creates a new AVLTree.
+   * @param compareFunction - Optional custom comparison function
+   */
   constructor(compareFunction?: (a: T, b: T) => number) {
     this._compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
   }
@@ -87,8 +91,8 @@ export class AVLTree<T> implements Iterable<T> {
   /**
    * Inserts a value into the tree.
    * @param value - The value to insert
-   * @returns The inserted node
-   * @complexity Time: O(log n) | Space: O(1)
+   * @returns The (possibly new) root node
+   * @complexity Time: O(log n) | Space: O(log n) (recursion depth)
    */
   insert(value: T): AVLNode<T> {
     this._root = this._insert(this._root, value, null);
@@ -139,7 +143,7 @@ export class AVLTree<T> implements Iterable<T> {
    * Deletes a value from the tree.
    * @param value - The value to delete
    * @returns True if deleted, false if not found
-   * @complexity Time: O(log n) | Space: O(1)
+   * @complexity Time: O(log n) | Space: O(log n) (recursion depth)
    */
   delete(value: T): boolean {
     const initialSize = this._size;
@@ -354,7 +358,7 @@ export class AVLTree<T> implements Iterable<T> {
   /**
    * Checks if the tree is balanced.
    * @returns True if balanced, false otherwise
-   * @complexity Time: O(n) | Space: O(1)
+   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
    */
   isBalanced(): boolean {
     return this._isBalanced(this._root);

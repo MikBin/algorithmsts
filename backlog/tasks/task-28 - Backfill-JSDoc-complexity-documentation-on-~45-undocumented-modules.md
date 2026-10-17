@@ -30,4 +30,67 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 ## Progress Notes
 - Completed first batch of 5 tree data structures.
 - Deleted orphaned line in docs/any_usage_report.md
-- Remaining modules: approx 61 undocumented modules.
+
+Remaining modules:
+
+- src/data-structures/ball-tree/ballTree.ts
+- src/data-structures/binary-fuse-filter/binaryFuseFilter.ts
+- src/data-structures/binary-heap/binaryHeap.ts
+- src/data-structures/binary-search-tree/binarySearchTree.ts
+- src/data-structures/binomial-heap/binomialHeap.ts
+- src/data-structures/bitset/bitSet.ts
+- src/data-structures/bk-tree/bkTree.ts
+- src/data-structures/bloom-filter/bloomFilter.ts
+- src/data-structures/cartesian-tree/cartesianTree.ts
+- src/data-structures/circular-buffer/circularBuffer.ts
+- src/data-structures/count-min-sketch/countMinSketch.ts
+- src/data-structures/cover-tree/coverTree.ts
+- src/data-structures/cuckoo-filter/cuckooFilter.ts
+- src/data-structures/d-ary-heap/dAryHeap.ts
+- src/data-structures/deque/deque.ts
+- src/data-structures/disjoint-set/unionFind.ts
+- src/data-structures/dynamic-array/arrayList.ts
+- src/data-structures/fenwick-tree/fenwickTree.ts
+- src/data-structures/fibonacci-heap/fibonacciHeap.ts
+- src/data-structures/hash-map/hashMap.ts
+- src/data-structures/hash-set/hashSet.ts
+- src/data-structures/hyperloglog/hyperLogLog.ts
+- src/data-structures/interval-heap/intervalHeap.ts
+- src/data-structures/interval-skip-list/intervalSkipList.ts
+- src/data-structures/interval-tree/intervalTree.ts
+- src/data-structures/kd-tree/kdTree.ts
+- src/data-structures/leftist-heap/leftistHeap.ts
+- src/data-structures/lfu-cache/lfuCache.ts
+- src/data-structures/lru-cache/lruCache.ts
+- src/data-structures/min-max-heap/minMaxHeap.ts
+- src/data-structures/monotonic-queue/monotonicQueue.ts
+- src/data-structures/monotonic-stack/monotonicStack.ts
+- src/data-structures/octree/octree.ts
+- src/data-structures/order-statistic-tree/orderStatisticTree.ts
+- src/data-structures/pairing-heap/pairingHeap.ts
+- src/data-structures/patricia-trie/patriciaTrie.ts
+- src/data-structures/priority-queue/priorityQueue.ts
+- src/data-structures/quadtree/quadtree.ts
+- src/data-structures/queue/queue.ts
+- src/data-structures/quotient-filter/quotientFilter.ts
+- src/data-structures/r-star-tree/rStarTree.ts
+- src/data-structures/r-tree/rTree.ts
+- src/data-structures/range-tree/kdRangeTree.ts
+- src/data-structures/range-tree/rangeTree2D.ts
+- src/data-structures/red-black-tree/redBlackTree.ts
+- src/data-structures/ribbon-filter/ribbonFilter.ts
+- src/data-structures/rope/rope.ts
+- src/data-structures/scapegoat-tree/scapegoatTree.ts
+- src/data-structures/skew-heap/skewHeap.ts
+- src/data-structures/sparse-set/sparseSet.ts
+- src/data-structures/splay-tree/splayTree.ts
+- src/data-structures/stack/stack.ts
+- src/data-structures/suffix-array/suffixArray.ts
+- src/data-structures/suffix-automaton/suffixAutomaton.ts
+- src/data-structures/treap/treap.ts
+- src/data-structures/two-three-tree/twoThreeTree.ts
+- src/data-structures/van-emde-boas/vanEmdeBoas.ts
+- src/data-structures/violation-heap/violationHeap.ts
+- src/data-structures/vp-tree/vpTree.ts
+- src/data-structures/wavl-tree/wavlTree.ts
+- src/data-structures/weak-heap/weakHeap.ts

@@ -15,6 +15,11 @@ class BPlusNode<K, V> {
 
 export class BPlusTree<K, V> {
   private root: BPlusNode<K, V>;
+  /**
+   * Creates a new BPlusTree.
+   * @param compare - Custom comparison function
+   * @param order - Maximum keys per node
+   */
   constructor(private compare: KeyComparator<K>, private order = 4) {
     if (order < 3) throw new Error('order must be >= 3');
     this.root = new BPlusNode<K, V>(true);
@@ -42,7 +47,7 @@ export class BPlusTree<K, V> {
    * Sets a value for a key.
    * @param key - The key to insert or update
    * @param value - The value to associate with the key
-   * @complexity Time: O(log_B N) | Space: O(1)
+   * @complexity Time: O(log_B N) | Space: O(log_B N) (recursion depth)
    */
   set(key: K, value: V): void {
     const split = this._insert(this.root, key, value);
