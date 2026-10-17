@@ -1,5 +1,6 @@
 import { BaseDataStructure } from "../../core/abstracts/BaseDataStructure";
 import { IIterator } from "../../core/interfaces/IIterator";
+import { InOrderIterator } from "../../core/iterators/InOrderIterator";
 
 class AANode<T> {
   constructor(
@@ -8,42 +9,6 @@ class AANode<T> {
     public left: AANode<T> | null = null,
     public right: AANode<T> | null = null,
   ) {}
-}
-
-class InOrderIterator<T> implements IIterator<T> {
-  private stack: Array<{ node: AANode<T> | null; visited: boolean }> = [];
-  private cur: T | null = null;
-  constructor(root: AANode<T> | null) {
-    this.stack.push({ node: root, visited: false });
-  }
-  private step(): boolean {
-    while (this.stack.length) {
-      const { node, visited } = this.stack.pop()!;
-      if (!node) continue;
-      if (visited) {
-        this.cur = node.key;
-        return true;
-      }
-      this.stack.push({ node: node.right, visited: false });
-      this.stack.push({ node, visited: true });
-      this.stack.push({ node: node.left, visited: false });
-    }
-    return false;
-  }
-  hasNext(): boolean {
-    if (this.cur !== null) return true;
-    return this.step();
-  }
-  next(): T {
-    if (!this.hasNext()) throw new Error("No more elements");
-    const v = this.cur as T;
-    this.cur = null;
-    return v;
-  }
-  current(): T {
-    if (this.cur === null) throw new Error("No current element");
-    return this.cur as T;
-  }
 }
 
 export class AATree<T> extends BaseDataStructure<T> {
