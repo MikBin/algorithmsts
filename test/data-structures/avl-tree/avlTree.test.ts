@@ -14,7 +14,6 @@ describe('AVLTree', () => {
     expect(tree.isBalanced()).toBe(true);
     expect(tree.traversalInOrder()).toEqual([10, 20, 25, 30, 40, 50]);
     expect(tree.size).toBe(6);
-    expect(tree.getSize()).toBe(6);
   });
 
   it('should handle left-right rotation', () => {

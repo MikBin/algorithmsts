@@ -18,7 +18,6 @@ describe('BinarySearchTree', () => {
     bst.insert(5);
     bst.insert(10);
     expect(bst.size).toBe(2);
-    expect(bst.getSize()).toBe(2);
   });
 
   it('should search for values', () => {

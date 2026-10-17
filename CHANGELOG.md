@@ -8,9 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Breaking
-- **Data Structure Contracts**: Standardized API behavior across all data structures.
+- **Data Structure Encapsulation**: Internal states for `BinarySearchTree` and `AVLTree` (`root` and `compare`) are now fully encapsulated. Public read-only access is provided via getters.
+- **Removed API Placeholders**: `AbstractFactory` pattern placeholders (`ListFactory`, `TreeFactory`, `FactoryCreator`, `IAbstractFactory`) have been completely removed. Migration: No replacement; all factory methods always threw `ArgumentError`. Remove imports and instantiate concrete classes directly.
+- **Heap Merge Semantics**: `BinaryHeap.merge` is now a void/destructive operation (consumes/empties the provided heap) (PR #153).
+- **Data Structure Contracts**: Standardized API behavior across data structures.
   - **Heap Polarity**: `BinaryHeap`, `DAryHeap`, and `LeftistHeap` now default to Min-Heap behavior when given a standard ascending comparator (e.g., `(a, b) => a - b`), aligning them with the rest of the heap family.
-  - **Size Accessor**: `getSize()` and `size()` methods are deprecated across all data structures in favor of a uniform `get size(): number` getter property.
+  - **Size Accessor**: `getSize()` was removed from `BinarySearchTree` and `AVLTree`. The `size()` methods were previously removed from `PriorityQueue` and `ViolationHeap` in PR #149. Use the uniform `get size(): number` getter property instead.
   - **Tree Height Convention**: Tree heights now consistently return `-1` for empty trees and `0` for single-node (leaf) trees (specifically fixed in `AVLTree` to match `BinarySearchTree`).
   - **Default Comparators**: The default comparators for `BinarySearchTree` and `AVLTree` have been updated to properly support strings safely without type coercion issues.
 
