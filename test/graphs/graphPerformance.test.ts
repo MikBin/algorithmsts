@@ -1,20 +1,21 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { AdjacencyListGraph } from '../../src/graphs/structures/AdjacencyListGraph';
-import { AdjacencyMatrixGraph } from '../../src/graphs/structures/AdjacencyMatrixGraph';
-import { BreadthFirstSearch } from '../../src/graphs/algorithms/traversal/BreadthFirstSearch';
-import { DepthFirstSearch } from '../../src/graphs/algorithms/traversal/DepthFirstSearch';
-import { DijkstraAlgorithm } from '../../src/graphs/algorithms/shortest-path/DijkstraAlgorithm';
-import { GraphTestData } from './fixtures/GraphTestData';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { describe, it, expect } from "vitest";
+import { AdjacencyListGraph } from "../../src/graphs/structures/AdjacencyListGraph";
+import { AdjacencyMatrixGraph } from "../../src/graphs/structures/AdjacencyMatrixGraph";
+import { BreadthFirstSearch } from "../../src/graphs/algorithms/traversal/BreadthFirstSearch";
+import { DepthFirstSearch } from "../../src/graphs/algorithms/traversal/DepthFirstSearch";
+import { DijkstraAlgorithm } from "../../src/graphs/algorithms/shortest-path/DijkstraAlgorithm";
+import { GraphTestData } from "./fixtures/GraphTestData";
 
 /**
  * Performance benchmarks for graph operations
  * These tests verify that operations complete within reasonable time bounds
  */
-describe('Graph Performance Benchmarks', () => {
-  describe('Graph Construction Performance', () => {
+describe("Graph Performance Benchmarks", () => {
+  describe("Graph Construction Performance", () => {
     const SIZES = [100, 500, 1000];
 
-    SIZES.forEach(size => {
+    SIZES.forEach((size) => {
       it(`should construct graphs with ${size} vertices efficiently`, () => {
         const startTime = performance.now();
 
@@ -41,8 +42,8 @@ describe('Graph Performance Benchmarks', () => {
     });
   });
 
-  describe('Edge Operation Performance', () => {
-    it('should handle edge additions efficiently', () => {
+  describe("Edge Operation Performance", () => {
+    it("should handle edge additions efficiently", () => {
       const graph = new AdjacencyListGraph<number>();
       const size = 100;
 
@@ -67,7 +68,7 @@ describe('Graph Performance Benchmarks', () => {
       expect(graph.getEdgeCount()).toBeGreaterThan(0);
     });
 
-    it('should handle dense graph operations', () => {
+    it("should handle dense graph operations", () => {
       const graph = new AdjacencyMatrixGraph<number>();
       const size = 50; // Smaller size for dense operations
 
@@ -81,7 +82,8 @@ describe('Graph Performance Benchmarks', () => {
       // Add many edges (dense graph)
       for (let i = 0; i < size; i++) {
         for (let j = i + 1; j < size; j++) {
-          if (Math.random() > 0.7) { // 30% density
+          if (Math.random() > 0.7) {
+            // 30% density
             graph.addEdge(i, j);
           }
         }
@@ -94,12 +96,12 @@ describe('Graph Performance Benchmarks', () => {
     });
   });
 
-  describe('Traversal Algorithm Performance', () => {
+  describe("Traversal Algorithm Performance", () => {
     const SIZES = [100, 500];
 
-    SIZES.forEach(size => {
+    SIZES.forEach((size) => {
       it(`should traverse graphs with ${size} vertices efficiently`, () => {
-        const graph = GraphTestData.createLargeGraph('adjacencyList');
+        const graph = GraphTestData.createLargeGraph("adjacencyList");
         const bfs = new BreadthFirstSearch<number>();
         const dfs = new DepthFirstSearch<number>();
 
@@ -128,9 +130,9 @@ describe('Graph Performance Benchmarks', () => {
     });
   });
 
-  describe('Shortest Path Performance', () => {
-    it('should compute shortest paths efficiently', () => {
-      const graph = GraphTestData.createMediumGraph('adjacencyList');
+  describe("Shortest Path Performance", () => {
+    it("should compute shortest paths efficiently", () => {
+      const graph = GraphTestData.createMediumGraph("adjacencyList");
       const dijkstra = new DijkstraAlgorithm<number>();
 
       // Note: This will fail because the graph is unweighted, but we test the interface
@@ -141,7 +143,7 @@ describe('Graph Performance Benchmarks', () => {
 
       try {
         dijkstra.findShortestPath(graph, startVertex, endVertex);
-      } catch (error) {
+      } catch (_error) {
         // Expected to fail for unweighted graph
       }
 
@@ -152,7 +154,7 @@ describe('Graph Performance Benchmarks', () => {
       expect(duration).toBeLessThan(50);
     });
 
-    it('should handle weighted graph operations', () => {
+    it("should handle weighted graph operations", () => {
       // Create a small weighted graph for performance testing
       const graph = new AdjacencyListGraph<number, number>(false, true);
       const size = 20;
@@ -181,16 +183,16 @@ describe('Graph Performance Benchmarks', () => {
     });
   });
 
-  describe('Memory Usage Benchmarks', () => {
-    it('should handle large graphs without excessive memory usage', () => {
+  describe("Memory Usage Benchmarks", () => {
+    it("should handle large graphs without excessive memory usage", () => {
       // This is a basic test - in a real benchmark suite, we'd use memory monitoring
-      const graph = GraphTestData.createLargeGraph('adjacencyList');
+      const graph = GraphTestData.createLargeGraph("adjacencyList");
 
       expect(graph.getVertexCount()).toBe(100);
       // The test passes if no out-of-memory errors occur
     });
 
-    it('should compare memory efficiency of implementations', () => {
+    it("should compare memory efficiency of implementations", () => {
       const size = 50;
 
       const listGraph = new AdjacencyListGraph<number>();
@@ -217,12 +219,12 @@ describe('Graph Performance Benchmarks', () => {
     });
   });
 
-  describe.skip('Scalability Tests', () => {
-    it('should scale operations with graph size', () => {
+  describe.skip("Scalability Tests", () => {
+    it("should scale operations with graph size", () => {
       const sizes = [10, 50, 100];
       const times: number[] = [];
 
-      sizes.forEach(size => {
+      sizes.forEach((size) => {
         const graph = new AdjacencyListGraph<number>();
 
         const startTime = performance.now();
@@ -252,7 +254,7 @@ describe('Graph Performance Benchmarks', () => {
       expect(times[2]).toBeLessThan(times[1] * 10);
     });
 
-    it('should handle sparse vs dense graphs appropriately', () => {
+    it("should handle sparse vs dense graphs appropriately", () => {
       const size = 30;
 
       // Sparse graph
@@ -285,8 +287,8 @@ describe('Graph Performance Benchmarks', () => {
     });
   });
 
-  describe('Concurrent Operation Performance', () => {
-    it('should handle multiple operations sequentially', () => {
+  describe("Concurrent Operation Performance", () => {
+    it("should handle multiple operations sequentially", () => {
       const graph = new AdjacencyListGraph<number>();
       const size = 50;
 

@@ -1,4 +1,4 @@
-import { IIterator } from '../../../src/core/interfaces/IIterator';
+import { IIterator } from "../../../src/core/interfaces/IIterator";
 
 /**
  * Utility functions for testing data structures
@@ -27,13 +27,13 @@ export class TestUtils {
 
     try {
       // Test hasNext
-      if (typeof iterator.hasNext !== 'function') {
-        errors.push('hasNext is not a function');
+      if (typeof iterator.hasNext !== "function") {
+        errors.push("hasNext is not a function");
       }
 
       // Test next
-      if (typeof iterator.next !== 'function') {
-        errors.push('next is not a function');
+      if (typeof iterator.next !== "function") {
+        errors.push("next is not a function");
       }
 
       // Test that next throws when no more elements
@@ -43,26 +43,26 @@ export class TestUtils {
       }
       try {
         testIterator.next();
-        errors.push('next() should throw when no more elements');
-      } catch (e) {
+        errors.push("next() should throw when no more elements");
+      } catch (_e) {
         // Expected behavior
       }
 
       // Test current method if available
-      if ('current' in iterator) {
+      if ("current" in iterator) {
         const currentIterator = { ...iterator };
         if (currentIterator.hasNext()) {
           currentIterator.next();
           currentIterator.current(); // Should not throw
         }
       }
-    } catch (e) {
-      errors.push(`Iterator validation failed: ${e}`);
+    } catch (_e) {
+      errors.push(`Iterator validation failed: ${_e}`);
     }
 
     return {
       isValid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
@@ -82,7 +82,7 @@ export class TestUtils {
       return true;
     }
 
-    if (typeof a === 'object' && typeof b === 'object') {
+    if (typeof a === "object" && typeof b === "object") {
       const keysA = Object.keys(a);
       const keysB = Object.keys(b);
 
@@ -114,7 +114,7 @@ export class TestUtils {
   static performanceTest(
     name: string,
     fn: () => void,
-    iterations: number = 100
+    iterations: number = 100,
   ): {
     name: string;
     averageTimeMs: number;
@@ -135,47 +135,47 @@ export class TestUtils {
       name,
       averageTimeMs,
       totalTimeMs,
-      iterations
+      iterations,
     };
   }
 
   /**
    * Validates interface compliance for data structures
    */
-  static validateInterfaceCompliance<T>(
+  static validateInterfaceCompliance<T>( // eslint-disable-line @typescript-eslint/no-unused-vars
     instance: any,
-    interfaceMethods: string[]
+    interfaceMethods: string[],
   ): {
     compliant: boolean;
     missingMethods: string[];
     extraMethods: string[];
   } {
     const instanceMethods = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
-    const missingMethods = interfaceMethods.filter(method => !instanceMethods.includes(method));
+    const missingMethods = interfaceMethods.filter((method) => !instanceMethods.includes(method));
     const extraMethods: string[] = []; // Could be implemented if needed
 
     return {
       compliant: missingMethods.length === 0,
       missingMethods,
-      extraMethods
+      extraMethods,
     };
   }
 
   /**
    * Generates random test data
    */
-  static generateRandomData(type: 'numbers' | 'strings' | 'mixed', count: number): any[] {
+  static generateRandomData(type: "numbers" | "strings" | "mixed", count: number): any[] {
     const result: any[] = [];
 
     for (let i = 0; i < count; i++) {
       switch (type) {
-        case 'numbers':
+        case "numbers":
           result.push(Math.floor(Math.random() * 1000));
           break;
-        case 'strings':
+        case "strings":
           result.push(Math.random().toString(36).substring(2, 8));
           break;
-        case 'mixed':
+        case "mixed": {
           const rand = Math.random();
           if (rand < 0.33) {
             result.push(Math.floor(Math.random() * 1000));
@@ -185,6 +185,7 @@ export class TestUtils {
             result.push({ id: i, value: Math.random() });
           }
           break;
+        }
       }
     }
 
@@ -198,7 +199,7 @@ export class TestUtils {
     const seen = new WeakSet();
 
     function sizeOf(obj: any): number {
-      if (obj === null || typeof obj !== 'object') {
+      if (obj === null || typeof obj !== "object") {
         return 8; // rough estimate for primitives
       }
 
@@ -218,7 +219,7 @@ export class TestUtils {
       } else {
         bytes += 64; // object overhead
         for (const key in obj) {
-          if (obj.hasOwnProperty(key)) {
+          if (Object.hasOwn(obj, key)) {
             bytes += sizeOf(key) + sizeOf(obj[key]);
           }
         }

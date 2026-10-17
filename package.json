@@ -74,7 +74,7 @@
     ]
   },
   "scripts": {
-    "lint": "eslint src/",
+    "lint": "eslint \"{src,test,tools}/**/*.ts\"",
     "watch": "rollup -w -c rollup.config.ts --configPlugin typescript --environment BUILD:development",
     "build": "rollup -c rollup.config.ts --configPlugin typescript --environment BUILD:production && tsc",
     "docs": "npm run generate-docs",

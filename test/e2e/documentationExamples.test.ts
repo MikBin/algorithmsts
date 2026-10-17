@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { describe, expect, it } from "vitest";
 import {
   BinarySearch,
   BinaryClosestSearch,
@@ -7,20 +8,10 @@ import {
   NgramSimilarity,
   JaroDistance,
   LevenshteinDistance,
-  SparseTable
-} from '../../src/algorithms';
-import {
-  LinkedList,
-  SkipList,
-  SegmentTree,
-  Trie,
-  SuffixTree
-} from '../../src/data-structures';
-import {
-  AdjacencyListGraph,
-  BreadthFirstSearch,
-  DepthFirstSearch
-} from '../../src/graphs';
+  SparseTable,
+} from "../../src/algorithms";
+import { LinkedList, SkipList, SegmentTree, Trie, SuffixTree } from "../../src/data-structures";
+import { AdjacencyListGraph, BreadthFirstSearch, DepthFirstSearch } from "../../src/graphs";
 
 /**
  * Documentation Examples End-to-End Tests
@@ -28,9 +19,9 @@ import {
  * Tests that verify all documentation examples work correctly
  * and produce the expected results as shown in README.md.
  */
-describe('Documentation Examples E2E Tests', () => {
-describe('Binary Search Examples', () => {
-    it('should work with the binary search example from README', () => {
+describe("Documentation Examples E2E Tests", () => {
+  describe("Binary Search Examples", () => {
+    it("should work with the binary search example from README", () => {
       const sortedArray = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91];
       const compareFn = (a: number, b: number) => a - b;
 
@@ -38,13 +29,13 @@ describe('Binary Search Examples', () => {
       const index = binarySearch.execute({
         array: sortedArray,
         value: 23,
-        compareFn
+        compareFn,
       });
 
       expect(index.index).toBe(5);
     });
 
-    it('should work with the binary closest search example', () => {
+    it("should work with the binary closest search example", () => {
       const sortedArray = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91];
       const compareFn = (a: number, b: number) => a - b;
 
@@ -53,15 +44,15 @@ describe('Binary Search Examples', () => {
         array: sortedArray,
         value: 25,
         compareFn,
-        distanceFn: (a, b) => Math.abs(a - b)
+        distanceFn: (a, b) => Math.abs(a - b),
       });
 
       expect(closestIndex.index).toBe(5); // 23 is closer to 25 than 16
     });
   });
 
-  describe('Segment Tree Examples', () => {
-    it('should work with the range sum queries example', () => {
+  describe("Segment Tree Examples", () => {
+    it("should work with the range sum queries example", () => {
       const sourceArray = [1, 3, 5, 7, 9, 11];
 
       // Define a custom node type for sum queries
@@ -75,7 +66,7 @@ describe('Binary Search Examples', () => {
       const nodeFactory = (val: number, left: number, right: number): SumNode => ({
         sum: val,
         left,
-        right
+        right,
       });
 
       // Merger to combine two nodes
@@ -90,7 +81,7 @@ describe('Binary Search Examples', () => {
         return {
           sum: nodeA.sum + nodeB.sum,
           left: Math.min(nodeA.left, nodeB.left),
-          right: Math.max(nodeA.right, nodeB.right)
+          right: Math.max(nodeA.right, nodeB.right),
         };
       };
 
@@ -104,7 +95,7 @@ describe('Binary Search Examples', () => {
         nodeFactory,
         nodeMerger,
         queryMerger,
-        leafUpdater
+        leafUpdater,
       );
 
       // Query the sum of a range
@@ -119,8 +110,8 @@ describe('Binary Search Examples', () => {
     });
   });
 
-  describe('Skip List Examples', () => {
-    it('should work with the skip list example from README', () => {
+  describe("Skip List Examples", () => {
+    it("should work with the skip list example from README", () => {
       const skipList = new SkipList(10, null);
 
       skipList.insert(15);
@@ -137,8 +128,8 @@ describe('Binary Search Examples', () => {
     });
   });
 
-  describe('Trie Examples', () => {
-    it('should work with the trie example from README', () => {
+  describe("Trie Examples", () => {
+    it("should work with the trie example from README", () => {
       const trie = new Trie<number>();
 
       trie.add("apple", 1);
@@ -152,8 +143,8 @@ describe('Binary Search Examples', () => {
     });
   });
 
-  describe('Suffix Tree Examples', () => {
-    it('should work with the suffix tree example from README', () => {
+  describe("Suffix Tree Examples", () => {
+    it("should work with the suffix tree example from README", () => {
       const suffixTree = new SuffixTree("banana");
 
       expect(suffixTree.findSubstring("ana")).toBe(1);
@@ -164,13 +155,13 @@ describe('Binary Search Examples', () => {
       expect(count).toBe(2);
 
       const repeatedSubstrings = suffixTree.findLongestRepeatedSubstrings(2);
-      expect(repeatedSubstrings).toContain('ana');
-      expect(repeatedSubstrings).toContain('na');
+      expect(repeatedSubstrings).toContain("ana");
+      expect(repeatedSubstrings).toContain("na");
     });
   });
 
-describe('String Similarity Examples', () => {
-    it('should work with the string similarity examples from README', () => {
+  describe("String Similarity Examples", () => {
+    it("should work with the string similarity examples from README", () => {
       const str1 = "night";
       const str2 = "nacht";
 
@@ -183,9 +174,9 @@ describe('String Similarity Examples', () => {
       const levenshteinResult = levenshteinDistance.execute({ str1, str2 });
 
       // All should return similarity/distance measures
-      expect(typeof ngramResult.similarity).toBe('number');
-      expect(typeof jaroResult.distance).toBe('number');
-      expect(typeof levenshteinResult.distance).toBe('number');
+      expect(typeof ngramResult.similarity).toBe("number");
+      expect(typeof jaroResult.distance).toBe("number");
+      expect(typeof levenshteinResult.distance).toBe("number");
 
       // N-gram should show similarity
       expect(ngramResult.similarity).toBeGreaterThan(0);
@@ -198,8 +189,8 @@ describe('String Similarity Examples', () => {
     });
   });
 
-  describe('Graph Algorithm Examples', () => {
-    it('should work with BFS traversal', () => {
+  describe("Graph Algorithm Examples", () => {
+    it("should work with BFS traversal", () => {
       // Create a simple graph for testing
       const graph = new AdjacencyListGraph<number>();
       graph.addVertex(1);
@@ -211,7 +202,7 @@ describe('String Similarity Examples', () => {
       const bfs = new BreadthFirstSearch<number>();
       const result = bfs.execute({
         graph,
-        startNode: 1
+        startNode: 1,
       });
 
       expect(result.result).toContain(1);
@@ -219,7 +210,7 @@ describe('String Similarity Examples', () => {
       expect(result.result).toContain(3);
     });
 
-    it('should work with DFS traversal', () => {
+    it("should work with DFS traversal", () => {
       // Create a simple graph for testing
       const graph = new AdjacencyListGraph<number>();
       graph.addVertex(1);
@@ -231,7 +222,7 @@ describe('String Similarity Examples', () => {
       const dfs = new DepthFirstSearch<number>();
       const result = dfs.execute({
         graph,
-        startNode: 1
+        startNode: 1,
       });
 
       expect(result.result).toContain(1);
@@ -240,8 +231,8 @@ describe('String Similarity Examples', () => {
     });
   });
 
-  describe('Sorting Algorithm Examples', () => {
-    it('should work with counting sort', () => {
+  describe("Sorting Algorithm Examples", () => {
+    it("should work with counting sort", () => {
       const countingSort = new CountingSort();
       const testArray = [4, 2, 2, 8, 3, 3, 1];
 
@@ -249,7 +240,7 @@ describe('String Similarity Examples', () => {
       expect(result.result).toEqual([1, 2, 2, 3, 3, 4, 8]);
     });
 
-    it('should work with radix sort', () => {
+    it("should work with radix sort", () => {
       const radixSort = new RadixSortNumbers();
       const testArray = [170, 45, 75, 90, 802, 24, 2, 66];
 
@@ -258,8 +249,8 @@ describe('String Similarity Examples', () => {
     });
   });
 
-  describe('Range Query Examples', () => {
-    it('should work with sparse table for range queries', () => {
+  describe("Range Query Examples", () => {
+    it("should work with sparse table for range queries", () => {
       const values = [1, 3, 2, 7, 9, 11];
       const sparseTable = new SparseTable(values, Math.min);
 
@@ -269,8 +260,8 @@ describe('String Similarity Examples', () => {
     });
   });
 
-  describe('Data Structure Examples', () => {
-    it('should work with linked list operations', () => {
+  describe("Data Structure Examples", () => {
+    it("should work with linked list operations", () => {
       const list = new LinkedList<number>();
 
       list.add(1);
@@ -281,7 +272,7 @@ describe('String Similarity Examples', () => {
       expect(list.toArray()).toEqual([1, 2, 3]);
     });
 
-    it('should work with skip list operations', () => {
+    it("should work with skip list operations", () => {
       const skipList = new SkipList(4, null);
 
       skipList.insert(10);
@@ -296,11 +287,11 @@ describe('String Similarity Examples', () => {
     });
   });
 
-  describe('Integration Examples', () => {
-    it('should demonstrate algorithm and data structure integration', () => {
+  describe("Integration Examples", () => {
+    it("should demonstrate algorithm and data structure integration", () => {
       // Create data using a data structure
       const list = new LinkedList<number>();
-      [64, 34, 25, 12, 22, 11, 90].forEach(num => list.add(num));
+      [64, 34, 25, 12, 22, 11, 90].forEach((num) => list.add(num));
 
       // Convert to array and sort
       const arrayData = list.toArray();
@@ -312,30 +303,30 @@ describe('String Similarity Examples', () => {
       const searchResult = binarySearch.execute({
         array: sortedData.result,
         value: 25,
-        compareFn: (a, b) => a - b
+        compareFn: (a, b) => a - b,
       });
 
       expect(searchResult.result).toBe(3); // 25 is at index 3 in sorted array
     });
 
-    it('should demonstrate string processing workflow', () => {
+    it("should demonstrate string processing workflow", () => {
       // Create a trie with words
       const trie = new Trie<number>();
-      const words = ['algorithm', 'typescript', 'library', 'testing'];
+      const words = ["algorithm", "typescript", "library", "testing"];
       words.forEach((word, index) => trie.add(word, index));
 
       // Find similar words
-      const target = 'algorithm';
+      const target = "algorithm";
       const ngramSimilarity = new NgramSimilarity();
 
-      let bestMatch = '';
+      let bestMatch = "";
       let bestScore = 0;
 
       for (const word of words) {
         if (word !== target) {
           const similarity = ngramSimilarity.execute({
             str1: target,
-            str2: word
+            str2: word,
           });
 
           if (similarity.result > bestScore) {

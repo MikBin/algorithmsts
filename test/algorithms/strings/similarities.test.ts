@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from "vitest";
 import {
   NgramSimilarity,
   SplitByUpperCase,
@@ -53,7 +53,7 @@ describe("testing string similarities: ", () => {
 
   it("LevenshteinDistance of completely different string", () => {
     const result = levenshteinDistance.execute({ str1: "robotech", str2: "saluti e baci" });
-    expect(result.distance).toBeCloseTo(0.230);
+    expect(result.distance).toBeCloseTo(0.23);
   });
 
   it("LevenshteinDistance handles empty string edge cases", () => {
@@ -63,10 +63,16 @@ describe("testing string similarities: ", () => {
   });
 
   it("calculates Sørensen-Dice coefficient correctly", () => {
-    expect(sorensenDiceCoefficient.execute({ str1: "hello", str2: "helo" }).similarity).toBeCloseTo(0.8571);
-    expect(sorensenDiceCoefficient.execute({ str1: "world", str2: "word" }).similarity).toBeCloseTo(0.5714);
+    expect(sorensenDiceCoefficient.execute({ str1: "hello", str2: "helo" }).similarity).toBeCloseTo(
+      0.8571,
+    );
+    expect(sorensenDiceCoefficient.execute({ str1: "world", str2: "word" }).similarity).toBeCloseTo(
+      0.5714,
+    );
     expect(sorensenDiceCoefficient.execute({ str1: "test", str2: "test" }).similarity).toEqual(1);
-    expect(sorensenDiceCoefficient.execute({ str1: "apple", str2: "orange" }).similarity).toBeCloseTo(0);
+    expect(
+      sorensenDiceCoefficient.execute({ str1: "apple", str2: "orange" }).similarity,
+    ).toBeCloseTo(0);
   });
 
   it("calculates trigram similarity correctly", () => {
@@ -79,7 +85,6 @@ describe("testing string similarities: ", () => {
   /** the average distance from same string is the distance from the 2 strings
    * NB the common string have to be of the same length of each of the 2.
    */
-
 });
 
 describe("split by uppercase: ", () => {
@@ -89,5 +94,4 @@ describe("split by uppercase: ", () => {
     const result = splitByUpperCase.execute({ str: "AbaStar" });
     expect(result.parts).toEqual(["aba", "star"]);
   });
-
 });
