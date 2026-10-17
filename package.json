@@ -141,5 +141,13 @@
     "sorting",
     "graph",
     "tree"
-  ]
+  ],
+  "overrides": {
+    "tinypool": "^2.1.2",
+    "basic-ftp": "^6.2.3",
+    "ip-address": "^10.7.4",
+    "picomatch": "^4.0.4",
+    "tmp": "^0.2.6",
+    "postcss-selector-parser": "^7.1.6"
+  }
 }
