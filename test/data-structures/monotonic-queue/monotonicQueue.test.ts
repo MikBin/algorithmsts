@@ -21,7 +21,4 @@ describe("MonotonicQueue", () => {
     ds.push(3);
     expect(ds.front()).toBe(2);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });

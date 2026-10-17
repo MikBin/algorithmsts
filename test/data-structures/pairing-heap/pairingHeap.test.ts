@@ -24,7 +24,4 @@ describe("PairingHeap", () => {
     expect(ds.poll()).toBe(5);
     expect(ds.poll()).toBe(10);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });

@@ -25,7 +25,4 @@ describe("MinMaxHeap", () => {
     expect(ds.pollMin()).toBe(5);
     expect(ds.pollMax()).toBe(20);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });

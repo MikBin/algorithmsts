@@ -19,7 +19,4 @@ describe("MonotonicStack", () => {
     ds.push(3);
     expect(ds.top()).toBe(3);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });

@@ -23,7 +23,4 @@ describe("AATree", () => {
     expect(ds.contains(10)).toBe(true);
     expect(ds.toArray()).toEqual([5, 10]);
   });
-  it("throws on invalid input", () => {
-    /* native */
-  });
 });

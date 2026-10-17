@@ -4,7 +4,6 @@ import { FenwickTree } from "../../../src/data-structures/fenwick-tree/fenwickTr
 describe("FenwickTree", () => {
   it("handles empty cases", () => {
     const ds = new FenwickTree(0);
-    ds as any;
     expect(ds.size).toBe(0);
     expect(ds.query(-1)).toBe(0);
   });
@@ -23,8 +22,5 @@ describe("FenwickTree", () => {
     expect(ds.query(3)).toBe(15);
   });
 
-  it("throws on invalid input", () => {
-    const ds = new FenwickTree(5);
-    ds as any;
-  });
+  it('throws on invalid input', () => { const ds = new FenwickTree(5); expect(() => ds.update(5, 1)).toThrow(/out of bounds/i); expect(() => ds.query(5)).toThrow(/out of bounds/i); expect(() => ds.rangeQuery(3, 1)).toThrow(/invalid range/i); });
 });

@@ -5,6 +5,7 @@ describe("OrderStatisticTree", () => {
   it("handles empty cases", () => {
     const ds = new OrderStatisticTree<number>((a, b) => a - b);
     expect(ds.select(0)).toBeNull();
+    expect(ds.rank(5)).toBe(0);
   });
   it("handles single elements", () => {
     const ds = new OrderStatisticTree<number>((a, b) => a - b);
