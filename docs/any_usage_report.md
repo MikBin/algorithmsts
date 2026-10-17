@@ -68,7 +68,6 @@ These instances can generally be replaced with `unknown`, `Record<string, unknow
   - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
 - `./src/data-structures/cuckoo-filter/cuckooFilter.ts`: const defaultSerializer = (item: any): string => {
   - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
-- `./src/data-structures/vacuum-filter/vacuumFilter.ts`: const defaultSerializer = (item: any): string => {
   - *Reason:* Can be replaced with `item: unknown` or a generic type `T` if the class is generic.
 - `./src/vector-similarity/vector-similarity-analysis.ts`: const testCase1: any = {
   - *Reason:* Test fixtures and local variables can usually be typed with `Record<string, unknown>` or specific fixture types.

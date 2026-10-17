@@ -1,3 +1,9 @@
+/**
+ * ArrayIterator class.
+ * @class ArrayIterator
+ * @complexity Time: O(1) for next, current, hasNext
+ * Space: O(1) beyond array storage
+ */
 import { IIterator } from "../interfaces/IIterator";
 
 export class ArrayIterator<T> implements IIterator<T> {

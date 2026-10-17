@@ -1,3 +1,8 @@
+/**
+ * InOrderIterator class for binary trees.
+ * @class InOrderIterator
+ * @complexity Time: O(1) amortized next, Space: O(H) where H is tree height
+ */
 import { IIterator } from "../interfaces/IIterator";
 
 export interface IBinaryTreeNode<T> {

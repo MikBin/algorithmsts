@@ -3,7 +3,7 @@ id: TASK-26
 title: >-
   Consolidate duplicated code: VacuumFilter, dead graph files, shared
   iterators/hashers/geometry/UnionFind
-status: Done
+status: In Progress
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -27,10 +27,16 @@ VacuumFilter is ~95% identical to CuckooFilter (only hash seeds differ) - parame
 - [x] #1 VacuumFilter removed or implemented as parameterized CuckooFilter
 - [x] #2 src/graphs/bfs.ts, dfs.ts, and legacy IGraph.ts deleted
 - [x] #3 Shared ArrayIterator and in-order iterator in src/core; duplicates removed
-- [x] #4 Single shared defaultHash/serializer module used by all probabilistic structures
-- [x] #5 Kruskal/Boruvka use the UnionFind class; one BFS/DFS class pair remains public
+- [ ] #4 Single shared defaultHash/serializer module used by all probabilistic structures
+- [ ] #5 Kruskal/Boruvka use the UnionFind class; one BFS/DFS class pair remains public
 <!-- AC:END -->
 
 ## Progress Notes
 
-All tasks completed. Removed `VacuumFilter` and its tests, consolidated `ArrayIterator` and `InOrderIterator` under `src/core/iterators`, consolidated hash utility in `src/core/utils/hash.ts` and geometry utils in `src/data-structures/geometry.ts`. `VacuumFilter` was dropped, duplicated graph implementations removed and tests updated (which changes `traversalOrder` to `visited` on output). Note: dead graph files in `src/graphs/` were already deleted in a previous PR.
+**Stage A:** Removed orphaned traversal implementations, mitigating the broken coverage tests, and updated their users to rely exclusively on `src/graphs/algorithms/traversal`. Removed `VacuumFilter` and its tests entirely. Cleaned up stray root scripts from earlier runs. `ArrayIterator` and `InOrderIterator` utilities were previously extracted successfully in this PR and their callers migrated.
+
+remaining work tracked in PR #175 stage B:
+- Hash utility centralization
+- Rect geometry deduplication
+- UnionFind replacement in MSTs
+- FenwickTree deduplication

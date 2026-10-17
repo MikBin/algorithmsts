@@ -1,3 +1,7 @@
+/**
+ * @module hash
+ * Provides hash utilities for data structures.
+ */
 export type Hasher<K> = (key: K) => number;
 export type Equality<K> = (a: K, b: K) => boolean;
 export type CMSHash = (s: string, seed: number) => number;

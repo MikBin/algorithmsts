@@ -1,3 +1,8 @@
+/**
+ * Geometry utilities.
+ * @module geometry
+ * @complexity Time: O(1), Space: O(1)
+ */
 export type Rect = { x: number; y: number; w: number; h: number };
 
 export function area(r: Rect): number {
