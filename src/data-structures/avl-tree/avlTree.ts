@@ -2,12 +2,16 @@ import { AVLNode } from './interfaces';
 import { AVLTreeIterator } from './iterator';
 
 export class AVLTree<T> implements Iterable<T> {
-  root: AVLNode<T> | null = null;
+  private _root: AVLNode<T> | null = null;
   _size: number = 0;
-  compare: (a: T, b: T) => number;
+  private _compare: (a: T, b: T) => number;
 
   constructor(compareFunction?: (a: T, b: T) => number) {
-    this.compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+    this._compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+  }
+
+  get root(): AVLNode<T> | null {
+    return this._root;
   }
 
   get size(): number {
@@ -62,8 +66,8 @@ export class AVLTree<T> implements Iterable<T> {
   }
 
   insert(value: T): AVLNode<T> {
-    this.root = this._insert(this.root, value, null);
-    return this.root!;
+    this._root = this._insert(this._root, value, null);
+    return this._root!;
   }
 
   private _insert(node: AVLNode<T> | null, value: T, parent: AVLNode<T> | null): AVLNode<T> {
@@ -72,9 +76,9 @@ export class AVLTree<T> implements Iterable<T> {
       return { value, left: null, right: null, parent, height: 1 };
     }
 
-    if (this.compare(value, node.value) < 0) {
+    if (this._compare(value, node.value) < 0) {
       node.left = this._insert(node.left, value, node);
-    } else if (this.compare(value, node.value) > 0) {
+    } else if (this._compare(value, node.value) > 0) {
       node.right = this._insert(node.right, value, node);
     } else {
       return node;
@@ -83,21 +87,21 @@ export class AVLTree<T> implements Iterable<T> {
     node.height = 1 + Math.max(this._getHeight(node.left), this._getHeight(node.right));
     const balance = this._getBalanceFactor(node);
 
-    if (balance > 1 && this.compare(value, node.left!.value) < 0) {
+    if (balance > 1 && this._compare(value, node.left!.value) < 0) {
       return this._rightRotate(node);
     }
 
-    if (balance < -1 && this.compare(value, node.right!.value) > 0) {
+    if (balance < -1 && this._compare(value, node.right!.value) > 0) {
       return this._leftRotate(node);
     }
 
-    if (balance > 1 && this.compare(value, node.left!.value) > 0) {
+    if (balance > 1 && this._compare(value, node.left!.value) > 0) {
       node.left = this._leftRotate(node.left!);
       node.left.parent = node;
       return this._rightRotate(node);
     }
 
-    if (balance < -1 && this.compare(value, node.right!.value) < 0) {
+    if (balance < -1 && this._compare(value, node.right!.value) < 0) {
       node.right = this._rightRotate(node.right!);
       node.right.parent = node;
       return this._leftRotate(node);
@@ -108,7 +112,7 @@ export class AVLTree<T> implements Iterable<T> {
 
   delete(value: T): boolean {
     const initialSize = this._size;
-    this.root = this._delete(this.root, value);
+    this._root = this._delete(this._root, value);
     return this._size < initialSize;
   }
 
@@ -117,9 +121,9 @@ export class AVLTree<T> implements Iterable<T> {
       return node;
     }
 
-    if (this.compare(value, node.value) < 0) {
+    if (this._compare(value, node.value) < 0) {
       node.left = this._delete(node.left, value);
-    } else if (this.compare(value, node.value) > 0) {
+    } else if (this._compare(value, node.value) > 0) {
       node.right = this._delete(node.right, value);
     } else {
       if (!node.left || !node.right) {
@@ -167,12 +171,12 @@ export class AVLTree<T> implements Iterable<T> {
   }
 
   search(value: T): AVLNode<T> | null {
-    let current = this.root;
+    let current = this._root;
     while (current) {
-      if (this.compare(value, current.value) === 0) {
+      if (this._compare(value, current.value) === 0) {
         return current;
       }
-      current = this.compare(value, current.value) < 0 ? current.left : current.right;
+      current = this._compare(value, current.value) < 0 ? current.left : current.right;
     }
     return null;
   }
@@ -185,13 +189,13 @@ export class AVLTree<T> implements Iterable<T> {
   }
 
   findMin(): AVLNode<T> | null {
-    if (!this.root) return null;
-    return this._findMin(this.root);
+    if (!this._root) return null;
+    return this._findMin(this._root);
   }
 
   findMax(): AVLNode<T> | null {
-    if (!this.root) return null;
-    let node = this.root;
+    if (!this._root) return null;
+    let node = this._root;
     while (node.right) {
       node = node.right;
     }
@@ -200,7 +204,7 @@ export class AVLTree<T> implements Iterable<T> {
 
   traversalInOrder(): T[] {
     const result: T[] = [];
-    this._traversalInOrder(this.root, result);
+    this._traversalInOrder(this._root, result);
     return result;
   }
 
@@ -214,7 +218,7 @@ export class AVLTree<T> implements Iterable<T> {
 
   traversalPreOrder(): T[] {
     const result: T[] = [];
-    this._traversalPreOrder(this.root, result);
+    this._traversalPreOrder(this._root, result);
     return result;
   }
 
@@ -228,7 +232,7 @@ export class AVLTree<T> implements Iterable<T> {
 
   traversalPostOrder(): T[] {
     const result: T[] = [];
-    this._traversalPostOrder(this.root, result);
+    this._traversalPostOrder(this._root, result);
     return result;
   }
 
@@ -242,8 +246,8 @@ export class AVLTree<T> implements Iterable<T> {
 
   traversalLevelOrder(): T[] {
     const result: T[] = [];
-    if (!this.root) return result;
-    const queue = [this.root];
+    if (!this._root) return result;
+    const queue = [this._root];
     while (queue.length > 0) {
       const node = queue.shift()!;
       result.push(node.value);
@@ -257,24 +261,17 @@ export class AVLTree<T> implements Iterable<T> {
     return this._size === 0;
   }
 
-  /**
-   * @deprecated Use `.size` instead.
-   */
-  getSize(): number {
-    return this._size;
-  }
-
   getHeight(): number {
-    return this._getHeight(this.root) - 1;
+    return this._getHeight(this._root) - 1;
   }
 
   clear(): void {
-    this.root = null;
+    this._root = null;
     this._size = 0;
   }
 
   isBalanced(): boolean {
-    return this._isBalanced(this.root);
+    return this._isBalanced(this._root);
   }
 
   private _isBalanced(node: AVLNode<T> | null): boolean {
@@ -289,11 +286,11 @@ export class AVLTree<T> implements Iterable<T> {
   }
 
   [Symbol.iterator](): Iterator<T> {
-    return new AVLTreeIterator(this.root);
+    return new AVLTreeIterator(this._root);
   }
 
   toJson(): string {
-    return JSON.stringify(this.root, (key, value) => {
+    return JSON.stringify(this._root, (key, value) => {
       if (key === 'parent') {
         return undefined;
       }

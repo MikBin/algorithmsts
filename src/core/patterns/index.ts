@@ -6,16 +6,6 @@
  * create flexible, maintainable, and extensible code.
  */
 
-// Abstract Factory Pattern
-export type {
-  IAbstractFactory
-} from './AbstractFactory';
-export {
-  ListFactory,
-  TreeFactory,
-  FactoryCreator
-} from './AbstractFactory';
-
 // Strategy Pattern
 export type {
   IStrategy,
@@ -37,23 +27,6 @@ export {
   SearchAlgorithm,
   DataProcessingAlgorithm
 } from './TemplateMethod';
-
-/**
- * Abstract Factory Pattern
- *
- * Provides an interface for creating families of related or dependent objects
- * without specifying their concrete classes. Useful for creating related data
- * structures and algorithms together.
- *
- * @example
- * ```typescript
- * import { FactoryCreator } from 'algorithmsts/core/patterns';
- *
- * const factory = FactoryCreator.createFactory<number>('list');
- * const dataStructure = factory.createDataStructure();
- * const algorithm = factory.createAlgorithm();
- * ```
- */
 
 /**
  * Strategy Pattern

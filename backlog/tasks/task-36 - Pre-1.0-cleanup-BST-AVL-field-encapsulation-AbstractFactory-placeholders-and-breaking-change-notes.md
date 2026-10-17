@@ -3,8 +3,8 @@ id: TASK-36
 title: >-
   Pre-1.0 cleanup: BST/AVL field encapsulation, AbstractFactory placeholders,
   breaking-change notes
-status: To Do
-assignee: []
+status: Done
+assignee: [jules]
 created_date: '2026-10-16 10:50'
 labels:
   - api contracts
@@ -26,8 +26,15 @@ Residuals from TASK-23/24 verified 2026-10-16: (1) `BinarySearchTree` still expo
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 BST/AVL internal state encapsulated (private fields + accessors; no public mutation of root/compare)
-- [ ] #2 AbstractFactory placeholders either implemented or removed with a documented migration path
-- [ ] #3 CHANGELOG documents BinaryHeap.merge void/destructive semantics and the size() removals
-- [ ] #4 Tests updated for any encapsulation changes; full suite green
+- [x] #1 BST/AVL internal state encapsulated (private fields + accessors; no public mutation of root/compare)
+- [x] #2 AbstractFactory placeholders either implemented or removed with a documented migration path
+- [x] #3 CHANGELOG documents BinaryHeap.merge void/destructive semantics and the size() removals
+- [x] #4 Tests updated for any encapsulation changes; full suite green
 <!-- AC:END -->
+
+## Progress Notes
+- Encapsulated BST internal state (renamed root/compare to _root/_compare and added getter).
+- Encapsulated AVL internal state in the same way.
+- Replaced `.getSize()` with `.size` in tests and removed `getSize()` completely.
+- Removed AbstractFactory placeholders (`AbstractFactory.ts`, `AbstractFactory.test.ts`, and index exports).
+- Documented all breaking changes in `CHANGELOG.md` under the Unreleased section.

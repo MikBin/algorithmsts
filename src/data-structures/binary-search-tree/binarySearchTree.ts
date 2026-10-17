@@ -10,16 +10,20 @@ import { inOrderTraversal } from './iterator';
  * - There must be no duplicate keys
  */
 export class BinarySearchTree<T> {
-  root: BSTNode<T> | null = null;
+  private _root: BSTNode<T> | null = null;
   _size: number = 0;
-  compare: (a: T, b: T) => number;
+  private _compare: (a: T, b: T) => number;
 
   /**
    * @param compareFunction Optional custom comparison function.
    * If not provided, a default one will be used.
    */
   constructor(compareFunction?: (a: T, b: T) => number) {
-    this.compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+    this._compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+  }
+
+  get root(): BSTNode<T> | null {
+    return this._root;
   }
 
   get size(): number {
@@ -34,15 +38,15 @@ export class BinarySearchTree<T> {
   insert(value: T): BSTNode<T> {
     const newNode: BSTNode<T> = { value, left: null, right: null, parent: null };
 
-    if (this.root === null) {
-      this.root = newNode;
+    if (this._root === null) {
+      this._root = newNode;
       this._size++;
       return newNode;
     }
 
-    let currentNode = this.root;
+    let currentNode = this._root;
     while (currentNode) {
-      const comparison = this.compare(value, currentNode.value);
+      const comparison = this._compare(value, currentNode.value);
 
       if (comparison < 0) {
         if (currentNode.left === null) {
@@ -107,7 +111,7 @@ export class BinarySearchTree<T> {
   private replaceNodeInParent(node: BSTNode<T>, newNode: BSTNode<T> | null) {
     const parent = node.parent;
     if (parent === null) {
-      this.root = newNode;
+      this._root = newNode;
     } else if (node === parent.left) {
       parent.left = newNode;
     } else {
@@ -125,9 +129,9 @@ export class BinarySearchTree<T> {
    * @returns The node containing the value, or `null` if not found.
    */
   search(value: T): BSTNode<T> | null {
-    let currentNode = this.root;
+    let currentNode = this._root;
     while (currentNode) {
-      const comparison = this.compare(value, currentNode.value);
+      const comparison = this._compare(value, currentNode.value);
       if (comparison === 0) {
         return currentNode;
       } else if (comparison < 0) {
@@ -144,10 +148,10 @@ export class BinarySearchTree<T> {
    * @returns The node containing the minimum value, or `null` if the tree is empty.
    */
   findMin(): BSTNode<T> | null {
-    if (this.root === null) {
+    if (this._root === null) {
       return null;
     }
-    return this.findMinNode(this.root);
+    return this.findMinNode(this._root);
   }
 
   /**
@@ -155,10 +159,10 @@ export class BinarySearchTree<T> {
    * @returns The node containing the maximum value, or `null` if the tree is empty.
    */
   findMax(): BSTNode<T> | null {
-    if (this.root === null) {
+    if (this._root === null) {
       return null;
     }
-    return this.findMaxNode(this.root);
+    return this.findMaxNode(this._root);
   }
 
   /**
@@ -193,7 +197,7 @@ export class BinarySearchTree<T> {
    */
   traversalInOrder(): T[] {
     const result: T[] = [];
-    this.inOrder(this.root, result);
+    this.inOrder(this._root, result);
     return result;
   }
 
@@ -211,7 +215,7 @@ export class BinarySearchTree<T> {
    */
   traversalPreOrder(): T[] {
     const result: T[] = [];
-    this.preOrder(this.root, result);
+    this.preOrder(this._root, result);
     return result;
   }
 
@@ -229,7 +233,7 @@ export class BinarySearchTree<T> {
    */
   traversalPostOrder(): T[] {
     const result: T[] = [];
-    this.postOrder(this.root, result);
+    this.postOrder(this._root, result);
     return result;
   }
 
@@ -247,11 +251,11 @@ export class BinarySearchTree<T> {
    */
   traversalLevelOrder(): T[] {
     const result: T[] = [];
-    if (this.root === null) {
+    if (this._root === null) {
       return result;
     }
 
-    const queue: BSTNode<T>[] = [this.root];
+    const queue: BSTNode<T>[] = [this._root];
     while (queue.length > 0) {
       const node = queue.shift()!;
       result.push(node.value);
@@ -270,16 +274,7 @@ export class BinarySearchTree<T> {
    * @returns `true` if the tree is empty, `false` otherwise.
    */
   isEmpty(): boolean {
-    return this.root === null;
-  }
-
-  /**
-   * @notice Gets the number of nodes in the BST.
-   * @returns The number of nodes.
-   * @deprecated Use `.size` instead.
-   */
-  getSize(): number {
-    return this._size;
+    return this._root === null;
   }
 
   /**
@@ -287,7 +282,7 @@ export class BinarySearchTree<T> {
    * @returns The height of the tree.
    */
   getHeight(): number {
-    return this.getNodeHeight(this.root);
+    return this.getNodeHeight(this._root);
   }
 
   private getNodeHeight(node: BSTNode<T> | null): number {
@@ -303,19 +298,19 @@ export class BinarySearchTree<T> {
    * @notice Clears the BST.
    */
   clear(): void {
-    this.root = null;
+    this._root = null;
     this._size = 0;
   }
 
   [Symbol.iterator](): Generator<T, void, unknown> {
-    return inOrderTraversal(this.root);
+    return inOrderTraversal(this._root);
   }
   /**
    * @notice Converts the BST to a JSON representation.
    * @returns A JSON object representing the tree structure.
    */
   toJson(): string {
-    return JSON.stringify(this.root, (key, value) => {
+    return JSON.stringify(this._root, (key, value) => {
       if (key === 'parent') {
         return undefined; // Exclude parent to avoid circular references
       }

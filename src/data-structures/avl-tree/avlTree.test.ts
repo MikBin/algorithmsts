@@ -12,7 +12,7 @@ describe('AVLTree', () => {
 
     expect(tree.isBalanced()).toBe(true);
     expect(tree.traversalInOrder()).toEqual([10, 20, 25, 30, 40, 50]);
-    expect(tree.getSize()).toBe(6);
+    expect(tree.size).toBe(6);
   });
 
   it('should handle left-right rotation', () => {
@@ -45,12 +45,12 @@ describe('AVLTree', () => {
     tree.delete(40);
     expect(tree.isBalanced()).toBe(true);
     expect(tree.traversalInOrder()).toEqual([10, 20, 25, 30, 50]);
-    expect(tree.getSize()).toBe(5);
+    expect(tree.size).toBe(5);
 
     tree.delete(10);
     expect(tree.isBalanced()).toBe(true);
     expect(tree.traversalInOrder()).toEqual([20, 25, 30, 50]);
-    expect(tree.getSize()).toBe(4);
+    expect(tree.size).toBe(4);
   });
 
   it('should search for values', () => {
@@ -98,7 +98,7 @@ describe('AVLTree', () => {
     tree.insert(10);
     tree.insert(20);
     tree.clear();
-    expect(tree.getSize()).toBe(0);
+    expect(tree.size).toBe(0);
     expect(tree.root).toBe(null);
   });
 
