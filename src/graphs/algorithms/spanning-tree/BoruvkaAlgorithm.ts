@@ -1,16 +1,19 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import type { ISpanningTreeResult } from './KruskalAlgorithm';
+import { UnionFind } from "../../../data-structures/disjoint-set/unionFind";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import type { ISpanningTreeResult } from "./KruskalAlgorithm";
 
 /**
  * Borůvka's algorithm for Minimum Spanning Tree on undirected weighted graphs.
  * Time: O(E log V)
  */
-export class BoruvkaAlgorithm<T, W extends number = number>
-  extends BaseAlgorithm<IGraph<T, W>, ISpanningTreeResult<T, W>> {
+export class BoruvkaAlgorithm<T, W extends number = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ISpanningTreeResult<T, W>
+> {
   constructor() {
-    super('Borůvka\'s Algorithm', 'O(E log V)', 'O(V + E)');
+    super("Borůvka's Algorithm", "O(E log V)", "O(V + E)");
   }
 
   public execute(graph: IGraph<T, W>): ISpanningTreeResult<T, W> {
@@ -24,33 +27,18 @@ export class BoruvkaAlgorithm<T, W extends number = number>
     // Prepare edges list with weights
     const edgeList: Array<{ from: T; to: T; weight: W }> = [];
     for (const e of edges) {
-      if (e.length !== 3) throw new ArgumentError('All edges must have weights for MST algorithms');
+      if (e.length !== 3) throw new ArgumentError("All edges must have weights for MST algorithms");
       const [u, v, w] = e as [T, T, W];
       edgeList.push({ from: u, to: v, weight: w });
     }
 
     // Union-Find
-    const parent = new Map<T, T>();
-    const rank = new Map<T, number>();
-    for (const v of vertices) {
-      parent.set(v, v);
-      rank.set(v, 0);
-    }
-    const find = (x: T): T => {
-      if (parent.get(x)! !== x) parent.set(x, find(parent.get(x)!));
-      return parent.get(x)!;
-    };
-    const union = (a: T, b: T) => {
-      const ra = find(a);
-      const rb = find(b);
-      if (ra === rb) return;
-      if (rank.get(ra)! < rank.get(rb)!) parent.set(ra, rb);
-      else if (rank.get(ra)! > rank.get(rb)!) parent.set(rb, ra);
-      else {
-        parent.set(rb, ra);
-        rank.set(ra, rank.get(ra)! + 1);
-      }
-    };
+    if (vertices.length === 0) return { edges: [], totalWeight: 0 as W, found: false };
+    const uf = new UnionFind(vertices.length);
+    const v2i = new Map<T, number>();
+    vertices.forEach((v, i) => v2i.set(v, i));
+    const find = (x: T): T => vertices[uf.find(v2i.get(x)!)];
+    const union = (a: T, b: T) => uf.union(v2i.get(a)!, v2i.get(b)!);
 
     const mstEdges: Array<{ from: T; to: T; weight: W }> = [];
     let totalWeight = 0 as W;

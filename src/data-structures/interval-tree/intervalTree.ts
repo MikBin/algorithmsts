@@ -5,7 +5,7 @@ export type Interval = { start: number; end: number };
 
 class Node {
   constructor(
-    public key: Interval,
+    public interval: Interval,
     public max: number,
     public left: Node | null = null,
     public right: Node | null = null,
@@ -33,7 +33,7 @@ export class IntervalTree {
 
   private _insert(node: Node | null, it: Interval): Node {
     if (!node) return new Node(it, it.end);
-    if (it.start < node.key.start) node.left = this._insert(node.left, it);
+    if (it.start < node.interval.start) node.left = this._insert(node.left, it);
     else node.right = this._insert(node.right, it);
     node.max = Math.max(node.max, it.end);
     return node;
@@ -48,22 +48,22 @@ export class IntervalTree {
   private _search(node: Node | null, q: Interval, res: Interval[]): void {
     if (!node) return;
     if (node.left && node.left.max >= q.start) this._search(node.left, q, res);
-    if (node.key.start <= q.end && node.key.end >= q.start) res.push(node.key);
-    if (node.right && node.key.start <= q.end) this._search(node.right, q, res);
+    if (node.interval.start <= q.end && node.interval.end >= q.start) res.push(node.interval);
+    if (node.right && node.interval.start <= q.end) this._search(node.right, q, res);
   }
 
   private _remove(node: Node | null, it: Interval): [Node | null, boolean] {
     if (!node) return [null, false];
     let removed = false;
-    if (it.start < node.key.start) {
+    if (it.start < node.interval.start) {
       const [l, r] = this._remove(node.left, it);
       node.left = l;
       removed = r;
-    } else if (it.start > node.key.start) {
+    } else if (it.start > node.interval.start) {
       const [ri, r] = this._remove(node.right, it);
       node.right = ri;
       removed = r;
-    } else if (it.end === node.key.end) {
+    } else if (it.end === node.interval.end) {
       removed = true;
       if (!node.left) return [node.right, true];
       if (!node.right) return [node.left, true];
@@ -74,7 +74,7 @@ export class IntervalTree {
         minPar = min!;
         min = min!.left;
       }
-      node.key = min!.key;
+      node.interval = min!.interval;
       if (minPar.left === min) minPar.left = min!.right;
       else minPar.right = min!.right;
     } else {
@@ -83,7 +83,7 @@ export class IntervalTree {
       removed = r;
     }
     node.max = Math.max(
-      node.key.end,
+      node.interval.end,
       node.left ? node.left.max : -Infinity,
       node.right ? node.right.max : -Infinity,
     );
@@ -95,7 +95,7 @@ export class IntervalTree {
     this._size = 0;
   }
   iterator(): IIterator<Interval> {
-    return new InOrderIterator<Interval>(this.root as any);
+    return new InOrderIterator(this.root);
   }
   toArray(): Interval[] {
     const a: Interval[] = [];

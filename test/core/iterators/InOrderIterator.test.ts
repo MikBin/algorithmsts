@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { InOrderIterator, IBinaryTreeNode } from "../../../src/core/iterators/InOrderIterator";
+import { InOrderIterator } from "../../../src/core/iterators/InOrderIterator";
 
 describe("InOrderIterator", () => {
   it("should traverse in order", () => {
-    const root: IBinaryTreeNode<number> = {
+    const root = {
       key: 2,
       left: { key: 1, left: null, right: null },
       right: { key: 3, left: null, right: null },
@@ -24,12 +24,13 @@ describe("InOrderIterator", () => {
     expect(() => iter.current()).toThrow("No current element");
   });
 
-  it("should support current", () => {
-    const root: IBinaryTreeNode<number> = { key: 1, left: null, right: null };
+  it("should support current (staged next)", () => {
+    const root = { key: 1, left: null, right: null };
     const iter = new InOrderIterator(root);
     expect(() => iter.current()).toThrow("No current element");
     iter.hasNext();
-    iter.next();
     expect(iter.current()).toBe(1);
+    iter.next();
+    expect(() => iter.current()).toThrow("No current element");
   });
 });
