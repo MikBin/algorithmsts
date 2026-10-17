@@ -10,7 +10,7 @@ import {
   NgramSimilarityOutput,
   JaroDistanceOutput,
 } from "../../../src/algorithms/strings";
-import { BreadthFirstSearch } from "../../../src/algorithms/graphs/traversal";
+import { BreadthFirstSearch } from "../../../src/graphs/algorithms/traversal";
 import { IGraph } from "../../../src/graphs/interfaces/IGraph";
 
 describe("Algorithm Performance Benchmark Integration Tests", () => {
@@ -189,7 +189,7 @@ describe("Algorithm Performance Benchmark Integration Tests", () => {
             if (node < size - 1) neighbors.push(node + 1);
             return neighbors;
           },
-          getNodes: () => Array.from({ length: size }, (_, i) => i),
+          getVertices: () => Array.from({ length: size }, (_, i) => i),
           isDirected: () => false,
         };
         return graph as IGraph<number>;
@@ -199,8 +199,8 @@ describe("Algorithm Performance Benchmark Integration Tests", () => {
       const graph10 = createTestGraph(10);
       const res = bfs.execute({ graph: graph10, startNode: 0 });
 
-      expect(res.traversalOrder.length).toBe(10);
-      expect(res.traversalOrder).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+      expect(res.visited.length).toBe(10);
+      expect(res.visited).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     });
   });
 

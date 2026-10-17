@@ -8,10 +8,10 @@
  */
 
 // Searching algorithms
-export { BinarySearch, BinaryClosestSearch } from './searching/binary-search';
+export { BinarySearch, BinaryClosestSearch } from "./searching/binary-search";
 
 // Sorting algorithms
-export { CountingSort, RadixSortNumbers, RadixSortStrings } from './sorting';
+export { CountingSort, RadixSortNumbers, RadixSortStrings } from "./sorting";
 
 // String algorithms
 export {
@@ -21,21 +21,15 @@ export {
   SplitByUpperCase,
   JaroDistance,
   JaroWinklerDistance,
-  LevenshteinDistance
-} from './strings';
+  LevenshteinDistance,
+} from "./strings";
 
 // Graph traversal algorithms
-export { BreadthFirstSearch, DepthFirstSearch } from './graphs/traversal';
+export { BreadthFirstSearch, DepthFirstSearch } from "../graphs/algorithms/traversal";
 
 // Range query algorithms
-export { SparseTable } from './range-queries/sparse-table';
+export { SparseTable } from "./range-queries/sparse-table";
 
 // Algorithm utilities
-export {
-  AlgorithmSelector,
-  AlgorithmTestUtils
-} from './utils';
-export type {
-  SelectionCriteria,
-  AlgorithmSelectionResult
-} from './utils';
+export { AlgorithmSelector, AlgorithmTestUtils } from "./utils";
+export type { SelectionCriteria, AlgorithmSelectionResult } from "./utils";
