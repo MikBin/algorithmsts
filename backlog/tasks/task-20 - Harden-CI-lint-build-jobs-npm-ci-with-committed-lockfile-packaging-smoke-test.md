@@ -3,7 +3,7 @@ id: TASK-20
 title: >-
   Harden CI: lint + build jobs, npm ci with committed lockfile, packaging smoke
   test
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-12 10:38'
 updated_date: '2026-10-12 10:41'
@@ -40,3 +40,5 @@ ordinal: 20000
 2026-10-17: Completed TASK-20. Added lint and packaging jobs to CI workflow. Replaced npm install with npm ci in all CI jobs. Un-ignored package-lock.json in .gitignore and generated it locally. Verified that branch triggers and typedoc gitRevision align on master. CI will validate the real-world outcome on the PR and master branches.
 
 2026-10-17: Regenerated `package-lock.json` with npm 10 via `npx npm@10 install --package-lock-only` to resolve `Missing: conventional-commits-parser@6.4.0` error in CI where Node 22 uses npm 10. Validated with `npx npm@10 ci --dry-run --ignore-scripts` exiting successfully. Reverted status to In Progress until CI completes successfully.
+
+2026-10-17: Lockfile regenerated with npm@10 (npx npm@10 install --package-lock-only; npm@10 ci --dry-run exit 0). CI green on 2efc068: lint, build, packaging jobs all success (run 39021122232).
