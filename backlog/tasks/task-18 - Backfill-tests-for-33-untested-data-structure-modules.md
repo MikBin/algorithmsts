@@ -1,7 +1,7 @@
 ---
 id: TASK-18
 title: Backfill tests for 33 untested data-structure modules
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-12 10:38'
 labels:
@@ -25,8 +25,9 @@ Roughly 33 of 74 exported data structures have zero test references anywhere in 
 - [x] #1 Every exported data structure has a test file in test/ mirroring src/
 - [x] #2 Tests cover normal, edge (empty/single/duplicate), and invalid-input cases per AGENTS.md
 - [x] #3 Modules with known bug fixes (TASK-2..TASK-8) tested first
-- [ ] #4 Move the three test files co-located in src/ to test/ (deferred until TASK-16 merges (conflict avoidance); follow-up moves the 3 co-located src test files)
+- [x] #4 Move the three test files co-located in src/ to test/ (done in PR #176)
 <!-- AC:END -->
 
 ## Progress Notes
 - Added real, concrete assertion test files for the 33 data structure modules, covering normal, edge (empty/single/duplicate), and exact invalid-input/error-throwing cases (where implementations actually throw). Includes extra test files for d-ary-heap, hash-map, leftist-heap, patricia-trie, binomial-heap, aho-corasick, and hash-set. Reverted modifications to original base test files. Validated thoroughly with vitest and eslint.
+- 2026-10-17: Three co-located src test files (fenwickTree, avlTree, redBlackTree) moved to test/; import paths updated; suite + coverage gate green (moves activate 11 previously-unexecuted fenwick assertions).

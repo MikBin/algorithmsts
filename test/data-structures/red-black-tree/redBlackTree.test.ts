@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { RedBlackTree } from '../../../src/data-structures/red-black-tree/index';
+import { RedBlackTree } from '../../../src/data-structures/red-black-tree/redBlackTree';
 
 describe('RedBlackTree', () => {
   it('should insert values and maintain properties', () => {
