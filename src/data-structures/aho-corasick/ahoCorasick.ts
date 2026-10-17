@@ -11,11 +11,6 @@ export class AhoCorasick {
   private patterns: string[] = [];
 
   /**
-   * Creates a new AhoCorasick structure.
-   */
-  constructor() {}
-
-  /**
    * Adds a pattern to the trie.
    * @param pattern - The pattern to add
    * @complexity Time: O(m) (pattern length m) | Space: O(m)
@@ -32,7 +27,7 @@ export class AhoCorasick {
 
   /**
    * Builds the failure and dictionary links.
-   * @complexity Time: O(S + n·k) amortized for constructing the trie + failure links (S = total stored characters) | Space: O(S)
+   * @complexity Time: amortized O(S) for failure links + O(Σ|output|) for dictionary-link propagation | Space: O(S + Σ|output|)
    */
   build(): void {
     const queue: ACNode[] = [];

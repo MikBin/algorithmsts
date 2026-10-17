@@ -13,6 +13,10 @@ class AANode<T> {
 
 export class AATree<T> extends BaseDataStructure<T> {
   private root: AANode<T> | null = null;
+  /**
+   * Creates a new AATree.
+   * @param compare Comparison function used to order keys
+   */
   constructor(private compare: (a: T, b: T) => number) {
     super();
   }
@@ -40,7 +44,6 @@ export class AATree<T> extends BaseDataStructure<T> {
     return node;
   }
 
-
   /**
    * Adds a key to the tree.
    * @param key - The key to add
@@ -62,7 +65,6 @@ export class AATree<T> extends BaseDataStructure<T> {
     return node;
   }
 
-
   /**
    * Checks if the tree contains a key.
    * @param key - The key to check
@@ -78,7 +80,6 @@ export class AATree<T> extends BaseDataStructure<T> {
     }
     return false;
   }
-
 
   /**
    * Removes a key from the tree.
@@ -128,7 +129,6 @@ export class AATree<T> extends BaseDataStructure<T> {
     }
     return [node, removed];
   }
-
 
   /**
    * Clears the tree.
