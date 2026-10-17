@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Changes
+- **Graph traversal**: `BreadthFirstSearch` and `DepthFirstSearch` results now expose their output via the `visited` array instead of `traversalOrder`.
+
 ### Breaking
 - **Data Structure Encapsulation**: Internal states for `BinarySearchTree` and `AVLTree` (`root` and `compare`) are now fully encapsulated. Public read-only access is provided via getters.
 - **Removed API Placeholders**: `AbstractFactory` pattern placeholders (`ListFactory`, `TreeFactory`, `FactoryCreator`, `IAbstractFactory`) have been completely removed. Migration: No replacement; all factory methods always threw `ArgumentError`. Remove imports and instantiate concrete classes directly.
@@ -185,6 +188,3 @@ branches) for `src/vector-similarity/**`.
 
 ### Security
 - N/A (initial release)
-
-### Breaking Changes
-- **Graph traversal**: `BreadthFirstSearch` and `DepthFirstSearch` results now expose their output via the `visited` array instead of `traversalOrder`.

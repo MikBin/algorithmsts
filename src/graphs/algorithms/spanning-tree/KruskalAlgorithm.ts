@@ -138,6 +138,10 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
     }
     edgeList.sort((a, b) => (a.weight as unknown as number) - (b.weight as unknown as number));
 
+    if (vertices.length === 0) {
+      yield { type: "finished", visited: new Set(vertices), mst: [], message: "MST Completed" };
+      return;
+    }
     const uf = new UnionFind(vertices.length);
     const v2i = new Map<T, number>();
     vertices.forEach((v, i) => v2i.set(v, i));

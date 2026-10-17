@@ -27,7 +27,7 @@ VacuumFilter is ~95% identical to CuckooFilter (only hash seeds differ) - parame
 - [x] #1 VacuumFilter removed or implemented as parameterized CuckooFilter
 - [x] #2 src/graphs/bfs.ts, dfs.ts, and legacy IGraph.ts deleted
 - [x] #3 Shared ArrayIterator and in-order iterator in src/core; duplicates removed
-- [x] #4 Single shared defaultHash/serializer module used by all probabilistic structures
+- [ ] #4 Single shared defaultHash/serializer module used by all probabilistic structures (deliberately deferred: inline hashers are semantically divergent; needs behavior changes — future work) Single shared defaultHash/serializer module used by all probabilistic structures
 - [x] #5 Kruskal/Boruvka use the UnionFind class; one BFS/DFS class pair remains public
 <!-- AC:END -->
 
@@ -35,4 +35,4 @@ VacuumFilter is ~95% identical to CuckooFilter (only hash seeds differ) - parame
 
 **Stage A:** Removed orphaned traversal implementations, mitigating the broken coverage tests, and updated their users to rely exclusively on `src/graphs/algorithms/traversal`. Removed `VacuumFilter` and its tests entirely. Cleaned up stray root scripts from earlier runs. `ArrayIterator` and `InOrderIterator` utilities were previously extracted successfully in this PR and their callers migrated.
 
-**Stage B:** Completed remaining tasks. Wired shared `UnionFind` into Kruskal and Boruvka algorithms. Delegated `FenwickTree.findPrefixSum` to `findKth`. Restored original peek/current semantics in `InOrderIterator` and removed `as any` casting in `IntervalTree`. Consolidated hash and geometry utility imports throughout the probabilistic data structures and R-Trees.
+2026-10-17: hash/geometry consolidation deliberately deferred (see AC4); everything else delivered and green.
