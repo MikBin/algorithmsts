@@ -26,6 +26,10 @@ export class BinarySearchTree<T> {
     return this._root;
   }
 
+  get compare(): (a: T, b: T) => number {
+    return this._compare;
+  }
+
   get size(): number {
     return this._size;
   }

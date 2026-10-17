@@ -8,7 +8,7 @@ This document outlines the standard API contracts and behaviors for all data str
 
 ## 2. Size Access
 - **`get size()`**: Every data structure must expose a read-only `get size(): number` property for O(1) access to the number of elements it contains.
-- **Deprecations**: Older methods such as `getSize()` or `size()` are deprecated but maintained for backward compatibility. Users are strongly encouraged to migrate to `get size()`.
+- **Deprecations**: Older methods such as `getSize()` or `size()` are removed from `BinarySearchTree` and `AVLTree` (as well as `PriorityQueue` and `ViolationHeap`), though they may still be deprecated but maintained in other structures for backward compatibility. Users are strongly encouraged to migrate to `get size()`.
 
 ## 3. Element Not Found Returns
 - **`null` vs `undefined` vs `-1`**: Operations that retrieve an element (e.g., `find`, `search`, `peek`, `poll`) will uniformly return `null` if the target element is not found or the structure is empty. Returns of `undefined`, `-1`, or custom sentinel values for "not found" are explicitly disallowed in these contexts to ensure consistent handling across the library.

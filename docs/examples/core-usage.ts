@@ -29,7 +29,6 @@ import {
   ArgumentError,
 
   // Design patterns
-  IAbstractFactory,
   IStrategy,
   AlgorithmTemplate,
 } from "@mikbin80/algorithmsts/core";

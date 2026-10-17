@@ -30,6 +30,7 @@ PR #154 retyped the throws in `src/core/patterns` (AbstractFactory, StrategyCont
 <!-- AC:END -->
 
 ## Progress Notes
+- *Note: `AbstractFactory` and its tests were removed in PR #170 (TASK-36).*
 - Added tests for `AbstractFactory` (ListFactory, TreeFactory, FactoryCreator) with ArgumentError checks.
 - Added tests for `Strategy` (StrategyContext, BubbleSortStrategy, QuickSortStrategy, LinearSearchStrategy, BinarySearchStrategy).
 - Added tests for `TemplateMethod` (SortingAlgorithm, SearchAlgorithm, DataProcessingAlgorithm) with ArgumentError checks for validateInput.
