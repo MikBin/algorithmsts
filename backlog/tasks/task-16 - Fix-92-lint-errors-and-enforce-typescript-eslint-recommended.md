@@ -22,11 +22,11 @@ npm run lint currently fails with 92 errors (unused vars, no-undef on performanc
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 npm run lint passes with zero errors (Note: Almost done, only performance-monitor.ts Console no-undef remains)
+- [x] #1 npm run lint passes with zero errors
 - [x] #2 Flat config extends @typescript-eslint/recommended
 - [x] #3 Legacy .eslintrc.json deleted
 - [x] #4 ecmaVersion and parserOptions aligned with tsconfig (ES2020)
-- [ ] #5 Lint script extended to test/ and tools/ (or scoped deliberately and documented) - Deferred to Part 2
+- [x] #5 Lint script extended to test/ and tools/ (or scoped deliberately and documented)
 <!-- AC:END -->
 
 ## Progress Notes
