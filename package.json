@@ -100,7 +100,7 @@
     "@playwright/test": "^1.57.0",
     "@release-it/conventional-changelog": "^9.0.4",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/d3": "^7.4.3",
     "@types/eslint-plugin-prettier": "^3.1.3",
