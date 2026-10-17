@@ -185,3 +185,6 @@ branches) for `src/vector-similarity/**`.
 
 ### Security
 - N/A (initial release)
+
+### Breaking Changes
+- **Graph traversal**: `BreadthFirstSearch` and `DepthFirstSearch` results now expose their output via the `visited` array instead of `traversalOrder`.

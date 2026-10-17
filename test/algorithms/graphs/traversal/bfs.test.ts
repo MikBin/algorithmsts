@@ -1,10 +1,9 @@
+import { BreadthFirstSearch } from "../../../../src/graphs/algorithms/traversal";
+import { AdjacencyListGraph } from "../../../../src/graphs/structures/AdjacencyListGraph";
+import { describe, it, expect } from "vitest";
 
-import { BreadthFirstSearch } from '../../../../src/algorithms/graphs/traversal';
-import { AdjacencyListGraph } from '../../../../src/graphs/structures/AdjacencyListGraph';
-import { describe, it, expect } from 'vitest';
-
-describe('BreadthFirstSearch', () => {
-  it('should traverse the graph in BFS order', () => {
+describe("BreadthFirstSearch", () => {
+  it("should traverse the graph in BFS order", () => {
     const graph = new AdjacencyListGraph<number>();
     graph.addVertex(1);
     graph.addVertex(2);
@@ -19,10 +18,10 @@ describe('BreadthFirstSearch', () => {
 
     const bfs = new BreadthFirstSearch<number>();
     const result = bfs.execute({ graph, startNode: 1 });
-    expect(result.traversalOrder).toEqual([1, 2, 3, 4, 5]);
+    expect(result.visited).toEqual([1, 2, 3, 4, 5]);
   });
 
-  it('should handle a disconnected graph', () => {
+  it("should handle a disconnected graph", () => {
     const graph = new AdjacencyListGraph<number>();
     graph.addVertex(1);
     graph.addVertex(2);
@@ -32,19 +31,19 @@ describe('BreadthFirstSearch', () => {
 
     const bfs = new BreadthFirstSearch<number>();
     const result = bfs.execute({ graph, startNode: 1 });
-    expect(result.traversalOrder).toEqual([1, 2]);
+    expect(result.visited).toEqual([1, 2]);
   });
 
-  it('should handle a graph with a single node', () => {
+  it("should handle a graph with a single node", () => {
     const graph = new AdjacencyListGraph<number>();
     graph.addVertex(1);
 
     const bfs = new BreadthFirstSearch<number>();
     const result = bfs.execute({ graph, startNode: 1 });
-    expect(result.traversalOrder).toEqual([1]);
+    expect(result.visited).toEqual([1]);
   });
 
-  it('should handle object nodes correctly', () => {
+  it("should handle object nodes correctly", () => {
     const graph = new AdjacencyListGraph<{ id: number }>();
     const node1 = { id: 1 };
     const node2 = { id: 2 };
@@ -58,6 +57,6 @@ describe('BreadthFirstSearch', () => {
 
     const bfs = new BreadthFirstSearch<{ id: number }>();
     const result = bfs.execute({ graph, startNode: node1 });
-    expect(result.traversalOrder).toEqual([node1, node2]);
+    expect(result.visited).toEqual([node1, node2]);
   });
 });

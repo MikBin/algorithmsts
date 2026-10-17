@@ -1,4 +1,4 @@
-import { DepthFirstSearch } from "../../../../src/algorithms/graphs/traversal";
+import { DepthFirstSearch } from "../../../../src/graphs/algorithms/traversal";
 import { AdjacencyListGraph } from "../../../../src/graphs/structures/AdjacencyListGraph";
 import { describe, it, expect } from "vitest";
 
@@ -21,7 +21,7 @@ describe("DepthFirstSearch", () => {
 
     const dfs = new DepthFirstSearch<number>();
     const result = dfs.execute({ graph, startNode: 1 });
-    expect(result.traversalOrder).toEqual([1, 2, 4, 3, 5]);
+    expect(result.visited).toEqual([1, 2, 4, 3, 5]);
   });
 
   it("should handle a disconnected graph", () => {
@@ -34,7 +34,7 @@ describe("DepthFirstSearch", () => {
 
     const dfs = new DepthFirstSearch<number>();
     const result = dfs.execute({ graph, startNode: 1 });
-    expect(result.traversalOrder).toEqual([1, 2]);
+    expect(result.visited).toEqual([1, 2]);
   });
 
   it("should handle a graph with a single node", () => {
@@ -43,7 +43,7 @@ describe("DepthFirstSearch", () => {
 
     const dfs = new DepthFirstSearch<number>();
     const result = dfs.execute({ graph, startNode: 1 });
-    expect(result.traversalOrder).toEqual([1]);
+    expect(result.visited).toEqual([1]);
   });
 
   it("should handle object nodes correctly", () => {
@@ -60,6 +60,6 @@ describe("DepthFirstSearch", () => {
 
     const dfs = new DepthFirstSearch<{ id: number }>();
     const result = dfs.execute({ graph, startNode: node1 });
-    expect(result.traversalOrder).toEqual([node1, node2]);
+    expect(result.visited).toEqual([node1, node2]);
   });
 });

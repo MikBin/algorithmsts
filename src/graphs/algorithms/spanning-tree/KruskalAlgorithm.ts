@@ -1,6 +1,7 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { UnionFind } from "../../../data-structures/disjoint-set/unionFind";
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
 
 /**
  * Interface for spanning tree algorithm results
@@ -37,13 +38,15 @@ export interface ISpanningTreeResult<T, W = number> {
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (must be numeric and comparable)
  */
-export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorithm<IGraph<T, W>, ISpanningTreeResult<T, W>> {
-
+export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  ISpanningTreeResult<T, W>
+> {
   /**
    * Creates a new Kruskal's algorithm instance
    */
   constructor() {
-    super('Kruskal\'s Algorithm', 'O(E log E)', 'O(V + E)');
+    super("Kruskal's Algorithm", "O(E log E)", "O(V + E)");
   }
 
   /**
@@ -54,11 +57,11 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
    */
   public execute(graph: IGraph<T, W>): ISpanningTreeResult<T, W> {
     if (!graph.isWeighted()) {
-      throw new ArgumentError('Kruskal\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Kruskal's algorithm requires a weighted graph");
     }
 
     if (graph.isDirected()) {
-      throw new ArgumentError('Kruskal\'s algorithm requires an undirected graph');
+      throw new ArgumentError("Kruskal's algorithm requires an undirected graph");
     }
 
     const vertices = graph.getVertices();
@@ -70,7 +73,7 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
       if (edge.length === 3) {
         edgeList.push({ from: edge[0], to: edge[1], weight: edge[2] });
       } else {
-        throw new ArgumentError('All edges must have weights for MST algorithms');
+        throw new ArgumentError("All edges must have weights for MST algorithms");
       }
     }
 
@@ -78,37 +81,12 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
     edgeList.sort((a, b) => a.weight - b.weight);
 
     // Union-Find data structure
-    const parent = new Map<T, T>();
-    const rank = new Map<T, number>();
-
-    // Initialize Union-Find
-    for (const vertex of vertices) {
-      parent.set(vertex, vertex);
-      rank.set(vertex, 0);
-    }
-
-    const find = (vertex: T): T => {
-      if (parent.get(vertex) !== vertex) {
-        parent.set(vertex, find(parent.get(vertex)!));
-      }
-      return parent.get(vertex)!;
-    };
-
-    const union = (x: T, y: T): void => {
-      const rootX = find(x);
-      const rootY = find(y);
-
-      if (rootX !== rootY) {
-        if (rank.get(rootX)! < rank.get(rootY)!) {
-          parent.set(rootX, rootY);
-        } else if (rank.get(rootX)! > rank.get(rootY)!) {
-          parent.set(rootY, rootX);
-        } else {
-          parent.set(rootY, rootX);
-          rank.set(rootX, rank.get(rootX)! + 1);
-        }
-      }
-    };
+    if (vertices.length === 0) return { edges: [], totalWeight: 0 as W, found: false };
+    const uf = new UnionFind(vertices.length);
+    const v2i = new Map<T, number>();
+    vertices.forEach((v, i) => v2i.set(v, i));
+    const find = (x: T): T => vertices[uf.find(v2i.get(x)!)];
+    const union = (a: T, b: T) => uf.union(v2i.get(a)!, v2i.get(b)!);
 
     // Build MST
     const mstEdges: Array<{ from: T; to: T; weight: W }> = [];
@@ -133,7 +111,7 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
     return {
       edges: mstEdges,
       totalWeight,
-      found
+      found,
     };
   }
 
@@ -143,10 +121,10 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
    */
   public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
     if (!graph.isWeighted()) {
-      throw new ArgumentError('Kruskal\'s algorithm requires a weighted graph');
+      throw new ArgumentError("Kruskal's algorithm requires a weighted graph");
     }
     if (graph.isDirected()) {
-      throw new ArgumentError('Kruskal\'s algorithm requires an undirected graph');
+      throw new ArgumentError("Kruskal's algorithm requires an undirected graph");
     }
 
     const vertices = graph.getVertices();
@@ -160,50 +138,33 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
     }
     edgeList.sort((a, b) => (a.weight as unknown as number) - (b.weight as unknown as number));
 
-    const parent = new Map<T, T>();
-    const rank = new Map<T, number>();
-
-    for (const vertex of vertices) {
-      parent.set(vertex, vertex);
-      rank.set(vertex, 0);
-    }
-
-    const find = (vertex: T): T => {
-      if (parent.get(vertex) !== vertex) {
-        parent.set(vertex, find(parent.get(vertex)!));
-      }
-      return parent.get(vertex)!;
-    };
-
-    const union = (x: T, y: T): boolean => {
-      const rootX = find(x);
-      const rootY = find(y);
-
-      if (rootX !== rootY) {
-        if (rank.get(rootX)! < rank.get(rootY)!) {
-          parent.set(rootX, rootY);
-        } else if (rank.get(rootX)! > rank.get(rootY)!) {
-          parent.set(rootY, rootX);
-        } else {
-          parent.set(rootY, rootX);
-          rank.set(rootX, rank.get(rootX)! + 1);
-        }
-        return true;
-      }
-      return false;
-    };
+    const uf = new UnionFind(vertices.length);
+    const v2i = new Map<T, number>();
+    vertices.forEach((v, i) => v2i.set(v, i));
+    const union = (x: T, y: T): boolean => uf.union(v2i.get(x)!, v2i.get(y)!);
 
     const mstEdges: Array<{ source: T; target: T; weight: W }> = [];
 
     for (const edge of edgeList) {
-      yield { type: 'step', visited: new Set(vertices), mst: [...mstEdges], processing: edge, message: `Checking edge ${edge.source}-${edge.target} (w: ${edge.weight})` };
+      yield {
+        type: "step",
+        visited: new Set(vertices),
+        mst: [...mstEdges],
+        processing: edge,
+        message: `Checking edge ${edge.source}-${edge.target} (w: ${edge.weight})`,
+      };
 
       if (union(edge.source, edge.target)) {
         mstEdges.push(edge);
-        yield { type: 'step', visited: new Set(vertices), mst: [...mstEdges], message: `Added edge ${edge.source}-${edge.target}` };
+        yield {
+          type: "step",
+          visited: new Set(vertices),
+          mst: [...mstEdges],
+          message: `Added edge ${edge.source}-${edge.target}`,
+        };
       }
     }
 
-    yield { type: 'finished', visited: new Set(vertices), mst: mstEdges, message: 'MST Completed' };
+    yield { type: "finished", visited: new Set(vertices), mst: mstEdges, message: "MST Completed" };
   }
 }
