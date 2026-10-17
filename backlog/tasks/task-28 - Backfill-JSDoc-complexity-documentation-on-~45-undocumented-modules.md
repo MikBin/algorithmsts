@@ -1,7 +1,7 @@
 ---
 id: TASK-28
 title: Backfill JSDoc complexity documentation on ~45 undocumented modules
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -26,3 +26,8 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 - [ ] #2 BST/AVL/RBT complexity annotations added
 - [ ] #3 Typedoc builds without warnings for documented modules
 <!-- AC:END -->
+
+## Progress Notes
+- Completed first batch of 5 tree data structures.
+- Deleted orphaned line in docs/any_usage_report.md
+- Remaining modules: approx 61 undocumented modules.
