@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { AVLTree } from '../../../src/data-structures/avl-tree/index';
+import { AVLTree } from '../../../src/data-structures/avl-tree/avlTree';
 
 describe('AVLTree', () => {
   it('should insert values and maintain balance', () => {
