@@ -1,7 +1,7 @@
-import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
-import { IIterator } from '../../core/interfaces/IIterator';
-import { IUkkonenAlgorithm } from './interfaces';
-import { SuffixTreeIterator } from './iterator';
+import { BaseDataStructure } from "../../core/abstracts/BaseDataStructure";
+import { IIterator } from "../../core/interfaces/IIterator";
+import { IUkkonenAlgorithm } from "./interfaces";
+import { SuffixTreeIterator } from "./iterator";
 
 /**
  * Suffix tree node implementation
@@ -45,7 +45,7 @@ export class SuffixTreeNode<T> {
  * Implements Ukkonen's algorithm for building a suffix tree
  */
 export class UkkonenAlgorithm<T> implements IUkkonenAlgorithm<T> {
-  private text: string = '';
+  private text: string = "";
   private tree: SuffixTree<T>;
   private root: SuffixTreeNode<T>;
   private bottom: SuffixTreeNode<T>;
@@ -148,18 +148,14 @@ export class UkkonenAlgorithm<T> implements IUkkonenAlgorithm<T> {
         this.activeNode.addTransition(
           splitNode,
           [edgeStart, edgeStart + this.activeLength - 1],
-          edgeStartChar
+          edgeStartChar,
         );
 
         // Add new leaf from split node
         splitNode.addTransition(newLeaf, [pos, Infinity], this.text[pos]);
 
         // Add rest of original edge from split node
-        splitNode.addTransition(
-          nextNode,
-          [edgeStart + this.activeLength, edgeEnd],
-          nextChar
-        );
+        splitNode.addTransition(nextNode, [edgeStart + this.activeLength, edgeEnd], nextChar);
 
         if (lastCreatedNode !== null) {
           lastCreatedNode.suffixLink = splitNode;
@@ -185,7 +181,7 @@ export class UkkonenAlgorithm<T> implements IUkkonenAlgorithm<T> {
  */
 export class SuffixTree<T> extends BaseDataStructure<T> {
   /** The text for which the suffix tree is built */
-  public text: string = '';
+  public text: string = "";
   /** The root of the suffix tree */
   public root: SuffixTreeNode<T> = new SuffixTreeNode();
   /** A list of strings that have been added to the tree */
@@ -225,8 +221,8 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
   public addString(str: string): SuffixTree<T> {
     const temp = this.text.length;
     // Add separator if not first string, then add string with terminator
-    const separator = temp ? '⚇' : '';
-    this.text += separator + str + '$';
+    const separator = temp ? "⚇" : "";
+    this.text += separator + str + "$";
     this.algorithm.addString(str, temp, this.text);
     this._size++;
     return this;
@@ -242,7 +238,7 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
    */
   public findSubstring(str: string, node = this.root, matchedSoFar = 0): number {
     // Don't search for strings containing terminators or separators
-    if (str.includes('$') || str.includes('⚇')) {
+    if (str.includes("$") || str.includes("⚇")) {
       return -1;
     }
 
@@ -253,9 +249,10 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
       let sub = this.text.substring(a, effectiveB);
 
       // Try to match str against sub, considering that sub might contain terminators
-      let i = 0, j = 0;
+      let i = 0,
+        j = 0;
       while (i < str.length && j < sub.length) {
-        if (sub[j] === '$' || sub[j] === '⚇') {
+        if (sub[j] === "$" || sub[j] === "⚇") {
           // Skip terminators/separators in the edge
           j++;
           continue;
@@ -307,10 +304,10 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
   public findAllSubstring(
     str: string,
     node = this.root,
-    matchedSoFar = 0
+    matchedSoFar = 0,
   ): [number, SuffixTreeNode<T> | null, number] {
     // Don't search for strings containing terminators or separators
-    if (str.includes('$') || str.includes('⚇')) {
+    if (str.includes("$") || str.includes("⚇")) {
       return [-1, null, 0];
     }
 
@@ -321,9 +318,10 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
       const sub = this.text.substring(a, effectiveB);
 
       // Try to match str against sub, considering that sub might contain terminators
-      let i = 0, j = 0;
+      let i = 0,
+        j = 0;
       while (i < str.length && j < sub.length) {
-        if (sub[j] === '$' || sub[j] === '⚇') {
+        if (sub[j] === "$" || sub[j] === "⚇") {
           j++;
           continue;
         }
@@ -355,7 +353,7 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
     const [text, root] = [this.text, this.root];
     const L = text.length;
     const longestSubstrings: string[] = [];
-    (function traverse(node: SuffixTreeNode<T>, curStr = '') {
+    (function traverse(node: SuffixTreeNode<T>, curStr = "") {
       if (node.isLeaf()) {
         return;
       }
@@ -364,7 +362,7 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
         if (!s.isLeaf()) {
           let edgeLabel = text.substring(a, b === Infinity ? L : b + 1);
           // Remove terminators and separators
-          edgeLabel = edgeLabel.replace(/[$⚇]/g, '');
+          edgeLabel = edgeLabel.replace(/[$⚇]/g, "");
           const newStr = curStr + edgeLabel;
           // Only add non-empty strings
           if (newStr.length > 0) {
@@ -383,12 +381,12 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
    */
   public toString(): string {
     const text = this.text;
-    function traverse(node: SuffixTreeNode<T>, offset = '', ret = ''): string {
+    function traverse(node: SuffixTreeNode<T>, offset = "", ret = ""): string {
       for (const t in node.transitions) {
         const [s, a, b] = node.transitions[t];
         ret += `${offset}["${text.substring(
           a,
-          b === Infinity ? text.length : b + 1
+          b === Infinity ? text.length : b + 1,
         )}", ${a}, ${b}]\r\n`;
         ret += traverse(s, `${offset}\t`);
       }
@@ -397,7 +395,6 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
     const res = traverse(this.root);
     return res;
   }
-
 
   /**
    * Creates an iterator for this data structure
@@ -414,7 +411,7 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
    * @returns Always false
    * @complexity O(1)
    */
-  contains(element: T): boolean {
+  contains(_element: T): boolean {
     // Suffix trees don't support direct containment checks
     return false;
   }
@@ -439,7 +436,7 @@ export class SuffixTree<T> extends BaseDataStructure<T> {
    */
   clear(): void {
     this.root = new SuffixTreeNode<T>();
-    this.text = '';
+    this.text = "";
     this.stringsList = [];
     this.separators = [];
     this._size = 0;

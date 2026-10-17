@@ -1,5 +1,5 @@
-import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
-import { IIterator } from '../../core/interfaces/IIterator';
+import { BaseDataStructure } from "../../core/abstracts/BaseDataStructure";
+import { IIterator } from "../../core/interfaces/IIterator";
 
 class AANode<T> {
   constructor(
@@ -13,16 +13,44 @@ class AANode<T> {
 class InOrderIterator<T> implements IIterator<T> {
   private stack: Array<{ node: AANode<T> | null; visited: boolean }> = [];
   private cur: T | null = null;
-  constructor(root: AANode<T> | null) { this.stack.push({ node: root, visited: false }); }
-  private step(): boolean { while (this.stack.length) { const { node, visited } = this.stack.pop()!; if (!node) continue; if (visited) { this.cur = node.key; return true; } this.stack.push({ node: node.right, visited: false }); this.stack.push({ node, visited: true }); this.stack.push({ node: node.left, visited: false }); } return false; }
-  hasNext(): boolean { if (this.cur!==null) return true; return this.step(); }
-  next(): T { if (!this.hasNext()) throw new Error('No more elements'); const v=this.cur as T; this.cur=null; return v; }
-  current(): T { if (this.cur===null) throw new Error('No current element'); return this.cur as T; }
+  constructor(root: AANode<T> | null) {
+    this.stack.push({ node: root, visited: false });
+  }
+  private step(): boolean {
+    while (this.stack.length) {
+      const { node, visited } = this.stack.pop()!;
+      if (!node) continue;
+      if (visited) {
+        this.cur = node.key;
+        return true;
+      }
+      this.stack.push({ node: node.right, visited: false });
+      this.stack.push({ node, visited: true });
+      this.stack.push({ node: node.left, visited: false });
+    }
+    return false;
+  }
+  hasNext(): boolean {
+    if (this.cur !== null) return true;
+    return this.step();
+  }
+  next(): T {
+    if (!this.hasNext()) throw new Error("No more elements");
+    const v = this.cur as T;
+    this.cur = null;
+    return v;
+  }
+  current(): T {
+    if (this.cur === null) throw new Error("No current element");
+    return this.cur as T;
+  }
 }
 
 export class AATree<T> extends BaseDataStructure<T> {
   private root: AANode<T> | null = null;
-  constructor(private compare: (a: T, b: T) => number) { super(); }
+  constructor(private compare: (a: T, b: T) => number) {
+    super();
+  }
 
   private skew(node: AANode<T> | null): AANode<T> | null {
     if (!node || !node.left) return node;
@@ -65,7 +93,11 @@ export class AATree<T> extends BaseDataStructure<T> {
 
   contains(key: T): boolean {
     let cur = this.root;
-    while (cur) { const c = this.compare(key, cur.key); if (c===0) return true; cur = c<0 ? cur.left : cur.right; }
+    while (cur) {
+      const c = this.compare(key, cur.key);
+      if (c === 0) return true;
+      cur = c < 0 ? cur.left : cur.right;
+    }
     return false;
   }
 
@@ -80,16 +112,22 @@ export class AATree<T> extends BaseDataStructure<T> {
     if (!node) return [null, false];
     let removed = false;
     const cmp = this.compare(key, node.key);
-    if (cmp < 0) { const [l, r] = this._remove(node.left, key); node.left = l; removed = r; }
-    else if (cmp > 0) { const [ri, r] = this._remove(node.right, key); node.right = ri; removed = r; }
-    else {
+    if (cmp < 0) {
+      const [l, r] = this._remove(node.left, key);
+      node.left = l;
+      removed = r;
+    } else if (cmp > 0) {
+      const [ri, r] = this._remove(node.right, key);
+      node.right = ri;
+      removed = r;
+    } else {
       removed = true;
       if (!node.left || !node.right) return [node.left || node.right, true];
       // replace with predecessor
       let pred = node.left;
       while (pred!.right) pred = pred!.right;
       node.key = pred!.key;
-      const [l, _] = this._remove(node.left, node.key);
+      const [l, _removedPred] = this._remove(node.left, node.key);
       node.left = l;
     }
     // decrease level if necessary
@@ -106,8 +144,20 @@ export class AATree<T> extends BaseDataStructure<T> {
     return [node, removed];
   }
 
-  clear(): void { this.root = null; this._size = 0; }
-  iterator(): IIterator<T> { return new InOrderIterator(this.root); }
-  toArray(): T[] { const out: T[] = []; const it = this.iterator(); while (it.hasNext()) out.push(it.next()); return out; }
-  toJson(): string { return JSON.stringify(this.root); }
+  clear(): void {
+    this.root = null;
+    this._size = 0;
+  }
+  iterator(): IIterator<T> {
+    return new InOrderIterator(this.root);
+  }
+  toArray(): T[] {
+    const out: T[] = [];
+    const it = this.iterator();
+    while (it.hasNext()) out.push(it.next());
+    return out;
+  }
+  toJson(): string {
+    return JSON.stringify(this.root);
+  }
 }

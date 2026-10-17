@@ -1,5 +1,3 @@
-import { BitSet } from '../bitset';
-
 export type HashFn = (str: string, seed: number) => number;
 export type Serializer<T> = (item: T) => string;
 
@@ -13,7 +11,7 @@ const defaultHash: HashFn = (str: string, seed: number) => {
 };
 
 const defaultSerializer = (item: any): string => {
-  if (typeof item === 'string') return item;
+  if (typeof item === "string") return item;
   return JSON.stringify(item);
 };
 
@@ -35,7 +33,7 @@ export class RibbonFilter<T = string> {
     this.hashFn = options.hashFn || defaultHash;
     this.serializer = options.serializer || defaultSerializer;
 
-    const distinctItems = Array.from(new Set(items.map(i => this.serializer(i))));
+    const distinctItems = Array.from(new Set(items.map((i) => this.serializer(i))));
     const n = distinctItems.length;
 
     if (n === 0) {
@@ -57,18 +55,18 @@ export class RibbonFilter<T = string> {
       try {
         this.slots = this.construct(distinctItems, this.seed);
         success = true;
-      } catch (e) {
+      } catch (_e) {
         this.seed++;
         attempts++;
       }
     }
 
     if (!success) {
-      throw new Error('Failed to construct Ribbon Filter after multiple attempts.');
+      throw new Error("Failed to construct Ribbon Filter after multiple attempts.");
     }
   }
 
-  private getHash(s: string, seed: number): { start: number, coeffs: bigint, target: number } {
+  private getHash(s: string, seed: number): { start: number; coeffs: bigint; target: number } {
     const h1 = this.hashFn(s, seed + 100);
     const h2 = this.hashFn(s, seed + 200);
     const h3 = this.hashFn(s, seed + 300);
@@ -81,7 +79,7 @@ export class RibbonFilter<T = string> {
     if (maxStart < 0) maxStart = 0;
 
     const start = h1 % (maxStart + 1);
-    const fp = this.hashFn(s, seed + 400) & 0xFF;
+    const fp = this.hashFn(s, seed + 400) & 0xff;
 
     const validLen = Math.min(this.W, this.numSlots - start);
     let mask = (1n << BigInt(validLen)) - 1n;
@@ -102,7 +100,7 @@ export class RibbonFilter<T = string> {
       target: number;
     }
 
-    let rows: Row[] = items.map(item => this.getHash(item, seed));
+    let rows: Row[] = items.map((item) => this.getHash(item, seed));
     rows.sort((a, b) => a.start - b.start);
 
     const solution = new Uint8Array(this.numSlots);
@@ -124,8 +122,8 @@ export class RibbonFilter<T = string> {
 
         // This check is conceptually redundant with getHash masking but safe to keep
         if (col >= this.numSlots) {
-           currCoeffs &= ~(1n << BigInt(bitIndex));
-           continue;
+          currCoeffs &= ~(1n << BigInt(bitIndex));
+          continue;
         }
 
         const existingPivot = pivots.get(col);
@@ -136,7 +134,6 @@ export class RibbonFilter<T = string> {
 
           currCoeffs ^= pCoeffsShifted;
           currTarget ^= existingPivot.target;
-
         } else {
           // Normalize pivot
           const normalizedCoeffs = currCoeffs >> BigInt(bitIndex);
@@ -144,7 +141,7 @@ export class RibbonFilter<T = string> {
           pivots.set(col, {
             start: col,
             coeffs: normalizedCoeffs,
-            target: currTarget
+            target: currTarget,
           });
           // Row is successfully used as a pivot. Move to next row.
           continue rowLoop;
@@ -155,7 +152,7 @@ export class RibbonFilter<T = string> {
       // This means the row was completely eliminated by existing pivots.
       // We must check if the target matches (should be 0).
       if (currTarget !== 0) {
-         throw new Error('Inconsistent system');
+        throw new Error("Inconsistent system");
       }
     }
 
@@ -168,10 +165,10 @@ export class RibbonFilter<T = string> {
 
         while (c !== 0n) {
           if ((c & 1n) === 1n) {
-             const otherCol = col + offset;
-             if (otherCol < this.numSlots) {
-                val ^= solution[otherCol];
-             }
+            const otherCol = col + offset;
+            if (otherCol < this.numSlots) {
+              val ^= solution[otherCol];
+            }
           }
           c >>= 1n;
           offset++;

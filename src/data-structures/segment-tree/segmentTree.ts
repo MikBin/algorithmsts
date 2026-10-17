@@ -1,5 +1,5 @@
-import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
-import { IIterator } from '../../core/interfaces/IIterator';
+import { BaseDataStructure } from "../../core/abstracts/BaseDataStructure";
+import { IIterator } from "../../core/interfaces/IIterator";
 import {
   BaseSegmentTreeNode,
   SegmentTreeNodeFactory,
@@ -7,9 +7,9 @@ import {
   SegmentTreeQueryMerger,
   SegmentTreeLeafNodeUpdater,
   SegmentTreeRangeNodeUpdater,
-  SegmentTreeRangeNodePropagator
-} from './interfaces';
-import { SegmentTreeIterator } from './iterator';
+  SegmentTreeRangeNodePropagator,
+} from "./interfaces";
+import { SegmentTreeIterator } from "./iterator";
 
 /**
  * @internal
@@ -21,7 +21,7 @@ const insertNode = <T, U extends BaseSegmentTreeNode>(
   i: number,
   left: number,
   right: number,
-  segmentNodeFactory: SegmentTreeNodeFactory<T, U>
+  segmentNodeFactory: SegmentTreeNodeFactory<T, U>,
 ): number => {
   const LR_DIFF: number = right - left;
   segTreeArray[i] = segmentNodeFactory(originArray[left], left, right);
@@ -47,7 +47,7 @@ const insertNode = <T, U extends BaseSegmentTreeNode>(
 const buildSegTreeIterative = <T, U extends BaseSegmentTreeNode>(
   sourceArray: Array<T>,
   segmentNodeFactory: SegmentTreeNodeFactory<T, U>,
-  segmentNodeMerger: SegmentTreeNodeMerger<U>
+  segmentNodeMerger: SegmentTreeNodeMerger<U>,
 ): Array<U> => {
   let n: number = sourceArray.length;
 
@@ -73,7 +73,7 @@ const buildSegTreeIterative = <T, U extends BaseSegmentTreeNode>(
 const buildSegmentTree = <T, U extends BaseSegmentTreeNode>(
   sourceArray: Array<T>,
   segmentNodeFactory: SegmentTreeNodeFactory<T, U>,
-  segmentNodeMerger: SegmentTreeNodeMerger<U>
+  segmentNodeMerger: SegmentTreeNodeMerger<U>,
 ): Array<U> => {
   let l: number = sourceArray.length;
   if (l === 0) return [];
@@ -115,7 +115,7 @@ const iterativeQueryRange = <U extends BaseSegmentTreeNode>(
   segmentTree: Array<U>,
   l: number,
   r: number,
-  queryMerger: SegmentTreeQueryMerger<U>
+  queryMerger: SegmentTreeQueryMerger<U>,
 ): U => {
   if (segmentTree.length === 0) return <U>{ left: -1, right: -1 };
 
@@ -170,7 +170,7 @@ const queryRange = <U extends BaseSegmentTreeNode>(
   nodeIndex: number,
   left: number,
   right: number,
-  queryMerger: SegmentTreeQueryMerger<U>
+  queryMerger: SegmentTreeQueryMerger<U>,
 ): U => {
   let Node: U = segmentTree[nodeIndex];
   if (!Node) return <U>{ left: -1, right: -1 };
@@ -191,7 +191,7 @@ const updateLeafNode = <T, U extends BaseSegmentTreeNode>(
   sourceVal: T,
   updateIndex: number,
   segmentNodeLeafUpdater: (t: T, leafNode: U) => void,
-  segmentNodeMerger: SegmentTreeNodeMerger<U>
+  segmentNodeMerger: SegmentTreeNodeMerger<U>,
 ): void => {
   let index = 1;
   let Node = segmentTree[index];
@@ -232,7 +232,7 @@ const updateLeafNodeIterative = <T, U extends BaseSegmentTreeNode>(
   sourceVal: T,
   updateIndex: number,
   segmentNodeLeafUpdater: SegmentTreeLeafNodeUpdater<T, U>,
-  segmentNodeMerger: SegmentTreeNodeMerger<U>
+  segmentNodeMerger: SegmentTreeNodeMerger<U>,
 ): void => {
   if (segmentTree.length === 0) return;
 
@@ -263,7 +263,7 @@ const updateRangeLazy = <T, U extends BaseSegmentTreeNode>(
   right: number,
   segmentNodeUpdater: SegmentTreeRangeNodeUpdater<T, U>,
   segmentNodeMerger: SegmentTreeNodeMerger<U>,
-  segmentNodePropagator: SegmentTreeRangeNodePropagator<U>
+  segmentNodePropagator: SegmentTreeRangeNodePropagator<U>,
 ): void => {
   let Node: U = segmentTree[nodeIndex];
   if (!Node) return;
@@ -288,7 +288,7 @@ const updateRangeLazy = <T, U extends BaseSegmentTreeNode>(
     right,
     segmentNodeUpdater,
     segmentNodeMerger,
-    segmentNodePropagator
+    segmentNodePropagator,
   );
   updateRangeLazy(
     segmentTree,
@@ -298,7 +298,7 @@ const updateRangeLazy = <T, U extends BaseSegmentTreeNode>(
     right,
     segmentNodeUpdater,
     segmentNodeMerger,
-    segmentNodePropagator
+    segmentNodePropagator,
   );
   segmentNodeMerger(Node, leftChild, rightChild);
 };
@@ -307,9 +307,9 @@ const updateRangeLazy = <T, U extends BaseSegmentTreeNode>(
  * @internal
  * Propagates changes down the tree
  */
-const propagateDown = <U extends BaseSegmentTreeNode>(
+const _propagateDown = <U extends BaseSegmentTreeNode>(
   segmentTree: Array<U>,
-  lazyNodesUpdater: SegmentTreeNodeMerger<U>
+  lazyNodesUpdater: SegmentTreeNodeMerger<U>,
 ): void => {
   for (let i = 0; i < segmentTree.length; i++) {
     let node = segmentTree[i];
@@ -340,7 +340,7 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
     protected segmentNodeFactory: SegmentTreeNodeFactory<T, U>,
     protected segmentNodeMerger: SegmentTreeNodeMerger<U>,
     protected segmentNodeQuery: SegmentTreeQueryMerger<U>,
-    protected segmentLeaftUpdater: SegmentTreeLeafNodeUpdater<T, U>
+    protected segmentLeaftUpdater: SegmentTreeLeafNodeUpdater<T, U>,
   ) {
     super();
     this._SEG_TREE = buildSegTreeIterative(sourceArray, segmentNodeFactory, segmentNodeMerger);
@@ -379,7 +379,7 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
       value,
       position,
       this.segmentLeaftUpdater,
-      this.segmentNodeMerger
+      this.segmentNodeMerger,
     );
   }
 
@@ -406,7 +406,7 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
    * @returns Always false for segment trees (not applicable)
    * @complexity O(1)
    */
-  contains(element: T): boolean {
+  contains(_element: T): boolean {
     // Segment trees don't support direct containment checks
     return false;
   }
@@ -423,7 +423,7 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
     for (let i = 0; i < this._size; i++) {
       const node = this._SEG_TREE[n + i];
       // Try to extract the value from the node
-      if (node && 'value' in node) {
+      if (node && "value" in node) {
         result.push((node as any).value);
       } else if (node) {
         // If no value property, try to use the node itself if it matches T
@@ -443,4 +443,12 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
 }
 
 // Export internal functions for testing
-export { buildSegmentTree, buildSegTreeIterative, queryRange, iterativeQueryRange, updateLeafNode, updateLeafNodeIterative, updateRangeLazy };
+export {
+  buildSegmentTree,
+  buildSegTreeIterative,
+  queryRange,
+  iterativeQueryRange,
+  updateLeafNode,
+  updateLeafNodeIterative,
+  updateRangeLazy,
+};

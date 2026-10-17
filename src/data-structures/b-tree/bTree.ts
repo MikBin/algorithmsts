@@ -1,7 +1,7 @@
-import { BTreeNode } from './interfaces';
-import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
-import { IIterator } from '../../core/interfaces/IIterator';
-import { BTreeIterator } from './iterator';
+import { BTreeNode } from "./interfaces";
+import { BaseDataStructure } from "../../core/abstracts/BaseDataStructure";
+import { IIterator } from "../../core/interfaces/IIterator";
+import { BTreeIterator } from "./iterator";
 
 /**
  * @title B-Tree
@@ -23,7 +23,7 @@ export class BTree<T> extends BaseDataStructure<T> {
   constructor(order: number, compareFunction?: (a: T, b: T) => number) {
     super();
     if (order < 2) {
-      throw new Error('Order must be at least 2.');
+      throw new Error("Order must be at least 2.");
     }
     this._root = null;
     this._order = order;
@@ -79,11 +79,11 @@ export class BTree<T> extends BaseDataStructure<T> {
     parent.children.splice(index + 1, 0, newSibling);
 
     newSibling.keys = child.keys.splice(middleKeyIndex + 1);
-    const middleKey = child.keys.splice(middleKeyIndex)[0];
+    const _middleKey = child.keys.splice(middleKeyIndex)[0];
 
     if (!child.isLeaf) {
       newSibling.children = child.children.splice(middleKeyIndex + 1);
-      newSibling.children.forEach(c => (c.parent = newSibling));
+      newSibling.children.forEach((c) => (c.parent = newSibling));
     }
   }
 
@@ -179,7 +179,11 @@ export class BTree<T> extends BaseDataStructure<T> {
     return current.keys[0];
   }
 
-  private _deleteFromSubtree(node: BTreeNode<T>, index: number, key: T): { found: boolean; index: number } {
+  private _deleteFromSubtree(
+    node: BTreeNode<T>,
+    index: number,
+    key: T,
+  ): { found: boolean; index: number } {
     if (node.children[index].keys.length < this._order) {
       if (index > 0 && node.children[index - 1].keys.length >= this._order) {
         this._borrowFromPrev(node, index);
@@ -270,7 +274,7 @@ export class BTree<T> extends BaseDataStructure<T> {
    */
   rangeQuery(start: T, end: T): T[] {
     const result: T[] = [];
-    this._traverseInOrder(this._root, key => {
+    this._traverseInOrder(this._root, (key) => {
       if (this._compare(key, start) >= 0 && this._compare(key, end) <= 0) {
         result.push(key);
       }
@@ -321,7 +325,7 @@ export class BTree<T> extends BaseDataStructure<T> {
    */
   traversalInOrder(): T[] {
     const result: T[] = [];
-    this._traverseInOrder(this._root, key => result.push(key));
+    this._traverseInOrder(this._root, (key) => result.push(key));
     return result;
   }
 
@@ -472,7 +476,7 @@ export class BTree<T> extends BaseDataStructure<T> {
 
   toJson(): string {
     return JSON.stringify(this._root, (key, value) => {
-      if (key === 'parent') {
+      if (key === "parent") {
         return undefined;
       }
       return value;

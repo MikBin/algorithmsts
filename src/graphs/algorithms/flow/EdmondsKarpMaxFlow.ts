@@ -1,6 +1,6 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
 
 export interface IMaxFlowResult<T, W extends number = number> {
   maxFlow: W;
@@ -12,23 +12,25 @@ export interface IMaxFlowResult<T, W extends number = number> {
  * Uses edge weights as capacities.
  * Time: O(V * E^2)
  */
-export class EdmondsKarpMaxFlow<T, W extends number = number>
-  extends BaseAlgorithm<IGraph<T, W>, IMaxFlowResult<T, W>> {
+export class EdmondsKarpMaxFlow<T, W extends number = number> extends BaseAlgorithm<
+  IGraph<T, W>,
+  IMaxFlowResult<T, W>
+> {
   constructor() {
-    super('Edmonds–Karp Max Flow', 'O(V * E^2)', 'O(E)');
+    super("Edmonds–Karp Max Flow", "O(V * E^2)", "O(E)");
   }
 
   public execute(graph: IGraph<T, W>, source?: T, sink?: T): IMaxFlowResult<T, W> {
     if (!graph.isDirected() || !graph.isWeighted()) {
-      throw new ArgumentError('Max flow requires a directed weighted graph');
+      throw new ArgumentError("Max flow requires a directed weighted graph");
     }
     if (source === undefined || sink === undefined) {
-      throw new ArgumentError('Source and sink must be provided for max flow');
+      throw new ArgumentError("Source and sink must be provided for max flow");
     }
 
     const vertices = graph.getVertices();
     if (!vertices.includes(source) || !vertices.includes(sink)) {
-      throw new ArgumentError('Source or sink not in graph');
+      throw new ArgumentError("Source or sink not in graph");
     }
 
     // Build capacity and residual graphs
@@ -70,7 +72,7 @@ export class EdmondsKarpMaxFlow<T, W extends number = number>
       visited.add(source);
       parent.set(source, null);
 
-      const getResidual = (u: T, v: T) => residual.get(u)?.get(v) ?? 0;
+      const _getResidual = (u: T, v: T) => residual.get(u)?.get(v) ?? 0;
 
       while (q.length) {
         const u = q.shift()!;

@@ -1,5 +1,5 @@
-import { RBNode, Color } from './interfaces';
-import { RedBlackTreeIterator } from './iterator';
+import { RBNode } from "./interfaces";
+import { RedBlackTreeIterator } from "./iterator";
 
 export class RedBlackTree<T> implements Iterable<T> {
   root: RBNode<T> | null;
@@ -10,7 +10,7 @@ export class RedBlackTree<T> implements Iterable<T> {
   constructor(compareFunction?: (a: T, b: T) => number) {
     this.NIL = {
       value: null as any, // Using null as a sentinel value
-      color: 'black',
+      color: "black",
       left: null,
       right: null,
       parent: null,
@@ -27,7 +27,7 @@ export class RedBlackTree<T> implements Iterable<T> {
   insert(value: T): RBNode<T> {
     const newNode: RBNode<T> = {
       value,
-      color: 'red',
+      color: "red",
       left: this.NIL,
       right: this.NIL,
       parent: null,
@@ -55,7 +55,7 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
 
     if (newNode.parent === null) {
-      newNode.color = 'black';
+      newNode.color = "black";
       this.root = newNode;
       this.size++;
       return newNode;
@@ -67,13 +67,13 @@ export class RedBlackTree<T> implements Iterable<T> {
   }
 
   private insertFixup(z: RBNode<T>): void {
-    while (z.parent && z.parent.color === 'red') {
+    while (z.parent && z.parent.color === "red") {
       if (z.parent.parent && z.parent === z.parent.parent.left) {
         const y = z.parent.parent.right;
-        if (y && y.color === 'red') {
-          z.parent.color = 'black';
-          y.color = 'black';
-          z.parent.parent.color = 'red';
+        if (y && y.color === "red") {
+          z.parent.color = "black";
+          y.color = "black";
+          z.parent.parent.color = "red";
           z = z.parent.parent;
         } else {
           if (z === z.parent.right) {
@@ -81,19 +81,19 @@ export class RedBlackTree<T> implements Iterable<T> {
             this.leftRotate(z);
           }
           if (z.parent) {
-            z.parent.color = 'black';
+            z.parent.color = "black";
             if (z.parent.parent) {
-              z.parent.parent.color = 'red';
+              z.parent.parent.color = "red";
               this.rightRotate(z.parent.parent);
             }
           }
         }
       } else if (z.parent && z.parent.parent) {
         const y = z.parent.parent.left;
-        if (y && y.color === 'red') {
-          z.parent.color = 'black';
-          y.color = 'black';
-          z.parent.parent.color = 'red';
+        if (y && y.color === "red") {
+          z.parent.color = "black";
+          y.color = "black";
+          z.parent.parent.color = "red";
           z = z.parent.parent;
         } else {
           if (z === z.parent.left) {
@@ -101,9 +101,9 @@ export class RedBlackTree<T> implements Iterable<T> {
             this.rightRotate(z);
           }
           if (z.parent) {
-            z.parent.color = 'black';
+            z.parent.color = "black";
             if (z.parent.parent) {
-              z.parent.parent.color = 'red';
+              z.parent.parent.color = "red";
               this.leftRotate(z.parent.parent);
             }
           }
@@ -111,7 +111,7 @@ export class RedBlackTree<T> implements Iterable<T> {
       }
     }
     if (this.root) {
-      this.root.color = 'black';
+      this.root.color = "black";
     }
   }
 
@@ -191,7 +191,7 @@ export class RedBlackTree<T> implements Iterable<T> {
       }
     }
 
-    if (yOriginalColor === 'black' && x) {
+    if (yOriginalColor === "black" && x) {
       this.deleteFixup(x);
     }
 
@@ -212,62 +212,62 @@ export class RedBlackTree<T> implements Iterable<T> {
   }
 
   private deleteFixup(x: RBNode<T>): void {
-    while (x !== this.root && x.color === 'black') {
+    while (x !== this.root && x.color === "black") {
       if (x.parent && x === x.parent.left) {
         let w = x.parent.right;
-        if (w && w.color === 'red') {
-          w.color = 'black';
-          x.parent.color = 'red';
+        if (w && w.color === "red") {
+          w.color = "black";
+          x.parent.color = "red";
           this.leftRotate(x.parent);
           w = x.parent.right;
         }
-        if (w && w.left && w.right && w.left.color === 'black' && w.right.color === 'black') {
-          w.color = 'red';
+        if (w && w.left && w.right && w.left.color === "black" && w.right.color === "black") {
+          w.color = "red";
           x = x.parent;
         } else if (w) {
-          if (w.right && w.right.color === 'black') {
-            if (w.left) w.left.color = 'black';
-            w.color = 'red';
+          if (w.right && w.right.color === "black") {
+            if (w.left) w.left.color = "black";
+            w.color = "red";
             this.rightRotate(w);
             w = x.parent.right;
           }
           if (w && x.parent) {
             w.color = x.parent.color;
-            x.parent.color = 'black';
-            if (w.right) w.right.color = 'black';
+            x.parent.color = "black";
+            if (w.right) w.right.color = "black";
             this.leftRotate(x.parent);
           }
           x = this.root ? this.root : x;
         }
       } else if (x.parent) {
         let w = x.parent.left;
-        if (w && w.color === 'red') {
-          w.color = 'black';
-          x.parent.color = 'red';
+        if (w && w.color === "red") {
+          w.color = "black";
+          x.parent.color = "red";
           this.rightRotate(x.parent);
           w = x.parent.left;
         }
-        if (w && w.right && w.left && w.right.color === 'black' && w.left.color === 'black') {
-          w.color = 'red';
+        if (w && w.right && w.left && w.right.color === "black" && w.left.color === "black") {
+          w.color = "red";
           x = x.parent;
         } else if (w) {
-          if (w.left && w.left.color === 'black') {
-            if (w.right) w.right.color = 'black';
-            w.color = 'red';
+          if (w.left && w.left.color === "black") {
+            if (w.right) w.right.color = "black";
+            w.color = "red";
             this.leftRotate(w);
             w = x.parent.left;
           }
           if (w && x.parent) {
             w.color = x.parent.color;
-            x.parent.color = 'black';
-            if (w.left) w.left.color = 'black';
+            x.parent.color = "black";
+            if (w.left) w.left.color = "black";
             this.rightRotate(x.parent);
           }
           x = this.root ? this.root : x;
         }
       }
     }
-    x.color = 'black';
+    x.color = "black";
   }
 
   search(value: T): RBNode<T> | null {
@@ -409,7 +409,7 @@ export class RedBlackTree<T> implements Iterable<T> {
     if (this.root === null || this.root === this.NIL) {
       return true;
     }
-    if (this.root.color !== 'black') {
+    if (this.root.color !== "black") {
       return false;
     }
     return this.checkRedBlackProperties(this.root);
@@ -419,8 +419,8 @@ export class RedBlackTree<T> implements Iterable<T> {
     if (node === null || node === this.NIL) {
       return true;
     }
-    if (node.color === 'red') {
-      if ((node.left && node.left.color === 'red') || (node.right && node.right.color === 'red')) {
+    if (node.color === "red") {
+      if ((node.left && node.left.color === "red") || (node.right && node.right.color === "red")) {
         return false;
       }
     }
@@ -446,7 +446,7 @@ export class RedBlackTree<T> implements Iterable<T> {
       // This indicates a violation of R-B properties, but for height, we'll just return one path's height
       return -1; // Or throw an error
     }
-    return (node.color === 'black' ? 1 : 0) + leftBlackHeight;
+    return (node.color === "black" ? 1 : 0) + leftBlackHeight;
   }
 
   [Symbol.iterator](): Iterator<T> {
@@ -455,7 +455,7 @@ export class RedBlackTree<T> implements Iterable<T> {
 
   toJson(): string {
     return JSON.stringify(this.root, (key, value) => {
-      if (key === 'parent' || value === this.NIL) {
+      if (key === "parent" || value === this.NIL) {
         return undefined;
       }
       return value;

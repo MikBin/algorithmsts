@@ -1,14 +1,25 @@
 const js = require('@eslint/js');
+const globals = require('globals');
 
 module.exports = [
     js.configs.recommended,
     {
         files: ['**/*.ts'],
+        rules: {
+            ...require('@typescript-eslint/eslint-plugin').configs.recommended.rules
+        }
+    },
+    {
+        files: ['**/*.ts'],
         languageOptions: {
             parser: require('@typescript-eslint/parser'),
             parserOptions: {
-                ecmaVersion: 6,
+                ecmaVersion: 2020,
                 sourceType: 'module'
+            },
+            globals: {
+                ...globals.browser,
+                ...globals.node
             }
         },
         plugins: {
@@ -21,7 +32,28 @@ module.exports = [
                     selector: 'import',
                     format: ['camelCase', 'PascalCase']
                 }
-            ]
+            ],
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    caughtErrorsIgnorePattern: '^_'
+                }
+            ],
+            '@typescript-eslint/no-explicit-any': 'off'
+        }
+    },
+    {
+        files: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
+        languageOptions: {
+            globals: {
+                describe: 'readonly',
+                it: 'readonly',
+                expect: 'readonly',
+                beforeEach: 'readonly',
+                afterEach: 'readonly'
+            }
         }
     },
     {

@@ -25,25 +25,35 @@ export class PatriciaTrie<V = unknown> {
         const restLabel = e.label.slice(lcp.length);
         const oldChild = e.child;
         const mid = new Node();
-        e.label = lcp; e.child = mid;
+        e.label = lcp;
+        e.child = mid;
         mid.edges.push({ label: restLabel, child: oldChild });
-        if (key.length === lcp.length) { mid.value = value; }
-        else { mid.edges.push({ label: key.slice(lcp.length), child: new Node() }); mid.edges[mid.edges.length-1].child.value = value as any; }
+        if (key.length === lcp.length) {
+          mid.value = value;
+        } else {
+          mid.edges.push({ label: key.slice(lcp.length), child: new Node() });
+          mid.edges[mid.edges.length - 1].child.value = value as any;
+        }
         return;
       }
     }
-    if (key.length === 0) { node.value = value; return; }
-    const child = new Node(); child.value = value as any; node.edges.push({ label: key, child });
+    if (key.length === 0) {
+      node.value = value;
+      return;
+    }
+    const child = new Node();
+    child.value = value as any;
+    node.edges.push({ label: key, child });
   }
 
   get(key: string): V | undefined {
     const n = this._findNode(this.root, key);
-    return (n && n.hasOwnProperty('value')) ? (n.value as V) : undefined;
+    return n && Object.prototype.hasOwnProperty.call(n, "value") ? (n.value as V) : undefined;
   }
 
   has(key: string): boolean {
     const n = this._findNode(this.root, key);
-    return !!(n && n.hasOwnProperty('value'));
+    return !!(n && Object.prototype.hasOwnProperty.call(n, "value"));
   }
 
   private _findNode(node: Node, key: string): Node | null {
@@ -57,7 +67,11 @@ export class PatriciaTrie<V = unknown> {
     return null;
   }
 
-  private longestCommonPrefix(a: string, b: string): string { let i=0; while (i<a.length && i<b.length && a[i]===b[i]) i++; return a.slice(0,i); }
+  private longestCommonPrefix(a: string, b: string): string {
+    let i = 0;
+    while (i < a.length && i < b.length && a[i] === b[i]) i++;
+    return a.slice(0, i);
+  }
 
   toJson(): string {
     return JSON.stringify(this.root);
