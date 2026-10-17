@@ -1,7 +1,7 @@
 ---
 id: TASK-16
 title: Fix 92 lint errors and enforce @typescript-eslint/recommended
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-12 10:37'
 labels:
@@ -22,12 +22,12 @@ npm run lint currently fails with 92 errors (unused vars, no-undef on performanc
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 npm run lint passes with zero errors
-- [ ] #2 Flat config extends @typescript-eslint/recommended
-- [ ] #3 Legacy .eslintrc.json deleted
-- [ ] #4 ecmaVersion and parserOptions aligned with tsconfig (ES2020)
-- [ ] #5 Lint script extended to test/ and tools/ (or scoped deliberately and documented)
+- [ ] #1 npm run lint passes with zero errors (Note: Almost done, only performance-monitor.ts Console no-undef remains)
+- [x] #2 Flat config extends @typescript-eslint/recommended
+- [x] #3 Legacy .eslintrc.json deleted
+- [x] #4 ecmaVersion and parserOptions aligned with tsconfig (ES2020)
+- [ ] #5 Lint script extended to test/ and tools/ (or scoped deliberately and documented) - Deferred to Part 2
 <!-- AC:END -->
 
 ## Progress Notes
-2026-10-16: Not started. Notes from the campaign: `src/data-structures/patricia-trie/patriciaTrie.ts:43,47` uses `hasOwnProperty` which `js.configs.recommended` (`no-prototype-builtins`) will flag - prefer `Object.hasOwn`. Also lint is still absent from CI (see TASK-20).
+2026-10-16: Configured ESLint with recommended settings and deleted legacy config. Fixed almost all src lint errors. Deferring final test/tools lint coverage to Part 2.

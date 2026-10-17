@@ -1,7 +1,7 @@
 /**
  * Basic collection interface with size, isEmpty, clear methods
  */
-export interface ICollection<T> {
+export interface ICollection<_T> {
   /**
    * Gets the number of elements in the collection
    */

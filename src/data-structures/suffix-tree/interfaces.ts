@@ -15,7 +15,7 @@ export interface SuffixTreeNode<T> {
 /**
  * Ukkonen's algorithm for building suffix trees
  */
-export interface IUkkonenAlgorithm<T> {
+export interface IUkkonenAlgorithm<_T> {
   /** Adds a string to the suffix tree */
   addString(str: string, startPos: number, newText: string): void;
 }

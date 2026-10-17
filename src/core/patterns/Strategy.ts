@@ -1,4 +1,4 @@
-import { BaseAlgorithm } from '../abstracts/BaseAlgorithm';
+import { BaseAlgorithm } from "../abstracts/BaseAlgorithm";
 
 /**
  * Strategy pattern implementation for Algorithmsts library
@@ -34,7 +34,7 @@ export interface IStrategy<TInput, TOutput> {
  * const sortedAgain = context.executeStrategy([3, 1, 2]); // [1, 2, 3]
  * ```
  */
-import { ArgumentError } from '../validation/ArgumentError';
+import { ArgumentError } from "../validation/ArgumentError";
 
 export class StrategyContext<TInput, TOutput> {
   private strategy?: IStrategy<TInput, TOutput>;
@@ -55,7 +55,7 @@ export class StrategyContext<TInput, TOutput> {
    */
   public executeStrategy(input: TInput): TOutput {
     if (!this.strategy) {
-      throw new ArgumentError('No strategy set');
+      throw new ArgumentError("No strategy set");
     }
     return this.strategy.execute(input);
   }
@@ -64,7 +64,7 @@ export class StrategyContext<TInput, TOutput> {
 /**
  * Sorting strategy interface
  */
-export interface ISortingStrategy<T extends number | string> extends IStrategy<T[], T[]> {}
+export type ISortingStrategy<T extends number | string> = IStrategy<T[], T[]>;
 
 /**
  * Bubble sort strategy implementation
@@ -75,9 +75,12 @@ export interface ISortingStrategy<T extends number | string> extends IStrategy<T
  * const sorted = sorter.execute([3, 1, 2]); // [1, 2, 3]
  * ```
  */
-export class BubbleSortStrategy<T extends number | string> extends BaseAlgorithm<T[], T[]> implements ISortingStrategy<T> {
+export class BubbleSortStrategy<T extends number | string>
+  extends BaseAlgorithm<T[], T[]>
+  implements ISortingStrategy<T>
+{
   constructor() {
-    super('Bubble Sort', 'O(n²)', 'O(1)');
+    super("Bubble Sort", "O(n²)", "O(1)");
   }
 
   public execute(input: T[]): T[] {
@@ -103,9 +106,12 @@ export class BubbleSortStrategy<T extends number | string> extends BaseAlgorithm
  * const sorted = sorter.execute([3, 1, 2]); // [1, 2, 3]
  * ```
  */
-export class QuickSortStrategy<T extends number | string> extends BaseAlgorithm<T[], T[]> implements ISortingStrategy<T> {
+export class QuickSortStrategy<T extends number | string>
+  extends BaseAlgorithm<T[], T[]>
+  implements ISortingStrategy<T>
+{
   constructor() {
-    super('Quick Sort', 'O(n log n)', 'O(log n)');
+    super("Quick Sort", "O(n log n)", "O(log n)");
   }
 
   public execute(input: T[]): T[] {
@@ -139,7 +145,7 @@ export class QuickSortStrategy<T extends number | string> extends BaseAlgorithm<
 /**
  * Searching strategy interface
  */
-export interface ISearchingStrategy<T> extends IStrategy<{ array: T[]; target: T }, number> {}
+export type ISearchingStrategy<T> = IStrategy<{ array: T[]; target: T }, number>;
 
 /**
  * Linear search strategy implementation
@@ -150,9 +156,12 @@ export interface ISearchingStrategy<T> extends IStrategy<{ array: T[]; target: T
  * const index = searcher.execute({ array: [1, 2, 3], target: 2 }); // 1
  * ```
  */
-export class LinearSearchStrategy<T> extends BaseAlgorithm<{ array: T[]; target: T }, number> implements ISearchingStrategy<T> {
+export class LinearSearchStrategy<T>
+  extends BaseAlgorithm<{ array: T[]; target: T }, number>
+  implements ISearchingStrategy<T>
+{
   constructor() {
-    super('Linear Search', 'O(n)', 'O(1)');
+    super("Linear Search", "O(n)", "O(1)");
   }
 
   public execute(input: { array: T[]; target: T }): number {
@@ -175,9 +184,12 @@ export class LinearSearchStrategy<T> extends BaseAlgorithm<{ array: T[]; target:
  * const index = searcher.execute({ array: [1, 2, 3], target: 2 }); // 1
  * ```
  */
-export class BinarySearchStrategy<T> extends BaseAlgorithm<{ array: T[]; target: T }, number> implements ISearchingStrategy<T> {
+export class BinarySearchStrategy<T>
+  extends BaseAlgorithm<{ array: T[]; target: T }, number>
+  implements ISearchingStrategy<T>
+{
   constructor() {
-    super('Binary Search', 'O(log n)', 'O(1)');
+    super("Binary Search", "O(log n)", "O(1)");
   }
 
   public execute(input: { array: T[]; target: T }): number {

@@ -3,8 +3,8 @@ import {
   SegmentTreeNodeFactory,
   SegmentTreeNodeMerger,
   SegmentTreeQueryMerger,
-  SegmentTreeLeafNodeUpdater
-} from '../../../data-structures/segment-tree/interfaces';
+  SegmentTreeLeafNodeUpdater,
+} from "../../../data-structures/segment-tree/interfaces";
 
 export interface finSegmentNode extends BaseSegmentTreeNode {
   min: number;
@@ -15,7 +15,11 @@ export interface finSegmentNode extends BaseSegmentTreeNode {
   maxIdx: number;
 }
 
-export const finNodeFactory: SegmentTreeNodeFactory<(string | number)[], finSegmentNode> = (val: (string | number)[], l: number, r: number): finSegmentNode => {
+export const finNodeFactory: SegmentTreeNodeFactory<(string | number)[], finSegmentNode> = (
+  val: (string | number)[],
+  l: number,
+  r: number,
+): finSegmentNode => {
   let node: finSegmentNode = {
     left: l,
     right: r,
@@ -24,7 +28,7 @@ export const finNodeFactory: SegmentTreeNodeFactory<(string | number)[], finSegm
     avg: 0,
     sigma: 0,
     minIdx: -1,
-    maxIdx: -1
+    maxIdx: -1,
   };
 
   if (r - l == 0) {
@@ -41,16 +45,20 @@ export const finNodeFactory: SegmentTreeNodeFactory<(string | number)[], finSegm
 export const finNodeMerger: SegmentTreeNodeMerger<finSegmentNode> = (
   parent: finSegmentNode,
   leftChild: finSegmentNode,
-  rightChild: finSegmentNode
+  rightChild: finSegmentNode,
 ): finSegmentNode => {
   parent.max = Math.max(leftChild.max, rightChild.max);
   parent.min = Math.min(leftChild.min, rightChild.min);
-  parent.max == leftChild.max
-    ? (parent.maxIdx = leftChild.maxIdx)
-    : (parent.maxIdx = rightChild.maxIdx);
-  parent.min == leftChild.min
-    ? (parent.minIdx = leftChild.minIdx)
-    : (parent.minIdx = rightChild.minIdx);
+  if (parent.max == leftChild.max) {
+    parent.maxIdx = leftChild.maxIdx;
+  } else {
+    parent.maxIdx = rightChild.maxIdx;
+  }
+  if (parent.min == leftChild.min) {
+    parent.minIdx = leftChild.minIdx;
+  } else {
+    parent.minIdx = rightChild.minIdx;
+  }
   let nleft = leftChild.right - leftChild.left + 1;
   let nright = rightChild.right - rightChild.left + 1;
   let nm = nleft + nright;
@@ -63,13 +71,19 @@ export const finNodeMerger: SegmentTreeNodeMerger<finSegmentNode> = (
   return parent;
 };
 
-export const finNodeLeafUpdater: SegmentTreeLeafNodeUpdater<(string | number)[], finSegmentNode> = (t: (string | number)[], leaf: finSegmentNode): void => {
+export const finNodeLeafUpdater: SegmentTreeLeafNodeUpdater<(string | number)[], finSegmentNode> = (
+  t: (string | number)[],
+  leaf: finSegmentNode,
+): void => {
   leaf.max = <number>t[2];
   leaf.min = <number>t[3];
   leaf.avg = <number>t[4];
 };
 
-export const finNodeQuery: SegmentTreeQueryMerger<finSegmentNode> = (leftChild: finSegmentNode, rightChild: finSegmentNode) => {
+export const finNodeQuery: SegmentTreeQueryMerger<finSegmentNode> = (
+  leftChild: finSegmentNode,
+  rightChild: finSegmentNode,
+) => {
   if (leftChild.left == -1) return rightChild;
   if (rightChild.left == -1) return leftChild;
   let mergedNode: finSegmentNode = {
@@ -80,13 +94,13 @@ export const finNodeQuery: SegmentTreeQueryMerger<finSegmentNode> = (leftChild: 
     minIdx: -1,
     sigma: 0,
     avg: 0,
-    maxIdx: -1
+    maxIdx: -1,
   };
-  ;[mergedNode.minIdx, mergedNode.min] =
+  [mergedNode.minIdx, mergedNode.min] =
     leftChild.min < rightChild.min
       ? [leftChild.minIdx, leftChild.min]
       : [rightChild.minIdx, rightChild.min];
-  ;[mergedNode.maxIdx, mergedNode.max] =
+  [mergedNode.maxIdx, mergedNode.max] =
     leftChild.max > rightChild.max
       ? [leftChild.maxIdx, leftChild.max]
       : [rightChild.maxIdx, rightChild.max];

@@ -5,7 +5,7 @@
  */
 export class PerformanceMonitor {
   private static clock: () => number = () => performance.now();
-  private static logger: Console | null = console;
+  private static logger: typeof console | null = console;
 
   /**
    * Sets the clock function used for performance measurements.
@@ -21,7 +21,7 @@ export class PerformanceMonitor {
    * Set to null to disable logging.
    * @param logger The logger object (e.g. console) or null
    */
-  public static setLogger(logger: Console | null): void {
+  public static setLogger(logger: typeof console | null): void {
     this.logger = logger;
   }
 
@@ -29,7 +29,7 @@ export class PerformanceMonitor {
    * Gets the currently configured logger.
    * @returns The configured logger or null if disabled
    */
-  public static getLogger(): Console | null {
+  public static getLogger(): typeof console | null {
     return this.logger;
   }
 

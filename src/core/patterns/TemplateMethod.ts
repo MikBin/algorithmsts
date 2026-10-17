@@ -1,5 +1,5 @@
-import { ArgumentError } from '../validation/ArgumentError';
-import { BaseAlgorithm } from '../abstracts/BaseAlgorithm';
+import { ArgumentError } from "../validation/ArgumentError";
+import { BaseAlgorithm } from "../abstracts/BaseAlgorithm";
 
 /**
  * Template Method pattern implementation for Algorithmsts library
@@ -51,10 +51,10 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
 
   /**
    * Validates the input data
-   * @param input The input to validate
+   * @param _input The input to validate
    * @protected
    */
-  protected validateInput(input: TInput): void {
+  protected validateInput(_input: TInput): void {
     // Default implementation - can be overridden
   }
 
@@ -125,8 +125,14 @@ export class SortingAlgorithm extends AlgorithmTemplate<number[], number[]> {
  * const result = searcher.execute({ array: [1, 2, 3, 4, 5], target: 3 }); // 2
  * ```
  */
-export class SearchAlgorithm extends AlgorithmTemplate<{ array: number[]; target: number }, number> {
-  protected prepareData(input: { array: number[]; target: number }): { sortedArray: number[]; target: number } {
+export class SearchAlgorithm extends AlgorithmTemplate<
+  { array: number[]; target: number },
+  number
+> {
+  protected prepareData(input: { array: number[]; target: number }): {
+    sortedArray: number[];
+    target: number;
+  } {
     // Ensure array is sorted for binary search
     const sortedArray = [...input.array].sort((a, b) => a - b);
     return { sortedArray, target: input.target };
@@ -152,10 +158,10 @@ export class SearchAlgorithm extends AlgorithmTemplate<{ array: number[]; target
 
   protected validateInput(input: { array: number[]; target: number }): void {
     if (!Array.isArray(input.array)) {
-      throw new ArgumentError('Input must contain an array property');
+      throw new ArgumentError("Input must contain an array property");
     }
-    if (typeof input.target !== 'number') {
-      throw new ArgumentError('Input must contain a numeric target property');
+    if (typeof input.target !== "number") {
+      throw new ArgumentError("Input must contain a numeric target property");
     }
   }
 }
@@ -169,10 +175,13 @@ export class SearchAlgorithm extends AlgorithmTemplate<{ array: number[]; target
  * const stats = processor.execute([1, 2, 3, 4, 5]); // { sum: 15, average: 3, count: 5 }
  * ```
  */
-export class DataProcessingAlgorithm extends AlgorithmTemplate<number[], { sum: number; average: number; count: number }> {
+export class DataProcessingAlgorithm extends AlgorithmTemplate<
+  number[],
+  { sum: number; average: number; count: number }
+> {
   protected prepareData(input: number[]): number[] {
     // Filter out non-numeric values
-    return input.filter(x => typeof x === 'number' && !isNaN(x));
+    return input.filter((x) => typeof x === "number" && !isNaN(x));
   }
 
   protected processData(data: number[]): { sum: number; average: number; count: number } {
@@ -184,7 +193,7 @@ export class DataProcessingAlgorithm extends AlgorithmTemplate<number[], { sum: 
 
   protected validateInput(input: number[]): void {
     if (!Array.isArray(input)) {
-      throw new ArgumentError('Input must be an array');
+      throw new ArgumentError("Input must be an array");
     }
   }
 }
