@@ -85,7 +85,7 @@
     "test:e2e": "vitest run test/e2e && npx playwright test",
     "test:integration": "vitest run test/integration",
     "test:vector-similarity": "vitest run test/vector-similarity",
-    "test:prod": "vitest run --coverage --exclude test/e2e --exclude test/integration --exclude test/algorithms/integration",
+    "test:prod": "vitest run --coverage --exclude test/e2e --exclude test/integration ",
     "bench": "vitest bench",
     "prepare": "husky",
     "v-pub-tarball": "npm publish --dry-run",
