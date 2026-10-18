@@ -39,3 +39,4 @@ Gaps against the comprehensive-library positioning (review section 4): no compar
 - Partial structure polish landed: TwoThreeTree, OrderStatisticTree, SuffixArray, and VanEmdeBoasTree issues resolved.
 - Specifically for vEB tree: `delete`, `successor`, and `predecessor` added properly and tested; out-of-bounds `insert` throws.
 - Remaining: rope, spatial-tree guard issues, and fibonacci-heap.
+- FINAL PASS: minor follow-ups B1-B5 landed. (Fibonacci, rope, spatial trees remain for later iteration).

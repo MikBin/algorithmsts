@@ -51,7 +51,7 @@ export class Knapsack extends BaseAlgorithm<KnapsackInput, KnapsackOutput> imple
     // Reconstruct solution
     const selectedItems: KnapsackItem[] = [];
     let w = capacity;
-    for (let i = n; i > 0 && w > 0; i--) {
+    for (let i = n; i > 0; i--) {
       if (dp[i][w] !== dp[i - 1][w]) {
         // Item i was included
         selectedItems.push(items[i - 1]);

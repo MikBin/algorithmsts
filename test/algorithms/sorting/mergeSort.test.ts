@@ -46,4 +46,20 @@ describe('MergeSort', () => {
     sorter.execute({ array: input });
     expect(input).toEqual(original);
   });
+
+  it('is stable for duplicate elements', () => {
+    const a1 = new String('a'); (a1 as any).id = 1;
+    const b1 = new String('b'); (b1 as any).id = 2;
+    const a2 = new String('a'); (a2 as any).id = 3;
+
+    const input = [b1, a1, a2] as string[];
+    const res = stringSorter.execute({ array: input });
+
+    expect(res.sortedArray[0].toString()).toBe('a');
+    expect((res.sortedArray[0] as any).id).toBe(1);
+    expect(res.sortedArray[1].toString()).toBe('a');
+    expect((res.sortedArray[1] as any).id).toBe(3);
+    expect(res.sortedArray[2].toString()).toBe('b');
+    expect((res.sortedArray[2] as any).id).toBe(2);
+  });
 });

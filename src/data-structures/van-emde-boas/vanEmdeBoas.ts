@@ -104,12 +104,14 @@ export class VanEmdeBoasTree {
 
   /**
    * Inserts an element into the tree.
+   * Duplicate elements are ignored (no-op).
    *
    * @param x The element to insert.
    * @complexity Time: O(log log U) where U is the universe size | Space: O(log log U) recursion depth
    */
   insert(x: Key): void {
     if (x < 0 || x >= this.u) throw new Error('Out of bounds');
+    if (this.member(x)) return;
     if (this.min === null) {
       this.insertEmpty(x);
       return;
