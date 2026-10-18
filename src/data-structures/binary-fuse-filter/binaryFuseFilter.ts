@@ -23,6 +23,12 @@ const defaultSerializer = (item: any): string => {
   return JSON.stringify(item);
 };
 
+/**
+ * @title Binary Fuse Filter
+ * @notice A probabilistic data structure used to test whether an element is a member of a set.
+ * @dev Designed to be faster and smaller than Bloom Filters. Based on Graf & Lemire (2022).
+ * @template T The type of elements stored in the filter.
+ */
 export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
   private fingerprints: Uint8Array | Uint16Array | Uint32Array;
   private segmentLength: number;
@@ -33,8 +39,12 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
   private serializer: Serializer<T>;
 
   /**
-   * Constructs a static Binary Fuse Filter from a set of items.
-   * Based on Graf & Lemire, "Binary Fuse Filters: Fast and Smaller Than Bloom Filters", 2022.
+   * @notice Constructs a static Binary Fuse Filter from a set of items.
+   * @dev Based on Graf & Lemire, "Binary Fuse Filters: Fast and Smaller Than Bloom Filters", 2022.
+   * @param items The items to insert into the filter initially.
+   * @param fingerprintSize The size of the fingerprints in bits (8, 16, or 32). Defaults to 8.
+   * @param options Additional options for hashing and serialization.
+   * @complexity Time: O(n) expected | Space: O(n) where n is the number of items.
    */
   constructor(
     items: T[],
@@ -223,6 +233,12 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
     }
   }
 
+  /**
+   * @notice Tests whether an item might be in the filter.
+   * @param item The item to check for membership.
+   * @returns `true` if the item might be in the set, `false` if it is definitely not.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   mightContain(item: T): boolean {
     const h = this.getHash(item, 0);
     const fp = this.getFingerprint(h);
@@ -233,10 +249,20 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
     return f === fp;
   }
 
+  /**
+   * @notice Returns the number of items the filter was initialized with.
+   * @returns The number of elements.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   size(): number {
     return this.size_;
   }
 
+  /**
+   * @notice Serializes the filter into a JSON string.
+   * @returns A string representing the JSON structure of the filter.
+   * @complexity Time: O(m) | Space: O(m) where m is the length of the internal fingerprints array.
+   */
   toJson(): string {
     return JSON.stringify({
       fingerprintSize: this.fingerprintSize,
@@ -246,6 +272,13 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
     });
   }
 
+  /**
+   * @notice Deserializes a Binary Fuse Filter from a JSON string.
+   * @param json The JSON string to deserialize.
+   * @param options Additional options for hashing and serialization.
+   * @returns A new instance of `BinaryFuseFilter`.
+   * @complexity Time: O(m) | Space: O(m) where m is the length of the internal fingerprints array.
+   */
   static fromJson<T>(json: string, options: BinaryFuseFilterOptions<T> = {}): BinaryFuseFilter<T> {
     const data = JSON.parse(json);
     // Dummy item array to init

@@ -15,21 +15,38 @@ export class BinarySearchTree<T> {
   private _compare: (a: T, b: T) => number;
 
   /**
+   * @notice Constructs a new Binary Search Tree.
    * @param compareFunction Optional custom comparison function.
    * If not provided, a default one will be used.
+   * @complexity Time: O(1) | Space: O(1)
    */
   constructor(compareFunction?: (a: T, b: T) => number) {
     this._compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
   }
 
+  /**
+   * @notice Gets the root of the tree.
+   * @returns The root node or null if the tree is empty.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get root(): BSTNode<T> | null {
     return this._root;
   }
 
+  /**
+   * @notice Gets the compare function.
+   * @returns The compare function.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get compare(): (a: T, b: T) => number {
     return this._compare;
   }
 
+  /**
+   * @notice Gets the number of nodes in the tree.
+   * @returns The size of the tree.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get size(): number {
     return this._size;
   }
@@ -37,7 +54,8 @@ export class BinarySearchTree<T> {
   /**
    * @notice Inserts a new value into the BST.
    * @param value The value to insert.
-   * @returns The newly created node.
+   * @returns The newly created node, or the existing node if the value already exists.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the tree.
    */
   insert(value: T): BSTNode<T> {
     const newNode: BSTNode<T> = { value, left: null, right: null, parent: null };
@@ -81,6 +99,7 @@ export class BinarySearchTree<T> {
    * @notice Deletes a value from the BST.
    * @param value The value to delete.
    * @returns `true` if the value was deleted, `false` otherwise.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the tree.
    */
   remove(value: T): boolean {
     const nodeToDelete = this.search(value);
@@ -131,6 +150,7 @@ export class BinarySearchTree<T> {
    * @notice Searches for a value in the BST.
    * @param value The value to search for.
    * @returns The node containing the value, or `null` if not found.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the tree.
    */
   search(value: T): BSTNode<T> | null {
     let currentNode = this._root;
@@ -150,6 +170,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Finds the minimum value in the BST.
    * @returns The node containing the minimum value, or `null` if the tree is empty.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the tree.
    */
   findMin(): BSTNode<T> | null {
     if (this._root === null) {
@@ -161,6 +182,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Finds the maximum value in the BST.
    * @returns The node containing the maximum value, or `null` if the tree is empty.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the tree.
    */
   findMax(): BSTNode<T> | null {
     if (this._root === null) {
@@ -173,6 +195,7 @@ export class BinarySearchTree<T> {
    * @notice Finds the minimum value in a subtree.
    * @param node The root of the subtree.
    * @returns The node containing the minimum value.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the subtree.
    */
   findMinNode(node: BSTNode<T>): BSTNode<T> {
     let currentNode = node;
@@ -186,6 +209,7 @@ export class BinarySearchTree<T> {
    * @notice Finds the maximum value in a subtree.
    * @param node The root of the subtree.
    * @returns The node containing the maximum value.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the subtree.
    */
   findMaxNode(node: BSTNode<T>): BSTNode<T> {
     let currentNode = node;
@@ -198,6 +222,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Performs an in-order traversal of the BST.
    * @returns An array of values in sorted order.
+   * @complexity Time: O(n) | Space: O(n) where n is the number of nodes.
    */
   traversalInOrder(): T[] {
     const result: T[] = [];
@@ -216,6 +241,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Performs a pre-order traversal of the BST.
    * @returns An array of values in pre-order.
+   * @complexity Time: O(n) | Space: O(n) where n is the number of nodes.
    */
   traversalPreOrder(): T[] {
     const result: T[] = [];
@@ -234,6 +260,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Performs a post-order traversal of the BST.
    * @returns An array of values in post-order.
+   * @complexity Time: O(n) | Space: O(n) where n is the number of nodes.
    */
   traversalPostOrder(): T[] {
     const result: T[] = [];
@@ -252,6 +279,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Performs a level-order traversal of the BST.
    * @returns An array of values in level-order.
+   * @complexity Time: O(n) | Space: O(n) where n is the number of nodes.
    */
   traversalLevelOrder(): T[] {
     const result: T[] = [];
@@ -276,6 +304,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Checks if the BST is empty.
    * @returns `true` if the tree is empty, `false` otherwise.
+   * @complexity Time: O(1) | Space: O(1)
    */
   isEmpty(): boolean {
     return this._root === null;
@@ -284,6 +313,7 @@ export class BinarySearchTree<T> {
   /**
    * @notice Gets the height of the BST.
    * @returns The height of the tree.
+   * @complexity Time: O(n) | Space: O(h) (recursion depth) where n is the number of nodes and h is the height.
    */
   getHeight(): number {
     return this.getNodeHeight(this._root);
@@ -300,6 +330,7 @@ export class BinarySearchTree<T> {
 
   /**
    * @notice Clears the BST.
+   * @complexity Time: O(1) | Space: O(1)
    */
   clear(): void {
     this._root = null;
@@ -311,7 +342,8 @@ export class BinarySearchTree<T> {
   }
   /**
    * @notice Converts the BST to a JSON representation.
-   * @returns A JSON object representing the tree structure.
+   * @returns A JSON string representing the tree structure.
+   * @complexity Time: O(n) | Space: O(n)
    */
   toJson(): string {
     return JSON.stringify(this._root, (key, value) => {

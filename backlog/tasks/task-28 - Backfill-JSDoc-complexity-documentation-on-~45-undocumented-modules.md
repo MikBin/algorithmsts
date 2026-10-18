@@ -30,24 +30,10 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 ## Progress Notes
 - Completed first batch of 5 tree data structures.
 - Deleted orphaned line in docs/any_usage_report.md
+- 2026-10-17: batch 2 — modules ball-tree, binary-fuse-filter, binary-heap, binary-search-tree, binomial-heap, bitset, bk-tree, bloom-filter, cartesian-tree, circular-buffer, count-min-sketch, cover-tree, cuckoo-filter, d-ary-heap, deque documented.
 
 Remaining modules:
 
-- src/data-structures/ball-tree/ballTree.ts
-- src/data-structures/binary-fuse-filter/binaryFuseFilter.ts
-- src/data-structures/binary-heap/binaryHeap.ts
-- src/data-structures/binary-search-tree/binarySearchTree.ts
-- src/data-structures/binomial-heap/binomialHeap.ts
-- src/data-structures/bitset/bitSet.ts
-- src/data-structures/bk-tree/bkTree.ts
-- src/data-structures/bloom-filter/bloomFilter.ts
-- src/data-structures/cartesian-tree/cartesianTree.ts
-- src/data-structures/circular-buffer/circularBuffer.ts
-- src/data-structures/count-min-sketch/countMinSketch.ts
-- src/data-structures/cover-tree/coverTree.ts
-- src/data-structures/cuckoo-filter/cuckooFilter.ts
-- src/data-structures/d-ary-heap/dAryHeap.ts
-- src/data-structures/deque/deque.ts
 - src/data-structures/disjoint-set/unionFind.ts
 - src/data-structures/dynamic-array/arrayList.ts
 - src/data-structures/fenwick-tree/fenwickTree.ts

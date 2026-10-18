@@ -10,12 +10,32 @@ class BallNode<T=unknown> {
   ) {}
 }
 
+/**
+ * @title Ball Tree
+ * @notice A spatial data structure that organizes points into nested hyper-spheres (balls)
+ * @dev Useful for nearest neighbor and range queries in high-dimensional spaces.
+ * @template T Type of the optional data payload associated with each point.
+ */
 export class BallTree<T=unknown> {
   private root: BallNode<T> | null = null;
+
+  /**
+   * @notice Creates a new Ball Tree from a set of points.
+   * @param points The initial set of points to build the tree from.
+   * @param distance Optional distance function, defaults to Euclidean distance.
+   * @complexity Time: O(n log n) | Space: O(n) (recursion depth)
+   */
   constructor(points: { p: Point; data?: T }[] = [], private distance: (a: Point, b: Point) => number = BallTree.euclidean) {
     if (points.length) this.root = this.build(points);
   }
 
+  /**
+   * @notice Computes the Euclidean distance between two points.
+   * @param a The first point.
+   * @param b The second point.
+   * @returns The Euclidean distance.
+   * @complexity Time: O(k) | Space: O(1) where k is the dimensionality of the points.
+   */
   static euclidean(a: Point, b: Point): number { let s=0; for (let i=0;i<a.length;i++){ const d=a[i]-b[i]; s+=d*d; } return Math.sqrt(s); }
 
   private build(points: { p: Point; data?: T }[]): BallNode<T> | null {
@@ -44,6 +64,13 @@ export class BallTree<T=unknown> {
 
   private centroid(ps: Point[]): Point { const k=ps[0].length; const c=new Array(k).fill(0); for (const p of ps) for (let i=0;i<k;i++) c[i]+=p[i]; for (let i=0;i<k;i++) c[i]/=ps.length; return c; }
 
+  /**
+   * @notice Finds all points within a certain radius of a given center point.
+   * @param center The center point of the range query.
+   * @param tau The search radius (tau).
+   * @returns An array of points that fall within the specified radius.
+   * @complexity Time: O(n) worst-case | Space: O(log n) (recursion depth)
+   */
   rangeQuery(center: Point, tau: number): { p: Point; data?: T }[] {
     const out: { p: Point; data?: T }[] = [];
     const dfs = (n: BallNode<T> | null) => {
@@ -60,6 +87,11 @@ export class BallTree<T=unknown> {
     return out;
   }
 
+  /**
+   * @notice Serializes the tree into a JSON string.
+   * @returns A string representing the JSON structure of the tree.
+   * @complexity Time: O(n) | Space: O(n) (recursion depth)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }
