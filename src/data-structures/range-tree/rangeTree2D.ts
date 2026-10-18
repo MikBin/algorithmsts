@@ -43,8 +43,12 @@ export class RangeTree2D<T=unknown> {
   /**
    * Queries points in a rectangular region.
    *
-   * Time complexity: O(log^2 n + k) where n is total points, k is number of reported points
-   * Space complexity: O(n log n)
+   * @param x1 - The minimum x-coordinate.
+   * @param x2 - The maximum x-coordinate.
+   * @param y1 - The minimum y-coordinate.
+   * @param y2 - The maximum y-coordinate.
+   * @returns An array of points that lie within the query bounds.
+   * @complexity Time: O(log^2 n + k) | Space: O(log n + k) (where k is number of reported points)
    */
   query(x1:number, x2:number, y1:number, y2:number): Point2D<T>[] {
     const out: Point2D<T>[] = [];

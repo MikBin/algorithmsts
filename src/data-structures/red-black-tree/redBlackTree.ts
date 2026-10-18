@@ -477,7 +477,7 @@ export class RedBlackTree<T> implements Iterable<T> {
    * Calculates and returns the height of the tree.
    *
    * @returns The height of the tree, or -1 if empty.
-   * @complexity Time: O(n log n) | Space: O(log n) (recursion depth)
+   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
    */
   getHeight(): number {
     return this.getNodeHeight(this.root);
@@ -507,7 +507,7 @@ export class RedBlackTree<T> implements Iterable<T> {
    * Useful for internal testing and validation.
    *
    * @returns True if the tree is a valid Red-Black Tree, false otherwise.
-   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
+   * @complexity Time: O(n log n) | Space: O(log n) (recursion depth)
    */
   isRedBlackTree(): boolean {
     if (this.root === null || this.root === this.NIL) {
