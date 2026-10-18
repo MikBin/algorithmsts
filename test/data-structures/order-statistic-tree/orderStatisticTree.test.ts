@@ -23,3 +23,24 @@ describe("OrderStatisticTree", () => {
     expect(ds.rank(15)).toBe(2);
   });
 });
+
+  it('toArray returns in order', () => {
+    const ds = new OrderStatisticTree<number>((a, b) => a - b);
+    ds.add(10);
+    ds.add(5);
+    ds.add(15);
+    ds.add(1);
+    expect(ds.toArray()).toEqual([1, 5, 10, 15]);
+  });
+
+  it('rebuilds a balanced tree', () => {
+    const ds = new OrderStatisticTree<number>((a, b) => a - b);
+    ds.add(1);
+    ds.add(2);
+    ds.add(3);
+    ds.add(4);
+    ds.add(5);
+    ds.rebuild();
+    expect(ds.toArray()).toEqual([1, 2, 3, 4, 5]);
+    expect(ds.select(2)).toBe(3);
+  });

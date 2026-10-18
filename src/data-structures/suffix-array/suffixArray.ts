@@ -64,9 +64,9 @@ export class SuffixArray {
   search(pat: string): number[] {
     const n = this.s.length; const m = pat.length;
     let l = 0, r = this.sa.length - 1; let first = -1, last = -1;
-    while (l <= r) { const mid = (l + r) >> 1; const cmp = this.s.substring(this.sa[mid], Math.min(n, this.sa[mid] + m)).localeCompare(pat); if (cmp >= 0) { r = mid - 1; if (cmp === 0) first = mid; } else l = mid + 1; }
+    while (l <= r) { const mid = (l + r) >> 1; const sub = this.s.substring(this.sa[mid], Math.min(n, this.sa[mid] + m)); const cmp = sub < pat ? -1 : sub > pat ? 1 : 0; if (cmp >= 0) { r = mid - 1; if (cmp === 0) first = mid; } else l = mid + 1; }
     l = 0; r = this.sa.length - 1;
-    while (l <= r) { const mid = (l + r) >> 1; const cmp = this.s.substring(this.sa[mid], Math.min(n, this.sa[mid] + m)).localeCompare(pat); if (cmp <= 0) { l = mid + 1; if (cmp === 0) last = mid; } else r = mid - 1; }
+    while (l <= r) { const mid = (l + r) >> 1; const sub = this.s.substring(this.sa[mid], Math.min(n, this.sa[mid] + m)); const cmp = sub < pat ? -1 : sub > pat ? 1 : 0; if (cmp <= 0) { l = mid + 1; if (cmp === 0) last = mid; } else r = mid - 1; }
     if (first === -1) return [];
     const res: number[] = [];
     for (let i = first; i <= last; i++) res.push(this.sa[i]);

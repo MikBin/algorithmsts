@@ -11,7 +11,25 @@
 export { BinarySearch, BinaryClosestSearch } from "./searching/binary-search";
 
 // Sorting algorithms
-export { CountingSort, RadixSortNumbers, RadixSortStrings } from "./sorting";
+export {
+  CountingSort,
+  RadixSortNumbers,
+  RadixSortStrings,
+  BubbleSort,
+  InsertionSort,
+  QuickSort,
+  MergeSort,
+  HeapSort
+} from "./sorting";
+
+// Dynamic Programming algorithms
+export {
+  LongestCommonSubsequence,
+  LongestIncreasingSubsequence,
+  Knapsack,
+  CoinChange,
+  SubsetSum
+} from "./dynamic-programming";
 
 // String algorithms
 export {
