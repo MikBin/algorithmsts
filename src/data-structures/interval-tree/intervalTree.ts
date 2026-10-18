@@ -22,6 +22,7 @@ export class IntervalTree {
   /**
    * Gets the number of intervals in the tree.
    *
+   * @returns The number of intervals.
    * @complexity Time: O(1) | Space: O(1)
    */
   get size(): number {
@@ -66,7 +67,7 @@ export class IntervalTree {
    *
    * @param query The query interval.
    * @returns An array of intervals that overlap with the query.
-   * @complexity Time: O(k + log n) average where k is number of matches | Space: O(k + log n) (recursion depth and output)
+   * @complexity Time: O(k + log n) average, O(n + k) worst-case where k is number of matches | Space: O(k + log n) average, O(n + k) worst-case
    */
   searchOverlap(query: Interval): Interval[] {
     const res: Interval[] = [];

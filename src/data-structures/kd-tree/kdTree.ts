@@ -43,7 +43,7 @@ export class KDTree {
    * @param min The minimum coordinates of the bounding box.
    * @param max The maximum coordinates of the bounding box.
    * @returns An array of points that fall within the bounding box.
-   * @complexity Time: O(k * n^(1-1/k) + m) where m is the number of reported points | Space: O(log n + m) (recursion depth and output)
+   * @complexity Time: O(k * n^(1-1/k) + m) average, O(n * k + m) worst-case (where k is dimensionality, m is reported points) | Space: O(log n + m) average, O(n + m) worst-case
    */
   rangeQuery(min: Point, max: Point): Point[] { const res: Point[] = []; this._range(this.root, min, max, res); return res; }
   private _range(node: KDNode | null, min: Point, max: Point, out: Point[]) { if (!node) return; let inside = true; for (let i=0;i<this.k;i++){ if (node.point[i] < min[i] || node.point[i] > max[i]) { inside=false; break; } } if (inside) out.push(node.point); if (node.left && node.point[node.axis] >= min[node.axis]) this._range(node.left, min, max, out); if (node.right && node.point[node.axis] <= max[node.axis]) this._range(node.right, min, max, out); }

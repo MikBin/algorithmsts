@@ -12,6 +12,7 @@ export class ArrayList<T> extends BaseDataStructure<T> {
   /**
    * Gets the number of elements in the array list.
    *
+   * @returns The number of elements.
    * @complexity Time: O(1) | Space: O(1)
    */
   get size(): number {

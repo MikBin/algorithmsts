@@ -20,7 +20,7 @@ export class UnionFind {
    *
    * @param x The element to find.
    * @returns The representative root of the set containing x.
-   * @complexity Time: O(α(n)) amortized | Space: O(α(n)) (recursion depth)
+   * @complexity Time: O(α(n)) amortized | Space: O(log n) (recursion depth)
    */
   find(x: number): number { if (this.parent[x]!==x) this.parent[x]=this.find(this.parent[x]); return this.parent[x]; }
 
@@ -30,7 +30,7 @@ export class UnionFind {
    * @param a The first element.
    * @param b The second element.
    * @returns True if a merge occurred, false if they are already in the same set.
-   * @complexity Time: O(α(n)) amortized | Space: O(α(n)) (recursion depth)
+   * @complexity Time: O(α(n)) amortized | Space: O(log n) (recursion depth)
    */
   union(a: number, b: number): boolean { let ra=this.find(a), rb=this.find(b); if (ra===rb) return false; if (this.sizeArr[ra]<this.sizeArr[rb]) [ra,rb]=[rb,ra]; this.parent[rb]=ra; this.sizeArr[ra]+=this.sizeArr[rb]; this._count--; return true; }
 
@@ -40,7 +40,7 @@ export class UnionFind {
    * @param a The first element.
    * @param b The second element.
    * @returns True if connected, false otherwise.
-   * @complexity Time: O(α(n)) amortized | Space: O(α(n)) (recursion depth)
+   * @complexity Time: O(α(n)) amortized | Space: O(log n) (recursion depth)
    */
   connected(a: number, b: number): boolean { return this.find(a)===this.find(b); }
 

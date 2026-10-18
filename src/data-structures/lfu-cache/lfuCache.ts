@@ -58,7 +58,7 @@ export class LFUCache<K, V> {
    *
    * @param key The key to remove.
    * @returns True if removed, false if not found.
-   * @complexity Time: O(k) where k is the number of distinct frequencies | Space: O(1)
+   * @complexity Time: O(k) where k is the number of distinct frequencies | Space: O(k)
    */
   delete(key: K): boolean { if (!this.values.has(key)) return false; const c=this.counts.get(key)!; this.values.delete(key); this.counts.delete(key); const s=this.freq.get(c)!; s.delete(key); if (s.size===0) this.freq.delete(c); if (this.minFreq===c && !this.freq.has(c)) this.minFreq = Math.min(...Array.from(this.freq.keys(), n => n)); return true; }
 

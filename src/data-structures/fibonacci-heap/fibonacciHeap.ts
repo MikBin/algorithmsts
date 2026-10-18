@@ -58,7 +58,7 @@ export class FibonacciHeap<T> {
    * Consolidation is performed during this operation.
    *
    * @returns The minimum element, or null if the heap is empty.
-   * @complexity Time: O(log n) amortized | Space: O(log n)
+   * @complexity Time: O(log n) amortized | Space: O(n) worst-case
    */
   poll(): T | null {
     const z = this.min; if (!z) return null; if (z.child){ let c: Node<T> = z.child; const start = c; do { const next: Node<T> = c.right!; this.min = this.mergeLists(this.min, c); c.parent=null; c=next; } while(c!==start); }

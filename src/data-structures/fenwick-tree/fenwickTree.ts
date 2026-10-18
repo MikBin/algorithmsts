@@ -11,7 +11,7 @@ export class FenwickTree implements IFenwickTree {
    * Initializes a new Fenwick Tree with the specified size or an array of initial values.
    *
    * @param sizeOrValues The size of the tree, or an array of initial values to build the tree from.
-   * @complexity Time: O(n) (if values provided) or O(n) (if size provided due to fill) | Space: O(n)
+   * @complexity Time: O(n log n) for array input, O(n) for numeric size | Space: O(n)
    */
   constructor(size: number);
   constructor(values: number[]);
@@ -108,7 +108,7 @@ export class FenwickTree implements IFenwickTree {
   }
 
   /**
-   * Finds the index with the kth largest prefix sum (binary lifting).
+   * Finds the index whose prefix sum reaches k (kth smallest order statistic via binary lifting).
    *
    * @param k The target prefix sum value.
    * @returns The index where the prefix sum reaches or exceeds k.

@@ -31,7 +31,7 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 - Completed first batch of 5 tree data structures.
 - Deleted orphaned line in docs/any_usage_report.md
 - 2026-10-17: batch 2 — modules ball-tree, binary-fuse-filter, binary-heap, binary-search-tree, binomial-heap, bitset, bk-tree, bloom-filter, cartesian-tree, circular-buffer, count-min-sketch, cover-tree, cuckoo-filter, d-ary-heap, deque documented.
-- 2026-10-18: batch 3 — modules disjoint-set ... min-max-heap documented.
+- 2026-10-18: batch 3 — modules disjoint-set, dynamic-array, fenwick-tree, fibonacci-heap, hash-map, hash-set, hyperloglog, interval-heap, interval-skip-list, interval-tree, kd-tree, leftist-heap, lfu-cache, lru-cache, min-max-heap documented.
 
 Remaining modules:
 

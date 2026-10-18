@@ -35,7 +35,7 @@ export class IntervalSkipList<T> {
    * @param start The start coordinate of the interval.
    * @param end The end coordinate of the interval.
    * @param value The value associated with the interval.
-   * @complexity Time: O(log n) expected | Space: O(log n) expected
+   * @complexity Time: O(n) expected/worst | Space: O(log n) expected
    */
   add(start: number, end: number, value: T): void {
     if (end < start) [start, end] = [end, start];
@@ -72,7 +72,7 @@ export class IntervalSkipList<T> {
    * @param newEnd The new end coordinate.
    * @param newValue The new value.
    * @returns True if the old interval was found and replaced, false otherwise.
-   * @complexity Time: O(log n) expected | Space: O(log n) expected
+   * @complexity Time: O(n) expected/worst | Space: O(log n) expected
    */
   update(
     oldStart: number,
@@ -94,7 +94,7 @@ export class IntervalSkipList<T> {
    * @param end The end coordinate of the interval to remove.
    * @param value The value of the interval to remove.
    * @returns True if removed, false if not found.
-   * @complexity Time: O(log n) expected | Space: O(1)
+   * @complexity Time: O(n) expected/worst | Space: O(1)
    */
   remove(start: number, end: number, value: T): boolean {
     if (end < start) [start, end] = [end, start];
@@ -125,7 +125,7 @@ export class IntervalSkipList<T> {
    *
    * @param x The point coordinate to query.
    * @returns An array of unique values overlapping the point.
-   * @complexity Time: O(k + log n) expected where k is number of matches | Space: O(k)
+   * @complexity Time: O(n) expected/worst | Space: O(k) where k is the number of matches
    */
   queryPoint(x: number): T[] {
     const res: T[] = [];
@@ -146,7 +146,7 @@ export class IntervalSkipList<T> {
    * @param x1 The start of the query range.
    * @param x2 The end of the query range.
    * @returns An array of unique values overlapping the range.
-   * @complexity Time: O(k + log n) expected where k is number of matches | Space: O(k)
+   * @complexity Time: O(n) expected/worst | Space: O(k) where k is the number of matches
    */
   queryRange(x1: number, x2: number): T[] {
     if (x2 < x1) [x1, x2] = [x2, x1];
@@ -228,7 +228,7 @@ export class IntervalSkipList<T> {
    *
    * @param value The value of the intervals to merge.
    * @returns The number of merged intervals remaining.
-   * @complexity Time: O(n log n) | Space: O(n)
+   * @complexity Time: O(n log n) average, O(n^2) worst | Space: O(n)
    */
   mergeAdjacent(value: T): number {
     // merge overlapping or touching intervals of the same value at level 0; rebuild upper levels by simple re-add
