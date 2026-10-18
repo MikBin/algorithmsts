@@ -4,9 +4,21 @@ class Node {
   declare value?: unknown;
 }
 
+/**
+ * A Patricia Trie (Radix Tree) implementation for compact string-key storage.
+ * Compresses paths by merging nodes with single children.
+ */
 export class PatriciaTrie<V = unknown> {
   private root = new Node();
 
+  /**
+   * Inserts a key-value pair into the trie.
+   * If the key already exists, updates its value.
+   *
+   * @param key - The string key to insert.
+   * @param value - The value to associate with the key.
+   * @complexity Time: O(k + sibling scans) worst case | Space: O(k) (recursion depth and string allocation, where k is key length)
+   */
   set(key: string, value: V): void {
     this._set(this.root, key, value);
   }
@@ -46,11 +58,25 @@ export class PatriciaTrie<V = unknown> {
     node.edges.push({ label: key, child });
   }
 
+  /**
+   * Retrieves the value associated with the specified key.
+   *
+   * @param key - The string key to find.
+   * @returns The associated value, or undefined if the key is not found.
+   * @complexity Time: O(k + sibling scans) worst case | Space: O(k) (recursion depth, where k is key length)
+   */
   get(key: string): V | undefined {
     const n = this._findNode(this.root, key);
     return n && Object.prototype.hasOwnProperty.call(n, "value") ? (n.value as V) : undefined;
   }
 
+  /**
+   * Checks if the specified key exists in the trie.
+   *
+   * @param key - The string key to search for.
+   * @returns True if the key is found, false otherwise.
+   * @complexity Time: O(k + sibling scans) worst case | Space: O(k) (recursion depth, where k is key length)
+   */
   has(key: string): boolean {
     const n = this._findNode(this.root, key);
     return !!(n && Object.prototype.hasOwnProperty.call(n, "value"));
@@ -73,6 +99,12 @@ export class PatriciaTrie<V = unknown> {
     return a.slice(0, i);
   }
 
+  /**
+   * Serializes the trie to a JSON string.
+   *
+   * @returns A JSON string representation of the trie.
+   * @complexity Time: O(n) | Space: O(n) (JSON string allocation)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }

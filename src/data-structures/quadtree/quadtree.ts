@@ -15,10 +15,31 @@ class QuadNode {
   contains(p: Point): boolean { return p.x>=this.x && p.x<this.x+this.w && p.y>=this.y && p.y<this.y+this.h; }
 }
 
+/**
+ * A Quadtree data structure for partitioning 2D space and querying points.
+ */
 export class Quadtree {
   private root: QuadNode;
+
+  /**
+   * Creates a new Quadtree with the specified bounds and node capacity.
+   *
+   * @param x - The minimum x-coordinate of the quadtree bounds.
+   * @param y - The minimum y-coordinate of the quadtree bounds.
+   * @param w - The width of the quadtree bounds.
+   * @param h - The height of the quadtree bounds.
+   * @param capacity - The maximum number of points a node can hold before subdividing.
+   * @complexity Time: O(1) | Space: O(1) (node allocation)
+   */
   constructor(x: number, y: number, w: number, h: number, private capacity = 4) { this.root = new QuadNode(x,y,w,h); }
 
+  /**
+   * Inserts a point into the quadtree.
+   *
+   * @param p - The point to insert.
+   * @returns True if the point was successfully inserted, false if it lies outside the bounds.
+   * @complexity Time: O(log n) average, O(n) worst-case | Space: O(log n) average, O(n) worst-case (recursion depth)
+   */
   insert(p: Point): boolean { return this._insert(this.root, p); }
   private _insert(n: QuadNode, p: Point): boolean {
     if (!n.contains(p)) return false;
@@ -36,6 +57,16 @@ export class Quadtree {
     n.points = [];
   }
 
+  /**
+   * Queries the quadtree for points within a specified rectangular bounding box.
+   *
+   * @param x - The minimum x-coordinate of the query bounding box.
+   * @param y - The minimum y-coordinate of the query bounding box.
+   * @param w - The width of the query bounding box.
+   * @param h - The height of the query bounding box.
+   * @returns An array of points that fall within the specified query bounds.
+   * @complexity Time: O(k + log n) average, O(n) worst-case (where k is the number of points found) | Space: O(k + log n) average, O(n) worst-case (recursion depth and result array)
+   */
   query(x: number, y: number, w: number, h: number): Point[] { const res: Point[]=[]; this._query(this.root, x,y,w,h,res); return res; }
   private _query(n: QuadNode, x:number,y:number,w:number,h:number,out:Point[]): void {
     if (x>=n.x+n.w || x+w<=n.x || y>=n.y+n.h || y+h<=n.y) return; // no overlap
@@ -44,6 +75,12 @@ export class Quadtree {
     this._query(n.nw!,x,y,w,h,out); this._query(n.ne!,x,y,w,h,out); this._query(n.sw!,x,y,w,h,out); this._query(n.se!,x,y,w,h,out);
   }
 
+  /**
+   * Serializes the quadtree to a JSON string.
+   *
+   * @returns A JSON string representation of the quadtree.
+   * @complexity Time: O(n) | Space: O(n) (JSON string allocation)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }

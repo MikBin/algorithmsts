@@ -10,10 +10,28 @@ class RNode {
   constructor(leaf: boolean){ this.leaf = leaf; }
 }
 
+/**
+ * An R-Tree implementation, a tree data structure used for spatial access methods,
+ * indexing multi-dimensional information such as geographical coordinates.
+ */
 export class RTree {
   private root = new RNode(true);
+
+  /**
+   * Creates a new R-Tree.
+   *
+   * @param maxEntries - The maximum number of entries a node can contain before splitting.
+   * @complexity Time: O(1) | Space: O(1) (node allocation)
+   */
   constructor(private maxEntries = 8) {}
 
+  /**
+   * Inserts a spatial rectangle and its associated data into the R-Tree.
+   *
+   * @param rect - The bounding rectangle to insert.
+   * @param data - Optional data associated with the rectangle.
+   * @complexity Time: O(log n) average, O(n) worst-case | Space: O(log n) (recursion depth)
+   */
   insert(rect: Rect, data?: unknown): void { const split = this._insert(this.root, rect, data); if (split) { const newRoot = new RNode(false); newRoot.entries.push({ rect: this.computeMBR(this.root), child: this.root }, { rect: this.computeMBR(split), child: split }); this.root = newRoot; } }
 
   private _insert(node: RNode, rect: Rect, data?: unknown): RNode | null {
@@ -48,6 +66,13 @@ export class RTree {
     return n2;
   }
 
+  /**
+   * Searches the R-Tree for entries that overlap with the specified query rectangle.
+   *
+   * @param rect - The query bounding rectangle.
+   * @returns An array of entries overlapping the query rectangle.
+   * @complexity Time: O(log n + k) average, O(n) worst | Space: O(log n + k) (where k is number of matches)
+   */
   search(rect: Rect): unknown[] { const out: unknown[] = []; this._search(this.root, rect, out); return out; }
   private _search(node: RNode, rect: Rect, out: unknown[]): void {
     if (node.leaf){ for (const e of node.entries){ if (this.intersects(e.rect, rect)) out.push(e.data); } return; }
@@ -58,6 +83,12 @@ export class RTree {
   private computeMBR(nodeOrRect: RNode | Rect, ephemeral = false): Rect { if ('leaf' in nodeOrRect){ const node = nodeOrRect as RNode; let r = node.entries[0]?.rect; if (!r) return { x:0,y:0,w:0,h:0 }; for (let i=1;i<node.entries.length;i++) r = union(r!, node.entries[i].rect); if (!ephemeral) node.mbr = r!; return r!; } return nodeOrRect as Rect; }
   private refreshMBR(n: RNode){ n.mbr = this.computeMBR(n); }
 
+  /**
+   * Serializes the R-Tree to a JSON string.
+   *
+   * @returns A JSON string representation of the tree.
+   * @complexity Time: O(n) | Space: O(n) (JSON string allocation)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }

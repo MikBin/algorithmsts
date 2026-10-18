@@ -24,15 +24,31 @@ class RangeNode<T> {
   }
 }
 
+/**
+ * A 2-Dimensional Range Tree used for fast orthogonal range queries.
+ * Built as a binary search tree on the x-coordinates, where each node contains
+ * an auxiliary 1D array sorted by y-coordinates.
+ */
 export class RangeTree2D<T=unknown> {
   private root: RangeNode<T> | null = null;
+
+  /**
+   * Creates a new 2D Range Tree.
+   *
+   * @param points - Optional array of 2D points to initially build the tree.
+   * @complexity Time: O(n log^2 n) | Space: O(n log n) (due to storing auxiliary y-arrays at each node level)
+   */
   constructor(points: Point2D<T>[] = []) { if (points.length) this.root = new RangeNode(points.slice()); }
 
   /**
    * Queries points in a rectangular region.
    *
-   * Time complexity: O(log^2 n + k) where n is total points, k is number of reported points
-   * Space complexity: O(n log n)
+   * @param x1 - The minimum x-coordinate.
+   * @param x2 - The maximum x-coordinate.
+   * @param y1 - The minimum y-coordinate.
+   * @param y2 - The maximum y-coordinate.
+   * @returns An array of points that lie within the query bounds.
+   * @complexity Time: O(log^2 n + k) | Space: O(log n + k) (where k is number of reported points)
    */
   query(x1:number, x2:number, y1:number, y2:number): Point2D<T>[] {
     const out: Point2D<T>[] = [];
@@ -64,6 +80,12 @@ export class RangeTree2D<T=unknown> {
     return out;
   }
 
+  /**
+   * Serializes the tree to a JSON string.
+   *
+   * @returns A JSON string representation of the tree.
+   * @complexity Time: O(n log n) | Space: O(n log n) (JSON string representation including auxiliary arrays)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }

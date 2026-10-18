@@ -32,24 +32,10 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 - Deleted orphaned line in docs/any_usage_report.md
 - 2026-10-17: batch 2 — modules ball-tree, binary-fuse-filter, binary-heap, binary-search-tree, binomial-heap, bitset, bk-tree, bloom-filter, cartesian-tree, circular-buffer, count-min-sketch, cover-tree, cuckoo-filter, d-ary-heap, deque documented.
 - 2026-10-18: batch 3 — modules disjoint-set, dynamic-array, fenwick-tree, fibonacci-heap, hash-map, hash-set, hyperloglog, interval-heap, interval-skip-list, interval-tree, kd-tree, leftist-heap, lfu-cache, lru-cache, min-max-heap documented.
+- 2026-10-18: batch 4 — modules monotonic-queue, monotonic-stack, octree, order-statistic-tree, pairing-heap, patricia-trie, priority-queue, quadtree, queue, quotient-filter, r-star-tree, r-tree, kdRangeTree, rangeTree2D, red-black-tree documented.
 
 Remaining modules:
 
-- src/data-structures/monotonic-queue/monotonicQueue.ts
-- src/data-structures/monotonic-stack/monotonicStack.ts
-- src/data-structures/octree/octree.ts
-- src/data-structures/order-statistic-tree/orderStatisticTree.ts
-- src/data-structures/pairing-heap/pairingHeap.ts
-- src/data-structures/patricia-trie/patriciaTrie.ts
-- src/data-structures/priority-queue/priorityQueue.ts
-- src/data-structures/quadtree/quadtree.ts
-- src/data-structures/queue/queue.ts
-- src/data-structures/quotient-filter/quotientFilter.ts
-- src/data-structures/r-star-tree/rStarTree.ts
-- src/data-structures/r-tree/rTree.ts
-- src/data-structures/range-tree/kdRangeTree.ts
-- src/data-structures/range-tree/rangeTree2D.ts
-- src/data-structures/red-black-tree/redBlackTree.ts
 - src/data-structures/ribbon-filter/ribbonFilter.ts
 - src/data-structures/rope/rope.ts
 - src/data-structures/scapegoat-tree/scapegoatTree.ts

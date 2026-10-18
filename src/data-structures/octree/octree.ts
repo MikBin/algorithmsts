@@ -14,10 +14,33 @@ class OctNode {
   contains(p: Point3D): boolean { return p.x>=this.x && p.x<this.x+this.w && p.y>=this.y && p.y<this.y+this.h && p.z>=this.z && p.z<this.z+this.d; }
 }
 
+/**
+ * An Octree data structure for partitioning 3D space and querying points.
+ */
 export class Octree {
   private root: OctNode;
+
+  /**
+   * Creates a new Octree with the specified bounds and node capacity.
+   *
+   * @param x - The minimum x-coordinate of the octree bounds.
+   * @param y - The minimum y-coordinate of the octree bounds.
+   * @param z - The minimum z-coordinate of the octree bounds.
+   * @param w - The width of the octree bounds.
+   * @param h - The height of the octree bounds.
+   * @param d - The depth of the octree bounds.
+   * @param capacity - The maximum number of points a node can hold before subdividing.
+   * @complexity Time: O(1) | Space: O(1) (node allocation)
+   */
   constructor(x: number, y: number, z: number, w: number, h: number, d: number, private capacity = 4) { this.root = new OctNode(x,y,z,w,h,d); }
 
+  /**
+   * Inserts a point into the octree.
+   *
+   * @param p - The point to insert.
+   * @returns True if the point was successfully inserted, false if it lies outside the bounds.
+   * @complexity Time: O(log n) average, O(n) worst-case | Space: O(log n) average, O(n) worst-case (recursion depth)
+   */
   insert(p: Point3D): boolean { return this._insert(this.root, p); }
   private _insert(n: OctNode, p: Point3D): boolean {
     if (!n.contains(p)) return false;
@@ -33,6 +56,18 @@ export class Octree {
     for (const pt of n.points) this._insert(n, pt); n.points=[];
   }
 
+  /**
+   * Queries the octree for points within a specified 3D rectangular bounding box.
+   *
+   * @param x - The minimum x-coordinate of the query bounding box.
+   * @param y - The minimum y-coordinate of the query bounding box.
+   * @param z - The minimum z-coordinate of the query bounding box.
+   * @param w - The width of the query bounding box.
+   * @param h - The height of the query bounding box.
+   * @param d - The depth of the query bounding box.
+   * @returns An array of points that fall within the specified query bounds.
+   * @complexity Time: O(k + log n) average, O(n) worst-case (where k is the number of points found) | Space: O(k + log n) average, O(n) worst-case (recursion depth and result array)
+   */
   query(x: number, y: number, z: number, w: number, h: number, d: number): Point3D[] { const res: Point3D[]=[]; this._query(this.root,x,y,z,w,h,d,res); return res; }
   private _query(n: OctNode, x:number,y:number,z:number,w:number,h:number,d:number,out:Point3D[]): void {
     if (x>=n.x+n.w || x+w<=n.x || y>=n.y+n.h || y+h<=n.y || z>=n.z+n.d || z+d<=n.z) return;
@@ -40,6 +75,12 @@ export class Octree {
     if (!n.divided) return; for (let i=0;i<8;i++) this._query(n.children[i]!, x,y,z,w,h,d, out);
   }
 
+  /**
+   * Serializes the octree to a JSON string.
+   *
+   * @returns A JSON string representation of the octree.
+   * @complexity Time: O(n) | Space: O(n) (JSON string allocation)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }
