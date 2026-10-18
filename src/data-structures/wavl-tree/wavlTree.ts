@@ -11,8 +11,23 @@ class Node<T> {
   ) {}
 }
 
+/**
+ * A WAVL (Weak AVL) Tree is a self-balancing binary search tree.
+ * Note: This implementation is actually a strict height-balanced AVL tree (|bf| ≤ 1).
+ * It rebalances on every deletion ancestor, meaning insertions take ≤ 2 rotations,
+ * but deletions may cascade along the search path.
+ *
+ * @complexity Time: O(log n) for most operations | Space: O(n) memory allocation
+ */
 export class WAVLTree<T> extends BaseDataStructure<T> {
   private root: Node<T> | null = null;
+
+  /**
+   * Constructs a new WAVL Tree.
+   *
+   * @param compare Function to compare two elements.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   constructor(private compare: (a: T, b: T) => number) {
     super();
   }
@@ -54,6 +69,12 @@ export class WAVLTree<T> extends BaseDataStructure<T> {
     return n;
   }
 
+  /**
+   * Adds an element to the tree.
+   *
+   * @param x The element to add.
+   * @complexity Time: O(log n) | Space: O(1) node allocation, O(log n) recursion depth
+   */
   add(x: T): void {
     this.root = this._insert(this.root, x);
     this._size++;
@@ -67,6 +88,13 @@ export class WAVLTree<T> extends BaseDataStructure<T> {
     return this.balance(n);
   }
 
+  /**
+   * Checks if the tree contains the specified element.
+   *
+   * @param x The element to check for.
+   * @returns `true` if the element is found, `false` otherwise.
+   * @complexity Time: O(log n) worst-case | Space: O(1)
+   */
   contains(x: T): boolean {
     let n = this.root;
     while (n) {
@@ -77,6 +105,13 @@ export class WAVLTree<T> extends BaseDataStructure<T> {
     return false;
   }
 
+  /**
+   * Removes an element from the tree.
+   *
+   * @param x The element to remove.
+   * @returns `true` if the element was removed, `false` if it was not found.
+   * @complexity Time: O(log n) | Space: O(log n) recursion depth
+   */
   remove(x: T): boolean {
     const [nr, rem] = this._remove(this.root, x);
     this.root = nr;
@@ -106,13 +141,32 @@ export class WAVLTree<T> extends BaseDataStructure<T> {
     return [this.balance(n), true];
   }
 
+  /**
+   * Clears all elements from the tree.
+   *
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void {
     this.root = null;
     this._size = 0;
   }
+
+  /**
+   * Returns an iterator over the elements in the tree in sorted order.
+   *
+   * @returns An iterator.
+   * @complexity Time: O(1) to create | Space: O(log n) for the iterator stack
+   */
   iterator(): IIterator<T> {
     return new InOrderIterator(this.root);
   }
+
+  /**
+   * Converts the tree to an array in sorted order.
+   *
+   * @returns An array containing all elements in sorted order.
+   * @complexity Time: O(n) where n is the number of elements | Space: O(n) for the output array
+   */
   toArray(): T[] {
     const out: T[] = [];
     const it = this.iterator();

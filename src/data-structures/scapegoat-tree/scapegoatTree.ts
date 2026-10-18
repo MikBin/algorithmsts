@@ -10,9 +10,25 @@ class Node<T> {
   ) {}
 }
 
+/**
+ * A Scapegoat Tree is a self-balancing binary search tree that provides worst-case O(log n)
+ * search time, and O(log n) amortized insertion and deletion time.
+ * It maintains balance without storing additional per-node balance information,
+ * instead occasionally rebuilding subtrees when they become too unbalanced.
+ *
+ * @complexity Time: O(log n) amortized for add/remove, O(log n) worst-case for search | Space: O(n) memory allocation
+ */
 export class ScapegoatTree<T> extends BaseDataStructure<T> {
   private root: Node<T> | null = null;
   private _sizeReal = 0; // track array rebuild criterion
+
+  /**
+   * Constructs a new Scapegoat Tree.
+   *
+   * @param compare Function to compare two elements.
+   * @param alpha Balance parameter, typically between 0.5 and 1. Defaults to 2/3.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   constructor(
     private compare: (a: T, b: T) => number,
     private alpha = 2 / 3,
@@ -20,6 +36,12 @@ export class ScapegoatTree<T> extends BaseDataStructure<T> {
     super();
   }
 
+  /**
+   * Adds an element to the tree.
+   *
+   * @param x The element to add.
+   * @complexity Time: O(log n) amortized, O(n) worst-case if rebuilding is needed | Space: O(n) if rebuilding is needed, O(log n) otherwise for the path
+   */
   add(x: T): void {
     const path: Node<T>[] = [];
     let d = 0;
@@ -75,6 +97,13 @@ export class ScapegoatTree<T> extends BaseDataStructure<T> {
     }
   }
 
+  /**
+   * Checks if the tree contains the specified element.
+   *
+   * @param x The element to check for.
+   * @returns `true` if the element is found, `false` otherwise.
+   * @complexity Time: O(log n) worst-case | Space: O(1)
+   */
   contains(x: T): boolean {
     let n = this.root;
     while (n) {
@@ -85,6 +114,13 @@ export class ScapegoatTree<T> extends BaseDataStructure<T> {
     return false;
   }
 
+  /**
+   * Removes an element from the tree.
+   *
+   * @param x The element to remove.
+   * @returns `true` if the element was removed, `false` if it was not found.
+   * @complexity Time: O(log n) amortized, O(n) worst-case if global rebuilding is needed | Space: O(n) if global rebuilding is needed, O(log n) recursion depth otherwise
+   */
   remove(x: T): boolean {
     const [nr, removed] = this._remove(this.root, x);
     this.root = nr;
@@ -149,14 +185,33 @@ export class ScapegoatTree<T> extends BaseDataStructure<T> {
     return node;
   }
 
+  /**
+   * Clears the tree of all elements.
+   *
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void {
     this.root = null;
     this._size = 0;
     this._sizeReal = 0;
   }
+
+  /**
+   * Returns an iterator over the elements in the tree in sorted order.
+   *
+   * @returns An iterator.
+   * @complexity Time: O(1) to create | Space: O(log n) for the iterator stack
+   */
   iterator(): IIterator<T> {
     return new InOrderIterator(this.root);
   }
+
+  /**
+   * Converts the tree to an array in sorted order.
+   *
+   * @returns An array containing all elements in sorted order.
+   * @complexity Time: O(n) where n is the number of elements | Space: O(n) for the output array
+   */
   toArray(): T[] {
     const out: T[] = [];
     const it = this.iterator();

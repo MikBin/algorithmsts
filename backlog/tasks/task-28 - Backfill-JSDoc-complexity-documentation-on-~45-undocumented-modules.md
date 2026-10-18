@@ -1,7 +1,7 @@
 ---
 id: TASK-28
 title: Backfill JSDoc complexity documentation on ~45 undocumented modules
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -33,22 +33,6 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 - 2026-10-17: batch 2 — modules ball-tree, binary-fuse-filter, binary-heap, binary-search-tree, binomial-heap, bitset, bk-tree, bloom-filter, cartesian-tree, circular-buffer, count-min-sketch, cover-tree, cuckoo-filter, d-ary-heap, deque documented.
 - 2026-10-18: batch 3 — modules disjoint-set, dynamic-array, fenwick-tree, fibonacci-heap, hash-map, hash-set, hyperloglog, interval-heap, interval-skip-list, interval-tree, kd-tree, leftist-heap, lfu-cache, lru-cache, min-max-heap documented.
 - 2026-10-18: batch 4 — modules monotonic-queue, monotonic-stack, octree, order-statistic-tree, pairing-heap, patricia-trie, priority-queue, quadtree, queue, quotient-filter, r-star-tree, r-tree, kdRangeTree, rangeTree2D, red-black-tree documented.
-
-Remaining modules:
-
-- src/data-structures/ribbon-filter/ribbonFilter.ts
-- src/data-structures/rope/rope.ts
-- src/data-structures/scapegoat-tree/scapegoatTree.ts
-- src/data-structures/skew-heap/skewHeap.ts
-- src/data-structures/sparse-set/sparseSet.ts
-- src/data-structures/splay-tree/splayTree.ts
-- src/data-structures/stack/stack.ts
-- src/data-structures/suffix-array/suffixArray.ts
-- src/data-structures/suffix-automaton/suffixAutomaton.ts
-- src/data-structures/treap/treap.ts
-- src/data-structures/two-three-tree/twoThreeTree.ts
-- src/data-structures/van-emde-boas/vanEmdeBoas.ts
-- src/data-structures/violation-heap/violationHeap.ts
-- src/data-structures/vp-tree/vpTree.ts
-- src/data-structures/wavl-tree/wavlTree.ts
-- src/data-structures/weak-heap/weakHeap.ts
+- 2026-10-18: batch 5 (final) — modules ribbonFilter, rope, scapegoatTree, skewHeap, sparseSet, splayTree, stack, suffixArray, suffixAutomaton, treap, twoThreeTree, vanEmdeBoas, violationHeap, vpTree, wavlTree, weakHeap documented; all targeted modules now carry complexity JSDoc.
+- BUG: twoThreeTree: leaf overflow never split — degenerate Θ(n) for sorted input; candidate for TASK-30
+- BUG: wavlTree: actually implemented as a strict height-balanced AVL tree (|bf| <= 1). Naming/semantics mismatch.
