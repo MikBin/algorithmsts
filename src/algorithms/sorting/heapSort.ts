@@ -16,11 +16,11 @@ export interface HeapSortOutput<T extends number | string> {
  *
  * Sorts an array using the Heap Sort algorithm.
  *
- * @complexity Time: O(n log n) in all cases | Space: O(1) beyond the input array
+ * @complexity Time: O(n log n) in all cases | Space: O(log n) recursion depth
  */
 export class HeapSort<T extends number | string> extends BaseAlgorithm<HeapSortInput<T>, HeapSortOutput<T>> implements IAlgorithm<HeapSortInput<T>, HeapSortOutput<T>> {
   constructor() {
-    super('HeapSort', 'O(n log n)', 'O(1)');
+    super('HeapSort', 'O(n log n)', 'O(log n)');
   }
 
   public execute(input: HeapSortInput<T>): HeapSortOutput<T> {

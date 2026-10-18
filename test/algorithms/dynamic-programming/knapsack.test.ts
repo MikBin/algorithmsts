@@ -37,4 +37,14 @@ describe('Knapsack', () => {
     expect(res.maxValue).toBe(0);
     expect(res.selectedItems).toEqual([]);
   });
+
+  it('handles zero-weight items', () => {
+    const items = [
+      { weight: 0, value: 3 },
+      { weight: 2, value: 5 }
+    ];
+    const res = ks.execute({ capacity: 0, items });
+    expect(res.maxValue).toBe(3);
+    expect(res.selectedItems).toEqual([{ weight: 0, value: 3 }]);
+  });
 });

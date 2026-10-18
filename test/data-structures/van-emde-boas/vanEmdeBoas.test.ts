@@ -22,7 +22,15 @@ describe('VanEmdeBoasTree', () => {
     expect(v.member(4)).toBe(false);
     expect(v.successor(2)).toBe(5);
     expect(() => v.insert(20)).toThrow();
-    });
+  });
+  it('ignores duplicates', () => {
+    const v = new VanEmdeBoasTree(16);
+    v.insert(5);
+    v.insert(5);
+    expect(v.member(5)).toBe(true);
+    v.delete(5);
+    expect(v.member(5)).toBe(false);
+  });
 });
 
 describe('VanEmdeBoasTree Boundaries', () => {

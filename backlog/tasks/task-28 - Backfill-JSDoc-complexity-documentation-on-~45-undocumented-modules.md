@@ -22,8 +22,8 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Every public method on every exported data structure has JSDoc with time and space complexity
-- [ ] #2 BST/AVL/RBT complexity annotations added
+- [x] #1 Every public method on every exported data structure has JSDoc with time and space complexity
+- [x] #2 BST/AVL/RBT complexity annotations added
 - [ ] #3 Typedoc builds without warnings for documented modules
 <!-- AC:END -->
 

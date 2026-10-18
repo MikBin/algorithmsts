@@ -115,6 +115,19 @@ describe('Pattern Matching Algorithms', () => {
     it('zAlgorithm should handle $ characters correctly', () => {
       expect(zAlgorithm('b$$', 'b')).toEqual([0]);
       expect(zAlgorithm('a$a', 'a')).toEqual([0, 2]);
+      expect(zAlgorithm('a$b$a$b', 'a$b')).toEqual([0, 4]);
+    });
+
+    it('zAlgorithm matches KMP on randomized strings', () => {
+      const chars = 'abcdef$';
+      for (let t = 0; t < 100; t++) {
+        let text = '';
+        for (let i = 0; i < 50; i++) text += chars[Math.floor(Math.random() * chars.length)];
+        let pattern = '';
+        for (let i = 0; i < 3; i++) pattern += chars[Math.floor(Math.random() * chars.length)];
+
+        expect(zAlgorithm(text, pattern)).toEqual(knuthMorrisPratt(text, pattern));
+      }
     });
 
     it('boyerMoore should handle $ characters correctly', () => {
