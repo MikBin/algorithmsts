@@ -7,9 +7,10 @@ class TTNode<T> {
 /**
  * A 2-3 Tree is a self-balancing search tree where every node with children (internal node)
  * has either two children and one data element or three children and two data elements.
- * It ensures O(log n) time complexity for search, insertion, and deletion operations.
+ * This implementation is non-standard (leaves are not properly split on overflow), meaning
+ * operations can degrade to linear time for sorted inputs.
  *
- * @complexity Time: O(log n) for operations | Space: O(n) memory allocation
+ * @complexity Time: O(log n) for balanced splits, Θ(n) worst case when a leaf never splits | Space: O(n) memory allocation
  */
 export class TwoThreeTree<T> {
   private findIndex(n: TTNode<T>, x: T): number {
@@ -32,7 +33,7 @@ export class TwoThreeTree<T> {
    *
    * @param x The element to check for.
    * @returns `true` if the element is found, `false` otherwise.
-   * @complexity Time: O(log n) worst-case | Space: O(1)
+   * @complexity Time: O(log n) for balanced splits, Θ(n) worst case when a leaf never splits — degenerate for sorted input | Space: O(1)
    */
   contains(x: T): boolean {
     let n = this.root;
@@ -48,7 +49,7 @@ export class TwoThreeTree<T> {
    * Adds an element to the tree.
    *
    * @param x The element to add.
-   * @complexity Time: O(log n) worst-case | Space: O(log n) recursion depth for node splitting
+   * @complexity Time: O(log n) for balanced splits, Θ(n) worst case when a leaf never splits — degenerate for sorted input | Space: O(log n) recursion depth for node splitting
    */
   add(x: T): void {
     const r = this.root;

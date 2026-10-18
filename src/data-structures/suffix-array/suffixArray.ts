@@ -59,7 +59,7 @@ export class SuffixArray {
    *
    * @param pat The pattern to search for.
    * @returns An array of starting indices where the pattern occurs in the string, sorted in ascending order.
-   * @complexity Time: O(m log n) where n is the string length and m is the pattern length (due to binary search and string comparisons) | Space: O(k) where k is the number of occurrences found
+   * @complexity Time: O(m log n + k log k) where n is the string length, m is the pattern length, and k is the number of occurrences | Space: O(k) where k is the number of occurrences found
    */
   search(pat: string): number[] {
     const n = this.s.length; const m = pat.length;

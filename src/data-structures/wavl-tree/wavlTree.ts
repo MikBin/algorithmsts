@@ -13,9 +13,9 @@ class Node<T> {
 
 /**
  * A WAVL (Weak AVL) Tree is a self-balancing binary search tree.
- * It combines the rebalancing conditions of AVL trees with the relaxed balance conditions
- * of red-black trees. This allows it to perform insertions with a constant number of rotations
- * and at most a constant number of structural changes during deletions.
+ * Note: This implementation is actually a strict height-balanced AVL tree (|bf| ≤ 1).
+ * It rebalances on every deletion ancestor, meaning insertions take ≤ 2 rotations,
+ * but deletions may cascade along the search path.
  *
  * @complexity Time: O(log n) for most operations | Space: O(n) memory allocation
  */

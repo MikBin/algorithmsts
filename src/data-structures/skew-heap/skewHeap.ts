@@ -54,7 +54,7 @@ export class SkewHeap<T> {
    * Retrieves and removes the highest priority element from the heap.
    *
    * @returns The highest priority element, or `null` if the heap is empty.
-   * @complexity Time: O(log n) amortized | Space: O(log n) expected recursion depth for merge
+   * @complexity Time: O(log n) amortized | Space: Θ(n) worst case recursion depth for merge along right spines
    */
   poll(): T | null { if (!this.root) return null; const v=this.root.value; this.root = this.meld(this.root.left, this.root.right); this._size--; return v; }
 

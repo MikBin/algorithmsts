@@ -10,7 +10,7 @@ class RopeNode {
 /**
  * A Rope is a data structure for efficiently storing and manipulating large strings.
  *
- * @complexity Time: O(1) to O(n) depending on the operation | Space: O(n) where n is the length of the string
+ * @complexity Time: O(1) to O(h * n) depending on the operation and balance | Space: O(n) where n is the length of the string
  */
 export class Rope {
   private root: RopeNode | null = null;
@@ -47,7 +47,7 @@ export class Rope {
    *
    * @param i The index of the character to retrieve.
    * @returns The character at the specified index.
-   * @complexity Time: O(n) where n is the number of nodes (due to totalLength computation at each step) | Space: O(h) recursion depth where h is the tree height
+   * @complexity Time: O(h * n) worst case for degenerate ropes (n = nodes, h = height); O(n) for balanced shapes | Space: O(h) recursion depth where h is the tree height
    */
   charAt(i: number): string { if (!this.root) throw new Error('empty'); return this._charAt(this.root, i); }
   private _charAt(n: RopeNode, i: number): string { if (n.str !== null) return n.str[i]; if (i < (n.left ? this.totalLength(n.left) : 0)) return this._charAt(n.left!, i); return this._charAt(n.right!, i - (n.left ? this.totalLength(n.left) : 0)); }

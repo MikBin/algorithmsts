@@ -4,7 +4,7 @@
  * into two sets: those that are nearer to the vantage point than a threshold, and those that are not.
  * It is highly effective for nearest neighbor search in various metric spaces.
  *
- * @complexity Time: O(n log n) for construction, O(log n) expected for search | Space: O(n) memory allocation
+ * @complexity Time: O(n log^2 n) for construction, O(log n) expected for search | Space: O(n) memory allocation
  */
 export class VPTree<T> {
   private root: Node<T> | null = null;
@@ -21,7 +21,7 @@ export class VPTree<T> {
    * Builds the tree from a set of points.
    *
    * @param points The points to populate the tree with.
-   * @complexity Time: O(n log n) average | Space: O(n) for tree nodes and temporary arrays
+   * @complexity Time: O(n log^2 n) (sort-based median selection per node) | Space: O(n) for tree nodes and temporary arrays
    */
   build(points: T[]): void { this.root = this._build(points); }
   private _build(points: T[]): Node<T> | null {

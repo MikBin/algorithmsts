@@ -62,7 +62,7 @@ export class ViolationHeap<T> {
    * Retrieves and removes the highest priority element from the heap.
    *
    * @returns The highest priority element, or `null` if the heap is empty.
-   * @complexity Time: O(log n) amortized | Space: O(log n) expected for temporary merging array
+   * @complexity Time: O(log n) amortized | Space: Θ(n) worst case for temporary merging array
    */
   poll(): T | null {
     if (!this.root) return null;

@@ -34,3 +34,5 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 - 2026-10-18: batch 3 — modules disjoint-set, dynamic-array, fenwick-tree, fibonacci-heap, hash-map, hash-set, hyperloglog, interval-heap, interval-skip-list, interval-tree, kd-tree, leftist-heap, lfu-cache, lru-cache, min-max-heap documented.
 - 2026-10-18: batch 4 — modules monotonic-queue, monotonic-stack, octree, order-statistic-tree, pairing-heap, patricia-trie, priority-queue, quadtree, queue, quotient-filter, r-star-tree, r-tree, kdRangeTree, rangeTree2D, red-black-tree documented.
 - 2026-10-18: batch 5 (final) — modules ribbonFilter, rope, scapegoatTree, skewHeap, sparseSet, splayTree, stack, suffixArray, suffixAutomaton, treap, twoThreeTree, vanEmdeBoas, violationHeap, vpTree, wavlTree, weakHeap documented; all targeted modules now carry complexity JSDoc.
+- BUG: twoThreeTree: leaf overflow never split — degenerate Θ(n) for sorted input; candidate for TASK-30
+- BUG: wavlTree: actually implemented as a strict height-balanced AVL tree (|bf| <= 1). Naming/semantics mismatch.
