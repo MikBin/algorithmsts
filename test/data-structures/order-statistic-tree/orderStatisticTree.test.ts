@@ -22,8 +22,6 @@ describe("OrderStatisticTree", () => {
     expect(ds.select(1)).toBe(10);
     expect(ds.rank(15)).toBe(2);
   });
-});
-
   it('toArray returns in order', () => {
     const ds = new OrderStatisticTree<number>((a, b) => a - b);
     ds.add(10);
@@ -44,3 +42,4 @@ describe("OrderStatisticTree", () => {
     expect(ds.toArray()).toEqual([1, 2, 3, 4, 5]);
     expect(ds.select(2)).toBe(3);
   });
+});

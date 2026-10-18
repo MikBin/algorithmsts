@@ -110,3 +110,23 @@ describe('Pattern Matching Algorithms', () => {
     });
   });
 });
+
+  describe('Pattern Matching Regression Tests', () => {
+    it('zAlgorithm should handle $ characters correctly', () => {
+      expect(zAlgorithm('b$$', 'b')).toEqual([0]);
+      expect(zAlgorithm('a$a', 'a')).toEqual([0, 2]);
+    });
+
+    it('boyerMoore should handle $ characters correctly', () => {
+      expect(boyerMoore('b$$', 'b')).toEqual([0]);
+      expect(boyerMoore('a$a', 'a')).toEqual([0, 2]);
+    });
+
+    it('zAlgorithm overlapping matches', () => {
+      expect(zAlgorithm('aaaa', 'aa')).toEqual([0, 1, 2]);
+    });
+
+    it('boyerMoore overlapping matches', () => {
+      expect(boyerMoore('aaaa', 'aa')).toEqual([0, 1, 2]);
+    });
+  });

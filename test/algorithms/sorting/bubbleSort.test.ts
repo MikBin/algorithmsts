@@ -39,4 +39,11 @@ describe('BubbleSort', () => {
     const res = stringSorter.execute({ array: ['banana', 'apple', 'cherry'] });
     expect(res.sortedArray).toEqual(['apple', 'banana', 'cherry']);
   });
+
+  it('leaves input array unchanged', () => {
+    const input = [5, 3, 1, 4, 2];
+    const original = [...input];
+    sorter.execute({ array: input });
+    expect(input).toEqual(original);
+  });
 });

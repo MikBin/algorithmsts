@@ -47,14 +47,27 @@ export class QuickSort<T extends number | string> extends BaseAlgorithm<QuickSor
   }
 
   private quickSort(arr: T[], low: number, high: number): void {
-    if (low < high) {
+    while (low < high) {
       const pi = this.partition(arr, low, high);
-      this.quickSort(arr, low, pi - 1);
-      this.quickSort(arr, pi + 1, high);
+
+      // Recurse into the smaller half first to guarantee O(log n) stack depth
+      if (pi - low < high - pi) {
+        this.quickSort(arr, low, pi - 1);
+        low = pi + 1;
+      } else {
+        this.quickSort(arr, pi + 1, high);
+        high = pi - 1;
+      }
     }
   }
 
   private partition(arr: T[], low: number, high: number): number {
+    // Median-of-three pivot to avoid worst case on sorted arrays
+    const mid = low + Math.floor((high - low) / 2);
+    if (arr[mid] < arr[low]) [arr[low], arr[mid]] = [arr[mid], arr[low]];
+    if (arr[high] < arr[low]) [arr[low], arr[high]] = [arr[high], arr[low]];
+    if (arr[mid] < arr[high]) [arr[mid], arr[high]] = [arr[high], arr[mid]];
+
     const pivot = arr[high];
     let i = low - 1;
     for (let j = low; j < high; j++) {

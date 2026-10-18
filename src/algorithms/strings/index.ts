@@ -31,5 +31,7 @@ export type {
 export {
   knuthMorrisPratt,
   rabinKarp,
-  computeLPSArray
+  computeLPSArray,
+  zAlgorithm,
+  boyerMoore
 } from './pattern-matching';

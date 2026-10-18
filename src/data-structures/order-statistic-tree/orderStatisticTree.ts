@@ -63,7 +63,7 @@ export class OrderStatisticTree<T> {
   rank(key: T): number { let n = this.root; let r = 0; while (n) { const c = this.compare(key, n.key); if (c < 0) { n = n.left; } else { r += (n.left?.size ?? 0) + (c===0 ? 0 : 1); if (c===0) return r; n = n.right; } } return r; }
 
   /**
-   * Returns an array containing all elements in the tree using a pre-order traversal.
+   * Returns an array containing all elements in the tree using an in-order traversal.
    *
    * @returns An array of the tree's elements.
    * @complexity Time: O(n) | Space: O(n) (array allocation and traversal stack)

@@ -8,7 +8,7 @@ describe('CoinChange', () => {
     const res = cc.execute({ coins: [1, 2, 5], amount: 11 });
     expect(res.minCoins).toBe(3); // 5 + 5 + 1
     // ways to make 11 from [1,2,5]: multiple
-    expect(res.combinations).toBeGreaterThan(0);
+    expect(res.combinations).toBe(11);
   });
 
   it('returns -1 minCoins if amount cannot be made', () => {

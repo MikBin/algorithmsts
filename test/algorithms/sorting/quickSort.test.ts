@@ -39,4 +39,18 @@ describe('QuickSort', () => {
     const res = stringSorter.execute({ array: ['banana', 'apple', 'cherry'] });
     expect(res.sortedArray).toEqual(['apple', 'banana', 'cherry']);
   });
+  it('handles very large sorted arrays without stack overflow', () => {
+    const arr = Array.from({ length: 10000 }, (_, i) => i);
+    const res = sorter.execute({ array: arr });
+    expect(res.sortedArray.length).toBe(10000);
+    expect(res.sortedArray[0]).toBe(0);
+    expect(res.sortedArray[9999]).toBe(9999);
+  });
+
+  it('leaves input array unchanged', () => {
+    const input = [5, 3, 1, 4, 2];
+    const original = [...input];
+    sorter.execute({ array: input });
+    expect(input).toEqual(original);
+  });
 });

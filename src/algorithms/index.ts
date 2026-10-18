@@ -40,6 +40,10 @@ export {
   JaroDistance,
   JaroWinklerDistance,
   LevenshteinDistance,
+  knuthMorrisPratt,
+  rabinKarp,
+  zAlgorithm,
+  boyerMoore
 } from "./strings";
 
 // Graph traversal algorithms
