@@ -6,10 +6,19 @@ type LevelNode<T> = {
   down: LevelNode<T> | null;
 };
 
+/**
+ * Represents an Interval Skip List, a probabilistic data structure for storing and querying overlapping intervals.
+ */
 export class IntervalSkipList<T> {
   private heads: (LevelNode<T> | null)[] = [null];
   private rng: () => number;
 
+  /**
+   * Initializes a new Interval Skip List.
+   *
+   * @param rng A random number generator function, defaulting to Math.random.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   constructor(rng: () => number = Math.random) {
     this.rng = rng;
   }
@@ -20,6 +29,14 @@ export class IntervalSkipList<T> {
     return lvl;
   }
 
+  /**
+   * Adds a new interval to the skip list.
+   *
+   * @param start The start coordinate of the interval.
+   * @param end The end coordinate of the interval.
+   * @param value The value associated with the interval.
+   * @complexity Time: O(n) expected/worst | Space: O(log n) expected
+   */
   add(start: number, end: number, value: T): void {
     if (end < start) [start, end] = [end, start];
     const lvl = this.randomLevel();
@@ -45,6 +62,18 @@ export class IntervalSkipList<T> {
     }
   }
 
+  /**
+   * Updates an existing interval by removing the old one and inserting the new one.
+   *
+   * @param oldStart The original start coordinate.
+   * @param oldEnd The original end coordinate.
+   * @param oldValue The original value.
+   * @param newStart The new start coordinate.
+   * @param newEnd The new end coordinate.
+   * @param newValue The new value.
+   * @returns True if the old interval was found and replaced, false otherwise.
+   * @complexity Time: O(n) expected/worst | Space: O(log n) expected
+   */
   update(
     oldStart: number,
     oldEnd: number,
@@ -58,6 +87,15 @@ export class IntervalSkipList<T> {
     return ok;
   }
 
+  /**
+   * Removes a specific interval from the skip list.
+   *
+   * @param start The start coordinate of the interval to remove.
+   * @param end The end coordinate of the interval to remove.
+   * @param value The value of the interval to remove.
+   * @returns True if removed, false if not found.
+   * @complexity Time: O(n) expected/worst | Space: O(1)
+   */
   remove(start: number, end: number, value: T): boolean {
     if (end < start) [start, end] = [end, start];
     let removed = false;
@@ -82,6 +120,13 @@ export class IntervalSkipList<T> {
     return removed;
   }
 
+  /**
+   * Queries all intervals overlapping a specific point.
+   *
+   * @param x The point coordinate to query.
+   * @returns An array of unique values overlapping the point.
+   * @complexity Time: O(n) expected/worst | Space: O(k) where k is the number of matches
+   */
   queryPoint(x: number): T[] {
     const res: T[] = [];
     // traverse from top level
@@ -95,6 +140,14 @@ export class IntervalSkipList<T> {
     return Array.from(new Set(res));
   }
 
+  /**
+   * Queries all intervals overlapping a given range [x1, x2].
+   *
+   * @param x1 The start of the query range.
+   * @param x2 The end of the query range.
+   * @returns An array of unique values overlapping the range.
+   * @complexity Time: O(n) expected/worst | Space: O(k) where k is the number of matches
+   */
   queryRange(x1: number, x2: number): T[] {
     if (x2 < x1) [x1, x2] = [x2, x1];
     const res: T[] = [];
@@ -108,6 +161,13 @@ export class IntervalSkipList<T> {
     return Array.from(new Set(res));
   }
 
+  /**
+   * Removes all intervals that have the specified value.
+   *
+   * @param value The value to match for removal.
+   * @returns The number of intervals removed.
+   * @complexity Time: O(n) | Space: O(1)
+   */
   removeByValue(value: T): number {
     let count = 0;
     for (let i = this.heads.length - 1; i >= 0; i--) {
@@ -128,6 +188,15 @@ export class IntervalSkipList<T> {
     return count;
   }
 
+  /**
+   * Splits intervals associated with a value at point x.
+   * If an interval spans across x, it is split into [start, x] and [x+1, end].
+   *
+   * @param x The coordinate at which to split.
+   * @param value The value associated with the intervals to split.
+   * @returns The number of intervals that were successfully split.
+   * @complexity Time: O(n) | Space: O(1)
+   */
   splitAt(x: number, value: T): number {
     // integer semantics: [start,end] => [start,x] and [x+1,end] when start < x < end
     let splits = 0;
@@ -154,6 +223,13 @@ export class IntervalSkipList<T> {
     return splits;
   }
 
+  /**
+   * Merges adjacent or overlapping intervals of the same value.
+   *
+   * @param value The value of the intervals to merge.
+   * @returns The number of merged intervals remaining.
+   * @complexity Time: O(n log n) average, O(n^2) worst | Space: O(n)
+   */
   mergeAdjacent(value: T): number {
     // merge overlapping or touching intervals of the same value at level 0; rebuild upper levels by simple re-add
     const merged: { s: number; e: number }[] = [];
@@ -177,6 +253,13 @@ export class IntervalSkipList<T> {
     return merged.length;
   }
 
+  /**
+   * Serializes the structure's heads to a JSON string.
+   * Down and next pointers are omitted.
+   *
+   * @returns The JSON representation.
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toJson(): string {
     return JSON.stringify(this.heads, (key, value) => {
       if (key === "down" || key === "next") {

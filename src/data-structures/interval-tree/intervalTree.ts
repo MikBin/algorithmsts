@@ -12,18 +12,41 @@ class Node {
   ) {}
 }
 
+/**
+ * Represents an Interval Tree, an augmented binary search tree for storing and querying intervals.
+ */
 export class IntervalTree {
   private root: Node | null = null;
   private _size = 0;
 
+  /**
+   * Gets the number of intervals in the tree.
+   *
+   * @returns The number of intervals.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get size(): number {
     return this._size;
   }
 
+  /**
+   * Adds an interval to the tree.
+   *
+   * @param interval The interval to add.
+   * @complexity Time: O(log n) average, O(n) worst-case | Space: O(log n) average, O(n) worst-case (recursion depth)
+   */
   add(interval: Interval): void {
     this.root = this._insert(this.root, interval);
     this._size++;
   }
+
+  /**
+   * Removes an exact interval from the tree.
+   *
+   * @param interval The interval to remove.
+   * @returns True if the interval was removed, false if not found.
+   * @complexity Time: O(log n) average, O(n) worst-case | Space: O(log n) average, O(n) worst-case (recursion depth)
+   */
   removeExact(interval: Interval): boolean {
     const [nr, removed] = this._remove(this.root, interval);
     this.root = nr;
@@ -39,6 +62,13 @@ export class IntervalTree {
     return node;
   }
 
+  /**
+   * Searches for all intervals that overlap with the query interval.
+   *
+   * @param query The query interval.
+   * @returns An array of intervals that overlap with the query.
+   * @complexity Time: O(k + log n) average, O(n + k) worst-case where k is number of matches | Space: O(k + log n) average, O(n + k) worst-case
+   */
   searchOverlap(query: Interval): Interval[] {
     const res: Interval[] = [];
     this._search(this.root, query, res);
@@ -90,13 +120,32 @@ export class IntervalTree {
     return [node, removed];
   }
 
+  /**
+   * Clears the tree, removing all intervals.
+   *
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void {
     this.root = null;
     this._size = 0;
   }
+
+  /**
+   * Returns an iterator that traverses the intervals in sorted order (by start coordinate).
+   *
+   * @returns The iterator.
+   * @complexity Time: O(n) | Space: O(n)
+   */
   iterator(): IIterator<Interval> {
     return new InOrderIterator(this.root);
   }
+
+  /**
+   * Converts the tree to an array of intervals sorted by start coordinate.
+   *
+   * @returns The array of intervals.
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toArray(): Interval[] {
     const a: Interval[] = [];
     const it = this.iterator();
@@ -104,6 +153,12 @@ export class IntervalTree {
     return a;
   }
 
+  /**
+   * Serializes the internal tree state to a JSON string.
+   *
+   * @returns The JSON representation.
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }
