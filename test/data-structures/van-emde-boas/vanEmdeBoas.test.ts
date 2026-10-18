@@ -23,13 +23,19 @@ describe('VanEmdeBoasTree', () => {
     expect(v.successor(2)).toBe(5);
     expect(() => v.insert(20)).toThrow();
   });
-  it('ignores duplicates', () => {
-    const v = new VanEmdeBoasTree(16);
-    v.insert(5);
-    v.insert(5);
-    expect(v.member(5)).toBe(true);
-    v.delete(5);
-    expect(v.member(5)).toBe(false);
+  it('ignores duplicates properly', () => {
+    const v = new VanEmdeBoasTree(64);
+    v.insert(32);
+    v.insert(32); // duplicate
+    v.insert(31);
+    v.insert(33);
+    expect(v.member(32)).toBe(true);
+    v.delete(32);
+    expect(v.member(32)).toBe(false); // should be completely gone
+    expect(v.successor(31)).toBe(33);
+    expect(v.predecessor(33)).toBe(31);
+    expect(v.getMin()).toBe(31);
+    expect(v.getMax()).toBe(33);
   });
 });
 

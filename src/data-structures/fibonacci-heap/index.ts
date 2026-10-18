@@ -1,1 +1,1 @@
-export { FibonacciHeap } from './fibonacciHeap';
+export * from './fibonacciHeap';

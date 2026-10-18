@@ -10,10 +10,14 @@ class RopeNode {
 /**
  * A Rope is a data structure for efficiently storing and manipulating large strings.
  *
- * @complexity Time: O(1) to O(h * n) depending on the operation and balance | Space: O(n) where n is the length of the string
+ * @complexity Time: O(1) to O(h^2) depending on the operation | Space: O(n) where n is the length of the string
  */
 export class Rope {
   private root: RopeNode | null = null;
+
+  private constructor(root: RopeNode | null = null) {
+    this.root = root;
+  }
 
   /**
    * Constructs a Rope from a given string.
@@ -22,35 +26,63 @@ export class Rope {
    * @returns A new Rope instance containing the string.
    * @complexity Time: O(1) | Space: O(1) node allocation
    */
-  static fromString(s: string): Rope { const r = new Rope(); r.root = new RopeNode(s.length, null, null, s); return r; }
+  static fromString(s: string): Rope {
+    return new Rope(new RopeNode(s.length, null, null, s));
+  }
 
   /**
    * Returns the total length of the string represented by the rope.
    *
    * @returns The length of the string.
-   * @complexity Time: O(n) where n is the number of nodes (due to recursive totalLength call on the right child) | Space: O(h) recursion depth where h is the tree height
+   * @complexity Time: O(h) where h is the tree height | Space: O(h) recursion depth
    */
-  length(): number { return this.root ? this.root.weight + (this.root.right ? this.totalLength(this.root.right) : 0) : 0; }
-  private totalLength(n: RopeNode | null): number { if (!n) return 0; if (n.str !== null) return n.str.length; return this.totalLength(n.left) + this.totalLength(n.right); }
+  length(): number {
+    return this._length(this.root);
+  }
+
+  private _length(n: RopeNode | null): number {
+    if (!n) return 0;
+    if (n.str !== null) return n.str.length; // leaf node weight is the string length
+    return n.weight + this._length(n.right);
+  }
 
   /**
    * Concatenates another rope to the end of this rope.
    *
    * @param other The rope to concatenate.
    * @returns A new Rope representing the concatenated string.
-   * @complexity Time: O(n) to compute length | Space: O(1) new node allocation
+   * @complexity Time: O(h) where h is the tree height | Space: O(1) new node allocation
    */
-  concat(other: Rope): Rope { const newRoot = new RopeNode(this.length(), this.root, other.root, null); const r = new Rope(); r.root = newRoot; return r; }
+  concat(other: Rope): Rope {
+    if (!this.root) return other;
+    if (!other.root) return this;
+    const newRoot = new RopeNode(this.length(), this.root, other.root, null);
+    return new Rope(newRoot);
+  }
 
   /**
    * Returns the character at the specified index.
    *
    * @param i The index of the character to retrieve.
    * @returns The character at the specified index.
-   * @complexity Time: O(h * n) worst case for degenerate ropes (n = nodes, h = height); O(n) for balanced shapes | Space: O(h) recursion depth where h is the tree height
+   * @complexity Time: O(h) where h is the tree height | Space: O(h) recursion depth
    */
-  charAt(i: number): string { if (!this.root) throw new Error('empty'); return this._charAt(this.root, i); }
-  private _charAt(n: RopeNode, i: number): string { if (n.str !== null) return n.str[i]; if (i < (n.left ? this.totalLength(n.left) : 0)) return this._charAt(n.left!, i); return this._charAt(n.right!, i - (n.left ? this.totalLength(n.left) : 0)); }
+  charAt(i: number): string {
+    if (!this.root) throw new Error('empty');
+    if (i < 0 || i >= this.length()) throw new Error('Index out of bounds');
+    return this._charAt(this.root, i);
+  }
+
+  private _charAt(n: RopeNode, i: number): string {
+    if (n.str !== null) {
+      return n.str[i];
+    }
+    if (i < n.weight) {
+      return this._charAt(n.left!, i);
+    } else {
+      return this._charAt(n.right!, i - n.weight);
+    }
+  }
 
   /**
    * Converts the rope to a standard string.
@@ -58,8 +90,53 @@ export class Rope {
    * @returns The string representation of the rope.
    * @complexity Time: O(n) where n is the number of nodes | Space: O(n) for the output string plus O(h) recursion depth
    */
-  toString(): string { return this._toString(this.root); }
-  private _toString(n: RopeNode | null): string { if (!n) return ''; if (n.str !== null) return n.str; return this._toString(n.left) + this._toString(n.right); }
+  toString(): string {
+    return this._toString(this.root);
+  }
+
+  private _toString(n: RopeNode | null): string {
+    if (!n) return '';
+    if (n.str !== null) return n.str;
+    return this._toString(n.left) + this._toString(n.right);
+  }
+
+  /**
+   * Splits the rope into two ropes at the given index.
+   *
+   * @param i The index at which to split the rope.
+   * @returns A tuple containing the two resulting ropes.
+   * @complexity Time: O(h^2) worst case where h is the tree height (due to recalculating length on right subtrees) | Space: O(h) recursion depth
+   */
+  split(i: number): [Rope, Rope] {
+    if (i < 0 || i > this.length()) throw new Error('Index out of bounds');
+    if (i === 0) return [new Rope(null), this];
+    if (i === this.length()) return [this, new Rope(null)];
+
+    const [leftRoot, rightRoot] = this._split(this.root!, i);
+    return [new Rope(leftRoot), new Rope(rightRoot)];
+  }
+
+  private _split(n: RopeNode, i: number): [RopeNode | null, RopeNode | null] {
+    if (n.str !== null) {
+      const leftStr = n.str.slice(0, i);
+      const rightStr = n.str.slice(i);
+      const leftNode = leftStr.length > 0 ? new RopeNode(leftStr.length, null, null, leftStr) : null;
+      const rightNode = rightStr.length > 0 ? new RopeNode(rightStr.length, null, null, rightStr) : null;
+      return [leftNode, rightNode];
+    }
+
+    if (i === n.weight) {
+      return [n.left, n.right];
+    } else if (i < n.weight) {
+      const [left1, left2] = this._split(n.left!, i);
+      const rightNode = left2 || n.right ? new RopeNode(left2 ? this._length(left2) : 0, left2, n.right, null) : null;
+      return [left1, rightNode];
+    } else {
+      const [right1, right2] = this._split(n.right!, i - n.weight);
+      const leftNode = n.left || right1 ? new RopeNode(n.left ? this._length(n.left) : 0, n.left, right1, null) : null;
+      return [leftNode, right2];
+    }
+  }
 
   /**
    * Returns a substring of the rope.
@@ -67,9 +144,15 @@ export class Rope {
    * @param start The starting index of the substring.
    * @param end The ending index of the substring (exclusive).
    * @returns The extracted substring.
-   * @complexity Time: O(n) where n is the total string length (to convert to string and slice) | Space: O(n) for string allocation
+   * @complexity Time: O(h^2 + m) where h is the tree height and m is the extracted length | Space: Ω(m)
    */
-  substring(start: number, end: number): string { const s=this.toString(); return s.slice(start, end); }
+  substring(start: number, end: number): string {
+    if (start < 0 || end > this.length() || start > end) throw new Error('Invalid bounds');
+    if (start === end) return '';
+    const [, right] = this.split(start);
+    const [mid, ] = right.split(end - start);
+    return mid.toString();
+  }
 
   /**
    * Inserts a string at a specified index.
@@ -77,7 +160,12 @@ export class Rope {
    * @param index The index at which to insert the string.
    * @param s The string to insert.
    * @returns A new Rope containing the result of the insertion.
-   * @complexity Time: O(n + m) where n is the total string length and m is the length of the inserted string | Space: O(n + m) for string allocations
+   * @complexity Time: O(h^2) worst case | Space: O(h)
    */
-  insert(index: number, s: string): Rope { const current=this.toString(); const ns=current.slice(0,index)+s+current.slice(index); return Rope.fromString(ns); }
+  insert(index: number, s: string): Rope {
+    if (index < 0 || index > this.length()) throw new Error('Index out of bounds');
+    const [left, right] = this.split(index);
+    const mid = Rope.fromString(s);
+    return left.concat(mid).concat(right);
+  }
 }

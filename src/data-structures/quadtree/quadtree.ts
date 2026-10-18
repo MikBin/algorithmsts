@@ -29,9 +29,10 @@ export class Quadtree {
    * @param w - The width of the quadtree bounds.
    * @param h - The height of the quadtree bounds.
    * @param capacity - The maximum number of points a node can hold before subdividing.
+   * @param maxDepth - The maximum depth to subdivide. Default is 20 to prevent infinite recursion on identical points.
    * @complexity Time: O(1) | Space: O(1) (node allocation)
    */
-  constructor(x: number, y: number, w: number, h: number, private capacity = 4) { this.root = new QuadNode(x,y,w,h); }
+  constructor(x: number, y: number, w: number, h: number, private capacity = 4, private maxDepth = 20) { this.root = new QuadNode(x,y,w,h); }
 
   /**
    * Inserts a point into the quadtree.
@@ -40,20 +41,20 @@ export class Quadtree {
    * @returns True if the point was successfully inserted, false if it lies outside the bounds.
    * @complexity Time: O(log n) average, O(n) worst-case | Space: O(log n) average, O(n) worst-case (recursion depth)
    */
-  insert(p: Point): boolean { return this._insert(this.root, p); }
-  private _insert(n: QuadNode, p: Point): boolean {
+  insert(p: Point): boolean { return this._insert(this.root, p, 0); }
+  private _insert(n: QuadNode, p: Point, depth: number): boolean {
     if (!n.contains(p)) return false;
-    if (n.points.length < this.capacity && !n.divided){ n.points.push(p); return true; }
-    if (!n.divided) this.subdivide(n);
-    return this._insert(n.nw!, p) || this._insert(n.ne!, p) || this._insert(n.sw!, p) || this._insert(n.se!, p);
+    if ((n.points.length < this.capacity || depth >= this.maxDepth) && !n.divided){ n.points.push(p); return true; }
+    if (!n.divided) this.subdivide(n, depth);
+    return this._insert(n.nw!, p, depth + 1) || this._insert(n.ne!, p, depth + 1) || this._insert(n.sw!, p, depth + 1) || this._insert(n.se!, p, depth + 1);
   }
-  private subdivide(n: QuadNode): void {
+  private subdivide(n: QuadNode, depth: number): void {
     const hw=n.w/2, hh=n.h/2; n.divided=true;
     n.nw=new QuadNode(n.x, n.y, hw, hh);
     n.ne=new QuadNode(n.x+hw, n.y, hw, hh);
     n.sw=new QuadNode(n.x, n.y+hh, hw, hh);
     n.se=new QuadNode(n.x+hw, n.y+hh, hw, hh);
-    for (const pt of n.points) this._insert(n, pt);
+    for (const pt of n.points) this._insert(n, pt, depth);
     n.points = [];
   }
 

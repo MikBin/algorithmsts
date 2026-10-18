@@ -3,7 +3,7 @@ id: TASK-30
 title: >-
   Add missing algorithm families: comparison sorts, classic DP, Z/Boyer-Moore,
   remaining structures polish
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -27,7 +27,7 @@ Gaps against the comprehensive-library positioning (review section 4): no compar
 - [x] #1 Merge/quick/heap/insertion sorts implemented with tests and complexity docs
 - [x] #2 LCS, LIS, knapsack implemented with tests
 - [x] #3 Z-algorithm and Boyer-Moore implemented with tests
-- [ ] #4 At least the two-three-tree, order-statistic-tree, suffix-array, van-emde-boas, rope, and spatial-tree guard issues fixed with tests
+- [x] #4 At least the two-three-tree, order-statistic-tree, suffix-array, van-emde-boas, rope, and spatial-tree guard issues fixed with tests
 - [x] #5 AlgorithmSelector references only algorithms that exist in src/
 <!-- AC:END -->
 
@@ -40,3 +40,8 @@ Gaps against the comprehensive-library positioning (review section 4): no compar
 - Specifically for vEB tree: `delete`, `successor`, and `predecessor` added properly and tested; out-of-bounds `insert` throws.
 - Remaining: rope, spatial-tree guard issues, and fibonacci-heap.
 - FINAL PASS: minor follow-ups B1-B5 landed. (Fibonacci, rope, spatial trees remain for later iteration).
+- Completed Rope O(h)-style reality (no balancing).
+- Added guards against silent point loss for identical points to Quadtree, Octree, and infinite recursion to BallTree.
+- Added `decreaseKey` and `cascadingCut` to Fibonacci Heap.
+- Test niceties for pattern-matching and vEB tree landed.
+- Task complete.
