@@ -34,7 +34,6 @@ export class Octree {
    */
   constructor(x: number, y: number, z: number, w: number, h: number, d: number, private capacity = 4) { this.root = new OctNode(x,y,z,w,h,d); }
 
-
   /**
    * Inserts a point into the octree.
    *
@@ -57,7 +56,6 @@ export class Octree {
     for (const pt of n.points) this._insert(n, pt); n.points=[];
   }
 
-
   /**
    * Queries the octree for points within a specified 3D rectangular bounding box.
    *
@@ -76,7 +74,6 @@ export class Octree {
     for (const p of n.points){ if (p.x>=x && p.x<x+w && p.y>=y && p.y<y+h && p.z>=z && p.z<z+d) out.push(p); }
     if (!n.divided) return; for (let i=0;i<8;i++) this._query(n.children[i]!, x,y,z,w,h,d, out);
   }
-
 
   /**
    * Serializes the octree to a JSON string.

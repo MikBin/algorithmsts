@@ -56,7 +56,6 @@ export class MonotonicQueue<T> {
    */
   toArray(): T[] { return [...this.data]; }
 
-
   /**
    * Serializes the queue to a JSON string.
    *

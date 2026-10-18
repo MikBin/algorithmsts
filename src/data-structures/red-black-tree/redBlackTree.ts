@@ -12,7 +12,6 @@ export class RedBlackTree<T> implements Iterable<T> {
   private compare: (a: T, b: T) => number;
   private NIL: RBNode<T>; // Sentinel node for all leaf references
 
-
   /**
    * Creates a new Red-Black Tree.
    *
@@ -176,7 +175,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
   }
 
-
   /**
    * Removes a value from the tree and restructures the tree to maintain Red-Black properties.
    *
@@ -299,7 +297,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     x.color = "black";
   }
 
-
   /**
    * Searches for a value in the tree.
    *
@@ -342,7 +339,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
     return current;
   }
-
 
   /**
    * Finds the maximum value in the tree.
@@ -388,7 +384,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
   }
 
-
   /**
    * Performs a pre-order traversal of the tree, visiting node, left child, then right child.
    *
@@ -409,7 +404,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
   }
 
-
   /**
    * Performs a post-order traversal of the tree, visiting left child, right child, then node.
    *
@@ -429,7 +423,6 @@ export class RedBlackTree<T> implements Iterable<T> {
       result.push(node.value);
     }
   }
-
 
   /**
    * Performs a level-order (breadth-first) traversal of the tree.
@@ -470,7 +463,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     return this.root === this.NIL;
   }
 
-
   /**
    * Returns the number of elements in the tree.
    *
@@ -481,12 +473,11 @@ export class RedBlackTree<T> implements Iterable<T> {
     return this.size;
   }
 
-
   /**
    * Calculates and returns the height of the tree.
    *
    * @returns The height of the tree, or -1 if empty.
-   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
+   * @complexity Time: O(n log n) | Space: O(log n) (recursion depth)
    */
   getHeight(): number {
     return this.getNodeHeight(this.root);
@@ -498,7 +489,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
     return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) + 1;
   }
-
 
   /**
    * Clears all elements from the tree.
@@ -546,7 +536,6 @@ export class RedBlackTree<T> implements Iterable<T> {
     return this.checkRedBlackProperties(node.left) && this.checkRedBlackProperties(node.right);
   }
 
-
   /**
    * Calculates the black-height of the tree (number of black nodes on any path from root to leaf).
    *
@@ -570,17 +559,15 @@ export class RedBlackTree<T> implements Iterable<T> {
     return (node.color === "black" ? 1 : 0) + leftBlackHeight;
   }
 
-
   /**
    * Returns an iterator that traverses the tree in-order.
    *
    * @returns An iterator over the tree's elements.
-   * @complexity Time: O(1) initialization, O(log n) per next() | Space: O(1)
+   * @complexity Time: O(1) initialization, O(log n) per next() | Space: O(log n) (traversal stack)
    */
   [Symbol.iterator](): Iterator<T> {
     return new RedBlackTreeIterator<T>(this.root, this.NIL);
   }
-
 
   /**
    * Serializes the tree to a JSON string.

@@ -38,7 +38,6 @@ export class KDRangeTree {
     return node;
   }
 
-
   /**
    * Queries the tree for points falling within the specified k-dimensional bounding box.
    *
@@ -60,7 +59,6 @@ export class KDRangeTree {
     dfs(this.root);
     return out;
   }
-
 
   /**
    * Serializes the tree to a JSON string.

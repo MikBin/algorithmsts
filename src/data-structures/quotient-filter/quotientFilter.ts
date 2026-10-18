@@ -46,7 +46,6 @@ export class QuotientFilter {
    */
   reset(): void { for (const b of this.buckets) b.clear(); }
 
-
   /**
    * Serializes the filter to a JSON string.
    *

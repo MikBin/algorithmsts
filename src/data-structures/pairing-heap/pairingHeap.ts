@@ -84,7 +84,6 @@ export class PairingHeap<T> {
     return res;
   }
 
-
   /**
    * Serializes the heap to a JSON string.
    *

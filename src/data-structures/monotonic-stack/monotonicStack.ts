@@ -56,7 +56,6 @@ export class MonotonicStack<T> {
    */
   toArray(): T[] { return [...this.data]; }
 
-
   /**
    * Serializes the stack to a JSON string.
    *

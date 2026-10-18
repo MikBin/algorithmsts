@@ -11,7 +11,6 @@ export class Queue<T> extends BaseDataStructure<T> {
   private data: T[] = [];
   private head = 0;
 
-
   /**
    * Returns the current number of elements in the queue.
    *
@@ -102,7 +101,6 @@ export class Queue<T> extends BaseDataStructure<T> {
   toArray(): T[] {
     return this.data.slice(this.head);
   }
-
 
   /**
    * Serializes the queue to a JSON string.

@@ -76,7 +76,6 @@ export class RangeTree2D<T=unknown> {
     return out;
   }
 
-
   /**
    * Serializes the tree to a JSON string.
    *

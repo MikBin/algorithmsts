@@ -33,7 +33,6 @@ export class Quadtree {
    */
   constructor(x: number, y: number, w: number, h: number, private capacity = 4) { this.root = new QuadNode(x,y,w,h); }
 
-
   /**
    * Inserts a point into the quadtree.
    *
@@ -58,7 +57,6 @@ export class Quadtree {
     n.points = [];
   }
 
-
   /**
    * Queries the quadtree for points within a specified rectangular bounding box.
    *
@@ -76,7 +74,6 @@ export class Quadtree {
     if (!n.divided) return;
     this._query(n.nw!,x,y,w,h,out); this._query(n.ne!,x,y,w,h,out); this._query(n.sw!,x,y,w,h,out); this._query(n.se!,x,y,w,h,out);
   }
-
 
   /**
    * Serializes the quadtree to a JSON string.

@@ -42,7 +42,6 @@ export class RStarTree {
     return height;
   }
 
-
   /**
    * Inserts a spatial rectangle and its associated data into the R*-Tree.
    *
@@ -139,6 +138,13 @@ export class RStarTree {
     return n2;
   }
 
+  /**
+   * Searches the R*-Tree for entries that overlap with the specified query rectangle.
+   *
+   * @param rect - The query bounding rectangle.
+   * @returns An array of entries overlapping the query rectangle.
+   * @complexity Time: O(log n + k) average, O(n) worst | Space: O(log n + k) (where k is number of matches)
+   */
   search(rect: Rect): unknown[] { const out: unknown[] = []; this._search(this.root, rect, out); return out; }
   private _search(node: RStarNode, rect: Rect, out: unknown[]): void { if (node.leaf){ for (const e of node.entries){ if (this.intersects(e.rect, rect)) out.push(e.data); } return; } for (const e of node.entries){ if (this.intersects(e.rect, rect)) this._search(e.child!, rect, out); } }
 
@@ -146,6 +152,14 @@ export class RStarTree {
   private intersectionArea(a: Rect, b: Rect): number { const x = Math.max(0, Math.min(a.x+a.w, b.x+b.w) - Math.max(a.x, b.x)); const y = Math.max(0, Math.min(a.y+a.h, b.y+b.h) - Math.max(a.y, b.y)); return x*y; }
   private computeMBR(nodeOrRect: RStarNode | Rect, ephemeral = false): Rect { if ('leaf' in nodeOrRect){ const node = nodeOrRect as RStarNode; let r = node.entries[0]?.rect; if (!r) return { x:0,y:0,w:0,h:0 }; for (let i=1;i<node.entries.length;i++) r = union(r!, node.entries[i].rect); if (!ephemeral) node.mbr = r!; return r!; } return nodeOrRect as Rect; }
   private refreshMBR(n: RStarNode){ n.mbr = this.computeMBR(n); }
+  /**
+   * Removes a spatial rectangle and its associated data from the R*-Tree.
+   *
+   * @param rect - The bounding rectangle to remove.
+   * @param data - Optional data associated with the rectangle to identify it.
+   * @returns True if the rectangle was found and removed, false otherwise.
+   * @complexity Time: O(log n) average, O(n) worst (incl. orphan reinsertion) | Space: O(log n)
+   */
   remove(rect: Rect, data?: unknown): boolean {
     const orphans: { entry: RStarEntry; level: number }[] = [];
     const removed = this._remove(this.root, rect, data, this.getHeight(this.root), orphans);
@@ -219,7 +233,6 @@ export class RStarTree {
       }
     }
   }
-
 
   /**
    * Serializes the R*-Tree to a JSON string.

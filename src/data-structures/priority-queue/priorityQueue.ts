@@ -18,7 +18,6 @@ export class PriorityQueue<T> {
     this.heap = new BinaryHeap(items, comparator);
   }
 
-
   /**
    * Returns the current number of elements in the priority queue.
    *
@@ -28,7 +27,6 @@ export class PriorityQueue<T> {
   get size(): number {
     return this.heap.size;
   }
-
 
   /**
    * Checks if the priority queue is empty.
@@ -78,7 +76,6 @@ export class PriorityQueue<T> {
   clear(): void {
     this.heap.clear();
   }
-
 
   /**
    * Serializes the priority queue to a JSON string.

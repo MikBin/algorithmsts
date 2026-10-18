@@ -25,7 +25,6 @@ export class RTree {
    */
   constructor(private maxEntries = 8) {}
 
-
   /**
    * Inserts a spatial rectangle and its associated data into the R-Tree.
    *
@@ -67,6 +66,13 @@ export class RTree {
     return n2;
   }
 
+  /**
+   * Searches the R-Tree for entries that overlap with the specified query rectangle.
+   *
+   * @param rect - The query bounding rectangle.
+   * @returns An array of entries overlapping the query rectangle.
+   * @complexity Time: O(log n + k) average, O(n) worst | Space: O(log n + k) (where k is number of matches)
+   */
   search(rect: Rect): unknown[] { const out: unknown[] = []; this._search(this.root, rect, out); return out; }
   private _search(node: RNode, rect: Rect, out: unknown[]): void {
     if (node.leaf){ for (const e of node.entries){ if (this.intersects(e.rect, rect)) out.push(e.data); } return; }
@@ -76,7 +82,6 @@ export class RTree {
   private intersects(a: Rect, b: Rect): boolean { return !(a.x+a.w <= b.x || b.x+b.w <= a.x || a.y+a.h <= b.y || b.y+b.h <= a.y); }
   private computeMBR(nodeOrRect: RNode | Rect, ephemeral = false): Rect { if ('leaf' in nodeOrRect){ const node = nodeOrRect as RNode; let r = node.entries[0]?.rect; if (!r) return { x:0,y:0,w:0,h:0 }; for (let i=1;i<node.entries.length;i++) r = union(r!, node.entries[i].rect); if (!ephemeral) node.mbr = r!; return r!; } return nodeOrRect as Rect; }
   private refreshMBR(n: RNode){ n.mbr = this.computeMBR(n); }
-
 
   /**
    * Serializes the R-Tree to a JSON string.
