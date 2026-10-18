@@ -1,13 +1,78 @@
+/**
+ * Represents a Min-Max Heap, a complete binary tree data structure that provides constant time retrieval and logarithmic time removal of both the minimum and maximum elements.
+ */
 export class MinMaxHeap<T> {
   private a: T[] = [];
+
+  /**
+   * Initializes a new Min-Max Heap.
+   *
+   * @param compare Function used to determine the order of the elements.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   constructor(private compare: (a: T, b: T) => number) {}
+
+  /**
+   * Gets the number of elements in the heap.
+   *
+   * @returns The number of elements.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get size(): number { return this.a.length; }
+
+  /**
+   * Checks if the heap is empty.
+   *
+   * @returns True if empty, false otherwise.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   isEmpty(): boolean { return this.a.length===0; }
+
+  /**
+   * Retrieves, but does not remove, the minimum element of the heap.
+   *
+   * @returns The minimum element, or null if the heap is empty.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   peekMin(): T | null { return this.isEmpty()?null:this.a[0]; }
+
+  /**
+   * Retrieves, but does not remove, the maximum element of the heap.
+   *
+   * @returns The maximum element, or null if the heap is empty.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   peekMax(): T | null { if (this.a.length<=1) return this.a[0] ?? null; if (this.a.length===2) return this.a[1]; return this.compare(this.a[1], this.a[2])>0?this.a[1]:this.a[2]; }
+
+  /**
+   * Adds an element to the heap.
+   *
+   * @param x The element to add.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   add(x: T): void { this.a.push(x); this.bubbleUp(this.a.length-1); }
+
+  /**
+   * Retrieves and removes the minimum element of the heap.
+   *
+   * @returns The minimum element, or null if the heap is empty.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   pollMin(): T | null { return this.removeAt(0); }
+
+  /**
+   * Retrieves and removes the maximum element of the heap.
+   *
+   * @returns The maximum element, or null if the heap is empty.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   pollMax(): T | null { if (this.a.length<=1) return this.a.pop() ?? null; const idx = (this.a.length===2 || this.compare(this.a[1], this.a[2])>0) ? 1 : 2; return this.removeAt(idx); }
+
+  /**
+   * Clears the heap of all elements.
+   *
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void { this.a=[]; }
   private level(i:number):number { return Math.floor(Math.log2(i+1)); }
   private parent(i:number):number { return Math.floor((i-1)/2); }
@@ -36,6 +101,12 @@ export class MinMaxHeap<T> {
   private minDescendantIndex(i:number):number{ const cand:number[]=[]; const [c1,c2]=this.children(i); [c1,c2].forEach(c=>{ if (c<this.a.length){ cand.push(c); const [gc1,gc2]=this.children(c); if (gc1<this.a.length) cand.push(gc1); if (gc2<this.a.length) cand.push(gc2); } }); if (cand.length===0) return -1; let idx=cand[0]; for (const c of cand) if (this.cmp(this.a[c], this.a[idx])<0) idx=c; return idx; }
   private maxDescendantIndex(i:number):number{ const cand:number[]=[]; const [c1,c2]=this.children(i); [c1,c2].forEach(c=>{ if (c<this.a.length){ cand.push(c); const [gc1,gc2]=this.children(c); if (gc1<this.a.length) cand.push(gc1); if (gc2<this.a.length) cand.push(gc2); } }); if (cand.length===0) return -1; let idx=cand[0]; for (const c of cand) if (this.cmp(this.a[c], this.a[idx])>0) idx=c; return idx; }
 
+  /**
+   * Serializes the underlying array representing the heap to a JSON string.
+   *
+   * @returns The JSON representation.
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toJson(): string {
     return JSON.stringify(this.a);
   }

@@ -31,24 +31,10 @@ Roughly 45 of 74 data-structure modules have zero JSDoc: no @param, @returns, or
 - Completed first batch of 5 tree data structures.
 - Deleted orphaned line in docs/any_usage_report.md
 - 2026-10-17: batch 2 — modules ball-tree, binary-fuse-filter, binary-heap, binary-search-tree, binomial-heap, bitset, bk-tree, bloom-filter, cartesian-tree, circular-buffer, count-min-sketch, cover-tree, cuckoo-filter, d-ary-heap, deque documented.
+- 2026-10-18: batch 3 — modules disjoint-set ... min-max-heap documented.
 
 Remaining modules:
 
-- src/data-structures/disjoint-set/unionFind.ts
-- src/data-structures/dynamic-array/arrayList.ts
-- src/data-structures/fenwick-tree/fenwickTree.ts
-- src/data-structures/fibonacci-heap/fibonacciHeap.ts
-- src/data-structures/hash-map/hashMap.ts
-- src/data-structures/hash-set/hashSet.ts
-- src/data-structures/hyperloglog/hyperLogLog.ts
-- src/data-structures/interval-heap/intervalHeap.ts
-- src/data-structures/interval-skip-list/intervalSkipList.ts
-- src/data-structures/interval-tree/intervalTree.ts
-- src/data-structures/kd-tree/kdTree.ts
-- src/data-structures/leftist-heap/leftistHeap.ts
-- src/data-structures/lfu-cache/lfuCache.ts
-- src/data-structures/lru-cache/lruCache.ts
-- src/data-structures/min-max-heap/minMaxHeap.ts
 - src/data-structures/monotonic-queue/monotonicQueue.ts
 - src/data-structures/monotonic-stack/monotonicStack.ts
 - src/data-structures/octree/octree.ts

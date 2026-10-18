@@ -1,11 +1,55 @@
+/**
+ * Represents an Interval Heap, a double-ended priority queue that provides efficient access to both minimum and maximum elements.
+ */
 export class IntervalHeap<T> {
   private a: (T | undefined)[] = [];
+
+  /**
+   * Initializes a new Interval Heap.
+   *
+   * @param compare Comparator function for element ordering.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   constructor(private compare: (a: T, b: T) => number) {}
+
+  /**
+   * Gets the number of elements in the heap.
+   *
+   * @returns The heap size.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get size(): number { return this.a.length; }
+
+  /**
+   * Checks if the heap is empty.
+   *
+   * @returns True if empty, false otherwise.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   isEmpty(): boolean { return this.a.length===0; }
+
+  /**
+   * Retrieves, but does not remove, the minimum element.
+   *
+   * @returns The minimum element, or null if empty.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   peekMin(): T | null { return this.isEmpty()?null:this.a[0]!; }
+
+  /**
+   * Retrieves, but does not remove, the maximum element.
+   *
+   * @returns The maximum element, or null if empty.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   peekMax(): T | null { if (this.isEmpty()) return null; if (this.a.length===1) return this.a[0]!; return this.a[1]!; }
 
+  /**
+   * Inserts a new element into the interval heap.
+   *
+   * @param x The element to add.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   add(x: T): void {
     if (this.a.length%2===0) { // start new interval
       this.a.push(x);
@@ -23,11 +67,23 @@ export class IntervalHeap<T> {
     }
   }
 
+  /**
+   * Removes and returns the minimum element from the heap.
+   *
+   * @returns The minimum element, or null if empty.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   pollMin(): T | null { if (this.isEmpty()) return null; const min = this.a[0]!; const last = this.a.pop()!; if (this.a.length===0) return min; if (this.a.length%2===1){ // last is max-only; move its pair's min into 0
       this.a[0] = this.a.pop()!; this.a.push(last); this.trickleDownMin(0);
     } else { this.a[0] = last; this.trickleDownMin(0); }
     return min; }
 
+  /**
+   * Removes and returns the maximum element from the heap.
+   *
+   * @returns The maximum element, or null if empty.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   pollMax(): T | null { if (this.isEmpty()) return null; if (this.a.length===1){ return this.a.pop()!; } const max = this.a[1]!; const last = this.a.pop()!; if (this.a.length===1) return max; if (this.a.length%2===0){ this.a[1] = this.a.pop()!; this.a.push(last); this.trickleDownMax(1); } else { this.a[1] = last; this.trickleDownMax(1); } return max; }
 
   private parent(i:number): number { return ((i>>1)-1)&~1; }
@@ -41,6 +97,12 @@ export class IntervalHeap<T> {
   private trickleDownMin(i:number){ while(true){ const [l,r]=this.children(i); let m=i; for (const c of [l,l+1,r,r+1]) if (c<this.a.length && (c%2===0) && this.compare(this.a[c] as T, this.a[m] as T) < 0) m=c; if (m===i) break; this.swap(i,m); this.ensureOrder(m); i=m; } }
   private trickleDownMax(i:number){ while(true){ const [l,r]=this.children(i&~1); let m=i; for (const c of [l,l+1,r,r+1]) if (c<this.a.length && (c%2===1) && this.compare(this.a[c] as T, this.a[m] as T) > 0) m=c; if (m===i) break; this.swap(i,m); this.ensureOrder(m^1); i=m; } }
 
+  /**
+   * Serializes the underlying interval heap array to a JSON string.
+   *
+   * @returns The JSON representation.
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toJson(): string {
     return JSON.stringify(this.a);
   }

@@ -1,19 +1,77 @@
+/**
+ * Represents a Fibonacci Heap, a priority queue with exceptional amortized time bounds.
+ */
 export class FibonacciHeap<T> {
   private min: Node<T> | null = null;
   private _size = 0;
+
+  /**
+   * Initializes a new Fibonacci Heap.
+   *
+   * @param compare Comparator function to establish element ordering.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   constructor(private compare: (a: T, b: T) => number) {}
+
+  /**
+   * Gets the number of elements in the heap.
+   *
+   * @returns The size of the heap.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   get size(): number { return this._size; }
+
+  /**
+   * Checks if the heap is empty.
+   *
+   * @returns True if empty, false otherwise.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   isEmpty(): boolean { return this._size===0; }
+
+  /**
+   * Retrieves, but does not remove, the minimum element from the heap.
+   *
+   * @returns The minimum element, or null if the heap is empty.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   peek(): T | null { return this.min?this.min.value:null; }
+
+  /**
+   * Inserts an element into the heap.
+   *
+   * @param x The element to insert.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   add(x: T): void { const n = new Node(x); this.min = this.mergeLists(this.min, n); this._size++; }
-  /** Merges another heap into this one destructively (empties the other heap). */
+
+  /**
+   * Merges another heap into this one destructively (empties the other heap).
+   *
+   * @param other The other Fibonacci heap to merge.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   merge(other: FibonacciHeap<T>): void { this.min = this.mergeLists(this.min, other.min); this._size += other._size; other.min = null; other._size = 0; }
+
+  /**
+   * Retrieves and removes the minimum element from the heap.
+   * Consolidation is performed during this operation.
+   *
+   * @returns The minimum element, or null if the heap is empty.
+   * @complexity Time: O(log n) amortized | Space: O(log n)
+   */
   poll(): T | null {
     const z = this.min; if (!z) return null; if (z.child){ let c: Node<T> = z.child; const start = c; do { const next: Node<T> = c.right!; this.min = this.mergeLists(this.min, c); c.parent=null; c=next; } while(c!==start); }
     // remove z
     z.left!.right = z.right; z.right!.left = z.left; if (z===z.right) this.min = null; else { this.min = z.right; this.consolidate(); }
     this._size--; return z.value;
   }
+
+  /**
+   * Clears all elements from the heap.
+   *
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void { this.min=null; this._size=0; }
   private mergeLists(a: Node<T> | null, b: Node<T> | null): Node<T> | null { if (!a) return b; if (!b) return a; if (this.compare(a.value,b.value) > 0) [a,b]=[b,a]; const aRight=a.right!; a.right=b.right; b.right!.left=a; b.right=aRight; aRight.left=b; return a; }
   private consolidate(): void { const A: Array<Node<T> | null> = []; const roots: Node<T>[] = []; if (!this.min) return; let w=this.min; do { roots.push(w!); w=w!.right!; } while(w!==this.min); for (let x of roots){ let d=x.degree; while(A[d]){ let y=A[d]!; if (this.compare(x.value,y.value) > 0) { const tmp=x; (x as any)=y; (y as any)=tmp; } this.link(y,x); A[d]=null; d++; } A[d]=x; } this.min=null; for (const a of A){ if (!a) continue; a.left=a.right=a; this.min=this.mergeLists(this.min,a); } }
@@ -23,6 +81,12 @@ export class FibonacciHeap<T> {
     x.degree++; y.mark=false;
   }
 
+  /**
+   * Serializes the Fibonacci Heap to a JSON string.
+   *
+   * @returns The JSON representation.
+   * @complexity Time: O(n) | Space: O(n)
+   */
   toJson(): string {
     const replacer = (key: any, value: any) => {
       if (key === 'parent' || key === 'left' || key === 'right') {
