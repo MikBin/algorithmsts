@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { knuthMorrisPratt, rabinKarp } from '../../../src/algorithms/strings/pattern-matching';
+import { knuthMorrisPratt, rabinKarp, zAlgorithm, boyerMoore } from '../../../src/algorithms/strings/pattern-matching';
 
 describe('Pattern Matching Algorithms', () => {
   describe('KMP (Knuth-Morris-Pratt)', () => {
@@ -54,9 +54,79 @@ describe('Pattern Matching Algorithms', () => {
     });
 
     it('should handle collision cases correctly', () => {
-        // Rabin-Karp relies on hash verification. This test ensures that even if hashes theoretically collide (or just matching hashes), it verifies content.
-        // Hard to force collision with random prime without analysis, but basic correctness is key.
         expect(rabinKarp('ccddcddc', 'cdd')).toEqual([1, 4]);
     });
   });
+
+  describe('Z-Algorithm', () => {
+    it('should find single occurrence', () => {
+      expect(zAlgorithm('ABABDABACDABABCABAB', 'ABABCABAB')).toEqual([10]);
+    });
+
+    it('should find multiple occurrences', () => {
+      expect(zAlgorithm('AABAACAADAABAABA', 'AABA')).toEqual([0, 9, 12]);
+    });
+
+    it('should return empty array if not found', () => {
+      expect(zAlgorithm('abcde', 'fgh')).toEqual([]);
+    });
+
+    it('should handle empty pattern', () => {
+      expect(zAlgorithm('abc', '')).toEqual([]);
+    });
+
+    it('should handle empty text', () => {
+      expect(zAlgorithm('', 'abc')).toEqual([]);
+    });
+
+    it('should handle pattern longer than text', () => {
+      expect(zAlgorithm('abc', 'abcd')).toEqual([]);
+    });
+  });
+
+  describe('Boyer-Moore', () => {
+    it('should find single occurrence', () => {
+      expect(boyerMoore('ABABDABACDABABCABAB', 'ABABCABAB')).toEqual([10]);
+    });
+
+    it('should find multiple occurrences', () => {
+      expect(boyerMoore('AABAACAADAABAABA', 'AABA')).toEqual([0, 9, 12]);
+    });
+
+    it('should return empty array if not found', () => {
+      expect(boyerMoore('abcde', 'fgh')).toEqual([]);
+    });
+
+    it('should handle empty pattern', () => {
+      expect(boyerMoore('abc', '')).toEqual([]);
+    });
+
+    it('should handle empty text', () => {
+      expect(boyerMoore('', 'abc')).toEqual([]);
+    });
+
+    it('should handle pattern longer than text', () => {
+      expect(boyerMoore('abc', 'abcd')).toEqual([]);
+    });
+  });
 });
+
+  describe('Pattern Matching Regression Tests', () => {
+    it('zAlgorithm should handle $ characters correctly', () => {
+      expect(zAlgorithm('b$$', 'b')).toEqual([0]);
+      expect(zAlgorithm('a$a', 'a')).toEqual([0, 2]);
+    });
+
+    it('boyerMoore should handle $ characters correctly', () => {
+      expect(boyerMoore('b$$', 'b')).toEqual([0]);
+      expect(boyerMoore('a$a', 'a')).toEqual([0, 2]);
+    });
+
+    it('zAlgorithm overlapping matches', () => {
+      expect(zAlgorithm('aaaa', 'aa')).toEqual([0, 1, 2]);
+    });
+
+    it('boyerMoore overlapping matches', () => {
+      expect(boyerMoore('aaaa', 'aa')).toEqual([0, 1, 2]);
+    });
+  });

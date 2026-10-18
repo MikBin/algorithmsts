@@ -63,12 +63,43 @@ export class OrderStatisticTree<T> {
   rank(key: T): number { let n = this.root; let r = 0; while (n) { const c = this.compare(key, n.key); if (c < 0) { n = n.left; } else { r += (n.left?.size ?? 0) + (c===0 ? 0 : 1); if (c===0) return r; n = n.right; } } return r; }
 
   /**
-   * Returns an array containing all elements in the tree using a pre-order traversal.
+   * Returns an array containing all elements in the tree using an in-order traversal.
    *
    * @returns An array of the tree's elements.
    * @complexity Time: O(n) | Space: O(n) (array allocation and traversal stack)
    */
-  toArray(): T[] { const res: T[] = []; const stack: (OrderNode<T>|null)[] = [this.root]; while (stack.length){ const n=stack.pop(); if (!n) continue; res.push(n.key); stack.push(n.left,n.right); } return res; }
+  toArray(): T[] {
+    const res: T[] = [];
+    const stack: OrderNode<T>[] = [];
+    let curr = this.root;
+    while (curr || stack.length) {
+      while (curr) { stack.push(curr); curr = curr.left; }
+      curr = stack.pop()!;
+      res.push(curr.key);
+      curr = curr.right;
+    }
+    return res;
+  }
+
+  /**
+   * Perfectly balances the tree.
+   *
+   * @complexity Time: O(n) | Space: O(n)
+   */
+  rebuild(): void {
+    const elements = this.toArray();
+    this.root = this.buildBalanced(elements, 0, elements.length - 1);
+  }
+
+  private buildBalanced(arr: T[], start: number, end: number): OrderNode<T> | null {
+    if (start > end) return null;
+    const mid = start + Math.floor((end - start) / 2);
+    const node = new OrderNode(arr[mid]);
+    node.left = this.buildBalanced(arr, start, mid - 1);
+    node.right = this.buildBalanced(arr, mid + 1, end);
+    this.update(node);
+    return node;
+  }
 
   /**
    * Serializes the tree to a JSON string.

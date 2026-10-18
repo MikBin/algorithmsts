@@ -10,6 +10,12 @@
 
 export { CountingSort } from './countingSort';
 export { RadixSortNumbers, RadixSortStrings } from './radixSort';
+export { BubbleSort } from './bubbleSort';
+export { InsertionSort } from './insertionSort';
+export { QuickSort } from './quickSort';
+export { MergeSort } from './mergeSort';
+export { HeapSort } from './heapSort';
+
 export type {
   CountingSortInput,
   CountingSortOutput
@@ -20,3 +26,8 @@ export type {
   RadixSortStringsInput,
   RadixSortStringsOutput
 } from './radixSort';
+export type { BubbleSortInput, BubbleSortOutput } from './bubbleSort';
+export type { InsertionSortInput, InsertionSortOutput } from './insertionSort';
+export type { QuickSortInput, QuickSortOutput } from './quickSort';
+export type { MergeSortInput, MergeSortOutput } from './mergeSort';
+export type { HeapSortInput, HeapSortOutput } from './heapSort';

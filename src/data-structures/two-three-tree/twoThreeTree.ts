@@ -7,10 +7,8 @@ class TTNode<T> {
 /**
  * A 2-3 Tree is a self-balancing search tree where every node with children (internal node)
  * has either two children and one data element or three children and two data elements.
- * This implementation is non-standard (leaves are not properly split on overflow), meaning
- * operations can degrade to linear time for sorted inputs.
  *
- * @complexity Time: O(log n) for balanced splits, Θ(n) worst case when a leaf never splits | Space: O(n) memory allocation
+ * @complexity Time: O(log n) for balanced splits | Space: O(n) memory allocation
  */
 export class TwoThreeTree<T> {
   private findIndex(n: TTNode<T>, x: T): number {
@@ -33,7 +31,7 @@ export class TwoThreeTree<T> {
    *
    * @param x The element to check for.
    * @returns `true` if the element is found, `false` otherwise.
-   * @complexity Time: O(log n) for balanced splits, Θ(n) worst case when a leaf never splits — degenerate for sorted input | Space: O(1)
+   * @complexity Time: O(log n) | Space: O(1)
    */
   contains(x: T): boolean {
     let n = this.root;
@@ -49,60 +47,57 @@ export class TwoThreeTree<T> {
    * Adds an element to the tree.
    *
    * @param x The element to add.
-   * @complexity Time: O(log n) for balanced splits, Θ(n) worst case when a leaf never splits — degenerate for sorted input | Space: O(log n) recursion depth for node splitting
+   * @complexity Time: O(log n) | Space: O(log n) recursion depth for node splitting
    */
   add(x: T): void {
-    const r = this.root;
-    if (r.keys.length === 2 && !r.leaf) {
-      // root full? split
-      const s = new TTNode<T>(false);
-      s.children = [r, null, null];
-      this.splitChild(s, 0);
-      this.root = s;
-      this.insertNonFull(s, x);
-    } else if (r.keys.length === 2 && r.leaf) {
-      const arr = [...r.keys, x].sort(this.compare);
-      r.keys = [arr[1]];
-      const left = new TTNode<T>(true);
-      left.keys = [arr[0]];
-      const right = new TTNode<T>(true);
-      right.keys = [arr[2]];
-      r.leaf = false;
-      r.children = [left, right, null];
-    } else this.insertNonFull(r, x);
+    const res = this.insertRec(this.root, x);
+    if (res) {
+      // Root split
+      const newRoot = new TTNode<T>(false);
+      newRoot.keys = [res.median];
+      newRoot.children = [this.root, res.right, null];
+      this.root = newRoot;
+    }
   }
 
-  private insertNonFull(n: TTNode<T>, x: T) {
+  private insertRec(n: TTNode<T>, x: T): { median: T, right: TTNode<T> } | null {
+    const i = this.findIndex(n, x);
+    if (i < n.keys.length && this.compare(n.keys[i], x) === 0) return null; // Duplicate
+
     if (n.leaf) {
-      const i = this.findIndex(n, x);
-      if (i < n.keys.length && this.compare(n.keys[i], x) === 0) return;
       n.keys.splice(i, 0, x);
       if (n.keys.length > 2) {
-        // split 3-key leaf into 2 nodes under parent assumption
-        // handled by caller for root; for internal leaves, will be handled by parent splitChild path
+        return this.splitNode(n);
       }
+      return null;
     } else {
-      let i = this.findIndex(n, x);
-      if (i < n.keys.length && this.compare(n.keys[i], x) === 0) return;
-      if (n.children[i]!.keys.length === 2 && !n.children[i]!.leaf) {
-        this.splitChild(n, i);
-        if (this.compare(x, n.keys[i]) > 0) i++;
+      const res = this.insertRec(n.children[i]!, x);
+      if (res) {
+        const j = this.findIndex(n, res.median);
+        n.keys.splice(j, 0, res.median);
+        n.children.splice(j + 1, 0, res.right);
+        if (n.keys.length > 2) {
+          return this.splitNode(n);
+        }
       }
-      this.insertNonFull(n.children[i]!, x);
+      return null;
     }
   }
 
-  private splitChild(p: TTNode<T>, i: number) {
-    const y = p.children[i]!;
-    const z = new TTNode<T>(y.leaf);
-    z.keys = [y.keys[1]];
-    y.keys = [y.keys[0]];
-    if (!y.leaf) {
-      z.children = [y.children[1]!, y.children[2]!, null];
-      y.children = [y.children[0]!, y.children[1]!, null];
+  private splitNode(n: TTNode<T>): { median: T, right: TTNode<T> } {
+    // n currently has 3 keys and 4 children (if not leaf)
+    const right = new TTNode<T>(n.leaf);
+    const median = n.keys[1];
+
+    right.keys = [n.keys[2]];
+    n.keys = [n.keys[0]];
+
+    if (!n.leaf) {
+      right.children = [n.children[2]!, n.children[3]!, null];
+      n.children = [n.children[0]!, n.children[1]!, null];
     }
-    p.children.splice(i + 1, 0, z);
-    p.keys.splice(i, 0, z.keys[0] as T);
+
+    return { median, right };
   }
 
   /**
