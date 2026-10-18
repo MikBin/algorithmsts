@@ -30,3 +30,17 @@ describe('Rope extended', () => {
     expect(() => r.insert(4, 'd')).toThrow();
   });
 });
+
+  it('degenerate left-deep rope retrieves correct characters using weights', () => {
+    let r = Rope.fromString('a');
+    for (let i = 1; i < 10; i++) {
+      r = r.concat(Rope.fromString(i.toString()));
+    }
+    // Length should be 10: a123456789
+    expect(r.length()).toBe(10);
+    expect(r.charAt(0)).toBe('a');
+    expect(r.charAt(1)).toBe('1');
+    expect(r.charAt(5)).toBe('5');
+    expect(r.charAt(9)).toBe('9');
+    expect(r.toString()).toBe('a123456789');
+  });

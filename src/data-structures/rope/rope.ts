@@ -10,7 +10,7 @@ class RopeNode {
 /**
  * A Rope is a data structure for efficiently storing and manipulating large strings.
  *
- * @complexity Time: O(1) to O(h) depending on the operation | Space: O(n) where n is the length of the string
+ * @complexity Time: O(1) to O(h^2) depending on the operation | Space: O(n) where n is the length of the string
  */
 export class Rope {
   private root: RopeNode | null = null;
@@ -51,7 +51,7 @@ export class Rope {
    *
    * @param other The rope to concatenate.
    * @returns A new Rope representing the concatenated string.
-   * @complexity Time: O(1) | Space: O(1) new node allocation
+   * @complexity Time: O(h) where h is the tree height | Space: O(1) new node allocation
    */
   concat(other: Rope): Rope {
     if (!this.root) return other;
@@ -144,7 +144,7 @@ export class Rope {
    * @param start The starting index of the substring.
    * @param end The ending index of the substring (exclusive).
    * @returns The extracted substring.
-   * @complexity Time: O(h) where h is the tree height | Space: O(h) recursion depth
+   * @complexity Time: O(h^2 + m) where h is the tree height and m is the extracted length | Space: O(m)
    */
   substring(start: number, end: number): string {
     if (start < 0 || end > this.length() || start > end) throw new Error('Invalid bounds');
@@ -160,7 +160,7 @@ export class Rope {
    * @param index The index at which to insert the string.
    * @param s The string to insert.
    * @returns A new Rope containing the result of the insertion.
-   * @complexity Time: O(h) where h is the tree height | Space: O(h)
+   * @complexity Time: O(h^2) worst case | Space: O(h)
    */
   insert(index: number, s: string): Rope {
     if (index < 0 || index > this.length()) throw new Error('Index out of bounds');

@@ -71,7 +71,7 @@ export class FibonacciHeap<T> {
    *
    * @param node The node whose value needs to be decreased.
    * @param newValue The new value for the node. Must be less than or equal to current value based on compare function.
-   * @complexity Time: O(1) amortized | Space: O(1)
+   * @complexity Time: O(1) amortized | Space: O(log n) worst case recursion / O(1) amortized
    */
   decreaseKey(node: FibonacciNode<T>, newValue: T): void {
     if (this.compare(newValue, node.value) > 0) {
@@ -143,8 +143,10 @@ export class FibonacciHeap<T> {
       const start = c;
       do {
         const next: FibonacciNode<T> = c.right!;
+        c.left = c.right = c;
+
         this.min = this.mergeLists(this.min, c);
-        c.parent = null;
+
         c = next;
       } while (c !== start);
     }

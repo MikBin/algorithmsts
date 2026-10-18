@@ -40,8 +40,8 @@ Gaps against the comprehensive-library positioning (review section 4): no compar
 - Specifically for vEB tree: `delete`, `successor`, and `predecessor` added properly and tested; out-of-bounds `insert` throws.
 - Remaining: rope, spatial-tree guard issues, and fibonacci-heap.
 - FINAL PASS: minor follow-ups B1-B5 landed. (Fibonacci, rope, spatial trees remain for later iteration).
-- Completed Rope O(log n) optimization.
-- Added guards against infinite recursion for identical points to Quadtree, Octree, and BallTree.
+- Completed Rope O(h)-style reality (no balancing).
+- Added guards against silent point loss for identical points to Quadtree, Octree, and infinite recursion to BallTree.
 - Added `decreaseKey` and `cascadingCut` to Fibonacci Heap.
 - Test niceties for pattern-matching and vEB tree landed.
 - Task complete.

@@ -34,6 +34,8 @@ describe('VanEmdeBoasTree', () => {
     expect(v.member(32)).toBe(false); // should be completely gone
     expect(v.successor(31)).toBe(33);
     expect(v.predecessor(33)).toBe(31);
+    expect(v.getMin()).toBe(31);
+    expect(v.getMax()).toBe(33);
   });
 });
 
