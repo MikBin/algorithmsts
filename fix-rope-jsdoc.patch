@@ -1,0 +1,20 @@
+--- src/data-structures/rope/rope.ts
++++ src/data-structures/rope/rope.ts
+@@ -29,7 +29,7 @@
+    * Returns the total length of the string represented by the rope.
+    *
+    * @returns The length of the string.
+-   * @complexity Time: O(1) | Space: O(1)
++   * @complexity Time: O(h) where h is the tree height | Space: O(h) recursion depth
+    */
+   length(): number {
+     return this._length(this.root);
+@@ -101,7 +101,7 @@
+    *
+    * @param i The index at which to split the rope.
+    * @returns A tuple containing the two resulting ropes.
+-   * @complexity Time: O(h) where h is the tree height | Space: O(h) recursion depth
++   * @complexity Time: O(h^2) worst case where h is the tree height (due to recalculating length on right subtrees) | Space: O(h) recursion depth
+    */
+   split(i: number): [Rope, Rope] {
+     if (i < 0 || i > this.length()) throw new Error('Index out of bounds');

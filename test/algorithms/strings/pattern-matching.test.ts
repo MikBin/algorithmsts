@@ -118,13 +118,20 @@ describe('Pattern Matching Algorithms', () => {
       expect(zAlgorithm('a$b$a$b', 'a$b')).toEqual([0, 4]);
     });
 
-    it('zAlgorithm matches KMP on randomized strings', () => {
+    it('zAlgorithm matches KMP on randomized strings deterministically', () => {
       const chars = 'abcdef$';
+      // simple LCG for deterministic reproducibility
+      let seed = 12345;
+      const random = () => {
+        seed = (seed * 1664525 + 1013904223) % 4294967296;
+        return seed / 4294967296;
+      };
+
       for (let t = 0; t < 100; t++) {
         let text = '';
-        for (let i = 0; i < 50; i++) text += chars[Math.floor(Math.random() * chars.length)];
+        for (let i = 0; i < 50; i++) text += chars[Math.floor(random() * chars.length)];
         let pattern = '';
-        for (let i = 0; i < 3; i++) pattern += chars[Math.floor(Math.random() * chars.length)];
+        for (let i = 0; i < 3; i++) pattern += chars[Math.floor(random() * chars.length)];
 
         expect(zAlgorithm(text, pattern)).toEqual(knuthMorrisPratt(text, pattern));
       }

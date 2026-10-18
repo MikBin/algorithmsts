@@ -52,8 +52,23 @@ export class BallTree<T=unknown> {
     for (const pt of points){ const d=this.distance(a, pt.p); if (d>maxd){ maxd=d; far=pt; } }
     let far2 = points[0]; maxd = -1;
     for (const pt of points){ const d=this.distance(far.p, pt.p); if (d>maxd){ maxd=d; far2=pt; } }
+
+    // If all points are identical, maxd will be 0. Avoid infinite recursion.
+    if (maxd === 0) {
+      const center = this.centroid(points.map(x=>x.p));
+      return new BallNode<T>(center, 0, points);
+    }
+
     const leftPts: {p:Point;data?:T}[] = []; const rightPts: {p:Point;data?:T}[] = [];
     for (const pt of points){ const da=this.distance(pt.p, far.p); const db=this.distance(pt.p, far2.p); (da<db?leftPts:rightPts).push(pt); }
+
+    // Fallback if all points went to one side (should not happen if maxd > 0 and using farthest points, but just in case)
+    if (leftPts.length === 0 || rightPts.length === 0) {
+       const half = Math.floor(points.length / 2);
+       leftPts.push(...points.slice(0, half));
+       rightPts.push(...points.slice(half));
+    }
+
     const left = this.build(leftPts);
     const right = this.build(rightPts);
     const center = this.centroid(points.map(x=>x.p));

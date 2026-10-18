@@ -30,9 +30,10 @@ export class Octree {
    * @param h - The height of the octree bounds.
    * @param d - The depth of the octree bounds.
    * @param capacity - The maximum number of points a node can hold before subdividing.
+   * @param maxDepth - The maximum depth to subdivide. Default is 20 to prevent infinite recursion on identical points.
    * @complexity Time: O(1) | Space: O(1) (node allocation)
    */
-  constructor(x: number, y: number, z: number, w: number, h: number, d: number, private capacity = 4) { this.root = new OctNode(x,y,z,w,h,d); }
+  constructor(x: number, y: number, z: number, w: number, h: number, d: number, private capacity = 4, private maxDepth = 20) { this.root = new OctNode(x,y,z,w,h,d); }
 
   /**
    * Inserts a point into the octree.
@@ -41,19 +42,19 @@ export class Octree {
    * @returns True if the point was successfully inserted, false if it lies outside the bounds.
    * @complexity Time: O(log n) average, O(n) worst-case | Space: O(log n) average, O(n) worst-case (recursion depth)
    */
-  insert(p: Point3D): boolean { return this._insert(this.root, p); }
-  private _insert(n: OctNode, p: Point3D): boolean {
+  insert(p: Point3D): boolean { return this._insert(this.root, p, 0); }
+  private _insert(n: OctNode, p: Point3D, depth: number): boolean {
     if (!n.contains(p)) return false;
-    if (n.points.length < this.capacity && !n.divided) { n.points.push(p); return true; }
-    if (!n.divided) this.subdivide(n);
-    for (let i=0;i<8;i++) if (this._insert(n.children[i]!, p)) return true;
+    if ((n.points.length < this.capacity || depth >= this.maxDepth) && !n.divided) { n.points.push(p); return true; }
+    if (!n.divided) this.subdivide(n, depth);
+    for (let i=0;i<8;i++) if (this._insert(n.children[i]!, p, depth + 1)) return true;
     return false;
   }
-  private subdivide(n: OctNode): void {
+  private subdivide(n: OctNode, depth: number): void {
     n.divided = true; const hw=n.w/2, hh=n.h/2, hd=n.d/2;
     const xs=[n.x, n.x+hw], ys=[n.y, n.y+hh], zs=[n.z, n.z+hd];
     let idx=0; for (let xi=0;xi<2;xi++) for (let yi=0;yi<2;yi++) for (let zi=0;zi<2;zi++) { n.children[idx++] = new OctNode(xs[xi], ys[yi], zs[zi], hw, hh, hd); }
-    for (const pt of n.points) this._insert(n, pt); n.points=[];
+    for (const pt of n.points) this._insert(n, pt, depth); n.points=[];
   }
 
   /**
