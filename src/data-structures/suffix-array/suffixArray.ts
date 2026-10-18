@@ -1,9 +1,21 @@
 type SAEntry = { index: number; rank: number; nextRank: number };
 
+/**
+ * A Suffix Array is a sorted array of all suffixes of a given string.
+ * It provides a space-efficient alternative to suffix trees and allows for fast substring search.
+ *
+ * @complexity Time: O(n log^2 n) for construction using prefix doubling | Space: O(n) memory allocation
+ */
 export class SuffixArray {
   private sa: number[] = [];
   private s: string = '';
 
+  /**
+   * Builds the suffix array for a given string.
+   *
+   * @param s The string to process.
+   * @complexity Time: O(n log^2 n) where n is the length of the string | Space: O(n) for the suffix array and temporary structures
+   */
   build(s: string): void {
     this.s = s;
     const n = s.length;
@@ -34,9 +46,21 @@ export class SuffixArray {
     this.sa = entries.map(e => e.index);
   }
 
+  /**
+   * Returns a copy of the constructed suffix array.
+   *
+   * @returns An array containing the starting indices of the sorted suffixes.
+   * @complexity Time: O(n) where n is the length of the string | Space: O(n) for the array copy
+   */
   getArray(): number[] { return this.sa.slice(); }
 
-  // Binary search pattern occurrences
+  /**
+   * Searches for all occurrences of a pattern in the string using the suffix array.
+   *
+   * @param pat The pattern to search for.
+   * @returns An array of starting indices where the pattern occurs in the string, sorted in ascending order.
+   * @complexity Time: O(m log n) where n is the string length and m is the pattern length (due to binary search and string comparisons) | Space: O(k) where k is the number of occurrences found
+   */
   search(pat: string): number[] {
     const n = this.s.length; const m = pat.length;
     let l = 0, r = this.sa.length - 1; let first = -1, last = -1;

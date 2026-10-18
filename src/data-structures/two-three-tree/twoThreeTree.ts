@@ -4,6 +4,13 @@ class TTNode<T> {
   constructor(public leaf: boolean) {}
 }
 
+/**
+ * A 2-3 Tree is a self-balancing search tree where every node with children (internal node)
+ * has either two children and one data element or three children and two data elements.
+ * It ensures O(log n) time complexity for search, insertion, and deletion operations.
+ *
+ * @complexity Time: O(log n) for operations | Space: O(n) memory allocation
+ */
 export class TwoThreeTree<T> {
   private findIndex(n: TTNode<T>, x: T): number {
     let i = 0;
@@ -11,8 +18,22 @@ export class TwoThreeTree<T> {
     return i;
   }
   private root: TTNode<T> = new TTNode<T>(true);
+
+  /**
+   * Constructs a new 2-3 Tree.
+   *
+   * @param compare Function to compare two elements.
+   * @complexity Time: O(1) | Space: O(1) node allocation
+   */
   constructor(private compare: (a: T, b: T) => number) {}
 
+  /**
+   * Checks if the tree contains the specified element.
+   *
+   * @param x The element to check for.
+   * @returns `true` if the element is found, `false` otherwise.
+   * @complexity Time: O(log n) worst-case | Space: O(1)
+   */
   contains(x: T): boolean {
     let n = this.root;
     while (true) {
@@ -23,6 +44,12 @@ export class TwoThreeTree<T> {
     }
   }
 
+  /**
+   * Adds an element to the tree.
+   *
+   * @param x The element to add.
+   * @complexity Time: O(log n) worst-case | Space: O(log n) recursion depth for node splitting
+   */
   add(x: T): void {
     const r = this.root;
     if (r.keys.length === 2 && !r.leaf) {
@@ -77,6 +104,12 @@ export class TwoThreeTree<T> {
     p.keys.splice(i, 0, z.keys[0] as T);
   }
 
+  /**
+   * Converts the tree to an array in sorted order.
+   *
+   * @returns An array containing all elements in sorted order.
+   * @complexity Time: O(n) where n is the number of elements | Space: O(n) for the output array, plus O(log n) recursion depth
+   */
   toArray(): T[] {
     const out: T[] = [];
     this.inOrder(this.root, out);

@@ -21,6 +21,12 @@ export interface RibbonFilterOptions<T> {
   overheadFactor?: number;
 }
 
+/**
+ * A Ribbon Filter is a probabilistic data structure for set membership testing,
+ * similar to a Bloom filter but designed for better space efficiency and memory locality.
+ *
+ * @complexity Time: O(n) expected to construct where n is the number of items | Space: O(n) memory allocation
+ */
 export class RibbonFilter<T = string> {
   private slots!: Uint8Array;
   private numSlots: number;
@@ -29,6 +35,13 @@ export class RibbonFilter<T = string> {
   private seed: number = 0;
   private readonly W = 64;
 
+  /**
+   * Constructs a new Ribbon Filter from a predefined set of items.
+   *
+   * @param items The array of items to construct the filter from.
+   * @param options Configuration options such as hash function and overhead.
+   * @complexity Time: O(n) expected where n is the number of distinct items | Space: O(n) for the constructed filter and temporary system of equations
+   */
   constructor(items: T[], options: RibbonFilterOptions<T> = {}) {
     this.hashFn = options.hashFn || defaultHash;
     this.serializer = options.serializer || defaultSerializer;
@@ -181,6 +194,13 @@ export class RibbonFilter<T = string> {
     return solution;
   }
 
+  /**
+   * Checks if an item might have been included in the filter.
+   *
+   * @param item The item to check for membership.
+   * @returns `true` if the item might be in the filter, `false` if it is definitely not.
+   * @complexity Time: O(1) for calculating hashes and scanning the ribbon slot | Space: O(1)
+   */
   mightContain(item: T): boolean {
     if (this.numSlots === 0) return false;
     const { start, coeffs, target: fingerprint } = this.getHash(this.serializer(item), this.seed);
