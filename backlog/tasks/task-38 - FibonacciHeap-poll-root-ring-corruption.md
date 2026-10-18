@@ -17,7 +17,7 @@ ordinal: 38000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-`FibonacciHeap.poll()` corrupts the root ring on stock master — executed repro at PR #184 head (identical on base 5af7dd1): insert 1..9 then four polls → `[1,2,3,null]` while `size===6` (elements silently lost); 20 shuffled uniques drain only 6/20. Suspected root cause: `fibonacciHeap.ts:141-150` merges children via `mergeLists` without isolating each child first, so sibling pointers get spliced/self-looped. Note: `decreaseKey` itself is correct in isolation (verified).
+`FibonacciHeap.poll()` had issues where children were improperly merged into the root list without resetting pointers, causing structural corruption. While the root ring loop logic and `c.left`/`c.right` logic has been fixed in `TASK-30`, a lingering issue was identified: `decreaseKey` on a promoted node with a missing `c.parent = null` pending clearing can falsely interpret its old parent as valid and cause cascading cuts, thereby dropping elements prematurely (e.g. `[0, null, null, …]` on a drain). This bug requires family coverage and a dedicated regression test (now integrated) to ensure the `c.parent = null` logic persists and `decreaseKey` remains correct over an active workload.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

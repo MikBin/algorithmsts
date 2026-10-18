@@ -1,14 +1,10 @@
 --- src/data-structures/fibonacci-heap/fibonacciHeap.ts
 +++ src/data-structures/fibonacci-heap/fibonacciHeap.ts
-@@ -128,8 +128,9 @@
-       const start = c;
-       do {
+@@ -130,6 +130,7 @@
          const next: FibonacciNode<T> = c.right!;
-+        c.left = c;
-+        c.right = c;
-+        c.parent = null;
+         c.left = c.right = c;
+         c.parent = null;
          this.min = this.mergeLists(this.min, c);
--        c.parent = null;
          c = next;
        } while (c !== start);
      }

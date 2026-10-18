@@ -65,7 +65,6 @@ describe('FibonacciHeap', () => {
     // test throw
     expect(() => heap.decreaseKey(n3, 100)).toThrow();
   });
-});
 
   it('poll correctly merges children without root ring corruption (TASK-38)', () => {
     // Repro 1: insert 1..9, poll 4 times should not lose elements
@@ -92,3 +91,25 @@ describe('FibonacciHeap', () => {
     expect(drained.length).toBe(20);
     expect(drained).toEqual(Array.from({ length: 20 }, (_, i) => i + 1));
   });
+
+  it('poll correctly clears parent pointers for promoted children preventing decreaseKey corruption', () => {
+    const heap = new FibonacciHeap<number>((a, b) => a - b);
+    const nodes = [];
+    for (let i = 1; i <= 9; i++) {
+      nodes.push(heap.add(i));
+    }
+    expect(heap.poll()).toBe(1);
+    expect(heap.poll()).toBe(2);
+
+    // decrease key of node with value 3 to 0
+    heap.decreaseKey(nodes[2], 0);
+
+    const drained = [];
+    while (!heap.isEmpty()) {
+      drained.push(heap.poll());
+    }
+
+    expect(drained).toEqual([0, 4, 5, 6, 7, 8, 9]);
+    expect(heap.size).toBe(0);
+  });
+});

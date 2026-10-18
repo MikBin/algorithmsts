@@ -144,7 +144,7 @@ export class Rope {
    * @param start The starting index of the substring.
    * @param end The ending index of the substring (exclusive).
    * @returns The extracted substring.
-   * @complexity Time: O(h^2 + m) where h is the tree height and m is the extracted length | Space: O(m)
+   * @complexity Time: O(h^2 + m) where h is the tree height and m is the extracted length | Space: Ω(m)
    */
   substring(start: number, end: number): string {
     if (start < 0 || end > this.length() || start > end) throw new Error('Invalid bounds');

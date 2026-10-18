@@ -144,6 +144,7 @@ export class FibonacciHeap<T> {
       do {
         const next: FibonacciNode<T> = c.right!;
         c.left = c.right = c;
+        c.parent = null;
 
         this.min = this.mergeLists(this.min, c);
 
