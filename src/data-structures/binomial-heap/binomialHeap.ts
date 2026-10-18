@@ -39,7 +39,7 @@ export class BinomialHeap<T> {
   /**
    * @notice Adds a new element to the heap.
    * @param value The element to add.
-   * @complexity Time: O(log n) | Space: O(log n) where n is the number of elements.
+   * @complexity Time: O(log n) | Space: O(1) where n is the number of elements.
    */
   add(value: T): void { const h = new BinomialHeap<T>(this.compare); h.trees[0] = new Node(value); h._size = 1; this.merge(h); }
 
@@ -96,7 +96,7 @@ export class BinomialHeap<T> {
   /**
    * @notice Serializes the heap into a JSON string.
    * @returns A string representing the internal binomial trees.
-   * @complexity Time: O(n) | Space: O(n) (recursion depth via stringify)
+   * @complexity Time: O(n) | Space: O(n)
    */
   toJson(): string {
     return JSON.stringify(this.trees, (key, value) => {

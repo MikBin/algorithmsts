@@ -91,7 +91,7 @@ export class CuckooFilter<T = string> {
    * @notice Adds an item to the filter.
    * @param item The item to insert.
    * @returns `true` if the item was successfully added, `false` if the filter is full (max kicks reached).
-   * @complexity Time: O(1) expected, O(maxKicks) worst case | Space: O(1)
+   * @complexity Time: O(1) expected, O(maxKicks · bucketSize) worst case | Space: O(1)
    */
   add(item: T): boolean {
     const s = this.serializer(item);

@@ -99,7 +99,7 @@ export class BinarySearchTree<T> {
    * @notice Deletes a value from the BST.
    * @param value The value to delete.
    * @returns `true` if the value was deleted, `false` otherwise.
-   * @complexity Time: O(h) | Space: O(h) (recursion depth via deleteNode) where h is the height of the tree.
+   * @complexity Time: O(h) | Space: O(1) where h is the height of the tree.
    */
   remove(value: T): boolean {
     const nodeToDelete = this.search(value);

@@ -54,7 +54,7 @@ export class BloomFilter<T = string> {
    * @param falsePositiveRate The desired maximum false positive probability.
    * @param options Optional configuration.
    * @returns A properly sized BloomFilter.
-   * @complexity Time: O(1) | Space: O(m) where m is the computed optimal bit size.
+   * @complexity Time: O(m) | Space: O(m) where m is the computed optimal bit size.
    */
   static create<T>(expectedItems: number, falsePositiveRate: number, options: BloomFilterOptions<T> = {}): BloomFilter<T> {
     const n = expectedItems;

@@ -27,7 +27,7 @@ export class BKTree<T> {
    * @param value The center query value.
    * @param radius The maximum distance (inclusive) to search.
    * @returns An array of results with values and their corresponding distances.
-   * @complexity Time: O(k) worst case (but typically much smaller due to pruning) | Space: O(h) (recursion depth via _query) where k is the number of nodes evaluated and h is the height.
+   * @complexity Time: O(n) worst case; typically far below n thanks to triangle-inequality pruning | Space: O(h) (recursion depth via _query) where n is the total number of nodes and h is the height.
    */
   query(value: T, radius: number): { value: T; distance: number }[] { const res: { value: T; distance: number }[] = []; this._query(this.root, value, radius, res); return res; }
   private _query(n: Node<T> | null, v: T, r: number, out: { value: T; distance: number }[]) { if (!n) return; const d = this.distance(v, n.value); if (d <= r) out.push({ value: n.value, distance: d }); for (let dist = d - r; dist <= d + r; dist++) { const c = n.children.get(dist); if (c) this._query(c, v, r, out); } }

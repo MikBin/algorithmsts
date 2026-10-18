@@ -154,7 +154,7 @@ export class BinaryHeap<T> {
    * @notice Merges another heap into this heap, consuming the other heap.
    * @dev This is a destructive operation on `other`.
    * @param other The other heap to merge.
-   * @complexity Time: O(k log(n + k)) | Space: O(1) where k is the size of the other heap.
+   * @complexity Time: O(k log(n + k)) | Space: O(1) where n is this heap's size and k is the size of the other heap.
    */
   merge(other: BinaryHeap<T>): void {
     if (other === this) return;
