@@ -3,7 +3,7 @@ id: TASK-30
 title: >-
   Add missing algorithm families: comparison sorts, classic DP, Z/Boyer-Moore,
   remaining structures polish
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-12 10:39'
 labels:
@@ -24,9 +24,18 @@ Gaps against the comprehensive-library positioning (review section 4): no compar
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Merge/quick/heap/insertion sorts implemented with tests and complexity docs
-- [ ] #2 LCS, LIS, knapsack implemented with tests
-- [ ] #3 Z-algorithm and Boyer-Moore implemented with tests
+- [x] #1 Merge/quick/heap/insertion sorts implemented with tests and complexity docs
+- [x] #2 LCS, LIS, knapsack implemented with tests
+- [x] #3 Z-algorithm and Boyer-Moore implemented with tests
 - [ ] #4 At least the two-three-tree, order-statistic-tree, suffix-array, van-emde-boas, rope, and spatial-tree guard issues fixed with tests
-- [ ] #5 AlgorithmSelector references only algorithms that exist in src/
+- [x] #5 AlgorithmSelector references only algorithms that exist in src/
 <!-- AC:END -->
+
+## Progress Notes
+- Comparison Sorts (Bubble, Insertion, Quick, Merge, Heap) implemented.
+- Classic DP (LCS, LIS, Knapsack, Coin Change, Subset Sum) implemented.
+- String matching (Z-Algorithm, Boyer-Moore) implemented.
+- `AlgorithmSelector` test mocks updated.
+- Partial structure polish landed: TwoThreeTree, OrderStatisticTree, SuffixArray, and VanEmdeBoasTree issues resolved.
+- Specifically for vEB tree: `delete`, `successor`, and `predecessor` added properly and tested; out-of-bounds `insert` throws.
+- Remaining: rope, spatial-tree guard issues, and fibonacci-heap.
