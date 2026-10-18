@@ -12,9 +12,22 @@ class RStarNode {
 
 type RStarEntry = { rect: Rect; child?: RStarNode; data?: unknown };
 
+/**
+ * An R*-Tree implementation, an optimized variant of the R-Tree used for spatial
+ * indexing. It employs complex insertion heuristics and forced reinsertion to
+ * maintain better tree structure and improve query performance.
+ */
 export class RStarTree {
   private root = new RStarNode(true);
   private minEntries: number;
+
+  /**
+   * Creates a new R*-Tree.
+   *
+   * @param maxEntries - The maximum number of entries a node can contain.
+   * @param reinsertFraction - The fraction of entries to reinsert upon overflow (typically 0.3 for full R* behavior, 0 disables it).
+   * @complexity Time: O(1) | Space: O(1) (node allocation)
+   */
   constructor(private maxEntries = 8, private reinsertFraction = 0) {
     this.minEntries = Math.max(1, Math.floor(this.maxEntries * 0.4));
   }
@@ -29,6 +42,14 @@ export class RStarTree {
     return height;
   }
 
+
+  /**
+   * Inserts a spatial rectangle and its associated data into the R*-Tree.
+   *
+   * @param rect - The bounding rectangle to insert.
+   * @param data - Optional data associated with the rectangle.
+   * @complexity Time: O(log n) average, potentially higher worst-case due to reinsertion and complex splitting | Space: O(log n) (recursion depth)
+   */
   insert(rect: Rect, data?: unknown): void {
     const entry: RStarEntry = { rect, data };
     const treeHeight = this.getHeight(this.root);
@@ -199,6 +220,13 @@ export class RStarTree {
     }
   }
 
+
+  /**
+   * Serializes the R*-Tree to a JSON string.
+   *
+   * @returns A JSON string representation of the tree.
+   * @complexity Time: O(n) | Space: O(n) (JSON string allocation)
+   */
   toJson(): string {
     return JSON.stringify(this.root);
   }

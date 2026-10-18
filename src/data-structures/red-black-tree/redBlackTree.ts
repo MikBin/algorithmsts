@@ -1,12 +1,24 @@
 import { RBNode } from "./interfaces";
 import { RedBlackTreeIterator } from "./iterator";
 
+/**
+ * A Red-Black Tree implementation, a self-balancing binary search tree.
+ * Guarantees that no path from root to leaf is more than twice as long as any other,
+ * ensuring O(log n) time complexity for insertion, deletion, and search.
+ */
 export class RedBlackTree<T> implements Iterable<T> {
   root: RBNode<T> | null;
   size: number;
   private compare: (a: T, b: T) => number;
   private NIL: RBNode<T>; // Sentinel node for all leaf references
 
+
+  /**
+   * Creates a new Red-Black Tree.
+   *
+   * @param compareFunction - Comparator function to define the element ordering.
+   * @complexity Time: O(1) | Space: O(1) (node allocation for NIL sentinel)
+   */
   constructor(compareFunction?: (a: T, b: T) => number) {
     this.NIL = {
       value: null as any, // Using null as a sentinel value
@@ -24,6 +36,15 @@ export class RedBlackTree<T> implements Iterable<T> {
   }
 
   // Core operations
+
+  /**
+   * Inserts a value into the tree and performs necessary rotations and color flips
+   * to maintain Red-Black properties.
+   *
+   * @param value - The value to insert.
+   * @returns The newly inserted node.
+   * @complexity Time: O(log n) | Space: O(1) (node allocation)
+   */
   insert(value: T): RBNode<T> {
     const newNode: RBNode<T> = {
       value,
@@ -155,6 +176,14 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
   }
 
+
+  /**
+   * Removes a value from the tree and restructures the tree to maintain Red-Black properties.
+   *
+   * @param value - The value to remove.
+   * @returns True if the value was found and removed, false otherwise.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   delete(value: T): boolean {
     const z = this.search(value);
     if (z === null) {
@@ -270,6 +299,14 @@ export class RedBlackTree<T> implements Iterable<T> {
     x.color = "black";
   }
 
+
+  /**
+   * Searches for a value in the tree.
+   *
+   * @param value - The value to search for.
+   * @returns The node containing the value, or null if not found.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   search(value: T): RBNode<T> | null {
     let current = this.root;
     while (current !== this.NIL && current !== null) {
@@ -283,6 +320,13 @@ export class RedBlackTree<T> implements Iterable<T> {
   }
 
   // Find operations
+
+  /**
+   * Finds the minimum value in the tree.
+   *
+   * @returns The minimum value, or null if the tree is empty.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   findMin(): T | null {
     const minNode = this.findMinNode(this.root);
     return minNode ? minNode.value : null;
@@ -299,6 +343,13 @@ export class RedBlackTree<T> implements Iterable<T> {
     return current;
   }
 
+
+  /**
+   * Finds the maximum value in the tree.
+   *
+   * @returns The maximum value, or null if the tree is empty.
+   * @complexity Time: O(log n) | Space: O(1)
+   */
   findMax(): T | null {
     const maxNode = this.findMaxNode(this.root);
     return maxNode ? maxNode.value : null;
@@ -316,6 +367,13 @@ export class RedBlackTree<T> implements Iterable<T> {
   }
 
   // Traversal methods
+
+  /**
+   * Performs an in-order traversal of the tree, visiting left child, node, then right child.
+   *
+   * @returns An array containing the tree elements in sorted order.
+   * @complexity Time: O(n) | Space: O(n) (recursion depth and result array)
+   */
   traversalInOrder(): T[] {
     const result: T[] = [];
     this.inOrder(this.root, result);
@@ -330,6 +388,13 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
   }
 
+
+  /**
+   * Performs a pre-order traversal of the tree, visiting node, left child, then right child.
+   *
+   * @returns An array containing the tree elements in pre-order.
+   * @complexity Time: O(n) | Space: O(n) (recursion depth and result array)
+   */
   traversalPreOrder(): T[] {
     const result: T[] = [];
     this.preOrder(this.root, result);
@@ -344,6 +409,13 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
   }
 
+
+  /**
+   * Performs a post-order traversal of the tree, visiting left child, right child, then node.
+   *
+   * @returns An array containing the tree elements in post-order.
+   * @complexity Time: O(n) | Space: O(n) (recursion depth and result array)
+   */
   traversalPostOrder(): T[] {
     const result: T[] = [];
     this.postOrder(this.root, result);
@@ -358,6 +430,13 @@ export class RedBlackTree<T> implements Iterable<T> {
     }
   }
 
+
+  /**
+   * Performs a level-order (breadth-first) traversal of the tree.
+   *
+   * @returns An array containing the tree elements in level-order.
+   * @complexity Time: O(n) | Space: O(n) (queue size and result array)
+   */
   traversalLevelOrder(): T[] {
     const result: T[] = [];
     const queue: RBNode<T>[] = [];
@@ -380,14 +459,35 @@ export class RedBlackTree<T> implements Iterable<T> {
   }
 
   // Utility methods
+
+  /**
+   * Checks if the tree is empty.
+   *
+   * @returns True if the tree is empty, false otherwise.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   isEmpty(): boolean {
     return this.root === this.NIL;
   }
 
+
+  /**
+   * Returns the number of elements in the tree.
+   *
+   * @returns The size of the tree.
+   * @complexity Time: O(1) | Space: O(1)
+   */
   getSize(): number {
     return this.size;
   }
 
+
+  /**
+   * Calculates and returns the height of the tree.
+   *
+   * @returns The height of the tree, or -1 if empty.
+   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
+   */
   getHeight(): number {
     return this.getNodeHeight(this.root);
   }
@@ -399,12 +499,26 @@ export class RedBlackTree<T> implements Iterable<T> {
     return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) + 1;
   }
 
+
+  /**
+   * Clears all elements from the tree.
+   *
+   * @complexity Time: O(1) | Space: O(1)
+   */
   clear(): void {
     this.root = this.NIL;
     this.size = 0;
   }
 
   // Balance checking
+
+  /**
+   * Verifies if the tree satisfies all Red-Black properties.
+   * Useful for internal testing and validation.
+   *
+   * @returns True if the tree is a valid Red-Black Tree, false otherwise.
+   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
+   */
   isRedBlackTree(): boolean {
     if (this.root === null || this.root === this.NIL) {
       return true;
@@ -432,6 +546,13 @@ export class RedBlackTree<T> implements Iterable<T> {
     return this.checkRedBlackProperties(node.left) && this.checkRedBlackProperties(node.right);
   }
 
+
+  /**
+   * Calculates the black-height of the tree (number of black nodes on any path from root to leaf).
+   *
+   * @returns The black height of the tree.
+   * @complexity Time: O(n) | Space: O(log n) (recursion depth)
+   */
   getBlackHeight(): number {
     return this.getBlackHeightNode(this.root);
   }
@@ -449,10 +570,24 @@ export class RedBlackTree<T> implements Iterable<T> {
     return (node.color === "black" ? 1 : 0) + leftBlackHeight;
   }
 
+
+  /**
+   * Returns an iterator that traverses the tree in-order.
+   *
+   * @returns An iterator over the tree's elements.
+   * @complexity Time: O(1) initialization, O(log n) per next() | Space: O(1)
+   */
   [Symbol.iterator](): Iterator<T> {
     return new RedBlackTreeIterator<T>(this.root, this.NIL);
   }
 
+
+  /**
+   * Serializes the tree to a JSON string.
+   *
+   * @returns A JSON string representation of the tree.
+   * @complexity Time: O(n) | Space: O(n) (JSON string allocation)
+   */
   toJson(): string {
     return JSON.stringify(this.root, (key, value) => {
       if (key === "parent" || value === this.NIL) {
