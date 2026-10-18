@@ -1,7 +1,7 @@
 ---
 id: TASK-38
 title: FibonacciHeap.poll() corrupts the root ring
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-10-18'
 labels:
@@ -22,10 +22,11 @@ ordinal: 38000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 regression test with the failing repro (n=9 drain + n=20 shuffled drain 20/20)
-- [ ] #2 root cause fixed, no heuristic
-- [ ] #3 full suite + coverage gate green
-- [ ] #4 task file honest
+- [x] #1 regression test with the failing repro (n=9 drain + n=20 shuffled drain 20/20)
+- [x] #2 root cause fixed, no heuristic
+- [x] #3 full suite + coverage gate green
+- [x] #4 task file honest
 <!-- AC:END -->
 
 ## Progress Notes
+- 2026-10-18: fixed in PR #184 — c.parent isolation restored in poll children loop; regression tests added and passing; task closed.
