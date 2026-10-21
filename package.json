@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "description": "TypeScript implementation of standard algorithms and data structures",
   "private": false,
-  "main": "dist/algorithms/index.cjs",
-  "module": "dist/algorithms/index.js",
-  "typings": "dist/types/algorithms/index.d.ts",
-  "types": "dist/types/algorithms/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "typings": "dist/types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
     "./core": {
       "types": "./dist/types/core/index.d.ts",
       "import": "./dist/core/index.js",

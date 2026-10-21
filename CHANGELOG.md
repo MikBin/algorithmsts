@@ -20,7 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Tree Height Convention**: Tree heights now consistently return `-1` for empty trees and `0` for single-node (leaf) trees (specifically fixed in `AVLTree` to match `BinarySearchTree`).
   - **Default Comparators**: The default comparators for `BinarySearchTree` and `AVLTree` have been updated to properly support strings safely without type coercion issues.
 
+
 ### Added
+- **Root Export**: Added a root `"."` export to `package.json`, allowing users to import directly from `@mikbin80/algorithmsts` without needing to specify submodules.
+- **Data Structure Contracts**: Updated `docs/README.md` to clarify that while the library contains many data structures, the `IDataStructure` interface is not universally adopted by all of them, preventing false expectations.
+
 - **Documentation Generation**: Added comprehensive API documentation generation using TypeDoc
   - Created `tools/generate-docs.ts` script for automated documentation generation
   - Generates HTML documentation in `docs/api/` directory

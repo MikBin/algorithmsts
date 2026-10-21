@@ -46,10 +46,31 @@ const InjectPlugin =
       ];
 
 export default defineConfig([
+  // Root module
+  {
+    input: "src/index.ts",
+    plugins: [del({ targets: "dist/*" }), ...InjectPlugin],
+    external: ["node:url", "node:path"],
+    output: [
+      {
+        file: "dist/index.js",
+        format: "esm",
+        sourcemap: true,
+        exports: "named",
+      },
+      {
+        file: "dist/index.cjs",
+        format: "commonjs",
+        sourcemap: true,
+        exports: "named",
+      },
+    ],
+  },
+
   // Core module
   {
     input: "src/core/index.ts",
-    plugins: [del({ targets: "dist/*" }), ...InjectPlugin],
+    plugins: [...InjectPlugin],
     external: ["node:url", "node:path"],
     output: [
       {

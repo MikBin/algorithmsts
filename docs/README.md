@@ -250,7 +250,7 @@ If you're upgrading from an older version, see our [Migration Guide](./migration
 ### Core Interfaces
 
 - `ICollection<T>`: Base interface for collections
-- `IDataStructure<T>`: Interface for data structures
+- `IDataStructure<T>`: Interface for data structures (Note: Not all data structures in the library implement this interface directly)
 - `IAlgorithm`: Base interface for algorithms
 - `IGraph<T>`: Interface for graph data structures
 
