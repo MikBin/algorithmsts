@@ -46,9 +46,10 @@ describe('BinarySearch', () => {
 describe('BinaryClosestSearch', () => {
   const sortedArray = [10, 20, 30, 40, 50];
   const binaryClosestSearch = new BinaryClosestSearch<number>();
+  const distanceNumbers = (a: number, b: number) => Math.abs(a - b);
 
   it('should return -1 for an empty array', () => {
-    const result = binaryClosestSearch.execute({ array: [], value: 15, compareFn: compareNumbers });
+    const result = binaryClosestSearch.execute({ array: [], value: 15, compareFn: compareNumbers, distanceFn: distanceNumbers });
     expect(result.index).toEqual(-1);
   });
 
@@ -70,16 +71,16 @@ describe('BinaryClosestSearch', () => {
     expect(result2.index).toEqual(2); // Closest to 30
   });
 
-  it('should correctly fallback if sign-only comparator is used without distanceFn (legacy behavior)', () => {
-    // If distanceFn is omitted, distance is calculated as Math.abs(compareFn(a, b))
-    // With sign-only, this is always 1, resulting in a tie, which falls back to the tie breaker.
-    // The tie breaker favors the larger index when value > array[left]
+  it('should correctly use distanceFn resolving magnitude ties even with a sign-only comparator', () => {
+    // When distanceFn is provided, it must be used for closest comparison.
+    // This resolves the issue where sign-only comparators incorrectly caused false distance ties.
     const result1 = binaryClosestSearch.execute({
       array: sortedArray,
       value: 21,
-      compareFn: (a, b) => Math.sign(a - b)
+      compareFn: (a, b) => Math.sign(a - b),
+      distanceFn: distanceNumbers
     });
-    expect(result1.index).toEqual(2); // 30 (incorrectly chosen due to missing distanceFn, testing legacy fallback)
+    expect(result1.index).toEqual(1); // Closest to 20
   });
 
   it('should support string arrays with localeCompare and custom string distance', () => {
@@ -99,50 +100,51 @@ describe('BinaryClosestSearch', () => {
   });
 
   it('should handle a single-element array', () => {
-    const result = binaryClosestSearch.execute({ array: [30], value: 25, compareFn: compareNumbers });
+    const result = binaryClosestSearch.execute({ array: [30], value: 25, compareFn: compareNumbers, distanceFn: distanceNumbers });
     expect(result.index).toEqual(0);
   });
 
   it('should find the closest element when the value is in the array', () => {
-    const result = binaryClosestSearch.execute({ array: sortedArray, value: 30, compareFn: compareNumbers });
+    const result = binaryClosestSearch.execute({ array: sortedArray, value: 30, compareFn: compareNumbers, distanceFn: distanceNumbers });
     expect(result.index).toEqual(2);
   });
 
   it('should find the closest element when the value is not in the array', () => {
-    expect(binaryClosestSearch.execute({ array: sortedArray, value: 28, compareFn: compareNumbers }).index).toEqual(2); // Closest to 30
-    expect(binaryClosestSearch.execute({ array: sortedArray, value: 32, compareFn: compareNumbers }).index).toEqual(2); // Closest to 30
+    expect(binaryClosestSearch.execute({ array: sortedArray, value: 28, compareFn: compareNumbers, distanceFn: distanceNumbers }).index).toEqual(2); // Closest to 30
+    expect(binaryClosestSearch.execute({ array: sortedArray, value: 32, compareFn: compareNumbers, distanceFn: distanceNumbers }).index).toEqual(2); // Closest to 30
   });
 
   it('should return the higher index in case of a tie', () => {
     // When the distances are equal, the original implementation prefers the higher index.
-    expect(binaryClosestSearch.execute({ array: sortedArray, value: 25, compareFn: compareNumbers }).index).toEqual(2); // 30 is as close as 20
-    expect(binaryClosestSearch.execute({ array: sortedArray, value: 35, compareFn: compareNumbers }).index).toEqual(3); // 40 is as close as 30
+    expect(binaryClosestSearch.execute({ array: sortedArray, value: 25, compareFn: compareNumbers, distanceFn: distanceNumbers }).index).toEqual(2); // 30 is as close as 20
+    expect(binaryClosestSearch.execute({ array: sortedArray, value: 35, compareFn: compareNumbers, distanceFn: distanceNumbers }).index).toEqual(3); // 40 is as close as 30
   });
 
   it('should handle values outside the array bounds', () => {
-    expect(binaryClosestSearch.execute({ array: sortedArray, value: 5, compareFn: compareNumbers }).index).toEqual(0);  // Closest to 10
-    expect(binaryClosestSearch.execute({ array: sortedArray, value: 55, compareFn: compareNumbers }).index).toEqual(4); // Closest to 50
+    expect(binaryClosestSearch.execute({ array: sortedArray, value: 5, compareFn: compareNumbers, distanceFn: distanceNumbers }).index).toEqual(0);  // Closest to 10
+    expect(binaryClosestSearch.execute({ array: sortedArray, value: 55, compareFn: compareNumbers, distanceFn: distanceNumbers }).index).toEqual(4); // Closest to 50
   });
 });
 
 describe('BinaryClosestSearch with financial time series', () => {
   const binaryClosestSearch = new BinaryClosestSearch<TimeSeriesObject>();
+  const distanceTimeSeries = (a: TimeSeriesObject, b: TimeSeriesObject) => Math.abs(a.time - b.time);
 
   it('should return the first element when the value is out of bounds (less)', () => {
     const searchTime = { time: 1548670090468 - 10, value: 0 };
-    const result = binaryClosestSearch.execute({ array: financialSeries, value: searchTime, compareFn: compareTimeSeries });
+    const result = binaryClosestSearch.execute({ array: financialSeries, value: searchTime, compareFn: compareTimeSeries, distanceFn: distanceTimeSeries });
     expect(result.index).toEqual(0);
   });
 
   it('should return the last element when the value is out of bounds (greater)', () => {
     const searchTime = { time: 1548670143168 + 10, value: 0 };
-    const result = binaryClosestSearch.execute({ array: financialSeries, value: searchTime, compareFn: compareTimeSeries });
+    const result = binaryClosestSearch.execute({ array: financialSeries, value: searchTime, compareFn: compareTimeSeries, distanceFn: distanceTimeSeries });
     expect(result.index).toEqual(financialSeries.length - 1);
   });
 
   it('should return the closest index in time', () => {
     const searchTime = { time: 1548670091596, value: 0 };
-    const result = binaryClosestSearch.execute({ array: financialSeries, value: searchTime, compareFn: compareTimeSeries });
+    const result = binaryClosestSearch.execute({ array: financialSeries, value: searchTime, compareFn: compareTimeSeries, distanceFn: distanceTimeSeries });
     expect(result.index).toEqual(2);
   });
 });
