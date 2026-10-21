@@ -18,7 +18,8 @@ describe("AATree", () => {
     ds.add(5);
     ds.add(5);
     ds.add(10);
-    expect(ds.size).toBeGreaterThanOrEqual(2);
+    expect(ds.size).toBe(2);
+    expect(ds.size).toBe(ds.toArray().length);
     expect(ds.contains(5)).toBe(true);
     expect(ds.contains(10)).toBe(true);
     expect(ds.toArray()).toEqual([5, 10]);

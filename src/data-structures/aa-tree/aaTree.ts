@@ -50,19 +50,29 @@ export class AATree<T> extends BaseDataStructure<T> {
    * @complexity Time: O(log n) | Space: O(log n)
    */
   add(key: T): void {
-    this.root = this._insert(this.root, key);
-    this._size++;
+    const [newRoot, added] = this._insert(this.root, key);
+    this.root = newRoot;
+    if (added) this._size++;
   }
 
-  private _insert(node: AANode<T> | null, key: T): AANode<T> {
-    if (!node) return new AANode(key, 1);
+  private _insert(node: AANode<T> | null, key: T): [AANode<T>, boolean] {
+    if (!node) return [new AANode(key, 1), true];
     const cmp = this.compare(key, node.key);
-    if (cmp < 0) node.left = this._insert(node.left, key);
-    else if (cmp > 0) node.right = this._insert(node.right, key);
-    // duplicates ignored
+    if (cmp < 0) {
+      const [l, added] = this._insert(node.left, key);
+      if (!added) return [node, false];
+      node.left = l;
+    } else if (cmp > 0) {
+      const [r, added] = this._insert(node.right, key);
+      if (!added) return [node, false];
+      node.right = r;
+    } else {
+      // duplicates ignored
+      return [node, false];
+    }
     node = this.skew(node)!;
     node = this.split(node)!;
-    return node;
+    return [node, true];
   }
 
   /**

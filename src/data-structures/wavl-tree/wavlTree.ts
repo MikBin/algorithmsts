@@ -76,16 +76,25 @@ export class WAVLTree<T> extends BaseDataStructure<T> {
    * @complexity Time: O(log n) | Space: O(1) node allocation, O(log n) recursion depth
    */
   add(x: T): void {
-    this.root = this._insert(this.root, x);
-    this._size++;
+    const [newRoot, added] = this._insert(this.root, x);
+    this.root = newRoot;
+    if (added) this._size++;
   }
-  private _insert(n: Node<T> | null, x: T): Node<T> {
-    if (!n) return new Node(x);
+  private _insert(n: Node<T> | null, x: T): [Node<T>, boolean] {
+    if (!n) return [new Node(x), true];
     const c = this.compare(x, n.key);
-    if (c < 0) n.left = this._insert(n.left, x);
-    else if (c > 0) n.right = this._insert(n.right, x);
-    else return n;
-    return this.balance(n);
+    if (c < 0) {
+      const [l, added] = this._insert(n.left, x);
+      if (!added) return [n, false];
+      n.left = l;
+    } else if (c > 0) {
+      const [r, added] = this._insert(n.right, x);
+      if (!added) return [n, false];
+      n.right = r;
+    } else {
+      return [n, false];
+    }
+    return [this.balance(n), true];
   }
 
   /**
