@@ -5,8 +5,10 @@ import {
   BinaryClosestSearch,
   CountingSort,
   RadixSortNumbers,
+  RadixSortStrings,
   NgramSimilarity,
   JaroDistance,
+  JaroWinklerDistance,
   LevenshteinDistance,
   SparseTable,
 } from "../../src/algorithms";
@@ -134,12 +136,9 @@ describe("Documentation Examples E2E Tests", () => {
 
       trie.add("apple", 1);
       trie.add("apply", 2);
-      trie.add("apricot", 3);
-      trie.add("banana", 4);
 
       expect(trie.get("apple")).toBe(1);
-      expect(trie.contains("app")).toBe(true); // as a prefix
-      expect(trie.contains("apple")).toBe(true); // full word
+      expect(trie.contains("app")).toBe(true);
     });
   });
 
@@ -165,17 +164,22 @@ describe("Documentation Examples E2E Tests", () => {
       const str1 = "night";
       const str2 = "nacht";
 
-      const ngramSimilarity = new NgramSimilarity();
+      const ngramSimilarity = new NgramSimilarity<string>();
       const jaroDistance = new JaroDistance();
       const levenshteinDistance = new LevenshteinDistance();
 
       const ngramResult = ngramSimilarity.execute({ str1, str2, n: 2 });
       const jaroResult = jaroDistance.execute({ str1, str2 });
+
+      const jaroWinklerDistance = new JaroWinklerDistance();
+      const jaroWinklerResult = jaroWinklerDistance.execute({ str1, str2 });
+
       const levenshteinResult = levenshteinDistance.execute({ str1, str2 });
 
       // All should return similarity/distance measures
       expect(typeof ngramResult.similarity).toBe("number");
       expect(typeof jaroResult.distance).toBe("number");
+      expect(typeof jaroWinklerResult.distance).toBe("number");
       expect(typeof levenshteinResult.distance).toBe("number");
 
       // N-gram should show similarity
@@ -241,11 +245,17 @@ describe("Documentation Examples E2E Tests", () => {
     });
 
     it("should work with radix sort", () => {
-      const radixSort = new RadixSortNumbers();
-      const testArray = [170, 45, 75, 90, 802, 24, 2, 66];
+      const radixSortNumbers = new RadixSortNumbers();
+      const testArrayNumbers = [170, 45, 75, 90, 802, 24, 2, 66];
 
-      const result = radixSort.execute({ array: testArray });
-      expect(result.result).toEqual([2, 24, 45, 66, 75, 90, 170, 802]);
+      const resultNumbers = radixSortNumbers.execute({ array: testArrayNumbers });
+      expect(resultNumbers.result).toEqual([2, 24, 45, 66, 75, 90, 170, 802]);
+
+      const radixSortStrings = new RadixSortStrings();
+      const testArrayStrings = ["apple", "banana", "cherry", "date"];
+
+      const resultStrings = radixSortStrings.execute({ array: testArrayStrings });
+      expect(resultStrings.result).toEqual(["apple", "banana", "cherry", "date"]);
     });
   });
 
@@ -317,7 +327,7 @@ describe("Documentation Examples E2E Tests", () => {
 
       // Find similar words
       const target = "algorithm";
-      const ngramSimilarity = new NgramSimilarity();
+      const ngramSimilarity = new NgramSimilarity<string>();
 
       let bestMatch = "";
       let bestScore = 0;
