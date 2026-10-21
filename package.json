@@ -107,8 +107,8 @@
     "@types/node": "^22.10.3",
     "@typescript-eslint/eslint-plugin": "^8.19.0",
     "@typescript-eslint/parser": "^8.19.0",
-    "@vitest/coverage-v8": "^2.1.9",
-    "@vitest/ui": "^2.1.8",
+    "@vitest/coverage-v8": "^5.0.5",
+    "@vitest/ui": "^5.0.5",
     "chart.js": "^4.5.1",
     "commitizen": "^4.3.1",
     "conventional-commits-parser": "^6.4.0",
@@ -130,8 +130,8 @@
     "typedoc": "^0.28.14",
     "typescript": "^5.7.2",
     "undici-types": "^7.16.0",
-    "vite": "^5.4.21",
-    "vitest": "^2.1.9",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5",
     "vue": "^3.5.31"
   },
   "keywords": [
