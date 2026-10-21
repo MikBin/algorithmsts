@@ -29,7 +29,7 @@ npm install @mikbin80/algorithmsts
 import { BinarySearch, LinkedList, AdjacencyListGraph } from '@mikbin80/algorithmsts';
 
 // Binary search
-const result = BinarySearch.search([1, 2, 3, 4, 5], 3); // returns index 2
+const result = new BinarySearch<number>().execute({ array: [1, 2, 3, 4, 5], value: 3, compareFn: (a, b) => a - b }); // returns { index: 2, value: 3 }
 
 // Linked list
 const list = new LinkedList<number>();
@@ -41,15 +41,6 @@ const graph = new AdjacencyListGraph<string>(true); // directed graph
 graph.addVertex('A');
 graph.addVertex('B');
 graph.addEdge('A', 'B');
-```
-
-### Legacy Import (Deprecated)
-
-```typescript
-import algorithmsts from '@mikbin80/algorithmsts';
-
-// Still works but deprecated
-const result = algorithmsts.binarySearch.search([1, 2, 3], 2);
 ```
 
 ## Library Structure
@@ -70,7 +61,7 @@ The library is organized into modular components:
 Doubly-linked list implementation with O(1) insertion/deletion.
 
 ```typescript
-import { LinkedList } from '@mikbin80/algorithmsts/data-structures';
+import { LinkedList } from '@mikbin80/algorithmsts';
 
 const list = new LinkedList<number>();
 list.add(1);
@@ -86,7 +77,7 @@ console.log(list.toArray()); // [1, 2, 3]
 A queue is a linear data structure that follows the First-In-First-Out (FIFO) principle.
 
 ```typescript
-import { Queue } from '@mikbin80/algorithmsts/data-structures';
+import { Queue } from '@mikbin80/algorithmsts';
 
 const queue = new Queue<number>();
 queue.enqueue(1);
@@ -101,7 +92,7 @@ console.log(queue.peek()); // 2
 A stack is a linear data structure that follows the Last-In-First-Out (LIFO) principle.
 
 ```typescript
-import { Stack } from '@mikbin80/algorithmsts/data-structures';
+import { Stack } from '@mikbin80/algorithmsts';
 
 const stack = new Stack<number>();
 stack.push(1);
@@ -116,7 +107,7 @@ console.log(stack.peek()); // 2
 A hash map is a data structure that implements an associative array abstract data type, a structure that can map keys to values.
 
 ```typescript
-import { HashMap } from '@mikbin80/algorithmsts/data-structures';
+import { HashMap } from '@mikbin80/algorithmsts';
 
 const map = new HashMap<string, number>();
 map.set("a", 1);
@@ -132,7 +123,7 @@ map.delete("a");
 A priority queue is a data structure that allows adding elements with a priority and retrieving the element with the highest priority.
 
 ```typescript
-import { PriorityQueue } from '@mikbin80/algorithmsts/data-structures';
+import { PriorityQueue } from '@mikbin80/algorithmsts';
 
 const pq = new PriorityQueue<number>((a, b) => b - a);
 pq.enqueue(3);
@@ -147,7 +138,7 @@ console.log(pq.peek()); // 3
 A disjoint set is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets.
 
 ```typescript
-import { UnionFind } from '@mikbin80/algorithmsts/data-structures';
+import { UnionFind } from '@mikbin80/algorithmsts';
 
 const uf = new UnionFind(5);
 uf.union(0, 1);
@@ -164,7 +155,7 @@ console.log(uf.connected(1, 2)); // false
 Counting sort is a sorting algorithm that sorts the elements of an array by counting the number of occurrences of each unique element in the array.
 
 ```typescript
-import { CountingSort } from '@mikbin80/algorithmsts/algorithms';
+import { CountingSort } from '@mikbin80/algorithmsts';
 
 const countingSort = new CountingSort();
 const sortedArray = countingSort.execute({ array: [4, 2, 2, 8, 3, 3, 1] });
@@ -175,7 +166,7 @@ console.log(sortedArray); // { sortedArray: [1, 2, 2, 3, 3, 4, 8], result: [1, 2
 Radix sort is a non-comparative sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value.
 
 ```typescript
-import { RadixSort } from '@mikbin80/algorithmsts/algorithms';
+import { RadixSort } from '@mikbin80/algorithmsts';
 
 const radixSort = new RadixSort();
 const sortedArray = radixSort.execute({ array: [170, 45, 75, 90, 802, 24, 2, 66] });
@@ -188,7 +179,7 @@ console.log(sortedArray); // { sortedArray: [2, 24, 45, 66, 75, 90, 170, 802], r
 Probabilistic alternative to balanced trees with O(log n) operations.
 
 ```typescript
-import { SkipList } from '@mikbin80/algorithmsts/data-structures';
+import { SkipList } from '@mikbin80/algorithmsts';
 
 const skipList = new SkipList<number>(10);
 skipList.insert(15);
@@ -204,7 +195,7 @@ const found = skipList.find(15); // returns the node
 Self-balancing binary search tree.
 
 ```typescript
-import { BinarySearchTree } from '@mikbin80/algorithmsts/data-structures';
+import { BinarySearchTree } from '@mikbin80/algorithmsts';
 
 const bst = new BinarySearchTree<number>();
 bst.insert(50);
@@ -218,7 +209,7 @@ console.log(bst.contains(30)); // true
 Height-balanced binary search tree.
 
 ```typescript
-import { AVLTree } from '@mikbin80/algorithmsts/data-structures';
+import { AVLTree } from '@mikbin80/algorithmsts';
 
 const avl = new AVLTree<number>();
 avl.insert(10);
@@ -230,7 +221,7 @@ avl.insert(30); // auto-balances
 Versatile data structure for range queries and updates.
 
 ```typescript
-import { SegmentTree } from '@mikbin80/algorithmsts/data-structures';
+import { SegmentTree } from '@mikbin80/algorithmsts';
 
 // Range sum queries
 const array = [1, 3, 5, 7, 9, 11];
@@ -244,7 +235,7 @@ const sum = segmentTree.query(1, 4); // {sum: 24}
 Self-balancing tree data structure that maintains sorted data.
 
 ```typescript
-import { BTree } from '@mikbin80/algorithmsts/data-structures';
+import { BTree } from '@mikbin80/algorithmsts';
 
 const btree = new BTree<number>(3); // minimum degree 3
 btree.insert(10);
@@ -256,7 +247,7 @@ btree.insert(5);
 Balanced binary search tree with guaranteed O(log n) operations.
 
 ```typescript
-import { RedBlackTree } from '@mikbin80/algorithmsts/data-structures';
+import { RedBlackTree } from '@mikbin80/algorithmsts';
 
 const rbt = new RedBlackTree<number>();
 rbt.insert(10);
@@ -268,7 +259,7 @@ rbt.insert(5);
 Data structure for prefix sum queries and point updates.
 
 ```typescript
-import { FenwickTree } from '@mikbin80/algorithmsts/data-structures';
+import { FenwickTree } from '@mikbin80/algorithmsts';
 
 const fenwick = new FenwickTree([1, 2, 3, 4, 5]);
 fenwick.update(2, 10); // update index 2 (0-based) to 10
@@ -281,7 +272,7 @@ const sum = fenwick.query(4); // sum of first 5 elements
 Complete binary tree with heap property.
 
 ```typescript
-import { BinaryHeap } from '@mikbin80/algorithmsts/data-structures';
+import { BinaryHeap } from '@mikbin80/algorithmsts';
 
 const minHeap = new BinaryHeap<number>();
 minHeap.insert(5);
@@ -296,21 +287,21 @@ const min = minHeap.extractMin(); // 3
 Prefix tree for efficient string operations.
 
 ```typescript
-import { Trie } from '@mikbin80/algorithmsts/data-structures';
+import { Trie } from '@mikbin80/algorithmsts';
 
 const trie = new Trie<string, number>();
-trie.insert("apple", 1);
-trie.insert("apply", 2);
+trie.add("apple", 1);
+trie.add("apply", 2);
 
 console.log(trie.get("apple")); // 1
-console.log(trie.startsWith("app")); // true
+console.log(trie.contains("app")); // true
 ```
 
 #### Suffix Tree
 Advanced string processing using Ukkonen's algorithm.
 
 ```typescript
-import { SuffixTree } from '@mikbin80/algorithmsts/data-structures';
+import { SuffixTree } from '@mikbin80/algorithmsts';
 
 const suffixTree = new SuffixTree("banana");
 const index = suffixTree.findSubstring("ana"); // 1
@@ -324,7 +315,7 @@ const index = suffixTree.findSubstring("ana"); // 1
 Memory-efficient representation for sparse graphs.
 
 ```typescript
-import { AdjacencyListGraph } from '@mikbin80/algorithmsts/graphs';
+import { AdjacencyListGraph } from '@mikbin80/algorithmsts';
 
 // Directed graph
 const directedGraph = new AdjacencyListGraph<string>(true);
@@ -341,7 +332,7 @@ undirectedGraph.addEdge('A', 'B'); // adds both A->B and B->A
 Efficient representation for dense graphs.
 
 ```typescript
-import { AdjacencyMatrixGraph } from '@mikbin80/algorithmsts/graphs';
+import { AdjacencyMatrixGraph } from '@mikbin80/algorithmsts';
 
 const matrixGraph = new AdjacencyMatrixGraph<number>();
 matrixGraph.addVertex(1);
@@ -356,7 +347,7 @@ const neighbors = matrixGraph.getNeighbors(1); // [2]
 #### Traversal
 
 ```typescript
-import { BreadthFirstSearch, DepthFirstSearch } from '@mikbin80/algorithmsts/graphs';
+import { BreadthFirstSearch, DepthFirstSearch } from '@mikbin80/algorithmsts';
 
 const bfs = new BreadthFirstSearch(graph);
 const traversal = bfs.traverse('A');
@@ -368,7 +359,7 @@ const path = dfs.findPath('A', 'D');
 #### Shortest Path
 
 ```typescript
-import { DijkstraAlgorithm, AStarAlgorithm } from '@mikbin80/algorithmsts/graphs';
+import { DijkstraAlgorithm, AStarAlgorithm } from '@mikbin80/algorithmsts';
 
 const dijkstra = new DijkstraAlgorithm(weightedGraph);
 const shortestPath = dijkstra.findShortestPath('A', 'Z');
@@ -380,7 +371,7 @@ const optimalPath = aStar.findShortestPath('A', 'Z');
 #### Topological Sort
 
 ```typescript
-import { TopologicalSort } from '@mikbin80/algorithmsts/graphs';
+import { TopologicalSort } from '@mikbin80/algorithmsts';
 
 const topoSort = new TopologicalSort(directedGraph);
 const order = topoSort.sort(); // returns topological ordering
@@ -389,7 +380,7 @@ const order = topoSort.sort(); // returns topological ordering
 #### Cycle Detection
 
 ```typescript
-import { CycleDetection } from '@mikbin80/algorithmsts/graphs';
+import { CycleDetection } from '@mikbin80/algorithmsts';
 
 const cycleDetector = new CycleDetection(graph);
 const hasCycle = cycleDetector.hasCycle();
@@ -403,11 +394,11 @@ const hasCycle = cycleDetector.hasCycle();
 O(log n) search in sorted arrays.
 
 ```typescript
-import { BinarySearch } from '@mikbin80/algorithmsts/algorithms';
+import { BinarySearch, BinaryClosestSearch } from '@mikbin80/algorithmsts';
 
 const sorted = [1, 3, 5, 7, 9, 11, 13, 15];
-const index = BinarySearch.search(sorted, 7); // returns 3
-const closest = BinarySearch.closestSearch(sorted, 8); // returns index of 7
+const index = new BinarySearch<number>().execute({ array: sorted, value: 7, compareFn: (a, b) => a - b }); // returns { index: 3, value: 7 }
+const closest = new BinaryClosestSearch<number>().execute({ array: sorted, value: 8, compareFn: (a, b) => a - b, distanceFn: (a, b) => Math.abs(a - b) }); // returns { index: 3, value: 7 }
 ```
 
 ### Sorting Algorithms
@@ -416,23 +407,23 @@ const closest = BinarySearch.closestSearch(sorted, 8); // returns index of 7
 Linear time sorting for integers with limited range.
 
 ```typescript
-import { CountingSort } from '@mikbin80/algorithmsts/algorithms';
+import { CountingSort } from '@mikbin80/algorithmsts';
 
 const numbers = [4, 2, 2, 8, 3, 3, 1];
-const sorted = CountingSort.sort(numbers, 0, 8); // [1, 2, 2, 3, 3, 4, 8]
+const sorted = new CountingSort().execute({ array: numbers }); // { result: [1, 2, 2, 3, 3, 4, 8] }
 ```
 
 #### Radix Sort
 Efficient sorting for integers and strings.
 
 ```typescript
-import { RadixSortNumbers, RadixSortStrings } from '@mikbin80/algorithmsts/algorithms';
+import { RadixSortNumbers, RadixSortStrings } from '@mikbin80/algorithmsts';
 
 const numbers = [170, 45, 75, 90, 802, 24, 2, 66];
-RadixSortNumbers.sort(numbers); // [2, 24, 45, 66, 75, 90, 170, 802]
+const sortedNumbers = new RadixSortNumbers().execute({ array: numbers }); // { result: [2, 24, 45, 66, 75, 90, 170, 802] }
 
 const strings = ["apple", "banana", "cherry", "date"];
-RadixSortStrings.sort(strings); // ["apple", "banana", "cherry", "date"]
+const sortedStrings = new RadixSortStrings().execute({ array: strings }); // { result: ["apple", "banana", "cherry", "date"] }
 ```
 
 ### String Algorithms
@@ -440,12 +431,12 @@ RadixSortStrings.sort(strings); // ["apple", "banana", "cherry", "date"]
 #### String Similarity
 
 ```typescript
-import { NgramSimilarity, JaroDistance, JaroWinklerDistance, LevenshteinDistance } from '@mikbin80/algorithmsts/algorithms';
+import { NgramSimilarity, JaroDistance, JaroWinklerDistance, LevenshteinDistance } from '@mikbin80/algorithmsts';
 
-const similarity = NgramSimilarity.calculate("night", "nacht", 2);
-const jaro = JaroDistance.calculate("martha", "marhta");
-const jaroWinkler = JaroWinklerDistance.calculate("martha", "marhta");
-const levenshtein = LevenshteinDistance.calculate("kitten", "sitting");
+const similarity = new NgramSimilarity().execute({ str1: "night", str2: "nacht", n: 2 });
+const jaro = new JaroDistance().execute({ str1: "martha", str2: "marhta" });
+const jaroWinkler = new JaroWinklerDistance().execute({ str1: "martha", str2: "marhta" });
+const levenshtein = new LevenshteinDistance().execute({ str1: "kitten", str2: "sitting" });
 ```
 
 ### Range Query Algorithms
@@ -454,7 +445,7 @@ const levenshtein = LevenshteinDistance.calculate("kitten", "sitting");
 O(1) range minimum/maximum queries after O(n log n) preprocessing.
 
 ```typescript
-import { SparseTable } from '@mikbin80/algorithmsts/algorithms';
+import { SparseTable } from '@mikbin80/algorithmsts';
 
 const array = [1, 3, 2, 7, 9, 11];
 const sparseTable = new SparseTable(array, Math.min);
@@ -463,24 +454,12 @@ const min = sparseTable.query(1, 4); // minimum of [3, 2, 7, 9] = 2
 
 ### Performance Utilities
 
-#### Algorithm Comparison
-
-```typescript
-import { BenchmarkRunner } from '@mikbin80/algorithmsts/performance';
-import { AlgorithmSelector } from '@mikbin80/algorithmsts/algorithms';
-
-const result = BenchmarkRunner.compareAlgorithms(algo1, algo2, testData);
-
-const selector = new AlgorithmSelector();
-const bestAlgorithm = selector.select(algorithms, criteria, data);
-```
-
 ## Core Utilities
 
 ### Performance Monitoring
 
 ```typescript
-import { PerformanceMonitor } from '@mikbin80/algorithmsts/performance';
+import { PerformanceMonitor } from '@mikbin80/algorithmsts';
 
 const time = PerformanceMonitor.measureExecutionTime(() => {
   // ... perform operation ...
@@ -491,7 +470,7 @@ console.log(`Execution time: ${time}ms`);
 ### Validation
 
 ```typescript
-import { Validator, ArgumentError, DataStructureError } from '@mikbin80/algorithmsts/core';
+import { Validator, ArgumentError, DataStructureError } from '@mikbin80/algorithmsts';
 
 Validator.notNull(value, 'parameterName');
 Validator.inRange(number, 0, 100, 'age');
@@ -508,18 +487,7 @@ import {
   IGraph,
   IWeightedGraph,
   ITraversalAlgorithm
-} from '@mikbin80/algorithmsts/types';
-```
-
-## Compatibility Layer
-
-The library includes a compatibility layer for backward compatibility:
-
-```typescript
-import { LinkedList as LegacyLinkedList } from '@mikbin80/algorithmsts/compatibility';
-
-// Legacy API with deprecation warnings
-const list = new LegacyLinkedList<number>();
+} from '@mikbin80/algorithmsts';
 ```
 
 ## Performance Characteristics
