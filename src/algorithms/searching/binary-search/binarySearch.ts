@@ -1,6 +1,6 @@
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor, ComplexityAnalyzer } from '../../../performance';
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor, ComplexityAnalyzer } from "../../../performance";
 
 /**
  * Input interface for BinarySearch algorithm
@@ -34,12 +34,15 @@ export interface BinarySearchOutput {
  *
  * @template T The type of elements in the array
  */
-export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinarySearchOutput> implements IAlgorithm<BinarySearchInput<T>, BinarySearchOutput> {
+export class BinarySearch<T>
+  extends BaseAlgorithm<BinarySearchInput<T>, BinarySearchOutput>
+  implements IAlgorithm<BinarySearchInput<T>, BinarySearchOutput>
+{
   /**
    * Creates a new BinarySearch instance
    */
   constructor() {
-    super('BinarySearch', 'O(log n)', 'O(1)');
+    super("BinarySearch", "O(log n)", "O(1)");
   }
 
   /**
@@ -85,7 +88,9 @@ export class BinarySearch<T> extends BaseAlgorithm<BinarySearchInput<T>, BinaryS
 
     // Log performance if it exceeds target
     if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      PerformanceMonitor.getLogger()?.warn(`BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
+      PerformanceMonitor.getLogger()?.warn(
+        `BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`,
+      );
     }
 
     return result!;
@@ -102,8 +107,8 @@ export interface BinaryClosestSearchInput<T> {
   value: T;
   /** Comparison function that returns negative if value < element, 0 if equal, positive if value > element */
   compareFn: (value: T, element: T) => number;
-  /** Optional distance function. Required for correct closest-element semantics if compareFn only returns sign */
-  distanceFn?: (value: T, element: T) => number;
+  /** Distance function to calculate the magnitude difference between two elements. Required for correct closest-element semantics. */
+  distanceFn: (value: T, element: T) => number;
 }
 
 /**
@@ -124,12 +129,15 @@ export interface BinaryClosestSearchOutput {
  *
  * @template T The type of elements in the array
  */
-export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput> implements IAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput> {
+export class BinaryClosestSearch<T>
+  extends BaseAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput>
+  implements IAlgorithm<BinaryClosestSearchInput<T>, BinaryClosestSearchOutput>
+{
   /**
    * Creates a new BinaryClosestSearch instance
    */
   constructor() {
-    super('BinaryClosestSearch', 'O(log n)', 'O(1)');
+    super("BinaryClosestSearch", "O(log n)", "O(1)");
   }
 
   /**
@@ -170,18 +178,8 @@ export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInp
 
       // After the loop, the closest element is either at `left` or `right`.
       // We compare the distances to find the winner.
-      let leftDistance: number;
-      let rightDistance: number;
-
-      if (distanceFn) {
-        leftDistance = distanceFn(value, array[left]);
-        rightDistance = distanceFn(value, array[right]);
-      } else {
-        // Fallback: use compareFn as a proxy for distance (legacy behavior).
-        // If compareFn only returns sign (e.g. localeCompare or Math.sign), distance is always 1 for both sides.
-        leftDistance = Math.abs(compareFn(value, array[left]));
-        rightDistance = Math.abs(compareFn(value, array[right]));
-      }
+      const leftDistance = distanceFn(value, array[left]);
+      const rightDistance = distanceFn(value, array[right]);
 
       if (leftDistance === rightDistance) {
         const leftValueComparison = compareFn(value, array[left]);
@@ -197,7 +195,9 @@ export class BinaryClosestSearch<T> extends BaseAlgorithm<BinaryClosestSearchInp
 
     // Log performance if it exceeds target
     if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      PerformanceMonitor.getLogger()?.warn(`BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`);
+      PerformanceMonitor.getLogger()?.warn(
+        `BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`,
+      );
     }
 
     return result!;
