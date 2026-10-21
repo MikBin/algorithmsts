@@ -5,6 +5,14 @@ const packageJsonPath = path.join(__dirname, '..', 'package.json');
 const exportsMap = require(packageJsonPath).exports;
 let hasError = false;
 
+const rootExport = exportsMap['.'];
+if (!rootExport || !rootExport.types || !rootExport.import || !rootExport.require) {
+  console.error('  [!] Root export (".") is missing or incomplete in package.json!');
+  hasError = true;
+} else {
+  console.log('  [v] Root export (".") found with types, import, and require fields.');
+}
+
 for (const [key, value] of Object.entries(exportsMap)) {
   console.log(`Checking exports for ${key}:`);
 
