@@ -1,19 +1,7 @@
+import { fnv1a32, jsonSerializer } from "../../core/utils/HashUtils";
+
 export type HashFn = (str: string, seed: number) => number;
 export type Serializer<T> = (item: T) => string;
-
-const defaultHash: HashFn = (str: string, seed: number) => {
-  let h = 2166136261 ^ seed;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-};
-
-const defaultSerializer = (item: any): string => {
-  if (typeof item === "string") return item;
-  return JSON.stringify(item);
-};
 
 export interface RibbonFilterOptions<T> {
   hashFn?: HashFn;
@@ -43,8 +31,8 @@ export class RibbonFilter<T = string> {
    * @complexity Time: O(n) expected where n is the number of distinct items | Space: O(n) for the constructed filter and temporary system of equations
    */
   constructor(items: T[], options: RibbonFilterOptions<T> = {}) {
-    this.hashFn = options.hashFn || defaultHash;
-    this.serializer = options.serializer || defaultSerializer;
+    this.hashFn = options.hashFn || fnv1a32;
+    this.serializer = options.serializer || jsonSerializer;
 
     const distinctItems = Array.from(new Set(items.map((i) => this.serializer(i))));
     const n = distinctItems.length;

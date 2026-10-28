@@ -53,7 +53,7 @@ export class BinarySearch<T>
   public execute(input: BinarySearchInput<T>): BinarySearchOutput {
     let result: BinarySearchOutput;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { array, value, compareFn } = input;
 
       if (!array || array.length === 0) {
@@ -84,11 +84,21 @@ export class BinarySearch<T>
 
       // Value not found
       result = { index: -1, result: -1 };
-    });
+    };
+
+    // Read the logger once: measure only when monitoring is enabled, otherwise
+    // run the body plainly (no clock reads, no logging side effects).
+    const logger = PerformanceMonitor.getLogger();
+    let executionTime = 0;
+    if (logger) {
+      executionTime = PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
 
     // Log performance if it exceeds target
-    if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      PerformanceMonitor.getLogger()?.warn(
+    if (logger && !ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
+      logger.warn(
         `BinarySearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`,
       );
     }
@@ -148,7 +158,7 @@ export class BinaryClosestSearch<T>
   public execute(input: BinaryClosestSearchInput<T>): BinaryClosestSearchOutput {
     let result: BinaryClosestSearchOutput;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { array, value, compareFn, distanceFn } = input;
 
       const length = array?.length ?? 0;
@@ -191,11 +201,21 @@ export class BinaryClosestSearch<T>
         // Return the index of the element with the smaller distance
         result = { index: leftDistance < rightDistance ? left : right };
       }
-    });
+    };
+
+    // Read the logger once: measure only when monitoring is enabled, otherwise
+    // run the body plainly (no clock reads, no logging side effects).
+    const logger = PerformanceMonitor.getLogger();
+    let executionTime = 0;
+    if (logger) {
+      executionTime = PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
 
     // Log performance if it exceeds target
-    if (!ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
-      PerformanceMonitor.getLogger()?.warn(
+    if (logger && !ComplexityAnalyzer.isWithinSearchOperationsTarget(executionTime)) {
+      logger.warn(
         `BinaryClosestSearch performance warning: ${executionTime}ms (target: ${ComplexityAnalyzer.SEARCH_OPERATIONS_TARGET}ms)`,
       );
     }

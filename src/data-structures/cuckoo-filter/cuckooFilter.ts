@@ -1,20 +1,7 @@
+import { fnv1a32, jsonSerializer } from "../../core/utils/HashUtils";
+
 export type HashFn = (str: string, seed: number) => number;
 export type Serializer<T> = (item: T) => string;
-
-const defaultHash: HashFn = (str: string, seed: number) => {
-  // FNV-1a inspired hash
-  let h = 2166136261 ^ seed;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-};
-
-const defaultSerializer = (item: any): string => {
-  if (typeof item === 'string') return item;
-  return JSON.stringify(item);
-};
 
 export interface CuckooFilterOptions<T> {
   hashFn?: HashFn;
@@ -47,7 +34,11 @@ export class CuckooFilter<T = string> {
    * @param options Configuration options.
    * @complexity Time: O(capacity) | Space: O(capacity)
    */
-  constructor(capacity: number = 1024, private bucketSize: number = 4, options: CuckooFilterOptions<T> = {}) {
+  constructor(
+    capacity: number = 1024,
+    private bucketSize: number = 4,
+    options: CuckooFilterOptions<T> = {},
+  ) {
     // Determine bucket count: capacity / bucketSize, rounded up to power of 2 for efficient masking?
     // Power of 2 is nice for modulo, but not strictly required if we use modulo.
     // However, standard Cuckoo Filters often use power of 2 for the 'alternate index' XOR trick to work easily?
@@ -61,8 +52,8 @@ export class CuckooFilter<T = string> {
     this.bucketCount = bCount;
     this.buckets = new Uint16Array(this.bucketCount * this.bucketSize);
 
-    this.hashFn = options.hashFn || defaultHash;
-    this.serializer = options.serializer || defaultSerializer;
+    this.hashFn = options.hashFn || fnv1a32;
+    this.serializer = options.serializer || jsonSerializer;
     this.maxKicks = options.maxKicks || 500;
     this.rng = options.rng || Math.random;
   }
@@ -71,7 +62,7 @@ export class CuckooFilter<T = string> {
   private fp(s: string): number {
     const h = this.hashFn(s, 0);
     // range [1, 65535]
-    let f = (h & 0xffff);
+    let f = h & 0xffff;
     if (f === 0) f = 1;
     return f;
   }
@@ -215,7 +206,7 @@ export class CuckooFilter<T = string> {
       bucketCount: this.bucketCount,
       bucketSize: this.bucketSize,
       size: this._size,
-      buckets: Array.from(this.buckets) // Convert TypedArray to normal array for JSON
+      buckets: Array.from(this.buckets), // Convert TypedArray to normal array for JSON
     });
   }
 }

@@ -89,7 +89,7 @@ export class Queue<T> extends BaseDataStructure<T> {
    * @complexity Time: O(n) | Space: O(n) (toArray copy)
    */
   contains(element: T): boolean {
-    return this.toArray().includes(element as any);
+    return this.toArray().includes(element);
   }
 
   /**

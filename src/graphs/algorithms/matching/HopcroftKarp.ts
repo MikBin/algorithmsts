@@ -1,6 +1,6 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
 
 export interface IMatchingResult<T> {
   matching: Map<T, T>;
@@ -14,19 +14,21 @@ export interface IMatchingResult<T> {
  */
 export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMatchingResult<T>> {
   constructor() {
-    super('Hopcroft–Karp Bipartite Matching', 'O(E * sqrt(V))', 'O(V)');
+    super("Hopcroft–Karp Bipartite Matching", "O(E * sqrt(V))", "O(V)");
   }
 
   public execute(graph: IGraph<T, W>, left?: T[], right?: T[]): IMatchingResult<T> {
     if (!left || !right) {
-      throw new ArgumentError('Left and right partitions must be provided');
+      throw new ArgumentError("Left and right partitions must be provided");
     }
     const rightSet = new Set(right);
     if (graph.isDirected()) {
       // We treat edges as undirected across partitions for matching
     }
 
-    const NIL: any = Symbol('NIL');
+    // Unique sentinel distinct from every vertex; leaving this un-annotated
+    // gives NIL a `unique symbol` type that widens the map keys below.
+    const NIL = Symbol("NIL");
 
     const pairU = new Map<T, T | typeof NIL>();
     const pairV = new Map<T, T | typeof NIL>();
@@ -53,9 +55,9 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
           for (const v of graph.getNeighbors(u as T)) {
             if (!rightSet.has(v)) continue;
             const pu = pairV.get(v)!;
-            if (dist.get(pu as any) === undefined || (dist.get(pu as any)! as number) === Infinity) {
-              dist.set(pu as any, (dist.get(u)! as number) + 1);
-              q.push(pu as any);
+            if (dist.get(pu) === undefined || (dist.get(pu)! as number) === Infinity) {
+              dist.set(pu, (dist.get(u)! as number) + 1);
+              q.push(pu);
             }
           }
         }
@@ -68,7 +70,7 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
       for (const v of graph.getNeighbors(u)) {
         if (!rightSet.has(v)) continue;
         const pu = pairV.get(v)!;
-        if ((dist.get(pu as any)! as number) === (dist.get(u)! as number) + 1 && dfs(pu as any)) {
+        if ((dist.get(pu)! as number) === (dist.get(u)! as number) + 1 && dfs(pu)) {
           pairV.set(v, u);
           pairU.set(u, v);
           return true;
@@ -89,7 +91,7 @@ export class HopcroftKarp<T, W = number> extends BaseAlgorithm<IGraph<T, W>, IMa
 
     const result = new Map<T, T>();
     for (const [u, v] of pairU) {
-      if (v !== NIL) result.set(u, v as T);
+      if (v !== NIL) result.set(u, v);
     }
 
     return { matching: result, size: matching };

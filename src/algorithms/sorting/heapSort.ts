@@ -1,6 +1,6 @@
-import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../performance';
+import { BaseAlgorithm } from "../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../performance";
 
 export interface HeapSortInput<T extends number | string> {
   array: T[];
@@ -18,15 +18,18 @@ export interface HeapSortOutput<T extends number | string> {
  *
  * @complexity Time: O(n log n) in all cases | Space: O(log n) recursion depth
  */
-export class HeapSort<T extends number | string> extends BaseAlgorithm<HeapSortInput<T>, HeapSortOutput<T>> implements IAlgorithm<HeapSortInput<T>, HeapSortOutput<T>> {
+export class HeapSort<T extends number | string>
+  extends BaseAlgorithm<HeapSortInput<T>, HeapSortOutput<T>>
+  implements IAlgorithm<HeapSortInput<T>, HeapSortOutput<T>>
+{
   constructor() {
-    super('HeapSort', 'O(n log n)', 'O(log n)');
+    super("HeapSort", "O(n log n)", "O(log n)");
   }
 
   public execute(input: HeapSortInput<T>): HeapSortOutput<T> {
     let result: HeapSortOutput<T>;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { array } = input;
       if (!array || array.length <= 1) {
         result = { sortedArray: array ? [...array] : [], result: array ? [...array] : [] };
@@ -50,10 +53,22 @@ export class HeapSort<T extends number | string> extends BaseAlgorithm<HeapSortI
       }
 
       result = { sortedArray: arr, result: arr };
-    });
+    };
 
-    if (executionTime > 100) {
-      PerformanceMonitor.getLogger()?.warn(`HeapSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+    // Read the logger once: measure only when monitoring is enabled, otherwise
+    // run the body plainly (no clock reads, no logging side effects).
+    const logger = PerformanceMonitor.getLogger();
+    let executionTime = 0;
+    if (logger) {
+      executionTime = PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
+
+    if (logger && executionTime > 100) {
+      logger.warn(
+        `HeapSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`,
+      );
     }
 
     return result!;

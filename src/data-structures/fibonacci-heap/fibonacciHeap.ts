@@ -34,7 +34,9 @@ export class FibonacciHeap<T> {
    * @returns The size of the heap.
    * @complexity Time: O(1) | Space: O(1)
    */
-  get size(): number { return this._size; }
+  get size(): number {
+    return this._size;
+  }
 
   /**
    * Checks if the heap is empty.
@@ -42,7 +44,9 @@ export class FibonacciHeap<T> {
    * @returns True if empty, false otherwise.
    * @complexity Time: O(1) | Space: O(1)
    */
-  isEmpty(): boolean { return this._size === 0; }
+  isEmpty(): boolean {
+    return this._size === 0;
+  }
 
   /**
    * Retrieves, but does not remove, the minimum element from the heap.
@@ -50,7 +54,9 @@ export class FibonacciHeap<T> {
    * @returns The minimum element, or null if the heap is empty.
    * @complexity Time: O(1) | Space: O(1)
    */
-  peek(): T | null { return this.min ? this.min.value : null; }
+  peek(): T | null {
+    return this.min ? this.min.value : null;
+  }
 
   /**
    * Inserts an element into the heap.
@@ -174,7 +180,10 @@ export class FibonacciHeap<T> {
     this._size = 0;
   }
 
-  private mergeLists(a: FibonacciNode<T> | null, b: FibonacciNode<T> | null): FibonacciNode<T> | null {
+  private mergeLists(
+    a: FibonacciNode<T> | null,
+    b: FibonacciNode<T> | null,
+  ): FibonacciNode<T> | null {
     if (!a) return b;
     if (!b) return a;
     if (this.compare(a.value, b.value) > 0) [a, b] = [b, a];
@@ -202,8 +211,8 @@ export class FibonacciHeap<T> {
         let y = A[d]!;
         if (this.compare(x.value, y.value) > 0) {
           const tmp = x;
-          (x as any) = y;
-          (y as any) = tmp;
+          x = y;
+          y = tmp;
         }
         this.link(y, x);
         A[d] = null;
@@ -246,8 +255,8 @@ export class FibonacciHeap<T> {
    * @complexity Time: O(n) | Space: O(n)
    */
   toJson(): string {
-    const replacer = (key: any, value: any) => {
-      if (key === 'parent' || key === 'left' || key === 'right') {
+    const replacer = (key: string, value: unknown) => {
+      if (key === "parent" || key === "left" || key === "right") {
         return undefined;
       }
       return value;

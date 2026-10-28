@@ -21,7 +21,7 @@ interface VerificationResult {
     name: string;
     status: "pass" | "fail";
     message: string;
-    details?: any;
+    details?: unknown;
   }[];
   summary: {
     totalChecks: number;
@@ -311,7 +311,12 @@ class ImplementationVerifier {
   /**
    * Add a result to the results array
    */
-  private addResult(name: string, status: "pass" | "fail", message: string, details?: any): void {
+  private addResult(
+    name: string,
+    status: "pass" | "fail",
+    message: string,
+    details?: unknown,
+  ): void {
     this.results.push({
       name,
       status,
@@ -326,7 +331,7 @@ class ImplementationVerifier {
   /**
    * Display results
    */
-  private displayResults(summary: any): void {
+  private displayResults(summary: VerificationResult["summary"]): void {
     console.log("\n📊 Implementation Verification Summary");
     console.log("=".repeat(50));
     console.log(`Total checks: ${summary.totalChecks}`);

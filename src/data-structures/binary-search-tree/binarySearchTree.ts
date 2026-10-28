@@ -1,5 +1,5 @@
-import { BSTNode } from './interfaces';
-import { inOrderTraversal } from './iterator';
+import { BSTNode } from "./interfaces";
+import { inOrderTraversal } from "./iterator";
 
 /**
  * @title Binary Search Tree
@@ -21,7 +21,14 @@ export class BinarySearchTree<T> {
    * @complexity Time: O(1) | Space: O(1)
    */
   constructor(compareFunction?: (a: T, b: T) => number) {
-    this._compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+    this._compare =
+      compareFunction ||
+      ((a: T, b: T) => {
+        // Default ordering assumes mutually comparable primitive values.
+        const x = a as unknown as string | number;
+        const y = b as unknown as string | number;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
   }
 
   /**
@@ -347,7 +354,7 @@ export class BinarySearchTree<T> {
    */
   toJson(): string {
     return JSON.stringify(this._root, (key, value) => {
-      if (key === 'parent') {
+      if (key === "parent") {
         return undefined; // Exclude parent to avoid circular references
       }
       return value;

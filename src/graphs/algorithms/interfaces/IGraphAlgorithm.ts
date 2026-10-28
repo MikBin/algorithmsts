@@ -1,5 +1,5 @@
-import { IAlgorithm } from '../../../core/interfaces/IAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
+import { IAlgorithm } from "../../../core/interfaces/IAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
 
 /**
  * Interface for graph algorithms
@@ -14,5 +14,5 @@ export interface IGraphAlgorithm<T, R, W = number> extends IAlgorithm<IGraph<T, 
    * @param args Additional arguments specific to the algorithm
    * @returns The result of the algorithm execution
    */
-  execute(graph: IGraph<T, W>, ...args: any[]): R;
+  execute(graph: IGraph<T, W>, ...args: unknown[]): R;
 }

@@ -1,6 +1,6 @@
-import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../performance';
+import { BaseAlgorithm } from "../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../performance";
 
 export interface InsertionSortInput<T extends number | string> {
   array: T[];
@@ -18,15 +18,18 @@ export interface InsertionSortOutput<T extends number | string> {
  *
  * @complexity Time: O(n^2) worst/average case, O(n) best case (already sorted) | Space: O(1) beyond the input array
  */
-export class InsertionSort<T extends number | string> extends BaseAlgorithm<InsertionSortInput<T>, InsertionSortOutput<T>> implements IAlgorithm<InsertionSortInput<T>, InsertionSortOutput<T>> {
+export class InsertionSort<T extends number | string>
+  extends BaseAlgorithm<InsertionSortInput<T>, InsertionSortOutput<T>>
+  implements IAlgorithm<InsertionSortInput<T>, InsertionSortOutput<T>>
+{
   constructor() {
-    super('InsertionSort', 'O(n^2)', 'O(1)');
+    super("InsertionSort", "O(n^2)", "O(1)");
   }
 
   public execute(input: InsertionSortInput<T>): InsertionSortOutput<T> {
     let result: InsertionSortOutput<T>;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { array } = input;
       if (!array || array.length <= 1) {
         result = { sortedArray: array ? [...array] : [], result: array ? [...array] : [] };
@@ -48,10 +51,22 @@ export class InsertionSort<T extends number | string> extends BaseAlgorithm<Inse
       }
 
       result = { sortedArray: arr, result: arr };
-    });
+    };
 
-    if (executionTime > 100) {
-      PerformanceMonitor.getLogger()?.warn(`InsertionSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+    // Read the logger once: measure only when monitoring is enabled, otherwise
+    // run the body plainly (no clock reads, no logging side effects).
+    const logger = PerformanceMonitor.getLogger();
+    let executionTime = 0;
+    if (logger) {
+      executionTime = PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
+
+    if (logger && executionTime > 100) {
+      logger.warn(
+        `InsertionSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`,
+      );
     }
 
     return result!;

@@ -424,7 +424,7 @@ export class SegmentTree<T, U extends BaseSegmentTreeNode> extends BaseDataStruc
       const node = this._SEG_TREE[n + i];
       // Try to extract the value from the node
       if (node && "value" in node) {
-        result.push((node as any).value);
+        result.push((node as { value: T }).value);
       } else if (node) {
         // If no value property, try to use the node itself if it matches T
         result.push(node as unknown as T);

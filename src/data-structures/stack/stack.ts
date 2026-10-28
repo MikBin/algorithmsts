@@ -82,7 +82,7 @@ export class Stack<T> extends BaseDataStructure<T> {
    * @complexity Time: O(n) linear scan | Space: O(1)
    */
   contains(element: T): boolean {
-    return this.data.includes(element as any);
+    return this.data.includes(element);
   }
 
   /**

@@ -34,7 +34,10 @@ import { BaseAlgorithm } from "../abstracts/BaseAlgorithm";
  * const result = algo.execute([1, 2, 3, -1]); // 3 (average of positive numbers)
  * ```
  */
-export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<TInput, TOutput> {
+export abstract class AlgorithmTemplate<TInput, TOutput, TData = unknown> extends BaseAlgorithm<
+  TInput,
+  TOutput
+> {
   /**
    * Template method that defines the algorithm structure
    * @param input The input data
@@ -65,7 +68,7 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
    * @protected
    * @abstract
    */
-  protected abstract prepareData(input: TInput): any;
+  protected abstract prepareData(input: TInput): TData;
 
   /**
    * Processes the prepared data
@@ -74,7 +77,7 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
    * @protected
    * @abstract
    */
-  protected abstract processData(data: any): any;
+  protected abstract processData(data: TData): TOutput;
 
   /**
    * Finalizes the result
@@ -82,8 +85,8 @@ export abstract class AlgorithmTemplate<TInput, TOutput> extends BaseAlgorithm<T
    * @returns Final result
    * @protected
    */
-  protected finalizeResult(result: any): TOutput {
-    return result as TOutput;
+  protected finalizeResult(result: TOutput): TOutput {
+    return result;
   }
 
   /**

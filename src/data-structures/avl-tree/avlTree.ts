@@ -1,5 +1,5 @@
-import { AVLNode } from './interfaces';
-import { AVLTreeIterator } from './iterator';
+import { AVLNode } from "./interfaces";
+import { AVLTreeIterator } from "./iterator";
 
 export class AVLTree<T> implements Iterable<T> {
   private _root: AVLNode<T> | null = null;
@@ -11,7 +11,14 @@ export class AVLTree<T> implements Iterable<T> {
    * @param compareFunction - Optional custom comparison function
    */
   constructor(compareFunction?: (a: T, b: T) => number) {
-    this._compare = compareFunction || ((a: any, b: any) => a < b ? -1 : a > b ? 1 : 0);
+    this._compare =
+      compareFunction ||
+      ((a: T, b: T) => {
+        // Default ordering assumes mutually comparable primitive values.
+        const x = a as unknown as string | number;
+        const y = b as unknown as string | number;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
   }
 
   /**
@@ -164,8 +171,8 @@ export class AVLTree<T> implements Iterable<T> {
       if (!node.left || !node.right) {
         this._size--;
         let temp = node.left || node.right;
-        if(temp) {
-            temp.parent = node.parent;
+        if (temp) {
+          temp.parent = node.parent;
         }
         node = temp;
       } else {
@@ -392,7 +399,7 @@ export class AVLTree<T> implements Iterable<T> {
    */
   toJson(): string {
     return JSON.stringify(this._root, (key, value) => {
-      if (key === 'parent') {
+      if (key === "parent") {
         return undefined;
       }
       return value;

@@ -58,7 +58,7 @@ export class NgramSimilarity
   public execute(input: NgramSimilarityInput): NgramSimilarityOutput {
     let result: NgramSimilarityOutput;
 
-    PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { str1, str2, substringLength = 2, caseSensitive = false } = input;
 
       let s1 = str1;
@@ -98,7 +98,15 @@ export class NgramSimilarity
       const similarity = (match * 2) / totalNgrams;
 
       result = { similarity, result: similarity };
-    });
+    };
+
+    // Measure only when monitoring (a logger) is enabled; otherwise run plainly.
+    const logger = PerformanceMonitor.getLogger();
+    if (logger) {
+      PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
 
     return result!;
   }
@@ -213,7 +221,7 @@ export class SplitByUpperCase
   public execute(input: SplitByUpperCaseInput): SplitByUpperCaseOutput {
     let result: SplitByUpperCaseOutput;
 
-    PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { str } = input;
       const parts: string[] = [];
       let currentPart = "";
@@ -235,7 +243,15 @@ export class SplitByUpperCase
       }
 
       result = { parts };
-    });
+    };
+
+    // Measure only when monitoring (a logger) is enabled; otherwise run plainly.
+    const logger = PerformanceMonitor.getLogger();
+    if (logger) {
+      PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
 
     return result!;
   }
@@ -289,7 +305,7 @@ export class JaroDistance
   public execute(input: JaroDistanceInput): JaroDistanceOutput {
     let result: JaroDistanceOutput;
 
-    PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { str1, str2 } = input;
       Validator.notNull(str1, "str1");
       Validator.notNull(str2, "str2");
@@ -363,7 +379,15 @@ export class JaroDistance
             3;
 
       result = { distance: jaroDistance, result: jaroDistance };
-    });
+    };
+
+    // Measure only when monitoring (a logger) is enabled; otherwise run plainly.
+    const logger = PerformanceMonitor.getLogger();
+    if (logger) {
+      PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
 
     return result!;
   }
@@ -415,7 +439,7 @@ export class JaroWinklerDistance
   public execute(input: JaroWinklerDistanceInput): JaroWinklerDistanceOutput {
     let result: JaroWinklerDistanceOutput;
 
-    PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { str1, str2, scalingFactor = 0.1, maxPrefixLength = 4 } = input;
 
       // Calculate Jaro distance first
@@ -436,7 +460,15 @@ export class JaroWinklerDistance
       const winklerDistance = jaroDist + prefixLength * scalingFactor * (1 - jaroDist);
 
       result = { distance: winklerDistance };
-    });
+    };
+
+    // Measure only when monitoring (a logger) is enabled; otherwise run plainly.
+    const logger = PerformanceMonitor.getLogger();
+    if (logger) {
+      PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
 
     return result!;
   }
@@ -490,7 +522,7 @@ export class LevenshteinDistance
   public execute(input: LevenshteinDistanceInput): LevenshteinDistanceOutput {
     let result: LevenshteinDistanceOutput;
 
-    PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { str1, str2 } = input;
       Validator.notNull(str1, "str1");
       Validator.notNull(str2, "str2");
@@ -540,7 +572,15 @@ export class LevenshteinDistance
       const normalizedDistance = maxLength === 0 ? 0 : 1 - editDistance / maxLength;
 
       result = { distance: normalizedDistance, result: normalizedDistance };
-    });
+    };
+
+    // Measure only when monitoring (a logger) is enabled; otherwise run plainly.
+    const logger = PerformanceMonitor.getLogger();
+    if (logger) {
+      PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
 
     return result!;
   }

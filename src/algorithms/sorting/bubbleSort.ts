@@ -1,6 +1,6 @@
-import { BaseAlgorithm } from '../../core/abstracts/BaseAlgorithm';
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../performance';
+import { BaseAlgorithm } from "../../core/abstracts/BaseAlgorithm";
+import { IAlgorithm } from "../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../performance";
 
 export interface BubbleSortInput<T extends number | string> {
   array: T[];
@@ -18,15 +18,18 @@ export interface BubbleSortOutput<T extends number | string> {
  *
  * @complexity Time: O(n^2) worst/average case, O(n) best case (already sorted) | Space: O(1) beyond the input array
  */
-export class BubbleSort<T extends number | string> extends BaseAlgorithm<BubbleSortInput<T>, BubbleSortOutput<T>> implements IAlgorithm<BubbleSortInput<T>, BubbleSortOutput<T>> {
+export class BubbleSort<T extends number | string>
+  extends BaseAlgorithm<BubbleSortInput<T>, BubbleSortOutput<T>>
+  implements IAlgorithm<BubbleSortInput<T>, BubbleSortOutput<T>>
+{
   constructor() {
-    super('BubbleSort', 'O(n^2)', 'O(1)');
+    super("BubbleSort", "O(n^2)", "O(1)");
   }
 
   public execute(input: BubbleSortInput<T>): BubbleSortOutput<T> {
     let result: BubbleSortOutput<T>;
 
-    const executionTime = PerformanceMonitor.measureExecutionTime(() => {
+    const body = () => {
       const { array } = input;
       if (!array || array.length <= 1) {
         result = { sortedArray: array ? [...array] : [], result: array ? [...array] : [] };
@@ -49,10 +52,22 @@ export class BubbleSort<T extends number | string> extends BaseAlgorithm<BubbleS
       }
 
       result = { sortedArray: arr, result: arr };
-    });
+    };
 
-    if (executionTime > 100) {
-      PerformanceMonitor.getLogger()?.warn(`BubbleSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`);
+    // Read the logger once: measure only when monitoring is enabled, otherwise
+    // run the body plainly (no clock reads, no logging side effects).
+    const logger = PerformanceMonitor.getLogger();
+    let executionTime = 0;
+    if (logger) {
+      executionTime = PerformanceMonitor.measureExecutionTime(body);
+    } else {
+      body();
+    }
+
+    if (logger && executionTime > 100) {
+      logger.warn(
+        `BubbleSort performance warning: ${executionTime}ms for array of length ${input.array?.length || 0}`,
+      );
     }
 
     return result!;

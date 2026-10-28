@@ -34,8 +34,9 @@ beforeAll(async () => {
 
   try {
     browser = await chromium.launch();
-  } catch (e: any) {
-    if (e.message.includes("Executable doesn't exist")) {
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    if (message.includes("Executable doesn't exist")) {
       throw e; // Fail loudly
     }
     throw e;

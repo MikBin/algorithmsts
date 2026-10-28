@@ -21,6 +21,6 @@ describe("VPTree", () => {
   });
   it("throws on invalid input", () => {
     const ds = new VPTree<number>((a, b) => Math.abs(a - b));
-    expect(() => ds.build(null as any)).toThrow();
+    expect(() => ds.build(null as unknown as number[])).toThrow();
   });
 });

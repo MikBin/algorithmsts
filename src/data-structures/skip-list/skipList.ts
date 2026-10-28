@@ -1,7 +1,7 @@
-import { BaseDataStructure } from '../../core/abstracts/BaseDataStructure';
-import { IIterator } from '../../core/interfaces/IIterator';
-import { SkipNode, BinaryComparisonRoutine } from './interfaces';
-import { SkipListIterator } from './iterator';
+import { BaseDataStructure } from "../../core/abstracts/BaseDataStructure";
+import { IIterator } from "../../core/interfaces/IIterator";
+import { SkipNode, BinaryComparisonRoutine } from "./interfaces";
+import { SkipListIterator } from "./iterator";
 
 /**
  * @internal
@@ -10,9 +10,12 @@ import { SkipListIterator } from './iterator';
  * @param y - The second value.
  * @returns 1 if x > y, -1 if x < y, and 0 if x === y.
  */
-const defaultComparisonFn: BinaryComparisonRoutine<any> = (x, y) => {
-  if (x > y) return 1;
-  if (x < y) return -1;
+const defaultComparisonFn: BinaryComparisonRoutine<unknown> = (x, y) => {
+  // Default ordering assumes mutually comparable primitive values.
+  const a = x as string | number;
+  const b = y as string | number;
+  if (a > b) return 1;
+  if (a < b) return -1;
   return 0;
 };
 
@@ -38,7 +41,7 @@ export class SkipList<T> extends BaseDataStructure<T> {
     maxLevel: number,
     dummyRootVal: T,
     comparisonFn: BinaryComparisonRoutine<T> = defaultComparisonFn,
-    rng: () => number = Math.random
+    rng: () => number = Math.random,
   ) {
     super();
     this.maxLevel = maxLevel;
@@ -73,7 +76,10 @@ export class SkipList<T> extends BaseDataStructure<T> {
 
     // Find the position to insert the new node
     for (let i = this.maxLevel; i >= 1; i--) {
-      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, val) < 0) {
+      while (
+        currentNode.pointers[i] &&
+        this.comparisonFn(currentNode.pointers[i]!.value, val) < 0
+      ) {
         currentNode = currentNode.pointers[i]!;
       }
       this.updateNodes[i] = currentNode;
@@ -113,7 +119,10 @@ export class SkipList<T> extends BaseDataStructure<T> {
 
     // Find the node to remove
     for (let i = this.maxLevel; i >= 1; i--) {
-      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, val) < 0) {
+      while (
+        currentNode.pointers[i] &&
+        this.comparisonFn(currentNode.pointers[i]!.value, val) < 0
+      ) {
         currentNode = currentNode.pointers[i]!;
       }
       this.updateNodes[i] = currentNode;
@@ -160,7 +169,10 @@ export class SkipList<T> extends BaseDataStructure<T> {
 
     // Search for the node
     for (let i = this.maxLevel; i >= 1; i--) {
-      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, element) < 0) {
+      while (
+        currentNode.pointers[i] &&
+        this.comparisonFn(currentNode.pointers[i]!.value, element) < 0
+      ) {
         currentNode = currentNode.pointers[i]!;
       }
     }
@@ -198,11 +210,16 @@ export class SkipList<T> extends BaseDataStructure<T> {
   find(val: T): T | null {
     let currentNode = this.head;
     for (let i = this.maxLevel; i >= 1; i--) {
-      while (currentNode.pointers[i] && this.comparisonFn(currentNode.pointers[i]!.value, val) < 0) {
+      while (
+        currentNode.pointers[i] &&
+        this.comparisonFn(currentNode.pointers[i]!.value, val) < 0
+      ) {
         currentNode = currentNode.pointers[i]!;
       }
     }
     currentNode = currentNode.pointers[1]!;
-    return currentNode && this.comparisonFn(currentNode.value, val) === 0 ? currentNode.value : null;
+    return currentNode && this.comparisonFn(currentNode.value, val) === 0
+      ? currentNode.value
+      : null;
   }
 }

@@ -75,9 +75,9 @@ describe("SparseTable", () => {
     it("should not accumulate stale rows on re-execution", () => {
       const sparseTable = new SparseTable<number>();
       sparseTable.execute({ array: [1, 2, 3], operation: Math.min });
-      const size1 = (sparseTable as any).table.length;
+      const size1 = (sparseTable as unknown as { table: unknown[] }).table.length;
       sparseTable.execute({ array: [1, 2, 3], operation: Math.min });
-      expect((sparseTable as any).table.length).toBe(size1);
+      expect((sparseTable as unknown as { table: unknown[] }).table.length).toBe(size1);
     });
   });
 });
