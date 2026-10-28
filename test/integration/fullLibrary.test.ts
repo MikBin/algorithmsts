@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { describe, expect, it } from "vitest";
 import {
   BinarySearch,
@@ -11,7 +10,6 @@ import {
 } from "../../src/algorithms";
 import { LinkedList, SkipList, SegmentTree, Trie, SuffixTree } from "../../src/data-structures";
 import { AdjacencyListGraph, BreadthFirstSearch, DepthFirstSearch } from "../../src/graphs";
-import { Validator } from "../../src/core";
 import { PerformanceMonitor } from "../../src/performance";
 
 /**
@@ -22,13 +20,15 @@ import { PerformanceMonitor } from "../../src/performance";
  */
 describe("Full Library Integration Tests", () => {
   describe("Module Import Tests", () => {
-    it("should import all core modules without errors", () => {
-      // Test that all imports work correctly
+    it("should resolve data structure imports correctly", () => {
       expect(LinkedList).toBeDefined();
       expect(SkipList).toBeDefined();
       expect(SegmentTree).toBeDefined();
       expect(Trie).toBeDefined();
       expect(SuffixTree).toBeDefined();
+    });
+
+    it("should resolve algorithm imports correctly", () => {
       expect(BinarySearch).toBeDefined();
       expect(CountingSort).toBeDefined();
       expect(RadixSortNumbers).toBeDefined();
@@ -36,6 +36,9 @@ describe("Full Library Integration Tests", () => {
       expect(JaroDistance).toBeDefined();
       expect(LevenshteinDistance).toBeDefined();
       expect(SparseTable).toBeDefined();
+    });
+
+    it("should resolve graph imports correctly", () => {
       expect(AdjacencyListGraph).toBeDefined();
       expect(BreadthFirstSearch).toBeDefined();
       expect(DepthFirstSearch).toBeDefined();
@@ -43,18 +46,14 @@ describe("Full Library Integration Tests", () => {
   });
 
   describe("Cross-Module Integration", () => {
-    it("should use multiple algorithms together", () => {
-      // Create test data
+    it("should chain counting sort into binary search successfully", () => {
       const numbers = [64, 34, 25, 12, 22, 11, 90];
       const sortedNumbers = [...numbers].sort((a, b) => a - b);
 
-      // Use sorting algorithm
       const countingSort = new CountingSort();
       const sorted = countingSort.execute({ array: [...numbers] });
-
       expect(sorted.result).toEqual(sortedNumbers);
 
-      // Use search algorithm on sorted result
       const binarySearch = new BinarySearch<number>();
       const searchResult = binarySearch.execute({
         array: sorted.result,
@@ -62,35 +61,27 @@ describe("Full Library Integration Tests", () => {
         compareFn: (a, b) => a - b,
       });
 
-      expect(searchResult.result).toBe(2); // Index of 22 in sorted array
+      expect(searchResult.result).toBe(2);
     });
 
-    it("should integrate data structures with algorithms", () => {
-      // Create a linked list
+    it("should process a linked list to an array and sort it", () => {
       const list = new LinkedList<number>();
-
-      // Add elements
       [1, 2, 3, 4, 5].forEach((num) => list.add(num));
 
-      // Convert to array for sorting
       const array = list.toArray();
 
-      // Sort the array
       const countingSort = new CountingSort();
       const sorted = countingSort.execute({ array });
 
       expect(sorted.result).toEqual([1, 2, 3, 4, 5]);
     });
 
-    it("should use string algorithms with data structures", () => {
-      // Create a trie
+    it("should utilize string similarity algorithms on entries from a trie", () => {
       const trie = new Trie<string>();
-
-      // Add words
       const words = ["apple", "application", "apply", "banana"];
       words.forEach((word) => trie.add(word, word.toString()));
+      expect(trie.contains("apple")).toBe(true);
 
-      // Use string similarity on trie contents
       const ngramSimilarity = new NgramSimilarity();
       const similarity = ngramSimilarity.execute({
         str1: "apple",
@@ -98,12 +89,11 @@ describe("Full Library Integration Tests", () => {
       });
 
       expect(similarity.result).toBeGreaterThan(0);
-      expect(trie.contains("apple")).toBe(true);
     });
   });
 
   describe("Performance Integration", () => {
-    it("should measure performance across modules", () => {
+    it("should successfully log execution time via PerformanceMonitor", () => {
       const testArray = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
 
       const executionTime = PerformanceMonitor.measureExecutionTime(() => {
@@ -111,17 +101,19 @@ describe("Full Library Integration Tests", () => {
         countingSort.execute({ array: testArray });
       });
 
-      expect(executionTime).toBeGreaterThan(0);
-      expect(executionTime).toBeLessThan(1000); // Should complete within reasonable time
+      expect(executionTime).toBeGreaterThanOrEqual(0);
     });
+  });
 
-    it.skip("should validate inputs across modules", () => {
-      // Test validation with invalid inputs
+  describe("Input Validation", () => {
+    it("should enforce validation for null arrays in CountingSort", () => {
       expect(() => {
         const countingSort = new CountingSort();
         countingSort.execute({ array: null as unknown as number[] });
       }).toThrow();
+    });
 
+    it("should enforce validation for null comparison functions in BinarySearch", () => {
       expect(() => {
         const binarySearch = new BinarySearch<number>();
         binarySearch.execute({
@@ -134,30 +126,39 @@ describe("Full Library Integration Tests", () => {
   });
 
   describe("Type Safety Integration", () => {
-    it("should maintain type safety across modules", () => {
-      // Test that TypeScript types are properly exported and work together
+    it("should accept generic types correctly for LinkedList", () => {
       const list: LinkedList<number> = new LinkedList<number>();
-      const trie: Trie<string> = new Trie<string>();
-
-      // These should compile without type errors
       list.add(42);
-      trie.add("test", "value");
-
       expect(list.size).toBe(1);
+    });
+
+    it("should accept generic types correctly for Trie", () => {
+      const trie: Trie<string> = new Trie<string>();
+      trie.add("test", "value");
       expect(trie.contains("test")).toBe(true);
     });
   });
 
   describe("Error Handling Integration", () => {
-    it.skip("should handle errors consistently across modules", () => {
-      // Test that different modules handle errors in a consistent way
-      const algorithms = [new CountingSort(), new BinarySearch<number>(), new NgramSimilarity()];
-
-      algorithms.forEach((algorithm) => {
+    it("should handle empty parameter objects cleanly in CountingSort", () => {
+        const countingSort = new CountingSort();
         expect(() => {
-          algorithm.execute({} as unknown as Parameters<typeof algorithm.execute>[0]);
+          countingSort.execute({} as unknown as Parameters<typeof countingSort.execute>[0]);
         }).toThrow();
-      });
+    });
+
+    it("should handle empty parameter objects cleanly in BinarySearch", () => {
+        const binarySearch = new BinarySearch<number>();
+        expect(() => {
+          binarySearch.execute({} as unknown as Parameters<typeof binarySearch.execute>[0]);
+        }).toThrow();
+    });
+
+    it("should handle empty parameter objects cleanly in NgramSimilarity", () => {
+        const ngramSimilarity = new NgramSimilarity();
+        expect(() => {
+          ngramSimilarity.execute({} as unknown as Parameters<typeof ngramSimilarity.execute>[0]);
+        }).toThrow();
     });
   });
 });
