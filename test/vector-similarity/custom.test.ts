@@ -14,73 +14,110 @@ import { computeVectorSimilarityMetricLike } from '../../src/vector-similarity/s
 import { computeVectorSimilarityTunable } from '../../src/vector-similarity/similarity/vectorSimilarityTunable';
 import { computeVectorSimilarityVarianceWeighted } from '../../src/vector-similarity/similarity/vectorSimilarityVarianceWeighted';
 
-const testCases = [
-  {
-    name: 'Identical Vectors',
-    vecA: [1, 2, 3, 4, 5],
-    vecB: [1, 2, 3, 4, 5],
-    expected: {
-      computeVectorSimilarityMeanStdPenalized: 1,
-      vectorSimilarityCorrelation: 1,
-      computeVectorSimilarityRobust: 1,
-      vectorSimilarityMeanStdPowerArithmeticMean: 1,
-      computeVectorSimilarityMetricLike: 1,
-      computeVectorSimilarityTunable: 1,
-      computeVectorSimilarityVarianceWeighted: 1,
-      madPenalizedRelativeAgreementSimilarity: 1,
-      maxRelativeAgreementMedianMadPowerSimilarity: 1,
-      maxRelativeAgreementMedianMadPowerSimilarityNoMad: 1,
-    },
-  },
-  {
-    name: 'Zero Vectors',
-    vecA: [0, 0, 0, 0, 0],
-    vecB: [0, 0, 0, 0, 0],
-    expected: {
-      computeVectorSimilarityMeanStdPenalized: 1,
-      vectorSimilarityCorrelation: 1,
-      computeVectorSimilarityRobust: 1,
-      vectorSimilarityMeanStdPowerArithmeticMean: 1,
-      computeVectorSimilarityMetricLike: 1,
-      computeVectorSimilarityTunable: 1,
-      computeVectorSimilarityVarianceWeighted: 1,
-      madPenalizedRelativeAgreementSimilarity: 1,
-      maxRelativeAgreementMedianMadPowerSimilarity: 1,
-      maxRelativeAgreementMedianMadPowerSimilarityNoMad: 1,
-    },
-  },
-];
-
-const similarityFunctions = {
-  computeVectorSimilarityMeanStdPenalized,
-  vectorSimilarityCorrelation,
-  computeVectorSimilarityRobust,
-  vectorSimilarityMeanStdPowerArithmeticMean,
-  computeVectorSimilarityMetricLike,
-  computeVectorSimilarityTunable,
-  computeVectorSimilarityVarianceWeighted,
-  madPenalizedRelativeAgreementSimilarity,
-  maxRelativeAgreementMedianMadPowerSimilarity,
-  maxRelativeAgreementMedianMadPowerSimilarityNoMad,
-};
-
 describe('Custom Similarities', () => {
-  Object.entries(similarityFunctions).forEach(([name, func]) => {
-    describe(name, () => {
-      testCases.forEach(test => {
-        it(`should pass for ${test.name}`, () => {
-          const expectedValue = test.expected[name as keyof typeof test.expected];
-          const result = func(test.vecA, test.vecB);
+  const identicalVecA = [1, 2, 3, 4, 5];
+  const identicalVecB = [1, 2, 3, 4, 5];
 
-          if (isNaN(expectedValue)) {
-            expect(result).toBeNaN();
-          } else if (!isFinite(expectedValue)) {
-            expect(result).toBe(Infinity);
-          } else {
-            expect(result.toFixed(4)).toBe(expectedValue.toFixed(4));
-          }
-        });
-      });
+  const zeroVecA = [0, 0, 0, 0, 0];
+  const zeroVecB = [0, 0, 0, 0, 0];
+
+  describe('computeVectorSimilarityMeanStdPenalized', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(computeVectorSimilarityMeanStdPenalized(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(computeVectorSimilarityMeanStdPenalized(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('vectorSimilarityCorrelation', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(vectorSimilarityCorrelation(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(vectorSimilarityCorrelation(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('computeVectorSimilarityRobust', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(computeVectorSimilarityRobust(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(computeVectorSimilarityRobust(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('vectorSimilarityMeanStdPowerArithmeticMean', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(vectorSimilarityMeanStdPowerArithmeticMean(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(vectorSimilarityMeanStdPowerArithmeticMean(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('computeVectorSimilarityMetricLike', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(computeVectorSimilarityMetricLike(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(computeVectorSimilarityMetricLike(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('computeVectorSimilarityTunable', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(computeVectorSimilarityTunable(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(computeVectorSimilarityTunable(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('computeVectorSimilarityVarianceWeighted', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(computeVectorSimilarityVarianceWeighted(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(computeVectorSimilarityVarianceWeighted(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('madPenalizedRelativeAgreementSimilarity', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(madPenalizedRelativeAgreementSimilarity(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(madPenalizedRelativeAgreementSimilarity(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('maxRelativeAgreementMedianMadPowerSimilarity', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(maxRelativeAgreementMedianMadPowerSimilarity(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(maxRelativeAgreementMedianMadPowerSimilarity(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
+    });
+  });
+
+  describe('maxRelativeAgreementMedianMadPowerSimilarityNoMad', () => {
+    it('should compute similarity for identical vectors accurately', () => {
+      expect(maxRelativeAgreementMedianMadPowerSimilarityNoMad(identicalVecA, identicalVecB).toFixed(4)).toBe('1.0000');
+    });
+
+    it('should compute similarity for zero vectors accurately', () => {
+      expect(maxRelativeAgreementMedianMadPowerSimilarityNoMad(zeroVecA, zeroVecB).toFixed(4)).toBe('1.0000');
     });
   });
 });

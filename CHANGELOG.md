@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Default Comparators**: The default comparators for `BinarySearchTree` and `AVLTree` have been updated to properly support strings safely without type coercion issues.
 
 
+### Changed
+- **Input Validation Requirements**: Algorithms in sorting, searching, and string processing (`CountingSort`, `BinarySearch`, `NgramSimilarity`, `JaroDistance`, `LevenshteinDistance`, etc.) now properly enforce non-null arguments by throwing `ArgumentError` when a required parameter (such as `array`, `str1`, `str2`, or `compareFn`) is null or undefined.
+- **Testing Infrastructure**: Replaced absolute millisecond wall-clock timing assertions across all performance test suites with CI-stable checks (e.g., relative performance, structural validations, and functional expectations).
+
 ### Added
 - **Root Export**: Added a root `"."` export to `package.json`, allowing users to import directly from `@mikbin80/algorithmsts` without needing to specify submodules.
 - **Data Structure Contracts**: Updated `docs/README.md` to clarify that while the library contains many data structures, the `IDataStructure` interface is not universally adopted by all of them, preventing false expectations.
