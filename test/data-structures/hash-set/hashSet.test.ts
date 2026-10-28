@@ -4,10 +4,14 @@ import { HashSet } from "../../../src/data-structures/hash-set";
 
 describe("HashSet", () => {
   it("clear() preserves custom hasher and equality functions", () => {
-    const customHasher = (obj: any) => 1;
-    const customEquals = (a: any, b: any) => a.id === b.id;
+    interface IdLike {
+      id: number;
+      value: string;
+    }
+    const customHasher = (obj: IdLike) => 1;
+    const customEquals = (a: IdLike, b: IdLike) => a.id === b.id;
 
-    const set = new HashSet<any>(customHasher, customEquals);
+    const set = new HashSet<IdLike>(customHasher, customEquals);
 
     const obj1 = { id: 1, value: "A" };
     const obj1Clone = { id: 1, value: "B" };

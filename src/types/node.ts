@@ -5,11 +5,11 @@
  * This interface is intended to be a base or common definition.
  */
 
-export interface Node<T = any> {
+export interface Node<T = unknown> {
   /** The value stored in the node */
   value: T;
   /** Optional unique identifier for the node */
   id?: string | number;
   /** Optional metadata associated with the node */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }

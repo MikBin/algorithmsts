@@ -111,7 +111,7 @@ export class Deque<T> extends BaseDataStructure<T> {
    * @complexity Time: O(n) | Space: O(n) where n is the current size.
    */
   contains(e: T): boolean {
-    return this.buf.toArray().includes(e as any);
+    return this.buf.toArray().includes(e);
   }
 
   /**

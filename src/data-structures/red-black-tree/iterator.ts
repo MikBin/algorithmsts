@@ -1,10 +1,13 @@
-import { RBNode } from './interfaces';
+import { RBNode } from "./interfaces";
 
 export class RedBlackTreeIterator<T> implements Iterator<T> {
   private stack: RBNode<T>[] = [];
   private currentNode: RBNode<T> | null;
 
-  constructor(root: RBNode<T> | null, private NIL: RBNode<T>) {
+  constructor(
+    root: RBNode<T> | null,
+    private NIL: RBNode<T>,
+  ) {
     this.currentNode = root;
   }
 
@@ -20,6 +23,6 @@ export class RedBlackTreeIterator<T> implements Iterator<T> {
       return { value: node.value, done: false };
     }
 
-    return { value: undefined as any, done: true };
+    return { value: undefined, done: true } as IteratorResult<T>;
   }
 }

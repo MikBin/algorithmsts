@@ -4,14 +4,14 @@ import { AlgorithmTestUtils } from "../../../src/algorithms/utils/AlgorithmTestU
 import { IAlgorithm } from "../../../src/core/interfaces/IAlgorithm";
 
 // Mock Algorithm implementation for testing
-class MockAlgorithm implements IAlgorithm<any, any> {
+class MockAlgorithm implements IAlgorithm<unknown, unknown> {
   private name: string;
 
   constructor(name: string = "MockAlgo") {
     this.name = name;
   }
 
-  execute(input: any): any {
+  execute(input: unknown): unknown {
     return input;
   }
 
@@ -42,7 +42,7 @@ describe("AlgorithmTestUtils", () => {
       const invalidAlgo = {
         getName: () => "Invalid",
         // Missing execute, getTimeComplexity, getSpaceComplexity
-      } as any;
+      } as unknown as IAlgorithm<unknown, unknown>;
 
       const result = AlgorithmTestUtils.validateAlgorithmInterface(invalidAlgo);
 
@@ -58,7 +58,7 @@ describe("AlgorithmTestUtils", () => {
         getName: () => 123, // Should be string
         getTimeComplexity: () => "O(1)",
         getSpaceComplexity: () => "O(1)",
-      } as any;
+      } as unknown as IAlgorithm<unknown, unknown>;
 
       const result = AlgorithmTestUtils.validateAlgorithmInterface(invalidAlgo);
 
@@ -74,7 +74,7 @@ describe("AlgorithmTestUtils", () => {
         },
         getTimeComplexity: () => "O(1)",
         getSpaceComplexity: () => "O(1)",
-      } as any;
+      } as unknown as IAlgorithm<unknown, unknown>;
 
       const result = AlgorithmTestUtils.validateAlgorithmInterface(errorAlgo);
       expect(result.isValid).toBe(false);
@@ -170,8 +170,9 @@ describe("AlgorithmTestUtils", () => {
   describe("measureMemoryUsage", () => {
     it("should measure memory usage if available", () => {
       // Mock performance.memory if not available in environment
-      if (!(performance as any).memory) {
-        (performance as any).memory = { usedJSHeapSize: 1000 };
+      type PerformanceWithMemory = Performance & { memory?: { usedJSHeapSize: number } };
+      if (!(performance as PerformanceWithMemory).memory) {
+        (performance as PerformanceWithMemory).memory = { usedJSHeapSize: 1000 };
       }
 
       const algo = new MockAlgorithm();

@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
-import { RangeTree2D } from '../../../src/data-structures';
+import { describe, it, expect } from "vitest";
+import { RangeTree2D } from "../../../src/data-structures";
 
-describe('RangeTree2D Duplicate Points', () => {
-  it('query() returns each point exactly once', () => {
+describe("RangeTree2D Duplicate Points", () => {
+  it("query() returns each point exactly once", () => {
     const pts = [
       { x: 1, y: 1 },
       { x: 2, y: 2 },
@@ -15,7 +15,7 @@ describe('RangeTree2D Duplicate Points', () => {
     expect(res.length).toBe(5);
   });
 
-  it('matches brute-force filter on randomized fixtures', () => {
+  it("matches brute-force filter on randomized fixtures", () => {
     for (let i = 0; i < 20; i++) {
       const numPts = Math.floor(Math.random() * 50) + 10;
       const pts = Array.from({ length: numPts }, () => ({
@@ -31,10 +31,11 @@ describe('RangeTree2D Duplicate Points', () => {
 
       const res = rt.query(x1, x2, y1, y2);
 
-      const bruteForce = pts.filter(p => p.x >= x1 && p.x <= x2 && p.y >= y1 && p.y <= y2);
+      const bruteForce = pts.filter((p) => p.x >= x1 && p.x <= x2 && p.y >= y1 && p.y <= y2);
 
       // Sort to compare arrays regardless of order
-      const sortFn = (a: any, b: any) => a.x === b.x ? a.y - b.y : a.x - b.x;
+      const sortFn = (a: { x: number; y: number }, b: { x: number; y: number }) =>
+        a.x === b.x ? a.y - b.y : a.x - b.x;
       const sortedRes = res.slice().sort(sortFn);
       const sortedBrute = bruteForce.slice().sort(sortFn);
 

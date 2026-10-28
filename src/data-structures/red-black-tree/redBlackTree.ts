@@ -20,7 +20,7 @@ export class RedBlackTree<T> implements Iterable<T> {
    */
   constructor(compareFunction?: (a: T, b: T) => number) {
     this.NIL = {
-      value: null as any, // Using null as a sentinel value
+      value: null as unknown as T, // Using null as a sentinel value
       color: "black",
       left: null,
       right: null,

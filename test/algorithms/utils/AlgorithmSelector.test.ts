@@ -1,18 +1,21 @@
-import { describe, it, expect } from 'vitest';
-import { AlgorithmSelector, SelectionCriteria } from '../../../src/algorithms/utils/AlgorithmSelector';
-import { IAlgorithm } from '../../../src/core/interfaces/IAlgorithm';
+import { describe, it, expect } from "vitest";
+import {
+  AlgorithmSelector,
+  SelectionCriteria,
+} from "../../../src/algorithms/utils/AlgorithmSelector";
+import { IAlgorithm } from "../../../src/core/interfaces/IAlgorithm";
 
 // Mock Algorithm implementation for testing
-class MockAlgorithm implements IAlgorithm<any, any> {
+class MockAlgorithm implements IAlgorithm<unknown, unknown> {
   private name: string;
   private complexity: string;
 
-  constructor(name: string, complexity: string = 'O(n)') {
+  constructor(name: string, complexity: string = "O(n)") {
     this.name = name;
     this.complexity = complexity;
   }
 
-  execute(input: any): any {
+  execute(input: unknown): unknown {
     return input;
   }
 
@@ -25,108 +28,108 @@ class MockAlgorithm implements IAlgorithm<any, any> {
   }
 
   getSpaceComplexity(): string {
-    return 'O(1)';
+    return "O(1)";
   }
 }
 
-describe('AlgorithmSelector', () => {
-  describe('selectSortingAlgorithm', () => {
+describe("AlgorithmSelector", () => {
+  describe("selectSortingAlgorithm", () => {
     const algorithms = [
-      new MockAlgorithm('RadixSortNumbers', 'O(nk)'),
-      new MockAlgorithm('CountingSort', 'O(n+k)'),
-      new MockAlgorithm('QuickSort', 'O(n log n)'),
-      new MockAlgorithm('MergeSort', 'O(n log n)'),
-      new MockAlgorithm('HeapSort', 'O(n log n)')
+      new MockAlgorithm("RadixSortNumbers", "O(nk)"),
+      new MockAlgorithm("CountingSort", "O(n+k)"),
+      new MockAlgorithm("QuickSort", "O(n log n)"),
+      new MockAlgorithm("MergeSort", "O(n log n)"),
+      new MockAlgorithm("HeapSort", "O(n log n)"),
     ];
 
-    it('should select any algorithm for small input sizes', () => {
+    it("should select any algorithm for small input sizes", () => {
       const criteria: SelectionCriteria = { inputSize: 5 };
       const result = AlgorithmSelector.selectSortingAlgorithm(algorithms, criteria);
 
       expect(result.selectedAlgorithm).toBeDefined();
-      expect(result.reason).toContain('small input size');
+      expect(result.reason).toContain("small input size");
     });
 
-    it('should select stable/efficient algorithms for medium input sizes', () => {
+    it("should select stable/efficient algorithms for medium input sizes", () => {
       const criteria: SelectionCriteria = { inputSize: 500 };
       const result = AlgorithmSelector.selectSortingAlgorithm(algorithms, criteria);
 
       expect(result.selectedAlgorithm).toBeDefined();
-      expect(['RadixSortNumbers', 'CountingSort']).toContain(result.selectedAlgorithm.getName());
-      expect(result.reason).toContain('medium input size');
+      expect(["RadixSortNumbers", "CountingSort"]).toContain(result.selectedAlgorithm.getName());
+      expect(result.reason).toContain("medium input size");
     });
 
-    it('should prioritize speed for large input sizes when requested', () => {
+    it("should prioritize speed for large input sizes when requested", () => {
       const criteria: SelectionCriteria = { inputSize: 10000, prioritizeSpeed: true };
       const result = AlgorithmSelector.selectSortingAlgorithm(algorithms, criteria);
 
       expect(result.selectedAlgorithm).toBeDefined();
       const name = result.selectedAlgorithm.getName();
-      expect(['CountingSort', 'RadixSortNumbers']).toContain(name);
-      expect(result.reason).toContain('prioritizing speed');
+      expect(["CountingSort", "RadixSortNumbers"]).toContain(name);
+      expect(result.reason).toContain("prioritizing speed");
     });
 
-    it('should fallback correctly if specific algorithms are missing', () => {
-      const limitedAlgorithms = [new MockAlgorithm('BubbleSort', 'O(n^2)')];
+    it("should fallback correctly if specific algorithms are missing", () => {
+      const limitedAlgorithms = [new MockAlgorithm("BubbleSort", "O(n^2)")];
       const criteria: SelectionCriteria = { inputSize: 10000 };
 
       const result = AlgorithmSelector.selectSortingAlgorithm(limitedAlgorithms, criteria);
-      expect(result.selectedAlgorithm.getName()).toBe('BubbleSort');
+      expect(result.selectedAlgorithm.getName()).toBe("BubbleSort");
     });
   });
 
-  describe('selectSearchingAlgorithm', () => {
+  describe("selectSearchingAlgorithm", () => {
     const algorithms = [
-      new MockAlgorithm('LinearSearchStrategy', 'O(n)'),
-      new MockAlgorithm('BinarySearch', 'O(log n)')
+      new MockAlgorithm("LinearSearchStrategy", "O(n)"),
+      new MockAlgorithm("BinarySearch", "O(log n)"),
     ];
 
-    it('should select BinarySearch if available', () => {
+    it("should select BinarySearch if available", () => {
       const criteria: SelectionCriteria = { inputSize: 1000 };
       const result = AlgorithmSelector.selectSearchingAlgorithm(algorithms, criteria);
 
-      expect(result.selectedAlgorithm.getName()).toBe('BinarySearch');
-      expect(result.reason).toContain('optimal for searching in sorted arrays');
+      expect(result.selectedAlgorithm.getName()).toBe("BinarySearch");
+      expect(result.reason).toContain("optimal for searching in sorted arrays");
     });
 
-    it('should fallback if BinarySearch is not available', () => {
-      const limitedAlgorithms = [new MockAlgorithm('LinearSearchStrategy', 'O(n)')];
+    it("should fallback if BinarySearch is not available", () => {
+      const limitedAlgorithms = [new MockAlgorithm("LinearSearchStrategy", "O(n)")];
       const criteria: SelectionCriteria = { inputSize: 1000 };
 
       const result = AlgorithmSelector.selectSearchingAlgorithm(limitedAlgorithms, criteria);
-      expect(result.selectedAlgorithm.getName()).toBe('LinearSearchStrategy');
+      expect(result.selectedAlgorithm.getName()).toBe("LinearSearchStrategy");
     });
   });
 
-  describe('selectStringSimilarityAlgorithm', () => {
+  describe("selectStringSimilarityAlgorithm", () => {
     const algorithms = [
-      new MockAlgorithm('LevenshteinDistance', 'O(nm)'),
-      new MockAlgorithm('JaroDistance', 'O(m+n)'),
-      new MockAlgorithm('NgramSimilarity', 'O(m+n)')
+      new MockAlgorithm("LevenshteinDistance", "O(nm)"),
+      new MockAlgorithm("JaroDistance", "O(m+n)"),
+      new MockAlgorithm("NgramSimilarity", "O(m+n)"),
     ];
 
-    it('should prioritize accuracy when requested', () => {
+    it("should prioritize accuracy when requested", () => {
       const criteria: SelectionCriteria = { inputSize: 100, prioritizeSpeed: false };
       const result = AlgorithmSelector.selectStringSimilarityAlgorithm(algorithms, criteria);
 
-      expect(['LevenshteinDistance', 'JaroDistance']).toContain(result.selectedAlgorithm.getName());
-      expect(result.reason).toContain('accuracy');
+      expect(["LevenshteinDistance", "JaroDistance"]).toContain(result.selectedAlgorithm.getName());
+      expect(result.reason).toContain("accuracy");
     });
 
-    it('should select simple algorithms for short strings', () => {
+    it("should select simple algorithms for short strings", () => {
       const criteria: SelectionCriteria = { inputSize: 20, prioritizeSpeed: true };
       const result = AlgorithmSelector.selectStringSimilarityAlgorithm(algorithms, criteria);
 
-      expect(['NgramSimilarity', 'JaroDistance']).toContain(result.selectedAlgorithm.getName());
-      expect(result.reason).toContain('short strings');
+      expect(["NgramSimilarity", "JaroDistance"]).toContain(result.selectedAlgorithm.getName());
+      expect(result.reason).toContain("short strings");
     });
 
-    it('should prioritize speed for long strings', () => {
+    it("should prioritize speed for long strings", () => {
       const criteria: SelectionCriteria = { inputSize: 1000, prioritizeSpeed: true };
       const result = AlgorithmSelector.selectStringSimilarityAlgorithm(algorithms, criteria);
 
-      expect(['NgramSimilarity', 'JaroDistance']).toContain(result.selectedAlgorithm.getName());
-      expect(result.reason).toContain('longer strings');
+      expect(["NgramSimilarity", "JaroDistance"]).toContain(result.selectedAlgorithm.getName());
+      expect(result.reason).toContain("longer strings");
     });
   });
 });

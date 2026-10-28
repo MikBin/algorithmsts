@@ -44,7 +44,7 @@ export class PatriciaTrie<V = unknown> {
           mid.value = value;
         } else {
           mid.edges.push({ label: key.slice(lcp.length), child: new Node() });
-          mid.edges[mid.edges.length - 1].child.value = value as any;
+          mid.edges[mid.edges.length - 1].child.value = value;
         }
         return;
       }
@@ -54,7 +54,7 @@ export class PatriciaTrie<V = unknown> {
       return;
     }
     const child = new Node();
-    child.value = value as any;
+    child.value = value;
     node.edges.push({ label: key, child });
   }
 

@@ -41,7 +41,7 @@ module.exports = [
                     caughtErrorsIgnorePattern: '^_'
                 }
             ],
-            '@typescript-eslint/no-explicit-any': 'off'
+            '@typescript-eslint/no-explicit-any': 'error'
         }
     },
     {

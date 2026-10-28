@@ -1,10 +1,11 @@
-import { BitSet } from '../bitset';
+import { BitSet } from "../bitset";
 
 export type HashFn = (str: string, seed: number) => number;
 export type Serializer<T> = (item: T) => string;
 
 export const defaultHash: HashFn = (str: string, seed: number) => {
-  let h1 = 0x811c9dc5 ^ seed, h2 = 0x01000193 + seed;
+  let h1 = 0x811c9dc5 ^ seed,
+    h2 = 0x01000193 + seed;
   for (let i = 0; i < str.length; i++) {
     const ch = str.charCodeAt(i);
     h1 = Math.imul(h1 ^ ch, 16777619);
@@ -13,8 +14,8 @@ export const defaultHash: HashFn = (str: string, seed: number) => {
   return (h1 ^ (h2 >>> 1)) >>> 0;
 };
 
-const defaultSerializer = (item: any): string => {
-  if (typeof item === 'string') return item;
+const defaultSerializer = (item: unknown): string => {
+  if (typeof item === "string") return item;
   return JSON.stringify(item);
 };
 
@@ -41,8 +42,12 @@ export class BloomFilter<T = string> {
    * @param options Configuration options including custom hash function or serializer.
    * @complexity Time: O(m) | Space: O(m)
    */
-  constructor(private m: number, private k: number, options: BloomFilterOptions<T> = {}) {
-    if (m <= 0 || k <= 0) throw new Error('Invalid parameters: m and k must be positive');
+  constructor(
+    private m: number,
+    private k: number,
+    options: BloomFilterOptions<T> = {},
+  ) {
+    if (m <= 0 || k <= 0) throw new Error("Invalid parameters: m and k must be positive");
     this.bits = new BitSet(m);
     this.hashFn = options.hashFn || defaultHash;
     this.serializer = options.serializer || defaultSerializer;
@@ -56,11 +61,15 @@ export class BloomFilter<T = string> {
    * @returns A properly sized BloomFilter.
    * @complexity Time: O(m) | Space: O(m) where m is the computed optimal bit size.
    */
-  static create<T>(expectedItems: number, falsePositiveRate: number, options: BloomFilterOptions<T> = {}): BloomFilter<T> {
+  static create<T>(
+    expectedItems: number,
+    falsePositiveRate: number,
+    options: BloomFilterOptions<T> = {},
+  ): BloomFilter<T> {
     const n = expectedItems;
     const p = falsePositiveRate;
     // m = -n*ln(p) / (ln(2)^2)
-    const m = Math.ceil(-n * Math.log(p) / (Math.LN2 ** 2));
+    const m = Math.ceil((-n * Math.log(p)) / Math.LN2 ** 2);
     // k = (m/n) * ln(2)
     const k = Math.ceil((m / n) * Math.LN2);
     return new BloomFilter<T>(m, k, options);

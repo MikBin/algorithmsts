@@ -1,7 +1,7 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import { ITraversalAlgorithm, ITraversalResult } from '../interfaces/ITraversalAlgorithm';
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { ITraversalAlgorithm, ITraversalResult } from "../interfaces/ITraversalAlgorithm";
 
 /**
  * Breadth-First Search (BFS) implementation for graph traversal
@@ -16,14 +16,15 @@ import { ITraversalAlgorithm, ITraversalResult } from '../interfaces/ITraversalA
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (default: number)
  */
-export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>, ITraversalResult<T>>
-  implements ITraversalAlgorithm<T, W> {
-
+export class BreadthFirstSearch<T, W = number>
+  extends BaseAlgorithm<IGraph<T, W>, ITraversalResult<T>>
+  implements ITraversalAlgorithm<T, W>
+{
   /**
    * Creates a new BFS instance
    */
   constructor() {
-    super('Breadth-First Search', 'O(V + E)', 'O(V^2)');
+    super("Breadth-First Search", "O(V + E)", "O(V^2)");
   }
 
   /**
@@ -76,8 +77,10 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
       parents,
       levels,
       // Backward-compatible alias used by docs tests
-      get result() { return Array.from(visited); }
-    } as unknown as any;
+      get result() {
+        return Array.from(visited);
+      },
+    } as unknown as ITraversalResult<T>;
   }
 
   /**
@@ -85,33 +88,46 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
    * @param graph The graph to traverse
    * @param startVertex The vertex to start from
    */
-  public *traverseGenerator(graph: IGraph<T, W>, startVertex: T): Generator<any> {
-     if (!graph.getVertices().includes(startVertex)) {
-       throw new ArgumentError(`Start vertex ${startVertex} does not exist in the graph`);
-     }
+  public *traverseGenerator(
+    graph: IGraph<T, W>,
+    startVertex: T,
+  ): Generator<{ type: "step" | "finished"; visited: Set<T>; processing?: T; message: string }> {
+    if (!graph.getVertices().includes(startVertex)) {
+      throw new ArgumentError(`Start vertex ${startVertex} does not exist in the graph`);
+    }
 
-     const visited = new Set<T>();
-     const queue: T[] = [];
-     visited.add(startVertex);
-     queue.push(startVertex);
+    const visited = new Set<T>();
+    const queue: T[] = [];
+    visited.add(startVertex);
+    queue.push(startVertex);
 
-     yield { type: 'step', visited: new Set(visited), processing: startVertex, message: `Starting BFS at ${startVertex}` };
+    yield {
+      type: "step",
+      visited: new Set(visited),
+      processing: startVertex,
+      message: `Starting BFS at ${startVertex}`,
+    };
 
-     while (queue.length > 0) {
-       const u = queue.shift()!;
-       yield { type: 'step', visited: new Set(visited), processing: u, message: `Visiting ${u}` };
+    while (queue.length > 0) {
+      const u = queue.shift()!;
+      yield { type: "step", visited: new Set(visited), processing: u, message: `Visiting ${u}` };
 
-       const neighbors = graph.getNeighbors(u);
-       for (const v of neighbors) {
-         if (!visited.has(v)) {
-           visited.add(v);
-           queue.push(v);
-           yield { type: 'step', visited: new Set(visited), processing: v, message: `Discovered ${v}` };
-         }
-       }
-     }
+      const neighbors = graph.getNeighbors(u);
+      for (const v of neighbors) {
+        if (!visited.has(v)) {
+          visited.add(v);
+          queue.push(v);
+          yield {
+            type: "step",
+            visited: new Set(visited),
+            processing: v,
+            message: `Discovered ${v}`,
+          };
+        }
+      }
+    }
 
-     yield { type: 'finished', visited: new Set(visited), message: 'BFS Completed' };
+    yield { type: "finished", visited: new Set(visited), message: "BFS Completed" };
   }
 
   /**
@@ -120,11 +136,14 @@ export class BreadthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W
    * @param startVertex The vertex to start from (passed as additional argument)
    * @returns The traversal result
    */
-  public execute(graphOrInput: IGraph<T, W> | { graph: IGraph<T, W>; startNode: T }, maybeStart?: T): ITraversalResult<T> {
-    if (typeof (graphOrInput as any).getVertices === 'function') {
+  public execute(
+    graphOrInput: IGraph<T, W> | { graph: IGraph<T, W>; startNode: T },
+    maybeStart?: T,
+  ): ITraversalResult<T> {
+    if (typeof (graphOrInput as Partial<IGraph<T, W>>).getVertices === "function") {
       const graph = graphOrInput as IGraph<T, W>;
       if (maybeStart === undefined) {
-        throw new ArgumentError('Start vertex must be provided for BFS traversal');
+        throw new ArgumentError("Start vertex must be provided for BFS traversal");
       }
       return this.traverse(graph, maybeStart);
     }

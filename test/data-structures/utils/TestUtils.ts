@@ -69,7 +69,7 @@ export class TestUtils {
   /**
    * Compares two arrays for equality, handling nested structures
    */
-  static deepEqual(a: any, b: any): boolean {
+  static deepEqual(a: unknown, b: unknown): boolean {
     if (a === b) return true;
 
     if (a == null || b == null) return a === b;
@@ -83,14 +83,16 @@ export class TestUtils {
     }
 
     if (typeof a === "object" && typeof b === "object") {
-      const keysA = Object.keys(a);
-      const keysB = Object.keys(b);
+      const objA = a as Record<string, unknown>;
+      const objB = b as Record<string, unknown>;
+      const keysA = Object.keys(objA);
+      const keysB = Object.keys(objB);
 
       if (keysA.length !== keysB.length) return false;
 
       for (const key of keysA) {
         if (!keysB.includes(key)) return false;
-        if (!this.deepEqual(a[key], b[key])) return false;
+        if (!this.deepEqual(objA[key], objB[key])) return false;
       }
       return true;
     }
@@ -143,7 +145,7 @@ export class TestUtils {
    * Validates interface compliance for data structures
    */
   static validateInterfaceCompliance<T>( // eslint-disable-line @typescript-eslint/no-unused-vars
-    instance: any,
+    instance: object,
     interfaceMethods: string[],
   ): {
     compliant: boolean;
@@ -164,8 +166,8 @@ export class TestUtils {
   /**
    * Generates random test data
    */
-  static generateRandomData(type: "numbers" | "strings" | "mixed", count: number): any[] {
-    const result: any[] = [];
+  static generateRandomData(type: "numbers" | "strings" | "mixed", count: number): unknown[] {
+    const result: unknown[] = [];
 
     for (let i = 0; i < count; i++) {
       switch (type) {
@@ -195,32 +197,33 @@ export class TestUtils {
   /**
    * Memory usage estimation (rough approximation)
    */
-  static estimateMemoryUsage(obj: any): number {
-    const seen = new WeakSet();
+  static estimateMemoryUsage(obj: unknown): number {
+    const seen = new WeakSet<object>();
 
-    function sizeOf(obj: any): number {
-      if (obj === null || typeof obj !== "object") {
+    function sizeOf(value: unknown): number {
+      if (value === null || typeof value !== "object") {
         return 8; // rough estimate for primitives
       }
 
-      if (seen.has(obj)) {
+      if (seen.has(value)) {
         return 0; // avoid circular references
       }
 
-      seen.add(obj);
+      seen.add(value);
 
       let bytes = 0;
 
-      if (Array.isArray(obj)) {
+      if (Array.isArray(value)) {
         bytes += 32; // array overhead
-        for (const item of obj) {
+        for (const item of value) {
           bytes += sizeOf(item);
         }
       } else {
+        const record = value as Record<string, unknown>;
         bytes += 64; // object overhead
-        for (const key in obj) {
-          if (Object.hasOwn(obj, key)) {
-            bytes += sizeOf(key) + sizeOf(obj[key]);
+        for (const key in record) {
+          if (Object.hasOwn(record, key)) {
+            bytes += sizeOf(key) + sizeOf(record[key]);
           }
         }
       }

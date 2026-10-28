@@ -1,7 +1,7 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
-import { BaseAlgorithm } from '../../../core/abstracts/BaseAlgorithm';
-import { IGraph } from '../../interfaces/IGraph';
-import { ITraversalAlgorithm, ITraversalResult } from '../interfaces/ITraversalAlgorithm';
+import { ArgumentError } from "../../../core/validation/ArgumentError";
+import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
+import { IGraph } from "../../interfaces/IGraph";
+import { ITraversalAlgorithm, ITraversalResult } from "../interfaces/ITraversalAlgorithm";
 
 /**
  * Depth-First Search (DFS) implementation for graph traversal
@@ -16,14 +16,15 @@ import { ITraversalAlgorithm, ITraversalResult } from '../interfaces/ITraversalA
  * @template T The type of vertices in the graph
  * @template W The type of edge weights (default: number)
  */
-export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>, ITraversalResult<T>>
-  implements ITraversalAlgorithm<T, W> {
-
+export class DepthFirstSearch<T, W = number>
+  extends BaseAlgorithm<IGraph<T, W>, ITraversalResult<T>>
+  implements ITraversalAlgorithm<T, W>
+{
   /**
    * Creates a new DFS instance
    */
   constructor() {
-    super('Depth-First Search', 'O(V + E)', 'O(V^2)');
+    super("Depth-First Search", "O(V + E)", "O(V^2)");
   }
 
   /**
@@ -69,8 +70,10 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
       paths,
       parents,
       // Backward-compatible alias used by docs tests
-      get result() { return discoveryOrder; }
-    } as unknown as any;
+      get result() {
+        return discoveryOrder;
+      },
+    } as unknown as ITraversalResult<T>;
   }
 
   /**
@@ -78,7 +81,10 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
    * @param graph The graph to traverse
    * @param startVertex The vertex to start from
    */
-  public *traverseGenerator(graph: IGraph<T, W>, startVertex: T): Generator<any> {
+  public *traverseGenerator(
+    graph: IGraph<T, W>,
+    startVertex: T,
+  ): Generator<{ type: "step" | "finished"; visited: Set<T>; processing?: T; message: string }> {
     if (!graph.getVertices().includes(startVertex)) {
       throw new ArgumentError(`Start vertex ${startVertex} does not exist in the graph`);
     }
@@ -91,7 +97,7 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
 
       if (!visited.has(u)) {
         visited.add(u);
-        yield { type: 'step', visited: new Set(visited), processing: u, message: `Visiting ${u}` };
+        yield { type: "step", visited: new Set(visited), processing: u, message: `Visiting ${u}` };
 
         const neighbors = graph.getNeighbors(u);
         // Push in reverse order to visit in natural order (optional, to match recursion order for some structures)
@@ -104,7 +110,7 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
       }
     }
 
-    yield { type: 'finished', visited: new Set(visited), message: 'DFS Completed' };
+    yield { type: "finished", visited: new Set(visited), message: "DFS Completed" };
   }
 
   /**
@@ -113,11 +119,14 @@ export class DepthFirstSearch<T, W = number> extends BaseAlgorithm<IGraph<T, W>,
    * @param startVertex The vertex to start from (passed as additional argument)
    * @returns The traversal result
    */
-  public execute(graphOrInput: IGraph<T, W> | { graph: IGraph<T, W>; startNode: T }, maybeStart?: T): ITraversalResult<T> {
-    if (typeof (graphOrInput as any).getVertices === 'function') {
+  public execute(
+    graphOrInput: IGraph<T, W> | { graph: IGraph<T, W>; startNode: T },
+    maybeStart?: T,
+  ): ITraversalResult<T> {
+    if (typeof (graphOrInput as Partial<IGraph<T, W>>).getVertices === "function") {
       const graph = graphOrInput as IGraph<T, W>;
       if (maybeStart === undefined) {
-        throw new ArgumentError('Start vertex must be provided for DFS traversal');
+        throw new ArgumentError("Start vertex must be provided for DFS traversal");
       }
       return this.traverse(graph, maybeStart);
     }

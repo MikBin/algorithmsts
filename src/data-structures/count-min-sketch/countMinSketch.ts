@@ -1,5 +1,6 @@
+import { fnv1a32 } from "../../core/utils/HashUtils";
+
 export type CMSHash = (s: string, seed: number) => number;
-const defaultHash: CMSHash = (str, seed) => { let h=2166136261^seed; for (let i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; };
 
 /**
  * @title Count-Min Sketch
@@ -16,11 +17,17 @@ export class CountMinSketch {
    * @param hash An optional custom hash function.
    * @complexity Time: O(width * depth) | Space: O(width * depth)
    */
-  constructor(private width: number, private depth: number, private hash: CMSHash = defaultHash) {
-    if (width<=0 || depth<=0) throw new Error('invalid parameters');
-    this.table = Array.from({length: depth}, ()=> new Uint32Array(width));
+  constructor(
+    private width: number,
+    private depth: number,
+    private hash: CMSHash = fnv1a32,
+  ) {
+    if (width <= 0 || depth <= 0) throw new Error("invalid parameters");
+    this.table = Array.from({ length: depth }, () => new Uint32Array(width));
   }
-  private idx(s: string, d: number): number { return this.hash(s, d) % this.width; }
+  private idx(s: string, d: number): number {
+    return this.hash(s, d) % this.width;
+  }
 
   /**
    * @notice Adds an item to the sketch, increasing its frequency count.
@@ -28,7 +35,9 @@ export class CountMinSketch {
    * @param count The amount to increase the frequency by. Defaults to 1.
    * @complexity Time: O(depth) | Space: O(1)
    */
-  add(s: string, count = 1): void { for (let d=0; d<this.depth; d++) this.table[d][this.idx(s,d)] += count; }
+  add(s: string, count = 1): void {
+    for (let d = 0; d < this.depth; d++) this.table[d][this.idx(s, d)] += count;
+  }
 
   /**
    * @notice Estimates the frequency count of an item.
@@ -36,13 +45,19 @@ export class CountMinSketch {
    * @returns The estimated frequency count. This is an upper bound on the true count.
    * @complexity Time: O(depth) | Space: O(1)
    */
-  estimate(s: string): number { let m = Infinity; for (let d=0; d<this.depth; d++) m = Math.min(m, this.table[d][this.idx(s,d)]); return m === Infinity ? 0 : m; }
+  estimate(s: string): number {
+    let m = Infinity;
+    for (let d = 0; d < this.depth; d++) m = Math.min(m, this.table[d][this.idx(s, d)]);
+    return m === Infinity ? 0 : m;
+  }
 
   /**
    * @notice Resets the sketch, clearing all frequency counts.
    * @complexity Time: O(width * depth) | Space: O(1)
    */
-  reset(): void { for (const row of this.table) row.fill(0); }
+  reset(): void {
+    for (const row of this.table) row.fill(0);
+  }
 
   /**
    * @notice Serializes the sketch into a JSON string.
@@ -50,6 +65,6 @@ export class CountMinSketch {
    * @complexity Time: O(width * depth) | Space: O(width * depth)
    */
   toJson(): string {
-    return JSON.stringify(this.table.map(row => Array.from(row)));
+    return JSON.stringify(this.table.map((row) => Array.from(row)));
   }
 }

@@ -1,4 +1,4 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 import { PriorityQueue } from "../../../data-structures/priority-queue";
 import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
 import { IGraph } from "../../interfaces/IGraph";
@@ -113,7 +113,12 @@ export class PrimAlgorithm<T, W extends number = number> extends BaseAlgorithm<
    * Generator for Prim's algorithm, yielding state at each step for visualization
    * @param graph The weighted undirected graph
    */
-  public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
+  public *findMSTGenerator(graph: IGraph<T, W>): Generator<{
+    type: "step" | "finished";
+    visited: Set<T>;
+    mst: Array<{ source: T; target: T; weight: W }>;
+    message: string;
+  }> {
     if (!graph.isWeighted()) {
       throw new ArgumentError("Prim's algorithm requires a weighted graph");
     }

@@ -1,4 +1,4 @@
-import { HashMap, Hasher, Equality } from '../hash-map';
+import { HashMap, Hasher, Equality } from "../hash-map";
 
 /**
  * Represents a Hash Set, leveraging a HashMap for fast key lookups and ensuring unique elements.
@@ -13,7 +13,9 @@ export class HashSet<T> {
    * @param equals Function to determine equality between elements.
    * @complexity Time: O(1) | Space: O(1)
    */
-  constructor(hasher?: Hasher<T>, equals?: Equality<T>) { this.map = new HashMap<T, true>(hasher as any, equals as any); }
+  constructor(hasher?: Hasher<T>, equals?: Equality<T>) {
+    this.map = new HashMap<T, true>(hasher, equals);
+  }
 
   /**
    * Gets the number of elements in the set.
@@ -21,7 +23,9 @@ export class HashSet<T> {
    * @returns The set size.
    * @complexity Time: O(1) | Space: O(1)
    */
-  get size(): number { return this.map.size; }
+  get size(): number {
+    return this.map.size;
+  }
 
   /**
    * Adds an element to the set. If it already exists, no changes are made.
@@ -29,7 +33,9 @@ export class HashSet<T> {
    * @param v The element to add.
    * @complexity Time: O(1) amortized | Space: O(1)
    */
-  add(v: T): void { this.map.set(v, true); }
+  add(v: T): void {
+    this.map.set(v, true);
+  }
 
   /**
    * Checks if the set contains the specified element.
@@ -38,7 +44,9 @@ export class HashSet<T> {
    * @returns True if the element exists, false otherwise.
    * @complexity Time: O(1) average | Space: O(1)
    */
-  has(v: T): boolean { return this.map.has(v); }
+  has(v: T): boolean {
+    return this.map.has(v);
+  }
 
   /**
    * Removes an element from the set.
@@ -47,14 +55,18 @@ export class HashSet<T> {
    * @returns True if the element was removed, false if not found.
    * @complexity Time: O(1) average | Space: O(1)
    */
-  delete(v: T): boolean { return this.map.delete(v); }
+  delete(v: T): boolean {
+    return this.map.delete(v);
+  }
 
   /**
    * Clears all elements from the set.
    *
    * @complexity Time: O(1) | Space: O(1)
    */
-  clear(): void { this.map.clear(); }
+  clear(): void {
+    this.map.clear();
+  }
 
   /**
    * Returns an array of all elements in the set.
@@ -62,7 +74,9 @@ export class HashSet<T> {
    * @returns An array containing the elements.
    * @complexity Time: O(n) | Space: O(n)
    */
-  values(): T[] { return this.map.keys(); }
+  values(): T[] {
+    return this.map.keys();
+  }
 
   /**
    * Returns an array of all elements in the set (alias for values).
@@ -70,7 +84,9 @@ export class HashSet<T> {
    * @returns An array containing the elements.
    * @complexity Time: O(n) | Space: O(n)
    */
-  toArray(): T[] { return this.values(); }
+  toArray(): T[] {
+    return this.values();
+  }
 
   /**
    * Serializes the set's internal state to a JSON string.

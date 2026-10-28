@@ -4,7 +4,7 @@
  * Represents a connection between two nodes in a graph or similar structure.
  */
 
-export interface Edge<T = any> {
+export interface Edge<T = unknown> {
   /** The source node or value of the connection */
   source: T;
   /** The target node or value of the connection */
@@ -14,5 +14,5 @@ export interface Edge<T = any> {
   /** Optional label describing the edge */
   label?: string;
   /** Optional metadata */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }

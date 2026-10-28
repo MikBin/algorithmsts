@@ -4,7 +4,9 @@ type ACNode = {
   output: number[]; // indices of patterns
 };
 
-function createNode(): ACNode { return { children: new Map(), fail: null, output: [] }; }
+function createNode(): ACNode {
+  return { children: new Map(), fail: null, output: [] };
+}
 
 export class AhoCorasick {
   private root: ACNode = createNode();
@@ -31,7 +33,10 @@ export class AhoCorasick {
    */
   build(): void {
     const queue: ACNode[] = [];
-    for (const [,child] of this.root.children) { child.fail = this.root; queue.push(child); }
+    for (const [, child] of this.root.children) {
+      child.fail = this.root;
+      queue.push(child);
+    }
     while (queue.length) {
       const cur = queue.shift()!;
       for (const [ch, nxt] of cur.children) {
@@ -53,7 +58,7 @@ export class AhoCorasick {
   search(text: string): Array<{ index: number; pattern: string; position: number }> {
     const res: Array<{ index: number; pattern: string; position: number }> = [];
     let node: ACNode = this.root;
-    for (let i=0;i<text.length;i++) {
+    for (let i = 0; i < text.length; i++) {
       const ch = text[i];
       while (node !== this.root && !node.children.has(ch)) node = node.fail ?? this.root;
       node = node.children.get(ch) ?? this.root;
@@ -69,7 +74,10 @@ export class AhoCorasick {
    * Clears the tree.
    * @complexity Time: O(1) | Space: O(1)
    */
-  clear(): void { this.root = createNode(); this.patterns = []; }
+  clear(): void {
+    this.root = createNode();
+    this.patterns = [];
+  }
 
   /**
    * Serializes the structure to JSON.
@@ -77,13 +85,13 @@ export class AhoCorasick {
    * @complexity Time: O(N) where N is the number of nodes | Space: O(N)
    */
   toJson(): string {
-    const replacer = (key: any, value: any) => {
-      if (key === 'fail') {
+    const replacer = (key: string, value: unknown) => {
+      if (key === "fail") {
         return undefined;
       }
       if (value instanceof Map) {
         return {
-          dataType: 'Map',
+          dataType: "Map",
           value: Array.from(value.entries()),
         };
       }

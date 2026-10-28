@@ -1,5 +1,13 @@
-import { IAlgorithm } from '../../core/interfaces/IAlgorithm';
-import { PerformanceMonitor } from '../../performance';
+import { IAlgorithm } from "../../core/interfaces/IAlgorithm";
+import { PerformanceMonitor } from "../../performance";
+
+/**
+ * Shape of the non-standard `performance.memory` API (Chromium-only), used to
+ * read JS heap usage when the host exposes it.
+ */
+interface PerformanceWithMemory {
+  memory?: { usedJSHeapSize: number };
+}
 
 /**
  * Utility functions for algorithm testing
@@ -11,42 +19,42 @@ export class AlgorithmTestUtils {
    * @returns Validation result with any issues found
    */
   public static validateAlgorithmInterface<TInput, TOutput>(
-    algorithm: IAlgorithm<TInput, TOutput>
+    algorithm: IAlgorithm<TInput, TOutput>,
   ): { isValid: boolean; issues: string[] } {
     const issues: string[] = [];
 
     // Check required methods exist
-    if (typeof algorithm.execute !== 'function') {
-      issues.push('execute method is missing');
+    if (typeof algorithm.execute !== "function") {
+      issues.push("execute method is missing");
     }
 
-    if (typeof algorithm.getName !== 'function') {
-      issues.push('getName method is missing');
+    if (typeof algorithm.getName !== "function") {
+      issues.push("getName method is missing");
     }
 
-    if (typeof algorithm.getTimeComplexity !== 'function') {
-      issues.push('getTimeComplexity method is missing');
+    if (typeof algorithm.getTimeComplexity !== "function") {
+      issues.push("getTimeComplexity method is missing");
     }
 
-    if (typeof algorithm.getSpaceComplexity !== 'function') {
-      issues.push('getSpaceComplexity method is missing');
+    if (typeof algorithm.getSpaceComplexity !== "function") {
+      issues.push("getSpaceComplexity method is missing");
     }
 
     // Check method return types
     try {
       const name = algorithm.getName();
-      if (typeof name !== 'string') {
-        issues.push('getName() must return a string');
+      if (typeof name !== "string") {
+        issues.push("getName() must return a string");
       }
 
       const timeComplexity = algorithm.getTimeComplexity();
-      if (typeof timeComplexity !== 'string') {
-        issues.push('getTimeComplexity() must return a string');
+      if (typeof timeComplexity !== "string") {
+        issues.push("getTimeComplexity() must return a string");
       }
 
       const spaceComplexity = algorithm.getSpaceComplexity();
-      if (typeof spaceComplexity !== 'string') {
-        issues.push('getSpaceComplexity() must return a string');
+      if (typeof spaceComplexity !== "string") {
+        issues.push("getSpaceComplexity() must return a string");
       }
     } catch (error) {
       issues.push(`Error calling interface methods: ${error}`);
@@ -54,7 +62,7 @@ export class AlgorithmTestUtils {
 
     return {
       isValid: issues.length === 0,
-      issues
+      issues,
     };
   }
 
@@ -71,7 +79,7 @@ export class AlgorithmTestUtils {
       input: TInput;
       maxExpectedTime: number;
       description?: string;
-    }>
+    }>,
   ): Array<{
     testName: string;
     executionTime: number;
@@ -99,11 +107,13 @@ export class AlgorithmTestUtils {
         executionTime,
         passed,
         maxExpectedTime: testCase.maxExpectedTime,
-        description: testCase.description
+        description: testCase.description,
       });
 
       if (!passed) {
-        PerformanceMonitor.getLogger()?.warn(`Performance regression in ${testCase.name}: ${executionTime}ms (expected <= ${testCase.maxExpectedTime}ms)`);
+        PerformanceMonitor.getLogger()?.warn(
+          `Performance regression in ${testCase.name}: ${executionTime}ms (expected <= ${testCase.maxExpectedTime}ms)`,
+        );
       }
     }
 
@@ -118,11 +128,11 @@ export class AlgorithmTestUtils {
    */
   public static generateTestData<T>(
     generator: (size: number) => T,
-    sizes: number[]
+    sizes: number[],
   ): Array<{ size: number; data: T }> {
-    return sizes.map(size => ({
+    return sizes.map((size) => ({
       size,
-      data: generator(size)
+      data: generator(size),
     }));
   }
 
@@ -133,7 +143,11 @@ export class AlgorithmTestUtils {
    * @param max Maximum value (default: 1000)
    * @returns Random number array
    */
-  public static createRandomNumberArray(size: number, min: number = 0, max: number = 1000): number[] {
+  public static createRandomNumberArray(
+    size: number,
+    min: number = 0,
+    max: number = 1000,
+  ): number[] {
     const array: number[] = [];
     for (let i = 0; i < size; i++) {
       array.push(Math.floor(Math.random() * (max - min + 1)) + min);
@@ -148,7 +162,11 @@ export class AlgorithmTestUtils {
    * @param step Step between values (default: 1)
    * @returns Sorted number array
    */
-  public static createSortedNumberArray(size: number, start: number = 0, step: number = 1): number[] {
+  public static createSortedNumberArray(
+    size: number,
+    start: number = 0,
+    step: number = 1,
+  ): number[] {
     const array: number[] = [];
     for (let i = 0; i < size; i++) {
       array.push(start + i * step);
@@ -166,14 +184,14 @@ export class AlgorithmTestUtils {
   public static createRandomStringArray(
     size: number,
     minLength: number = 5,
-    maxLength: number = 20
+    maxLength: number = 20,
   ): string[] {
     const strings: string[] = [];
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     for (let i = 0; i < size; i++) {
       const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
-      let str = '';
+      let str = "";
       for (let j = 0; j < length; j++) {
         str += chars.charAt(Math.floor(Math.random() * chars.length));
       }
@@ -191,17 +209,17 @@ export class AlgorithmTestUtils {
    */
   public static measureMemoryUsage<TInput, TOutput>(
     algorithm: IAlgorithm<TInput, TOutput>,
-    input: TInput
+    input: TInput,
   ): { memoryUsed?: number; executionTime: number } {
-    const startMemory = (performance as any).memory?.usedJSHeapSize;
+    const startMemory = (performance as PerformanceWithMemory).memory?.usedJSHeapSize;
     const executionTime = PerformanceMonitor.measureExecutionTime(() => {
       algorithm.execute(input);
     });
-    const endMemory = (performance as any).memory?.usedJSHeapSize;
+    const endMemory = (performance as PerformanceWithMemory).memory?.usedJSHeapSize;
 
     return {
       memoryUsed: startMemory && endMemory ? endMemory - startMemory : undefined,
-      executionTime
+      executionTime,
     };
   }
 }

@@ -119,7 +119,13 @@ export class KruskalAlgorithm<T, W extends number = number> extends BaseAlgorith
    * Generator for Kruskal's algorithm, yielding state at each step for visualization
    * @param graph The weighted undirected graph
    */
-  public *findMSTGenerator(graph: IGraph<T, W>): Generator<any> {
+  public *findMSTGenerator(graph: IGraph<T, W>): Generator<{
+    type: "step" | "finished";
+    visited: Set<T>;
+    mst: Array<{ source: T; target: T; weight: W }>;
+    processing?: { source: T; target: T; weight: W };
+    message: string;
+  }> {
     if (!graph.isWeighted()) {
       throw new ArgumentError("Kruskal's algorithm requires a weighted graph");
     }

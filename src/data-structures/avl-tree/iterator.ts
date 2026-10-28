@@ -1,4 +1,4 @@
-import { AVLNode } from './interfaces';
+import { AVLNode } from "./interfaces";
 
 export class AVLTreeIterator<T> implements Iterator<T> {
   private stack: AVLNode<T>[] = [];
@@ -20,6 +20,6 @@ export class AVLTreeIterator<T> implements Iterator<T> {
       return { value: node.value, done: false };
     }
 
-    return { value: undefined as any, done: true };
+    return { value: undefined, done: true } as IteratorResult<T>;
   }
 }

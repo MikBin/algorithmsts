@@ -21,6 +21,6 @@ describe("SuffixAutomaton", () => {
   });
   it("throws on invalid input", () => {
     const ds = new SuffixAutomaton();
-    expect(() => ds.build(null as any)).toThrow(TypeError);
+    expect(() => ds.build(null as unknown as string)).toThrow(TypeError);
   });
 });

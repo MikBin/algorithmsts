@@ -1,4 +1,4 @@
-import { ArgumentError } from '../../../core/validation/ArgumentError';
+import { ArgumentError } from "../../../core/validation/ArgumentError";
 import { BaseAlgorithm } from "../../../core/abstracts/BaseAlgorithm";
 import { IGraph } from "../../interfaces/IGraph";
 import { IPathfindingAlgorithm, IPathResult } from "../interfaces/IPathfindingAlgorithm";
@@ -127,7 +127,18 @@ export class DijkstraAlgorithm<T, W extends number = number>
    * @param start The start vertex
    * @param end The end vertex
    */
-  public *findShortestPathGenerator(graph: IGraph<T, W>, start: T, end: T): Generator<any> {
+  public *findShortestPathGenerator(
+    graph: IGraph<T, W>,
+    start: T,
+    end: T,
+  ): Generator<{
+    type: "step" | "finished";
+    visited: Set<T>;
+    processing?: T;
+    distances?: Map<T, W>;
+    path?: T[];
+    message: string;
+  }> {
     if (!graph.isWeighted()) {
       throw new ArgumentError("Dijkstra's algorithm requires a weighted graph");
     }

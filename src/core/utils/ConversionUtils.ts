@@ -16,7 +16,7 @@ export class ConversionUtils {
    * @param value The value to convert
    * @returns Number representation of the value, or NaN if conversion fails
    */
-  public static toNumber(value: any): number {
+  public static toNumber(value: unknown): number {
     return Number(value);
   }
 
@@ -25,7 +25,7 @@ export class ConversionUtils {
    * @param value The value to convert
    * @returns Boolean representation of the value
    */
-  public static toBoolean(value: any): boolean {
+  public static toBoolean(value: unknown): boolean {
     return Boolean(value);
   }
 

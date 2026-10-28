@@ -119,7 +119,7 @@ describe("Full Library Integration Tests", () => {
       // Test validation with invalid inputs
       expect(() => {
         const countingSort = new CountingSort();
-        countingSort.execute({ array: null as any });
+        countingSort.execute({ array: null as unknown as number[] });
       }).toThrow();
 
       expect(() => {
@@ -127,7 +127,7 @@ describe("Full Library Integration Tests", () => {
         binarySearch.execute({
           array: [1, 2, 3],
           value: 2,
-          compareFn: null as any,
+          compareFn: null as unknown as (a: number, b: number) => number,
         });
       }).toThrow();
     });
@@ -155,7 +155,7 @@ describe("Full Library Integration Tests", () => {
 
       algorithms.forEach((algorithm) => {
         expect(() => {
-          algorithm.execute({} as any);
+          algorithm.execute({} as unknown as Parameters<typeof algorithm.execute>[0]);
         }).toThrow();
       });
     });

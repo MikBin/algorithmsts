@@ -6,11 +6,14 @@ export class StructureTestData {
   /**
    * Generates an array of numbers for testing
    */
-  static generateNumberArray(size: number, options: {
-    sorted?: boolean;
-    duplicates?: boolean;
-    range?: { min: number; max: number };
-  } = {}): number[] {
+  static generateNumberArray(
+    size: number,
+    options: {
+      sorted?: boolean;
+      duplicates?: boolean;
+      range?: { min: number; max: number };
+    } = {},
+  ): number[] {
     const { sorted = false, duplicates = true, range = { min: 0, max: 1000 } } = options;
     const { min, max } = range;
 
@@ -31,15 +34,18 @@ export class StructureTestData {
   /**
    * Generates test strings for Trie and SuffixTree testing
    */
-  static generateTestStrings(count: number, options: {
-    length?: { min: number; max: number };
-    alphabet?: string;
-    patterns?: string[];
-  } = {}): string[] {
+  static generateTestStrings(
+    count: number,
+    options: {
+      length?: { min: number; max: number };
+      alphabet?: string;
+      patterns?: string[];
+    } = {},
+  ): string[] {
     const {
       length = { min: 3, max: 10 },
-      alphabet = 'abcdefghijklmnopqrstuvwxyz',
-      patterns = []
+      alphabet = "abcdefghijklmnopqrstuvwxyz",
+      patterns = [],
     } = options;
 
     const strings: string[] = [];
@@ -51,7 +57,7 @@ export class StructureTestData {
         strings.push(pattern);
       } else {
         const len = Math.floor(Math.random() * (length.max - length.min + 1)) + length.min;
-        let str = '';
+        let str = "";
         for (let j = 0; j < len; j++) {
           str += alphabet[Math.floor(Math.random() * alphabet.length)];
         }
@@ -68,11 +74,11 @@ export class StructureTestData {
   static generatePerformanceData(sizes: number[]): { [key: number]: number[] } {
     const data: { [key: number]: number[] } = {};
 
-    sizes.forEach(size => {
+    sizes.forEach((size) => {
       data[size] = this.generateNumberArray(size, {
         sorted: false,
         duplicates: true,
-        range: { min: 0, max: size * 10 }
+        range: { min: 0, max: size * 10 },
       });
     });
 
@@ -83,12 +89,12 @@ export class StructureTestData {
    * Generates edge case data
    */
   static generateEdgeCases(): {
-    empty: any[];
-    single: any[];
-    duplicates: any[];
-    largeNumbers: any[];
-    negative: any[];
-    mixed: any[];
+    empty: unknown[];
+    single: unknown[];
+    duplicates: unknown[];
+    largeNumbers: unknown[];
+    negative: unknown[];
+    mixed: unknown[];
   } {
     return {
       empty: [],
@@ -96,7 +102,7 @@ export class StructureTestData {
       duplicates: [1, 1, 2, 2, 3, 3],
       largeNumbers: [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER - 1],
       negative: [-100, -50, -1, 0, 1, 50, 100],
-      mixed: ['string', 42, null, undefined, {}, []]
+      mixed: ["string", 42, null, undefined, {}, []],
     };
   }
 
@@ -117,7 +123,7 @@ export class StructureTestData {
       large: Array.from({ length: 10000 }, (_, i) => i),
       withDuplicates: [1, 2, 2, 3, 3, 3, 4],
       sorted: Array.from({ length: 100 }, (_, i) => i).sort((a, b) => a - b),
-      reverseSorted: Array.from({ length: 100 }, (_, i) => i).sort((a, b) => b - a)
+      reverseSorted: Array.from({ length: 100 }, (_, i) => i).sort((a, b) => b - a),
     };
   }
 }

@@ -214,7 +214,7 @@ export class AlgorithmTestUtils {
   /**
    * Deep equality check for test validation
    */
-  private static deepEqual(a: any, b: any): boolean {
+  private static deepEqual(a: unknown, b: unknown): boolean {
     if (a === b) return true;
 
     if (a == null || b == null) return a === b;

@@ -128,7 +128,7 @@ export class ArrayList<T> extends BaseDataStructure<T> {
    * @complexity Time: O(n) | Space: O(n)
    */
   contains(e: T): boolean {
-    return this.toArray().includes(e as any);
+    return this.toArray().includes(e);
   }
 
   /**
@@ -138,7 +138,7 @@ export class ArrayList<T> extends BaseDataStructure<T> {
    * @complexity Time: O(n) | Space: O(n)
    */
   toArray(): T[] {
-    const out: T[] = new Array(this.len) as any;
+    const out: T[] = new Array<T>(this.len);
     for (let i = 0; i < this.len; i++) out[i] = this.data[i] as T;
     return out;
   }

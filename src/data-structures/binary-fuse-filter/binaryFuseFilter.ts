@@ -1,27 +1,11 @@
-import { HashFn, Serializer, IProbabilisticFilter } from '../probabilistic-interfaces';
+import { HashFn, Serializer, IProbabilisticFilter } from "../probabilistic-interfaces";
+import { fnv1a32, jsonSerializer } from "../../core/utils/HashUtils";
 
 export interface BinaryFuseFilterOptions<T> {
   hashFn?: HashFn;
   serializer?: Serializer<T>;
   // Max iterations for peeling construction usually fixed, but could be exposed.
 }
-
-const defaultHash: HashFn = (str: string, seed: number) => {
-  // Need a good hash function that can produce 64-bit values ideally,
-  // or at least good distribution.
-  // Using FNV-1a style for now, but split into 3 independent seeds for h0, h1, h2.
-  let h = 2166136261 ^ seed;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-};
-
-const defaultSerializer = (item: any): string => {
-  if (typeof item === 'string') return item;
-  return JSON.stringify(item);
-};
 
 /**
  * @title Binary Fuse Filter
@@ -49,12 +33,12 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
   constructor(
     items: T[],
     fingerprintSize: 8 | 16 | 32 = 8,
-    options: BinaryFuseFilterOptions<T> = {}
+    options: BinaryFuseFilterOptions<T> = {},
   ) {
     this.size_ = items.length;
     this.fingerprintSize = fingerprintSize;
-    this.hashFn = options.hashFn || defaultHash;
-    this.serializer = options.serializer || defaultSerializer;
+    this.hashFn = options.hashFn || fnv1a32;
+    this.serializer = options.serializer || jsonSerializer;
 
     // Calculate segment length
     // 3 segments. Total size roughly 1.125 * N?
@@ -124,10 +108,10 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
 
     // Simple mixing
     let h_mix = Math.imul(h ^ 0x55555555, 0x12345678);
-    const h1 = this.segmentLength + (h_mix >>> 0) % this.segmentLength;
+    const h1 = this.segmentLength + ((h_mix >>> 0) % this.segmentLength);
 
-    h_mix = Math.imul(h ^ 0xAAAAAAAA, 0x87654321);
-    const h2 = 2 * this.segmentLength + (h_mix >>> 0) % this.segmentLength;
+    h_mix = Math.imul(h ^ 0xaaaaaaaa, 0x87654321);
+    const h2 = 2 * this.segmentLength + ((h_mix >>> 0) % this.segmentLength);
 
     return [h0, h1, h2];
   }
@@ -199,7 +183,7 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
       const [h0, h1, h2] = this.getLocations(h);
 
       // Remove this key from other 2 slots
-      const others = [h0, h1, h2].filter(x => x !== idx);
+      const others = [h0, h1, h2].filter((x) => x !== idx);
       for (const other of others) {
         t2count[other]--;
         t2xorIndex[other] ^= keyIndex;
@@ -212,7 +196,9 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
     if (processed < items.length) {
       // Failed to peel. Usually implies cycle.
       // If this fails, the filter is invalid.
-      throw new Error("BinaryFuseFilter construction failed (cycles detected). Try increasing capacity or using a different hash seed.");
+      throw new Error(
+        "BinaryFuseFilter construction failed (cycles detected). Try increasing capacity or using a different hash seed.",
+      );
     }
 
     // Assign fingerprints in reverse order
@@ -268,7 +254,7 @@ export class BinaryFuseFilter<T = string> implements IProbabilisticFilter<T> {
       fingerprintSize: this.fingerprintSize,
       size: this.size_,
       segmentLength: this.segmentLength,
-      fingerprints: Array.from(this.fingerprints)
+      fingerprints: Array.from(this.fingerprints),
     });
   }
 
